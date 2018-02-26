@@ -1,15 +1,14 @@
 import React, { Component } from 'react';
 import AceEditor from 'react-ace';
 import PropTypes from 'prop-types'
-import { connect } from 'react-redux'
+import View from './View'
 
 import 'brace/mode/javascript';
 import 'brace/theme/github';
 
 export default class Editor extends Component {
-  state = {text: this.props.text.text}
 
-  remove() {
+  remove = () => {
     let el = document.querySelector('a-scene')
     if(el){
       document.querySelector('#scene').removeChild(el);
@@ -21,8 +20,7 @@ export default class Editor extends Component {
     this.setState({text: content})
   }
   render() {
-    const { actions } = this.props
-    const text = this.props.text.text
+    const text = this.props.text
     return (
       <div id="editor" className="col-lg-4">
         <AceEditor

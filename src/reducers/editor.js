@@ -1,13 +1,65 @@
 import { EDITOR_RENDER, EDITOR_REFRESH } from '../actions'
 
-const initial_state = []
+var entityModel = [
+  {
+    geometry: {
+      primitive: "box"
+    },
+    material: {
+      color: "red"
+    },
+    position: {
+      x: 5,
+      y: 3,
+      z: -5
+    }
+  },
+  {
+    geometry: {
+      primitive: "box"
+    },
+    material: {
+      color: "red"
+    },
+    position: {
+      x: 0,
+      y: 3,
+      z: -5
+    }
+  },
+  {
+    geometry: {
+      primitive: "box"
+    },
+    material: {
+      color: "red"
+    },
+    position: {
+      x: -5,
+      y: 3,
+      z: -5
+    }
+  }
+]
 
-export default function scene(state = {text: "// Input your code here" }, action) {
+const initial_state = {
+  text: "// Input your code here",
+  objects: entityModel
+}
+
+export default function scene(state = initial_state, action) {
   switch (action.type) {
     case 'EDITOR_RENDER':
-      state.text = action.text
-      console.log(state)
-      return state;
+      try{
+        eval(action.text)
+      }
+      catch(err){
+        
+      }
+      return {
+          text: action.text,
+          objects: entityModel
+      }
     case 'EDITOR_REFRESH':
       return [
         ...state,

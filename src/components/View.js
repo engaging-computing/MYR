@@ -11,10 +11,7 @@ class View extends Component {
     return (
       <div id="scene" className="col-lg-8">
         <Scene embedded >
-          <Entity geometry={{ primitive: 'box' }} material={{ color: 'red' }} position={{ x: 0, y: 0, z: -5 }} />
-          <Entity geometry={{ primitive: 'box' }} material={{ color: 'red' }} position={{ x: -5, y: 0, z: -5 }} />
-          <Entity geometry={{ primitive: 'box' }} material={{ color: 'red' }} position={{ x: 5, y: 0, z: -5 }} />
-          {entityModel.map((x, index) => this.helper(x, index))}
+          {this.props.objects.map((x, index) => this.helper(x, index))}
           <Entity particle-system={{ preset: 'snow' }} />
           <Entity light={{ type: 'point' }} />
           <Entity gltf-model={{ src: 'virtualcity.gltf' }} />
