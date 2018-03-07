@@ -41,7 +41,7 @@ var entityModel = [
 ]
 
 const initial_state = {
-  text: "// Input your code here",
+  text: "// Input your code here\nvar myr = new Myr\nmyr.box(0,0,-2)",
   objects: entityModel
 }
 

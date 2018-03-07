@@ -8,8 +8,11 @@ import App from './containers/App';
 import './css/App.css';
 import './css/index.css';
 import 'bootstrap/dist/css/bootstrap.css';
+import Myr from './myr/Myr'
 
 const store = createStore(reducer)
+
+window.Myr = Myr
 
 ReactDOM.render(
   <Provider store={store}>
