@@ -14,10 +14,6 @@ class View extends Component {
       <div id="scene" className="col-lg-8">
         <Scene embedded >
           {this.props.objects.map((x, index) => this.helper(x, index))}
-          <Entity particle-system={{ preset: 'snow' }} />
-          <Entity light={{ type: 'point' }} />
-          <Entity gltf-model={{ src: 'virtualcity.gltf' }} />
-          <Entity material="" text={{ value: 'Hello, WebVR!' }} />
         </Scene>
       </div>
     );
