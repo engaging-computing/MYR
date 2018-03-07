@@ -86,6 +86,17 @@ class Myr {
     return sphereEl;
   }
 
+  animate = (el) => {
+    var animEl;
+    animEl = document.createElement('a-animation');
+    animEl.setAttribute('attribute', 'rotation');
+    animEl.setAttribute('dur', '10000');
+    animEl.setAttribute('fill', 'forwards');
+    animEl.setAttribute('to', '0 360 0');
+    animEl.setAttribute('repeat', 'indefinite');
+    return el.appendChild(animEl);
+  };
+
 
 
 
