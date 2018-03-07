@@ -10,6 +10,7 @@
     "aframe": "^0.7.1",
     "aframe-react": "^4.4.0",
     "bootstrap": "3",
+    "create-react-app": "^1.5.2",
     "react": "^16.2.0",
     "react-ace": "^5.9.0",
     "react-bootstrap": "^0.32.1",
