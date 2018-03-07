@@ -157,8 +157,6 @@ class Myr {
   // Prism is an alias for Polyhedron
   prism = this.polyhedron
 
-
-
   // Animate the Aframe element which is passed as arg
   animate = (el) => {
     var animEl;
