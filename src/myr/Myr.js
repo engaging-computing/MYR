@@ -88,6 +88,33 @@ class Myr {
     return sphereEl;
   }
 
+  // Render an Aframe Triangle Primitive with current Myr settings  
+  triangle = () => {
+    let triangleEl = document.createElement('a-triangle')
+    triangleEl.setAttribute('material', {
+      color: this.getRandomColor()
+    });
+    triangleEl.setAttribute('position', this.position);
+    triangleEl.setAttribute('scale', this.scale);
+    triangleEl.setAttribute('rotation', this.rotation);
+    this.sceneEl.appendChild(triangleEl);
+    return triangleEl;
+  }
+
+  // Render an Aframe Text Primitive with current Myr settings  
+  text = (v) => {
+    let textEl = document.createElement('a-text')
+    textEl.setAttribute('color', this.getRandomColor());    
+    textEl.setAttribute('position', this.position);
+    textEl.setAttribute('scale', this.scale);
+    textEl.setAttribute('rotation', this.rotation);
+    textEl.setAttribute('value', v);
+    this.sceneEl.appendChild(textEl);
+    return textEl;
+  }
+
+
+
   // Animate the Aframe element which is passed as arg
   animate = (el) => {
     var animEl;
