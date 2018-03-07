@@ -61,6 +61,7 @@ class Myr {
     return color;
   }
 
+  // Render an Aframe Box Primitive with current Myr settings
   box = () => {
     let boxEl = document.createElement('a-box')
     boxEl.setAttribute('material', {
@@ -73,6 +74,7 @@ class Myr {
     return boxEl;
   }
 
+  // Render an Aframe Sphere Primitive with current Myr settings  
   sphere = () => {
     let sphereEl = document.createElement('a-sphere')
     sphereEl.setAttribute('material', {
@@ -86,6 +88,7 @@ class Myr {
     return sphereEl;
   }
 
+  // Animate the Aframe element which is passed as arg
   animate = (el) => {
     var animEl;
     animEl = document.createElement('a-animation');
