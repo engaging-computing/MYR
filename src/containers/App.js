@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import Editor  from '../components/Editor';
 import View from '../components/View';
 import * as EditorActions from '../actions'

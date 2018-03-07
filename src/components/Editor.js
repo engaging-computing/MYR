@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 import AceEditor from 'react-ace';
-import PropTypes from 'prop-types'
-import View from './View'
 
 import 'brace/mode/javascript';
 import 'brace/theme/github';

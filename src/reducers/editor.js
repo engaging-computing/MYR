@@ -1,5 +1,3 @@
-import { EDITOR_RENDER, EDITOR_REFRESH } from '../actions'
-
 var entityModel = [
   {
     geometry: {
@@ -51,6 +49,7 @@ export default function scene(state = initial_state, action) {
   switch (action.type) {
     case 'EDITOR_RENDER':
       try{
+        // eslint-disable-next-line
         eval(action.text)
       }
       catch(err){
