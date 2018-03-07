@@ -10,15 +10,28 @@ export default class Editor extends Component {
 
   remove = () => {
     let el = document.querySelector('a-scene')
-    if(el){
-      document.querySelector('#scene').removeChild(el);
-    }
+    document.querySelector('#scene').removeChild(el);
   }
+  
+  buttons = () => (
+    <div className="btn-group pull-left" role="group" aria-label="...">
+      <div className="btn-group" role="group">
+        <button type="button" className="btn btn-success" onClick={this.handleSave}>Render Scene</button>
+      </div>
+      <div className="btn-group" role="group">
+        <button type="button" className="btn btn-default">Generate Random</button>
+      </div>
+      <div className="btn-group" role="group" onClick={this.remove}>
+        <button type="button" className="btn btn-danger"> Clear Scene</button>
+      </div>
+    </div>
+  )
+
   handleSave = () => {
     const content = this.refs.aceEditor.editor.session.getValue()
     this.props.actions.render(content)
-    this.setState({text: content})
   }
+
   render() {
     const text = this.props.text
     return (
@@ -32,17 +45,7 @@ export default class Editor extends Component {
           value={text}
           name="ace-editor"
         />
-        <div className="btn-group pull-left" role="group" aria-label="...">
-          <div className="btn-group" role="group">
-            <button type="button" className="btn btn-success"  onClick={this.handleSave}>Render Scene</button>
-          </div>
-          <div className="btn-group" role="group">
-            <button type="button" className="btn btn-default">Generate Random</button>
-          </div>
-          <div className="btn-group" role="group" onClick={this.remove}>
-            <button type="button" className="btn btn-danger"> Clear Scene</button>
-          </div>
-        </div>
+        {this.buttons()}
       </div>
     );
   }

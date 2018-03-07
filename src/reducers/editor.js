@@ -54,20 +54,14 @@ export default function scene(state = initial_state, action) {
         eval(action.text)
       }
       catch(err){
-        
+        console.error("Eval failed")
       }
       return {
           text: action.text,
           objects: entityModel
       }
     case 'EDITOR_REFRESH':
-      return [
-        ...state,
-        {
-          text: "",
-          id: "1"
-        }
-      ]
+      return initial_state
     default:
       return state
   }

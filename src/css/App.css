@@ -1,5 +1,5 @@
 .App {
-  text-align: center;
+  padding: 0 2em;
 }
 
 .App-logo {
@@ -9,9 +9,13 @@
 
 .App-header {
   background-color: #222;
-  height: 150px;
+  height: 10vh;
   padding: 20px;
+}
+
+.App-header h1 {
   color: white;
+
 }
 
 .App-title {
@@ -27,11 +31,18 @@
   to { transform: rotate(360deg); }
 }
 #editor {
-  border: 1px solid blue;
+  margin-bottom: 50px;
+  padding-left: 0;
+  border: #222 1px solid;
+}
+@media (min-width: 1200px) {
+  #editor {
+    border-right: 0;
+  }
 }
 #scene {
-  height: 900px;
-  border: 1px solid red;
+  height: 90vh;
+  border: #222 1px solid;
 }
 a-scene {
   height: 100% !important;

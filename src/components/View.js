@@ -4,9 +4,11 @@ import { Entity, Scene } from 'aframe-react';
 
 class View extends Component {
 
-  helper(ent, id) {
-    return <Entity key={id} geometry={ent.geometry} material={ent.material} position={ent.position} />;
-  }
+  // This renders json to aframe entities
+  helper = (ent, id) => (
+    <Entity key={id} geometry={ent.geometry} material={ent.material} position={ent.position} />
+  )
+
   render() {
     return (
       <div id="scene" className="col-lg-8">
@@ -15,54 +17,11 @@ class View extends Component {
           <Entity particle-system={{ preset: 'snow' }} />
           <Entity light={{ type: 'point' }} />
           <Entity gltf-model={{ src: 'virtualcity.gltf' }} />
-          <Entity text={{ value: 'Hello, WebVR!' }} />
+          <Entity material="" text={{ value: 'Hello, WebVR!' }} />
         </Scene>
       </div>
     );
   }
 }
-
-
-var entityModel = [
-  {
-    geometry: {
-      primitive: "box"
-    },
-    material: {
-      color: "red"
-    },
-    position: {
-      x: 5,
-      y: 3,
-      z: -5
-    }
-  },
-  {
-    geometry: {
-      primitive: "box"
-    },
-    material: {
-      color: "red"
-    },
-    position: {
-      x: 0,
-      y: 3,
-      z: -5
-    }
-  },
-  {
-    geometry: {
-      primitive: "box"
-    },
-    material: {
-      color: "red"
-    },
-    position: {
-      x: -5,
-      y: 3,
-      z: -5
-    }
-  }
-]
 
 export default View;
