@@ -88,6 +88,35 @@ class Myr {
     return sphereEl;
   }
 
+  // Render an Aframe circle Primitive with current Myr settings  
+  circle = () => {
+    let circleEl = document.createElement('a-sphere')
+    circleEl.setAttribute('material', {
+      color: this.getRandomColor()
+    });
+    circleEl.setAttribute('position', this.position);
+    circleEl.setAttribute('scale', this.scale);
+    circleEl.setAttribute('rotation', this.rotation);
+    circleEl.setAttribute('radius', this.radius);    
+    this.sceneEl.appendChild(circleEl);
+    return circleEl;
+  }
+
+  // Render an Aframe circle Primitive with current Myr settings  
+  cone = (bottomRadius, topRadius) => {
+    let coneEl = document.createElement('a-cone')
+    coneEl.setAttribute('material', {
+      color: this.getRandomColor()
+    });
+    coneEl.setAttribute('position', this.position);
+    coneEl.setAttribute('scale', this.scale);
+    coneEl.setAttribute('rotation', this.rotation);
+    coneEl.setAttribute('radius-bottom', bottomRadius);
+    coneEl.setAttribute('radius-top', topRadius);        
+    this.sceneEl.appendChild(coneEl);
+    return coneEl;
+  }
+
   // Render an Aframe Triangle Primitive with current Myr settings  
   triangle = () => {
     let triangleEl = document.createElement('a-triangle')
@@ -113,6 +142,21 @@ class Myr {
     return textEl;
   }
 
+  // Render an Aframe Polyhedron with current Myr settings  
+  polyhedron = (i) => {
+    let polyEl = document.createElement('a-cylinder')
+    polyEl.setAttribute('color', this.getRandomColor());    
+    polyEl.setAttribute('position', this.position);
+    polyEl.setAttribute('scale', this.scale);
+    polyEl.setAttribute('rotation', this.rotation);
+    polyEl.setAttribute('segments-radial', i);
+    this.sceneEl.appendChild(polyEl);
+    return polyEl;
+  }
+
+  // Prism is an alias for Polyhedron
+  prism = this.polyhedron
+
 
 
   // Animate the Aframe element which is passed as arg
@@ -124,7 +168,8 @@ class Myr {
     animEl.setAttribute('fill', 'forwards');
     animEl.setAttribute('to', '0 360 0');
     animEl.setAttribute('repeat', 'indefinite');
-    return el.appendChild(animEl);
+    el.appendChild(animEl);
+    return animEl;
   };
 
 
