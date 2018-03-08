@@ -52,7 +52,7 @@ export default function scene(state = initial_state, action) {
     case 'EDITOR_RENDER':
       try{
         // eslint-disable-next-line
-        var x;
+        var x, str;
         let m = new Myr;
         let funs = Object.getOwnPropertyNames(m).filter((p) => {
           return typeof m[p] === 'function';
@@ -61,7 +61,8 @@ export default function scene(state = initial_state, action) {
         for (var fun of funs) {
           snapshot = snapshot.replace(fun+"(","myr."+fun+"(");
         }
-        x = eval("var myr = new Myr();\n" + snapshot + "\nmyr.els;");
+        str = window.myr ? "" : "window.myr = new Myr();\n"
+        x = eval(str + snapshot + "\nmyr.els;");
       }
       catch(err){
         console.error("Eval failed")
@@ -71,6 +72,7 @@ export default function scene(state = initial_state, action) {
           objects: entityModel.concat(x)
       }
     case 'EDITOR_REFRESH':
+      window.myr.els = []
       return initial_state
     default:
       return state

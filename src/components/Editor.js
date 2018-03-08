@@ -7,8 +7,7 @@ import 'brace/theme/github';
 export default class Editor extends Component {
 
   remove = () => {
-    let el = document.querySelector('a-scene')
-    document.querySelector('#scene').removeChild(el);
+    this.props.actions.refresh("");
   }
   
   buttons = () => (
