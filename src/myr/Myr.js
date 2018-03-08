@@ -64,8 +64,7 @@ class Myr {
 
   // Render an Aframe Box Primitive with current Myr settings
   box = () => {
-    let boxEl = {
-      tag: "a-box",
+    var el = {
       color: this.getRandomColor(),
       position: this.position,
       scale: this.scale,
@@ -74,88 +73,104 @@ class Myr {
       },
       rotation: this.rotation
     }
-    this.els.push(boxEl);
-    return boxEl;
+    this.els.push(el);
+    return el;
   }
 
   // Render an Aframe Sphere Primitive with current Myr settings  
   sphere = () => {
-    let sphereEl = document.createElement('a-sphere')
-    sphereEl.setAttribute('material', {
-      color: this.getRandomColor()
-    });
-    sphereEl.setAttribute('position', this.position);
-    sphereEl.setAttribute('scale', this.scale);
-    sphereEl.setAttribute('rotation', this.rotation);
-    sphereEl.setAttribute('radius', this.radius);    
-    this.sceneEl.appendChild(sphereEl);
-    return sphereEl;
+    var el = {
+      color: this.getRandomColor(),
+      position: this.position,
+      scale: this.scale,
+      geometry: {
+        primitive: "sphere"
+      },
+      rotation: this.rotation,
+      radius: this.radius
+    }
+    this.els.push(el);
+    return el;
   }
 
   // Render an Aframe circle Primitive with current Myr settings  
   circle = () => {
-    let circleEl = document.createElement('a-sphere')
-    circleEl.setAttribute('material', {
-      color: this.getRandomColor()
-    });
-    circleEl.setAttribute('position', this.position);
-    circleEl.setAttribute('scale', this.scale);
-    circleEl.setAttribute('rotation', this.rotation);
-    circleEl.setAttribute('radius', this.radius);    
-    this.sceneEl.appendChild(circleEl);
-    return circleEl;
+    var el = {
+      color: this.getRandomColor(),
+      position: this.position,
+      scale: this.scale,
+      geometry: {
+        primitive: "circle"
+      },
+      rotation: this.rotation,
+      radius: this.radius
+    }
+    this.els.push(el);
+    return el;
   }
 
   // Render an Aframe circle Primitive with current Myr settings  
   cone = (bottomRadius, topRadius) => {
-    let coneEl = document.createElement('a-cone')
-    coneEl.setAttribute('material', {
-      color: this.getRandomColor()
-    });
-    coneEl.setAttribute('position', this.position);
-    coneEl.setAttribute('scale', this.scale);
-    coneEl.setAttribute('rotation', this.rotation);
-    coneEl.setAttribute('radius-bottom', bottomRadius);
-    coneEl.setAttribute('radius-top', topRadius);        
-    this.sceneEl.appendChild(coneEl);
-    return coneEl;
+    var el = {
+      color: this.getRandomColor(),
+      position: this.position,
+      scale: this.scale,
+      geometry: {
+        primitive: "cone"
+      },
+      rotation: this.rotation,
+      "radius-bottom": bottomRadius,
+      "radius-top": topRadius
+    }
+    this.els.push(el);
+    return el;
   }
 
   // Render an Aframe Triangle Primitive with current Myr settings  
   triangle = () => {
-    let triangleEl = document.createElement('a-triangle')
-    triangleEl.setAttribute('material', {
-      color: this.getRandomColor()
-    });
-    triangleEl.setAttribute('position', this.position);
-    triangleEl.setAttribute('scale', this.scale);
-    triangleEl.setAttribute('rotation', this.rotation);
-    this.sceneEl.appendChild(triangleEl);
-    return triangleEl;
+    var el = {
+      color: this.getRandomColor(),
+      position: this.position,
+      scale: this.scale,
+      geometry: {
+        primitive: "triangle"
+      },
+      rotation: this.rotation
+    }
+    this.els.push(el);
+    return el;
   }
 
   // Render an Aframe Text Primitive with current Myr settings  
   text = (v) => {
-    let textEl = document.createElement('a-text')
-    textEl.setAttribute('color', this.getRandomColor());    
-    textEl.setAttribute('position', this.position);
-    textEl.setAttribute('scale', this.scale);
-    textEl.setAttribute('rotation', this.rotation);
-    textEl.setAttribute('value', v);
-    this.sceneEl.appendChild(textEl);
-    return textEl;
+    var el = {
+      color: this.getRandomColor(),
+      position: this.position,
+      scale: this.scale,
+      geometry: {
+        primitive: "text"
+      },
+      rotation: this.rotation,
+      value: v
+    }
+    this.els.push(el);
+    return el;
   }
 
   // Render an Aframe Polyhedron with current Myr settings  
   polyhedron = (i) => {
-    let polyEl = document.createElement('a-cylinder')
-    polyEl.setAttribute('color', this.getRandomColor());    
-    polyEl.setAttribute('position', this.position);
-    polyEl.setAttribute('scale', this.scale);
-    polyEl.setAttribute('rotation', this.rotation);
-    polyEl.setAttribute('segments-radial', i);
-    this.sceneEl.appendChild(polyEl);
-    return polyEl;
+    var el = {
+      color: this.getRandomColor(),
+      position: this.position,
+      scale: this.scale,
+      geometry: {
+        primitive: "cylinder"
+      },
+      rotation: this.rotation,
+      "segments-radial": i
+    }
+    this.els.push(el);
+    return el;
   }
 
   // Prism is an alias for Polyhedron
@@ -163,6 +178,19 @@ class Myr {
 
   // Animate the Aframe element which is passed as arg
   animate = (el) => {
+    // TODO: need recursion 
+    var el = {
+      color: this.getRandomColor(),
+      position: this.position,
+      scale: this.scale,
+      geometry: {
+        primitive: "box"
+      },
+      rotation: this.rotation
+    }
+    this.els.push(el);
+    return el;
+
     var animEl;
     animEl = document.createElement('a-animation');
     animEl.setAttribute('attribute', 'rotation');
