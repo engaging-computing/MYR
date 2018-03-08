@@ -9,12 +9,12 @@ class View extends Component {
     // for now only look one level deep for animations
     var anim;
     if (ent.animation)
-      anim = <a-animation key={id} material={ent.material} geometry={ent.geometry} color={ent.color} scale={ent.scale} position={ent.position}/>;
+      anim = <a-animation key={id} {...ent.animation}/>;
     else
       anim = null;
 
     return (
-      <Entity key={id} material={ent.material} geometry={ent.geometry} color={ent.color} scale={ent.scale} position={ent.position}>
+      <Entity key={id} {...ent}>
         {anim}
       </Entity>
     );
