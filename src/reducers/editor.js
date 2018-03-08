@@ -1,3 +1,5 @@
+import Myr from '../myr/Myr'
+
 var entityModel = [
   {
     geometry: {
@@ -51,7 +53,16 @@ export default function scene(state = initial_state, action) {
       try{
         // eslint-disable-next-line
         var x;
-        x = eval("var myr = new Myr();\n" + action.text + "\nmyr.els;");
+        let m = new Myr;
+        let funs = Object.getOwnPropertyNames(m).filter(function (p) {
+          return typeof m[p] === 'function';
+        })
+        let snapshot = action.text;
+        for (var fun of funs) {
+          snapshot = snapshot.replace(fun+"(","myr."+fun+"(");
+        }
+        debugger
+        x = eval("var myr = new Myr();\n" + snapshot + "\nmyr.els;");
       }
       catch(err){
         console.error("Eval failed")
