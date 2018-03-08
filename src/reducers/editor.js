@@ -41,7 +41,7 @@ var entityModel = [
 ]
 
 const initial_state = {
-  text: "// Input your code here\nvar myr = new Myr();\nmyr.box();",
+  text: "// Input your code here\nmyr.box();",
   objects: entityModel
 }
 
@@ -51,7 +51,7 @@ export default function scene(state = initial_state, action) {
       try{
         // eslint-disable-next-line
         var x;
-        x = eval(action.text);
+        x = eval("var myr = new Myr();\n" + action.text + "\nmyr.els;");
       }
       catch(err){
         console.error("Eval failed")
