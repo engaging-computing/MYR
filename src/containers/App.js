@@ -1,6 +1,8 @@
 import React from 'react';
 import Editor  from '../components/Editor';
 import View from '../components/View';
+import Reference from '../components/Reference';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import * as EditorActions from '../actions'
 import PropTypes from 'prop-types'
 import { bindActionCreators } from 'redux'
@@ -13,7 +15,11 @@ const App = ({text, objects, actions}) => (
      <h1>MYR</h1>
     </header>
     <div>
-      <Editor text={text} actions={actions} />
+      <MuiThemeProvider>
+        <Editor text={text} actions={actions} >
+          <Reference />
+        </Editor>
+      </MuiThemeProvider>
       <View text={text} objects={objects} />
     </div>
   </div>

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import AceEditor from 'react-ace';
-
+import RaisedButton from 'material-ui/RaisedButton';
 import 'brace/mode/javascript';
 import 'brace/theme/github';
 
@@ -10,19 +10,32 @@ export default class Editor extends Component {
     this.props.actions.refresh("");
   }
   
-  buttons = () => (
-    <div className="btn-group pull-left" role="group" aria-label="...">
-      <div className="btn-group" role="group">
-        <button type="button" className="btn btn-success" onClick={this.handleSave}>Render Scene</button>
+  buttons = () => {
+    const style = {
+      margin: 5,
+    };
+    return (
+      <div className="btn-group pull-left" role="group" aria-label="...">
+        <RaisedButton
+          label="Render Scene"
+          primary={true}
+          onClick={this.handleSave}
+          style={style}
+        />
+        <RaisedButton
+          label="Generate Random"
+          style={style}
+        />
+        <RaisedButton
+          label="Clear Scene"
+          secondary={true}
+          onClick={this.remove}
+          style={style}
+        />
+        {this.props.children}
       </div>
-      <div className="btn-group" role="group">
-        <button type="button" className="btn btn-default">Generate Random</button>
-      </div>
-      <div className="btn-group" role="group" onClick={this.remove}>
-        <button type="button" className="btn btn-danger"> Clear Scene</button>
-      </div>
-    </div>
-  )
+    )
+  }
 
   handleSave = () => {
     const content = this.refs.aceEditor.editor.session.getValue()
