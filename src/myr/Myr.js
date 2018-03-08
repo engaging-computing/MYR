@@ -1,5 +1,6 @@
 class Myr {
   constructor(height, width) {
+    this.els = [];
     this.height = height;
     this.width = width;
     this.sceneEl = document.querySelector('a-scene')
@@ -63,14 +64,17 @@ class Myr {
 
   // Render an Aframe Box Primitive with current Myr settings
   box = () => {
-    let boxEl = document.createElement('a-box')
-    boxEl.setAttribute('material', {
-      color: this.getRandomColor()
-    });
-    boxEl.setAttribute('position', this.position);
-    boxEl.setAttribute('scale', this.scale);
-    boxEl.setAttribute('rotation', this.rotation);
-    this.sceneEl.appendChild(boxEl);
+    let boxEl = {
+      tag: "a-box",
+      color: this.getRandomColor(),
+      position: this.position,
+      scale: this.scale,
+      geometry: {
+        primitive: "box"
+      },
+      rotation: this.rotation
+    }
+    this.els.push(boxEl);
     return boxEl;
   }
 

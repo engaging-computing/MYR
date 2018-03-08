@@ -50,14 +50,15 @@ export default function scene(state = initial_state, action) {
     case 'EDITOR_RENDER':
       try{
         // eslint-disable-next-line
-        eval(action.text)
+        var x;
+        x = eval(action.text);
       }
       catch(err){
         console.error("Eval failed")
       }
       return {
           text: action.text,
-          objects: entityModel
+          objects: entityModel.concat(x)
       }
     case 'EDITOR_REFRESH':
       return initial_state

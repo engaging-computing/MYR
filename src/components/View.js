@@ -5,9 +5,11 @@ import { Entity, Scene } from 'aframe-react';
 class View extends Component {
 
   // This renders json to aframe entities
-  helper = (ent, id) => (
-    <Entity key={id} geometry={ent.geometry} material={ent.material} position={ent.position} />
-  )
+  helper = (ent, id) => {
+    return (
+      <Entity key={id} material={ent.material} geometry={ent.geometry} color={ent.color} scale={ent.scale} position={ent.position}> </Entity>
+    );
+  }
 
   render() {
     return (
