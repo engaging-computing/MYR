@@ -177,29 +177,25 @@ class Myr {
   prism = this.polyhedron
 
   // Animate the Aframe element which is passed as arg
-  animate = (el) => {
+  animate = (outerEl) => {
     // TODO: need recursion 
     var el = {
       color: this.getRandomColor(),
       position: this.position,
       scale: this.scale,
       geometry: {
-        primitive: "box"
+        primitive: "animation"
       },
-      rotation: this.rotation
-    }
-    this.els.push(el);
-    return el;
+      rotation: this.rotation,
+      dur: '10000',
+      fill: 'forwards',
+      to: '0 360 0',
+      repeat: 'indefinite',
 
-    var animEl;
-    animEl = document.createElement('a-animation');
-    animEl.setAttribute('attribute', 'rotation');
-    animEl.setAttribute('dur', '10000');
-    animEl.setAttribute('fill', 'forwards');
-    animEl.setAttribute('to', '0 360 0');
-    animEl.setAttribute('repeat', 'indefinite');
-    el.appendChild(animEl);
-    return animEl;
+    }
+    // this.els.push(el);
+    outerEl.animation = el;
+    return el;
   };
 
 

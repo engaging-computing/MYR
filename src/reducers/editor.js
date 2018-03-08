@@ -43,7 +43,7 @@ var entityModel = [
 ]
 
 const initial_state = {
-  text: "// Input your code here\nmyr.box();",
+  text: "// Input your code here\nbox();",
   objects: entityModel
 }
 
