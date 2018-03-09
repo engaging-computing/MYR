@@ -59,13 +59,13 @@ export default function scene(state = initial_state, action) {
         })
         let snapshot = action.text;
         for (var fun of funs) {
-          snapshot = snapshot.replace(fun+"(","myr."+fun+"(");
+          snapshot = snapshot.replace(new RegExp(fun+"\\(", 'g'), "myr."+fun+"(");
         }
         str = window.myr ? "" : "window.myr = new Myr();\n"
         x = eval(str + snapshot + "\nmyr.els;");
       }
       catch(err){
-        console.error("Eval failed")
+        console.error("Eval failed: " + err)
       }
       return {
           text: action.text,
