@@ -12,7 +12,7 @@ export default class Editor extends Component {
 
   buttons = () => {
     const style = {
-      margin: 5,
+      margin: 2,
     };
     return (
       <div className="btn-group pull-left" role="group" aria-label="...">
