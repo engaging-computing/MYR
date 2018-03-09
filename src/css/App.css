@@ -59,3 +59,17 @@ a-scene {
 .ace-github .ace_print-margin {
   background: #fff !important;
 }
+
+th:nth-child(1),
+td:nth-child(1){
+  color: #266d90;
+  width: 10%;
+}
+
+th {
+  font-size: 20px !important;
+}
+
+td {
+  font-size: 16px !important;
+}

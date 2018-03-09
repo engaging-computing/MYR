@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import firebase from 'firebase';
 import RaisedButton from 'material-ui/RaisedButton';
+import Avatar from 'material-ui/Avatar';
 
 const config = {
   apiKey: "AIzaSyC3ZpwhsCB2lanW5r3exZQyC1S235DyEJ4",
@@ -69,12 +70,13 @@ class Header extends Component {
     } else {
       loginBtn =
         <div>
+          <Avatar src={this.state.account.photoURL} />
           <p id='welcome-name' >Welcome, {this.state.account.displayName}</p>
           <RaisedButton
             label="Logout"
             secondary={true}
             onClick={this.logout}
-            style={{ float: 'right' }}
+            style={{ float: 'right', "margin-left": 5 }}
           />
         </div>
     }

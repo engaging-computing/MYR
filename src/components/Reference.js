@@ -32,10 +32,10 @@ export default class Reference extends React.Component {
     };
     this.tableData = [
       {
-        name: 'John Smith',
-        parameters: 'Employed',
-        returnValue: 'Hi',
-        description: "Hello"
+        name: 'box()',
+        parameters: '',
+        returnValue: 'representation of the Box primitive',
+        description: "Renders a box using current Myr state"
       },
     ];
   }
@@ -53,40 +53,49 @@ export default class Reference extends React.Component {
 
   
 
-  TableEx = () => (
-    <Table
-      height={this.state.height}
-      fixedHeader={this.state.fixedHeader}
-      fixedFooter={this.state.fixedFooter}
-      selectable={this.state.selectable}
-      multiSelectable={this.state.multiSelectable}>
-      <TableHeader
-        displaySelectAll={this.state.showCheckboxes}
-        adjustForCheckbox={this.state.showCheckboxes}
-        enableSelectAll={this.state.enableSelectAll}>
-        <TableRow>
-          <TableHeaderColumn>Name</TableHeaderColumn>
-          <TableHeaderColumn>Parmeters</TableHeaderColumn>
-          <TableHeaderColumn>Return Value</TableHeaderColumn>
-          <TableHeaderColumn>Description</TableHeaderColumn>
-        </TableRow>
-      </TableHeader>
-      <TableBody
-        displaySelectAll={this.state.showCheckboxes}
-        adjustForCheckbox={this.state.showCheckboxes}
-        displayRowCheckbox={this.state.showCheckboxes}
-        enableSelectAll={this.state.enableSelectAll}>
-        {this.tableData.map( (row, index) => (
-          <TableRow key={index}>
-            <TableRowColumn>{row.name}</TableRowColumn>
-            <TableRowColumn>{row.parameters}</TableRowColumn>
-            <TableRowColumn>{row.returnValue}</TableRowColumn>
-            <TableRowColumn>{row.description}</TableRowColumn>
+  TableEx = () => {
+    const styles = {
+      general: {
+        fontSize: 24,
+      }
+    };
+    return (
+      <Table
+        height={this.state.height}
+        fixedHeader={this.state.fixedHeader}
+        fixedFooter={this.state.fixedFooter}
+        selectable={this.state.selectable}
+        multiSelectable={this.state.multiSelectable}>
+        <TableHeader
+          displaySelectAll={this.state.showCheckboxes}
+          adjustForCheckbox={this.state.showCheckboxes}
+          enableSelectAll={this.state.enableSelectAll}
+          style={styles.general}>
+          <TableRow>
+            <TableHeaderColumn>Name</TableHeaderColumn>
+            <TableHeaderColumn>Parameters</TableHeaderColumn>
+            <TableHeaderColumn>Return Value</TableHeaderColumn>
+            <TableHeaderColumn>Description</TableHeaderColumn>
           </TableRow>
-          ))}
-      </TableBody>
-    </Table>
-  );
+        </TableHeader>
+        <TableBody
+          displaySelectAll={this.state.showCheckboxes}
+          adjustForCheckbox={this.state.showCheckboxes}
+          displayRowCheckbox={this.state.showCheckboxes}
+          enableSelectAll={this.state.enableSelectAll}
+          style={styles.general}>
+          {this.tableData.map( (row, index) => (
+            <TableRow key={index}>
+              <TableRowColumn>{row.name}</TableRowColumn>
+              <TableRowColumn>{row.parameters}</TableRowColumn>
+              <TableRowColumn>{row.returnValue}</TableRowColumn>
+              <TableRowColumn>{row.description}</TableRowColumn>
+            </TableRow>
+            ))}
+        </TableBody>
+      </Table>
+    )
+  };
 
   render() {
     const styles = {
@@ -142,7 +151,6 @@ export default class Reference extends React.Component {
               <div>
                 <h2 style={styles.headline}>Tab Three</h2>
                 <p>
-                  This is a third example tab.
                 </p>
               </div>
             </Tab>

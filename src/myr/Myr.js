@@ -62,7 +62,6 @@ class Myr {
     return color;
   }
 
-  // Render an Aframe Box Primitive with current Myr settings
   box = () => {
     var el = {
       color: this.getRandomColor(),
