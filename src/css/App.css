@@ -10,12 +10,15 @@
 .App-header {
   background-color: #222;
   height: 10vh;
-  padding: 20px;
+  padding: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .App-header h1 {
   color: white;
-
+  display: inline;
 }
 
 .App-title {
@@ -24,6 +27,11 @@
 
 .App-intro {
   font-size: large;
+}
+#welcome-name{
+  color: #fff;
+  float: left;
+  padding: 5px 12px;
 }
 
 @keyframes spin {

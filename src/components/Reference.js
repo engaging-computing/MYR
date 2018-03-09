@@ -13,7 +13,7 @@ export default class Reference extends React.Component {
 
   handleToggle = () => this.setState({open: !this.state.open});
 
-  render() {
+  render = () => {
     const styles = {
       headline: {
         fontSize: 24,
