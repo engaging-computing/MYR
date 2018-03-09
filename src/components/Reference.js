@@ -3,6 +3,15 @@ import Drawer from 'material-ui/Drawer';
 import RaisedButton from 'material-ui/RaisedButton';
 import {Tabs, Tab} from 'material-ui/Tabs';
 import FontIcon from 'material-ui/FontIcon';
+import {
+  Table,
+  TableBody,
+  TableHeader,
+  TableHeaderColumn,
+  TableRow,
+  TableRowColumn,
+} from 'material-ui/Table';
+
 
 export default class Reference extends React.Component {
 
@@ -11,6 +20,16 @@ export default class Reference extends React.Component {
     this.state = {
       open: false,
       value: 'a',
+      fixedHeader: true,
+      fixedFooter: true,
+      stripedRows: false,
+      showRowHover: false,
+      selectable: true,
+      multiSelectable: false,
+      enableSelectAll: false,
+      deselectOnClickaway: true,
+      showCheckboxes: false,
+      height: '300px',
     };
   }
 
@@ -25,6 +44,72 @@ export default class Reference extends React.Component {
     });
   };
 
+  tableData = [
+    {
+      name: 'John Smith',
+      status: 'Employed',
+    },
+    {
+      name: 'Randal White',
+      status: 'Unemployed',
+    },
+    {
+      name: 'Stephanie Sanders',
+      status: 'Employed',
+    },
+  ];
+
+  TableEx = () => (
+    <Table
+      height={this.state.height}
+      fixedHeader={this.state.fixedHeader}
+      fixedFooter={this.state.fixedFooter}
+      selectable={this.state.selectable}
+      multiSelectable={this.state.multiSelectable}>
+      <TableHeader
+        displaySelectAll={this.state.showCheckboxes}
+        adjustForCheckbox={this.state.showCheckboxes}
+        enableSelectAll={this.state.enableSelectAll}>
+        <TableRow>
+          <TableHeaderColumn>ID</TableHeaderColumn>
+          <TableHeaderColumn>Name</TableHeaderColumn>
+          <TableHeaderColumn>Status</TableHeaderColumn>
+        </TableRow>
+      </TableHeader>
+      <TableBody
+        displaySelectAll={this.state.showCheckboxes}
+        adjustForCheckbox={this.state.showCheckboxes}
+        displayRowCheckbox={this.state.showCheckboxes}
+        enableSelectAll={this.state.enableSelectAll}>
+        <TableRow>
+          <TableRowColumn>1</TableRowColumn>
+          <TableRowColumn>John Smith</TableRowColumn>
+          <TableRowColumn>Employed</TableRowColumn>
+        </TableRow>
+        <TableRow>
+          <TableRowColumn>2</TableRowColumn>
+          <TableRowColumn>Randal White</TableRowColumn>
+          <TableRowColumn>Unemployed</TableRowColumn>
+        </TableRow>
+        <TableRow>
+          <TableRowColumn>3</TableRowColumn>
+          <TableRowColumn>Stephanie Sanders</TableRowColumn>
+          <TableRowColumn>Employed</TableRowColumn>
+        </TableRow>
+        <TableRow>
+          <TableRowColumn>4</TableRowColumn>
+          <TableRowColumn>Steve Brown</TableRowColumn>
+          <TableRowColumn>Employed</TableRowColumn>
+        </TableRow>
+        <TableRow>
+          <TableRowColumn>5</TableRowColumn>
+          <TableRowColumn>Christopher Nolan</TableRowColumn>
+          <TableRowColumn>Unemployed</TableRowColumn>
+        </TableRow>
+      </TableBody>
+    </Table>
+  );
+
   render() {
     const styles = {
       headline: {
@@ -34,7 +119,10 @@ export default class Reference extends React.Component {
         fontWeight: 400,
       },
       buttonSpan: {
-        margin: 5,
+        margin: 2,
+      },
+      tabStyle: {
+        margin: 20,
       }
     };
     return (
@@ -50,15 +138,11 @@ export default class Reference extends React.Component {
             <Tab 
               icon={<FontIcon className="material-icons">change_history</FontIcon>}
               label="PRIMITIVES"
-              value='a'>
-              <div>
+              value='a'
+              >
+              <div style={styles.tabStyle}>
                 <h2 style={styles.headline}>Tab One</h2>
-                <p>
-                  This is an example tab.
-                </p>
-                <p>
-                  You can put any sort of HTML or react component in here. It even keeps the component state!
-                </p>
+                {this.TableEx()}
               </div>
             </Tab>
             <Tab 
