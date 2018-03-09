@@ -29,8 +29,15 @@ export default class Reference extends React.Component {
       enableSelectAll: false,
       deselectOnClickaway: true,
       showCheckboxes: false,
-      height: '300px',
     };
+    this.tableData = [
+      {
+        name: 'John Smith',
+        parameters: 'Employed',
+        returnValue: 'Hi',
+        description: "Hello"
+      },
+    ];
   }
 
   handleToggle = () => this.setState({open: !this.state.open});
@@ -44,20 +51,7 @@ export default class Reference extends React.Component {
     });
   };
 
-  tableData = [
-    {
-      name: 'John Smith',
-      status: 'Employed',
-    },
-    {
-      name: 'Randal White',
-      status: 'Unemployed',
-    },
-    {
-      name: 'Stephanie Sanders',
-      status: 'Employed',
-    },
-  ];
+  
 
   TableEx = () => (
     <Table
@@ -71,9 +65,10 @@ export default class Reference extends React.Component {
         adjustForCheckbox={this.state.showCheckboxes}
         enableSelectAll={this.state.enableSelectAll}>
         <TableRow>
-          <TableHeaderColumn>ID</TableHeaderColumn>
           <TableHeaderColumn>Name</TableHeaderColumn>
-          <TableHeaderColumn>Status</TableHeaderColumn>
+          <TableHeaderColumn>Parmeters</TableHeaderColumn>
+          <TableHeaderColumn>Return Value</TableHeaderColumn>
+          <TableHeaderColumn>Description</TableHeaderColumn>
         </TableRow>
       </TableHeader>
       <TableBody
@@ -81,31 +76,14 @@ export default class Reference extends React.Component {
         adjustForCheckbox={this.state.showCheckboxes}
         displayRowCheckbox={this.state.showCheckboxes}
         enableSelectAll={this.state.enableSelectAll}>
-        <TableRow>
-          <TableRowColumn>1</TableRowColumn>
-          <TableRowColumn>John Smith</TableRowColumn>
-          <TableRowColumn>Employed</TableRowColumn>
-        </TableRow>
-        <TableRow>
-          <TableRowColumn>2</TableRowColumn>
-          <TableRowColumn>Randal White</TableRowColumn>
-          <TableRowColumn>Unemployed</TableRowColumn>
-        </TableRow>
-        <TableRow>
-          <TableRowColumn>3</TableRowColumn>
-          <TableRowColumn>Stephanie Sanders</TableRowColumn>
-          <TableRowColumn>Employed</TableRowColumn>
-        </TableRow>
-        <TableRow>
-          <TableRowColumn>4</TableRowColumn>
-          <TableRowColumn>Steve Brown</TableRowColumn>
-          <TableRowColumn>Employed</TableRowColumn>
-        </TableRow>
-        <TableRow>
-          <TableRowColumn>5</TableRowColumn>
-          <TableRowColumn>Christopher Nolan</TableRowColumn>
-          <TableRowColumn>Unemployed</TableRowColumn>
-        </TableRow>
+        {this.tableData.map( (row, index) => (
+          <TableRow key={index}>
+            <TableRowColumn>{row.name}</TableRowColumn>
+            <TableRowColumn>{row.parameters}</TableRowColumn>
+            <TableRowColumn>{row.returnValue}</TableRowColumn>
+            <TableRowColumn>{row.description}</TableRowColumn>
+          </TableRow>
+          ))}
       </TableBody>
     </Table>
   );
