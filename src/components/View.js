@@ -20,7 +20,7 @@ class View extends Component {
     );
   }
 
-  render() {
+  render = () => {
     return (
       <div id="scene" className="col-lg-8">
         <Scene embedded >

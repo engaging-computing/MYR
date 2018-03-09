@@ -9,7 +9,7 @@ export default class Editor extends Component {
   remove = () => {
     this.props.actions.refresh("");
   }
-  
+
   buttons = () => {
     const style = {
       margin: 2,
@@ -51,7 +51,6 @@ export default class Editor extends Component {
           width="100%"
           mode="javascript"
           theme="github"
-          // onChange={this.onChange}
           value={text}
           name="ace-editor"
         />

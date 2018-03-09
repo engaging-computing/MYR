@@ -1,28 +1,26 @@
-import React from 'react';
-import Editor  from '../components/Editor';
-import View from '../components/View';
-import Reference from '../components/Reference';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import React from 'react'
+import Editor from '../components/Editor'
+import View from '../components/View'
+import Reference from '../components/Reference'
+import Header from '../components/Header'
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import * as EditorActions from '../actions'
 import PropTypes from 'prop-types'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 
-// App is a container because it manages state for Components
-const App = ({text, objects, actions}) => (
-  <div className="App">
-    <header className="App-header">
-     <h1>MYR</h1>
-    </header>
-    <div>
-      <MuiThemeProvider>
+const App = ({ text, objects, actions }) => (
+  <MuiThemeProvider>
+    <div className="App">
+      <Header />
+      <div>
         <Editor text={text} actions={actions} >
           <Reference />
         </Editor>
-      </MuiThemeProvider>
-      <View text={text} objects={objects} />
+        <View text={text} objects={objects} />
+      </div>
     </div>
-  </div>
+  </MuiThemeProvider>
 )
 
 // This makes sure we are getting what we think we should
