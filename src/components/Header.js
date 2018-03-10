@@ -76,7 +76,7 @@ class Header extends Component {
             label="Logout"
             secondary={true}
             onClick={this.logout}
-            style={{ float: 'right', "margin-left": 5 }}
+            style={{ float: 'right', marginLeft: 5 }}
           />
         </div>
     }

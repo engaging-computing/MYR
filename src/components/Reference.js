@@ -1,4 +1,6 @@
 import React from 'react';
+import myrReference from '../myr/reference'
+import Highlight from 'react-highlight.js'
 import Drawer from 'material-ui/Drawer';
 import RaisedButton from 'material-ui/RaisedButton';
 import {Tabs, Tab} from 'material-ui/Tabs';
@@ -12,6 +14,7 @@ import {
   TableRowColumn,
 } from 'material-ui/Table';
 
+window.myrReference = myrReference;
 
 export default class Reference extends React.Component {
 
@@ -30,14 +33,7 @@ export default class Reference extends React.Component {
       deselectOnClickaway: true,
       showCheckboxes: false,
     };
-    this.tableData = [
-      {
-        name: 'box()',
-        parameters: '',
-        returnValue: 'representation of the Box primitive',
-        description: "Renders a box using current Myr state"
-      },
-    ];
+    this.tableData = myrReference();
   }
 
   handleToggle = () => this.setState({open: !this.state.open});
@@ -53,10 +49,13 @@ export default class Reference extends React.Component {
 
   
 
-  TableEx = () => {
+  TableEx = (category) => {
     const styles = {
       general: {
         fontSize: 24,
+      },
+      highlight: {
+        margin: '2%',
       }
     };
     return (
@@ -84,10 +83,14 @@ export default class Reference extends React.Component {
           displayRowCheckbox={this.state.showCheckboxes}
           enableSelectAll={this.state.enableSelectAll}
           style={styles.general}>
-          {this.tableData.map( (row, index) => (
+          {this.tableData[category].map( (row, index) => (
             <TableRow key={index}>
               <TableRowColumn>{row.name}</TableRowColumn>
-              <TableRowColumn>{row.parameters}</TableRowColumn>
+              <TableRowColumn>
+                <Highlight language={'javascript'} style={styles.highlight}>
+                  {row.parameters}
+                </Highlight>
+              </TableRowColumn>
               <TableRowColumn>{row.returnValue}</TableRowColumn>
               <TableRowColumn>{row.description}</TableRowColumn>
             </TableRow>
@@ -109,7 +112,7 @@ export default class Reference extends React.Component {
         margin: 2,
       },
       tabStyle: {
-        margin: 20,
+        margin: 30,
       }
     };
     return (
@@ -128,19 +131,17 @@ export default class Reference extends React.Component {
               value='a'
               >
               <div style={styles.tabStyle}>
-                <h2 style={styles.headline}>Tab One</h2>
-                {this.TableEx()}
+                <h5 style={styles.headline}>Primitives</h5>
+                {this.TableEx("primitives")}
               </div>
             </Tab>
             <Tab 
               icon={<FontIcon className="material-icons">build</FontIcon>}
-              label="HELPERS"
+              label="TRANSFORMATIONS"
               value='b'>
-              <div>
-                <h2 style={styles.headline}>Tab Two</h2>
-                <p>
-                  This is another example tab.
-                </p>
+              <div style={styles.tabStyle}>
+                <h5 style={styles.headline}>Transformations</h5>
+                {this.TableEx("transformations")}
               </div>
             </Tab>
             <Tab 
