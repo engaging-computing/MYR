@@ -5,6 +5,12 @@ var primitives = [
     returnValue: 'JSON representation of the Box primitive',
     description: "Renders a box using current internal Myr properties"
   },
+  {
+    name: 'sphere()',
+    parameters: ["(Object) attributes =  { radius: 1, color: 'red', position: '0 0 -2', scale: '1 2 3', rotation: '0 45 90' };"],
+    returnValue: 'JSON representation of the Sphere primitive',
+    description: "Renders a sphere using current internal Myr properties"
+  },
 ]
 
 var transformations = [
