@@ -1,21 +1,24 @@
 import React, { Component } from 'react';
 import firebase from 'firebase';
+import 'firebase/firestore'
 import RaisedButton from 'material-ui/RaisedButton';
 import Avatar from 'material-ui/Avatar';
 
-const config = {
-  apiKey: "AIzaSyC3ZpwhsCB2lanW5r3exZQyC1S235DyEJ4",
-  authDomain: "mixyourreailty.firebaseapp.com",
-  databaseURL: "https://mixyourreailty.firebaseio.com",
-  projectId: "mixyourreailty",
-  storageBucket: "mixyourreailty.appspot.com",
-  messagingSenderId: "342004351183"
-};
 
+var config = {
+  apiKey: "AIzaSyBLnha_cHiHuJGWla5B73vKgz1feTkgXbc",
+  authDomain: "myrjsecg.firebaseapp.com",
+  databaseURL: "https://myrjsecg.firebaseio.com",
+  projectId: "myrjsecg",
+  storageBucket: "",
+  messagingSenderId: "967963389163"
+};
 firebase.initializeApp(config);
 
 const provider = new firebase.auth.GoogleAuthProvider();
 const auth = firebase.auth();
+// Initialize Cloud Firestore through Firebase
+var db = firebase.firestore();
 
 class Header extends Component {
   constructor() {
