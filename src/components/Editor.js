@@ -101,7 +101,6 @@ class Editor extends Component {
       let path = "images/" + mode + "/" + projectID;
       let imgRef = storageRef.child(path);
       imgRef.putString(img, 'data_url').then(function(snapshot) {
-        debugger
         console.log('Uploaded a data_url string!');
       })
       .catch(function(error) {
