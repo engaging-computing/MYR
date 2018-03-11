@@ -85,42 +85,42 @@ class Editor extends Component {
 
   handleSave = () => {
     // stub
-    let code = this.refs.aceEditor.editor.session.getValue();
-    let els = window.myr ? window.myr.els : null
-    let uid = auth.currentUser.uid
-    // use uid_epoch as identifier for now
-    let ts = Date.now()
-    let projectID = uid + '_' + ts;
-    let modes = [
-      'equirectangular',
-      // 'perspective'
-    ];
-    // upload images
-    for (var mode of modes) {
-      let img = document.querySelector('a-scene').components.screenshot.getCanvas(mode).toDataURL('image/png');
-      let path = "images/" + mode + "/" + projectID;
-      let imgRef = storageRef.child(path);
-      imgRef.putString(img, 'data_url').then(function(snapshot) {
-        console.log('Uploaded a data_url string!');
-      })
-      .catch(function(error) {
-        console.error("Error uploading a data_url string ", error);
-      });
-    }
-    // save code and myr scene els
-    db.collection("scenes").doc(projectID).set({
-      name: "Unnamed",
-      code: code,
-      els: els,
-      uid: uid,
-      ts: ts,
-    })
-    .then(function() {
-        console.log("Document successfully written!");
-    })
-    .catch(function(error) {
-        console.error("Error writing document: ", error);
-    });
+    // let code = this.refs.aceEditor.editor.session.getValue();
+    // let els = window.myr ? window.myr.els : null
+    // let uid = auth.currentUser.uid
+    // // use uid_epoch as identifier for now
+    // let ts = Date.now()
+    // let projectID = uid + '_' + ts;
+    // let modes = [
+    //   'equirectangular',
+    //   // 'perspective'
+    // ];
+    // // upload images
+    // for (var mode of modes) {
+    //   let img = document.querySelector('a-scene').components.screenshot.getCanvas(mode).toDataURL('image/png');
+    //   let path = "images/" + mode + "/" + projectID;
+    //   let imgRef = storageRef.child(path);
+    //   imgRef.putString(img, 'data_url').then(function(snapshot) {
+    //     console.log('Uploaded a data_url string!');
+    //   })
+    //   .catch(function(error) {
+    //     console.error("Error uploading a data_url string ", error);
+    //   });
+    // }
+    // // save code and myr scene els
+    // db.collection("scenes").doc(projectID).set({
+    //   name: "Unnamed",
+    //   code: code,
+    //   els: els,
+    //   uid: uid,
+    //   ts: ts,
+    // })
+    // .then(function() {
+    //     console.log("Document successfully written!");
+    // })
+    // .catch(function(error) {
+    //     console.error("Error writing document: ", error);
+    // });
     
   }
 
