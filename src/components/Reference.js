@@ -15,8 +15,6 @@ import {
   TableRowColumn,
 } from 'material-ui/Table';
 
-window.myrReference = myrReference;
-
 export default class Reference extends React.Component {
 
   constructor(props) {

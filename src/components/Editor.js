@@ -6,12 +6,17 @@ import Menu from 'material-ui/Menu';
 import MenuItem from 'material-ui/MenuItem';
 import 'brace/mode/javascript';
 import 'brace/theme/github';
+import firebase from '../firebase.js'
+import 'firebase/firestore'
 
-export default class Editor extends Component {
+var auth = firebase.auth();
+var db = firebase.firestore();
+var storageRef = firebase.storage().ref();
+
+class Editor extends Component {
 
   constructor(props) {
     super(props);
-
     this.state = {
       open: false,
     };
@@ -80,9 +85,44 @@ export default class Editor extends Component {
 
   handleSave = () => {
     // stub
-    let modes = ['equirectangular', 'perspective'];
-    document.querySelector('a-scene').components.screenshot.capture(modes[0]);
-    document.querySelector('a-scene').components.screenshot.capture(modes[1]);
+    let code = this.refs.aceEditor.editor.session.getValue();
+    let els = window.myr ? window.myr.els : null
+    let uid = auth.currentUser.uid
+    // use uid_epoch as identifier for now
+    let ts = Date.now()
+    let projectID = uid + '_' + ts;
+    let modes = [
+      'equirectangular',
+      // 'perspective'
+    ];
+    // upload images
+    for (var mode of modes) {
+      let img = document.querySelector('a-scene').components.screenshot.getCanvas(mode).toDataURL('image/png');
+      let path = "images/" + mode + "/" + projectID;
+      let imgRef = storageRef.child(path);
+      imgRef.putString(img, 'data_url').then(function(snapshot) {
+        debugger
+        console.log('Uploaded a data_url string!');
+      })
+      .catch(function(error) {
+        console.error("Error uploading a data_url string ", error);
+      });
+    }
+    // save code and myr scene els
+    db.collection("scenes").doc(projectID).set({
+      name: "Unnamed",
+      code: code,
+      els: els,
+      uid: uid,
+      ts: ts,
+    })
+    .then(function() {
+        console.log("Document successfully written!");
+    })
+    .catch(function(error) {
+        console.error("Error writing document: ", error);
+    });
+    
   }
 
   handleRender = () => {
@@ -107,3 +147,5 @@ export default class Editor extends Component {
     );
   }
 }
+
+export default Editor

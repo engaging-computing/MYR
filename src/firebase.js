@@ -5,7 +5,7 @@ var config = {
   authDomain: "myrjsecg.firebaseapp.com",
   databaseURL: "https://myrjsecg.firebaseio.com",
   projectId: "myrjsecg",
-  storageBucket: "",
+  storageBucket: "gs://myrjsecg.appspot.com",
   messagingSenderId: "967963389163"
 };
 firebase.initializeApp(config);

@@ -6,8 +6,6 @@ import Avatar from 'material-ui/Avatar';
 
 const provider = new firebase.auth.GoogleAuthProvider();
 const auth = firebase.auth();
-// Initialize Cloud Firestore through Firebase
-// var db = firebase.firestore();
 
 class Header extends Component {
   constructor() {

@@ -8,7 +8,7 @@ class View extends Component {
   helper = (ent, id) => {
     // for now only look one level deep for animations
     var anim;
-    if (ent.animation)
+    if (ent && ent.animation)
       anim = <a-animation key={id} {...ent.animation}/>;
     else
       anim = null;
