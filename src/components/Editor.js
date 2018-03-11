@@ -19,12 +19,17 @@ export default class Editor extends Component {
         <RaisedButton
           label="Render Scene"
           primary={true}
-          onClick={this.handleSave}
+          onClick={this.handleRender}
           style={style}
         />
         <RaisedButton
           label="Generate Random"
           style={style}
+        />
+        <RaisedButton
+          label="Save Scene"
+          style={style}
+          onClick={this.handleSave}
         />
         <RaisedButton
           label="Clear Scene"
@@ -38,6 +43,12 @@ export default class Editor extends Component {
   }
 
   handleSave = () => {
+    let modes = ['equirectangular', 'perspective'];
+    document.querySelector('a-scene').components.screenshot.capture(modes[0]);
+    document.querySelector('a-scene').components.screenshot.capture(modes[1]);
+  }
+
+  handleRender = () => {
     const content = this.refs.aceEditor.editor.session.getValue()
     this.props.actions.render(content)
   }
