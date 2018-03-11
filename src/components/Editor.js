@@ -1,14 +1,41 @@
 import React, { Component } from 'react';
 import AceEditor from 'react-ace';
 import RaisedButton from 'material-ui/RaisedButton';
+import Popover from 'material-ui/Popover';
+import Menu from 'material-ui/Menu';
+import MenuItem from 'material-ui/MenuItem';
 import 'brace/mode/javascript';
 import 'brace/theme/github';
 
 export default class Editor extends Component {
 
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      open: false,
+    };
+  }
+
   remove = () => {
     this.props.actions.refresh("");
   }
+
+  handleClick = (event) => {
+    // This prevents ghost click.
+    event.preventDefault();
+
+    this.setState({
+      open: true,
+      anchorEl: event.currentTarget,
+    });
+  };
+
+  handleRequestClose = () => {
+    this.setState({
+      open: false,
+    });
+  };
 
   buttons = () => {
     const style = {
@@ -23,26 +50,36 @@ export default class Editor extends Component {
           style={style}
         />
         <RaisedButton
-          label="Generate Random"
-          style={style}
-        />
-        <RaisedButton
-          label="Save Scene"
-          style={style}
-          onClick={this.handleSave}
-        />
-        <RaisedButton
           label="Clear Scene"
           secondary={true}
           onClick={this.remove}
           style={style}
         />
+        <RaisedButton
+          style={style}
+          onClick={this.handleClick}
+          label="Options"
+        />
+        <Popover
+          open={this.state.open}
+          anchorEl={this.state.anchorEl}
+          anchorOrigin={{horizontal: 'left', vertical: 'bottom'}}
+          targetOrigin={{horizontal: 'left', vertical: 'top'}}
+          onRequestClose={this.handleRequestClose}
+        >
+          <Menu>
+            <MenuItem primaryText="Save Scene" onClick={this.handleSave} />
+            <MenuItem primaryText="Generate Random" />
+            <MenuItem primaryText="Sign out" />
+          </Menu>
+        </Popover>
         {this.props.children}
       </div>
     )
   }
 
   handleSave = () => {
+    // stub
     let modes = ['equirectangular', 'perspective'];
     document.querySelector('a-scene').components.screenshot.capture(modes[0]);
     document.querySelector('a-scene').components.screenshot.capture(modes[1]);
