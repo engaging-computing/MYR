@@ -18,7 +18,7 @@
 
 .App-header h1 {
   color: white;
-  display: inline;
+  margin-top: 0;
 }
 
 .App-title {
@@ -34,26 +34,30 @@
   padding: 5px 12px;
 }
 
-@keyframes spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
-}
 #editor {
   margin-bottom: 50px;
   padding-left: 0;
   border: #222 1px solid;
 }
+
 @media (min-width: 1200px) {
   #editor {
     border-right: 0;
   }
 }
+
 #scene {
   height: 90vh;
   border: #222 1px solid;
 }
+
 a-scene {
   height: 100% !important;
+}
+
+a-scene[aframe-inspector-removed-embedded] {
+  width: 100vh;
+  left: -35%;
 }
 
 .ace-github .ace_print-margin {
@@ -72,4 +76,30 @@ th {
 
 td {
   font-size: 16px !important;
+}
+
+/* inspector fixes */
+#sidebar, .components{
+  width: 400px !important;
+}
+
+.components .row{
+  margin-left: 5px;
+}
+
+.toggle-edit {
+  left: 150px !important;
+  position: absolute !important;
+  width: 150px !important;
+}
+
+/* animations */
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+body.aframe-inspector-opened .toggle-edit {
+  left: 0 !important;
+  top: 0 !important;
 }

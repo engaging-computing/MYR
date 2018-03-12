@@ -68,8 +68,8 @@ class Editor extends Component {
         <Popover
           open={this.state.open}
           anchorEl={this.state.anchorEl}
-          anchorOrigin={{horizontal: 'left', vertical: 'bottom'}}
-          targetOrigin={{horizontal: 'left', vertical: 'top'}}
+          anchorOrigin={{ horizontal: 'left', vertical: 'bottom' }}
+          targetOrigin={{ horizontal: 'left', vertical: 'top' }}
           onRequestClose={this.handleRequestClose}
         >
           <Menu>
@@ -121,7 +121,7 @@ class Editor extends Component {
     // .catch(function(error) {
     //     console.error("Error writing document: ", error);
     // });
-    
+
   }
 
   handleRender = () => {
