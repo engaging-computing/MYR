@@ -93,13 +93,13 @@ td {
   width: 150px !important;
 }
 
+body.aframe-inspector-opened .toggle-edit {
+  left: 0 !important;
+  top: 0 !important;
+}
+
 /* animations */
 @keyframes spin {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
-}
-
-body.aframe-inspector-opened .toggle-edit {
-  left: 0 !important;
-  top: 0 !important;
 }
