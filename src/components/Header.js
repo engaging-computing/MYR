@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import firebase from '../firebase.js'
-// import 'firebase/firestore'
-import RaisedButton from 'material-ui/RaisedButton';
+import { RaisedButton, Popover, Menu, MenuItem } from 'material-ui';
 import Avatar from 'material-ui/Avatar';
 
 const provider = new firebase.auth.GoogleAuthProvider();
@@ -11,7 +10,8 @@ class Header extends Component {
   constructor() {
     super();
     this.state = {
-      account: null
+      account: null,
+      open: false
     }
     this.login = this.login.bind(this);
     this.logout = this.logout.bind(this);
@@ -21,53 +21,75 @@ class Header extends Component {
     auth.onAuthStateChanged((account) => {
       if (account) {
         this.setState({ account });
-        console.log(account);
       }
     });
+    this.setState({ anchorEl: document.getElementById("user") });
   }
 
   logout() {
     auth.signOut().then(() => {
-      this.setState({
-        account: null
-      });
+      this.setState({ account: null });
     });
   }
+
   login() {
     auth.signInWithPopup(provider).then((result) => {
       const account = result.account;
-      this.setState({
-        account
-      });
-      if (this.state.account) {
-        console.log(this.state.account.uid)
-      }
+      this.setState({ account });
     });
   }
+
+  handleClick = (event) => {
+    // This prevents ghost click.
+    event.preventDefault();
+    this.setState({
+      open: true,
+    });
+  };
+
+  handleRequestClose = (event) => {
+    this.setState({ open: false });
+  };
+
   render() {
     let loginBtn = null
     if (this.state.account == null) {
       loginBtn =
-        <div>
+        <div id="user">
+          <Avatar src={process.env.PUBLIC_URL + '/img/acct_circle.svg'}
+            onClick={this.handleClick}
+            label="Login" />
+          <Popover
+            open={this.state.open}
+            anchorEl={this.state.anchorEl}
+            anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
+            targetOrigin={{ horizontal: 'right', vertical: 'top' }}
+            onRequestClose={this.handleRequestClose}>
+            <Menu>
+              <MenuItem primaryText="Log In" onClick={this.login} />
+            </Menu>
+          </Popover>
           <p id='welcome-name' >Login to Save Your Progress</p>
-          <RaisedButton
-            label="Login"
-            secondary={true}
-            onClick={this.login}
-            style={{ float: 'right' }}
-          />
         </div>
     } else {
       loginBtn =
-        <div>
-          <Avatar src={this.state.account.photoURL} />
-          <p id='welcome-name' >Welcome, {this.state.account.displayName}</p>
-          <RaisedButton
-            label="Logout"
-            secondary={true}
-            onClick={this.logout}
-            style={{ float: 'right', marginLeft: 5 }}
-          />
+        <div id="user">
+          <Avatar
+            id="login"
+            src={this.state.account.photoURL}
+            onClick={this.handleClick}
+            label="Logout" />
+          <Popover
+            open={this.state.open}
+            anchorEl={this.state.anchorEl}
+            anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
+            targetOrigin={{ horizontal: 'right', vertical: 'top' }}
+            onRequestClose={this.handleRequestClose}
+          >
+            <Menu>
+              <MenuItem primaryText="Log Out" onClick={this.logout} />
+            </Menu>
+          </Popover>
         </div>
     }
     return (

@@ -28,10 +28,19 @@
 .App-intro {
   font-size: large;
 }
-#welcome-name{
+
+div#user {
+  display: flex;
+  flex-direction: row-reverse;
+}
+
+#user p{
   color: #fff;
-  float: left;
   padding: 5px 12px;
+}
+
+#user img {
+  float: right;
 }
 
 #editor {
@@ -67,15 +76,7 @@ a-scene[aframe-inspector-removed-embedded] {
 th:nth-child(1),
 td:nth-child(1){
   color: #266d90;
-  width: 10%;
-}
-
-th {
-  font-size: 20px !important;
-}
-
-td {
-  font-size: 16px !important;
+  width: 20%;
 }
 
 /* inspector fixes */

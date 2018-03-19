@@ -1,9 +1,6 @@
 import React, { Component } from 'react';
 import AceEditor from 'react-ace';
-import RaisedButton from 'material-ui/RaisedButton';
-import Popover from 'material-ui/Popover';
-import Menu from 'material-ui/Menu';
-import MenuItem from 'material-ui/MenuItem';
+import { RaisedButton, Popover, Menu, MenuItem } from 'material-ui';
 import 'brace/mode/javascript';
 import 'brace/theme/github';
 import firebase from '../firebase.js'

@@ -3,7 +3,7 @@ import myrReference from '../myr/reference'
 import Highlight from 'react-highlight.js'
 import Drawer from 'material-ui/Drawer';
 import RaisedButton from 'material-ui/RaisedButton';
-import {Tabs, Tab} from 'material-ui/Tabs';
+import { Tabs, Tab } from 'material-ui/Tabs';
 import FontIcon from 'material-ui/FontIcon';
 import MenuItem from 'material-ui/MenuItem';
 
@@ -37,7 +37,7 @@ export default class Reference extends React.Component {
     this.tableData = myrReference();
   }
 
-  handleToggle = () => this.setState({open: !this.state.open});
+  handleToggle = () => this.setState({ open: !this.state.open });
 
   handleChange = (value) => {
     if (value == 'x') {
@@ -48,12 +48,14 @@ export default class Reference extends React.Component {
     });
   };
 
-  
+
 
   TableEx = (category) => {
     const styles = {
       general: {
-        fontSize: 24,
+        fontSize: 18,
+        padding: '1%',
+        whiteSpace: 'wrap'
       },
       highlight: {
         margin: '2%',
@@ -65,7 +67,8 @@ export default class Reference extends React.Component {
         fixedHeader={this.state.fixedHeader}
         fixedFooter={this.state.fixedFooter}
         selectable={this.state.selectable}
-        multiSelectable={this.state.multiSelectable}>
+        multiSelectable={this.state.multiSelectable}
+        style={styles.general}>
         <TableHeader
           displaySelectAll={this.state.showCheckboxes}
           adjustForCheckbox={this.state.showCheckboxes}
@@ -79,23 +82,20 @@ export default class Reference extends React.Component {
           </TableRow>
         </TableHeader>
         <TableBody
-          displaySelectAll={this.state.showCheckboxes}
-          adjustForCheckbox={this.state.showCheckboxes}
           displayRowCheckbox={this.state.showCheckboxes}
-          enableSelectAll={this.state.enableSelectAll}
           style={styles.general}>
-          {this.tableData[category].map( (row, index) => (
+          {this.tableData[category].map((row, index) => (
             <TableRow key={index}>
-              <TableRowColumn>{row.name}</TableRowColumn>
+              <TableRowColumn style={styles.general}>{row.name}</TableRowColumn>
               <TableRowColumn>
                 <Highlight language={'javascript'} style={styles.highlight}>
                   {row.parameters}
                 </Highlight>
               </TableRowColumn>
-              <TableRowColumn>{row.returnValue}</TableRowColumn>
-              <TableRowColumn>{row.description}</TableRowColumn>
+              <TableRowColumn style={styles.general}>{row.returnValue}</TableRowColumn>
+              <TableRowColumn style={styles.general}>{row.description}</TableRowColumn>
             </TableRow>
-            ))}
+          ))}
         </TableBody>
       </Table>
     )
@@ -126,17 +126,17 @@ export default class Reference extends React.Component {
           <Tabs
             value={this.state.value}
             onChange={this.handleChange}>
-            <Tab 
+            <Tab
               icon={<FontIcon className="material-icons">change_history</FontIcon>}
               label="PRIMITIVES"
               value='a'
-              >
+            >
               <div style={styles.tabStyle}>
                 <h5 style={styles.headline}>Primitives</h5>
                 {this.TableEx("primitives")}
               </div>
             </Tab>
-            <Tab 
+            <Tab
               icon={<FontIcon className="material-icons">build</FontIcon>}
               label="TRANSFORMATIONS"
               value='b'>
@@ -145,7 +145,7 @@ export default class Reference extends React.Component {
                 {this.TableEx("transformations")}
               </div>
             </Tab>
-            <Tab 
+            <Tab
               icon={<FontIcon className="material-icons">close</FontIcon>}
               label="CLOSE"
               value='x'

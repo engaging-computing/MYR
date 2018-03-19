@@ -29,7 +29,7 @@ class Myr {
       z: z
     };
   };
-  
+
   setScale = (x, y, z) => {
     return this.scale = {
       x: x,
@@ -37,7 +37,7 @@ class Myr {
       z: z
     };
   };
-  
+
   setRotation = (x, y, z) => {
     return this.rotation = {
       x: x,
@@ -196,11 +196,6 @@ class Myr {
     outerEl.animation = el;
     return el;
   };
-
-
-
-
-
 }
 
 export default Myr
