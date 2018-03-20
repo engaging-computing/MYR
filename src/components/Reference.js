@@ -122,7 +122,8 @@ export default class Reference extends React.Component {
           label="Myr.js Reference"
           onClick={this.handleToggle}
         />
-        <Drawer open={this.state.open} width={'80%'}>
+        <Drawer open={this.state.open} width={'80%'} 
+          docked={false} onRequestChange={(open) => this.setState({open})}>
           <Tabs
             value={this.state.value}
             onChange={this.handleChange}>
