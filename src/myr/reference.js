@@ -15,7 +15,7 @@ var primitives = [
 
 var transformations = [
   {
-    name: 'moveTo(x,y,z)',
+    name: 'setPosition(x,y,z)',
     parameters: [
       "(Number) x =  0;",
       "(Number) y =  1;",

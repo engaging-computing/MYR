@@ -22,7 +22,7 @@ class Myr {
     this.radius = 1;
   }
 
-  moveTo = (x, y, z) => {
+  setPosition = (x, y, z) => {
     return this.position = {
       x: x,
       y: y,
