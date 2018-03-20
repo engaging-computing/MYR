@@ -3,12 +3,12 @@ import AceEditor from 'react-ace';
 import { RaisedButton, Popover, Menu, MenuItem } from 'material-ui';
 import 'brace/mode/javascript';
 import 'brace/theme/github';
-import firebase from '../firebase.js'
-import 'firebase/firestore'
+// import firebase from '../firebase.js'
+// import 'firebase/firestore'
 
-var auth = firebase.auth();
-var db = firebase.firestore();
-var storageRef = firebase.storage().ref();
+// var auth = firebase.auth();
+// var db = firebase.firestore();
+// var storageRef = firebase.storage().ref();
 
 class Editor extends Component {
 

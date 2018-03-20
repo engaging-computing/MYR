@@ -51,9 +51,8 @@ export default function scene(state = initial_state, action) {
   switch (action.type) {
     case 'EDITOR_RENDER':
       try{
-        // eslint-disable-next-line
         var x, str;
-        let m = new Myr;
+        let m = new Myr();
         let funs = Object.getOwnPropertyNames(m).filter((p) => {
           return typeof m[p] === 'function';
         })
@@ -62,6 +61,7 @@ export default function scene(state = initial_state, action) {
           snapshot = snapshot.replace(new RegExp(fun+"\\(", 'g'), "myr."+fun+"(");
         }
         str = window.myr ? "" : "window.myr = new Myr();\n"
+        // eslint-disable-next-line        
         x = eval(str + snapshot + "\nmyr.els;");
       }
       catch(err){

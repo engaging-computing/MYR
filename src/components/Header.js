@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import firebase from '../firebase.js'
-import { RaisedButton, Popover, Menu, MenuItem } from 'material-ui';
+import { Popover, Menu, MenuItem } from 'material-ui';
 import Avatar from 'material-ui/Avatar';
 
 const provider = new firebase.auth.GoogleAuthProvider();

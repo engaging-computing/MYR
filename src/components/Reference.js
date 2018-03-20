@@ -5,7 +5,7 @@ import Drawer from 'material-ui/Drawer';
 import RaisedButton from 'material-ui/RaisedButton';
 import { Tabs, Tab } from 'material-ui/Tabs';
 import FontIcon from 'material-ui/FontIcon';
-import MenuItem from 'material-ui/MenuItem';
+// import MenuItem from 'material-ui/MenuItem';
 
 
 import {
@@ -40,7 +40,7 @@ export default class Reference extends React.Component {
   handleToggle = () => this.setState({ open: !this.state.open });
 
   handleChange = (value) => {
-    if (value == 'x') {
+    if (value === 'x') {
       value = this.state.value;
     }
     this.setState({
