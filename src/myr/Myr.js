@@ -62,18 +62,21 @@ class Myr {
     return color;
   }
 
-  box = () => {
+  box = (obj) => {
     var el = {
-      color: this.getRandomColor(),
       position: this.position,
       scale: this.scale,
       geometry: {
-        primitive: "box"
+        primitive: "box",
+      },
+      material: {
+        color: this.getRandomColor()
       },
       rotation: this.rotation
     }
-    this.els.push(el);
-    return el;
+    let merged = {...el, ...obj}
+    this.els.push(merged);
+    return merged;
   }
 
   // Render an Aframe Sphere Primitive with current Myr settings  
@@ -179,7 +182,7 @@ class Myr {
   animate = (outerEl) => {
     // TODO: need recursion 
     var el = {
-      color: this.getRandomColor(),
+      // color: this.getRandomColor(),
       position: this.position,
       scale: this.scale,
       geometry: {

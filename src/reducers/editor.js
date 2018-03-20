@@ -43,7 +43,7 @@ var entityModel = [
 ]
 
 const initial_state = {
-  text: "// Input your code here\nanimate(box());",
+  text: "// Input your code here\nanimate(box({material: {color: 'red'}}));",
   objects: entityModel
 }
 
