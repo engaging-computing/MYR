@@ -62,6 +62,7 @@ class Myr {
     return color;
   }
 
+  // Render an Aframe Box Primitive with current Myr settings    
   box = (obj) => {
     var el = {
       position: this.position,
@@ -80,7 +81,7 @@ class Myr {
   }
 
   // Render an Aframe Sphere Primitive with current Myr settings  
-  sphere = () => {
+  sphere = (obj) => {
     var el = {
       color: this.getRandomColor(),
       position: this.position,
@@ -91,8 +92,9 @@ class Myr {
       rotation: this.rotation,
       radius: this.radius
     }
-    this.els.push(el);
-    return el;
+    let merged = {...el, ...obj}
+    this.els.push(merged);
+    return merged;
   }
 
   // Render an Aframe circle Primitive with current Myr settings  
