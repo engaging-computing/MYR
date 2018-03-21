@@ -119,7 +119,7 @@ export default class Reference extends React.Component {
     return (
       <span style={styles.buttonSpan}>
         <RaisedButton
-          label="Myr.js Reference"
+          label="Reference"
           onClick={this.handleToggle}
         />
         <Drawer open={this.state.open} width={'85%'} 
