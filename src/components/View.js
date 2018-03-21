@@ -7,15 +7,21 @@ class View extends Component {
   // This renders json to aframe entities
   helper = (ent, id) => {
     // for now only look one level deep for animations
-    var anim;
+    var anim, cam;
     if (ent && ent.animation)
-      anim = <a-animation key={id} {...ent.animation}/>;
+      anim = <a-animation {...ent.animation}/>;
     else
       anim = null;
+
+    if (ent && ent.camera)
+      cam = <a-camera />;
+    else
+      cam = null;
 
     return (
       <Entity key={id} {...ent}>
         {anim}
+        {cam}
       </Entity>
     );
   }

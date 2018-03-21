@@ -50,6 +50,18 @@ class Myr {
     return this.radius = i;
   };
 
+  setCamera = (x, y, z) => {
+    var el = {
+      position: {
+        x: x,
+        y: y,
+        z: z
+      },
+      camera: true
+    }
+    this.els.push(el);
+  };
+
   getRandomColor = () => {
     var color, i, letters;
     letters = '0123456789ABCDEF';
