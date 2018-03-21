@@ -1,6 +1,8 @@
 class Myr {
   constructor(height, width) {
     this.els = [];
+    this.assets = [];
+    this.res = {els: this.els, assets: this.assets};
     this.height = height;
     this.width = width;
     this.sceneEl = document.querySelector('a-scene')
@@ -287,6 +289,25 @@ class Myr {
     outerEl.animation = el;
     return el;
   };
+
+  // MODELS
+  addCModel = () => {
+    var asset = {
+      id: "c-obj",
+      src: "/img/c.obj"
+    }
+    var el = {
+      "obj-model": "obj: #c-obj",
+      mtl: "c-mtl",
+      position: this.position,
+      scale: this.scale,
+      rotation: this.rotation
+    }
+    this.els.push(el);
+    this.assets.push(asset);
+    return el;
+  }
+
 }
 
 export default Myr

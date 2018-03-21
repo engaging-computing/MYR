@@ -9,7 +9,7 @@ import PropTypes from 'prop-types'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 
-const App = ({ text, objects, actions }) => (
+const App = ({ text, objects, actions, assets }) => (
   <MuiThemeProvider>
     <div className="App">
       <Header />
@@ -17,7 +17,7 @@ const App = ({ text, objects, actions }) => (
         <Editor text={text} actions={actions} >
           <Reference />
         </Editor>
-        <View text={text} objects={objects} />
+        <View text={text} objects={objects} assets={assets} />
       </div>
     </div>
   </MuiThemeProvider>
@@ -27,16 +27,18 @@ const App = ({ text, objects, actions }) => (
 App.propTypes = {
   text: PropTypes.string.isRequired,
   objects: PropTypes.array.isRequired,
-  actions: PropTypes.object.isRequired
+  actions: PropTypes.object.isRequired,
+  assets: PropTypes.array.isRequired,
 }
 
 // This makes the values accessible as props
 const mapStateToProps = state => ({
   text: state.editor.text,
   objects: state.editor.objects,
+  assets: state.editor.assets,  
 })
 
-// This maps dispatch actios to props
+// This maps dispatch actions to props
 const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators(EditorActions, dispatch)
 })

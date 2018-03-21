@@ -32,12 +32,21 @@ class View extends Component {
     );
   }
 
+  assetsHelper = (asset, i) => {
+    return (
+      <a-asset-item key={asset.id} id={asset.id} src={asset.src}></a-asset-item>
+    );
+  }
+
   render = () => {
     return (
       <div id="scene" className="col-lg-8">
-        <Scene embedded >
+        <a-scene>
+          <a-assets>
+            {this.props.assets.map((x, index) => this.assetsHelper(x, index))}          
+          </a-assets>
           {this.props.objects.map((x, index) => this.helper(x, index))}
-        </Scene>
+        </a-scene>
       </div>
     );
   }
