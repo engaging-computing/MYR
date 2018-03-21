@@ -72,7 +72,7 @@ export default function scene(state = initial_state, action) {
           objects: entityModel.concat(x)
       }
     case 'EDITOR_REFRESH':
-      window.myr.els = []
+      window.myr = new Myr()
       return initial_state
     default:
       return state

@@ -13,8 +13,8 @@ class Header extends Component {
       account: null,
       open: false
     }
-    this.login = this.login.bind(this);
-    this.logout = this.logout.bind(this);
+    // this.login = this.login.bind(this);
+    // this.logout = this.logout.bind(this);
   }
 
   componentDidMount() {
@@ -26,13 +26,13 @@ class Header extends Component {
     this.setState({ anchorEl: document.getElementById("user") });
   }
 
-  logout() {
+  logout = () => {
     auth.signOut().then(() => {
       this.setState({ account: null });
     });
   }
 
-  login() {
+  login = () => {
     auth.signInWithPopup(provider).then((result) => {
       const account = result.account;
       this.setState({ account });
