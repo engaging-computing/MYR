@@ -13,7 +13,7 @@ class View extends Component {
     else
       anim = null;
 
-    if (ent && ent.camera)
+    if (ent && ent.camera){
       if (ent.cursor) {
         cam = <a-camera>
                 <a-cursor></a-cursor>
@@ -21,13 +21,13 @@ class View extends Component {
       } else {
         cam = <a-camera />;
       }
-    else
-      cam = null;
+      delete ent.camera;
+      return <Entity id="cam" key={id} {...ent}>{cam}</Entity>
+    }
 
     return (
       <Entity key={id} {...ent}>
         {anim}
-        {cam}
       </Entity>
     );
   }

@@ -1,7 +1,6 @@
 class Myr {
   constructor(height, width) {
     this.els = [];
-    this.camera = null;
     this.height = height;
     this.width = width;
     this.sceneEl = document.querySelector('a-scene')
@@ -60,7 +59,9 @@ class Myr {
       },
       camera: true
     }
-    this.els.push(el);
+    if (!this.camera) {
+      this.els.push(el);
+    }
     this.camera = el;
   };
 
@@ -69,6 +70,7 @@ class Myr {
       this.setCamera(x,y,z);
     } 
     this.camera.cursor = true;
+    // eslint-disable-next-line     
     this.camera;
   };
 

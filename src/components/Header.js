@@ -13,8 +13,6 @@ class Header extends Component {
       account: null,
       open: false
     }
-    // this.login = this.login.bind(this);
-    // this.logout = this.logout.bind(this);
   }
 
   componentDidMount() {
@@ -66,7 +64,7 @@ class Header extends Component {
             targetOrigin={{ horizontal: 'right', vertical: 'top' }}
             onRequestClose={this.handleRequestClose}>
             <Menu>
-              <MenuItem primaryText="Log In" onClick={this.login} />
+              <MenuItem primaryText="Log In" onClick={this.login}/>
             </Menu>
           </Popover>
           <p id='welcome-name' >Login to Save Your Progress</p>
