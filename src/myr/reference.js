@@ -1,4 +1,4 @@
-var primitives = [
+var geometry = [
   {
     name: 'box()',
     parameters: ["(Object) attributes =  { material: {color: 'red'}, position: '0 0 -2', scale: '1 2 3', rotation: '0 45 90' };"],
@@ -16,6 +16,24 @@ var primitives = [
     parameters: ["(Object) attributes =  { bottomRadius: 4, topRadius: 1, material: {color: 'red'}, position: '0 0 -2', scale: '1 2 3', rotation: '0 45 90' };"],
     returnValue: 'js object representation of the Cone primitive',
     description: "Renders a box using current internal Myr properties"
+  },
+  {
+    name: 'dodecahedron()',
+    parameters: ["(Object) attributes =  { radius: 1, material: {color: 'red'}, position: '0 0 -2', scale: '1 2 3', rotation: '0 45 90' };"],
+    returnValue: 'js object representation of the Dodecahedron primitive',
+    description: "Renders a dodecahedron using current internal Myr properties"
+  },
+  {
+    name: 'icosahedron()',
+    parameters: ["(Object) attributes =  { radius: 1, material: {color: 'red'}, position: '0 0 -2', scale: '1 2 3', rotation: '0 45 90' };"],
+    returnValue: 'js object representation of the Icosahedron primitive',
+    description: "Renders a icosahedron using current internal Myr properties"
+  },
+  {
+    name: 'octahedron()',
+    parameters: ["(Object) attributes =  { radius: 1, material: {color: 'red'}, position: '0 0 -2', scale: '1 2 3', rotation: '0 45 90' };"],
+    returnValue: 'js object representation of the Octahedron primitive',
+    description: "Renders a octahedron using current internal Myr properties"
   },
   {
     name: 'prism()',
@@ -86,19 +104,35 @@ var transformations = [
 
 var webvr_components = [
   {
+    name: 'setCursor(x,y,z)',
+    parameters: [
+      "(Number) x =  0;",
+      "(Number) y =  1;",
+      "(Number) z =  -2;",
+    ],
+    returnValue: 'js object representation of the new cursor',
+    description: `Sets a cursor at the specified 3D position.`
+  },
+  {
     name: 'setCamera(x,y,z)',
     parameters: [
       "(Number) x =  0;",
       "(Number) y =  1;",
       "(Number) z =  -2;",
     ],
-    returnValue: 'js object representation of the new camera position',
+    returnValue: 'js object representation of the new camera',
     description: "Sets the camera to a new 3D position"
+  },
+  {
+    name: 'setLight()',
+    parameters: ["(Object) attributes =  { type: 'directional' || 'point' || 'ambient', color: 'red', position: '0 0 -2'};"],
+    returnValue: 'js object representation of the Light primitive',
+    description: "Renders a light using current internal Myr properties"
   },
 ]
 
 const reference = {
-  primitives: primitives,
+  geometry: geometry,
   transformations: transformations,
   webvr_components: webvr_components,
 }

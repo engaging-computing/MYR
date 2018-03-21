@@ -129,12 +129,12 @@ export default class Reference extends React.Component {
             onChange={this.handleChange}>
             <Tab
               icon={<FontIcon className="material-icons">change_history</FontIcon>}
-              label="PRIMITIVES"
+              label="Geometry"
               value='a'
             >
               <div style={styles.tabStyle}>
-                <h5 style={styles.headline}>Primitives</h5>
-                {this.TableEx("primitives")}
+                <h5 style={styles.headline}>Geometry</h5>
+                {this.TableEx("geometry")}
               </div>
             </Tab>
             <Tab

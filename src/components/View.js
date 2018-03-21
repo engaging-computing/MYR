@@ -14,7 +14,13 @@ class View extends Component {
       anim = null;
 
     if (ent && ent.camera)
-      cam = <a-camera />;
+      if (ent.cursor) {
+        cam = <a-camera>
+                <a-cursor></a-cursor>
+              </a-camera>;
+      } else {
+        cam = <a-camera />;
+      }
     else
       cam = null;
 
