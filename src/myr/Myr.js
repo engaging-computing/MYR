@@ -1,6 +1,7 @@
 class Myr {
   constructor(height, width) {
     this.els = [];
+    this.camera = null;
     this.height = height;
     this.width = width;
     this.sceneEl = document.querySelector('a-scene')
@@ -48,6 +49,27 @@ class Myr {
 
   setRadius = (i) => {
     return this.radius = i;
+  };
+
+  setCamera = (x, y, z) => {
+    var el = {
+      position: {
+        x: x,
+        y: y,
+        z: z
+      },
+      camera: true
+    }
+    this.els.push(el);
+    this.camera = el;
+  };
+
+  setCursor = (x, y, z) => {
+    if (!this.camera) {
+      this.setCamera(x,y,z);
+    } 
+    this.camera.cursor = true;
+    this.camera;
   };
 
   getRandomColor = () => {
@@ -177,6 +199,68 @@ class Myr {
     return el;
   }
 
+  // Render an Aframe dodecahedron with current Myr settings  
+  dodecahedron = () => {
+    var el = {
+      radius: this.radius,
+      color: this.getRandomColor(),
+      position: this.position,
+      scale: this.scale,
+      geometry: {
+        primitive: "dodecahedron"
+      },
+      rotation: this.rotation,
+    }
+    this.els.push(el);
+    return el;
+  }
+
+  // Render an Aframe icosahedron with current Myr settings  
+  icosahedron = () => {
+    var el = {
+      radius: this.radius,
+      color: this.getRandomColor(),
+      position: this.position,
+      scale: this.scale,
+      geometry: {
+        primitive: "icosahedron"
+      },
+      rotation: this.rotation,
+    }
+    this.els.push(el);
+    return el;
+  }
+
+  // Render an Aframe octahedron with current Myr settings  
+  octahedron = () => {
+    var el = {
+      radius: this.radius,
+      color: this.getRandomColor(),
+      position: this.position,
+      scale: this.scale,
+      geometry: {
+        primitive: "octahedron"
+      },
+      rotation: this.rotation,
+    }
+    this.els.push(el);
+    return el;
+  }
+
+  // Render a new Aframe light with current Myr settings  
+  light = (i) => {
+    var el = {
+      color: this.getRandomColor(),
+      position: this.position,
+      geometry: {
+        primitive: "light"
+      },
+    }
+    this.els.push(el);
+    return el;
+  }
+
+  
   // Prism is an alias for Polyhedron
   prism = this.polyhedron
 

@@ -46,13 +46,13 @@ class Editor extends Component {
     return (
       <div className="btn-group pull-left" role="group" aria-label="...">
         <RaisedButton
-          label="Render Scene"
+          label="Render"
           primary={true}
           onClick={this.handleRender}
           style={style}
         />
         <RaisedButton
-          label="Clear Scene"
+          label="Clear"
           secondary={true}
           onClick={this.remove}
           style={style}
