@@ -44,7 +44,8 @@ var entityModel = [
 
 const initial_state = {
   text: "// Input your code here\nanimate(box({material: {color: 'red'}}));",
-  objects: entityModel
+  objects: entityModel,
+  assets: []
 }
 
 export default function scene(state = initial_state, action) {
@@ -62,14 +63,17 @@ export default function scene(state = initial_state, action) {
         }
         str = "window.myr = m;\n";
         // eslint-disable-next-line        
-        res = eval(str + snapshot + "\nmyr.els;");
+        res = eval(str + snapshot + "\nmyr.res;");
+        var els = res.els;
+        var assets = res.assets;
       }
       catch(err){
         console.error("Eval failed: " + err)
       }
       return {
           text: action.text,
-          objects: initial_state.objects.concat(res)
+          objects: initial_state.objects.concat(els),
+          assets: assets,
       }
     case 'EDITOR_REFRESH':
       window.myr = new Myr()
