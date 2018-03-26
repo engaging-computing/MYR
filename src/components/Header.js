@@ -1,10 +1,7 @@
 import React, { Component } from 'react';
-import firebase from '../firebase.js'
+import { auth, provider } from '../firebase.js'
 import { Popover, Menu, MenuItem } from 'material-ui';
 import Avatar from 'material-ui/Avatar';
-
-const provider = new firebase.auth.GoogleAuthProvider();
-const auth = firebase.auth();
 
 class Header extends Component {
   constructor() {
@@ -19,6 +16,7 @@ class Header extends Component {
     auth.onAuthStateChanged((account) => {
       if (account) {
         this.setState({ account });
+        this.props.actions.login(account)
       }
     });
     this.setState({ anchorEl: document.getElementById("user") });
@@ -45,9 +43,23 @@ class Header extends Component {
     });
   };
 
+  // Close the popover dialog for account management 
   handleRequestClose = (event) => {
     this.setState({ open: false });
   };
+
+  // Handles the change of the scene name input
+  handleChange = (event) => {
+    this.props.actions.nameScene(event.target.value)
+  }
+
+  sceneName = () => {
+    return (
+      <form id="scene-name" onSubmit={this.handleChange}>
+        <input name="name" placeholder="Name your scene" value={this.state.sceneName} onChange={this.handleChange} type="text" />
+      </form>
+    )
+  }
 
   render() {
     let loginBtn = null
@@ -93,6 +105,7 @@ class Header extends Component {
     return (
       <header className="App-header">
         <h1>MYR</h1>
+        <this.sceneName />
         {loginBtn}
       </header>
     );

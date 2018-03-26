@@ -45,13 +45,15 @@ var entityModel = [
 const initial_state = {
   text: "// Input your code here\nanimate(box({material: {color: 'red'}}));",
   objects: entityModel,
-  assets: []
+  assets: [],
+  user: null,
+  sceneName: "untitled"
 }
 
 export default function scene(state = initial_state, action) {
   switch (action.type) {
     case 'EDITOR_RENDER':
-      try{
+      try {
         var res, str;
         let m = new Myr();
         let funs = Object.getOwnPropertyNames(m).filter((p) => {
@@ -59,7 +61,7 @@ export default function scene(state = initial_state, action) {
         })
         let snapshot = action.text;
         for (var fun of funs) {
-          snapshot = snapshot.replace(new RegExp(fun+"\\(", 'g'), "myr."+fun+"(");
+          snapshot = snapshot.replace(new RegExp(fun + "\\(", 'g'), "myr." + fun + "(");
         }
         str = "window.myr = m;\n";
         // eslint-disable-next-line        
@@ -67,17 +69,36 @@ export default function scene(state = initial_state, action) {
         var els = res.els;
         var assets = res.assets;
       }
-      catch(err){
+      catch (err) {
         console.error("Eval failed: " + err)
       }
       return {
-          text: action.text,
-          objects: initial_state.objects.concat(els),
-          assets: assets,
+        ...state,
+        text: action.text,
+        objects: initial_state.objects.concat(els),
+        assets: assets,
       }
     case 'EDITOR_REFRESH':
       window.myr = new Myr()
-      return initial_state
+      return {
+        ...state,
+        initial_state
+      }
+    case 'LOGIN':
+      return {
+        ...state,
+        user: action.user
+      }
+    case 'LOGOUT':
+      return {
+        ...state,
+        user: null
+      }
+    case 'NAME_SCENE':
+      return {
+        ...state,
+        sceneName: action.name
+      }
     default:
       return state
   }

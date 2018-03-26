@@ -1,3 +1,9 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Roboto', sans-serif;
+}
+
 .App {
   padding: 0 2em;
 }
@@ -9,7 +15,6 @@
 
 .App-header {
   background-color: #222;
-  height: 10vh;
   padding: 8px;
   display: flex;
   align-items: center;
@@ -41,6 +46,18 @@ div#user {
 
 #user img {
   float: right;
+}
+
+#scene-name input {
+  font-size: large;
+  color: #fff;
+  background-color: #222;
+  border: none;
+}
+
+#scene-name input:focus {
+  color: #222;
+  background-color: #fff;
 }
 
 #editor {
@@ -104,3 +121,5 @@ body.aframe-inspector-opened .toggle-edit {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
 }
+
+
