@@ -8,7 +8,7 @@ class Header extends Component {
     super();
     this.state = {
       account: null,
-      open: false
+      open: false,
     }
   }
 
@@ -20,6 +20,10 @@ class Header extends Component {
       }
     });
     this.setState({ anchorEl: document.getElementById("user") });
+  }
+
+  componentDidUpdate() {
+
   }
 
   logout = () => {
@@ -36,7 +40,6 @@ class Header extends Component {
   }
 
   handleClick = (event) => {
-    // This prevents ghost click.
     event.preventDefault();
     this.setState({
       open: true,
@@ -53,10 +56,15 @@ class Header extends Component {
     this.props.actions.nameScene(event.target.value)
   }
 
+  // Input for adding the scene name
   sceneName = () => {
+    let name = this.props.scene.name
     return (
       <form id="scene-name" onSubmit={this.handleChange}>
-        <input name="name" placeholder="Name your scene" value={this.state.sceneName} onChange={this.handleChange} type="text" />
+        <input name="name" type="text" 
+          placeholder="Name your scene"
+          value={name !== "untitled" ? name : ""}
+          onChange={this.handleChange} />
       </form>
     )
   }
@@ -76,7 +84,7 @@ class Header extends Component {
             targetOrigin={{ horizontal: 'right', vertical: 'top' }}
             onRequestClose={this.handleRequestClose}>
             <Menu>
-              <MenuItem primaryText="Log In" onClick={this.login}/>
+              <MenuItem primaryText="Log In" onClick={this.login} />
             </Menu>
           </Popover>
           <p id='welcome-name' >Login to Save Your Progress</p>

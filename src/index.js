@@ -10,8 +10,8 @@ import 'bootstrap/dist/css/bootstrap.css';
 import Myr from './myr/Myr'
 
 window.Myr = Myr
-const store = createStore(reducer)
 
+const store = createStore(reducer)
 
 ReactDOM.render(
   <Provider store={store}>

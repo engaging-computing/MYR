@@ -9,15 +9,15 @@ import PropTypes from 'prop-types'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 
-const App = ({ text, objects, actions, assets, user, sceneName }) => (
+const App = ({ text, objects, actions, assets, user, scene }) => (
   <MuiThemeProvider>
     <div className="App">
-      <Header actions={actions} user={user} sceneName={sceneName}/>
+      <Header actions={actions} user={user} scene={scene}/>
       <div>
-        <Editor actions={actions} objects={objects} text={text} user={user} sceneName={sceneName}>
+        <Editor actions={actions} objects={objects} text={text} user={user} scene={scene}>
           <Reference />
         </Editor>
-        <View text={text} objects={objects} assets={assets} />
+        <View objects={objects} assets={assets} />
       </div>
     </div>
   </MuiThemeProvider>
@@ -29,6 +29,7 @@ App.propTypes = {
   objects: PropTypes.array.isRequired,
   actions: PropTypes.object.isRequired,
   assets: PropTypes.array.isRequired,
+  scene: PropTypes.object.isRequired,
 }
 
 // This makes the values accessible as props
@@ -37,7 +38,7 @@ const mapStateToProps = state => ({
   objects: state.editor.objects,
   assets: state.editor.assets, 
   user: state.editor.user,
-  sceneName: state.editor.sceneName,
+  scene: state.editor.scene,
 })
 
 // This maps dispatch actions to props

@@ -1,4 +1,11 @@
 import Myr from '../myr/Myr'
+import firebase, { auth } from '../firebase.js'
+import 'firebase/firestore'
+
+var db = firebase.firestore();
+var scenes = db.collection('scenes');
+const storage = firebase.storage()
+var storageRef = storage.ref();
 
 var entityModel = [
   {
@@ -47,7 +54,10 @@ const initial_state = {
   objects: entityModel,
   assets: [],
   user: null,
-  sceneName: "untitled"
+  scene: {
+    name: "untitled",
+    id: "-1"
+  }
 }
 
 export default function scene(state = initial_state, action) {
@@ -97,8 +107,34 @@ export default function scene(state = initial_state, action) {
     case 'NAME_SCENE':
       return {
         ...state,
-        sceneName: action.name
+        scene: {
+          id: state.scene.id,
+          name: action.name
+        }
       }
+    case 'NEW_SCENE':
+      let projectID = ""
+      if (state.user.uid) {
+        let ts = Date.now()
+        projectID = state.user.uid + '_' + ts;
+      }
+      return {
+        ...state,
+        scene: {
+          id: projectID,
+          name: state.scene.name
+        }
+      }
+    case 'LOAD_SCENE':
+      let newScene = {
+      ...state.scene,
+        id: action.id
+      }
+      return {
+        ...state,
+        scene: newScene
+      }
+
     default:
       return state
   }

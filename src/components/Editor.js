@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import AceEditor from 'react-ace';
 import { RaisedButton, Popover, Menu, MenuItem, Drawer, GridList, GridTile, Subheader } from 'material-ui';
+import AddCircle from 'material-ui/svg-icons/content/add-circle-outline';
+import FontIcon from 'material-ui/FontIcon';
 import 'brace/mode/javascript';
 import 'brace/theme/github';
 import firebase, { auth } from '../firebase.js'
@@ -11,8 +13,6 @@ var scenes = db.collection('scenes');
 const storage = firebase.storage()
 var storageRef = storage.ref();
 
-window.scenes = scenes
-
 class Editor extends Component {
   constructor(props) {
     super(props);
@@ -21,9 +21,10 @@ class Editor extends Component {
       availProj: [],
       autoReload: false,
       user: props.user,
-      drawOpen: false
+      projOpen: false
     };
   }
+
   componentDidMount() {
     if (auth.currentUser) {
       let uid = auth.currentUser.uid
@@ -33,15 +34,10 @@ class Editor extends Component {
     }
   }
 
-  handleToggle = () => {
-    this.setState({ drawOpen: !this.state.drawOpen });
-  }
-
   componentWillUpdate() {
-    if (auth.currentUser && this.state.availProj.length === 0) {
+    if (auth.currentUser) {
       let vals = []
       scenes.where('uid', '==', auth.currentUser.uid).get().then(snap => {
-        window.snap = snap
         snap.forEach(doc => {
           vals.push({
             id: doc.id,
@@ -55,8 +51,13 @@ class Editor extends Component {
       })
     }
   }
+
   remove = () => {
     this.props.actions.refresh("");
+  }
+
+  projToggle = () => {
+    this.setState({ projOpen: !this.state.projOpen });
   }
 
   handleClick = (event) => {
@@ -72,6 +73,80 @@ class Editor extends Component {
     this.setState({ open: false });
   };
 
+  handleLoad = (event) => {
+    event.preventDefault();
+    if (event.target.id) {
+      this.props.actions.loadScene(event.target.id)
+      scenes.doc(event.target.id).get().then(doc => {
+        let scene = doc.data()
+        if (scene.code) {
+          this.props.actions.render(scene.code)
+          this.props.actions.nameScene(scene.name)
+          this.props.actions.loadScene(doc.id)
+        } else {
+          this.props.actions.render("// The code was corrupted")
+        }
+        console.log(scene)
+      })
+    }
+  }
+
+  handleSave = () => {
+    this.handleRender()
+    let projectID = this.props.scene.id
+    let ts = Date.now()
+    if (this.props.user) {
+      if (projectID) {
+        projectID = this.props.user.uid + '_' + ts
+        this.props.actions.loadScene(projectID)
+      }
+      let code = this.props.text
+      let els = this.props.objects
+      let uid = this.props.user.uid
+      // use uid_epoch as identifier for now
+      let modes = [
+        'equirectangular',
+        // 'perspective'
+      ];
+      // upload images
+      for (var mode of modes) {
+        let img = document.querySelector('a-scene').components.screenshot.getCanvas(mode).toDataURL('image/png');
+        let path = "images/" + mode + "/" + projectID;
+        let imgRef = storageRef.child(path)
+        let name = this.props.scene.name
+        imgRef.putString(img, 'data_url').then(function (snapshot) {
+          console.log('Uploaded a data_url string!');
+          db.collection("scenes").doc(projectID).set({
+            name: name,
+            code: code,
+            uid: uid,
+            ts: ts,
+          }).then(function () {
+            console.log("Document successfully written!")
+          }).catch(function (error) {
+            console.error("Error writing document: ", error)
+          });
+        }).catch(function (error) {
+          console.error("Error uploading a data_url string ", error)
+        });
+      }
+    }
+  }
+
+  handleNewProj = () => {
+    if (this.props.user) {
+      let uid = this.props.user.uid
+      // use uid_epoch as identifier for now
+      let ts = Date.now()
+      let projectID = uid + '_' + ts;
+      this.props.actions.newScene(projectID)
+    }
+  }
+
+  handleRender = () => {
+    const content = this.refs.aceEditor.editor.session.getValue()
+    this.props.actions.render(content)
+  }
   buttons = () => {
     const style = {
       margin: 2,
@@ -96,8 +171,8 @@ class Editor extends Component {
           label="Options"
         />
         <RaisedButton
-          label="Toggle Drawer"
-          onClick={this.handleToggle}
+          label="Load Project"
+          onClick={this.projToggle}
         />
         <Popover
           open={this.state.open}
@@ -108,8 +183,8 @@ class Editor extends Component {
         >
           <Menu>
             <MenuItem primaryText="Save Scene" onClick={this.handleSave} />
-            <MenuItem primaryText="Generate Random" />
-            <MenuItem primaryText="Sign out" />
+            {/* <MenuItem primaryText="Generate Random" /> */}
+            {/* <MenuItem primaryText="Sign out" /> */}
           </Menu>
         </Popover>
         {this.props.children}
@@ -117,70 +192,37 @@ class Editor extends Component {
     )
   }
 
-  handleSave = () => {
-    this.handleRender()
-    if (this.props.user) {
-      let code = this.props.text
-      let els = this.props.objects
-      let uid = this.props.user.uid
-      // use uid_epoch as identifier for now
-      let ts = Date.now()
-      let projectID = uid + '_' + ts;
-      let modes = [
-        'equirectangular',
-        // 'perspective'
-      ];
-      // upload images
-      for (var mode of modes) {
-        let img = document.querySelector('a-scene').components.screenshot.getCanvas(mode).toDataURL('image/png');
-        let path = "images/" + mode + "/" + projectID;
-        let imgRef = storageRef.child(path);
-        imgRef.putString(img, 'data_url').then(function (snapshot) {
-          console.log('Uploaded a data_url string!');
-        }).catch(function (error) {
-          console.error("Error uploading a data_url string ", error);
-        });
-      }
-      // save code and myr scene els
-      db.collection("scenes").doc(projectID).set({
-        name: this.props.sceneName,
-        code: code,
-        els: els,
-        uid: uid,
-        ts: ts,
-      }).then(function () {
-        console.log("Document successfully written!");
-      }).catch(function (error) {
-        console.error("Error writing document: ", error);
-      });
-    }
-  }
-
-  handleRender = () => {
-    const content = this.refs.aceEditor.editor.session.getValue()
-    this.props.actions.render(content)
-  }
 
   renderProjs = () => {
-    if (this.state.availProj === 0) {
+    if (this.state.availProj.length === 0) {
       return null
     }
     return (
-      <GridList cellHeight={180} >
-        <Subheader>Projects</Subheader>
-        {this.state.availProj.map((proj) => {
-          let httpsReference = storageRef.child(`/images/equirectangular/${proj.id}`).getDownloadURL()
-          console.log(httpsReference.i)
+      <div id="project-list" >
+        <h3>Projects</h3>
+        <div className="row" style={{ width: "100%" }}>
+          <RaisedButton
+            label="Start a New Project"
+            secondary={true}
+            onClick={this.handleNewProj}
+            fullWidth={true}
+            icon={<AddCircle />}
+          />
+          {this.state.availProj.map((proj) => {
             return (
-              <GridTile
+              <div
+                key={proj.id}
                 id={proj.id}
+                className="grid-project col-sm-6"
+                onClick={this.handleLoad}
                 title={proj.data.name}>
-                <img src={proj.url.i} />
-              </GridTile>
+                <img id={proj.id} className="img-thumbnail" src={proj.url.i} />
+                <p>{proj.data.name}</p>
+              </div>
             )
-          })
-        }
-      </GridList>
+          })}
+        </div>
+      </div>
     )
   }
 
@@ -190,9 +232,9 @@ class Editor extends Component {
       <div id="editor" className="col-lg-4">
         <Drawer
           docked={false}
-          width={200}
-          open={this.state.drawOpen}
-          onRequestChange={(drawOpen) => this.setState({ drawOpen })}>
+          width={500}
+          open={this.state.projOpen}
+          onRequestChange={(projOpen) => this.setState({ projOpen })}>
           {this.renderProjs()}
         </Drawer>
         <AceEditor

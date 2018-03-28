@@ -41,7 +41,7 @@ class View extends Component {
   render = () => {
     return (
       <div id="scene" className="col-lg-8">
-        <a-scene>
+        <a-scene embedded>
           <a-assets>
             {this.props.assets ? this.props.assets.map((x, index) => this.assetsHelper(x, index)): null}          
           </a-assets>

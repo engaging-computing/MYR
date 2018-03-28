@@ -19,6 +19,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  height: 10vh;
 }
 
 .App-header h1 {
@@ -122,4 +123,9 @@ body.aframe-inspector-opened .toggle-edit {
   to { transform: rotate(360deg); }
 }
 
-
+#project-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  width: 500px;
+}
