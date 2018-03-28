@@ -56,7 +56,7 @@ const initial_state = {
   user: null,
   scene: {
     name: "untitled",
-    id: "-1"
+    id: "0"
   }
 }
 
@@ -90,10 +90,7 @@ export default function scene(state = initial_state, action) {
       }
     case 'EDITOR_REFRESH':
       window.myr = new Myr()
-      return {
-        ...state,
-        initial_state
-      }
+      return initial_state
     case 'LOGIN':
       return {
         ...state,

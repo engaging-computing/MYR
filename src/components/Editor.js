@@ -134,12 +134,9 @@ class Editor extends Component {
   }
 
   handleNewProj = () => {
+    this.props.actions.render("// Input your code here\nanimate(box({material: {color: 'red'}}));")
     if (this.props.user) {
-      let uid = this.props.user.uid
-      // use uid_epoch as identifier for now
-      let ts = Date.now()
-      let projectID = uid + '_' + ts;
-      this.props.actions.newScene(projectID)
+      this.props.actions.nameScene("untitled")
     }
   }
 
