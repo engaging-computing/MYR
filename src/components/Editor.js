@@ -244,7 +244,7 @@ class Editor extends Component {
   render() {
     const text = this.props.text
     return (
-      <div id="editor" className="col-lg-4">
+      <div id="editor">
         <Drawer
           docked={false}
           width={500}

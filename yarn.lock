@@ -1200,9 +1200,9 @@ boom@5.x.x:
   dependencies:
     hoek "4.x.x"
 
-bootstrap@3:
-  version "3.3.7"
-  resolved "https://registry.yarnpkg.com/bootstrap/-/bootstrap-3.3.7.tgz#5a389394549f23330875a3b150656574f8a9eb71"
+bootstrap@^4.0.0:
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/bootstrap/-/bootstrap-4.0.0.tgz#ceb03842c145fcc1b9b4e15da2a05656ba68469a"
 
 bowser@^1.7.3:
   version "1.9.2"
@@ -6034,6 +6034,10 @@ react-bootstrap@^0.32.1:
     react-transition-group "^2.0.0"
     uncontrollable "^4.1.0"
     warning "^3.0.0"
+
+react-console-component@^0.6.1:
+  version "0.6.1"
+  resolved "https://registry.yarnpkg.com/react-console-component/-/react-console-component-0.6.1.tgz#241be9fcee815e58cd6de89c89ea72b6ae12b626"
 
 react-dev-utils@^5.0.0:
   version "5.0.0"
