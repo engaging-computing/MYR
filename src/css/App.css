@@ -129,3 +129,7 @@ body.aframe-inspector-opened .toggle-edit {
   justify-content: space-around;
   width: 500px;
 }
+
+.delete-btn {
+  float: right;
+}

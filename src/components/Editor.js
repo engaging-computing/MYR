@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import AceEditor from 'react-ace';
-import { RaisedButton, Popover, Menu, MenuItem, Drawer, GridList, GridTile, Subheader } from 'material-ui';
+import { RaisedButton, Popover, Menu, MenuItem, Drawer } from 'material-ui';
 import AddCircle from 'material-ui/svg-icons/content/add-circle-outline';
-import FontIcon from 'material-ui/FontIcon';
+import Delete from 'material-ui/svg-icons/action/delete-forever';
 import 'brace/mode/javascript';
 import 'brace/theme/github';
 import firebase, { auth } from '../firebase.js'
@@ -21,7 +21,8 @@ class Editor extends Component {
       availProj: [],
       autoReload: false,
       user: props.user,
-      projOpen: false
+      projOpen: false,
+      projectsToDelete: []
     };
   }
 
@@ -58,6 +59,14 @@ class Editor extends Component {
 
   projToggle = () => {
     this.setState({ projOpen: !this.state.projOpen });
+    this.state.projectsToDelete.forEach((proj) => {
+      scenes.doc(proj).delete().then(function () {
+        console.log("Document successfully deleted!");
+      }).catch(function (error) {
+        console.error("Error removing document: ", error);
+      });
+    })
+    this.setState({ projectsToDelete: [] })
   }
 
   handleClick = (event) => {
@@ -86,7 +95,6 @@ class Editor extends Component {
         } else {
           this.props.actions.render("// The code was corrupted")
         }
-        console.log(scene)
       })
     }
   }
@@ -144,6 +152,13 @@ class Editor extends Component {
     const content = this.refs.aceEditor.editor.session.getValue()
     this.props.actions.render(content)
   }
+
+  addToDeleteList = (id) => {
+    let deleteThese = this.state.projectsToDelete
+    deleteThese.push(id)
+    this.setState({ projectsToDelete: deleteThese })
+  }
+
   buttons = () => {
     const style = {
       margin: 2,
@@ -214,6 +229,9 @@ class Editor extends Component {
                 onClick={this.handleLoad}
                 title={proj.data.name}>
                 <img id={proj.id} className="img-thumbnail" src={proj.url.i} />
+                <button className="btn btn-sm btn-danger delete-btn" onClick={() => this.addToDeleteList(proj.id)}> 
+                  Delete
+                </button>
                 <p>{proj.data.name}</p>
               </div>
             )
