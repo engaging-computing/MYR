@@ -120,6 +120,7 @@ export default class Reference extends React.Component {
       <span style={styles.buttonSpan}>
         <RaisedButton
           label="Reference"
+          icon={<FontIcon className="material-icons">description</FontIcon>}
           onClick={this.handleToggle}
         />
         <Drawer open={this.state.open} width={'85%'} 

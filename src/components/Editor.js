@@ -179,7 +179,6 @@ class Editor extends Component {
           secondary={true}
           onClick={this.remove}
           style={style}
-          icon={<AddCircle />}
           icon={<FontIcon className="material-icons">delete</FontIcon>}
         />
       </div>
