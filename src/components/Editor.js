@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import AceEditor from 'react-ace';
-import { RaisedButton, Popover, Menu, MenuItem, Drawer } from 'material-ui';
+import { RaisedButton, Popover, Menu, MenuItem, Drawer, DropDownMenu, Toolbar, ToolbarGroup, FontIcon, ToolbarSeparator, ToolbarTitle, IconMenu, IconButton } from 'material-ui';
 import AddCircle from 'material-ui/svg-icons/content/add-circle-outline';
-import Delete from 'material-ui/svg-icons/action/delete-forever';
 import 'brace/mode/javascript';
 import 'brace/theme/github';
 import firebase, { auth } from '../firebase.js'
+import Reference from './Reference'
 import 'firebase/firestore'
 
 var db = firebase.firestore();
@@ -159,51 +159,54 @@ class Editor extends Component {
     this.setState({ projectsToDelete: deleteThese })
   }
 
+  handleChange = (event, index, value) => this.setState({ value });
+
   buttons = () => {
     const style = {
-      margin: 2,
+      marginLeft: 2,
     };
     return (
-      <div className="btn-group pull-left" role="group" aria-label="...">
+      <div className="" role="group" aria-label="...">
         <RaisedButton
           label="Render"
           primary={true}
           onClick={this.handleRender}
           style={style}
+          icon={<FontIcon className="material-icons">autorenew</FontIcon>}
         />
         <RaisedButton
           label="Clear"
           secondary={true}
           onClick={this.remove}
           style={style}
+          icon={<AddCircle />}
+          icon={<FontIcon className="material-icons">delete</FontIcon>}
         />
-        <RaisedButton
-          style={style}
-          onClick={this.handleClick}
-          label="Options"
-        />
-        <RaisedButton
-          label="Load Project"
-          onClick={this.projToggle}
-        />
-        <Popover
-          open={this.state.open}
-          anchorEl={this.state.anchorEl}
-          anchorOrigin={{ horizontal: 'left', vertical: 'bottom' }}
-          targetOrigin={{ horizontal: 'left', vertical: 'top' }}
-          onRequestClose={this.handleRequestClose}
-        >
-          <Menu>
-            <MenuItem primaryText="Save Scene" onClick={this.handleSave} />
-            {/* <MenuItem primaryText="Generate Random" /> */}
-            {/* <MenuItem primaryText="Sign out" /> */}
-          </Menu>
-        </Popover>
-        {this.props.children}
       </div>
     )
   }
 
+  toolbar = () => {
+    return (
+      <Toolbar>
+        <ToolbarGroup>
+          <RaisedButton
+            onClick={this.handleSave}
+            label="Save Project"
+            icon={<FontIcon className="material-icons">save</FontIcon>}
+          />
+          <RaisedButton
+            onClick={this.projToggle}
+            label="Open Project"
+            icon={<FontIcon className="material-icons">file_download</FontIcon>}
+          />
+        </ToolbarGroup>
+        <ToolbarGroup>
+          <Reference />
+        </ToolbarGroup>
+      </Toolbar>
+    )
+  }
 
   renderProjs = () => {
     if (this.state.availProj.length === 0) {
@@ -211,13 +214,14 @@ class Editor extends Component {
     }
     return (
       <div id="project-list" >
-        <h3>Projects</h3>
+        <h3 className="mb-3">Projects</h3>
         <div className="row" style={{ width: "100%" }}>
           <RaisedButton
             label="Start a New Project"
             secondary={true}
             onClick={this.handleNewProj}
             fullWidth={true}
+            className="mb-3"
             icon={<AddCircle />}
           />
           {this.state.availProj.map((proj) => {
@@ -225,14 +229,18 @@ class Editor extends Component {
               <div
                 key={proj.id}
                 id={proj.id}
-                className="grid-project col-sm-6"
+                className="grid-project col-sm-6 mb-5"
                 onClick={this.handleLoad}
                 title={proj.data.name}>
+                <h4>{proj.data.name}</h4>
                 <img id={proj.id} className="img-thumbnail" src={proj.url.i} />
-                <button className="btn btn-sm btn-danger delete-btn" onClick={() => this.addToDeleteList(proj.id)}> 
-                  Delete
-                </button>
-                <p>{proj.data.name}</p>
+                <RaisedButton
+                  onClick={() => this.addToDeleteList(proj.id)}
+                  label="delete Project"
+                  fullWidth={true}
+                  secondary={true}
+                  icon={<FontIcon className="material-icons">delete</FontIcon>}
+                />
               </div>
             )
           })}
@@ -252,6 +260,7 @@ class Editor extends Component {
           onRequestChange={(projOpen) => this.setState({ projOpen })}>
           {this.renderProjs()}
         </Drawer>
+        <this.toolbar />
         <AceEditor
           ref="aceEditor"
           width="100%"

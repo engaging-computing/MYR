@@ -5,7 +5,7 @@ body {
 }
 
 .App {
-  padding: 0 2em;
+  padding: 0 15px;
 }
 
 .App-logo {
@@ -62,7 +62,6 @@ div#user {
 }
 
 #editor {
-  margin-bottom: 4.8vh;
   padding-left: 0;
   height: 55vh;
 }
@@ -73,6 +72,9 @@ div#user {
   }
   .App {
     padding: 0;
+  }
+  #interface {
+    padding-right: 0;
   }
 }
 
@@ -138,12 +140,11 @@ body.aframe-inspector-opened .toggle-edit {
 }
 
 #interface {
-  padding-right:  0;
-  border: #222 1px solid;
   border-right: 0;
 }
 
 #terminal {
+  padding-top: 4.8vh;
   height: 30vh;
   border-top: 1px solid;
 }
