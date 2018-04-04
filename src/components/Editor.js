@@ -7,6 +7,7 @@ import 'brace/theme/github';
 import firebase, { auth } from '../firebase.js'
 import Reference from './Reference'
 import 'firebase/firestore'
+import $ from "jquery"
 
 var db = firebase.firestore();
 var scenes = db.collection('scenes');
@@ -100,6 +101,7 @@ class Editor extends Component {
   }
 
   handleSave = () => {
+    $( "body" ).prepend( "<span class='spinner'><div class='cube1'></div><div class='cube2'></div></span>" )
     this.handleRender()
     let projectID = this.props.scene.id
     let ts = Date.now()
@@ -122,20 +124,23 @@ class Editor extends Component {
         let path = "images/" + mode + "/" + projectID;
         let imgRef = storageRef.child(path)
         let name = this.props.scene.name
-        imgRef.putString(img, 'data_url').then(function (snapshot) {
+        imgRef.putString(img, 'data_url').then((snapshot) => {
           console.log('Uploaded a data_url string!');
           db.collection("scenes").doc(projectID).set({
             name: name,
             code: code,
             uid: uid,
             ts: ts,
-          }).then(function () {
+          }).then(() => {
             console.log("Document successfully written!")
+            $(".spinner").remove()
           }).catch(function (error) {
             console.error("Error writing document: ", error)
+            $(".spinner").remove()
           });
         }).catch(function (error) {
           console.error("Error uploading a data_url string ", error)
+          $(".spinner").remove()
         });
       }
     }
