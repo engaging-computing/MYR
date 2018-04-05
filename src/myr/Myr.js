@@ -124,7 +124,7 @@ class Myr {
   }
 
   // Render an Aframe circle Primitive with current Myr settings  
-  circle = () => {
+  circle = (obj) => {
     var el = {
       color: this.getRandomColor(),
       position: this.position,
@@ -135,12 +135,13 @@ class Myr {
       rotation: this.rotation,
       radius: this.radius
     }
-    this.els.push(el);
-    return el;
+    let merged = {...el, ...obj}
+    this.els.push(merged);
+    return merged;
   }
 
   // Render an Aframe circle Primitive with current Myr settings  
-  cone = (bottomRadius, topRadius) => {
+  cone = (obj) => {
     var el = {
       color: this.getRandomColor(),
       position: this.position,
@@ -149,15 +150,16 @@ class Myr {
         primitive: "cone"
       },
       rotation: this.rotation,
-      "radius-bottom": bottomRadius,
-      "radius-top": topRadius
+      // "radius-bottom": bottomRadius,
+      // "radius-top": topRadius
     }
-    this.els.push(el);
-    return el;
+    let merged = {...el, ...obj}
+    this.els.push(merged);
+    return merged;
   }
 
   // Render an Aframe Triangle Primitive with current Myr settings  
-  triangle = () => {
+  triangle = (obj) => {
     var el = {
       color: this.getRandomColor(),
       position: this.position,
@@ -167,12 +169,13 @@ class Myr {
       },
       rotation: this.rotation
     }
-    this.els.push(el);
-    return el;
+    let merged = {...el, ...obj}
+    this.els.push(merged);
+    return merged;
   }
 
   // Render an Aframe Text Primitive with current Myr settings  
-  text = (v) => {
+  text = (obj) => {
     var el = {
       color: this.getRandomColor(),
       position: this.position,
@@ -181,14 +184,15 @@ class Myr {
         primitive: "text"
       },
       rotation: this.rotation,
-      value: v
+      value: obj.v
     }
-    this.els.push(el);
-    return el;
+    let merged = {...el, ...obj}
+    this.els.push(merged);
+    return merged;
   }
 
   // Render an Aframe Polyhedron with current Myr settings  
-  polyhedron = (i) => {
+  polyhedron = (obj) => {
     var el = {
       color: this.getRandomColor(),
       position: this.position,
@@ -197,14 +201,15 @@ class Myr {
         primitive: "cylinder"
       },
       rotation: this.rotation,
-      "segments-radial": i
+      "segments-radial": obj.n
     }
-    this.els.push(el);
-    return el;
+    let merged = {...el, ...obj}
+    this.els.push(merged);
+    return merged;
   }
 
   // Render an Aframe dodecahedron with current Myr settings  
-  dodecahedron = () => {
+  dodecahedron = (obj) => {
     var el = {
       radius: this.radius,
       color: this.getRandomColor(),
@@ -215,12 +220,13 @@ class Myr {
       },
       rotation: this.rotation,
     }
-    this.els.push(el);
-    return el;
+    let merged = {...el, ...obj}
+    this.els.push(merged);
+    return merged;
   }
 
   // Render an Aframe icosahedron with current Myr settings  
-  icosahedron = () => {
+  icosahedron = (obj) => {
     var el = {
       radius: this.radius,
       color: this.getRandomColor(),
@@ -231,12 +237,13 @@ class Myr {
       },
       rotation: this.rotation,
     }
-    this.els.push(el);
-    return el;
+    let merged = {...el, ...obj}
+    this.els.push(merged);
+    return merged;
   }
 
   // Render an Aframe octahedron with current Myr settings  
-  octahedron = () => {
+  octahedron = (obj) => {
     var el = {
       radius: this.radius,
       color: this.getRandomColor(),
@@ -247,12 +254,13 @@ class Myr {
       },
       rotation: this.rotation,
     }
-    this.els.push(el);
-    return el;
+    let merged = {...el, ...obj}
+    this.els.push(merged);
+    return merged;
   }
 
   // Render a new Aframe light with current Myr settings  
-  light = (i) => {
+  light = (obj) => {
     var el = {
       color: this.getRandomColor(),
       position: this.position,
