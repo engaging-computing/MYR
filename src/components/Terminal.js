@@ -3,7 +3,11 @@ import Console from 'react-console-component';
 
 class Terminal extends Component {
   echo = (text) => {
-    this.refs.console.log(text);
+    try {
+      this.refs.console.log(eval(text));
+    } catch (err) {
+      this.refs.console.log(err.message)
+    }
     this.refs.console.return();
   }
   render = () => {
