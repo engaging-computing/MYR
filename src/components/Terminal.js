@@ -20,7 +20,7 @@ class Terminal extends Component {
         // if the above command succeeded then safe to add to history
         this.state.history.push(text);
       } catch (err) {
-        this.refs.console.log(err.message)
+        this.refs.console.logX("error",err.message)
       }
     }
     this.refs.console.return();
@@ -31,6 +31,7 @@ class Terminal extends Component {
         <Console ref="console"
           handler={this.echo}
           autofocus={true}
+          welcomeMessage={"Welcome"}
         />
       </div>
     )

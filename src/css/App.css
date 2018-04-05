@@ -195,15 +195,13 @@ div.react-console-focus span.react-console-cursor-idle {
     color: #444; } }
 
 div.react-console-message {
-  color: #999;
+  color: #0e1111;
   padding: 0.1em; }
 
-  /* .spinner {
-    margin: 10px auto;
-    width: 40px;
-    height: 40px;
-    position: relative;
-  } */
+div.react-console-message-error {
+  color: #ff0033;
+  padding: 0.1em; }
+
 
   .spinner {
     position: fixed;
