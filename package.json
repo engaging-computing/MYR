@@ -8,7 +8,6 @@
   },
   "dependencies": {
     "aframe": "^0.7.1",
-    "aframe-physics-components": "^1.1.0",
     "aframe-physics-system": "^3.0.2",
     "aframe-react": "^4.4.0",
     "bootstrap": "^4.0.0",

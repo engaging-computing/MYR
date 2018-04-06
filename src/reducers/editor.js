@@ -46,14 +46,26 @@ var entityModel = [
       y: 3,
       z: -5
     }
-  }
+  },
+  {
+    geometry: {
+      primitive: "box",
+      depth: 50, 
+      height: 0.1, 
+      width: 50
+    },
+    material:"color: #2E3837",
+    "static-body":"shape: box",
+    position:"0 0 -10"
+  },
 ]
+
+
 
 const initial_state = {
   text: `// Input your code here
-var x = box({material: {color: 'red'}});
-animate(x);
-push(x);`,
+var x = box({position:"0 10 -10"});
+drop(x);`,
   objects: entityModel,
   assets: [],
   user: null,
