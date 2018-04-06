@@ -115,32 +115,28 @@ class Myr {
   }
 
   drop = (el) => {
-    el["dynamic-body"] = "shape: box"
+    el["dynamic-body"] = {
+      shape: "box",
+      mass: 5
+    }
   }
 
-  // push = (outerEl) => {
-  //   // Add an event listener
-  //   document.addEventListener("myr-view-rendered", (e) => {
-  //     var el = document.querySelector("#" + outerEl.id);
-  //     el.addEventListener('body-loaded', () => {
-  //       // var impulse = new window.CANNON.Vec3(50, 2, 50);
-  //       // var rel = new window.CANNON.Vec3(0,0,0) //.copy(el.getComputedAttribute('position'));
-  //       // el.body.applyLocalImpulse(impulse, rel);
+  push = (outerEl) => {
+    // Add an event listener
+    document.addEventListener("myr-view-rendered", (e) => {
+      var el = document.querySelector("#" + outerEl.id);
+      if (!el) {
+        return
+      } 
+      el.addEventListener('body-loaded', () => {
+        var impulse = new window.CANNON.Vec3(50, 2, 50);
+        var rel = new window.CANNON.Vec3().copy(el.getComputedAttribute('position'))
 
-  //       // var pStart = new window.CANNON.Vec3();
-  //       // var sourceEl = document.querySelector('[camera]');
-  //       // pStart = pStart.copy(this.sourceEl.getAttribute('position'));
-
-  //       // // Compute direction of force, normalize, then scale.
-  //       // var force = el.body.position.vsub(pStart);
-  //       // force.normalize();
-  //       // force.scale(this.data.force, force);
-
-  //       // el.body.applyImpulse(force, el.body.position);
-  //     });
-  //     console.log(e); // Prints "Example of an event"
-  //   });
-  // }
+        el.body.applyImpulse(impulse, rel);
+      });
+      console.log(e); // Prints "Example of an event"
+    });
+  }
 
   // Render an Aframe Box Primitive with current Myr settings    
   box = (obj) => {

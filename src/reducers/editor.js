@@ -60,10 +60,20 @@ var entityModel = [
   },
 ]
 
+const programs = [
+`// Input your code here
 
+function dropb(x, y) {
+    let b = box({position: x + " " + y + " " + -10});
+    drop(b);
+    push(b);
+}
 
-const initial_state = {
-  text: `// Input your code here
+var n = [-5, -3, -1, 1, 3, 5];
+for (var x of n) {
+    dropb(x, 0);
+}`,
+`// Input your code here
 
 function dropb(x, y) {
     let b = box({position: x + " " + y + " " + -10});
@@ -75,7 +85,14 @@ for (var x of n) {
     dropb(x, 10);
     dropb(x, 7);
     dropb(x, 4);
-}`,
+}`
+
+]
+
+
+
+const initial_state = {
+  text: programs[Math.floor(Math.random()*programs.length)],
   objects: entityModel,
   assets: [],
   user: null,

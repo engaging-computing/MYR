@@ -56,7 +56,11 @@ class View extends Component {
   }
 
   componentDidUpdate() {
+     // Create the event
+    var event = new CustomEvent("myr-view-rendered");
 
+    // Dispatch/Trigger/Fire the event
+    document.dispatchEvent(event);
   }
 
 
