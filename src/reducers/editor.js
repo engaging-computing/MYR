@@ -64,8 +64,11 @@ var entityModel = [
 
 const initial_state = {
   text: `// Input your code here
-var x = box({position:"0 10 -10"});
-drop(x);`,
+var y = [-5, -3, -1, 1, 3, 5];
+for (var i of y) {
+    let x = box({position: i + " 10 -10"});
+    drop(x);
+}`,
   objects: entityModel,
   assets: [],
   user: null,
