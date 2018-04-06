@@ -1,3 +1,7 @@
+import 'aframe';
+import 'aframe-physics-system';
+import { CANNON } from 'cannon';
+
 class Myr {
   constructor(height, width) {
     this.els = [];
@@ -25,6 +29,8 @@ class Myr {
     // all entities share certain attributes
     this.core = (type) => {
       var c = {
+        // random 5 digit integer "address"
+        id: 'a' + (Math.floor(Math.random()*90000) + 10000),
         position: this.position,
         scale: this.scale,
         geometry: {
@@ -37,7 +43,8 @@ class Myr {
         radius: this.radius,
         "radius-bottom": 1,
         "radius-top": 2,
-        "value": "hello"
+        value: "hello",
+        "dynamic-body":"shape: box"
       }
       return c;
     }
@@ -107,10 +114,26 @@ class Myr {
     return color;
   }
 
-  pushTo = () => {
+  push = (outerEl) => {
     // Add an event listener
-    document.addEventListener("myr-view-rendered", function(e) {
-      debugger
+    document.addEventListener("myr-view-rendered", (e) => {
+      var el = document.querySelector("#" + outerEl.id);
+      el.addEventListener('body-loaded', () => {
+        // var impulse = new window.CANNON.Vec3(50, 2, 50);
+        // var rel = new window.CANNON.Vec3(0,0,0) //.copy(el.getComputedAttribute('position'));
+        // el.body.applyLocalImpulse(impulse, rel);
+
+        // var pStart = new window.CANNON.Vec3();
+        // var sourceEl = document.querySelector('[camera]');
+        // pStart = pStart.copy(this.sourceEl.getAttribute('position'));
+
+        // // Compute direction of force, normalize, then scale.
+        // var force = el.body.position.vsub(pStart);
+        // force.normalize();
+        // force.scale(this.data.force, force);
+
+        // el.body.applyImpulse(force, el.body.position);
+      });
       console.log(e); // Prints "Example of an event"
     });
   }
