@@ -114,6 +114,13 @@ class Myr {
     return color;
   }
 
+  environment = (obj) => {
+    var el = {
+      environment: true
+    }
+    this.els.push(el);
+  }
+
   drop = (el) => {
     el["dynamic-body"] = {
       shape: "box",
@@ -129,7 +136,7 @@ class Myr {
         return
       } 
       el.addEventListener('body-loaded', () => {
-        var impulse = new window.CANNON.Vec3(50, 2, 50);
+        var impulse = new window.CANNON.Vec3(4, 4, 4);
         var rel = new window.CANNON.Vec3().copy(el.getComputedAttribute('position'))
 
         el.body.applyImpulse(impulse, rel);

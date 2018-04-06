@@ -167,6 +167,10 @@ address@1.0.3, address@^1.0.1:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/address/-/address-1.0.3.tgz#b5f50631f8d6cec8bd20c963963afb55e06cbce9"
 
+aframe-environment-component@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/aframe-environment-component/-/aframe-environment-component-1.0.0.tgz#dde6a8734dc7777d9c4a00b5bab25f877e8b3b37"
+
 aframe-physics-system@^3.0.2:
   version "3.0.2"
   resolved "https://registry.yarnpkg.com/aframe-physics-system/-/aframe-physics-system-3.0.2.tgz#b32652ce10b95dc22dd42a97db497db98410c0f3"

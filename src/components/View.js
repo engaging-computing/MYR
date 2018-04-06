@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import 'aframe'
 import 'aframe-physics-system';
+import 'aframe-environment-component'
 import { Entity } from 'aframe-react';
 // import { CANNON } from 'cannon';
 
