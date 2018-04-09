@@ -170,7 +170,7 @@ class Editor extends Component {
       marginLeft: 2,
     };
     return (
-      <div className="" role="group" aria-label="...">
+      <div>
         <RaisedButton
           label="Render"
           primary={true}
@@ -236,7 +236,7 @@ class Editor extends Component {
                 onClick={this.handleLoad}
                 title={proj.data.name}>
                 <h4>{proj.data.name}</h4>
-                <img id={proj.id} alt={proj.id} lassName="img-thumbnail" src={proj.url.i} />
+                <img id={proj.id} alt={proj.id} className="img-thumbnail" src={proj.url.i} />
                 <RaisedButton
                   onClick={() => this.addToDeleteList(proj.id)}
                   label="delete Project"

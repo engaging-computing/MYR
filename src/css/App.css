@@ -63,7 +63,6 @@ div#user {
 
 #editor {
   padding-left: 0;
-  height: 55vh;
 }
 
 @media (min-width: 1200px) {
@@ -144,14 +143,11 @@ body.aframe-inspector-opened .toggle-edit {
 }
 
 #terminal {
-  padding-top: 4.8vh;
-  height: 30vh;
   border-top: 1px solid;
 }
 
 div.react-console-container {
   font-size: 0.85em;
-  font-family: "Menlo", "Consolas", "DejaVu Sans Mono", monospace;
   width: 60em;
   max-width: 100%;
   box-sizing: border-box;
