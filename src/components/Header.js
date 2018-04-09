@@ -53,6 +53,7 @@ class Header extends Component {
 
   // Handles the change of the scene name input
   handleChange = (event) => {
+    event.preventDefault();
     this.props.actions.nameScene(event.target.value)
   }
 

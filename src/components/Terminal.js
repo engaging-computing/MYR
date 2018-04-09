@@ -11,11 +11,13 @@ class Terminal extends Component {
   echo = (text) => {
     if (text.length > 0) {
       try {
-        if (text[text.length-1] != ";") {
+        if (text[text.length-1] !== ";") {
           text = text + ";"
         }
-        var history = this.state.history.join(""); 
+        var history = this.state.history.join("");
+        // eslint-disable-next-line
         window.eval(history);
+        // eslint-disable-next-line
         this.refs.console.log(eval(text));
         // if the above command succeeded then safe to add to history
         this.state.history.push(text);

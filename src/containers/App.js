@@ -1,12 +1,11 @@
 import React from 'react'
 import Editor from '../components/Editor'
 import View from '../components/View'
-import Reference from '../components/Reference'
 import Header from '../components/Header'
 import Terminal from '../components/Terminal'
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
-import {deepOrange500, darkBlack, white, red600} from 'material-ui/styles/colors';
+import {darkBlack, white, red600} from 'material-ui/styles/colors';
 import * as EditorActions from '../actions'
 import PropTypes from 'prop-types'
 import { bindActionCreators } from 'redux'

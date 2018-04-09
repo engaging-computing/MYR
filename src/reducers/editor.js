@@ -1,52 +1,6 @@
 import Myr from '../myr/Myr'
-import firebase, { auth } from '../firebase.js'
-import 'firebase/firestore'
-
-var db = firebase.firestore();
-var scenes = db.collection('scenes');
-const storage = firebase.storage()
-var storageRef = storage.ref();
 
 var entityModel = [
-  {
-    geometry: {
-      primitive: "box"
-    },
-    material: {
-      color: "red"
-    },
-    position: {
-      x: 5,
-      y: 3,
-      z: -5
-    }
-  },
-  {
-    geometry: {
-      primitive: "box"
-    },
-    material: {
-      color: "red"
-    },
-    position: {
-      x: 0,
-      y: 3,
-      z: -5
-    }
-  },
-  {
-    geometry: {
-      primitive: "box"
-    },
-    material: {
-      color: "red"
-    },
-    position: {
-      x: -5,
-      y: 3,
-      z: -5
-    }
-  },
   {
     geometry: {
       primitive: "box",

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import AceEditor from 'react-ace';
-import { RaisedButton, Popover, Menu, MenuItem, Drawer, DropDownMenu, Toolbar, ToolbarGroup, FontIcon, ToolbarSeparator, ToolbarTitle, IconMenu, IconButton } from 'material-ui';
+import { RaisedButton, Drawer, Toolbar, ToolbarGroup, FontIcon } from 'material-ui';
 import AddCircle from 'material-ui/svg-icons/content/add-circle-outline';
 import 'brace/mode/javascript';
 import 'brace/theme/github';
@@ -111,7 +111,6 @@ class Editor extends Component {
         this.props.actions.loadScene(projectID)
       }
       let code = this.props.text
-      let els = this.props.objects
       let uid = this.props.user.uid
       // use uid_epoch as identifier for now
       let modes = [
@@ -237,7 +236,7 @@ class Editor extends Component {
                 onClick={this.handleLoad}
                 title={proj.data.name}>
                 <h4>{proj.data.name}</h4>
-                <img id={proj.id} className="img-thumbnail" src={proj.url.i} />
+                <img id={proj.id} alt={proj.id} lassName="img-thumbnail" src={proj.url.i} />
                 <RaisedButton
                   onClick={() => this.addToDeleteList(proj.id)}
                   label="delete Project"
