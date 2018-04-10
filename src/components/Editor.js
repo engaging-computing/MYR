@@ -167,7 +167,7 @@ class Editor extends Component {
 
   buttons = () => {
     const style = {
-      marginLeft: 2,
+      marginLeft: 4,
     };
     return (
       <div>
@@ -190,17 +190,22 @@ class Editor extends Component {
   }
 
   toolbar = () => {
+    const style = {
+      margin: 2,
+    };
     return (
       <Toolbar>
         <ToolbarGroup>
           <RaisedButton
             onClick={this.handleSave}
-            label="Save Project"
+            style={style}
+            label="Save"
             icon={<FontIcon className="material-icons">save</FontIcon>}
           />
           <RaisedButton
             onClick={this.projToggle}
-            label="Open Project"
+            style={style}
+            label="Open"
             icon={<FontIcon className="material-icons">file_download</FontIcon>}
           />
         </ToolbarGroup>

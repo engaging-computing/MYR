@@ -19,16 +19,12 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: 10vh;
-}
+  height: 6vh;
+}       
 
 .App-header h1 {
   color: white;
   margin-top: 0;
-}
-
-.App-title {
-  font-size: 1.5em;
 }
 
 .App-intro {
@@ -78,7 +74,7 @@ div#user {
 }
 
 #scene {
-  height: 90vh;
+  height: 94vh;
   border: #222 1px solid;
 }
 

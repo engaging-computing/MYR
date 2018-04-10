@@ -10,7 +10,7 @@ var entityModel = [
     },
     material:"color: #2E3837",
     "static-body":"shape: box",
-    position:"0 0 -10"
+    position:"0 -1 -10"
   },
 ]
 
