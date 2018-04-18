@@ -1,4 +1,4 @@
-import Myr from '../myr/Myr'
+import Myr from '../myr/Myr';
 
 var entityModel = [
   {
@@ -12,7 +12,7 @@ var entityModel = [
     "static-body":"shape: box",
     position:"0 -1 -10"
   },
-]
+];
 
 const programs = [
 `// Input your code here
@@ -41,7 +41,7 @@ for (var x of n) {
     dropb(x, 4);
 }`
 
-]
+];
 
 
 
@@ -54,7 +54,7 @@ const initial_state = {
     name: "untitled",
     id: "0"
   }
-}
+};
 
 export default function scene(state = initial_state, action) {
   switch (action.type) {
@@ -64,7 +64,7 @@ export default function scene(state = initial_state, action) {
         let m = new Myr();
         let funs = Object.getOwnPropertyNames(m).filter((p) => {
           return typeof m[p] === 'function';
-        })
+        });
         let snapshot = action.text;
         for (var fun of funs) {
           snapshot = snapshot.replace(new RegExp(fun + "\\(", 'g'), "myr." + fun + "(");
@@ -76,27 +76,27 @@ export default function scene(state = initial_state, action) {
         var assets = res.assets;
       }
       catch (err) {
-        console.error("Eval failed: " + err)
+        console.error("Eval failed: " + err);
       }
       return {
         ...state,
         text: action.text,
         objects: initial_state.objects.concat(els),
         assets: assets,
-      }
+      };
     case 'EDITOR_REFRESH':
-      window.myr = new Myr()
-      return initial_state
+      window.myr = new Myr();
+      return initial_state;
     case 'LOGIN':
       return {
         ...state,
         user: action.user
-      }
+      };
     case 'LOGOUT':
       return {
         ...state,
         user: null
-      }
+      };
     case 'NAME_SCENE':
       return {
         ...state,
@@ -104,11 +104,11 @@ export default function scene(state = initial_state, action) {
           id: state.scene.id,
           name: action.name
         }
-      }
+      };
     case 'NEW_SCENE':
-      let projectID = ""
+      let projectID = "";
       if (state.user.uid) {
-        let ts = Date.now()
+        let ts = Date.now();
         projectID = state.user.uid + '_' + ts;
       }
       return {
@@ -117,18 +117,18 @@ export default function scene(state = initial_state, action) {
           id: projectID,
           name: state.scene.name
         }
-      }
+      };
     case 'LOAD_SCENE':
       let newScene = {
       ...state.scene,
         id: action.id
-      }
+      };
       return {
         ...state,
         scene: newScene
-      }
+      };
 
     default:
-      return state
+      return state;
   }
 }

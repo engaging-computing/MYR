@@ -9,6 +9,13 @@ import Reference from './Reference';
 import 'firebase/firestore';
 import $ from "jquery";
 
+/**x
+ * The Editor component is where you are able to input code and 
+ * have it render in the View. 
+ * Application state is from the Redux Store and the models are 
+ * from Firebase Firestore.
+ */
+
 var db = firebase.firestore();
 var scenes = db.collection('scenes');
 var storageRef =  firebase.storage().ref();
@@ -26,16 +33,7 @@ class Editor extends Component {
     };
   }
 
-  componentDidMount() {
-    if (auth.currentUser) {
-      let uid = auth.currentUser.uid;
-      if (uid) {
-        this.setState({ user: uid });
-      }
-    }
-  }
-
-  componentWillUpdate() {
+  componentDidUpdate() {
     if (auth.currentUser) {
       let vals = [];
       scenes.where('uid', '==', auth.currentUser.uid).get().then(snap => {
@@ -53,10 +51,12 @@ class Editor extends Component {
     }
   }
 
-  remove = () => {
+  // Pass nothing into render to clear contents
+  clear = () => {
     this.props.actions.refresh("");
   }
 
+  // Open and close the project drawer
   projToggle = () => {
     this.setState({ projOpen: !this.state.projOpen });
     this.state.projectsToDelete.forEach((proj) => {
@@ -69,19 +69,7 @@ class Editor extends Component {
     this.setState({ projectsToDelete: [] });
   }
 
-  handleClick = (event) => {
-    // This prevents ghost click.
-    event.preventDefault();
-    this.setState({
-      open: true,
-      anchorEl: event.currentTarget,
-    });
-  };
-
-  handleRequestClose = () => {
-    this.setState({ open: false });
-  };
-
+  // When selected, take the information and pass it into the applications local state
   handleLoad = (event) => {
     event.preventDefault();
     if (event.target.id) {
@@ -145,25 +133,26 @@ class Editor extends Component {
   }
 
   handleNewProj = () => {
-    this.props.actions.render("// Input your code here\nanimate(box({material: {color: 'red'}}));");
+    this.props.actions.render("");
     if (this.props.user) {
       this.props.actions.nameScene("untitled");
     }
   }
 
+  // When user clicks render get text from AceEditor and pass to render action
   handleRender = () => {
     const content = this.refs.aceEditor.editor.session.getValue();
     this.props.actions.render(content);
   }
 
+  // Add the project clicked to the list to be delete
   addToDeleteList = (id) => {
     let deleteThese = this.state.projectsToDelete;
     deleteThese.push(id);
     this.setState({ projectsToDelete: deleteThese });
   }
 
-  handleChange = (event, index, value) => this.setState({ value });
-
+  // Produces the Render and Clear buttons
   buttons = () => {
     const style = {
       marginLeft: 4,
@@ -180,7 +169,7 @@ class Editor extends Component {
         <RaisedButton
           label="Clear"
           secondary={true}
-          onClick={this.remove}
+          onClick={this.clear}
           style={style}
           icon={<FontIcon className="material-icons">delete</FontIcon>}
         />
@@ -188,6 +177,7 @@ class Editor extends Component {
     );
   }
 
+  // Produces the toolbar that contains persistence controls
   toolbar = () => {
     const style = {
       margin: 2,
@@ -215,6 +205,7 @@ class Editor extends Component {
     );
   }
 
+  // Produces the list of the available projects
   renderProjs = () => {
     if (this.state.availProj.length === 0) {
       return null;

@@ -1,8 +1,8 @@
-import { combineReducers } from 'redux'
-import editor from './editor'
- 
+import { combineReducers } from 'redux';
+import editor from './editor';
+
 const aframeApp = combineReducers({
   editor
-})
- 
-export default aframeApp
+});
+
+export default aframeApp;

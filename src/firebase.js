@@ -8,6 +8,7 @@ var config = {
   storageBucket: "gs://myrjsecg.appspot.com",
   messagingSenderId: "967963389163"
 };
+
 firebase.initializeApp(config);
 export default firebase;
 export const provider = new firebase.auth.GoogleAuthProvider();

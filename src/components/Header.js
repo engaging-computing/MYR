@@ -3,6 +3,10 @@ import { auth, provider } from '../firebase.js';
 import { Popover, Menu, MenuItem } from 'material-ui';
 import Avatar from 'material-ui/Avatar';
 
+
+/**
+ * 
+ */
 class Header extends Component {
   constructor() {
     super();

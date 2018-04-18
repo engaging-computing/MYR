@@ -28,9 +28,7 @@ const App = ({ text, objects, actions, assets, user, scene }) => (
       <Header actions={actions} user={user} scene={scene} />
       <div className="row no-gutters">
         <div id="interface" className="col col-md-4">
-          <Editor actions={actions} objects={objects} text={text} user={user} scene={scene}>
-            
-          </Editor>
+          <Editor actions={actions} objects={objects} text={text} user={user} scene={scene} />
           <div className="w-100"></div>
           <Terminal />
         </div>
