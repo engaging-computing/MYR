@@ -12,7 +12,7 @@ class Terminal extends Component {
     if (text.length > 0) {
       try {
         if (text[text.length-1] !== ";") {
-          text = text + ";"
+          text = text + ";";
         }
         var history = this.state.history.join("");
         // eslint-disable-next-line
@@ -22,7 +22,7 @@ class Terminal extends Component {
         // if the above command succeeded then safe to add to history
         this.state.history.push(text);
       } catch (err) {
-        this.refs.console.logX("error",err.message)
+        this.refs.console.logX("error",err.message);
       }
     }
     this.refs.console.return();
@@ -36,8 +36,8 @@ class Terminal extends Component {
           welcomeMessage={"Welcome"}
         />
       </div>
-    )
+    );
   }
 }
 
-export default Terminal
+export default Terminal;

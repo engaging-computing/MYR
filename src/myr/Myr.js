@@ -1,7 +1,7 @@
 import 'aframe';
 import 'aframe-physics-system';
 // eslint-disable-next-line
-import { CANNON } from 'cannon';
+import CANNON from 'cannon';
 
 class Myr {
   constructor(height, width) {
@@ -137,12 +137,13 @@ class Myr {
         return
       } 
       el.addEventListener('body-loaded', () => {
-        var impulse = new window.CANNON.Vec3(4, 4, 4);
-        var rel = new window.CANNON.Vec3().copy(el.getComputedAttribute('position'))
-
+        var impulse = new CANNON.Vec3(-1, 0, 0);
+        var coord = el.getAttribute('position')
+        var rel = new CANNON.Vec3().copy(coord)
         el.body.applyImpulse(impulse, rel);
+        console.log(coord)
       });
-      console.log(e); // Prints "Example of an event"
+      // console.log(e); // Prints "Example of an event"
     });
   }
 

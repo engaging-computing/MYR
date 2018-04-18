@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import 'aframe'
+import 'aframe';
 import 'aframe-physics-system';
-import 'aframe-environment-component'
+import 'aframe-environment-component';
 import { Entity } from 'aframe-react';
 // import { CANNON } from 'cannon';
 
@@ -25,7 +25,7 @@ class View extends Component {
         cam = <a-camera />;
       }
       delete ent.camera;
-      return <Entity id="cam" key={id} {...ent}>{cam}</Entity>
+      return <Entity id="cam" key={id} {...ent}>{cam}</Entity>;
     }
 
     return (
@@ -44,7 +44,7 @@ class View extends Component {
   render = () => {
     return (
       <div id="scene" className="col col-md-8">
-        <a-scene physics="" embedded>
+        <a-scene physics="debug: true" embedded>
           <a-assets>
             {this.props.assets ? this.props.assets.map((x, index) => this.assetsHelper(x, index)): null}     
           </a-assets>
@@ -63,8 +63,6 @@ class View extends Component {
     // Dispatch/Trigger/Fire the event
     document.dispatchEvent(event);
   }
-
-
 }
 
 export default View;

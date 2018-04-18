@@ -4,15 +4,14 @@ import { RaisedButton, Drawer, Toolbar, ToolbarGroup, FontIcon } from 'material-
 import AddCircle from 'material-ui/svg-icons/content/add-circle-outline';
 import 'brace/mode/javascript';
 import 'brace/theme/github';
-import firebase, { auth } from '../firebase.js'
-import Reference from './Reference'
-import 'firebase/firestore'
-import $ from "jquery"
+import firebase, { auth } from '../firebase.js';
+import Reference from './Reference';
+import 'firebase/firestore';
+import $ from "jquery";
 
 var db = firebase.firestore();
 var scenes = db.collection('scenes');
-const storage = firebase.storage()
-var storageRef = storage.ref();
+var storageRef =  firebase.storage().ref();
 
 class Editor extends Component {
   constructor(props) {
@@ -29,28 +28,28 @@ class Editor extends Component {
 
   componentDidMount() {
     if (auth.currentUser) {
-      let uid = auth.currentUser.uid
+      let uid = auth.currentUser.uid;
       if (uid) {
-        this.setState({ user: uid })
+        this.setState({ user: uid });
       }
     }
   }
 
   componentWillUpdate() {
     if (auth.currentUser) {
-      let vals = []
+      let vals = [];
       scenes.where('uid', '==', auth.currentUser.uid).get().then(snap => {
         snap.forEach(doc => {
           vals.push({
             id: doc.id,
             data: doc.data(),
             url: storageRef.child(`/images/equirectangular/${doc.id}`).getDownloadURL()
-          })
+          });
         });
         if (this.state.availProj.length !== vals.length) {
-          this.setState({ availProj: vals })
+          this.setState({ availProj: vals });
         }
-      })
+      });
     }
   }
 
@@ -66,8 +65,8 @@ class Editor extends Component {
       }).catch(function (error) {
         console.error("Error removing document: ", error);
       });
-    })
-    this.setState({ projectsToDelete: [] })
+    });
+    this.setState({ projectsToDelete: [] });
   }
 
   handleClick = (event) => {
@@ -86,32 +85,32 @@ class Editor extends Component {
   handleLoad = (event) => {
     event.preventDefault();
     if (event.target.id) {
-      this.props.actions.loadScene(event.target.id)
+      this.props.actions.loadScene(event.target.id);
       scenes.doc(event.target.id).get().then(doc => {
-        let scene = doc.data()
+        let scene = doc.data();
         if (scene.code) {
-          this.props.actions.render(scene.code)
-          this.props.actions.nameScene(scene.name)
-          this.props.actions.loadScene(doc.id)
+          this.props.actions.render(scene.code);
+          this.props.actions.nameScene(scene.name);
+          this.props.actions.loadScene(doc.id);
         } else {
-          this.props.actions.render("// The code was corrupted")
+          this.props.actions.render("// The code was corrupted");
         }
-      })
+      });
     }
   }
 
   handleSave = () => {
-    $( "body" ).prepend( "<span class='spinner'><div class='cube1'></div><div class='cube2'></div></span>" )
-    this.handleRender()
-    let projectID = this.props.scene.id
-    let ts = Date.now()
+    $( "body" ).prepend( "<span class='spinner'><div class='cube1'></div><div class='cube2'></div></span>" );
+    this.handleRender();
+    let projectID = this.props.scene.id;
+    let ts = Date.now();
     if (this.props.user) {
       if (projectID) {
-        projectID = this.props.user.uid + '_' + ts
-        this.props.actions.loadScene(projectID)
+        projectID = this.props.user.uid + '_' + ts;
+        this.props.actions.loadScene(projectID);
       }
-      let code = this.props.text
-      let uid = this.props.user.uid
+      let code = this.props.text;
+      let uid = this.props.user.uid;
       // use uid_epoch as identifier for now
       let modes = [
         'equirectangular',
@@ -121,8 +120,8 @@ class Editor extends Component {
       for (var mode of modes) {
         let img = document.querySelector('a-scene').components.screenshot.getCanvas(mode).toDataURL('image/png');
         let path = "images/" + mode + "/" + projectID;
-        let imgRef = storageRef.child(path)
-        let name = this.props.scene.name
+        let imgRef = storageRef.child(path);
+        let name = this.props.scene.name;
         imgRef.putString(img, 'data_url').then((snapshot) => {
           console.log('Uploaded a data_url string!');
           db.collection("scenes").doc(projectID).set({
@@ -131,36 +130,36 @@ class Editor extends Component {
             uid: uid,
             ts: ts,
           }).then(() => {
-            console.log("Document successfully written!")
-            $(".spinner").remove()
+            console.log("Document successfully written!");
+            $(".spinner").remove();
           }).catch(function (error) {
-            console.error("Error writing document: ", error)
-            $(".spinner").remove()
+            console.error("Error writing document: ", error);
+            $(".spinner").remove();
           });
         }).catch(function (error) {
-          console.error("Error uploading a data_url string ", error)
-          $(".spinner").remove()
+          console.error("Error uploading a data_url string ", error);
+          $(".spinner").remove();
         });
       }
     }
   }
 
   handleNewProj = () => {
-    this.props.actions.render("// Input your code here\nanimate(box({material: {color: 'red'}}));")
+    this.props.actions.render("// Input your code here\nanimate(box({material: {color: 'red'}}));");
     if (this.props.user) {
-      this.props.actions.nameScene("untitled")
+      this.props.actions.nameScene("untitled");
     }
   }
 
   handleRender = () => {
-    const content = this.refs.aceEditor.editor.session.getValue()
-    this.props.actions.render(content)
+    const content = this.refs.aceEditor.editor.session.getValue();
+    this.props.actions.render(content);
   }
 
   addToDeleteList = (id) => {
-    let deleteThese = this.state.projectsToDelete
-    deleteThese.push(id)
-    this.setState({ projectsToDelete: deleteThese })
+    let deleteThese = this.state.projectsToDelete;
+    deleteThese.push(id);
+    this.setState({ projectsToDelete: deleteThese });
   }
 
   handleChange = (event, index, value) => this.setState({ value });
@@ -186,7 +185,7 @@ class Editor extends Component {
           icon={<FontIcon className="material-icons">delete</FontIcon>}
         />
       </div>
-    )
+    );
   }
 
   toolbar = () => {
@@ -213,12 +212,12 @@ class Editor extends Component {
           <Reference />
         </ToolbarGroup>
       </Toolbar>
-    )
+    );
   }
 
   renderProjs = () => {
     if (this.state.availProj.length === 0) {
-      return null
+      return null;
     }
     return (
       <div id="project-list" >
@@ -250,15 +249,15 @@ class Editor extends Component {
                   icon={<FontIcon className="material-icons">delete</FontIcon>}
                 />
               </div>
-            )
+            );
           })}
         </div>
       </div>
-    )
+    );
   }
 
   render() {
-    const text = this.props.text
+    const text = this.props.text;
     return (
       <div id="editor">
         <Drawer
@@ -283,4 +282,4 @@ class Editor extends Component {
   }
 }
 
-export default Editor
+export default Editor;

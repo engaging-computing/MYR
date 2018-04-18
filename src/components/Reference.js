@@ -1,6 +1,6 @@
 import React from 'react';
-import myrReference from '../myr/reference'
-import Highlight from 'react-highlight.js'
+import myrReference from '../myr/reference';
+import Highlight from 'react-highlight.js';
 import Drawer from 'material-ui/Drawer';
 import RaisedButton from 'material-ui/RaisedButton';
 import { Tabs, Tab } from 'material-ui/Tabs';
@@ -98,7 +98,7 @@ export default class Reference extends React.Component {
           ))}
         </TableBody>
       </Table>
-    )
+    );
   };
 
   render() {

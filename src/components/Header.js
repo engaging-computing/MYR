@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { auth, provider } from '../firebase.js'
+import { auth, provider } from '../firebase.js';
 import { Popover, Menu, MenuItem } from 'material-ui';
 import Avatar from 'material-ui/Avatar';
 
@@ -9,14 +9,14 @@ class Header extends Component {
     this.state = {
       account: null,
       open: false,
-    }
+    };
   }
 
   componentDidMount() {
     auth.onAuthStateChanged((account) => {
       if (account) {
         this.setState({ account });
-        this.props.actions.login(account)
+        this.props.actions.login(account);
       }
     });
     this.setState({ anchorEl: document.getElementById("user") });
@@ -54,12 +54,12 @@ class Header extends Component {
   // Handles the change of the scene name input
   handleChange = (event) => {
     event.preventDefault();
-    this.props.actions.nameScene(event.target.value)
+    this.props.actions.nameScene(event.target.value);
   }
 
   // Input for adding the scene name
   sceneName = () => {
-    let name = this.props.scene.name
+    let name = this.props.scene.name;
     return (
       <form id="scene-name" onSubmit={this.handleChange}>
         <input name="name" type="text" 
@@ -67,11 +67,11 @@ class Header extends Component {
           value={name !== "untitled" ? name : ""}
           onChange={this.handleChange} />
       </form>
-    )
+    );
   }
 
   render() {
-    let loginBtn = null
+    let loginBtn = null;
     if (this.state.account == null) {
       loginBtn =
         <div id="user">
@@ -89,7 +89,7 @@ class Header extends Component {
             </Menu>
           </Popover>
           <p id='welcome-name' >Login to Save Your Progress</p>
-        </div>
+        </div>;
     } else {
       loginBtn =
         <div id="user">
@@ -109,7 +109,7 @@ class Header extends Component {
               <MenuItem primaryText="Log Out" onClick={this.logout} />
             </Menu>
           </Popover>
-        </div>
+        </div>;
     }
     return (
       <header className="App-header">
@@ -121,4 +121,4 @@ class Header extends Component {
   }
 }
 
-export default Header
+export default Header;
