@@ -1,6 +1,8 @@
 {
     "extends": "react-app",
     "rules": {
-        "semi": 1
+        "semi": 1,
+        "curly": 1,
+        "no-lonely-if": 1
     }
 }
