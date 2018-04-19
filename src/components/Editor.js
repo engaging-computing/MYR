@@ -18,7 +18,7 @@ import $ from "jquery";
 
 var db = firebase.firestore();
 var scenes = db.collection('scenes');
-var storageRef =  firebase.storage().ref();
+var storageRef = firebase.storage().ref();
 
 class Editor extends Component {
   constructor(props) {
@@ -53,16 +53,17 @@ class Editor extends Component {
 
   // Pass nothing into render to clear contents
   clear = () => {
-    this.props.actions.refresh("");
+    const content = this.refs.aceEditor.editor.session.getValue();
+    this.props.actions.refresh(content);
   }
 
   // Open and close the project drawer
   projToggle = () => {
     this.setState({ projOpen: !this.state.projOpen });
     this.state.projectsToDelete.forEach((proj) => {
-      scenes.doc(proj).delete().then(function () {
+      scenes.doc(proj).delete().then(() => {
         console.log("Document successfully deleted!");
-      }).catch(function (error) {
+      }).catch((error) => {
         console.error("Error removing document: ", error);
       });
     });
@@ -88,11 +89,11 @@ class Editor extends Component {
   }
 
   handleSave = () => {
-    $( "body" ).prepend( "<span class='spinner'><div class='cube1'></div><div class='cube2'></div></span>" );
     this.handleRender();
     let projectID = this.props.scene.id;
     let ts = Date.now();
     if (this.props.user) {
+      $("body").prepend("<span class='spinner'><div class='cube1'></div><div class='cube2'></div></span>");
       if (projectID) {
         projectID = this.props.user.uid + '_' + ts;
         this.props.actions.loadScene(projectID);
@@ -120,11 +121,11 @@ class Editor extends Component {
           }).then(() => {
             console.log("Document successfully written!");
             $(".spinner").remove();
-          }).catch(function (error) {
+          }).catch((error) => {
             console.error("Error writing document: ", error);
             $(".spinner").remove();
           });
-        }).catch(function (error) {
+        }).catch((error) => {
           console.error("Error uploading a data_url string ", error);
           $(".spinner").remove();
         });
@@ -207,66 +208,58 @@ class Editor extends Component {
 
   // Produces the list of the available projects
   renderProjs = () => {
+    const newBtn = <RaisedButton label="Start a New Project"
+      secondary={true}
+      onClick={this.handleNewProj}
+      fullWidth={true}
+      className="mb-3"
+      icon={<AddCircle />} />;
     if (this.state.availProj.length === 0) {
-      return null;
-    }
-    return (
-      <div id="project-list" >
-        <h3 className="mb-3">Projects</h3>
-        <div className="row" style={{ width: "100%" }}>
-          <RaisedButton
-            label="Start a New Project"
-            secondary={true}
-            onClick={this.handleNewProj}
-            fullWidth={true}
-            className="mb-3"
-            icon={<AddCircle />}
-          />
-          {this.state.availProj.map((proj) => {
-            return (
-              <div
-                key={proj.id}
-                id={proj.id}
-                className="grid-project col-sm-6 mb-5"
-                onClick={this.handleLoad}
-                title={proj.data.name}>
-                <h4>{proj.data.name}</h4>
-                <img id={proj.id} alt={proj.id} className="img-thumbnail" src={proj.url.i} />
-                <RaisedButton
-                  onClick={() => this.addToDeleteList(proj.id)}
-                  label="delete Project"
-                  fullWidth={true}
-                  secondary={true}
-                  icon={<FontIcon className="material-icons">delete</FontIcon>}
-                />
-              </div>
-            );
-          })}
+      return (
+        <div id="project-list" >
+          <h3 className="mb-3">Projects</h3>
+          <div className="row" style={{ width: "100%" }}>
+            {newBtn}
+          </div>
         </div>
-      </div>
-    );
+      );
+    } else {
+      return (
+        <div id="project-list" >
+          <h3 className="mb-3">Projects</h3>
+          <div className="row" style={{ width: "100%" }}>
+            {newBtn}
+            {this.state.availProj.map((proj) => {
+              return (
+                <div key={proj.id} id={proj.id} className="grid-project col-sm-6 mb-5" onClick={this.handleLoad} title={proj.data.name}>
+                  <h4>{proj.data.name}</h4>
+                  <img id={proj.id} alt={proj.id} className="img-thumbnail" src={proj.url.i} />
+                  <RaisedButton
+                    onClick={() => this.addToDeleteList(proj.id)}
+                    label="delete Project"
+                    fullWidth={true}
+                    secondary={true}
+                    icon={<FontIcon className="material-icons">delete</FontIcon>}
+                  />
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      );
+    }
   }
 
   render() {
-    const text = this.props.text;
     return (
       <div id="editor">
-        <Drawer
-          docked={false}
-          width={500}
-          open={this.state.projOpen}
-          onRequestChange={(projOpen) => this.setState({ projOpen })}>
+        <Drawer docked={false} width={500}
+          onRequestChange={(projOpen) => this.setState({ projOpen })}
+          open={this.state.projOpen} >
           {this.renderProjs()}
         </Drawer>
         <this.toolbar />
-        <AceEditor
-          ref="aceEditor"
-          width="100%"
-          mode="javascript"
-          theme="github"
-          value={text}
-          name="ace-editor"
-        />
+        <AceEditor ref="aceEditor" width="100%" mode="javascript" theme="github" value={this.props.text} name="ace-editor" />
         {this.buttons()}
       </div>
     );
