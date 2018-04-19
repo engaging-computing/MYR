@@ -86,7 +86,10 @@ export default function scene(state = initial_state, action) {
       };
     case 'EDITOR_REFRESH':
       window.myr = new Myr();
-      return initial_state;
+      return {
+        ...initial_state,
+        text: action.text
+      };
     case 'LOGIN':
       return {
         ...state,

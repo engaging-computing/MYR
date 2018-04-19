@@ -3,10 +3,6 @@ import { auth, provider } from '../firebase.js';
 import { Popover, Menu, MenuItem } from 'material-ui';
 import Avatar from 'material-ui/Avatar';
 
-
-/**
- * 
- */
 class Header extends Component {
   constructor() {
     super();
@@ -26,20 +22,18 @@ class Header extends Component {
     this.setState({ anchorEl: document.getElementById("user") });
   }
 
-  componentDidUpdate() {
-
-  }
-
   logout = () => {
     auth.signOut().then(() => {
       this.setState({ account: null });
     });
+    this.props.actions.logout();
   }
 
   login = () => {
     auth.signInWithPopup(provider).then((result) => {
       const account = result.account;
       this.setState({ account });
+      this.props.actions.login(account);
     });
   }
 
@@ -66,7 +60,7 @@ class Header extends Component {
     let name = this.props.scene.name;
     return (
       <form id="scene-name" onSubmit={this.handleChange}>
-        <input name="name" type="text" 
+        <input name="name" type="text"
           placeholder="Name your scene"
           value={name !== "untitled" ? name : ""}
           onChange={this.handleChange} />
@@ -74,52 +68,40 @@ class Header extends Component {
     );
   }
 
-  render() {
-    let loginBtn = null;
-    if (this.state.account == null) {
-      loginBtn =
-        <div id="user">
-          <Avatar src={process.env.PUBLIC_URL + '/img/acct_circle.svg'}
-            onClick={this.handleClick}
-            label="Login" />
-          <Popover
-            open={this.state.open}
-            anchorEl={this.state.anchorEl}
-            anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
-            targetOrigin={{ horizontal: 'right', vertical: 'top' }}
-            onRequestClose={this.handleRequestClose}>
-            <Menu>
-              <MenuItem primaryText="Log In" onClick={this.login} />
-            </Menu>
-          </Popover>
-          <p id='welcome-name' >Login to Save Your Progress</p>
-        </div>;
+  loginBtn = () => {
+    let btn;
+    if (this.state.account !== null) {
+      btn = <Menu><MenuItem primaryText="Log Out" onClick={this.logout} /></Menu>;
     } else {
-      loginBtn =
-        <div id="user">
-          <Avatar
-            id="login"
-            src={this.state.account.photoURL}
-            onClick={this.handleClick}
-            label="Logout" />
-          <Popover
-            open={this.state.open}
-            anchorEl={this.state.anchorEl}
-            anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
-            targetOrigin={{ horizontal: 'right', vertical: 'top' }}
-            onRequestClose={this.handleRequestClose}
-          >
-            <Menu>
-              <MenuItem primaryText="Log Out" onClick={this.logout} />
-            </Menu>
-          </Popover>
-        </div>;
+      btn = <Menu><MenuItem primaryText="Log In" onClick={this.login} /></Menu>;
     }
+    let photoURL = this.state.account ? this.state.account.photoURL: process.env.PUBLIC_URL + '/img/acct_circle.svg';
+    return (
+      <div id="user">
+        <Avatar
+          id="login"
+          src={photoURL}
+          onClick={this.handleClick}
+          label="Logout" />
+        <Popover
+          open={this.state.open}
+          anchorEl={this.state.anchorEl}
+          anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
+          targetOrigin={{ horizontal: 'right', vertical: 'top' }}
+          onRequestClose={this.handleRequestClose}>
+          {btn}
+        </Popover>
+      </div>
+    );
+  }
+
+  render() {
+
     return (
       <header className="App-header">
         <h1>MYR</h1>
         <this.sceneName />
-        {loginBtn}
+        {this.loginBtn()}
       </header>
     );
   }

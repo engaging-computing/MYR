@@ -8,6 +8,7 @@ class Terminal extends Component {
       history: [],
     };
   }
+  
   echo = (text) => {
     if (text.length > 0) {
       try {
@@ -15,10 +16,10 @@ class Terminal extends Component {
           text = text + ";";
         }
         var history = this.state.history.join("");
-        // eslint-disable-next-line
+        /* eslint-disable */
         window.eval(history);
-        // eslint-disable-next-line
         this.refs.console.log(eval(text));
+        /* eslint-enable */
         // if the above command succeeded then safe to add to history
         this.state.history.push(text);
       } catch (err) {

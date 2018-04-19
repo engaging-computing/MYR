@@ -11,16 +11,17 @@ class View extends Component {
   helper = (ent, id) => {
     // for now only look one level deep for animations
     var anim, cam;
-    if (ent && ent.animation)
-      anim = <a-animation {...ent.animation}/>;
-    else
+    if (ent && ent.animation) {
+      anim = <a-animation {...ent.animation} />;
+    } else {
       anim = null;
+    }
 
-    if (ent && ent.camera){
+    if (ent && ent.camera) {
       if (ent.cursor) {
         cam = <a-camera>
-                <a-cursor></a-cursor>
-              </a-camera>;
+          <a-cursor></a-cursor>
+        </a-camera>;
       } else {
         cam = <a-camera />;
       }
@@ -46,20 +47,18 @@ class View extends Component {
       <div id="scene" className="col col-md-8">
         <a-scene physics="debug: true" embedded>
           <a-assets>
-            {this.props.assets ? this.props.assets.map((x, index) => this.assetsHelper(x, index)): null}     
+            {this.props.assets ? this.props.assets.map((x, index) => this.assetsHelper(x, index)) : null}
           </a-assets>
-
           {this.props.objects ? this.props.objects.map((x, index) => this.helper(x, index)) : null}
- 
         </a-scene>
       </div>
     );
   }
 
   componentDidUpdate() {
-     // Create the event
+    // Create the event
     var event = new CustomEvent("myr-view-rendered");
-
+    
     // Dispatch/Trigger/Fire the event
     document.dispatchEvent(event);
   }

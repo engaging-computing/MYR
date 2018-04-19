@@ -59,7 +59,7 @@ var geometry = [
     returnValue: 'js object representation of the Sphere primitive',
     description: "Renders a sphere using current internal Myr properties"
   },
-]
+];
 
 var transformations = [
   {
@@ -100,7 +100,7 @@ var transformations = [
     returnValue: 'js object representation of the new radius',
     description: "Sets a new radius attribute"
   },
-]
+];
 
 var webvr_components = [
   {
@@ -129,13 +129,13 @@ var webvr_components = [
     returnValue: 'js object representation of the Light primitive',
     description: "Renders a light using current internal Myr properties"
   },
-]
+];
 
 const reference = {
   geometry: geometry,
   transformations: transformations,
   webvr_components: webvr_components,
-}
+};
 
 export default function r(ref = reference) {
   return ref;

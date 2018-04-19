@@ -99,8 +99,6 @@ class Myr {
       this.setCamera(x,y,z);
     } 
     this.camera.cursor = true;
-    // eslint-disable-next-line     
-    this.camera;
   };
 
   getRandomColor = () => {
@@ -141,9 +139,7 @@ class Myr {
         var coord = el.getAttribute('position');
         var rel = new CANNON.Vec3().copy(coord);
         el.body.applyImpulse(impulse, rel);
-        console.log(coord);
       });
-      // console.log(e); // Prints "Example of an event"
     });
   }
 
@@ -248,7 +244,6 @@ class Myr {
     this.els.push(el);
     return el;
   }
-
   
   // Prism is an alias for Polyhedron
   prism = this.polyhedron
@@ -292,7 +287,6 @@ class Myr {
     this.assets.push(asset);
     return el;
   }
-
 }
 
 export default Myr;
