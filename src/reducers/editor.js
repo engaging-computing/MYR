@@ -5,7 +5,7 @@ var entityModel = [
     geometry: {
       primitive: "box",
       depth: 50, 
-      height: 0.1, 
+      height: 1, 
       width: 50
     },
     material:"color: #2E3837",
