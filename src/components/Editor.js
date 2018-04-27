@@ -233,7 +233,7 @@ class Editor extends Component {
               return (
                 <div key={proj.id} id={proj.id} className="grid-project col-sm-6 mb-5" onClick={this.handleLoad} title={proj.data.name}>
                   <h4>{proj.data.name}</h4>
-                  <img id={proj.id} alt={proj.id} className="img-thumbnail" src={proj.url.i} />
+                  <img id={proj.id} alt={proj.id} className="img-thumbnail" src={proj.url.j} />
                   <RaisedButton
                     onClick={() => this.addToDeleteList(proj.id)}
                     label="delete Project"
