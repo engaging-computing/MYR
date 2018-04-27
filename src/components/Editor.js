@@ -36,6 +36,7 @@ class Editor extends Component {
   componentDidUpdate() {
     if (auth.currentUser) {
       let vals = [];
+      this.props.actions.login(auth.currentUser);
       scenes.where('uid', '==', auth.currentUser.uid).get().then(snap => {
         snap.forEach(doc => {
           vals.push({
