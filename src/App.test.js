@@ -14,21 +14,6 @@ import View from './components/View';
 
 configure({ adapter: new Adapter() });
 
-var entityModel = [
-  {
-    geometry: {
-      primitive: "box",
-      depth: 50,
-      height: 0.1,
-      width: 50
-    },
-    material: "color: #2E3837",
-    "static-body": "shape: box",
-    position: "0 -1 -10"
-  },
-];
-
-
 describe('App Component', () => {
   it('App without crashing', () => {
     const store = createStore(reducer);
