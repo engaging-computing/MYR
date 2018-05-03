@@ -40,7 +40,8 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom --browser",
+    "coverage": "react-scripts test --env=jsdom --coverage --collectCoverageFrom=src/**/*.{js,jsx} --browser --silent",
+    "test": "react-scripts test --env=jsdom --browser --silent",
     "eject": "react-scripts eject"
   }
 }

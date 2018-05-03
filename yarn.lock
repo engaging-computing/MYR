@@ -3653,8 +3653,8 @@ flat-cache@^1.2.1:
     write "^0.2.1"
 
 flatten-vertex-data@^1.0.0:
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/flatten-vertex-data/-/flatten-vertex-data-1.0.1.tgz#d81e0925b576a9bc11a6c113ccf06d8347212d62"
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/flatten-vertex-data/-/flatten-vertex-data-1.0.2.tgz#889fd60bea506006ca33955ee1105175fb620219"
   dependencies:
     dtype "^2.0.0"
 

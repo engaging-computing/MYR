@@ -17,7 +17,7 @@ configure({ adapter: new Adapter() });
 describe('App Component', () => {
   it('App without crashing', () => {
     const store = createStore(reducer);
-    shallow(<App />, { context: { store } })
+    shallow(<App />, { context: { store } });
   });
 });
 
