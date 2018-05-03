@@ -135,10 +135,10 @@ class Myr {
         return;
       } 
       el.addEventListener('body-loaded', () => {
-        var impulse = new CANNON.Vec3(-1, 0, 0);
-        var coord = el.getAttribute('position');
-        var rel = new CANNON.Vec3().copy(coord);
-        el.body.applyImpulse(impulse, rel);
+        el.body.applyImpulse(
+          /* impulse */        new CANNON.Vec3(0, 1.8, 0),
+          /* world position */ new CANNON.Vec3().copy(el.object3D.position)
+        );
       });
     });
   }
