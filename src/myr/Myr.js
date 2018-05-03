@@ -127,7 +127,7 @@ class Myr {
     };
   }
 
-  push = (outerEl) => {
+  push = (outerEl, x, y, z) => {
     // Add an event listener
     document.addEventListener("myr-view-rendered", (e) => {
       var el = document.querySelector("#" + outerEl.id);
@@ -136,7 +136,7 @@ class Myr {
       } 
       el.addEventListener('body-loaded', () => {
         el.body.applyImpulse(
-          /* impulse */        new CANNON.Vec3(0, 1.8, 0),
+          /* impulse */        new CANNON.Vec3(x, y, z),
           /* world position */ new CANNON.Vec3().copy(el.object3D.position)
         );
       });

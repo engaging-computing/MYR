@@ -15,12 +15,29 @@ var entityModel = [
 ];
 
 const programs = [
+  `// Input your code here
+  function dropb(x, y) {
+     let b = box({material:"color: blue", position: x + " " + y + " " + -10});
+     drop(b);
+  }
+  
+  for( var i = -25 ; i < 25; i++){
+     dropb(-i, i);
+     dropb(-i, i + 25);
+     dropb(-i, i + 50);
+     dropb(-i, i + 75);
+     dropb(-i, i + 100);
+     dropb(-i, i + 125);
+     dropb(-i, i + 150);
+     dropb(-i, i + 175);
+     dropb(-i, i + 200);
+  }`,
 `// Input your code here
 
 function dropb(x, y) {
     let b = box({position: x + " " + y + " " + -10});
     drop(b);
-    push(b);
+    push(b, 0, 2, 0.1);
 }
 
 var n = [-5, -3, -1, 1, 3, 5];
