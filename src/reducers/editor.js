@@ -16,6 +16,23 @@ var entityModel = [
 
 const programs = [
   `// Input your code here
+  animate(box({material: {color: 'red'}}));
+  var colors = ['red', 'blue', 'purple']
+  
+  for( var i = 0 ; i < 20; i += 2){
+      setPosition(0,i,0)
+      animate(box({material: {color: colors[i % colors.length]}}));
+      setPosition(i,i,i)
+      animate(box({material: {color: colors[i % colors.length]}}));
+      setPosition(i,i,-i)
+      animate(box({material: {color: colors[i % colors.length]}}));
+      setPosition(-i,i,i)
+      animate(box({material: {color: colors[i % colors.length]}}));
+      setPosition(-i,i,-i)
+      animate(box({material: {color: colors[i % colors.length]}}));
+  
+  }`,
+  `// Input your code here
   function dropb(x, y) {
      let b = box({material:"color: blue", position: x + " " + y + " " + -10});
      drop(b);

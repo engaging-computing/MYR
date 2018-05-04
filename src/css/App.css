@@ -272,3 +272,7 @@ div.react-console-message-error {
       -webkit-transform: rotate(-360deg);
     }
 }
+
+#terminal { 
+  display: none;
+}
