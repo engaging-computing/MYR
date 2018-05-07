@@ -181,12 +181,13 @@ class Editor extends Component {
   // Produces the Render and Clear buttons
   buttons = () => {
     const style = {
-      marginLeft: 4,
+      margin: 4,
+      width: "50%"
     };
     return (
-      <div>
+      <div style={{display: "flex"}}>
         <RaisedButton
-          label="Render"
+          label='Render'
           primary={true}
           onClick={this.handleRender}
           style={style}
@@ -206,7 +207,7 @@ class Editor extends Component {
   // Produces the toolbar that contains persistence controls
   toolbar = () => {
     const style = {
-      margin: 2,
+      margin: 4,
     };
     return (
       <Toolbar>
@@ -214,7 +215,7 @@ class Editor extends Component {
           <RaisedButton
             onClick={this.handleSave}
             style={style}
-            label="Save"
+            label='Save'
             icon={<FontIcon className="material-icons">save</FontIcon>}
           />
           <RaisedButton
@@ -293,7 +294,7 @@ class Editor extends Component {
           {this.renderProjs()}
         </Drawer>
         <this.toolbar />
-        <AceEditor ref="aceEditor" width="100%" mode="javascript" theme="github" value={this.props.text} name="ace-editor" />
+        <AceEditor ref="aceEditor" width="100%" mode="javascript" theme="github" value={this.props.text} name="ace-editor" className="d-none d-md-block" />
         {this.buttons()}
       </div>
     );
