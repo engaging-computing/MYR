@@ -52,6 +52,7 @@ class Editor extends Component {
         }
       });
     }
+    this.refs.aceEditor.editor.focus();
   }
   componentDidMount() {
     let vals = [];
