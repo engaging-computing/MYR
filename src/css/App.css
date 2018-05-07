@@ -276,3 +276,7 @@ div.react-console-message-error {
 #terminal { 
   display: none;
 }
+
+.to-delete { 
+  filter: grayscale();
+}

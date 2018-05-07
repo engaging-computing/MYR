@@ -26,10 +26,12 @@ class Editor extends Component {
     this.state = {
       open: false,
       availProj: [],
+      sampleProj: [],
       autoReload: false,
       user: props.user,
       projOpen: false,
-      projectsToDelete: []
+      projectsToDelete: [],
+
     };
   }
 
@@ -51,6 +53,22 @@ class Editor extends Component {
       });
     }
   }
+  componentDidMount() {
+    let vals = [];
+    scenes.where('uid', '==', "1").get().then(snap => {
+      snap.forEach(doc => {
+        storageRef.child(`/images/equirectangular/${doc.id}`).getDownloadURL().then((img) => {
+          vals.push({
+            id: doc.id,
+            data: doc.data(),
+            url: img
+          });
+        });
+      })
+    });
+    this.setState({ sampleProj: vals });
+  }
+
 
   // Pass nothing into render to clear contents
   clear = () => {
@@ -150,8 +168,14 @@ class Editor extends Component {
   // Add the project clicked to the list to be delete
   addToDeleteList = (id) => {
     let deleteThese = this.state.projectsToDelete;
-    deleteThese.push(id);
-    this.setState({ projectsToDelete: deleteThese });
+    $('#' + id).toggleClass("to-delete");
+    if (deleteThese.includes(id)) {
+      deleteThese = deleteThese.filter((x) => x !== id);
+      this.setState({ projectsToDelete: deleteThese });
+    } else {
+      deleteThese.push(id);
+      this.setState({ projectsToDelete: deleteThese });
+    }
   }
 
   // Produces the Render and Clear buttons
@@ -215,26 +239,18 @@ class Editor extends Component {
       fullWidth={true}
       className="mb-3"
       icon={<AddCircle />} />;
-    if (this.state.availProj.length === 0) {
-      return (
-        <div id="project-list" >
-          <h3 className="mb-3">Projects</h3>
-          <div className="row" style={{ width: "100%" }}>
-            {newBtn}
-          </div>
-        </div>
-      );
-    } else {
-      return (
-        <div id="project-list" >
-          <h3 className="mb-3">Projects</h3>
-          <div className="row" style={{ width: "100%" }}>
-            {newBtn}
+    return (
+      <div id="project-list" >
+        {newBtn}
+        {this.state.availProj.length !== 0 && this.props.user !== null ?
+          <div className="row" id="user-proj" style={{ width: "100%" }}>
+            <h3 className="col-12 p-2 mb-3 border-bottom"> Your Projects</h3>
+            <hr />
             {this.state.availProj.map((proj) => {
               return (
-                <div key={proj.id} id={proj.id} className="grid-project col-sm-6 mb-5" onClick={this.handleLoad} title={proj.data.name}>
+                <div key={proj.id} id={proj.id} className="grid-project col-sm-6 p-3 mb-3" onClick={this.handleLoad} title={proj.data.name}>
                   <h4>{proj.data.name}</h4>
-                  <img id={proj.id} alt={proj.id} className="img-thumbnail" src={proj.url.j} />
+                  <img id={proj.id} alt={proj.id} className="img-thumbnail mb-1" src={proj.url.j} />
                   <RaisedButton
                     onClick={() => this.addToDeleteList(proj.id)}
                     label="delete Project"
@@ -245,15 +261,32 @@ class Editor extends Component {
                 </div>
               );
             })}
-          </div>
+          </div> : null}
+        <div className="row" id="sample-proj" style={{ width: "100%" }}>
+          <h3 className="col-12 p-2 mb-3 border-bottom">Sample Projects</h3>
+          {this.state.sampleProj.map((proj) => {
+            return (
+              <div key={proj.id} id={proj.id} className="grid-project col-sm-6 p-3 mb-3" onClick={this.handleLoad} title={proj.data.name}>
+                <h4>{proj.data.name}</h4>
+                <img id={proj.id} alt={proj.id} className="img-thumbnail mb-1" src={proj.url} />
+                <RaisedButton
+                  onClick={() => this.addToDeleteList(proj.id)}
+                  label="delete Project"
+                  fullWidth={true}
+                  secondary={true}
+                />
+              </div>
+            );
+          })}
         </div>
-      );
-    }
+      </div>
+    );
   }
+
 
   render() {
     return (
-      <div id="editor">
+      <div id="editor" >
         <Drawer docked={false} width={500}
           onRequestChange={(projOpen) => this.setState({ projOpen })}
           open={this.state.projOpen} >
