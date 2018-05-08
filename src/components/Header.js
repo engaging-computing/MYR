@@ -9,6 +9,7 @@ class Header extends Component {
     this.state = {
       account: null,
       open: false,
+      sceneName: ""
     };
   }
 
@@ -19,7 +20,10 @@ class Header extends Component {
         this.props.actions.login(account);
       }
     });
-    this.setState({ anchorEl: document.getElementById("user") });
+    this.setState({ 
+      anchorEl: document.getElementById("user"),
+      sceneName: this.props.scene.name
+     });
   }
 
   logout = () => {
@@ -52,17 +56,20 @@ class Header extends Component {
   // Handles the change of the scene name input
   handleChange = (event) => {
     event.preventDefault();
-    this.props.actions.nameScene(event.target.value);
+    this.setState({sceneName: event.target.value});
+  }
+
+  submitName = () => {
+    this.props.actions.nameScene(this.state.sceneName);
   }
 
   // Input for adding the scene name
   sceneName = () => {
-    let name = this.props.scene.name;
     return (
-      <form id="scene-name" onSubmit={this.handleChange}>
+      <form id="scene-name" onBlur={this.submitName}>
         <input name="name" type="text"
           placeholder="Name your scene"
-          value={name !== "untitled" ? name : ""}
+          value={this.state.sceneName !== "untitled" ? this.state.sceneName : ""}
           onChange={this.handleChange} />
       </form>
     );
