@@ -273,10 +273,15 @@ div.react-console-message-error {
     }
 }
 
-#terminal { 
-  display: none;
-}
-
 .to-delete { 
   filter: grayscale();
+}
+
+div.react-console-welcome.error {
+  color: red !important;
+}
+
+div.react-console-welcome {
+  font-size: 14pt;
+  border-bottom: 1px solid;
 }

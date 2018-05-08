@@ -4,13 +4,13 @@ var entityModel = [
   {
     geometry: {
       primitive: "box",
-      depth: 50, 
-      height: 1, 
+      depth: 50,
+      height: 1,
       width: 50
     },
-    material:"color: #2E3837",
-    "static-body":"shape: box",
-    position:"0 -1 -10"
+    material: "color: #2E3837",
+    "static-body": "shape: box",
+    position: "0 -1 -10"
   },
 ];
 
@@ -49,7 +49,7 @@ const programs = [
      dropb(-i, i + 175);
      dropb(-i, i + 200);
   }`,
-`// Input your code here
+  `// Input your code here
 
 function dropb(x, y) {
     let b = box({position: x + " " + y + " " + -10});
@@ -61,7 +61,7 @@ var n = [-5, -3, -1, 1, 3, 5];
 for (var x of n) {
     dropb(x, 0);
 }`,
-`// Input your code here
+  `// Input your code here
 
 function dropb(x, y) {
     let b = box({position: x + " " + y + " " + -10});
@@ -80,14 +80,15 @@ for (var x of n) {
 
 
 const initial_state = {
-  text: programs[Math.floor(Math.random()*programs.length)],
+  text: programs[Math.floor(Math.random() * programs.length)],
   objects: entityModel,
   assets: [],
   user: null,
   scene: {
     name: "untitled",
     id: "0"
-  }
+  },
+  errors: "Everything Looks Good"
 };
 
 export default function scene(state = initial_state, action) {
@@ -111,12 +112,20 @@ export default function scene(state = initial_state, action) {
       }
       catch (err) {
         console.error("Eval failed: " + err);
+        return {
+          ...state,
+          text: action.text,
+          objects: initial_state.objects.concat(els),
+          assets: assets,
+          errors: "Eval failed: " + err
+        };
       }
       return {
         ...state,
         text: action.text,
         objects: initial_state.objects.concat(els),
         assets: assets,
+        errors: "Everything Looks Good"
       };
     case 'EDITOR_REFRESH':
       window.myr = new Myr();
@@ -157,7 +166,7 @@ export default function scene(state = initial_state, action) {
       };
     case 'LOAD_SCENE':
       let newScene = {
-      ...state.scene,
+        ...state.scene,
         id: action.id
       };
       return {

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Console from 'react-console-component';
+import $ from "jquery";
 
 class Terminal extends Component {
   constructor() {
@@ -8,11 +9,11 @@ class Terminal extends Component {
       history: [],
     };
   }
-  
+
   echo = (text) => {
     if (text.length > 0) {
       try {
-        if (text[text.length-1] !== ";") {
+        if (text[text.length - 1] !== ";") {
           text = text + ";";
         }
         var history = this.state.history.join("");
@@ -23,18 +24,28 @@ class Terminal extends Component {
         // if the above command succeeded then safe to add to history
         this.state.history.push(text);
       } catch (err) {
-        this.refs.console.logX("error",err.message);
+        this.refs.console.logX("error", err.message);
       }
     }
     this.refs.console.return();
   }
+
+  handleWelcome = () =>{
+    if(this.props.errors !== "Everything Looks Good"){
+      $('.react-console-welcome').addClass('error');
+    } else {
+      $('.react-console-welcome').removeClass('error');
+    }
+    return this.props.errors;
+  }
+
   render = () => {
     return (
       <div id="terminal">
         <Console ref="console"
           handler={this.echo}
           autofocus={true}
-          welcomeMessage={"Welcome"}
+          welcomeMessage={this.handleWelcome()}
         />
       </div>
     );

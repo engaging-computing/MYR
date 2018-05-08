@@ -22,7 +22,7 @@ const muiTheme = getMuiTheme({
   fontFamily: 'Roboto, sans-serif',
 });
 
-const App = ({ text, objects, actions, assets, user, scene }) => (
+const App = ({ text, objects, actions, assets, user, scene, errors }) => (
   <MuiThemeProvider muiTheme={muiTheme}>
     <div className="App">
       <Header actions={actions} user={user} scene={scene} />
@@ -30,7 +30,7 @@ const App = ({ text, objects, actions, assets, user, scene }) => (
         <div id="interface" className="col-12 col-md-4">
           <Editor actions={actions} objects={objects} text={text} user={user} scene={scene} />
           <div className="w-100"></div>
-          <Terminal />
+          <Terminal errors={errors} />
         </div>
         <View objects={objects} assets={assets} />
       </div>
@@ -41,6 +41,7 @@ const App = ({ text, objects, actions, assets, user, scene }) => (
 // This makes sure we are getting what we think we should
 App.propTypes = {
   text: PropTypes.string.isRequired,
+  errors: PropTypes.string.isRequired,
   objects: PropTypes.array.isRequired,
   actions: PropTypes.object.isRequired,
   assets: PropTypes.array.isRequired,
@@ -50,6 +51,7 @@ App.propTypes = {
 // This makes the values accessible as props
 const mapStateToProps = state => ({
   text: state.editor.text,
+  errors: state.editor.errors,
   objects: state.editor.objects,
   assets: state.editor.assets,
   user: state.editor.user,
