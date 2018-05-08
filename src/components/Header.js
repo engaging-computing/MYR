@@ -55,18 +55,19 @@ class Header extends Component {
 
   // Handles the change of the scene name input
   handleChange = (event) => {
-    event.preventDefault();
     this.setState({sceneName: event.target.value});
   }
 
-  submitName = () => {
+  submitName = (event) => {
+    event.preventDefault();
     this.props.actions.nameScene(this.state.sceneName);
+    return false;
   }
 
   // Input for adding the scene name
   sceneName = () => {
     return (
-      <form id="scene-name" onBlur={this.submitName}>
+      <form id="scene-name" onSubmit={this.submitName} onBlur={this.submitName}>
         <input name="name" type="text"
           placeholder="Name your scene"
           value={this.state.sceneName !== "untitled" ? this.state.sceneName : ""}
