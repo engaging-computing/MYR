@@ -26,6 +26,11 @@ class Header extends Component {
      });
   }
 
+  /**
+   * When the user clicks logout
+   * Use firebase Auth to logout, then update component state
+   * Finally, call the logout action to sync application sync
+   */
   logout = () => {
     auth.signOut().then(() => {
       this.setState({ account: null });
@@ -33,6 +38,11 @@ class Header extends Component {
     this.props.actions.logout();
   }
 
+  /**
+   * When login button is pressed
+   * Use firebase auth then set local state
+   * Finally call the reducer action to sync up application state
+   */
   login = () => {
     auth.signInWithPopup(provider).then((result) => {
       const account = result.account;
@@ -41,6 +51,7 @@ class Header extends Component {
     });
   }
 
+  // Open and c
   handleClick = (event) => {
     event.preventDefault();
     this.setState({
@@ -53,11 +64,12 @@ class Header extends Component {
     this.setState({ open: false });
   };
 
-  // Handles the change of the scene name input
+  // Handles the component's screenName 
   handleChange = (event) => {
     this.setState({sceneName: event.target.value});
   }
 
+  // Handles the application state sync
   submitName = (event) => {
     event.preventDefault();
     this.props.actions.nameScene(this.state.sceneName);
