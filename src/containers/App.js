@@ -5,8 +5,8 @@ import Header from '../components/Header';
 import Terminal from '../components/Terminal';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import {darkBlack, red600, white} from 'material-ui/styles/colors';
-import * as EditorActions from '../actions/index.js';
+import { darkBlack, red600, white } from 'material-ui/styles/colors';
+import * as EditorActions from '../actions/editorActions.js';
 import * as AuthActions from '../actions/authActions.js';
 import * as SceneActions from '../actions/sceneActions.js';
 import PropTypes from 'prop-types';
@@ -24,14 +24,13 @@ const muiTheme = getMuiTheme({
   fontFamily: 'Roboto, sans-serif',
 });
 
-const App = ({ text, objects, actions, assets, user, scene, errors, authActions,sceneActions }) => (
+const App = ({ text, objects, actions, assets, user, scene, errors, authActions, sceneActions }) => (
   <MuiThemeProvider muiTheme={muiTheme}>
     <div className="App">
       <Header logging={authActions} sceneActions={sceneActions} actions={actions} user={user} scene={scene} />
       <div className="row no-gutters">
         <div id="interface" className="col-12 col-md-4">
-          <Editor actions={actions} sceneActions={sceneActions}  objects={objects} text={text} user={user} scene={scene} />
-          <div className="w-100"></div>
+          <Editor actions={actions} sceneActions={sceneActions} objects={objects} text={text} user={user} scene={scene} />
           <Terminal errors={errors} />
         </div>
         <View objects={objects} assets={assets} />

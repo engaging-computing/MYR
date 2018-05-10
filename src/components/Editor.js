@@ -169,7 +169,7 @@ class Editor extends Component {
     let deleteThese = this.state.projectsToDelete;
     $('#' + id).toggleClass("to-delete");
     if (deleteThese.includes(id)) {
-      deleteThese = deleteThese.filter((x) => x !== id);
+      deleteThese = deleteThese.filter((it) => it !== id);
       this.setState({ projectsToDelete: deleteThese });
     } else {
       deleteThese.push(id);

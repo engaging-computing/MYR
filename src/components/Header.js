@@ -28,7 +28,7 @@ class Header extends Component {
 
   /**
    * When the user clicks logout
-   * Use firebase Auth to logout, then update component state
+   * Use firebase Auth to logout
    * Finally, call the logout action to sync application sync
    */
   logout = () => {
@@ -45,7 +45,6 @@ class Header extends Component {
   login = () => {
     auth.signInWithPopup(provider).then((result) => {
       const account = result.account;
-      this.setState({ account });
       this.props.logging.login(account);
     });
   }
@@ -72,15 +71,24 @@ class Header extends Component {
   submitName = (event) => {
     event.preventDefault();
     this.props.sceneActions.nameScene(this.state.sceneName);
+    this.setState({sceneName: ""});
   }
 
   // Input for adding the scene name
   sceneName = () => {
+    let text = ""
+    // If component.state == "" -> use reducer.state
+    // If component.state != "" -> user component state
+    if(this.state.sceneName === ""){
+      text = this.props.scene.name;
+    } else {
+      text = this.state.sceneName;
+    }
     return (
       <form id="scene-name" onSubmit={this.submitName} onBlur={this.submitName}>
         <input name="name" type="text"
           placeholder="Name your scene"
-          value={this.state.sceneName !== "untitled" ? this.state.sceneName : ""}
+          value={text}
           onChange={this.handleChange} />
       </form>
     );

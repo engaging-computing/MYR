@@ -1,6 +1,6 @@
 const initial_state = {
   scene: {
-    name: "untitled",
+    name: "",
     id: "0"
   }
 };
