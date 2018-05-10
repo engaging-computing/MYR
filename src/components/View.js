@@ -45,7 +45,7 @@ class View extends Component {
   render = () => {
     return (
       <div id="scene" className="col-12 col-md-8">
-        <a-scene physics="debug: true; friction: 1; restitution: .3" embedded>
+        <a-scene physics="debug: false; friction: 1; restitution: .3" embedded>
           <a-assets>
             {this.props.assets ? this.props.assets.map((x, index) => this.assetsHelper(x, index)) : null}
           </a-assets>
