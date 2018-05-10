@@ -93,13 +93,12 @@ class Editor extends Component {
   handleLoad = (event) => {
     event.preventDefault();
     if (event.target.id) {
-      this.props.actions.loadScene(event.target.id);
       scenes.doc(event.target.id).get().then(doc => {
         let scene = doc.data();
         if (scene.code) {
           this.props.actions.render(scene.code);
-          this.props.actions.nameScene(scene.name);
-          this.props.actions.loadScene(doc.id);
+          this.props.sceneActions.nameScene(scene.name);
+          this.props.sceneActions.loadScene(doc.id);
         } else {
           this.props.actions.render("// The code was corrupted");
         }
@@ -115,7 +114,7 @@ class Editor extends Component {
       $("body").prepend("<span class='spinner'><div class='cube1'></div><div class='cube2'></div></span>");
       if (projectID) {
         projectID = this.props.user.uid + '_' + ts;
-        this.props.actions.loadScene(projectID);
+        this.props.sceneActions.loadScene(projectID);
       }
       let code = this.props.text;
       let uid = this.props.user.uid;
@@ -155,7 +154,7 @@ class Editor extends Component {
   handleNewProj = () => {
     this.props.actions.render("");
     if (this.props.user) {
-      this.props.actions.nameScene("untitled");
+      this.props.sceneActions.nameScene("untitled");
     }
   }
 

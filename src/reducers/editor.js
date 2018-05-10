@@ -80,10 +80,6 @@ const initial_state = {
   text: programs[Math.floor(Math.random() * programs.length)],
   objects: entityModel,
   assets: [],
-  scene: {
-    name: "untitled",
-    id: "0"
-  },
   errors: "Everything Looks Good"
 };
 
@@ -129,37 +125,6 @@ export default function editor(state = initial_state, action) {
         ...initial_state,
         text: action.text
       };
-    case 'NAME_SCENE':
-      return {
-        ...state,
-        scene: {
-          id: state.scene.id,
-          name: action.name
-        }
-      };
-    case 'NEW_SCENE':
-      let projectID = "";
-      if (state.user.uid) {
-        let ts = Date.now();
-        projectID = state.user.uid + '_' + ts;
-      }
-      return {
-        ...state,
-        scene: {
-          id: projectID,
-          name: state.scene.name
-        }
-      };
-    case 'LOAD_SCENE':
-      let newScene = {
-        ...state.scene,
-        id: action.id
-      };
-      return {
-        ...state,
-        scene: newScene
-      };
-
     default:
       return state;
   }

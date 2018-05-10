@@ -8,6 +8,7 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import {darkBlack, red600, white} from 'material-ui/styles/colors';
 import * as EditorActions from '../actions/index.js';
 import * as AuthActions from '../actions/authActions.js';
+import * as SceneActions from '../actions/sceneActions.js';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
@@ -23,13 +24,13 @@ const muiTheme = getMuiTheme({
   fontFamily: 'Roboto, sans-serif',
 });
 
-const App = ({ text, objects, actions, assets, user, scene, errors, logging }) => (
+const App = ({ text, objects, actions, assets, user, scene, errors, authActions,sceneActions }) => (
   <MuiThemeProvider muiTheme={muiTheme}>
     <div className="App">
-      <Header logging={logging} actions={actions} user={user} scene={scene} />
+      <Header logging={authActions} sceneActions={sceneActions} actions={actions} user={user} scene={scene} />
       <div className="row no-gutters">
         <div id="interface" className="col-12 col-md-4">
-          <Editor actions={actions} objects={objects} text={text} user={user} scene={scene} />
+          <Editor actions={actions} sceneActions={sceneActions}  objects={objects} text={text} user={user} scene={scene} />
           <div className="w-100"></div>
           <Terminal errors={errors} />
         </div>
@@ -57,13 +58,14 @@ const mapStateToProps = state => ({
   objects: state.editor.objects,
   assets: state.editor.assets,
   user: state.user.user,
-  scene: state.editor.scene,
+  scene: state.scene.scene,
 });
 
 // This maps dispatch actions to props
 const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators(EditorActions, dispatch),
-  logging: bindActionCreators(AuthActions, dispatch)
+  authActions: bindActionCreators(AuthActions, dispatch),
+  sceneActions: bindActionCreators(SceneActions, dispatch)
 });
 
 // This does the binding to the redux store

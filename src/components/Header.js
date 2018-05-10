@@ -71,7 +71,7 @@ class Header extends Component {
   // Handles the application state sync
   submitName = (event) => {
     event.preventDefault();
-    this.props.actions.nameScene(this.state.sceneName);
+    this.props.sceneActions.nameScene(this.state.sceneName);
   }
 
   // Input for adding the scene name
