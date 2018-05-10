@@ -74,16 +74,12 @@ for (var x of n) {
     dropb(x, 7);
     dropb(x, 4);
 }`
-
 ];
-
-
 
 const initial_state = {
   text: programs[Math.floor(Math.random() * programs.length)],
   objects: entityModel,
   assets: [],
-  user: null,
   scene: {
     name: "untitled",
     id: "0"
@@ -91,7 +87,7 @@ const initial_state = {
   errors: "Everything Looks Good"
 };
 
-export default function scene(state = initial_state, action) {
+export default function editor(state = initial_state, action) {
   switch (action.type) {
     case 'EDITOR_RENDER':
       try {
@@ -132,16 +128,6 @@ export default function scene(state = initial_state, action) {
       return {
         ...initial_state,
         text: action.text
-      };
-    case 'LOGIN':
-      return {
-        ...state,
-        user: action.user
-      };
-    case 'LOGOUT':
-      return {
-        ...state,
-        user: null
       };
     case 'NAME_SCENE':
       return {

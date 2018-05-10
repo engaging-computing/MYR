@@ -7,7 +7,6 @@ class Header extends Component {
   constructor() {
     super();
     this.state = {
-      account: null,
       open: false,
       sceneName: ""
     };
@@ -16,8 +15,9 @@ class Header extends Component {
   componentDidMount() {
     auth.onAuthStateChanged((account) => {
       if (account) {
-        this.setState({ account });
-        this.props.actions.login(account);
+        this.props.logging.login(account);
+      } else {
+        this.props.logging.logout();
       }
     });
     this.setState({ 
@@ -33,9 +33,8 @@ class Header extends Component {
    */
   logout = () => {
     auth.signOut().then(() => {
-      this.setState({ account: null });
-    });
-    this.props.actions.logout();
+      this.props.logging.logout();
+    }); 
   }
 
   /**
@@ -47,7 +46,7 @@ class Header extends Component {
     auth.signInWithPopup(provider).then((result) => {
       const account = result.account;
       this.setState({ account });
-      this.props.actions.login(account);
+      this.props.logging.login(account);
     });
   }
 
@@ -73,7 +72,6 @@ class Header extends Component {
   submitName = (event) => {
     event.preventDefault();
     this.props.actions.nameScene(this.state.sceneName);
-    return false;
   }
 
   // Input for adding the scene name
@@ -90,12 +88,12 @@ class Header extends Component {
 
   loginBtn = () => {
     let btn;
-    if (this.state.account !== null) {
+    if (this.props.user !== null) {
       btn = <Menu><MenuItem primaryText="Log Out" onClick={this.logout} /></Menu>;
     } else {
       btn = <Menu><MenuItem primaryText="Log In" onClick={this.login} /></Menu>;
     }
-    let photoURL = this.state.account ? this.state.account.photoURL: process.env.PUBLIC_URL + '/img/acct_circle.svg';
+    let photoURL = this.props.user ? this.props.user.photoURL: process.env.PUBLIC_URL + '/img/acct_circle.svg';
     return (
       <div id="user">
         <Avatar

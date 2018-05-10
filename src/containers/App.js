@@ -6,7 +6,8 @@ import Terminal from '../components/Terminal';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import {darkBlack, red600, white} from 'material-ui/styles/colors';
-import * as EditorActions from '../actions';
+import * as EditorActions from '../actions/index.js';
+import * as AuthActions from '../actions/authActions.js';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
@@ -22,10 +23,10 @@ const muiTheme = getMuiTheme({
   fontFamily: 'Roboto, sans-serif',
 });
 
-const App = ({ text, objects, actions, assets, user, scene, errors }) => (
+const App = ({ text, objects, actions, assets, user, scene, errors, logging }) => (
   <MuiThemeProvider muiTheme={muiTheme}>
     <div className="App">
-      <Header actions={actions} user={user} scene={scene} />
+      <Header logging={logging} actions={actions} user={user} scene={scene} />
       <div className="row no-gutters">
         <div id="interface" className="col-12 col-md-4">
           <Editor actions={actions} objects={objects} text={text} user={user} scene={scene} />
@@ -41,6 +42,7 @@ const App = ({ text, objects, actions, assets, user, scene, errors }) => (
 // This makes sure we are getting what we think we should
 App.propTypes = {
   text: PropTypes.string.isRequired,
+  user: PropTypes.object,
   errors: PropTypes.string.isRequired,
   objects: PropTypes.array.isRequired,
   actions: PropTypes.object.isRequired,
@@ -54,13 +56,14 @@ const mapStateToProps = state => ({
   errors: state.editor.errors,
   objects: state.editor.objects,
   assets: state.editor.assets,
-  user: state.editor.user,
+  user: state.user.user,
   scene: state.editor.scene,
 });
 
 // This maps dispatch actions to props
 const mapDispatchToProps = dispatch => ({
-  actions: bindActionCreators(EditorActions, dispatch)
+  actions: bindActionCreators(EditorActions, dispatch),
+  logging: bindActionCreators(AuthActions, dispatch)
 });
 
 // This does the binding to the redux store
