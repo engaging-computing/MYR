@@ -64,7 +64,7 @@ class Editor extends Component {
             url: img
           });
         });
-      })
+      });
     });
     this.setState({ sampleProj: vals });
   }

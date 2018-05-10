@@ -8,7 +8,7 @@ class Header extends Component {
     super();
     this.state = {
       open: false,
-      sceneName: ""
+      sceneName: null
     };
   }
 
@@ -22,7 +22,6 @@ class Header extends Component {
     });
     this.setState({ 
       anchorEl: document.getElementById("user"),
-      sceneName: this.props.scene.name
      });
   }
 
@@ -71,7 +70,7 @@ class Header extends Component {
   submitName = (event) => {
     event.preventDefault();
     this.props.sceneActions.nameScene(this.state.sceneName);
-    this.setState({sceneName: ""});
+    this.setState({sceneName: null});
   }
 
   // Input for adding the scene name
@@ -79,7 +78,7 @@ class Header extends Component {
     let text = ""
     // If component.state == "" -> use reducer.state
     // If component.state != "" -> user component state
-    if(this.state.sceneName === ""){
+    if(this.state.sceneName === null){
       text = this.props.scene.name;
     } else {
       text = this.state.sceneName;
