@@ -48,7 +48,6 @@ class Header extends Component {
     });
   }
 
-  // Open and c
   handleClick = (event) => {
     event.preventDefault();
     this.setState({
@@ -75,9 +74,7 @@ class Header extends Component {
 
   // Input for adding the scene name
   sceneName = () => {
-    let text = ""
-    // If component.state == "" -> use reducer.state
-    // If component.state != "" -> user component state
+    let text = "";
     if(this.state.sceneName === null){
       text = this.props.scene.name;
     } else {
