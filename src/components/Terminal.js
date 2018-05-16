@@ -30,8 +30,8 @@ class Terminal extends Component {
     this.refs.console.return();
   }
 
-  handleWelcome = () =>{
-    if(this.props.errors !== "Everything Looks Good"){
+  handleWelcome = () => {
+    if (this.props.errors !== "Everything Looks Good") {
       $('.react-console-welcome').addClass('error');
     } else {
       $('.react-console-welcome').removeClass('error');
@@ -41,7 +41,7 @@ class Terminal extends Component {
 
   render = () => {
     return (
-      <div id="terminal">
+      <div id="terminal" className="d-none d-md-block">
         <Console ref="console"
           handler={this.echo}
           autofocus={true}

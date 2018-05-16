@@ -1,21 +1,17 @@
 import React from 'react';
 import myrReference from '../myr/reference';
 import Highlight from 'react-highlight.js';
-import Drawer from 'material-ui/Drawer';
-import RaisedButton from 'material-ui/RaisedButton';
-import { Tabs, Tab } from 'material-ui/Tabs';
-import FontIcon from 'material-ui/FontIcon';
+import { Tabs, Tab, Button, Drawer, Icon } from 'material-ui';
 // import MenuItem from 'material-ui/MenuItem';
 
 
 import {
   Table,
   TableBody,
-  TableHeader,
-  TableHeaderColumn,
+  TableHead,
   TableRow,
-  TableRowColumn,
-} from 'material-ui/Table';
+  TableCell
+} from 'material-ui';
 
 export default class Reference extends React.Component {
 
@@ -37,18 +33,11 @@ export default class Reference extends React.Component {
     this.tableData = myrReference();
   }
 
-  handleToggle = () => this.setState({ open: !this.state.open });
+  handleToggle = () => this.setState({ open: !this.state.open, value: 'a' });
 
-  handleChange = (value) => {
-    if (value === 'x') {
-      value = this.state.value;
-    }
-    this.setState({
-      value: value,
-    });
+  handleChange = (event, value) => {
+    this.setState({ value });
   };
-
-
 
   TableEx = (category) => {
     const styles = {
@@ -63,37 +52,40 @@ export default class Reference extends React.Component {
     };
     return (
       <Table
-        height={this.state.height}
-        fixedHeader={this.state.fixedHeader}
-        fixedFooter={this.state.fixedFooter}
-        selectable={this.state.selectable}
-        multiSelectable={this.state.multiSelectable}
-        style={styles.general}>
-        <TableHeader
-          displaySelectAll={this.state.showCheckboxes}
-          adjustForCheckbox={this.state.showCheckboxes}
-          enableSelectAll={this.state.enableSelectAll}
-          style={styles.general}>
+        // height={this.state.height}
+        // fixedHeader={this.state.fixedHeader}
+        // fixedFooter={this.state.fixedFooter}
+        // selectable={this.state.selectable}
+        // multiSelectable={this.state.multiSelectable}
+        style={styles.general}
+      >
+        <TableHead
+          // displaySelectAll={this.state.showCheckboxes}
+          // adjustForCheckbox={this.state.showCheckboxes}
+          // enableSelectAll={this.state.enableSelectAll}
+          style={styles.general}
+        >
           <TableRow>
-            <TableHeaderColumn>Name</TableHeaderColumn>
-            <TableHeaderColumn>Parameters</TableHeaderColumn>
-            <TableHeaderColumn>Return Value</TableHeaderColumn>
-            <TableHeaderColumn>Description</TableHeaderColumn>
+            <TableCell>Name</TableCell>
+            <TableCell>Parameters</TableCell>
+            <TableCell>Return Value</TableCell>
+            <TableCell>Description</TableCell>
           </TableRow>
-        </TableHeader>
+        </TableHead>
         <TableBody
-          displayRowCheckbox={this.state.showCheckboxes}
-          style={styles.general}>
+          // displayRowCheckbox={this.state.showCheckboxes}
+          style={styles.general}
+        >
           {this.tableData[category].map((row, index) => (
             <TableRow key={index}>
-              <TableRowColumn style={styles.general}>{row.name}</TableRowColumn>
-              <TableRowColumn>
+              <TableCell style={styles.general}>{row.name}</TableCell>
+              <TableCell>
                 <Highlight language={'javascript'} style={styles.highlight}>
                   {row.parameters}
                 </Highlight>
-              </TableRowColumn>
-              <TableRowColumn style={styles.general}>{row.returnValue}</TableRowColumn>
-              <TableRowColumn style={styles.general}>{row.description}</TableRowColumn>
+              </TableCell>
+              <TableCell style={styles.general}>{row.returnValue}</TableCell>
+              <TableCell style={styles.general}>{row.description}</TableCell>
             </TableRow>
           ))}
         </TableBody>
@@ -116,60 +108,56 @@ export default class Reference extends React.Component {
         margin: 30,
       }
     };
+
     return (
-      <span style={styles.buttonSpan}>
-        <RaisedButton
-          label="Reference"
-          icon={<FontIcon className="material-icons">description</FontIcon>}
-          onClick={this.handleToggle}
-        />
-        <Drawer open={this.state.open} width={'85%'} 
-          docked={false} onRequestChange={(open) => this.setState({open})}>
+      <Button
+        variant="raised"
+        color="primary"
+        onClick={this.handleToggle}>
+        <Icon className="material-icons md-36">description</Icon> Reference
+           <Drawer
+          open={this.state.open}
+          width={'85%'}>
+
           <Tabs
             value={this.state.value}
-            onChange={this.handleChange}>
+            onChange={this.handleChange} >
             <Tab
-              icon={<FontIcon className="material-icons">change_history</FontIcon>}
+              icon={<Icon className="material-icons">change_history</Icon>}
               label="Geometry"
-              value='a'
-            >
-              <div style={styles.tabStyle}>
-                <h5 style={styles.headline}>Geometry</h5>
-                {this.TableEx("geometry")}
-              </div>
+              value='a'>
             </Tab>
             <Tab
-              icon={<FontIcon className="material-icons">build</FontIcon>}
+              icon={<Icon className="material-icons">build</Icon>}
               label="TRANSFORMATIONS"
-              value='b'>
-              <div style={styles.tabStyle}>
-                <h5 style={styles.headline}>Transformations</h5>
-                {this.TableEx("transformations")}
-              </div>
-            </Tab>
+              value='b' />
             <Tab
-              icon={<FontIcon className="material-icons">settings</FontIcon>}
+              icon={<Icon className="material-icons">settings</Icon>}
               label="WEBVR COMPONENTS"
-              value='c'>
-              <div style={styles.tabStyle}>
-                <h5 style={styles.headline}>WebVR Components</h5>
-                {this.TableEx("webvr_components")}
-              </div>
-            </Tab>
+              value='c' />
             <Tab
-              icon={<FontIcon className="material-icons">close</FontIcon>}
+              icon={<Icon className="material-icons">close</Icon>}
               label="CLOSE"
               value='x'
-              onActive={this.handleToggle}>
-              <div>
-                <h2 style={styles.headline}>Tab Three</h2>
-                <p>
-                </p>
-              </div>
-            </Tab>
+              onClick={this.handleToggle} />
           </Tabs>
+          {this.state.value === 'a' &&
+            <div style={styles.tabStyle}>
+              <h5 style={styles.headline}>Geometry</h5>
+              {this.TableEx("geometry")}
+            </div>}
+          {this.state.value === 'b' &&
+            <div style={styles.tabStyle}>
+              <h5 style={styles.headline}>Transformations</h5>
+              {this.TableEx("transformations")}
+            </div>}
+          {this.state.value === 'c' &&
+            <div style={styles.tabStyle}>
+              <h5 style={styles.headline}>WebVR Components</h5>
+              {this.TableEx("webvr_components")}
+            </div>}
         </Drawer>
-      </span>
+      </Button>
     );
   }
 }

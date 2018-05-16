@@ -18,13 +18,12 @@ body {
   padding: 8px;
   display: flex;
   align-items: center;
-  justify-content: space-between;
   height: 6vh;
-}       
+}
 
 .App-header h1 {
   color: white;
-  margin-top: 0;
+  margin: 0;
 }
 
 .App-intro {
@@ -36,25 +35,8 @@ div#user {
   flex-direction: row-reverse;
 }
 
-#user p{
-  color: #fff;
-  padding: 5px 12px;
-}
-
 #user img {
   float: right;
-}
-
-#scene-name input {
-  font-size: large;
-  color: #fff;
-  background-color: #222;
-  border: none;
-}
-
-#scene-name input:focus {
-  color: #222;
-  background-color: #fff;
 }
 
 #editor {
@@ -92,17 +74,19 @@ a-scene[aframe-inspector-removed-embedded] {
 }
 
 th:nth-child(1),
-td:nth-child(1){
+td:nth-child(1) {
   color: #266d90;
   width: 15%;
 }
 
 /* inspector fixes */
-#sidebar, .components{
+
+#sidebar,
+.components {
   width: 400px !important;
 }
 
-.components .row{
+.components .row {
   margin-left: 5px;
 }
 
@@ -118,16 +102,21 @@ body.aframe-inspector-opened .toggle-edit {
 }
 
 /* animations */
+
 @keyframes spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 #project-list {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
-  width: 500px;
+  /* width: 500px; */
 }
 
 .delete-btn {
@@ -151,129 +140,156 @@ div.react-console-container {
   background: #efefef;
   padding: 0.5em;
   overflow: auto;
-  white-space: pre; }
+  white-space: pre;
+}
 
 div.react-console-prompt-box {
-  color: #444; }
+  color: #444;
+}
 
 span.react-console-prompt-label {
-  font-weight: bold; }
+  font-weight: bold;
+}
 
 div.react-console-focus span.react-console-cursor {
   background: #333;
-  color: #eee; }
+  color: #eee;
+}
 
 div.react-console-nofocus span.react-console-cursor {
   background: none;
   color: #444;
   outline: 0.1em solid #333;
-  outline-offset: -0.1em; }
+  outline-offset: -0.1em;
+}
 
 div.react-console-focus span.react-console-cursor-idle {
-  animation: react-console-cursor-animation 1s infinite; }
+  animation: react-console-cursor-animation 1s infinite;
+}
 
 @keyframes react-console-cursor-animation {
   0% {
     background: #333;
-    color: #eee; }
+    color: #eee;
+  }
   50% {
     background: #333;
-    color: #eee; }
+    color: #eee;
+  }
   51% {
     background: none;
-    color: #444; }
+    color: #444;
+  }
   100% {
     background: none;
-    color: #444; } }
+    color: #444;
+  }
+}
 
 div.react-console-message {
   color: #0e1111;
-  padding: 0.1em; }
+  padding: 0.1em;
+}
 
 div.react-console-message-error {
   color: #ff0033;
-  padding: 0.1em; }
-
-
-  .spinner {
-    position: fixed;
-    z-index: 999;
-    height: 2em;
-    width: 2em;
-    overflow: show;
-    margin: auto;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    right: 0;
-  }
-  
-  /* Transparent Overlay */
-  .spinner:before {
-    content: '';
-    display: block;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0,0,0,0.3);
-  }
-  
-  /* :not(:required) hides these rules from IE9 and below */
-  .spinner:not(:required) {
-    /* hide "spinner..." text */
-    font: 0/0 a;
-    color: transparent;
-    text-shadow: none;
-    background-color: transparent;
-    border: 0;
-  }
-  
-  .cube1, .cube2, cube3 {
-    background-color: #222;
-    width: 35px;
-    height: 35px;
-    position: absolute;
-    top: 0;
-    left: 0;
-    
-    -webkit-animation: sk-cubemove 1.8s infinite ease-in-out;
-    animation: sk-cubemove 3.8s infinite ease-in-out;
-  }
-  
-  .cube2 {
-    -webkit-animation-delay: -0.9s;
-    animation-delay: -0.9s;
-  }
-  
-  @-webkit-keyframes sk-cubemove {
-    25% { -webkit-transform: translateX(42px) rotate(-90deg) scale(4.5) }
-    50% { -webkit-transform: translateX(42px) translateY(42px) rotate(-180deg) }
-    75% { -webkit-transform: translateX(0px) translateY(42px) rotate(-270deg) scale(4.5) }
-    100% { -webkit-transform: rotate(-360deg) }
-  }
-  
-  @keyframes sk-cubemove {
-    25% { 
-      transform: translateX(42px) rotate(-90deg) scale(0.5);
-      -webkit-transform: translateX(42px) rotate(-90deg) scale(0.5);
-    } 50% { 
-      transform: translateX(42px) translateY(42px) rotate(-179deg);
-      -webkit-transform: translateX(42px) translateY(42px) rotate(-179deg);
-    } 50.1% { 
-      transform: translateX(42px) translateY(42px) rotate(-180deg);
-      -webkit-transform: translateX(42px) translateY(42px) rotate(-180deg);
-    } 75% { 
-      transform: translateX(0px) translateY(42px) rotate(-270deg) scale(0.5);
-      -webkit-transform: translateX(0px) translateY(42px) rotate(-270deg) scale(0.5);
-    } 100% { 
-      transform: rotate(-360deg);
-      -webkit-transform: rotate(-360deg);
-    }
+  padding: 0.1em;
 }
 
-.to-delete { 
+.spinner {
+  position: fixed;
+  z-index: 999;
+  height: 2em;
+  width: 2em;
+  overflow: show;
+  margin: auto;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+}
+
+/* Transparent Overlay */
+
+.spinner:before {
+  content: '';
+  display: block;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.3);
+}
+
+/* :not(:required) hides these rules from IE9 and below */
+
+.spinner:not(:required) {
+  /* hide "spinner..." text */
+  font: 0/0 a;
+  color: transparent;
+  text-shadow: none;
+  background-color: transparent;
+  border: 0;
+}
+
+.cube1,
+.cube2,
+cube3 {
+  background-color: #222;
+  width: 35px;
+  height: 35px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  -webkit-animation: sk-cubemove 1.8s infinite ease-in-out;
+  animation: sk-cubemove 3.8s infinite ease-in-out;
+}
+
+.cube2 {
+  -webkit-animation-delay: -0.9s;
+  animation-delay: -0.9s;
+}
+
+@-webkit-keyframes sk-cubemove {
+  25% {
+    -webkit-transform: translateX(42px) rotate(-90deg) scale(4.5)
+  }
+  50% {
+    -webkit-transform: translateX(42px) translateY(42px) rotate(-180deg)
+  }
+  75% {
+    -webkit-transform: translateX(0px) translateY(42px) rotate(-270deg) scale(4.5)
+  }
+  100% {
+    -webkit-transform: rotate(-360deg)
+  }
+}
+
+@keyframes sk-cubemove {
+  25% {
+    transform: translateX(42px) rotate(-90deg) scale(0.5);
+    -webkit-transform: translateX(42px) rotate(-90deg) scale(0.5);
+  }
+  50% {
+    transform: translateX(42px) translateY(42px) rotate(-179deg);
+    -webkit-transform: translateX(42px) translateY(42px) rotate(-179deg);
+  }
+  50.1% {
+    transform: translateX(42px) translateY(42px) rotate(-180deg);
+    -webkit-transform: translateX(42px) translateY(42px) rotate(-180deg);
+  }
+  75% {
+    transform: translateX(0px) translateY(42px) rotate(-270deg) scale(0.5);
+    -webkit-transform: translateX(0px) translateY(42px) rotate(-270deg) scale(0.5);
+  }
+  100% {
+    transform: rotate(-360deg);
+    -webkit-transform: rotate(-360deg);
+  }
+}
+
+.to-delete {
   filter: grayscale();
 }
 
@@ -284,4 +300,14 @@ div.react-console-welcome.error {
 div.react-console-welcome {
   font-size: 14pt;
   border-bottom: 1px solid;
+}
+
+div.side-drawer>div {
+  padding: 10px;
+  width: 400px;
+  padding-top: 3em;
+}
+
+.sidebar-btn {
+  margin-bottom: 10px !important;
 }
