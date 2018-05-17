@@ -234,7 +234,8 @@ class Header extends Component {
       ];
       // upload images
       for (var mode of modes) {
-        let img = document.querySelector('a-scene').components.screenshot.getCanvas(mode).toDataURL('image/png');
+        let scene =  document.querySelector('a-scene');
+        let img = scene.components.screenshot.getCanvas(mode).toDataURL('image/png');
         let path = "images/" + mode + "/" + projectID;
         let imgRef = storageRef.child(path);
         imgRef.putString(img, 'data_url').then((snapshot) => {
@@ -334,9 +335,9 @@ class Header extends Component {
 
     const renderProj = (proj, canDelete) => {
       return (
-        <div key={proj.id} id={proj.id} className="grid-project col-sm-6 p-3 mb-3" onClick={this.handleLoad} title={proj.data.name}>
-          <h4>{proj.data.name}</h4>
-          <img id={proj.id} alt={proj.id} className="img-thumbnail mb-1" src={proj.url} />
+        <div key={proj.id} id={proj.id} className="grid-project col-sm-6 p-3 mb-3" title={proj.data.name}>
+          <p onClick={this.handleLoad}>{proj.data.name}</p>
+          <img  onClick={this.handleLoad} id={proj.id} alt={proj.id} className="img-thumbnail mb-1" src={proj.url} />
           {canDelete ?
             <Button
               onClick={() => this.addToDeleteList(proj.id)}
@@ -350,15 +351,6 @@ class Header extends Component {
         </div>
       );
     };
-
-    const newBtn =
-      <Button label="Start a New Project"
-        onClick={this.handleNewProj}
-        color="primary"
-        className="mb-3"
-        fullWidth >
-        <Icon className="material-icons">add</Icon> Start New
-      </Button>;
 
     return (
       <Drawer
@@ -379,13 +371,16 @@ class Header extends Component {
               <hr />
               {this.state.availProj !== null ? this.state.availProj.map((proj) => {
                 return (renderProj(proj, true));
-              }) : null}
-            </div> : null}
+              }) 
+              : null}
+            </div> 
+          : null}
           <div className="row" id="sample-proj" style={{ width: "100%" }}>
             <h3 className="col-12 p-2 mb-3 border-bottom">Sample Projects</h3>
             {this.state.sampleProj !== null ? this.state.sampleProj.map((proj) => {
               return (renderProj(proj, false));
-            }) : null}
+            }) 
+            : null}
           </div>
         </div>
       </Drawer>
@@ -459,14 +454,14 @@ class Header extends Component {
             <Icon className="material-icons">play_arrow</Icon>
           </Button>
         </Tooltip>
-        <Tooltip title="Clear" placement="bottom-start">
+        <Tooltip title="Stop" placement="bottom-start">
           <Button
             variant="raised"
             size="small"
             onClick={this.clear}
             className="header-btn"
             style={style.clear}>
-            <Icon className="material-icons">delete</Icon>
+            <Icon className="material-icons">stop</Icon>
           </Button>
         </Tooltip>
         <Tooltip title="Save" placement="bottom-start">

@@ -306,8 +306,17 @@ div.side-drawer>div {
   padding: 10px;
   width: 400px;
   padding-top: 3em;
+  overflow: visible;
 }
 
 .sidebar-btn {
   margin-bottom: 10px !important;
+}
+
+.MuiTabs-root-76 {
+  overflow: unset !important;
+}
+
+#reference-draw > div {
+  width:  1000px;
 }

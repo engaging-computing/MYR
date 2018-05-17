@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Reference from './Reference';
-import { Drawer, Icon, MenuItem, IconButton, Button, FormControl, Input, FormHelperText, TextField } from 'material-ui';
+import { Drawer, Icon, IconButton } from 'material-ui';
 
 class Sidebar extends Component {
   constructor(props) {

@@ -20,15 +20,6 @@ export default class Reference extends React.Component {
     this.state = {
       open: false,
       value: 'a',
-      fixedHeader: true,
-      fixedFooter: true,
-      stripedRows: false,
-      showRowHover: false,
-      selectable: true,
-      multiSelectable: false,
-      enableSelectAll: false,
-      deselectOnClickaway: true,
-      showCheckboxes: false,
     };
     this.tableData = myrReference();
   }
@@ -40,31 +31,10 @@ export default class Reference extends React.Component {
   };
 
   TableEx = (category) => {
-    const styles = {
-      general: {
-        fontSize: 18,
-        padding: '1%',
-        whiteSpace: 'wrap'
-      },
-      highlight: {
-        margin: '2%',
-      }
-    };
+
     return (
-      <Table
-        // height={this.state.height}
-        // fixedHeader={this.state.fixedHeader}
-        // fixedFooter={this.state.fixedFooter}
-        // selectable={this.state.selectable}
-        // multiSelectable={this.state.multiSelectable}
-        style={styles.general}
-      >
-        <TableHead
-          // displaySelectAll={this.state.showCheckboxes}
-          // adjustForCheckbox={this.state.showCheckboxes}
-          // enableSelectAll={this.state.enableSelectAll}
-          style={styles.general}
-        >
+      <Table  >
+        <TableHead >
           <TableRow>
             <TableCell>Name</TableCell>
             <TableCell>Parameters</TableCell>
@@ -72,20 +42,19 @@ export default class Reference extends React.Component {
             <TableCell>Description</TableCell>
           </TableRow>
         </TableHead>
-        <TableBody
-          // displayRowCheckbox={this.state.showCheckboxes}
-          style={styles.general}
-        >
+        <TableBody  >
           {this.tableData[category].map((row, index) => (
             <TableRow key={index}>
-              <TableCell style={styles.general}>{row.name}</TableCell>
-              <TableCell>
-                <Highlight language={'javascript'} style={styles.highlight}>
+              <TableCell >{row.name}</TableCell>
+              <TableCell  >
+              <div>
+                <Highlight language={'javascript'} >
                   {row.parameters}
                 </Highlight>
+                </div>
               </TableCell>
-              <TableCell style={styles.general}>{row.returnValue}</TableCell>
-              <TableCell style={styles.general}>{row.description}</TableCell>
+              <TableCell >{row.returnValue}</TableCell>
+              <TableCell >{row.description}</TableCell>
             </TableRow>
           ))}
         </TableBody>
@@ -94,31 +63,21 @@ export default class Reference extends React.Component {
   };
 
   render() {
-    const styles = {
-      headline: {
-        fontSize: 24,
-        paddingTop: 16,
-        marginBottom: 12,
-        fontWeight: 400,
-      },
-      buttonSpan: {
-        margin: 2,
-      },
-      tabStyle: {
-        margin: 30,
-      }
-    };
 
     return (
-      <Button
-        variant="raised"
-        color="primary"
-        onClick={this.handleToggle}>
-        <Icon className="material-icons md-36">description</Icon> Reference
-           <Drawer
-          open={this.state.open}
-          width={'85%'}>
-
+      <div>
+        <Button
+          variant="raised"
+          color="primary"
+          fullWidth
+          className="d-none d-md-block"
+          onClick={() => this.setState({ open: true })}>
+          <Icon className="material-icons md-36">description</Icon> Reference
+        </Button>
+        <Drawer
+          id="reference-drawer"
+          variant="persistent"
+          open={this.state.open}>
           <Tabs
             value={this.state.value}
             onChange={this.handleChange} >
@@ -142,22 +101,22 @@ export default class Reference extends React.Component {
               onClick={this.handleToggle} />
           </Tabs>
           {this.state.value === 'a' &&
-            <div style={styles.tabStyle}>
-              <h5 style={styles.headline}>Geometry</h5>
+            <div style={{marginTop: 25}}>
+              <h5 >Geometry</h5>
               {this.TableEx("geometry")}
             </div>}
           {this.state.value === 'b' &&
-            <div style={styles.tabStyle}>
-              <h5 style={styles.headline}>Transformations</h5>
+            <div>
+              <h5 >Transformations</h5>
               {this.TableEx("transformations")}
             </div>}
           {this.state.value === 'c' &&
-            <div style={styles.tabStyle}>
-              <h5 style={styles.headline}>WebVR Components</h5>
+            <div>
+              <h5 >WebVR Components</h5>
               {this.TableEx("webvr_components")}
             </div>}
         </Drawer>
-      </Button>
+      </div>
     );
   }
 }
