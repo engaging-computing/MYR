@@ -1,7 +1,8 @@
 const initial_state = {
-  scene: {
-    name: "",
-    id: "0"
+  name: "",
+  id: "0",
+  sceneConfig: {
+    skyColor: "blue"
   }
 };
 
@@ -10,32 +11,17 @@ export default function scene(state = initial_state, action) {
     case 'NAME_SCENE':
       return {
         ...state,
-        scene: {
-          id: state.scene.id,
-          name: action.name
-        }
+        name: action.name
       };
     case 'NEW_SCENE':
-      let projectID = "";
-      if (state.user.uid) {
-        let ts = Date.now();
-        projectID = state.user.uid + '_' + ts;
-      }
       return {
         ...state,
-        scene: {
-          id: projectID,
-          name: state.scene.name
-        }
+        name: state.scene.name
       };
     case 'LOAD_SCENE':
-      let newScene = {
-        ...state.scene,
-        id: action.id
-      };
       return {
         ...state,
-        scene: newScene
+        id: action.id
       };
     default:
       return state;

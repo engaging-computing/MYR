@@ -116,7 +116,7 @@ body.aframe-inspector-opened .toggle-edit {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
-  /* width: 500px; */
+  overflow: scroll;
 }
 
 .delete-btn {

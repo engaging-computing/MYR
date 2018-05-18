@@ -13,7 +13,7 @@ export default function Ide({ text, objects, actions, assets, user, scene, error
         <Terminal errors={errors} />
       </div>
       <div id="scene" className="col-12 col-md-8">
-        <View objects={objects} assets={assets} />
+        <View objects={objects} sceneConfig={scene.sceneConfig} assets={assets} />
       </div>
     </div>
   );

@@ -44,7 +44,7 @@ const mapStateToProps = state => ({
   objects: state.editor.objects,
   assets: state.editor.assets,
   user: state.user.user,
-  scene: state.scene.scene,
+  scene: state.scene,
 });
 
 // This maps dispatch actions to props

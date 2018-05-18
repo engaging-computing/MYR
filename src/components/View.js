@@ -48,6 +48,7 @@ class View extends Component {
         <a-assets>
           {this.props.assets ? this.props.assets.map((x, index) => this.assetsHelper(x, index)) : null}
         </a-assets>
+        <a-sky color={this.props.sceneConfig.skyColor} ></a-sky>
         {this.props.objects ? this.props.objects.map((x, index) => this.helper(x, index)) : null}
       </a-scene>
     );

@@ -15,65 +15,68 @@ var entityModel = [
 ];
 
 const programs = [
-  `// Input your code here
-  animate(box({material: {color: 'red'}}));
-  var colors = ['red', 'blue', 'purple']
+  `  var b = sphere()
   
-  for( var i = 0 ; i < 20; i += 2){
-      setPosition(0,i,0)
-      animate(box({material: {color: colors[i % colors.length]}}));
-      setPosition(i,i,i)
-      animate(box({material: {color: colors[i % colors.length]}}));
-      setPosition(i,i,-i)
-      animate(box({material: {color: colors[i % colors.length]}}));
-      setPosition(-i,i,i)
-      animate(box({material: {color: colors[i % colors.length]}}));
-      setPosition(-i,i,-i)
-      animate(box({material: {color: colors[i % colors.length]}}));
+  myr.update(b, 'material', {color: "geen"})`
+//   `// Input your code here
+//   animate(box({material: {color: 'red'}}));
+//   var colors = ['red', 'blue', 'purple']
   
-  }`,
-  `// Input your code here
-  function dropb(x, y) {
-     let b = box({material:"color: blue", position: x + " " + y + " " + -10});
-     drop(b);
-  }
+//   for( var i = 0 ; i < 20; i += 2){
+//       setPosition(0,i,0)
+//       animate(box({material: {color: colors[i % colors.length]}}));
+//       setPosition(i,i,i)
+//       animate(box({material: {color: colors[i % colors.length]}}));
+//       setPosition(i,i,-i)
+//       animate(box({material: {color: colors[i % colors.length]}}));
+//       setPosition(-i,i,i)
+//       animate(box({material: {color: colors[i % colors.length]}}));
+//       setPosition(-i,i,-i)
+//       animate(box({material: {color: colors[i % colors.length]}}));
   
-  for( var i = -25 ; i < 25; i++){
-     dropb(-i, i);
-     dropb(-i, i + 25);
-     dropb(-i, i + 50);
-     dropb(-i, i + 75);
-     dropb(-i, i + 100);
-     dropb(-i, i + 125);
-     dropb(-i, i + 150);
-     dropb(-i, i + 175);
-     dropb(-i, i + 200);
-  }`,
-  `// Input your code here
+//   }`,
+//   `// Input your code here
+//   function dropb(x, y) {
+//      let b = box({material:"color: blue", position: x + " " + y + " " + -10});
+//      drop(b);
+//   }
+  
+//   for( var i = -25 ; i < 25; i++){
+//      dropb(-i, i);
+//      dropb(-i, i + 25);
+//      dropb(-i, i + 50);
+//      dropb(-i, i + 75);
+//      dropb(-i, i + 100);
+//      dropb(-i, i + 125);
+//      dropb(-i, i + 150);
+//      dropb(-i, i + 175);
+//      dropb(-i, i + 200);
+//   }`,
+//   `// Input your code here
 
-function dropb(x, y) {
-    let b = box({position: x + " " + y + " " + -10});
-    drop(b);
-    push(b, 0, 2, 0.1);
-}
+// function dropb(x, y) {
+//     let b = box({position: x + " " + y + " " + -10});
+//     drop(b);
+//     push(b, 0, 2, 0.1);
+// }
 
-var n = [-5, -3, -1, 1, 3, 5];
-for (var x of n) {
-    dropb(x, 0);
-}`,
-  `// Input your code here
+// var n = [-5, -3, -1, 1, 3, 5];
+// for (var x of n) {
+//     dropb(x, 0);
+// }`,
+//   `// Input your code here
 
-function dropb(x, y) {
-    let b = box({position: x + " " + y + " " + -10});
-    drop(b);
-}
+// function dropb(x, y) {
+//     let b = box({position: x + " " + y + " " + -10});
+//     drop(b);
+// }
 
-var n = [-5, -3, -1, 1, 3, 5];
-for (var x of n) {
-    dropb(x, 10);
-    dropb(x, 7);
-    dropb(x, 4);
-}`
+// var n = [-5, -3, -1, 1, 3, 5];
+// for (var x of n) {
+//     dropb(x, 10);
+//     dropb(x, 7);
+//     dropb(x, 4);
+// }`
 ];
 
 const initial_state = {
