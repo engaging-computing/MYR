@@ -2,7 +2,6 @@ import 'aframe';
 import 'aframe-physics-system';
 // eslint-disable-next-line
 import CANNON from 'cannon';
-import $ from 'jquery';
 
 class Myr {
   constructor(height, width) {
@@ -158,10 +157,7 @@ class Myr {
     var el = this.core("sphere");
     let merged = {...el, ...obj};
     this.els.push(merged);
-    console.log('====================================');
-    console.log(el.id);
-    console.log('====================================');
-    return el.id;
+    return merged;
   }
 
   // Render an Aframe circle Primitive with current Myr settings  
@@ -274,19 +270,6 @@ class Myr {
     outerEl.animation = el;
     return el;
   };
-
-  update = (el, attr, newParam) =>{
-    // Not entirely sure about the look of this
-    let entity = document.getElementById(el)
-    window.entity = entity
-    console.log(el + " " + entity);
-   //  setTimeout(function(){ entity.setAttribute( attr, newParam); }, 3000);
-    //entity.setAttribute( attr, newParam);
-  }
-
-  get(index){
-    return this.els[index];
-  }
 
   // MODELS
   addCModel = () => {
