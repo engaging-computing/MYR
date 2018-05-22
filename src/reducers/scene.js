@@ -13,11 +13,6 @@ export default function scene(state = initial_state, action) {
         ...state,
         name: action.name
       };
-    case 'NEW_SCENE':
-      return {
-        ...state,
-        name: state.scene.name
-      };
     case 'LOAD_SCENE':
       return {
         ...state,

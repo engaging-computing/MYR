@@ -22,10 +22,18 @@ class Header extends Component {
     };
   }
 
+  /**
+  * @summary - When the component is done rendering, we want to:
+  * 1. sync authentication with Firebase and Redux
+  * 2. load the user's projects
+  * 3. Load the sample projects
+  */
   componentDidMount() {
+    // 1. Sync authentication
     auth.onAuthStateChanged((account) => {
       if (account) {
         this.props.logging.login(account);
+        // 2. load the user's projects
         if (this.state.availProj.length === 0 && this.props.user && this.props.user.uid) {
           let userVals = [];
           scenes.where('uid', '==', this.props.user.uid).get().then(snap => {
@@ -46,6 +54,7 @@ class Header extends Component {
       }
     });
 
+    // 3. Load the sample projects
     if (this.state.sampleProj.length === 0) {
       let samplVals = [];
       scenes.where('uid', '==', "1").get().then(snap => {
@@ -63,6 +72,10 @@ class Header extends Component {
     }
   }
 
+  /**
+  * @summary - when the components updates we check for null avail projects. If it is the case,
+  * then we want to refetch the user's projects from Firebase
+  */
   componentDidUpdate() {
     if (this.state.availProj === null && this.props.user && this.props.user.uid) {
       let userVals = [];
@@ -82,24 +95,29 @@ class Header extends Component {
   }
 
   /**
-  |--------------------------------------------------
-  | Logging
-  |--------------------------------------------------
+  * @summary - The logout function runs when the user click to logout of the application.
   */
-
   logout = () => {
     auth.signOut().then(() => {
+      // sync with application state
       this.props.logging.logout();
     });
   }
-
+  
+  /**
+  * @summary - The login function runs when the user click to login of the application.
+  */
   login = () => {
     auth.signInWithPopup(provider).then((result) => {
       const account = result.account;
+      // sync with application state
       this.props.logging.login(account);
     });
   }
 
+  /**
+  * @summary - This function produces the DOM elements to display logging functionality
+  */
   loginBtn = () => {
     let btn;
     if (this.props.user !== null) {
@@ -126,6 +144,9 @@ class Header extends Component {
     );
   }
 
+  /**
+  * @summary - This function handles when the user wants to toggle the logging menu
+  */
   handleLogClick = (event) => {
     event.preventDefault();
     this.setState({
@@ -134,25 +155,32 @@ class Header extends Component {
   };
 
   /**
-  |--------------------------------------------------
-  | Name Change
-  |--------------------------------------------------
+  * @summary - This sets the components current state to the input from the scene name form
   */
-
   handleNameChange = (event) => {
     this.setState({ sceneName: event.target.value });
   }
 
+  /**
+  * @summary - submitName is called when we are ready to synce the local component's state with
+  * the reducer.
+  */
   submitName = (event) => {
     event.preventDefault();
     this.props.sceneActions.nameScene(this.state.sceneName);
     this.setState({ sceneName: null });
   }
 
+  /**
+  * @summary - This sets the components current state to the input from the scene description form
+  */
   handleDescChange = (event) => {
     this.setState({ sceneDesc: event.target.value });
   }
 
+  /**
+  * @summary - This function produces the form for inputting the scene's name and description
+  */
   sceneName = () => {
     let text = "";
     if (this.state.sceneName === null) {
@@ -179,11 +207,8 @@ class Header extends Component {
   }
 
   /**
-  |--------------------------------------------------
-  | Scene Render Cycle
-  |--------------------------------------------------
+  * @summary - handeRender gets the information from Ace Editor and calls the action: render()
   */
-
   handleRender = () => {
     try {
       let editor = window.ace.edit("ace-editor");
@@ -193,6 +218,9 @@ class Header extends Component {
     }
   }
 
+  /**
+  * @summary - handleNewProj will render an empty string and set the scene's name to untitled
+  */
   handleNewProj = () => {
     this.props.actions.render("");
     if (this.props.user) {
@@ -200,6 +228,9 @@ class Header extends Component {
     }
   }
 
+  /**
+  * @summary - handleLoad will load the selected scene into the application's state
+  */  
   handleLoad = (event) => {
     event.preventDefault();
     if (event.target.id) {
@@ -217,7 +248,12 @@ class Header extends Component {
     this.setState({loadOpen: false});
   }
 
+  /**
+  * @summary - When the user clicks save it will upload the information to Firebase
+  */
   handleSave = () => {
+    
+    // render the current state so the user can see what they are saving
     this.handleRender();
     let projectID = this.props.scene.id;
     let ts = Date.now();
@@ -240,6 +276,7 @@ class Header extends Component {
         let imgRef = storageRef.child(path);
         imgRef.putString(img, 'data_url').then((snapshot) => {
           console.log('Uploaded a data_url string!');
+          // Put the new document into the scenes collection
           db.collection("scenes").doc(projectID).set({
             name: this.props.scene.name,
             desc: this.state.sceneDesc,
@@ -261,8 +298,9 @@ class Header extends Component {
       }
     }
   }
-
-  // Pass nothing into render to clear contents
+  /**
+  * @summary - resets the current scene
+  */
   clear = () => {
     try {
       let editor = window.ace.edit("ace-editor");
@@ -273,13 +311,13 @@ class Header extends Component {
   }
 
   /**
-  |--------------------------------------------------
-  | Persistance
-  |--------------------------------------------------
+  * @summary - toggles the save drawer
   */
-
   handleSaveToggle = () => this.setState({ saveOpen: !this.state.saveOpen });
 
+  /**
+  * @summary - creates the save drawer
+  */
   saveDrawer = () => {
     const exitBtnStyle = {
       position: "fixed",
@@ -312,6 +350,9 @@ class Header extends Component {
     );
   }
 
+  /**
+  * @summary - toggles the load project drawer
+  */
   handleLoadToggle = () => {
     if (this.state.projectsToDelete.length > 0) {
       this.state.projectsToDelete.forEach((proj) => {
@@ -387,6 +428,11 @@ class Header extends Component {
     );
   }
 
+  /**
+  * @summary - This toggles the selected project to be deleted when the drawer is closed. 
+  * Items are added and removed from the projectsToDelete collection. When the user closes the
+  * drawer it will remove all projects still in the collection
+  */
   addToDeleteList = (id) => {
     let deleteThese = this.state.projectsToDelete;
     $('#' + id).toggleClass("to-delete");
@@ -399,6 +445,9 @@ class Header extends Component {
     }
   }
 
+  /**
+  * @summary - render() creates the header and links the buttons
+  */
   render() {
     const style = {
       play: {
