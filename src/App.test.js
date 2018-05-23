@@ -7,6 +7,8 @@ import { configure, shallow } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 
 import App from './containers/App';
+import IDE from './containers/Ide';
+import Viewer from './containers/Viewer';
 import Header from './components/Header';
 import Reference from './components/Reference';
 import Terminal from './components/Terminal';
@@ -46,3 +48,18 @@ describe('View Component', () => {
     shallow(<View />);
   });
 });
+
+describe('IDE Component', () => {
+  it('View renders without crashing', () => {
+    const store = createStore(reducer);
+    shallow(<App><IDE /></App>, { context: { store } });
+  });
+});
+
+describe('Viewer Component', () => {
+  it('View renders without crashing', () => {
+    const store = createStore(reducer);
+    shallow(<App><Viewer /></App>, { context: { store } });
+  });
+});
+

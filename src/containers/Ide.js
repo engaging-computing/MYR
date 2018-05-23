@@ -4,7 +4,6 @@ import View from '../components/View';
 import Terminal from '../components/Terminal';
 import PropTypes from 'prop-types';
 
-
 export default function Ide({ text, objects, actions, assets, user, scene, errors, sceneActions }) {
   return (
     <div className="row no-gutters">
@@ -28,4 +27,3 @@ Ide.propTypes = {
   assets: PropTypes.array.isRequired,
   scene: PropTypes.object.isRequired,
 };
-
