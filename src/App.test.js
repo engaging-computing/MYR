@@ -14,6 +14,10 @@ import Reference from './components/Reference';
 import Terminal from './components/Terminal';
 import View from './components/View';
 
+import { refresh, render, EDITOR_RENDER, EDITOR_REFRESH } from './actions/editorActions';
+import { login, LOGIN, logout, LOGOUT } from './actions/authActions';
+import { nameScene, NAME_SCENE, loadScene, LOAD_SCENE } from './actions/sceneActions';
+
 configure({ adapter: new Adapter() });
 
 describe('App Component', () => {
@@ -60,6 +64,45 @@ describe('Viewer Component', () => {
   it('View renders without crashing', () => {
     const store = createStore(reducer);
     shallow(<App><Viewer /></App>, { context: { store } });
+  });
+});
+
+describe('Editor Actions', () => {
+  it('should return a REFRESH action', () => {
+    let x = refresh("");
+    expect(x.type).toEqual(EDITOR_REFRESH);
+  });
+  it('should return a RENDER action', () => {
+    let x = render("test");
+    expect(x.type).toEqual(EDITOR_RENDER);
+    expect(x.text).toEqual("test");
+  });
+});
+
+describe('Auth Actions', () => {
+  it('should return a LOGIN action', () => {
+    let user = {name: 'test', uid: '1'};
+    let x = login(user);
+    expect(x.type).toEqual(LOGIN);
+    expect(x.user.name).toEqual('test');
+    expect(x.user.uid).toEqual('1');
+  });
+  it('should return a LOGOUT action', () => {
+    let x = logout();
+    expect(x.type).toEqual(LOGOUT);
+  });
+});
+
+describe('Scene Actions', () => {
+  it('should return a Refresh action', () => {
+    let x = nameScene('test');
+    expect(x.type).toEqual(NAME_SCENE);
+    expect(x.name).toEqual('test');
+  });
+  it('should return a Refresh action', () => {
+    let x = loadScene('test');
+    expect(x.type).toEqual(LOAD_SCENE);
+    expect(x.id).toEqual('test');
   });
 });
 

@@ -197,8 +197,10 @@ describe(`Other Myr functionality`, () => {
     myr.init();
     myr.sphere();
     myr.sphere();
+    
     myr.reset();
     expect(myr.els.length).toEqual(0);
+
     myr.init(obj);
     expect(myr.els.length).toEqual(1);
   });
