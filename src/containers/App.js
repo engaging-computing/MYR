@@ -15,13 +15,10 @@ const App = ({ text, objects, actions, assets, user, scene, errors, authActions,
     <Ide
       text={text}
       objects={objects}
-      actions={actions}
       assets={assets}
       user={user}
       scene={scene}
-      errors={errors}
-      authActions={authActions}
-      sceneActions={sceneActions} />
+      errors={errors}/>
     {/* <Viewer objects={objects} assets={assets} /> */}
   </div>
 );

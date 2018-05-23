@@ -9,7 +9,7 @@ export default function Ide({ text, objects, actions, assets, user, scene, error
   return (
     <div className="row no-gutters">
       <div id="interface" className="col-12 col-md-4">
-        <Editor actions={actions} sceneActions={sceneActions} objects={objects} text={text} user={user} scene={scene} />
+        <Editor objects={objects} text={text} user={user} />
         <Terminal errors={errors} />
       </div>
       <div id="scene" className="col-12 col-md-8">

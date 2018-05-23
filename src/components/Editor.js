@@ -3,17 +3,16 @@ import AceEditor from 'react-ace';
 import 'brace/mode/javascript';
 import 'brace/theme/github';
 
-/**x
- * The Editor component is where you are able to input code and 
- * have it render in the View. 
- * Application state is from the Redux Store and the models are 
- * from Firebase Firestore.
- */
 
+/**
+* @summary - Editor is a React Component that creat the Ace Editor in the DOM. 
+* 
+*/
 class Editor extends Component {
 
   /**
-  * @summary - Component did Update is part of the React lifecycle. When called we focus the cursor in the Ace Editor Component
+  * @summary - Component did Update is part of the React lifecycle. When called we focus 
+  * the cursor in the Ace Editor Component
   */
   componentDidUpdate() {
     this.refs.aceEditor.editor.focus();

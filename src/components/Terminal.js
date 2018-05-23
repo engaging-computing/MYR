@@ -2,6 +2,12 @@ import React, { Component } from 'react';
 import Console from 'react-console-component';
 import $ from "jquery";
 
+/**
+* @summary - The Terminal is an experimental way to interact with the scene. It is not fully
+* implemented but does show the user the current state of the render by showing "Everything
+* Looks Good" or displaying the error in the terminal. 
+* 
+*/
 class Terminal extends Component {
   constructor() {
     super();

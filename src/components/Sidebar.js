@@ -2,14 +2,24 @@ import React, { Component } from 'react';
 import Reference from './Reference';
 import { Drawer, Icon, IconButton } from 'material-ui';
 
+
+/**
+* @summary - The side bar provides a drawer with options to make changes to the scene.
+*/
 class Sidebar extends Component {
   constructor(props) {
     super(props);
-    this.state = { open: false, sceneName: null };
+    this.state = { open: false };
   }
 
+  /**
+  * @summary - handles the opening and closing of the sidebar
+  */
   handleToggle = () => this.setState({ open: !this.state.open });
 
+  /**
+  * @summary - Adds the sidebar and child comonents to the sidebar and then adds it to the DOM
+  */
   render() {
     const exitBtnStyle = {
       position: "fixed",
