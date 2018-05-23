@@ -185,4 +185,22 @@ describe(`Other Myr functionality`, () => {
     expect(light.color).toMatch(re);
     // expect(light).
   });
+
+  it('should initialize Myr', () => {
+    let obj = [{name: "test"}];
+    myr.init(obj);
+    expect(myr.els[0].name).toEqual("test");
+  });
+
+  it('should reset Myr', () => {
+    let obj = [{name: "test"}];
+    myr.init();
+    myr.sphere();
+    myr.sphere();
+    myr.reset();
+    expect(myr.els.length).toEqual(0);
+    myr.init(obj);
+    expect(myr.els.length).toEqual(1);
+  });
+  
 });

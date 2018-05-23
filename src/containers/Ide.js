@@ -25,7 +25,6 @@ Ide.propTypes = {
   user: PropTypes.object,
   errors: PropTypes.string.isRequired,
   objects: PropTypes.array.isRequired,
-  actions: PropTypes.object.isRequired,
   assets: PropTypes.array.isRequired,
   scene: PropTypes.object.isRequired,
 };

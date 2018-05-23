@@ -24,7 +24,8 @@ describe('App Component', () => {
 
 describe('Header Component', () => {
   it('Header renders without crashing', () => {
-    shallow(<Header />);
+    const store = createStore(reducer);
+    shallow(<App><Header /></App>, { context: { store } });
   });
 });
 

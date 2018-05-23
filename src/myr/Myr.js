@@ -60,8 +60,8 @@ class Myr {
   * 
   */
   init = (objs) => {
-    this.baseEls = objs;
-    this.els = objs.concat(this.else);
+    this.baseEls = objs || [];
+    this.els = this.baseEls.concat(this.els);
 
     // Get all the function names of the Myr(this) class
     let funs = Object.getOwnPropertyNames(this).filter((p) => {
