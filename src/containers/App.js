@@ -1,6 +1,7 @@
 import React from 'react';
 import Header from '../components/Header';
 import Ide from './Ide';
+// eslint-disable-next-line
 import Viewer from './Viewer';
 import * as EditorActions from '../actions/editorActions.js';
 import * as AuthActions from '../actions/authActions.js';

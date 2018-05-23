@@ -5,10 +5,11 @@ import CANNON from 'cannon';
 
 class Myr {
   constructor(height, width) {
-    this.counter  = 0;
+    this.counter = 0;
+    this.baseEls = [];
     this.els = [];
     this.assets = [];
-    this.res = {els: this.els, assets: this.assets};
+    this.res = { els: this.els, assets: this.assets };
     this.height = height;
     this.width = width;
     this.sceneEl = document.querySelector('a-scene');
@@ -50,6 +51,41 @@ class Myr {
       };
       return c;
     };
+  }
+
+  /**
+  * @summary - init creates and binds the myr object to the window
+  * 
+  * @param [{}] objs - these are the base objects for this object 
+  * 
+  */
+  init = (objs) => {
+    this.baseEls = objs;
+    this.els = objs.concat(this.else);
+
+    // Get all the function names of the Myr(this) class
+    let funs = Object.getOwnPropertyNames(this).filter((p) => {
+      return typeof this[p] === 'function';
+    });
+
+    // For each function bind it to the window
+    funs.forEach(element => {
+      // If a collision is detected then do not override and warn
+      if (window.hasOwnProperty(element)) {
+        console.warn(`The ${element} of Myr is being overridden. 
+                      If this was not intentional consider renaming the function.`);
+      } else {
+        // Collision free so we can bind to window
+        window[element] = this[element];
+      }
+    });
+  }
+
+  /**
+  * @summary - Reset this.els to the base elements supplied to the constuctor
+  */
+  reset = () => {
+    this.els = [].concat(this.baseEls);
   }
 
   setPosition = (x, y, z) => {
@@ -97,8 +133,8 @@ class Myr {
 
   setCursor = (x, y, z) => {
     if (!this.camera) {
-      this.setCamera(x,y,z);
-    } 
+      this.setCamera(x, y, z);
+    }
     this.camera.cursor = true;
   };
 
@@ -134,7 +170,7 @@ class Myr {
       var el = document.querySelector("#" + outerEl.id);
       if (!el) {
         return;
-      } 
+      }
       el.addEventListener('body-loaded', () => {
         el.body.applyImpulse(
           /* impulse */        new CANNON.Vec3(x, y, z),
@@ -147,7 +183,7 @@ class Myr {
   // Render an Aframe Box Primitive with current Myr settings    
   box = (obj) => {
     var el = this.core("box");
-    let merged = {...el, ...obj};
+    let merged = { ...el, ...obj };
     this.els.push(merged);
     return merged;
   }
@@ -155,7 +191,7 @@ class Myr {
   // Render an Aframe Sphere Primitive with current Myr settings  
   sphere = (obj) => {
     var el = this.core("sphere");
-    let merged = {...el, ...obj};
+    let merged = { ...el, ...obj };
     this.els.push(merged);
     return merged;
   }
@@ -163,7 +199,7 @@ class Myr {
   // Render an Aframe circle Primitive with current Myr settings  
   circle = (obj) => {
     var el = this.core("circle");
-    let merged = {...el, ...obj};
+    let merged = { ...el, ...obj };
     this.els.push(merged);
     return merged;
   }
@@ -171,7 +207,7 @@ class Myr {
   // Render an Aframe circle Primitive with current Myr settings  
   cone = (obj) => {
     var el = this.core("cone");
-    let merged = {...el, ...obj};
+    let merged = { ...el, ...obj };
     this.els.push(merged);
     return merged;
   }
@@ -179,7 +215,7 @@ class Myr {
   // Render an Aframe Triangle Primitive with current Myr settings  
   triangle = (obj) => {
     var el = this.core("triangle");
-    let merged = {...el, ...obj};
+    let merged = { ...el, ...obj };
     this.els.push(merged);
     return merged;
   }
@@ -187,7 +223,7 @@ class Myr {
   // Render an Aframe Text Primitive with current Myr settings  
   text = (obj) => {
     var el = this.core("text");
-    let merged = {...el, ...obj};
+    let merged = { ...el, ...obj };
     this.els.push(merged);
     return merged;
   }
@@ -204,7 +240,7 @@ class Myr {
       rotation: this.rotation,
       "segments-radial": obj.n
     };
-    let merged = {...el, ...obj};
+    let merged = { ...el, ...obj };
     this.els.push(merged);
     return merged;
   }
@@ -212,7 +248,7 @@ class Myr {
   // Render an Aframe dodecahedron with current Myr settings  
   dodecahedron = (obj) => {
     var el = this.core("dodecahedron");
-    let merged = {...el, ...obj};
+    let merged = { ...el, ...obj };
     this.els.push(merged);
     return merged;
   }
@@ -220,7 +256,7 @@ class Myr {
   // Render an Aframe icosahedron with current Myr settings  
   icosahedron = (obj) => {
     var el = this.core("icosahedron");
-    let merged = {...el, ...obj};
+    let merged = { ...el, ...obj };
     this.els.push(merged);
     return merged;
   }
@@ -228,7 +264,7 @@ class Myr {
   // Render an Aframe octahedron with current Myr settings  
   octahedron = (obj) => {
     var el = this.core("octahedron");
-    let merged = {...el, ...obj};
+    let merged = { ...el, ...obj };
     this.els.push(merged);
     return merged;
   }
@@ -245,7 +281,7 @@ class Myr {
     this.els.push(el);
     return el;
   }
-  
+
   // Prism is an alias for Polyhedron
   prism = this.polyhedron
 

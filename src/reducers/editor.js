@@ -1,3 +1,4 @@
+import {EDITOR_RENDER, EDITOR_REFRESH} from '../actions/editorActions';
 import Myr from '../myr/Myr';
 
 var entityModel = [
@@ -8,7 +9,7 @@ var entityModel = [
       height: 1,
       width: 50
     },
-    material: "color: #2E3837",
+    material: "color: #222",
     "static-body": "shape: box",
     position: "0 -1 -10"
   },
@@ -83,31 +84,33 @@ const initial_state = {
   errors: "Everything Looks Good"
 };
 
+let m = new Myr();
+m.init(entityModel);
+
+// ESLint doesn't like this but it is better than eval
+function noEvalEvaluation(text){
+  // eslint-disable-next-line
+  return Function(`${text}`)();
+}
+
 export default function editor(state = initial_state, action) {
   switch (action.type) {
-    case 'EDITOR_RENDER':
+    case EDITOR_RENDER:
+      let els = [];
+      let assets = [];
       try {
-        var res, str;
-        let m = new Myr();
-        let funs = Object.getOwnPropertyNames(m).filter((p) => {
-          return typeof m[p] === 'function';
-        });
-        let snapshot = action.text;
-        for (var fun of funs) {
-          snapshot = snapshot.replace(new RegExp(fun + "\\(", 'g'), "myr." + fun + "(");
+        noEvalEvaluation(action.text);
+        if (m) {
+          els = m.els || [];
+          assets = m.assets || [];
         }
-        str = "window.myr = m;\n";
-        // eslint-disable-next-line        
-        res = eval(str + snapshot + "\nmyr.res;");
-        var els = res.els;
-        var assets = res.assets;
       }
       catch (err) {
         console.error("Eval failed: " + err);
         return {
           ...state,
           text: action.text,
-          objects: initial_state.objects.concat(els),
+          objects: els,
           assets: assets,
           errors: "Eval failed: " + err
         };
@@ -115,12 +118,12 @@ export default function editor(state = initial_state, action) {
       return {
         ...state,
         text: action.text,
-        objects: initial_state.objects.concat(els),
+        objects: els,
         assets: assets,
         errors: "Everything Looks Good"
       };
-    case 'EDITOR_REFRESH':
-      window.myr = new Myr();
+    case EDITOR_REFRESH:
+      m.reset();
       return {
         ...initial_state,
         text: action.text

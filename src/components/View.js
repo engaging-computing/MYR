@@ -3,8 +3,12 @@ import 'aframe';
 import 'aframe-physics-system';
 import 'aframe-environment-component';
 import { Entity } from 'aframe-react';
-// import { CANNON } from 'cannon';
 
+/**
+* @summary - The View component return the aframe representation of the scene. This 
+* system utilizes the entity compoent system(ECS) to build objects in the scene from different 
+* components. 
+*/
 class View extends Component {
 
   // This renders json to aframe entities
@@ -44,7 +48,7 @@ class View extends Component {
 
   render = () => {
     return (
-      <a-scene physics="debug: false; friction: 1; restitution: .3" embedded>
+      <a-scene physics="debug: false; friction: 3; restitution: .1" embedded>
         <a-assets>
           {this.props.assets ? this.props.assets.map((x, index) => this.assetsHelper(x, index)) : null}
         </a-assets>
