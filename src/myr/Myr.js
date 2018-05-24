@@ -349,9 +349,23 @@ class Myr {
   change = (outerElId, type, newParam) => {
     document.addEventListener("myr-view-rendered", (e) => {
       let el = document.querySelector("#" + outerElId);
-      el.setAttribute(type, newParam);
+      if(el){
+        el.setAttribute(type, newParam);
+      }
     });
   }
+
+  syncChange = (outerElId, type, newParam) => {
+    let el = document.querySelector("#" + outerElId);
+    if(el){
+      el.setAttribute(type, newParam);
+    }
+  }
+
+  sleep = (ms) => {
+    return new Promise(resolve => setTimeout(resolve, ms));
+  }
+  
 }
 
 export default Myr;

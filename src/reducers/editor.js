@@ -97,7 +97,6 @@ function noEvalEvaluation(text){
   } catch (error) {
     return error;
   }
-  
 }
 
 export default function editor(state = initial_state, action) {
