@@ -61,7 +61,10 @@ class Myr {
   */
   init = (objs) => {
     this.baseEls = objs || [];
-    this.els = this.baseEls.concat(this.els);
+    if (objs) {
+      this.els = this.els.concat(objs);
+      this.counter = objs.length;
+    }
 
     // Get all the function names of the Myr(this) class
     let funs = Object.getOwnPropertyNames(this).filter((p) => {
@@ -85,6 +88,7 @@ class Myr {
   * @summary - Reset this.els to the base elements supplied to the constuctor
   */
   reset = () => {
+    this.counter = this.baseEls ? this.baseEls.length : 0;
     this.els = [].concat(this.baseEls);
   }
 
@@ -157,17 +161,18 @@ class Myr {
     this.els.push(el);
   }
 
-  drop = (el) => {
-    el["dynamic-body"] = {
+  drop = (outerElId) => {
+    this.getEl(outerElId)['dynamic-body'] = {
       shape: "box",
       mass: 5
     };
+    return outerElId;
   }
 
-  push = (outerEl, x, y, z) => {
+  push = (outerElId, x, y, z) => {
     // Add an event listener
     document.addEventListener("myr-view-rendered", (e) => {
-      var el = document.querySelector("#" + outerEl.id);
+      let el = document.querySelector("#" + outerElId);
       if (!el) {
         return;
       }
@@ -178,6 +183,7 @@ class Myr {
         );
       });
     });
+    return outerElId;
   }
 
   // Render an Aframe Box Primitive with current Myr settings    
@@ -185,7 +191,7 @@ class Myr {
     var el = this.core("box");
     let merged = { ...el, ...obj };
     this.els.push(merged);
-    return merged;
+    return el.id;
   }
 
   // Render an Aframe Sphere Primitive with current Myr settings  
@@ -193,7 +199,7 @@ class Myr {
     var el = this.core("sphere");
     let merged = { ...el, ...obj };
     this.els.push(merged);
-    return merged;
+    return el.id;
   }
 
   // Render an Aframe circle Primitive with current Myr settings  
@@ -201,7 +207,7 @@ class Myr {
     var el = this.core("circle");
     let merged = { ...el, ...obj };
     this.els.push(merged);
-    return merged;
+    return el.id;
   }
 
   // Render an Aframe circle Primitive with current Myr settings  
@@ -209,7 +215,7 @@ class Myr {
     var el = this.core("cone");
     let merged = { ...el, ...obj };
     this.els.push(merged);
-    return merged;
+    return el.id;
   }
 
   // Render an Aframe Triangle Primitive with current Myr settings  
@@ -217,7 +223,7 @@ class Myr {
     var el = this.core("triangle");
     let merged = { ...el, ...obj };
     this.els.push(merged);
-    return merged;
+    return el.id;
   }
 
   // Render an Aframe Text Primitive with current Myr settings  
@@ -225,7 +231,7 @@ class Myr {
     var el = this.core("text");
     let merged = { ...el, ...obj };
     this.els.push(merged);
-    return merged;
+    return el.id;
   }
 
   // Render an Aframe Polyhedron with current Myr settings  
@@ -242,7 +248,7 @@ class Myr {
     };
     let merged = { ...el, ...obj };
     this.els.push(merged);
-    return merged;
+    return el.id;
   }
 
   // Render an Aframe dodecahedron with current Myr settings  
@@ -250,7 +256,7 @@ class Myr {
     var el = this.core("dodecahedron");
     let merged = { ...el, ...obj };
     this.els.push(merged);
-    return merged;
+    return el.id;
   }
 
   // Render an Aframe icosahedron with current Myr settings  
@@ -258,7 +264,7 @@ class Myr {
     var el = this.core("icosahedron");
     let merged = { ...el, ...obj };
     this.els.push(merged);
-    return merged;
+    return el.id;
   }
 
   // Render an Aframe octahedron with current Myr settings  
@@ -266,7 +272,7 @@ class Myr {
     var el = this.core("octahedron");
     let merged = { ...el, ...obj };
     this.els.push(merged);
-    return merged;
+    return el.id;
   }
 
   // Render a new Aframe light with current Myr settings  
@@ -286,10 +292,9 @@ class Myr {
   prism = this.polyhedron
 
   // Animate the Aframe element which is passed as arg
-  animate = (outerEl) => {
+  animate = (outerElId) => {
     // TODO: need recursion 
     var el = {
-      // color: this.getRandomColor(),
       position: this.position,
       scale: this.scale,
       geometry: {
@@ -302,9 +307,8 @@ class Myr {
       repeat: 'indefinite',
 
     };
-    // this.els.push(el);
-    outerEl.animation = el;
-    return el;
+    this.getEl(outerElId).animation = el;
+    return outerElId;
   };
 
   // MODELS
@@ -323,6 +327,30 @@ class Myr {
     this.els.push(el);
     this.assets.push(asset);
     return el;
+  }
+
+  getEl = (outerElId) => {
+    return this.els[this.getIndex(outerElId)];
+  }
+
+  getIndex = (outerElId) => {
+    return Number(outerElId.substr(1, outerElId.length));
+  }
+
+  /**
+  * @summary - Interface for setting an object's parameters in the DOM
+  * the idea is the setup an event listener as an almost DOM ready listener. 
+  * 
+  * @param {string} outerElId - target
+  * @param {string} type - what param to change
+  * @param {obj} newParam - changes
+  * 
+  */
+  change = (outerElId, type, newParam) => {
+    document.addEventListener("myr-view-rendered", (e) => {
+      let el = document.querySelector("#" + outerElId);
+      el.setAttribute(type, newParam);
+    });
   }
 }
 

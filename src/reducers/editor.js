@@ -3,6 +3,7 @@ import Myr from '../myr/Myr';
 
 var entityModel = [
   {
+    id: 'floor',
     geometry: {
       primitive: "box",
       depth: 50,
@@ -85,19 +86,27 @@ const initial_state = {
 };
 
 let m = new Myr();
+window.m = m
 m.init(entityModel);
 
 // ESLint doesn't like this but it is better than eval
 function noEvalEvaluation(text){
-  // eslint-disable-next-line
-  return Function(`${text}`)();
+  try {
+    // eslint-disable-next-line
+    return Function(`${text}`)();
+  } catch (error) {
+    return error;
+  }
+  
 }
 
 export default function editor(state = initial_state, action) {
   switch (action.type) {
     case EDITOR_RENDER:
+      m.reset();
       let els = [];
       let assets = [];
+      // DO SOMETHING HERE WITH PREV STATE
       try {
         noEvalEvaluation(action.text);
         if (m) {

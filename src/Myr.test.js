@@ -2,7 +2,7 @@ import Myr from './myr/Myr';
 
 const myr = new Myr();
 
-let re = new RegExp('#([0-9]|[A-F]|[a-f]){6}');
+let colorRegEx = new RegExp('#([0-9]|[A-F]|[a-f]){6}');
 
 describe(`Updates to Myr's Model`, () => {
   it(`to SetPosition`, () => {
@@ -41,14 +41,8 @@ describe(`Updates to Myr's Model`, () => {
   it(`to makes Random Color`, () => {
     let color = myr.getRandomColor();
     expect(color).not.toBeUndefined();
-    expect(re.test(color)).toBeTruthy();
+    expect(colorRegEx.test(color)).toBeTruthy();
   });
-
-  // This doesn't seem implemented yet 
-  // it(`Enviroment`, () => {
-  //   delete myr.environment
-  //   myr.environment({})
-  // })
 });
 
 describe('Component Renders', () => {
@@ -158,51 +152,65 @@ describe(`Other Myr functionality`, () => {
   });
 
   it(`Should animate`, () => {
+    myr.reset();
     myr.setRotation(1,1,1);
     myr.setScale(2,2,2);
-    let el = myr.box({ material: "color: blue;", position: { x: 1, y: 1, z: 1 } });
-    let animation = myr.animate(el);
-    expect(animation.geometry).toMatchObject({primitive: "animation"});
-    expect(animation.rotation).toEqual({ x: 1, y: 1, z: 1 });
-    expect(animation.scale).toEqual({ x: 2, y: 2, z: 2 });
+    myr.animate(myr.box({ material: "color: blue;", position: { x: 1, y: 1, z: 1 } }));
+    let animated = myr.els[0];
+    expect(animated.animation.geometry).toMatchObject({primitive: "animation"});
+    expect(animated.rotation).toEqual({ x: 1, y: 1, z: 1 });
+    expect(animated.scale).toEqual({ x: 2, y: 2, z: 2 });
   });
 
   it(`Should drop` , () => {
+    myr.reset();
     let el = myr.box({ material: "color: blue;", position: { x: 1, y: 1, z: 1 } });
     myr.drop(el);
-    expect(el).toHaveProperty('dynamic-body');
-  });
-
-  it(`Should push`, () => {
-    let el = myr.box({ material: "color: blue;", position: { x: 1, y: 1, z: 1 } });
-    el.id = "";
-    expect(myr.push(el)).toBeUndefined();
+    let thisEl = myr.els[0];
+    expect(thisEl).toHaveProperty('dynamic-body');
   });
 
   it(`Should return a light`, () => {
+    myr.reset();
     let light = myr.light();
     expect(light).toBeTruthy();
-    expect(light.color).toMatch(re);
-    // expect(light).
+    expect(light.color).toMatch(colorRegEx);
+
+  });
+
+  it('should get the right element', () => {
+    myr.reset();
+    let id = myr.box();
+    expect(myr.getEl(id)).toBeDefined();
+    expect(myr.getEl(id).geometry).toEqual({primitive: 'box'});
+  });
+
+  it('should get the right index', () => {
+    myr.reset();
+    let id = myr.box();
+    expect(myr.getIndex(id)).toBeDefined();
+    expect(myr.getIndex(id)).toEqual(0);
   });
 
   it('should initialize Myr', () => {
+    myr.reset();
     let obj = [{name: "test"}];
     myr.init(obj);
     expect(myr.els[0].name).toEqual("test");
   });
 
   it('should reset Myr', () => {
+    let m = new Myr()
     let obj = [{name: "test"}];
-    myr.init();
-    myr.sphere();
-    myr.sphere();
+    m.init();
+    m.sphere();
+    m.sphere();
+    expect(m.els.length).toEqual(2);
     
-    myr.reset();
-    expect(myr.els.length).toEqual(0);
+    m.reset();
+    expect(m.els.length).toEqual(0);
 
-    myr.init(obj);
-    expect(myr.els.length).toEqual(1);
+    m.init(obj);
+    expect(m.els.length).toEqual(1);
   });
-  
 });
