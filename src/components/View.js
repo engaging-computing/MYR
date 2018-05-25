@@ -47,22 +47,25 @@ class View extends Component {
     );
   }
 
-  createCam = () => {
-    switch (this.props.sceneConfig.camConfig) {
-      case 1:
-        return this.checkpointCam();
-      default:
-        return this.basicMoveCam();
-    }
+  // createCam = () => {
+  //   switch (this.props.sceneConfig.camConfig) {
+  //     case 0:
+  //       return this.basicMoveCam();
+  //     case 1:
+  //       return this.checkpointCam();
+  //     default:
+  //       return this.basicMoveCam();
+  //   }
 
-  }
+  // }
 
   // checkpointCam = () => {
   //   return (
   //     <a-entity id="rig" movement-controls="controls: checkpoint" checkpoint-controls="mode: animate">
   //       <a-entity camera
   //         position="0 1.6 0"
-  //         look-controls="pointerLockEnabled: true">
+  //         look-controls // ="pointerLockEnabled: true"
+  //         >
   //         <a-entity cursor
   //           position="0 0 -1"
   //           geometry="primitive: ring; radiusInner: 0.02; radiusOuter: 0.03;"
@@ -72,17 +75,18 @@ class View extends Component {
   //   );
   // }
 
-  basicMoveCam = () => {
-    return (
-      <a-entity id="rig"
-        movement-controls
-        position="0 1.6 0">
-        <a-entity camera
-          position="0 1.6 0"
-          look-controls="pointerLockEnabled: true"></a-entity>
-      </a-entity>
-    );
-  }
+  // basicMoveCam = () => {
+  //   return (
+  //     <a-entity id="rig"
+  //       // movement-controls
+  //       position="0 1.6 0">
+  //       <a-entity camera
+  //         position="0 1.6 0"
+  //         look-controls //="pointerLockEnabled: true"
+  //         ></a-entity>
+  //     </a-entity>
+  //   );
+  // }
 
   // Need a navmap
   // navMeshCam = () => {
@@ -104,7 +108,7 @@ class View extends Component {
           <a-mixin id="checkpoint-hovered" color="#6CEEB5"></a-mixin>
           {this.props.assets ? this.props.assets.map((x, index) => this.assetsHelper(x, index)) : null}
         </a-assets>
-        <this.createCam />
+        {/* <this.createCam /> */}
         <a-sky color={this.props.sceneConfig.skyColor} ></a-sky>
         {this.props.objects ? this.props.objects.map((x, index) => this.helper(x, index)) : null}
         {/* <a-ocean color="#92E2E2" width="50" depth="50" density="15" speed="2"></a-ocean>
