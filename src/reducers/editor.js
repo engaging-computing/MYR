@@ -12,7 +12,7 @@ var entityModel = [
     },
     material: "color: #222",
     "static-body": "shape: box",
-    position: "0 -1 -10"
+    position: "0 -1 0"
   },
 ];
 

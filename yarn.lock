@@ -210,6 +210,12 @@ aframe-environment-component@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/aframe-environment-component/-/aframe-environment-component-1.0.0.tgz#dde6a8734dc7777d9c4a00b5bab25f877e8b3b37"
 
+aframe-extras@^4.1.2:
+  version "4.1.2"
+  resolved "https://registry.yarnpkg.com/aframe-extras/-/aframe-extras-4.1.2.tgz#680e09b77207ac25c9f746b7eb69066767c72acf"
+  dependencies:
+    three-pathfinding "^0.5.5"
+
 aframe-physics-system@^3.0.2:
   version "3.1.2"
   resolved "https://registry.yarnpkg.com/aframe-physics-system/-/aframe-physics-system-3.1.2.tgz#cb10f39b0d564637e729bb24e0f802ad16afcb1b"
@@ -2509,7 +2515,7 @@ debug@^3.0.1, debug@^3.1.0:
   dependencies:
     ms "2.0.0"
 
-"debug@github:ngokevin/debug#noTimestamp":
+debug@ngokevin/debug#noTimestamp:
   version "2.2.0"
   resolved "https://codeload.github.com/ngokevin/debug/tar.gz/ef5f8e66d49ce8bc64c6f282c15f8b7164409e3a"
 
@@ -2732,7 +2738,7 @@ doctrine@^2.0.0, doctrine@^2.0.2, doctrine@^2.1.0:
   dependencies:
     esutils "^2.0.2"
 
-"document-register-element@github:dmarcos/document-register-element#8ccc532b7":
+document-register-element@dmarcos/document-register-element#8ccc532b7:
   version "0.5.4"
   resolved "https://codeload.github.com/dmarcos/document-register-element/tar.gz/8ccc532b7f3744be954574caf3072a5fd260ca90"
 
@@ -8669,6 +8675,10 @@ three-buffer-vertex-data@^1.0.0:
   resolved "https://registry.yarnpkg.com/three-buffer-vertex-data/-/three-buffer-vertex-data-1.1.0.tgz#cf228e78427665884b961a4cabe1f85ed39f82b1"
   dependencies:
     flatten-vertex-data "^1.0.0"
+
+three-pathfinding@^0.5.5:
+  version "0.5.5"
+  resolved "https://registry.yarnpkg.com/three-pathfinding/-/three-pathfinding-0.5.5.tgz#ff05a8f8cfba343b3b07c05c25d11b0d161911f8"
 
 three-to-cannon@^1.3.0:
   version "1.3.0"
