@@ -48,8 +48,11 @@ describe('Terminal Component', () => {
 });
 
 describe('View Component', () => {
+  let sceneConfig = {
+    skyColor: 'white'
+  }
   it('View renders without crashing', () => {
-    shallow(<View />);
+    shallow(<View sceneConfig={sceneConfig}/>);
   });
 });
 
