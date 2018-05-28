@@ -2,7 +2,7 @@ const initial_state = {
   name: "",
   id: "0",
   sceneConfig: {
-    skyColor: "blue",
+    skyColor: "white",
     camConfig: 0
   }
 };
