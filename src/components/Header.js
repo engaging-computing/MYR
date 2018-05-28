@@ -503,6 +503,16 @@ class Header extends Component {
             <Icon className="material-icons">play_arrow</Icon>
           </Button>
         </Tooltip>
+        <Tooltip title="Recover" placement="bottom-start">
+          <Button
+            variant="raised"
+            size="small"
+            onClick={this.props.actions.recover}
+            className="header-btn"
+            style={style.play}>
+            <Icon className="material-icons">replay</Icon>
+          </Button>
+        </Tooltip>
         <Tooltip title="Stop" placement="bottom-start">
           <Button
             variant="raised"

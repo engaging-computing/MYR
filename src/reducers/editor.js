@@ -1,7 +1,7 @@
-import {EDITOR_RENDER, EDITOR_REFRESH} from '../actions/editorActions';
+import { EDITOR_RENDER, EDITOR_REFRESH, EDITOR_RECOVER } from '../actions/editorActions';
 import Myr from '../myr/Myr';
 
-var entityModel = [
+let entityModel = [
   {
     id: 'floor',
     geometry: {
@@ -17,57 +17,63 @@ var entityModel = [
 ];
 
 const programs = [
-  `// Input your code here
-  animate(box({material: {color: 'red'}}));
-  var colors = ['red', 'blue', 'purple']
-  
-  for( var i = 0 ; i < 20; i += 2){
-      setPosition(0,i,0)
-      animate(box({material: {color: colors[i % colors.length]}}));
-      setPosition(i,i,i)
-      animate(box({material: {color: colors[i % colors.length]}}));
-      setPosition(i,i,-i)
-      animate(box({material: {color: colors[i % colors.length]}}));
-      setPosition(-i,i,i)
-      animate(box({material: {color: colors[i % colors.length]}}));
-      setPosition(-i,i,-i)
-      animate(box({material: {color: colors[i % colors.length]}}));
-  
-  }`,
-  `// Input your code here
-  function dropb(x, y) {
-     let b = box({material:"color: blue", position: x + " " + y + " " + -10});
-     drop(b);
-  }
-  
-  for( var i = -25 ; i < 25; i++){
-     dropb(-i, i);
-     dropb(-i, i + 25);
-     dropb(-i, i + 50);
-     dropb(-i, i + 75);
-     dropb(-i, i + 100);
-     dropb(-i, i + 125);
-     dropb(-i, i + 150);
-     dropb(-i, i + 175);
-     dropb(-i, i + 200);
-  }`,
-  `// Input your code here
+`
+// Input your code here
+animate(box({material: {color: 'red'}}));
+var colors = ['red', 'blue', 'purple']
 
+for( var i = 0 ; i < 20; i += 2){
+    setPosition(0,i,0)
+    animate(box({material: {color: colors[i % colors.length]}}));
+    setPosition(i,i,i)
+    animate(box({material: {color: colors[i % colors.length]}}));
+    setPosition(i,i,-i)
+    animate(box({material: {color: colors[i % colors.length]}}));
+    setPosition(-i,i,i)
+    animate(box({material: {color: colors[i % colors.length]}}));
+    setPosition(-i,i,-i)
+    animate(box({material: {color: colors[i % colors.length]}}));
+
+}
+`,
+`
+// Input your code here
 function dropb(x, y) {
-    let b = box({position: x + " " + y + " " + -10});
+    let b = box({material:"color: blue", position: x + " " + y + " " + -10});
     drop(b);
-    push(b, 0, 2, 0.1);
+}
+
+for( var i = -25 ; i < 25; i++){
+    dropb(-i, i);
+    dropb(-i, i + 25);
+    dropb(-i, i + 50);
+    dropb(-i, i + 75);
+    dropb(-i, i + 100);
+    dropb(-i, i + 125);
+    dropb(-i, i + 150);
+    dropb(-i, i + 175);
+    dropb(-i, i + 200);
+}
+`,
+`
+// Input your code here
+function dropb(x, y) {
+  let b = box({position: x + " " + y + " " + -10});
+  drop(b);
+  push(b, 0, 2, 0.1);
 }
 
 var n = [-5, -3, -1, 1, 3, 5];
 for (var x of n) {
     dropb(x, 0);
-}`,
-  `// Input your code here
+}
+`,
+`
+// Input your code here
 
 function dropb(x, y) {
-    let b = box({position: x + " " + y + " " + -10});
-    drop(b);
+  let b = box({position: x + " " + y + " " + -10});
+  drop(b);
 }
 
 var n = [-5, -3, -1, 1, 3, 5];
@@ -75,7 +81,8 @@ for (var x of n) {
     dropb(x, 10);
     dropb(x, 7);
     dropb(x, 4);
-}`
+}
+`
 ];
 
 const initial_state = {
@@ -85,36 +92,62 @@ const initial_state = {
   errors: "Everything Looks Good"
 };
 
+/**
+* @summary - Snapshots is an array of objects that record each time the user tries to render
+*/
+let snapshots = [
+  {
+    timestamp: Date.now(),
+    text: `// Starting text:\n ${initial_state.text}`,
+    error: false
+  }
+];
+
+
 let m = new Myr();
-window.m = m
 m.init(entityModel);
 
+// Use this to attach it to the window for debugging
+// window.m = m;
+
 // ESLint doesn't like this but it is better than eval
-function noEvalEvaluation(text){
+function noEvalEvaluation(text) {
   try {
     // eslint-disable-next-line
     return Function(`${text}`)();
   } catch (error) {
-    return error;
+    throw error;
   }
 }
 
 export default function editor(state = initial_state, action) {
   switch (action.type) {
     case EDITOR_RENDER:
+      // build an object to save the snap
+      let snap = {
+        timestamp: Date.now(),
+        text: action.text,
+        error: false
+      };
+
+      /* For now we want to re-render everything.
+      * Initializing with [] avoid issues with mapping in View.
+      * In the future we might want to calculate diff and store it
+      */
       m.reset();
       let els = [];
       let assets = [];
-      // DO SOMETHING HERE WITH PREV STATE
+
       try {
         noEvalEvaluation(action.text);
         if (m) {
-          els = m.els || [];
-          assets = m.assets || [];
+          els = m.els;
+          assets = m.assets;
         }
       }
       catch (err) {
         console.error("Eval failed: " + err);
+        snapshots.push({ ...snap, error: true });
         return {
           ...state,
           text: action.text,
@@ -123,6 +156,7 @@ export default function editor(state = initial_state, action) {
           errors: "Eval failed: " + err
         };
       }
+      snapshots.push(snap);
       return {
         ...state,
         text: action.text,
@@ -136,6 +170,19 @@ export default function editor(state = initial_state, action) {
         ...initial_state,
         text: action.text
       };
+    case EDITOR_RECOVER:
+      // Start at intial snap
+      let stableIndex = 0;
+
+      // We could also grab the string here but seems like a lot of overwriting
+      for (let i = 0; i < snapshots.length; i++) {
+        if (snapshots[i].error === false) {
+          // reassign if snap is stable
+          stableIndex = i;
+        }
+      }
+      // Call this function again with new params
+      return editor({ ...state }, { type: EDITOR_RENDER, text: snapshots[stableIndex].text });
     default:
       return state;
   }
