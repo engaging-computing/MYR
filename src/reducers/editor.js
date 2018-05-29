@@ -1,4 +1,9 @@
-import { EDITOR_RENDER, EDITOR_REFRESH, EDITOR_RECOVER } from '../actions/editorActions';
+import {
+  EDITOR_RENDER,
+  EDITOR_REFRESH,
+  EDITOR_RECOVER
+} from '../actions/editorActions';
+
 import Myr from '../myr/Myr';
 
 let entityModel = [
@@ -17,7 +22,7 @@ let entityModel = [
 ];
 
 const programs = [
-`
+  `
 // Input your code here
 animate(box({material: {color: 'red'}}));
 var colors = ['red', 'blue', 'purple']
@@ -36,7 +41,7 @@ for( var i = 0 ; i < 20; i += 2){
 
 }
 `,
-`
+  `
 // Input your code here
 function dropb(x, y) {
     let b = box({material:"color: blue", position: x + " " + y + " " + -10});
@@ -55,7 +60,7 @@ for( var i = -25 ; i < 25; i++){
     dropb(-i, i + 200);
 }
 `,
-`
+  `
 // Input your code here
 function dropb(x, y) {
   let b = box({position: x + " " + y + " " + -10});
@@ -68,7 +73,7 @@ for (var x of n) {
     dropb(x, 0);
 }
 `,
-`
+  `
 // Input your code here
 
 function dropb(x, y) {
@@ -112,12 +117,8 @@ m.init(entityModel);
 
 // ESLint doesn't like this but it is better than eval
 function noEvalEvaluation(text) {
-  try {
-    // eslint-disable-next-line
-    return Function(`${text}`)();
-  } catch (error) {
-    throw error;
-  }
+  // eslint-disable-next-line
+  return Function(`${text}`)();
 }
 
 export default function editor(state = initial_state, action) {

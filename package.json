@@ -16,6 +16,7 @@
     "redux-devtools": "^3.4.1"
   },
   "dependencies": {
+    "@material-ui/core": "^1.1.0",
     "aframe": "^0.8.2",
     "aframe-environment-component": "^1.0.0",
     "aframe-extras": "^4.1.2",
