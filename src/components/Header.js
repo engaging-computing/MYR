@@ -17,13 +17,12 @@ class Header extends Component {
       logMenuOpen: false,
       sceneName: null,
       sceneDesc: "",
-      availProj: null,
+      availProj: [],
       sampleProj: [],
       autoReload: false,
       projOpen: true,
       projectsToDelete: [],
-      loadOpen: false,
-      sceneNameHasChanged: false
+      loadOpen: false
     };
   }
 
@@ -66,15 +65,15 @@ class Header extends Component {
   * @summary - when the components updates we check for null avail projects. If it is the case,
   * then we want to refetch the user's projects from Firebase
   */
-  componentDidUpdate() {
-    this.getUserProjs();
-  }
+  // componentDidUpdate() {
+  //   this.getUserProjs();
+  // }
 
   /**
   * @summary - sets component state:availProj to the the user's projects if logged in
   */
   getUserProjs = () => {
-    if (this.state.availProj === null && this.props.user && this.props.user.uid) {
+    if (this.props.user && this.props.user.uid) {
       let userVals = [];
       scenes.where('uid', '==', this.props.user.uid).get().then(snap => {
         snap.forEach(doc => {
@@ -165,7 +164,8 @@ class Header extends Component {
   submitName = (event) => {
     event.preventDefault();
     this.props.sceneActions.nameScene(this.state.sceneName);
-    this.setState({ sceneName: null, sceneNameHasChanged: true});
+    this.props.sceneActions.loadScene('0');
+    this.setState({ sceneName: null});
   }
 
   /**
@@ -222,6 +222,7 @@ class Header extends Component {
     this.props.actions.render("");
     if (this.props.user) {
       this.props.sceneActions.nameScene("untitled");
+      this.props.sceneActions.loadScene('0');
     }
   }
 
@@ -255,7 +256,7 @@ class Header extends Component {
     let ts = Date.now();
     if (this.props.user) {
       $("body").prepend("<span class='spinner'><div class='cube1'></div><div class='cube2'></div></span>");
-      if (this.props.scene.id === 0 || this.state.sceneNameHasChanged) {
+      if (this.props.scene.id === '0') {
         let projectID = this.props.user.uid + '_' + ts;
         this.props.sceneActions.loadScene(projectID);
       }
@@ -282,7 +283,7 @@ class Header extends Component {
           }).then(() => {
             console.log("Document successfully written!");
             $(".spinner").remove();
-            this.setState({ availProj: null });
+            this.getUserProjs();
           }).catch((error) => {
             console.error("Error writing document: ", error);
             $(".spinner").remove();
@@ -292,7 +293,7 @@ class Header extends Component {
           $(".spinner").remove();
         });
       }
-    }
+    }  
   }
   /**
   * @summary - resets the current scene
