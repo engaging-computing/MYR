@@ -5,6 +5,11 @@ import { auth, provider, db, scenes, storageRef } from '../firebase.js';
 import Sidebar from './Sidebar';
 import $ from "jquery";
 
+const exitBtnStyle = {
+  position: "fixed",
+  top: 0,
+  right: 0,
+};
 class Header extends Component {
   constructor(props) {
     super(props);
@@ -12,13 +17,13 @@ class Header extends Component {
       logMenuOpen: false,
       sceneName: null,
       sceneDesc: "",
-      availProj: [],
+      availProj: null,
       sampleProj: [],
       autoReload: false,
-      user: props.user,
       projOpen: true,
       projectsToDelete: [],
       loadOpen: false,
+      sceneNameHasChanged: false
     };
   }
 
@@ -33,22 +38,7 @@ class Header extends Component {
     auth.onAuthStateChanged((account) => {
       if (account) {
         this.props.logging.login(account);
-        // 2. load the user's projects
-        if (this.state.availProj.length === 0 && this.props.user && this.props.user.uid) {
-          let userVals = [];
-          scenes.where('uid', '==', this.props.user.uid).get().then(snap => {
-            snap.forEach(doc => {
-              storageRef.child(`/images/equirectangular/${doc.id}`).getDownloadURL().then((img) => {
-                userVals.push({
-                  id: doc.id,
-                  data: doc.data(),
-                  url: img
-                });
-              });
-            });
-            this.setState({ availProj: userVals });
-          });
-        }
+        this.getUserProjs();
       } else {
         this.props.logging.logout();
       }
@@ -77,6 +67,13 @@ class Header extends Component {
   * then we want to refetch the user's projects from Firebase
   */
   componentDidUpdate() {
+    this.getUserProjs();
+  }
+
+  /**
+  * @summary - sets component state:availProj to the the user's projects if logged in
+  */
+  getUserProjs = () => {
     if (this.state.availProj === null && this.props.user && this.props.user.uid) {
       let userVals = [];
       scenes.where('uid', '==', this.props.user.uid).get().then(snap => {
@@ -168,7 +165,7 @@ class Header extends Component {
   submitName = (event) => {
     event.preventDefault();
     this.props.sceneActions.nameScene(this.state.sceneName);
-    this.setState({ sceneName: null });
+    this.setState({ sceneName: null, sceneNameHasChanged: true});
   }
 
   /**
@@ -255,29 +252,28 @@ class Header extends Component {
 
     // render the current state so the user can see what they are saving
     this.handleRender();
-    let projectID = this.props.scene.id;
     let ts = Date.now();
     if (this.props.user) {
       $("body").prepend("<span class='spinner'><div class='cube1'></div><div class='cube2'></div></span>");
-      if (projectID) {
-        projectID = this.props.user.uid + '_' + ts;
+      if (this.props.scene.id === 0 || this.state.sceneNameHasChanged) {
+        let projectID = this.props.user.uid + '_' + ts;
         this.props.sceneActions.loadScene(projectID);
       }
-      // use uid_epoch as identifier for now
       let modes = [
         'equirectangular',
         // 'perspective'
       ];
+
       // upload images
       for (var mode of modes) {
         let scene = document.querySelector('a-scene');
         let img = scene.components.screenshot.getCanvas(mode).toDataURL('image/png');
-        let path = "images/" + mode + "/" + projectID;
+        let path = "images/" + mode + "/" + this.props.scene.id;
         let imgRef = storageRef.child(path);
         imgRef.putString(img, 'data_url').then((snapshot) => {
           console.log('Uploaded a data_url string!');
           // Put the new document into the scenes collection
-          db.collection("scenes").doc(projectID).set({
+          db.collection("scenes").doc(this.props.scene.id).set({
             name: this.props.scene.name,
             desc: this.state.sceneDesc,
             code: this.props.text,
@@ -319,12 +315,6 @@ class Header extends Component {
   * @summary - creates the save drawer
   */
   saveDrawer = () => {
-    const exitBtnStyle = {
-      position: "fixed",
-      top: 0,
-      right: 0,
-    };
-
     return (
       <Drawer
         variant="persistent"
@@ -368,12 +358,6 @@ class Header extends Component {
   };
 
   loadDrawer = () => {
-    const exitBtnStyle = {
-      position: "fixed",
-      top: 0,
-      right: 0,
-    };
-
     const renderProj = (proj, canDelete) => {
       return (
         <div key={proj.id} id={proj.id} className="grid-project col-sm-6 p-3 mb-3" title={proj.data.name}>
@@ -446,6 +430,39 @@ class Header extends Component {
   }
 
   /**
+  * @summary - Create a Drawer with options to the control the scene
+  * 
+  */
+  openSceneOpt = () => {
+    this.setState({ sceneOptOpen: true });
+  }
+
+  closeSceneOpt = () => {
+    this.setState({ sceneOptOpen: false });
+  }
+
+  sceneOptions = () => {
+    return (
+      <Drawer
+        docked={false}
+        className="side-drawer"
+        open={this.state.sceneOptOpen}
+        onRequestChange={(open) => this.setState({ open })} >
+        {/* onClose={this.closeSceneOpt} > */}
+        <IconButton variant="raised"
+          color="default"
+          style={exitBtnStyle}
+          onClick={this.closeSceneOpt} >
+          <Icon className="material-icons">close</Icon>
+        </IconButton>
+        <div id="scene-options" >
+          <h2> Scene Config</h2>
+        </div>
+      </Drawer>
+    );
+  }
+
+  /**
   * @summary - render() creates the header and links the buttons
   */
   render() {
@@ -502,6 +519,14 @@ class Header extends Component {
             <Icon className="material-icons">file_download</Icon>
             Open Project
           </Button>
+          <Button
+            variant="raised"
+            onClick={this.openSceneOpt}
+            color="primary"
+            className="sidebar-btn">
+            <Icon className="material-icons">settings</Icon>
+            Scene Config
+          </Button>
         </Sidebar>
         <h1 className="mr-2">MYR</h1>
         <Tooltip title="Render" placement="bottom-start">
@@ -544,6 +569,7 @@ class Header extends Component {
             <Icon className="material-icons">file_download</Icon>
           </Button>
         </Tooltip>
+        <this.sceneOptions />
         <this.loginBtn />
         <this.saveDrawer />
         <this.loadDrawer />
