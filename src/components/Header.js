@@ -103,7 +103,7 @@ class Header extends Component {
       this.props.logging.logout();
     });
   }
-  
+
   /**
   * @summary - The login function runs when the user click to login of the application.
   */
@@ -230,7 +230,7 @@ class Header extends Component {
 
   /**
   * @summary - handleLoad will load the selected scene into the application's state
-  */  
+  */
   handleLoad = (event) => {
     event.preventDefault();
     if (event.target.id) {
@@ -245,14 +245,14 @@ class Header extends Component {
         }
       });
     }
-    this.setState({loadOpen: false});
+    this.setState({ loadOpen: false });
   }
 
   /**
   * @summary - When the user clicks save it will upload the information to Firebase
   */
   handleSave = () => {
-    
+
     // render the current state so the user can see what they are saving
     this.handleRender();
     let projectID = this.props.scene.id;
@@ -270,7 +270,7 @@ class Header extends Component {
       ];
       // upload images
       for (var mode of modes) {
-        let scene =  document.querySelector('a-scene');
+        let scene = document.querySelector('a-scene');
         let img = scene.components.screenshot.getCanvas(mode).toDataURL('image/png');
         let path = "images/" + mode + "/" + projectID;
         let imgRef = storageRef.child(path);
@@ -378,7 +378,7 @@ class Header extends Component {
       return (
         <div key={proj.id} id={proj.id} className="grid-project col-sm-6 p-3 mb-3" title={proj.data.name}>
           <p onClick={this.handleLoad}>{proj.data.name}</p>
-          <img  onClick={this.handleLoad} id={proj.id} alt={proj.id} className="img-thumbnail mb-1" src={proj.url} />
+          <img onClick={this.handleLoad} id={proj.id} alt={proj.id} className="img-thumbnail mb-1" src={proj.url} />
           {canDelete ?
             <Button
               onClick={() => this.addToDeleteList(proj.id)}
@@ -386,7 +386,7 @@ class Header extends Component {
               fullWidth={true}
               color="secondary">
               <Icon className="material-icons">delete</Icon>
-            </Button> 
+            </Button>
             : null
           }
         </div>
@@ -412,16 +412,16 @@ class Header extends Component {
               <hr />
               {this.state.availProj !== null ? this.state.availProj.map((proj) => {
                 return (renderProj(proj, true));
-              }) 
-              : null}
-            </div> 
-          : null}
+              })
+                : null}
+            </div>
+            : null}
           <div className="row" id="sample-proj" style={{ width: "100%" }}>
             <h3 className="col-12 p-2 mb-3 border-bottom">Sample Projects</h3>
             {this.state.sampleProj !== null ? this.state.sampleProj.map((proj) => {
               return (renderProj(proj, false));
-            }) 
-            : null}
+            })
+              : null}
           </div>
         </div>
       </Drawer>
@@ -475,21 +475,32 @@ class Header extends Component {
             onClick={this.handleNewProj}
             color="primary"
             className="sidebar-btn">
-            <Icon className="material-icons">add</Icon>  Start New
+            <Icon className="material-icons">add</Icon>
+            Start New
+          </Button>
+          <Button label="Recover"
+            variant="raised"
+            onClick={this.props.actions.recover}
+            color="primary"
+            className="sidebar-btn">
+            <Icon className="material-icons">replay</Icon>
+            Recover
           </Button>
           <Button
             variant="raised"
             onClick={this.handleSaveToggle}
             color="primary"
             className="sidebar-btn">
-            <Icon className="material-icons">save</Icon>  Save Project
+            <Icon className="material-icons">save</Icon>
+            Save Project
           </Button>
           <Button
             variant="raised"
             onClick={this.handleLoadToggle}
             color="primary"
             className="sidebar-btn">
-            <Icon className="material-icons">file_download</Icon>  Open Project
+            <Icon className="material-icons">file_download</Icon>
+            Open Project
           </Button>
         </Sidebar>
         <h1 className="mr-2">MYR</h1>
@@ -501,16 +512,6 @@ class Header extends Component {
             className="header-btn"
             style={style.play}>
             <Icon className="material-icons">play_arrow</Icon>
-          </Button>
-        </Tooltip>
-        <Tooltip title="Recover" placement="bottom-start">
-          <Button
-            variant="raised"
-            size="small"
-            onClick={this.props.actions.recover}
-            className="header-btn"
-            style={style.play}>
-            <Icon className="material-icons">replay</Icon>
           </Button>
         </Tooltip>
         <Tooltip title="Stop" placement="bottom-start">
