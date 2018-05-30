@@ -172,9 +172,10 @@ export default function editor(state = initial_state, action) {
         text: action.text
       };
     case EDITOR_RECOVER:
-      // Start at intial snap
+      // Start at last snap
       let stableIndex = snapshots.length - 1;
 
+      // Work backwards until we find a non-error snap
       while(snapshots[stableIndex].error === true){
         stableIndex--;
       }
