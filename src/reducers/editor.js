@@ -173,14 +173,10 @@ export default function editor(state = initial_state, action) {
       };
     case EDITOR_RECOVER:
       // Start at intial snap
-      let stableIndex = 0;
+      let stableIndex = snapshots.length - 1;
 
-      // We could also grab the string here but seems like a lot of overwriting
-      for (let i = 0; i < snapshots.length; i++) {
-        if (snapshots[i].error === false) {
-          // reassign if snap is stable
-          stableIndex = i;
-        }
+      while(snapshots[stableIndex].error === true){
+        stableIndex--;
       }
       // Call this function again with new params
       return editor({ ...state }, { type: EDITOR_RENDER, text: snapshots[stableIndex].text });
