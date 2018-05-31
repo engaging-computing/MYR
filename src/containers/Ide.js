@@ -4,7 +4,7 @@ import View from '../components/View';
 import Terminal from '../components/Terminal';
 import PropTypes from 'prop-types';
 
-export default function Ide({ text, objects, actions, assets, user, scene, errors, sceneActions }) {
+export default function Ide({ text, objects, assets, user, scene, errors }) {
   return (
     <div className="row no-gutters">
       <div id="interface" className="col-12 col-md-4">
