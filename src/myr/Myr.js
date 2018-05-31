@@ -12,11 +12,12 @@ class Myr {
     this.res = { els: this.els, assets: this.assets };
     this.height = height;
     this.width = width;
+    this.color = 'red';
     this.sceneEl = document.querySelector('a-scene');
     this.position = {
       x: 0,
       y: 0,
-      z: -2
+      z: 0
     };
     this.scale = {
       x: 1,
@@ -40,7 +41,8 @@ class Myr {
           primitive: type,
         },
         material: {
-          color: "red"
+          color: this.color,
+          side: "double"
         },
         rotation: this.rotation,
         radius: this.radius,
@@ -142,6 +144,10 @@ class Myr {
     this.camera.cursor = true;
   };
 
+  setColor = (color) => {
+    this.color = color;
+  }
+
   getRandomColor = () => {
     var color, i, letters;
     letters = '0123456789ABCDEF';
@@ -234,6 +240,14 @@ class Myr {
     return el.id;
   }
 
+  // Render an Aframe Text Primitive with current Myr settings  
+  cylinder = (obj) => {
+    var el = this.core("cylinder");
+    let merged = { ...el, ...obj };
+    this.els.push(merged);
+    return el.id;
+  }
+
   // Render an Aframe Polyhedron with current Myr settings  
   polyhedron = (obj) => {
     var el = {
@@ -270,6 +284,13 @@ class Myr {
   // Render an Aframe octahedron with current Myr settings  
   octahedron = (obj) => {
     var el = this.core("octahedron");
+    let merged = { ...el, ...obj };
+    this.els.push(merged);
+    return el.id;
+  }
+
+  ring = (obj) => {
+    var el = this.core("ring");
     let merged = { ...el, ...obj };
     this.els.push(merged);
     return el.id;
@@ -349,7 +370,7 @@ class Myr {
   change = (outerElId, type, newParam) => {
     document.addEventListener("myr-view-rendered", (e) => {
       let el = document.querySelector("#" + outerElId);
-      if(el){
+      if (el) {
         el.setAttribute(type, newParam);
       }
     });
@@ -357,7 +378,7 @@ class Myr {
 
   syncChange = (outerElId, type, newParam) => {
     let el = document.querySelector("#" + outerElId);
-    if(el){
+    if (el) {
       el.setAttribute(type, newParam);
     }
   }
@@ -365,7 +386,7 @@ class Myr {
   sleep = (ms) => {
     return new Promise(resolve => setTimeout(resolve, ms));
   }
-  
+
 }
 
 export default Myr;

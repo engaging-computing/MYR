@@ -282,7 +282,7 @@ describe('Editor Reducer', () => {
       .toEqual(
         {
           text: "sphere();",
-          objects: [{ "geometry": { "depth": 50, "height": 1, "primitive": "box", "width": 50 }, "id": "floor", "material": "color: #222", "position": "0 -1 0", "static-body": "shape: box" }, { "geometry": { "primitive": "sphere" }, "id": "a1", "material": { "color": "red" }, "position": { "x": 0, "y": 0, "z": -2 }, "radius": 1, "radius-bottom": 1, "radius-top": 2, "rotation": { "x": 0, "y": 0, "z": 0 }, "scale": { "x": 1, "y": 1, "z": 1 }, "value": "hello" }],
+          objects: [{ "geometry": { "depth": 50, "height": 1, "primitive": "box", "width": 50 }, "id": "floor", "material": "color: #222", "position": "0 -1 0", "static-body": "shape: box" }, { "geometry": { "primitive": "sphere" }, "id": "a1", "material": { "color": "red", "side": "double" }, "position": { "x": 0, "y": 0, "z": 0 }, "radius": 1, "radius-bottom": 1, "radius-top": 2, "rotation": { "x": 0, "y": 0, "z": 0 }, "scale": { "x": 1, "y": 1, "z": 1 }, "value": "hello" }],
           assets: [],
           errors: "Everything Looks Good"
         }
@@ -314,7 +314,7 @@ describe('Editor Reducer', () => {
       .toEqual(
         {
           text: "",
-          objects: [{ "geometry": { "depth": 50, "height": 1, "primitive": "box", "width": 50 }, "id": "floor", "material": "color: #222", "position": "0 -1 0", "static-body": "shape: box" }],
+          objects: [{ "geometry": { "depth": 50, "height": 1, "primitive": "box", "width": 50 }, "id": "floor",  "material": "color: #222", position: "0 -1 0", "static-body": "shape: box" }],
           assets: [],
           errors: "Everything Looks Good"
         }
@@ -328,7 +328,7 @@ describe('Editor Reducer', () => {
       .toEqual(
         {
           text: "sphere();",
-          objects: [{ "geometry": { "depth": 50, "height": 1, "primitive": "box", "width": 50 }, "id": "floor", "material": "color: #222", "position": "0 -1 0", "static-body": "shape: box" }, { "geometry": { "primitive": "sphere" }, "id": "a1", "material": { "color": "red" }, "position": { "x": 0, "y": 0, "z": -2 }, "radius": 1, "radius-bottom": 1, "radius-top": 2, "rotation": { "x": 0, "y": 0, "z": 0 }, "scale": { "x": 1, "y": 1, "z": 1 }, "value": "hello" }],
+          objects: [{ "geometry": { "depth": 50, "height": 1, "primitive": "box", "width": 50 }, "id": "floor", "material": "color: #222", "position": "0 -1 0", "static-body": "shape: box" }, { "geometry": { "primitive": "sphere" }, "id": "a1", "material": { "color": "red", "side": "double", }, "position": { "x": 0, "y": 0, "z": 0 }, "radius": 1, "radius-bottom": 1, "radius-top": 2, "rotation": { "x": 0, "y": 0, "z": 0 }, "scale": { "x": 1, "y": 1, "z": 1 }, "value": "hello" }],
           assets: [],
           errors: "Everything Looks Good"
         }
