@@ -256,9 +256,12 @@ class Header extends Component {
     let ts = Date.now();
     if (this.props.user) {
       $("body").prepend("<span class='spinner'><div class='cube1'></div><div class='cube2'></div></span>");
+      let projectID;
       if (this.props.scene.id === '0') {
-        let projectID = this.props.user.uid + '_' + ts;
+        projectID = this.props.user.uid + '_' + ts;
         this.props.sceneActions.loadScene(projectID);
+      }else {
+        projectID = this.props.scene.id;
       }
       let modes = [
         'equirectangular',
@@ -269,12 +272,12 @@ class Header extends Component {
       for (var mode of modes) {
         let scene = document.querySelector('a-scene');
         let img = scene.components.screenshot.getCanvas(mode).toDataURL('image/png');
-        let path = "images/" + mode + "/" + this.props.scene.id;
+        let path = "images/" + mode + "/" + projectID;
         let imgRef = storageRef.child(path);
         imgRef.putString(img, 'data_url').then((snapshot) => {
           console.log('Uploaded a data_url string!');
           // Put the new document into the scenes collection
-          db.collection("scenes").doc(this.props.scene.id).set({
+          db.collection("scenes").doc(projectID).set({
             name: this.props.scene.name,
             desc: this.state.sceneDesc,
             code: this.props.text,
