@@ -6,7 +6,7 @@ import Viewer from './Viewer';
 
 const App = () => (
   <div>
-    {/* <Ide /> */}
+    <Ide />
     <Viewer />
   </div>
 );
