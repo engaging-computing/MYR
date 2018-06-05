@@ -24,7 +24,7 @@ class Editor extends Component {
   render() {
     return (
       <div id="editor" >
-        <AceEditor ref="aceEditor" width="100%" mode="javascript" theme="github" value={this.props.text} name="ace-editor" className="d-none d-md-block" />
+        <AceEditor ref="aceEditor" width="100%" height="94vh" mode="javascript" theme="github" value={this.props.text} name="ace-editor" className="d-none d-md-block" />
       </div>
     );
   }

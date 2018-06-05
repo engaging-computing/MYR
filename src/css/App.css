@@ -8,14 +8,9 @@ body {
   padding: 0 15px;
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 80px;
-}
-
 .App-header {
   background-color: #222;
-  padding: 8px;
+  padding: 10px;
   display: flex;
   align-items: center;
   height: 6vh;
@@ -125,75 +120,6 @@ body.aframe-inspector-opened .toggle-edit {
 
 #interface {
   border-right: 0;
-}
-
-#terminal {
-  border-top: 1px solid;
-}
-
-div.react-console-container {
-  font-size: 0.85em;
-  width: 60em;
-  max-width: 100%;
-  box-sizing: border-box;
-  height: 20em;
-  background: #efefef;
-  padding: 0.5em;
-  overflow: auto;
-  white-space: pre;
-}
-
-div.react-console-prompt-box {
-  color: #444;
-}
-
-span.react-console-prompt-label {
-  font-weight: bold;
-}
-
-div.react-console-focus span.react-console-cursor {
-  background: #333;
-  color: #eee;
-}
-
-div.react-console-nofocus span.react-console-cursor {
-  background: none;
-  color: #444;
-  outline: 0.1em solid #333;
-  outline-offset: -0.1em;
-}
-
-div.react-console-focus span.react-console-cursor-idle {
-  animation: react-console-cursor-animation 1s infinite;
-}
-
-@keyframes react-console-cursor-animation {
-  0% {
-    background: #333;
-    color: #eee;
-  }
-  50% {
-    background: #333;
-    color: #eee;
-  }
-  51% {
-    background: none;
-    color: #444;
-  }
-  100% {
-    background: none;
-    color: #444;
-  }
-}
-
-div.react-console-message {
-  color: #0e1111;
-  padding: 0.1em;
-}
-
-div.react-console-message-error {
-  color: #ff0033;
-  padding: 0.1em;
 }
 
 .spinner {
@@ -317,6 +243,11 @@ div.side-drawer>div {
   overflow: unset !important;
 }
 
-#reference-draw > div {
-  width:  1000px;
+#reference-draw>div {
+  width: 1000px;
+}
+
+#ace-editor {
+  border-bottom: 1px solid;
+  border-top: 1px solid;
 }
