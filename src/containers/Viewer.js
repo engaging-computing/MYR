@@ -11,9 +11,9 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
 
-const Viewer = ( {text, objects, actions, assets, user, scene, errors, authActions, sceneActions }) => (
+const Viewer = ( {text, objects, actions, assets, user, scene, message, authActions, sceneActions }) => (
   <div className="App">
-    <Header logging={authActions} sceneActions={sceneActions} actions={actions} user={user} scene={scene} text={text} />
+    <Header logging={authActions} sceneActions={sceneActions} actions={actions} user={user} scene={scene} text={text} message={message}/>
     <div className="row no-gutters">
       <div id="scene" className="col-12">
         <View objects={objects} sceneConfig={scene.sceneConfig} assets={assets} />
@@ -33,7 +33,7 @@ Viewer.propTypes = {
 // This makes the values accessible as props
 const mapStateToProps = state => ({
   text: state.editor.text,
-  errors: state.editor.errors,
+  message: state.editor.message,
   objects: state.editor.objects,
   assets: state.editor.assets,
   user: state.user.user,

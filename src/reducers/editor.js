@@ -94,7 +94,10 @@ const initial_state = {
   text: programs[Math.floor(Math.random() * programs.length)],
   objects: entityModel,
   assets: [],
-  errors: "Everything Looks Good"
+  message: {
+    text: "Everything Looks Good",
+    time: Date.now()
+  }
 };
 
 /**
@@ -154,7 +157,10 @@ export default function editor(state = initial_state, action) {
           text: action.text,
           objects: els,
           assets: assets,
-          errors: "Eval failed: " + err
+          message: {
+            text: "Eval failed: " + err,
+            time: Date.now()
+          }
         };
       }
       snapshots.push(snap);
@@ -163,7 +169,10 @@ export default function editor(state = initial_state, action) {
         text: action.text,
         objects: els,
         assets: assets,
-        errors: "Everything Looks Good"
+        message: {
+          text: "Everything Looks Good",
+          time: Date.now()
+        }
       };
     case EDITOR_REFRESH:
       m.reset();

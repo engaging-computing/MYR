@@ -1,5 +1,18 @@
 import React, { Component } from 'react';
-import { Button, Icon, MenuItem, Popover, Tooltip, Drawer, IconButton, FormControl, TextField } from 'material-ui';
+import {
+  Button,
+  Icon,
+  MenuItem,
+  Popover,
+  Tooltip,
+  Drawer,
+  IconButton,
+  FormControl,
+  TextField,
+  Snackbar,
+  SnackbarContent
+
+} from 'material-ui';
 import Avatar from 'material-ui/Avatar';
 import { auth, provider, db, scenes, storageRef } from '../firebase.js';
 import Sidebar from './Sidebar';
@@ -22,7 +35,9 @@ class Header extends Component {
       autoReload: false,
       projOpen: true,
       projectsToDelete: [],
-      loadOpen: false
+      loadOpen: false,
+      snackOpen: true,
+      lastMsgTime: 0
     };
   }
 
@@ -59,15 +74,18 @@ class Header extends Component {
         this.setState({ sampleProj: samplVals });
       });
     }
+    this.setState({ snackOpen: true, lastMsgTime: this.props.message.time });
   }
 
   /**
   * @summary - when the components updates we check for null avail projects. If it is the case,
   * then we want to refetch the user's projects from Firebase
   */
-  // componentDidUpdate() {
-  //   this.getUserProjs();
-  // }
+  componentDidUpdate() {
+    if (this.state.lastMsgTime !== this.props.message.time) {
+      this.setState({ snackOpen: true, lastMsgTime: this.props.message.time });
+    }
+  }
 
   /**
   * @summary - sets component state:availProj to the the user's projects if logged in
@@ -165,7 +183,7 @@ class Header extends Component {
     event.preventDefault();
     this.props.sceneActions.nameScene(this.state.sceneName);
     this.props.sceneActions.loadScene('0');
-    this.setState({ sceneName: null});
+    this.setState({ sceneName: null });
   }
 
   /**
@@ -260,7 +278,7 @@ class Header extends Component {
       if (this.props.scene.id === '0') {
         projectID = this.props.user.uid + '_' + ts;
         this.props.sceneActions.loadScene(projectID);
-      }else {
+      } else {
         projectID = this.props.scene.id;
       }
       let modes = [
@@ -296,7 +314,7 @@ class Header extends Component {
           $(".spinner").remove();
         });
       }
-    }  
+    }
   }
   /**
   * @summary - resets the current scene
@@ -467,6 +485,22 @@ class Header extends Component {
   }
 
   /**
+  * @summary -
+  * 
+  * @param {string} text - 
+  * 
+  * @returns - 
+  */
+
+  closeSnackBar = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    this.setState({ snackOpen: false });
+  }
+
+  /**
   * @summary - render() creates the header and links the buttons
   */
   render() {
@@ -490,6 +524,33 @@ class Header extends Component {
     };
     return (
       <header className="App-header">
+        <Snackbar
+          anchorOrigin={{
+            vertical: 'bottom',
+            horizontal: 'left',
+          }}
+          open={this.state.snackOpen}
+          autoHideDuration={6000}
+          onClose={this.closeSnackBar}
+          ContentProps={{
+            'aria-describedby': 'message-id',
+          }}
+          message={<span id="message-id">{this.props.message.text}</span>}
+          action={[
+            <Button key="undo" color="secondary" size="small" onClick={this.closeSnackBar}>
+              Dismiss
+            </Button>,
+            <IconButton
+              key="close"
+              aria-label="Close"
+              color="inherit"
+              // className={classes.close}
+              onClick={this.closeSnackBar}
+            >
+              {/* <CloseIcon /> */}
+            </IconButton>,
+          ]}
+        />
         <Sidebar scene={this.props.scene} nameScene={this.props.sceneActions.nameScene} >
           <Button label="Start a New Project"
             variant="raised"

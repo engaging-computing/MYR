@@ -11,9 +11,9 @@ import * as SceneActions from '../actions/sceneActions.js';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
-const Ide = ({ text, objects, actions, assets, user, scene, errors, authActions, sceneActions }) => (
+const Ide = ({ text, objects, actions, assets, user, scene, message, authActions, sceneActions }) => (
   <div className="App">
-    <Header logging={authActions} sceneActions={sceneActions} actions={actions} user={user} scene={scene} text={text} />
+    <Header logging={authActions} sceneActions={sceneActions} actions={actions} user={user} scene={scene} text={text} message={message} />
     <div className="row no-gutters">
       <div id="interface" className="col-12 col-md-4">
         <Editor objects={objects} text={text} user={user} />
@@ -29,7 +29,7 @@ const Ide = ({ text, objects, actions, assets, user, scene, errors, authActions,
 Ide.propTypes = {
   text: PropTypes.string.isRequired,
   user: PropTypes.object,
-  errors: PropTypes.string.isRequired,
+  message: PropTypes.string.isRequired,
   objects: PropTypes.array.isRequired,
   assets: PropTypes.array.isRequired,
   scene: PropTypes.object.isRequired,
@@ -38,7 +38,7 @@ Ide.propTypes = {
 // This makes the values accessible as props
 const mapStateToProps = state => ({
   text: state.editor.text,
-  errors: state.editor.errors,
+  message: state.editor.message,
   objects: state.editor.objects,
   assets: state.editor.assets,
   user: state.user.user,
