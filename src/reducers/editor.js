@@ -95,8 +95,8 @@ const initial_state = {
   objects: entityModel,
   assets: [],
   message: {
-    text: "Everything Looks Good",
-    time: Date.now()
+    text: "Scene is Ready",
+    time: 0
   }
 };
 
@@ -121,7 +121,7 @@ m.init(entityModel);
 // ESLint doesn't like this but it is better than eval
 function noEvalEvaluation(text) {
   // eslint-disable-next-line
-  return Function(`${text}`)();
+  return Function(`'use strict'; ${text}`)();
 }
 
 export default function editor(state = initial_state, action) {

@@ -78,8 +78,8 @@ class Header extends Component {
   }
 
   /**
-  * @summary - when the components updates we check for null avail projects. If it is the case,
-  * then we want to refetch the user's projects from Firebase
+  * @summary - When we update, check to see if there is a new message by comparing the local state to
+  * props.message.time
   */
   componentDidUpdate() {
     if (this.state.lastMsgTime !== this.props.message.time) {
