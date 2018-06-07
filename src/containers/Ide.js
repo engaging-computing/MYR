@@ -29,7 +29,7 @@ const Ide = ({ text, objects, actions, assets, user, scene, message, authActions
 Ide.propTypes = {
   text: PropTypes.string.isRequired,
   user: PropTypes.object,
-  message: PropTypes.string.isRequired,
+  message: PropTypes.object.isRequired,
   objects: PropTypes.array.isRequired,
   assets: PropTypes.array.isRequired,
   scene: PropTypes.object.isRequired,

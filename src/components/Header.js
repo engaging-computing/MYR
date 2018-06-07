@@ -10,13 +10,13 @@ import {
   FormControl,
   TextField,
   Snackbar,
-  SnackbarContent
-
 } from 'material-ui';
 import Avatar from 'material-ui/Avatar';
 import { auth, provider, db, scenes, storageRef } from '../firebase.js';
 import Sidebar from './Sidebar';
 import $ from "jquery";
+
+import { Link } from 'react-router-dom';
 
 const exitBtnStyle = {
   position: "fixed",
@@ -75,6 +75,27 @@ class Header extends Component {
       });
     }
     this.setState({ snackOpen: true, lastMsgTime: this.props.message.time });
+
+    // If there is a projectId prop we know it is coming from Viewer 
+    if (this.props.projectId) {
+      // When the data's metedata changes, ie update
+      scenes.doc(this.props.projectId).onSnapshot({
+        includeMetadataChanges: true,
+      }, (doc) => {
+        let data = doc.data();
+        if (data && data.code){
+          // Clear contents for fresh render and then render
+          this.props.actions.refresh("");
+          this.props.actions.render(doc.data().code);
+        }
+      });
+    }
+  }
+
+  componentWillUnmount() {
+    var unsubscribe = scenes.onSnapshot(function () { });
+    unsubscribe();
+
   }
 
   /**
@@ -500,6 +521,35 @@ class Header extends Component {
     this.setState({ snackOpen: false });
   }
 
+  renderSnackBar = () => {
+    return (<Snackbar
+      anchorOrigin={{
+        vertical: 'bottom',
+        horizontal: 'left',
+      }}
+      open={this.state.snackOpen}
+      autoHideDuration={6000}
+      onClose={this.closeSnackBar}
+      ContentProps={{
+        'aria-describedby': 'message-id',
+      }}
+      message={<span id="message-id">{this.props.message.text}</span>}
+      action={[
+        <Button key="undo" color="secondary" size="small" onClick={this.closeSnackBar}>
+          Dismiss
+        </Button>,
+        <IconButton
+          key="close"
+          aria-label="Close"
+          color="inherit"
+          onClick={this.closeSnackBar} >
+
+        </IconButton>,
+      ]}
+    />
+    )
+  }
+
   /**
   * @summary - render() creates the header and links the buttons
   */
@@ -524,33 +574,6 @@ class Header extends Component {
     };
     return (
       <header className="App-header">
-        <Snackbar
-          anchorOrigin={{
-            vertical: 'bottom',
-            horizontal: 'left',
-          }}
-          open={this.state.snackOpen}
-          autoHideDuration={6000}
-          onClose={this.closeSnackBar}
-          ContentProps={{
-            'aria-describedby': 'message-id',
-          }}
-          message={<span id="message-id">{this.props.message.text}</span>}
-          action={[
-            <Button key="undo" color="secondary" size="small" onClick={this.closeSnackBar}>
-              Dismiss
-            </Button>,
-            <IconButton
-              key="close"
-              aria-label="Close"
-              color="inherit"
-              // className={classes.close}
-              onClick={this.closeSnackBar}
-            >
-              {/* <CloseIcon /> */}
-            </IconButton>,
-          ]}
-        />
         <Sidebar scene={this.props.scene} nameScene={this.props.sceneActions.nameScene} >
           <Button label="Start a New Project"
             variant="raised"
@@ -593,7 +616,9 @@ class Header extends Component {
             Scene Config
           </Button>
         </Sidebar>
-        <h1 className="mr-2">MYR</h1>
+        <Link to='/'>
+          <h1 className="mr-2">MYR</h1>
+        </Link>
         <Tooltip title="Render" placement="bottom-start">
           <Button
             variant="raised"
@@ -638,6 +663,7 @@ class Header extends Component {
         <this.loginBtn />
         <this.saveDrawer />
         <this.loadDrawer />
+        <this.renderSnackBar />
       </header>
     );
   }

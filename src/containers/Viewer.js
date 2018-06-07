@@ -9,11 +9,12 @@ import * as SceneActions from '../actions/sceneActions.js';
 
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router';
 
 
-const Viewer = ( {text, objects, actions, assets, user, scene, message, authActions, sceneActions }) => (
+const Viewer = ({ text, objects, actions, assets, user, scene, message, authActions, sceneActions, match }) => (
   <div className="App">
-    <Header logging={authActions} sceneActions={sceneActions} actions={actions} user={user} scene={scene} text={text} message={message}/>
+    <Header logging={authActions} sceneActions={sceneActions} actions={actions} user={user} scene={scene} text={text} message={message} projectId={match.params.id} />
     <div className="row no-gutters">
       <div id="scene" className="col-12">
         <View objects={objects} sceneConfig={scene.sceneConfig} assets={assets} />
@@ -21,7 +22,6 @@ const Viewer = ( {text, objects, actions, assets, user, scene, message, authActi
     </div>
   </div>
 );
-
 
 // This makes sure we are getting what we think we should
 Viewer.propTypes = {
@@ -51,5 +51,6 @@ const mapDispatchToProps = dispatch => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(Viewer);
+)(withRouter(Viewer));
+
 
