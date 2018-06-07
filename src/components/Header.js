@@ -86,7 +86,9 @@ class Header extends Component {
         if (data && data.code){
           // Clear contents for fresh render and then render
           this.props.actions.refresh("");
-          this.props.actions.render(doc.data().code);
+          this.props.actions.render(data.code);
+          this.props.sceneActions.nameScene(data.name);
+          this.props.sceneActions.loadScene(doc.id);
         }
       });
     }
@@ -295,13 +297,13 @@ class Header extends Component {
     let ts = Date.now();
     if (this.props.user) {
       $("body").prepend("<span class='spinner'><div class='cube1'></div><div class='cube2'></div></span>");
-      let projectID;
-      if (this.props.scene.id === '0') {
-        projectID = this.props.user.uid + '_' + ts;
-        this.props.sceneActions.loadScene(projectID);
-      } else {
-        projectID = this.props.scene.id;
-      }
+      let projectID = this.props.projectId ? this.props.projectId : this.props.user.uid + '_' + ts;
+      this.props.sceneActions.loadScene(projectID);
+      // if (this.props.scene.id === '0') {
+      //   this.props.sceneActions.loadScene(projectID);
+      // } else {
+      //   projectID = this.props.scene.id;
+      // }
       let modes = [
         'equirectangular',
         // 'perspective'
@@ -395,7 +397,7 @@ class Header extends Component {
           console.error("Error removing document: ", error);
         });
       });
-      this.setState({ availProj: null });
+      this.getUserProjs();
     }
     this.setState({ projectsToDelete: [], loadOpen: !this.state.loadOpen });
   };
@@ -403,10 +405,11 @@ class Header extends Component {
   loadDrawer = () => {
     const renderProj = (proj, canDelete) => {
       return (
-        <a href={`/edit/${proj.id}`} >
         <div key={proj.id} id={proj.id} className="grid-project p-3 mb-3" title={proj.data.name}>
+         <a href={`/edit/${proj.id}`} >
           <h4>{proj.data.name}</h4>
           <img id={proj.id} alt={proj.id} className="img-thumbnail mb-1" src={proj.url} />
+          </a>
           {canDelete ?
             <Button
               onClick={() => this.addToDeleteList(proj.id)}
@@ -418,7 +421,6 @@ class Header extends Component {
             : null
           }
         </div>
-        </a>
       );
     };
 
@@ -508,18 +510,10 @@ class Header extends Component {
   }
 
   /**
-  * @summary -
-  * 
-  * @param {string} text - 
-  * 
-  * @returns - 
+  * @summary - closes the snackabar that displays the message from render
   */
 
   closeSnackBar = (event, reason) => {
-    if (reason === 'clickaway') {
-      return;
-    }
-
     this.setState({ snackOpen: false });
   }
 
