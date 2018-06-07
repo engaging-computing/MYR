@@ -8,6 +8,8 @@ export default () => {
 		<BrowserRouter>
 			<Switch>
 			  <Route exact path='/' component={Ide}/>
+				<Route path='/edit/:id' component={Ide}/>
+				<Redirect from="/edit" exact to="/" />
 			  <Route path='/view/:id' component={Viewer}/>
 				<Redirect from="/view" exact to="/view/default" />
 			</Switch>

@@ -403,9 +403,10 @@ class Header extends Component {
   loadDrawer = () => {
     const renderProj = (proj, canDelete) => {
       return (
-        <div key={proj.id} id={proj.id} className="grid-project col-sm-6 p-3 mb-3" title={proj.data.name}>
-          <p onClick={this.handleLoad}>{proj.data.name}</p>
-          <img onClick={this.handleLoad} id={proj.id} alt={proj.id} className="img-thumbnail mb-1" src={proj.url} />
+        <a href={`/edit/${proj.id}`} >
+        <div key={proj.id} id={proj.id} className="grid-project p-3 mb-3" title={proj.data.name}>
+          <h4>{proj.data.name}</h4>
+          <img id={proj.id} alt={proj.id} className="img-thumbnail mb-1" src={proj.url} />
           {canDelete ?
             <Button
               onClick={() => this.addToDeleteList(proj.id)}
@@ -417,6 +418,7 @@ class Header extends Component {
             : null
           }
         </div>
+        </a>
       );
     };
 

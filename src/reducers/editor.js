@@ -91,7 +91,7 @@ for (var x of n) {
 ];
 
 const initial_state = {
-  text: programs[Math.floor(Math.random() * programs.length)],
+  text: "", // programs[Math.floor(Math.random() * programs.length)],
   objects: entityModel,
   assets: [],
   message: {

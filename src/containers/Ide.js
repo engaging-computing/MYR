@@ -11,9 +11,9 @@ import * as SceneActions from '../actions/sceneActions.js';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
-const Ide = ({ text, objects, actions, assets, user, scene, message, authActions, sceneActions }) => (
+const Ide = ({ text, objects, actions, assets, user, scene, message, authActions, sceneActions, match }) => (
   <div className="App">
-    <Header logging={authActions} sceneActions={sceneActions} actions={actions} user={user} scene={scene} text={text} message={message} />
+    <Header logging={authActions} sceneActions={sceneActions} actions={actions} user={user} scene={scene} text={text} message={message} projectId={match.params.id}/>
     <div className="row no-gutters">
       <div id="interface" className="col-12 col-md-4">
         <Editor objects={objects} text={text} user={user} />
