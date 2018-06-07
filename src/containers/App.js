@@ -1,6 +1,7 @@
 import React from 'react';
 import Header from '../components/Header';
 import Ide from './Ide';
+import Guided from './Guided';
 // eslint-disable-next-line
 import Viewer from './Viewer';
 import * as EditorActions from '../actions/editorActions.js';
@@ -13,13 +14,21 @@ import { connect } from 'react-redux';
 const App = ({ text, objects, actions, assets, user, scene, errors, authActions, sceneActions }) => (
   <div className="App">
     <Header logging={authActions} sceneActions={sceneActions} actions={actions} user={user} scene={scene} text={text} />
-    <Ide
+    <Guided
+      actions={actions}
       text={text}
       objects={objects}
       assets={assets}
       user={user}
       scene={scene}
       errors={errors}/>
+    {/* <Ide
+      text={text}
+      objects={objects}
+      assets={assets}
+      user={user}
+      scene={scene}
+      errors={errors}/> */}
     {/* <Viewer objects={objects} assets={assets} /> */}
   </div>
 );
