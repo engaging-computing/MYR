@@ -1,4 +1,4 @@
-import Myr from './myr/Myr';
+import Myr from '../myr/Myr';
 
 const myr = new Myr();
 
