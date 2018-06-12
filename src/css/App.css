@@ -255,3 +255,17 @@ div.side-drawer>div {
   border-bottom: 1px solid;
   border-top: 1px solid;
 }
+
+.guided div#ace-editor {
+  height: 70vh !important;
+}
+
+#lessons p {
+  height: 16vh;
+  margin: 0;
+}
+
+#lessons fieldset {
+  height: 16vh;
+  margin: 0;
+}

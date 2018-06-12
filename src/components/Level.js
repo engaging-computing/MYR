@@ -21,7 +21,7 @@ class Level extends Component {
   formHelper = (opts) => {
     return (
       <FormControl component="fieldset">
-        <FormGroup>
+        <FormGroup row={true}>
           {opts ? opts.map((it, index) => {
             return (
               <FormControlLabel
