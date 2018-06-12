@@ -1,9 +1,22 @@
 import React, { Component } from 'react';
-import { Button, Icon, MenuItem, Popover, Tooltip, Drawer, IconButton, FormControl, TextField } from 'material-ui';
+import {
+  Button,
+  Icon,
+  MenuItem,
+  Popover,
+  Tooltip,
+  Drawer,
+  IconButton,
+  FormControl,
+  TextField,
+  Snackbar,
+} from 'material-ui';
 import Avatar from 'material-ui/Avatar';
 import { auth, provider, db, scenes, storageRef } from '../firebase.js';
 import Sidebar from './Sidebar';
 import $ from "jquery";
+
+import { Link } from 'react-router-dom';
 
 const exitBtnStyle = {
   position: "fixed",
@@ -22,7 +35,9 @@ class Header extends Component {
       autoReload: false,
       projOpen: true,
       projectsToDelete: [],
-      loadOpen: false
+      loadOpen: false,
+      snackOpen: true,
+      lastMsgTime: 0
     };
   }
 
@@ -59,15 +74,45 @@ class Header extends Component {
         this.setState({ sampleProj: samplVals });
       });
     }
+    this.setState({ snackOpen: true, lastMsgTime: this.props.message.time });
+
+    // If there is a projectId prop we know it is coming from Viewer 
+    if (this.props.projectId) {
+      // When the data's metedata changes, ie update
+      scenes.doc(this.props.projectId).onSnapshot({
+        includeMetadataChanges: true,
+      }, (doc) => {
+        let data = doc.data();
+        if (data && data.code) {
+          // Clear contents for fresh render and then render
+          this.props.actions.refresh("");
+          this.props.actions.render(data.code);
+          this.props.sceneActions.nameScene(data.name);
+          if (data.uid === "1") {
+            this.props.sceneActions.loadScene('0');
+          } else {
+            this.props.sceneActions.loadScene(doc.id);
+          }
+        }
+      });
+    }
+  }
+
+  componentWillUnmount() {
+    var unsubscribe = scenes.onSnapshot(function () { });
+    unsubscribe();
+
   }
 
   /**
-  * @summary - when the components updates we check for null avail projects. If it is the case,
-  * then we want to refetch the user's projects from Firebase
+  * @summary - When we update, check to see if there is a new message by comparing the local state to
+  * props.message.time
   */
-  // componentDidUpdate() {
-  //   this.getUserProjs();
-  // }
+  componentDidUpdate() {
+    if (this.state.lastMsgTime !== this.props.message.time) {
+      this.setState({ snackOpen: true, lastMsgTime: this.props.message.time });
+    }
+  }
 
   /**
   * @summary - sets component state:availProj to the the user's projects if logged in
@@ -165,7 +210,7 @@ class Header extends Component {
     event.preventDefault();
     this.props.sceneActions.nameScene(this.state.sceneName);
     this.props.sceneActions.loadScene('0');
-    this.setState({ sceneName: null});
+    this.setState({ sceneName: null });
   }
 
   /**
@@ -227,23 +272,21 @@ class Header extends Component {
   }
 
   /**
-  * @summary - handleLoad will load the selected scene into the application's state
+  * @summary - This function will determine which projectId to use when saving. 
+  * 1. Loaded a sample project => generate new id
+  * 2. Save with same name as last => overwrite current
+  * 3. Save with new name from last => generate new id
+  * @param {string} text - 
+  * 
+  * @returns - projectId
   */
-  handleLoad = (event) => {
-    event.preventDefault();
-    if (event.target.id) {
-      scenes.doc(event.target.id).get().then(doc => {
-        let scene = doc.data();
-        if (scene.code) {
-          this.props.actions.render(scene.code);
-          this.props.sceneActions.nameScene(scene.name);
-          this.props.sceneActions.loadScene(doc.id);
-        } else {
-          this.props.actions.render("// The code was corrupted");
-        }
-      });
+  getProjectId = () => {
+    let ts = Date.now();
+    let projectId = this.props.projectId ? this.props.projectI : "";
+    if (this.props.scene.id !== '0') {
+      projectId = this.props.user.uid + '_' + ts;
     }
-    this.setState({ loadOpen: false });
+    return projectId;
   }
 
   /**
@@ -256,47 +299,35 @@ class Header extends Component {
     let ts = Date.now();
     if (this.props.user) {
       $("body").prepend("<span class='spinner'><div class='cube1'></div><div class='cube2'></div></span>");
-      let projectID;
-      if (this.props.scene.id === '0') {
-        projectID = this.props.user.uid + '_' + ts;
-        this.props.sceneActions.loadScene(projectID);
-      }else {
-        projectID = this.props.scene.id;
-      }
-      let modes = [
-        'equirectangular',
-        // 'perspective'
-      ];
-
-      // upload images
-      for (var mode of modes) {
-        let scene = document.querySelector('a-scene');
-        let img = scene.components.screenshot.getCanvas(mode).toDataURL('image/png');
-        let path = "images/" + mode + "/" + projectID;
-        let imgRef = storageRef.child(path);
-        imgRef.putString(img, 'data_url').then((snapshot) => {
-          console.log('Uploaded a data_url string!');
-          // Put the new document into the scenes collection
-          db.collection("scenes").doc(projectID).set({
-            name: this.props.scene.name,
-            desc: this.state.sceneDesc,
-            code: this.props.text,
-            uid: this.props.user.uid,
-            ts: ts,
-          }).then(() => {
-            console.log("Document successfully written!");
-            $(".spinner").remove();
-            this.getUserProjs();
-          }).catch((error) => {
-            console.error("Error writing document: ", error);
-            $(".spinner").remove();
-          });
+      let projectID = this.getProjectId();
+      this.props.sceneActions.loadScene(projectID);
+      let scene = document.querySelector('a-scene');
+      let img = scene.components.screenshot.getCanvas('equirectangular').toDataURL('image/png');
+      let path = "images/equirectangular/" + projectID;
+      let imgRef = storageRef.child(path);
+      imgRef.putString(img, 'data_url').then((snapshot) => {
+        console.log('Uploaded a data_url string!');
+        // Put the new document into the scenes collection
+        db.collection("scenes").doc(projectID).set({
+          name: this.props.scene.name,
+          desc: this.state.sceneDesc,
+          code: this.props.text,
+          uid: this.props.user.uid,
+          ts: ts,
+        }).then(() => {
+          console.log("Document successfully written!");
+          // Go to the new for the project.
+          window.location.href = window.origin + '/edit/' + projectID;
         }).catch((error) => {
-          console.error("Error uploading a data_url string ", error);
+          console.error("Error writing document: ", error);
           $(".spinner").remove();
         });
-      }
-    }  
+      }).catch((error) => {
+        console.error("Error uploading a data_url string ", error);
+        $(".spinner").remove();
+      });
+
+    }
   }
   /**
   * @summary - resets the current scene
@@ -356,7 +387,7 @@ class Header extends Component {
           console.error("Error removing document: ", error);
         });
       });
-      this.setState({ availProj: null });
+      this.getUserProjs();
     }
     this.setState({ projectsToDelete: [], loadOpen: !this.state.loadOpen });
   };
@@ -364,9 +395,11 @@ class Header extends Component {
   loadDrawer = () => {
     const renderProj = (proj, canDelete) => {
       return (
-        <div key={proj.id} id={proj.id} className="grid-project col-sm-6 p-3 mb-3" title={proj.data.name}>
-          <p onClick={this.handleLoad}>{proj.data.name}</p>
-          <img onClick={this.handleLoad} id={proj.id} alt={proj.id} className="img-thumbnail mb-1" src={proj.url} />
+        <div key={proj.id} id={proj.id} className="grid-project p-3 mb-3" title={proj.data.name}>
+          <a href={`/edit/${proj.id}`} >
+            <h4>{proj.data.name}</h4>
+            <img id={proj.id} alt={proj.id} className="img-thumbnail mb-1" src={proj.url} />
+          </a>
           {canDelete ?
             <Button
               onClick={() => this.addToDeleteList(proj.id)}
@@ -467,6 +500,43 @@ class Header extends Component {
   }
 
   /**
+  * @summary - closes the snackabar that displays the message from render
+  */
+
+  closeSnackBar = () => {
+    this.setState({ snackOpen: false });
+  }
+
+  renderSnackBar = () => {
+    return (<Snackbar
+      anchorOrigin={{
+        vertical: 'bottom',
+        horizontal: 'left',
+      }}
+      open={this.state.snackOpen}
+      autoHideDuration={6000}
+      onClose={this.closeSnackBar}
+      ContentProps={{
+        'aria-describedby': 'message-id',
+      }}
+      message={<span id="message-id">{this.props.message.text}</span>}
+      action={[
+        <Button key="undo" color="secondary" size="small" onClick={this.closeSnackBar}>
+          Dismiss
+        </Button>,
+        <IconButton
+          key="close"
+          aria-label="Close"
+          color="inherit"
+          onClick={this.closeSnackBar} >
+
+        </IconButton>,
+      ]}
+    />
+    )
+  }
+
+  /**
   * @summary - render() creates the header and links the buttons
   */
   render() {
@@ -532,7 +602,9 @@ class Header extends Component {
             Scene Config
           </Button>
         </Sidebar>
-        <h1 className="mr-2">MYR</h1>
+        <Link to='/'>
+          <h1 className="mr-2">MYR</h1>
+        </Link>
         <Tooltip title="Render" placement="bottom-start">
           <Button
             variant="raised"
@@ -577,6 +649,7 @@ class Header extends Component {
         <this.loginBtn />
         <this.saveDrawer />
         <this.loadDrawer />
+        <this.renderSnackBar />
       </header>
     );
   }

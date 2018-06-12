@@ -1,18 +1,16 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { createStore } from 'redux';
 import { Provider } from 'react-redux';
-import reducer from './reducers';
-import App from './containers/App';
 import './css/App.css';
 import 'bootstrap/dist/css/bootstrap.css';
 
-const store = createStore(reducer,
-  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
+import store from './store';
+
+import AppRoutes from './routes';
 
 ReactDOM.render(
   <Provider store={store}>
-    <App />
+    <AppRoutes />
   </Provider>,
   document.getElementById('root'));
 

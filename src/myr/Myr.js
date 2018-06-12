@@ -4,14 +4,12 @@ import 'aframe-physics-system';
 import CANNON from 'cannon';
 
 class Myr {
-  constructor(height, width) {
+  constructor() {
     this.counter = 0;
     this.baseEls = [];
     this.els = [];
     this.assets = [];
     this.res = { els: this.els, assets: this.assets };
-    this.height = height;
-    this.width = width;
     this.color = 'red';
     this.sceneEl = document.querySelector('a-scene');
     this.position = {
@@ -90,7 +88,16 @@ class Myr {
   * @summary - Reset this.els to the base elements supplied to the constuctor
   */
   reset = () => {
+    // add the base elements and then calculate the offset to user defined objects
     this.counter = this.baseEls ? this.baseEls.length : 0;
+
+    // Reset base params, we might be able to merge two objects later
+    this.color = 'red';
+    this.position = { x: 0, y: 0, z: 0 };
+    this.scale = { x: 1, y: 1, z: 1 };
+    this.rotation = { x: 0, y: 0, z: 0 };
+    this.radius = 1;
+    // restore the base objects of the scene
     this.els = [].concat(this.baseEls);
   }
 
@@ -369,17 +376,27 @@ class Myr {
   */
   change = (outerElId, type, newParam) => {
     document.addEventListener("myr-view-rendered", (e) => {
-      let el = document.querySelector("#" + outerElId);
-      if (el) {
+      try {
+        let el = document.querySelector("#" + outerElId);
         el.setAttribute(type, newParam);
+      } catch (error) {
+        return Error('change() failed execution' +
+          'Ensure you are passing the proper id to the method' +
+          `Error msg: ${error}`);
       }
     });
   }
 
   syncChange = (outerElId, type, newParam) => {
-    let el = document.querySelector("#" + outerElId);
-    if (el) {
+    try {
+      let el = document.querySelector("#" + outerElId);
       el.setAttribute(type, newParam);
+    } catch (error) {
+      let err = Error('syncChange() failed execution\n' +
+        'Ensure you are passing the proper id to the method' +
+        `Error msg: ${error}`);
+      console.error(err);
+      return err;
     }
   }
 

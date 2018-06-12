@@ -21,80 +21,14 @@ let entityModel = [
   },
 ];
 
-const programs = [
-  `
-// Input your code here
-animate(box({material: {color: 'red'}}));
-var colors = ['red', 'blue', 'purple']
-
-for( var i = 0 ; i < 20; i += 2){
-    setPosition(0,i,0)
-    animate(box({material: {color: colors[i % colors.length]}}));
-    setPosition(i,i,i)
-    animate(box({material: {color: colors[i % colors.length]}}));
-    setPosition(i,i,-i)
-    animate(box({material: {color: colors[i % colors.length]}}));
-    setPosition(-i,i,i)
-    animate(box({material: {color: colors[i % colors.length]}}));
-    setPosition(-i,i,-i)
-    animate(box({material: {color: colors[i % colors.length]}}));
-
-}
-`,
-  `
-// Input your code here
-function dropb(x, y) {
-    let b = box({material:"color: blue", position: x + " " + y + " " + -10});
-    drop(b);
-}
-
-for( var i = -25 ; i < 25; i++){
-    dropb(-i, i);
-    dropb(-i, i + 25);
-    dropb(-i, i + 50);
-    dropb(-i, i + 75);
-    dropb(-i, i + 100);
-    dropb(-i, i + 125);
-    dropb(-i, i + 150);
-    dropb(-i, i + 175);
-    dropb(-i, i + 200);
-}
-`,
-  `
-// Input your code here
-function dropb(x, y) {
-  let b = box({position: x + " " + y + " " + -10});
-  drop(b);
-  push(b, 0, 2, 0.1);
-}
-
-var n = [-5, -3, -1, 1, 3, 5];
-for (var x of n) {
-    dropb(x, 0);
-}
-`,
-  `
-// Input your code here
-
-function dropb(x, y) {
-  let b = box({position: x + " " + y + " " + -10});
-  drop(b);
-}
-
-var n = [-5, -3, -1, 1, 3, 5];
-for (var x of n) {
-    dropb(x, 10);
-    dropb(x, 7);
-    dropb(x, 4);
-}
-`
-];
-
 const initial_state = {
-  text: programs[Math.floor(Math.random() * programs.length)],
+  text: "",
   objects: entityModel,
   assets: [],
-  errors: "Everything Looks Good"
+  message: {
+    text: "Scene is Ready",
+    time: 0
+  }
 };
 
 /**
@@ -118,7 +52,7 @@ m.init(entityModel);
 // ESLint doesn't like this but it is better than eval
 function noEvalEvaluation(text) {
   // eslint-disable-next-line
-  return Function(`${text}`)();
+  return Function(`'use strict'; ${text}`)();
 }
 
 export default function editor(state = initial_state, action) {
@@ -141,12 +75,12 @@ export default function editor(state = initial_state, action) {
 
       try {
         noEvalEvaluation(action.text);
+      }
+      catch (err) {
         if (m) {
           els = m.els;
           assets = m.assets;
         }
-      }
-      catch (err) {
         console.error("Eval failed: " + err);
         snapshots.push({ ...snap, error: true });
         return {
@@ -154,16 +88,26 @@ export default function editor(state = initial_state, action) {
           text: action.text,
           objects: els,
           assets: assets,
-          errors: "Eval failed: " + err
+          message: {
+            text: "Eval failed: " + err,
+            time: Date.now()
+          }
         };
       }
       snapshots.push(snap);
+      if (m) {
+        els = m.els;
+        assets = m.assets;
+      }
       return {
         ...state,
         text: action.text,
         objects: els,
         assets: assets,
-        errors: "Everything Looks Good"
+        message: {
+          text: "Everything Looks Good",
+          time: Date.now()
+        }
       };
     case EDITOR_REFRESH:
       m.reset();
@@ -179,7 +123,8 @@ export default function editor(state = initial_state, action) {
       while(snapshots[stableIndex].error === true){
         stableIndex--;
       }
-      // Call this function again with new params
+
+      // Call editor function again with new params
       return editor({ ...state }, { type: EDITOR_RENDER, text: snapshots[stableIndex].text });
     default:
       return state;

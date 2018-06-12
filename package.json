@@ -36,7 +36,9 @@
     "react-dom": "^16.2.0",
     "react-highlight.js": "^1.0.7",
     "react-redux": "^5.0.7",
-    "redux": "^3.7.2"
+    "react-router-dom": "^4.2.2",
+    "redux": "^3.7.2",
+    "redux-thunk": "^2.3.0"
   },
   "scripts": {
     "start": "react-scripts start",
