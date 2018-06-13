@@ -72,6 +72,7 @@ class Level extends Component {
       return 0;
     }
     let nextLevel = this.state.levelIndex + 1;
+    this.setState({ levelIndex: nextLevel });
     if (nextLevel < this.props.level.stages.length) {
       this.setState({ levelIndex: nextLevel });
       this.props.actions.render(this.props.level.stages[nextLevel].sceneText);

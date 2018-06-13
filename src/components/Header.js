@@ -78,6 +78,7 @@ class Header extends Component {
 
     // If there is a projectId prop we know it is coming from Viewer 
     if (this.props.projectId) {
+      $("body").prepend("<span class='spinner'><div class='cube1'></div><div class='cube2'></div></span>");
       // When the data's metedata changes, ie update
       scenes.doc(this.props.projectId).onSnapshot({
         includeMetadataChanges: true,
@@ -94,8 +95,10 @@ class Header extends Component {
             this.props.sceneActions.loadScene(doc.id);
           }
         }
+        $(".spinner").remove();
       });
     }
+    
   }
 
   componentWillUnmount() {
@@ -282,8 +285,8 @@ class Header extends Component {
   */
   getProjectId = () => {
     let ts = Date.now();
-    let projectId = this.props.projectId ? this.props.projectI : "";
-    if (this.props.scene.id !== '0') {
+    let projectId = this.props.projectId ? this.props.projectId : "";
+    if (projectId !== '0') {
       projectId = this.props.user.uid + '_' + ts;
     }
     return projectId;
