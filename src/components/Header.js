@@ -87,8 +87,8 @@ class Header extends Component {
         let data = doc.data();
         if (data && data.code) {
           // Clear contents for fresh render and then render
-          this.props.actions.refresh("");
-          this.props.actions.render(data.code);
+          this.props.actions.refresh("", this.props.user.uid);
+          this.props.actions.render(data.code, this.props.user.uid);
           this.props.sceneActions.nameScene(data.name);
           if (data.uid === "1") {
             this.props.sceneActions.loadScene('0');
@@ -259,9 +259,9 @@ class Header extends Component {
   handleRender = () => {
     try {
       let editor = window.ace.edit("ace-editor");
-      this.props.actions.render(editor.getSession().getValue());
+      this.props.actions.render(editor.getSession().getValue(), this.props.user.uid);
     } catch (error) {
-      this.props.actions.render(this.props.text);
+      this.props.actions.render(this.props.text, this.props.user.uid);
     }
   }
 
@@ -269,7 +269,7 @@ class Header extends Component {
   * @summary - handleNewProj will render an empty string and set the scene's name to untitled
   */
   handleNewProj = () => {
-    this.props.actions.render("");
+    this.props.actions.render("", this.props.user);
     if (this.props.user) {
       this.props.sceneActions.nameScene("untitled");
       this.props.sceneActions.loadScene('0');
@@ -340,9 +340,9 @@ class Header extends Component {
   clear = () => {
     try {
       let editor = window.ace.edit("ace-editor");
-      this.props.actions.refresh(editor.getSession().getValue());
+      this.props.actions.refresh(editor.getSession().getValue(), this.props.user.uid);
     } catch (error) {
-      this.props.actions.refresh(this.props.text);
+      this.props.actions.refresh(this.props.text, this.props.user.uid);
     }
   }
 

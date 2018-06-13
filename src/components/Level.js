@@ -75,7 +75,7 @@ class Level extends Component {
     this.setState({ levelIndex: nextLevel });
     if (nextLevel < this.props.level.stages.length) {
       this.setState({ levelIndex: nextLevel });
-      this.props.actions.render(this.props.level.stages[nextLevel].sceneText);
+      this.props.actions.render(this.props.level.stages[nextLevel].sceneText, this.props.user.uid);
     }
   }
 
@@ -83,7 +83,7 @@ class Level extends Component {
     let prevLevel = this.state.levelIndex - 1;
     if (prevLevel >= 0) {
       this.setState({ levelIndex: prevLevel });
-      this.props.actions.render(this.props.level.stages[prevLevel].sceneText);
+      this.props.actions.render(this.props.level.stages[prevLevel].sceneTex, this.props.user.uidt);
     }
   }
 

@@ -9,8 +9,8 @@ export const EDITOR_RECOVER = 'EDITOR_RECOVER';
  * 
  * @returns - reducer action obj with action type and text
  */
-export function render(text){
-  return { type: EDITOR_RENDER, text};
+export function render(text, uid){
+  return { type: EDITOR_RENDER, text, uid};
 }
 
 /**
@@ -20,8 +20,8 @@ export function render(text){
  * 
  * @returns - reducer action obj with action type and text
  */
-export function refresh(text){
-  return { type: EDITOR_REFRESH, text};
+export function refresh(text, uid){
+  return { type: EDITOR_REFRESH, text, uid};
 }
 
 /**

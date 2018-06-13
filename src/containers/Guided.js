@@ -77,7 +77,7 @@ const Guided = ({ text, objects, assets, user, scene, message, actions, authActi
     <div className="row no-gutters">
       <div id="interface" className="col-12 col-md-4">
         <div  style={{ height: "24vh" }}>
-          <Level level={sampleLevel} actions={actions} />
+          <Level level={sampleLevel} actions={actions} user={user}/>
         </div>
         <div className='guided'>
           <Editor  objects={objects} text={text} user={user} />

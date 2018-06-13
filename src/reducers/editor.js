@@ -6,6 +6,8 @@ import {
 
 import Myr from '../myr/Myr';
 
+import { snaps } from '../firebase.js';
+
 let entityModel = [
   {
     id: 'floor',
@@ -60,6 +62,7 @@ export default function editor(state = initial_state, action) {
     case EDITOR_RENDER:
       // build an object to save the snap
       let snap = {
+        user: action.uid ? action.uid : 'unknown',
         timestamp: Date.now(),
         text: action.text,
         error: false
@@ -82,7 +85,10 @@ export default function editor(state = initial_state, action) {
           assets = m.assets;
         }
         console.error("Eval failed: " + err);
-        snapshots.push({ ...snap, error: true });
+
+        let wError = { ...snap, error: true };
+        snaps.doc( snap.user + '_' + snap.timestamp).set(wError);
+        snapshots.push(wError);
         return {
           ...state,
           text: action.text,
@@ -94,6 +100,7 @@ export default function editor(state = initial_state, action) {
           }
         };
       }
+      snaps.doc( snap.user + '_' + snap.timestamp).set(snap);
       snapshots.push(snap);
       if (m) {
         els = m.els;

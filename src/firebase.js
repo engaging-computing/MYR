@@ -19,4 +19,5 @@ export const auth = firebase.auth();
 export const db = firebase.firestore();
 db.settings(settings);
 export const scenes = db.collection('scenes');
+export const snaps = db.collection('snaps');
 export const storageRef = firebase.storage().ref();
