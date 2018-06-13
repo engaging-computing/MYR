@@ -2547,7 +2547,7 @@ debug@^3.0.1, debug@^3.1.0:
   dependencies:
     ms "2.0.0"
 
-"debug@github:ngokevin/debug#noTimestamp":
+debug@ngokevin/debug#noTimestamp:
   version "2.2.0"
   resolved "https://codeload.github.com/ngokevin/debug/tar.gz/ef5f8e66d49ce8bc64c6f282c15f8b7164409e3a"
 
@@ -2770,7 +2770,7 @@ doctrine@^2.0.0, doctrine@^2.1.0:
   dependencies:
     esutils "^2.0.2"
 
-"document-register-element@github:dmarcos/document-register-element#8ccc532b7":
+document-register-element@dmarcos/document-register-element#8ccc532b7:
   version "0.5.4"
   resolved "https://codeload.github.com/dmarcos/document-register-element/tar.gz/8ccc532b7f3744be954574caf3072a5fd260ca90"
 
@@ -7417,6 +7417,10 @@ react-popper@^0.10.0:
   dependencies:
     popper.js "^1.14.1"
     prop-types "^15.6.1"
+
+react-progressive-image@^0.3.0:
+  version "0.3.0"
+  resolved "https://registry.yarnpkg.com/react-progressive-image/-/react-progressive-image-0.3.0.tgz#dd28e299c474216f2d640def5d4bc5b09aea7457"
 
 react-prop-types@^0.4.0:
   version "0.4.0"

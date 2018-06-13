@@ -15,6 +15,7 @@ import Avatar from 'material-ui/Avatar';
 import { auth, provider, db, scenes, storageRef } from '../firebase.js';
 import Sidebar from './Sidebar';
 import $ from "jquery";
+import ProgressiveImage from 'react-progressive-image';
 
 import { Link } from 'react-router-dom';
 
@@ -98,7 +99,7 @@ class Header extends Component {
         $(".spinner").remove();
       });
     }
-    
+
   }
 
   componentWillUnmount() {
@@ -124,6 +125,7 @@ class Header extends Component {
     if (this.props.user && this.props.user.uid) {
       let userVals = [];
       scenes.where('uid', '==', this.props.user.uid).get().then(snap => {
+        console.log(snap);
         snap.forEach(doc => {
           storageRef.child(`/images/equirectangular/${doc.id}`).getDownloadURL().then((img) => {
             userVals.push({
@@ -401,7 +403,9 @@ class Header extends Component {
         <div key={proj.id} id={proj.id} className="grid-project p-3 mb-3" title={proj.data.name}>
           <a href={`/edit/${proj.id}`} >
             <h4>{proj.data.name}</h4>
-            <img id={proj.id} alt={proj.id} className="img-thumbnail mb-1" src={proj.url} />
+            <ProgressiveImage src={proj.url} placeholder={process.env.PUBLIC_URL + '/img/Loading_icon.gif'}>
+              {(src) =>   <img id={proj.id} alt={proj.id} className="img-thumbnail mb-1" src={src} />}
+            </ProgressiveImage>
           </a>
           {canDelete ?
             <Button
