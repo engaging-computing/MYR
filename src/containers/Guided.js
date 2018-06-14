@@ -28,11 +28,19 @@ import { connect } from 'react-redux';
 */
 const Guided = ({ editor, user, scene, level, actions, authActions, match, sceneActions }) => (
   <div className="App">
-    <Header logging={authActions} sceneActions={sceneActions} actions={actions} user={user} scene={scene} text={editor.text} message={editor.message} projectId={match.params.id} />
+    <Header
+      logging={authActions}
+      sceneActions={sceneActions}
+      actions={actions}
+      user={user}
+      scene={scene}
+      text={editor.text}
+      message={editor.message}
+      projectId={match.params.id} />
     <div className="row no-gutters">
       <div id="interface" className="col-12 col-md-4">
-        <div  style={{ height: "24vh" }}>
-          <Level level={level} actions={actions} user={user}/>
+        <div style={{ height: "24vh" }}>
+          <Level level={level} actions={actions} user={user} />
         </div>
         <div className='guided'>
           <Editor text={editor.text} user={user} />

@@ -11,15 +11,23 @@ import * as SceneActions from '../actions/sceneActions.js';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
-const Ide = ({ text, objects, actions, assets, user, scene, message, authActions, sceneActions, match }) => (
+const Ide = ({ editor, actions, user, scene, authActions, sceneActions, match }) => (
   <div className="App">
-    <Header logging={authActions} sceneActions={sceneActions} actions={actions} user={user} scene={scene} text={text} message={message} projectId={match.params.id}/>
+    <Header 
+      logging={authActions}
+      sceneActions={sceneActions}
+      actions={actions}
+      user={user}
+      scene={scene}
+      text={editor.text}
+      message={editor.message}
+      projectId={match.params.id} />
     <div className="row no-gutters">
       <div id="interface" className="col-12 col-md-4">
-        <Editor objects={objects} text={text} user={user} />
+        <Editor text={editor.text} user={user} />
       </div>
       <div id="scene" className="col-12 col-md-8">
-        <View objects={objects} sceneConfig={scene.sceneConfig} assets={assets} />
+        <View objects={editor.objects} sceneConfig={scene.sceneConfig} assets={editor.assets} />
       </div>
     </div>
   </div>
@@ -27,20 +35,14 @@ const Ide = ({ text, objects, actions, assets, user, scene, message, authActions
 
 // This makes sure we are getting what we think we should
 Ide.propTypes = {
-  text: PropTypes.string.isRequired,
+  editor: PropTypes.object.isRequired,
   user: PropTypes.object,
-  message: PropTypes.object.isRequired,
-  objects: PropTypes.array.isRequired,
-  assets: PropTypes.array.isRequired,
   scene: PropTypes.object.isRequired,
 };
 
 // This makes the values accessible as props
 const mapStateToProps = state => ({
-  text: state.editor.text,
-  message: state.editor.message,
-  objects: state.editor.objects,
-  assets: state.editor.assets,
+  editor: state.editor,
   user: state.user.user,
   scene: state.scene,
 });

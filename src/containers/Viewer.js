@@ -12,12 +12,20 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 
 
-const Viewer = ({ text, objects, actions, assets, user, scene, message, authActions, sceneActions, match }) => (
+const Viewer = ({ editor, actions, user, scene, authActions, sceneActions, match }) => (
   <div className="App">
-    <Header logging={authActions} sceneActions={sceneActions} actions={actions} user={user} scene={scene} text={text} message={message} projectId={match.params.id} />
+    <Header
+      logging={authActions}
+      sceneActions={sceneActions}
+      actions={actions}
+      user={user}
+      scene={scene}
+      text={editor.text}
+      message={editor.message}
+      projectId={match.params.id} />
     <div className="row no-gutters">
       <div id="scene" className="col-12">
-        <View objects={objects} sceneConfig={scene.sceneConfig} assets={assets} />
+        <View objects={editor.objects} sceneConfig={scene.sceneConfig} assets={editor.assets} />
       </div>
     </div>
   </div>
@@ -25,17 +33,14 @@ const Viewer = ({ text, objects, actions, assets, user, scene, message, authActi
 
 // This makes sure we are getting what we think we should
 Viewer.propTypes = {
-  objects: PropTypes.array.isRequired,
-  assets: PropTypes.array.isRequired,
+  editor: PropTypes.object.isRequired,
+  scene: PropTypes.object.isRequired
 };
 
 
 // This makes the values accessible as props
 const mapStateToProps = state => ({
-  text: state.editor.text,
-  message: state.editor.message,
-  objects: state.editor.objects,
-  assets: state.editor.assets,
+  editor: state.editor,
   user: state.user.user,
   scene: state.scene,
 });
