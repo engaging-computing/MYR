@@ -64,7 +64,7 @@ class Header extends Component {
       let samplVals = [];
       scenes.where('uid', '==', "1").get().then(snap => {
         snap.forEach(doc => {
-          storageRef.child(`/images/equirectangular/${doc.id}`).getDownloadURL().then((img) => {
+          storageRef.child(`/images/perspective/${doc.id}`).getDownloadURL().then((img) => {
             samplVals.push({
               id: doc.id,
               data: doc.data(),
@@ -126,7 +126,7 @@ class Header extends Component {
       let userVals = [];
       scenes.where('uid', '==', this.props.user.uid).get().then(snap => {
         snap.forEach(doc => {
-          storageRef.child(`/images/equirectangular/${doc.id}`).getDownloadURL().then((img) => {
+          storageRef.child(`/images/perspective/${doc.id}`).getDownloadURL().then((img) => {
             userVals.push({
               id: doc.id,
               data: doc.data(),
@@ -306,8 +306,8 @@ class Header extends Component {
       let projectID = this.getProjectId();
       this.props.sceneActions.loadScene(projectID);
       let scene = document.querySelector('a-scene');
-      let img = scene.components.screenshot.getCanvas('equirectangular').toDataURL('image/jpeg',  0.1);
-      let path = "images/equirectangular/" + projectID;
+      let img = scene.components.screenshot.getCanvas('perspective').toDataURL('image/jpeg', 0.1);
+      let path = "images/perspective/" + projectID;
       let imgRef = storageRef.child(path);
       imgRef.putString(img, 'data_url').then((snapshot) => {
         console.log('Uploaded a data_url string!');
@@ -385,6 +385,15 @@ class Header extends Component {
   handleLoadToggle = () => {
     if (this.state.projectsToDelete.length > 0) {
       this.state.projectsToDelete.forEach((proj) => {
+        // Create a reference to the file to delete
+        let path = "images/perspective/" + proj;
+        let imgRef = storageRef.child(path);
+        // Delete the file
+        imgRef.delete().then(function () {
+          console.log("Image successfully deleted!");
+        }).catch( (error) => {
+          console.error("Error removing img: ", error);
+        });
         scenes.doc(proj).delete().then(() => {
           console.log("Document successfully deleted!");
         }).catch((error) => {
@@ -403,7 +412,7 @@ class Header extends Component {
           <a href={`/edit/${proj.id}`} >
             <h4>{proj.data.name}</h4>
             <ProgressiveImage src={proj.url} placeholder={process.env.PUBLIC_URL + '/img/Loading_icon.gif'}>
-              {(src) =>   <img id={proj.id} alt={proj.id} className="img-thumbnail mb-1" src={src} />}
+              {(src) => <img id={proj.id} alt={proj.id} className="img-thumbnail mb-1" src={src} />}
             </ProgressiveImage>
           </a>
           {canDelete ?
