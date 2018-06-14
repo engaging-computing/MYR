@@ -68,6 +68,11 @@ export default function editor(state = initial_state, action) {
         error: false
       };
 
+      let message = {
+        text: "Everything Looks Good",
+        time: Date.now()
+      };
+
       /* For now we want to re-render everything.
       * Initializing with [] avoid issues with mapping in View.
       * In the future we might want to calculate diff and store it
@@ -80,41 +85,24 @@ export default function editor(state = initial_state, action) {
         noEvalEvaluation(action.text);
       }
       catch (err) {
-        if (m) {
-          els = m.els;
-          assets = m.assets;
-        }
+        // Notify that eval failed
         console.error("Eval failed: " + err);
-
-        let wError = { ...snap, error: true };
-        snaps.doc( snap.user + '_' + snap.timestamp).set(wError);
-        snapshots.push(wError);
-        return {
-          ...state,
-          text: action.text,
-          objects: els,
-          assets: assets,
-          message: {
-            text: "Eval failed: " + err,
-            time: Date.now()
-          }
-        };
+        message = {...message, text: "Eval failed: " + err };
+        snap = { ...snap, error: true };
       }
-      snaps.doc( snap.user + '_' + snap.timestamp).set(snap);
-      snapshots.push(snap);
+      // Otherwise we successfully rendered
       if (m) {
         els = m.els;
         assets = m.assets;
       }
+      snaps.doc( snap.user + '_' + snap.timestamp).set(snap);
+      snapshots.push(snap);
       return {
         ...state,
         text: action.text,
         objects: els,
         assets: assets,
-        message: {
-          text: "Everything Looks Good",
-          time: Date.now()
-        }
+        message
       };
     case EDITOR_REFRESH:
       m.reset();

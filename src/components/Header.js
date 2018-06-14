@@ -125,7 +125,6 @@ class Header extends Component {
     if (this.props.user && this.props.user.uid) {
       let userVals = [];
       scenes.where('uid', '==', this.props.user.uid).get().then(snap => {
-        console.log(snap);
         snap.forEach(doc => {
           storageRef.child(`/images/equirectangular/${doc.id}`).getDownloadURL().then((img) => {
             userVals.push({
@@ -307,7 +306,7 @@ class Header extends Component {
       let projectID = this.getProjectId();
       this.props.sceneActions.loadScene(projectID);
       let scene = document.querySelector('a-scene');
-      let img = scene.components.screenshot.getCanvas('equirectangular').toDataURL('image/png');
+      let img = scene.components.screenshot.getCanvas('equirectangular').toDataURL('image/jpeg',  0.1);
       let path = "images/equirectangular/" + projectID;
       let imgRef = storageRef.child(path);
       imgRef.putString(img, 'data_url').then((snapshot) => {
@@ -540,7 +539,7 @@ class Header extends Component {
         </IconButton>,
       ]}
     />
-    )
+    );
   }
 
   /**
@@ -609,7 +608,7 @@ class Header extends Component {
             Scene Config
           </Button>
         </Sidebar>
-        <Link to='/'>
+        <Link to='/view'>
           <h1 className="mr-2">MYR</h1>
         </Link>
         <Tooltip title="Render" placement="bottom-start">
