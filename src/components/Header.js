@@ -287,7 +287,8 @@ class Header extends Component {
   getProjectId = () => {
     let ts = Date.now();
     let projectId = this.props.projectId ? this.props.projectId : "";
-    if (projectId !== '0') {
+    if (projectId === '0') {
+      // Generate a new projectId
       projectId = this.props.user.uid + '_' + ts;
     }
     return projectId;
@@ -304,7 +305,6 @@ class Header extends Component {
     if (this.props.user && this.props.user.uid) {
       $("body").prepend("<span class='spinner'><div class='cube1'></div><div class='cube2'></div></span>");
       let projectID = this.getProjectId();
-      this.props.sceneActions.loadScene(projectID);
       let scene = document.querySelector('a-scene');
       let img = scene.components.screenshot.getCanvas('perspective').toDataURL('image/jpeg', 0.1);
       let path = "images/perspective/" + projectID;
@@ -320,8 +320,10 @@ class Header extends Component {
           ts: ts,
         }).then(() => {
           console.log("Document successfully written!");
-          // Go to the new for the project.
-          window.location.href = window.origin + '/edit/' + projectID;
+          if(projectID !== this.props.projectId){
+            // Go to the new for the project.
+            window.location.href = window.origin + '/edit/' + projectID;
+          }
         }).catch((error) => {
           console.error("Error writing document: ", error);
           $(".spinner").remove();
