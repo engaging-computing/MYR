@@ -12,51 +12,6 @@ import * as SceneActions from '../actions/sceneActions.js';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
-const sampleLevel = {
-  id: 1,
-  name: "Intro to MYR",
-  stages: [
-    {
-      isQuiz: false,
-      prompt: "Here we learn about functions",
-      levelText: "Functions do things and stuff",
-      sceneText: `sphere()`,
-
-    },
-    {
-      isQuiz: true,
-      prompt: "What is MYR?",
-      sceneText: `sphere()\nsphere()`,
-      opts: [
-        {
-          text: "A Lemon",
-          value: false,
-        },
-        {
-          text: "A VR Platform",
-          value: true,
-        },
-      ]
-    },
-    {
-      isQuiz: true,
-      prompt: "Do you like it?",
-      sceneText: `sphere()\nsphere()`,
-      opts: [
-        {
-          text: "Yes",
-          value: true,
-        },
-        {
-          text: "No",
-          value: true,
-        },
-      ]
-    }
-  ]
-};
-
-
 /**
 * @summary - Guided is used for scripted lesson plans. This path is tightly controlled
 * and designed to reduce errors at the cost of some creative freedom. 
@@ -71,20 +26,20 @@ const sampleLevel = {
 * 
 * @returns - JSX expression
 */
-const Guided = ({ text, objects, assets, user, scene, message, actions, authActions, match, sceneActions }) => (
+const Guided = ({ editor, user, scene, level, actions, authActions, match, sceneActions }) => (
   <div className="App">
-    <Header logging={authActions} sceneActions={sceneActions} actions={actions} user={user} scene={scene} text={text} message={message} projectId={match.params.id} />
+    <Header logging={authActions} sceneActions={sceneActions} actions={actions} user={user} scene={scene} text={editor.text} message={editor.message} projectId={match.params.id} />
     <div className="row no-gutters">
       <div id="interface" className="col-12 col-md-4">
         <div  style={{ height: "24vh" }}>
-          <Level level={sampleLevel} actions={actions} user={user}/>
+          <Level level={level} actions={actions} user={user}/>
         </div>
         <div className='guided'>
-          <Editor  objects={objects} text={text} user={user} />
+          <Editor text={editor.text} user={user} />
         </div>
       </div>
       <div id="scene" className="col-12 col-md-8">
-        <View objects={objects} sceneConfig={scene.sceneConfig} assets={assets} />
+        <View objects={editor.objects} sceneConfig={scene.sceneConfig} assets={editor.assets} />
       </div>
     </div>
   </div>
@@ -98,14 +53,13 @@ Guided.propTypes = {
   objects: PropTypes.array.isRequired,
   assets: PropTypes.array.isRequired,
   scene: PropTypes.object.isRequired,
+  level: PropTypes.object.isRequired,
 };
 const mapStateToProps = state => ({
-  text: state.editor.text,
-  message: state.editor.message,
-  objects: state.editor.objects,
-  assets: state.editor.assets,
+  editor: state.editor,
   user: state.user.user,
   scene: state.scene,
+  level: state.level.levels[0],
 });
 
 // This maps dispatch actions to props

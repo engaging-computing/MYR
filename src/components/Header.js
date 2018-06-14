@@ -87,8 +87,8 @@ class Header extends Component {
         let data = doc.data();
         if (data && data.code) {
           // Clear contents for fresh render and then render
-          this.props.actions.refresh("", this.props.user.uid);
-          this.props.actions.render(data.code, this.props.user.uid);
+          this.props.actions.refresh("", this.props.user ? this.props.user.uid : 'anon');
+          this.props.actions.render(data.code, this.props.user ? this.props.user.uid : 'anon');
           this.props.sceneActions.nameScene(data.name);
           if (data.uid === "1") {
             this.props.sceneActions.loadScene('0');
@@ -258,9 +258,9 @@ class Header extends Component {
   handleRender = () => {
     try {
       let editor = window.ace.edit("ace-editor");
-      this.props.actions.render(editor.getSession().getValue(), this.props.user.uid);
+      this.props.actions.render(editor.getSession().getValue(), this.props.user ? this.props.user.uid : 'anon');
     } catch (error) {
-      this.props.actions.render(this.props.text, this.props.user.uid);
+      this.props.actions.render(this.props.text, this.props.user ? this.props.user.uid: 'anon');
     }
   }
 
@@ -301,7 +301,7 @@ class Header extends Component {
     // render the current state so the user can see what they are saving
     this.handleRender();
     let ts = Date.now();
-    if (this.props.user) {
+    if (this.props.user && this.props.user.uid) {
       $("body").prepend("<span class='spinner'><div class='cube1'></div><div class='cube2'></div></span>");
       let projectID = this.getProjectId();
       this.props.sceneActions.loadScene(projectID);
@@ -339,9 +339,9 @@ class Header extends Component {
   clear = () => {
     try {
       let editor = window.ace.edit("ace-editor");
-      this.props.actions.refresh(editor.getSession().getValue(), this.props.user.uid);
+      this.props.actions.refresh(editor.getSession().getValue(), this.props.user ? this.props.user.uid : 'anon');
     } catch (error) {
-      this.props.actions.refresh(this.props.text, this.props.user.uid);
+      this.props.actions.refresh(this.props.text, this.props.user ? this.props.user.uid : 'anon');
     }
   }
 
@@ -389,7 +389,7 @@ class Header extends Component {
         // Delete Image
         let path = "images/perspective/" + proj;
         let imgRef = storageRef.child(path);
-        imgRef.delete().then(function () {
+        imgRef.delete().then(() => {
           console.log("Image successfully deleted!");
         }).catch( (error) => {
           console.error("Error removing img: ", error);

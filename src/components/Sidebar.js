@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Reference from './Reference';
-import { Drawer, Icon, IconButton } from 'material-ui';
+import { Drawer,SwipeableDrawer, Icon, IconButton } from 'material-ui';
 
 
 /**
@@ -35,10 +35,11 @@ class Sidebar extends Component {
           onClick={this.handleToggle}>
           <Icon style={{ fontSize: 32 }}>menu</Icon>
         </IconButton>
-        <Drawer
+        <SwipeableDrawer
           className="side-drawer"
-          variant="persistent"
+          // variant="persistent"
           open={this.state.open}
+          anchor="left"
           onClose={this.handleToggle} >
           <IconButton variant="raised"
             color="default"
@@ -52,7 +53,7 @@ class Sidebar extends Component {
             );
           })}
           <Reference />
-        </Drawer>
+        </SwipeableDrawer>
       </div>
     );
   }

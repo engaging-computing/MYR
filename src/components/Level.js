@@ -83,7 +83,7 @@ class Level extends Component {
     let prevLevel = this.state.levelIndex - 1;
     if (prevLevel >= 0) {
       this.setState({ levelIndex: prevLevel });
-      this.props.actions.render(this.props.level.stages[prevLevel].sceneTex, this.props.user.uidt);
+      this.props.actions.render(this.props.level.stages[prevLevel].sceneTex, this.props.user.uid);
     }
   }
 
