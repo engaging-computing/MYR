@@ -385,15 +385,17 @@ class Header extends Component {
   handleLoadToggle = () => {
     if (this.state.projectsToDelete.length > 0) {
       this.state.projectsToDelete.forEach((proj) => {
-        // Create a reference to the file to delete
+        
+        // Delete Image
         let path = "images/perspective/" + proj;
         let imgRef = storageRef.child(path);
-        // Delete the file
         imgRef.delete().then(function () {
           console.log("Image successfully deleted!");
         }).catch( (error) => {
           console.error("Error removing img: ", error);
         });
+
+        // Delete Document
         scenes.doc(proj).delete().then(() => {
           console.log("Document successfully deleted!");
         }).catch((error) => {
