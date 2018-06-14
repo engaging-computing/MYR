@@ -1,7 +1,7 @@
 import React from 'react';
 import myrReference from '../myr/reference';
 import Highlight from 'react-highlight.js';
-import { Tabs, Tab, Button, SwipeableDrawer, Icon } from 'material-ui';
+import { Tabs, Tab, Button, Drawer, Icon } from 'material-ui';
 // import MenuItem from 'material-ui/MenuItem';
 
 
@@ -74,7 +74,7 @@ export default class Reference extends React.Component {
           onClick={() => this.setState({ open: true })}>
           <Icon className="material-icons md-36">description</Icon> Reference
         </Button>
-        <SwipeableDrawer
+        <Drawer
           id="reference-drawer"
           variant="persistent"
           open={this.state.open}>
@@ -115,7 +115,7 @@ export default class Reference extends React.Component {
               <h5 >WebVR Components</h5>
               {this.TableEx("webvr_components")}
             </div>}
-        </SwipeableDrawer>
+        </Drawer>
       </div>
     );
   }
