@@ -11,7 +11,6 @@ import {
   FormControl,
   TextField,
   Snackbar,
-  ListItemIcon,
   Modal
 } from 'material-ui';
 import Avatar from 'material-ui/Avatar';
@@ -107,8 +106,29 @@ class Header extends Component {
         $(".spinner").remove();
       });
     }
+
+    // Bind to keyboard to listen for shortcuts
+    document.addEventListener('keydown', this.handleKeyDown.bind(this));
   }
 
+  /**
+  * @summary - Catches certain keyboard shortcuts
+  * 
+  * @param {event} e - event from the keystroke.
+  */
+  handleKeyDown(e) {
+    if (e.ctrlKey && e.which === 13) {
+      this.handleRender();
+    } else if (e.ctrlKey && e.shiftKey && e.which === 83) {
+      this.handleSave(true);
+    } else if (e.ctrlKey && e.which === 83) {
+      this.handleSave(false);
+    }
+  }
+
+  /**
+  * @summary - Removes listener for real time sync process
+  */
   componentWillUnmount() {
     var unsubscribe = scenes.onSnapshot(function () { });
     unsubscribe();
@@ -290,10 +310,10 @@ class Header extends Component {
   * 
   * @returns - projectId
   */
-  getProjectId = () => {
+  getProjectId = (needsNewId) => {
     let ts = Date.now();
     let projectId = this.props.projectId ? this.props.projectId : "";
-    if (projectId === '0' || this.props.projectId === "undefined") {
+    if (projectId === '0' || this.props.projectId === "undefined" || needsNewId) {
       // Generate a new projectId
       projectId = this.props.user.uid + '_' + ts;
     }
@@ -303,13 +323,13 @@ class Header extends Component {
   /**
   * @summary - When the user clicks save it will upload the information to Firebase
   */
-  handleSave = () => {
+  handleSave = (needsNewId) => {
     // render the current state so the user can see what they are saving
     this.handleRender();
     let ts = Date.now();
     if (this.props.user && this.props.user.uid) {
       $("body").prepend("<span class='spinner'><div class='cube1'></div><div class='cube2'></div></span>");
-      let projectID = this.getProjectId();
+      let projectID = this.getProjectId(needsNewId);
       let scene = document.querySelector('a-scene');
       // Access the scene and sceen shot, with perspective view in a lossy jpeg format
       let img = scene.components.screenshot.getCanvas('perspective').toDataURL('image/jpeg', 0.1);
@@ -381,7 +401,7 @@ class Header extends Component {
           variant="raised"
           size="small"
           color="primary"
-          onClick={this.handleSave}
+          onClick={() => this.handleSave(false)}
           className="header-btn">
           <Icon className="material-icons">save</Icon> Save
           </Button>
@@ -551,14 +571,7 @@ class Header extends Component {
         action={[
           <Button key="undo" color="secondary" size="small" onClick={this.closeSnackBar}>
             Dismiss
-        </Button>,
-          <IconButton
-            key="close"
-            aria-label="Close"
-            color="inherit"
-            onClick={this.closeSnackBar} >
-
-          </IconButton>,
+        </Button>
         ]}
       />
     );
@@ -594,16 +607,14 @@ class Header extends Component {
           open={Boolean(anchorEl)}
           onClose={this.handleViewOptClose} >
           <MenuItem >
-            <ListItemIcon >
-              <Icon className="material-icons">visibility</Icon>
-            </ListItemIcon>
-            <Link to={`/view/${this.props.projectId}`}>View </Link>
+            <Link to={`/view/${this.props.projectId}`}>
+              <Icon style={{ verticalAlign: 'bottom' }} className="material-icons">visibility</Icon> View
+            </Link>
           </MenuItem>
           <MenuItem >
-            <ListItemIcon >
-              <Icon className="material-icons">code</Icon>
-            </ListItemIcon>
-            <Link to={`/edit/${this.props.projectId}`}>Edit </Link>
+            <Link to={`/edit/${this.props.projectId}`}>
+              <Icon style={{ verticalAlign: 'bottom' }} className="material-icons">code</Icon> Edit
+            </Link>
           </MenuItem>
         </Menu>
       </div>
@@ -612,17 +623,6 @@ class Header extends Component {
 
   navNewScene = () => {
     this.setState({ modalOpen: true });
-  }
-
-  getModalStyle = () => {
-    const top = 50 + (Math.round(Math.random() * 20) - 10);
-    const left = 50 + (Math.round(Math.random() * 20) - 10);
-
-    return {
-      top: `${top}%`,
-      left: `${left}%`,
-      transform: `translate(-${top}%, -${left}%)`,
-    };
   }
 
   closeModal = () => {
@@ -659,14 +659,14 @@ class Header extends Component {
         onClose={this.closeModal}
         hideBackdrop={true}
         id="confirmation-modal"
-        style={{...this.getModalStyle(), ...styles.paper }} >
+        style={styles.paper} >
         <div>
           <h1>Are you sure you want to procede? </h1>
           <p>You will lose any unsaved work</p>
           <Button
             href='/'
             onClick={() => window.href = '/'}
-            style={styles.confirm }
+            style={styles.confirm}
             variant="raised"
             size="small"
             className="d-none d-md-block">
@@ -674,7 +674,7 @@ class Header extends Component {
           </Button>
           <Button
             onClick={this.closeModal}
-            style={styles.cancel }
+            style={styles.cancel}
             variant="raised"
             size="small"
             className="d-none d-md-block">
