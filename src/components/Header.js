@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {
   Button,
   Icon,
+  Menu,
   MenuItem,
   Popover,
   Tooltip,
@@ -10,6 +11,8 @@ import {
   FormControl,
   TextField,
   Snackbar,
+  ListItemIcon,
+  Modal
 } from 'material-ui';
 import Avatar from 'material-ui/Avatar';
 import { auth, provider, db, scenes, storageRef } from '../firebase.js';
@@ -38,21 +41,26 @@ class Header extends Component {
       projectsToDelete: [],
       loadOpen: false,
       snackOpen: true,
-      lastMsgTime: 0
+      viewOptOpen: false,
+      lastMsgTime: 0,
+      anchorEl: null,
+      modalOpen: false,
     };
   }
 
   /**
   * @summary - When the component is done rendering, we want to:
-  * 1. sync authentication with Firebase and Redux
-  * 2. load the user's projects
-  * 3. Load the sample projects
+  * 1. sync authentication with Firebase and Redux.
+  * 2. Load the user projects.
+  * 3. Load sample projects. 
+  * 4. Render project if we have projectId
   */
   componentDidMount() {
     // 1. Sync authentication
     auth.onAuthStateChanged((account) => {
       if (account) {
         this.props.logging.login(account);
+        // 2. If we have a user, load their projects
         this.getUserProjs();
       } else {
         this.props.logging.logout();
@@ -77,7 +85,7 @@ class Header extends Component {
     }
     this.setState({ snackOpen: true, lastMsgTime: this.props.message.time });
 
-    // If there is a projectId prop we know it is coming from Viewer 
+    // 4. Render project if we have projectId. This should only happen if coming from viewer
     if (this.props.projectId) {
       $("body").prepend("<span class='spinner'><div class='cube1'></div><div class='cube2'></div></span>");
       // When the data's metedata changes, ie update
@@ -99,13 +107,11 @@ class Header extends Component {
         $(".spinner").remove();
       });
     }
-
   }
 
   componentWillUnmount() {
     var unsubscribe = scenes.onSnapshot(function () { });
     unsubscribe();
-
   }
 
   /**
@@ -172,7 +178,7 @@ class Header extends Component {
     }
     let photoURL = this.props.user ? this.props.user.photoURL : process.env.PUBLIC_URL + '/img/acct_circle.svg';
     return (
-      <div id="user" className="col">
+      <div id="user" >
         <Avatar
           id="login"
           src={photoURL}
@@ -260,7 +266,7 @@ class Header extends Component {
       let editor = window.ace.edit("ace-editor");
       this.props.actions.render(editor.getSession().getValue(), this.props.user ? this.props.user.uid : 'anon');
     } catch (error) {
-      this.props.actions.render(this.props.text, this.props.user ? this.props.user.uid: 'anon');
+      this.props.actions.render(this.props.text, this.props.user ? this.props.user.uid : 'anon');
     }
   }
 
@@ -287,7 +293,7 @@ class Header extends Component {
   getProjectId = () => {
     let ts = Date.now();
     let projectId = this.props.projectId ? this.props.projectId : "";
-    if (projectId === '0') {
+    if (projectId === '0' || this.props.projectId === "undefined") {
       // Generate a new projectId
       projectId = this.props.user.uid + '_' + ts;
     }
@@ -298,7 +304,6 @@ class Header extends Component {
   * @summary - When the user clicks save it will upload the information to Firebase
   */
   handleSave = () => {
-
     // render the current state so the user can see what they are saving
     this.handleRender();
     let ts = Date.now();
@@ -306,6 +311,7 @@ class Header extends Component {
       $("body").prepend("<span class='spinner'><div class='cube1'></div><div class='cube2'></div></span>");
       let projectID = this.getProjectId();
       let scene = document.querySelector('a-scene');
+      // Access the scene and sceen shot, with perspective view in a lossy jpeg format
       let img = scene.components.screenshot.getCanvas('perspective').toDataURL('image/jpeg', 0.1);
       let path = "images/perspective/" + projectID;
       let imgRef = storageRef.child(path);
@@ -320,9 +326,11 @@ class Header extends Component {
           ts: ts,
         }).then(() => {
           console.log("Document successfully written!");
-          if(projectID !== this.props.projectId){
-            // Go to the new for the project.
+          // If we have a new projectId reload page with it
+          if (projectID !== this.props.projectId) {
             window.location.href = window.origin + '/edit/' + projectID;
+          } else {
+            this.getUserProjs();
           }
         }).catch((error) => {
           console.error("Error writing document: ", error);
@@ -332,9 +340,9 @@ class Header extends Component {
         console.error("Error uploading a data_url string ", error);
         $(".spinner").remove();
       });
-
     }
   }
+
   /**
   * @summary - resets the current scene
   */
@@ -387,13 +395,13 @@ class Header extends Component {
   handleLoadToggle = () => {
     if (this.state.projectsToDelete.length > 0) {
       this.state.projectsToDelete.forEach((proj) => {
-        
+
         // Delete Image
         let path = "images/perspective/" + proj;
         let imgRef = storageRef.child(path);
         imgRef.delete().then(() => {
           console.log("Image successfully deleted!");
-        }).catch( (error) => {
+        }).catch((error) => {
           console.error("Error removing img: ", error);
         });
 
@@ -497,7 +505,7 @@ class Header extends Component {
     this.setState({ sceneOptOpen: false });
   }
 
-  sceneOptions = () => {
+  sceneOptionsDrawer = () => {
     return (
       <Drawer
         docked={false}
@@ -527,31 +535,153 @@ class Header extends Component {
   }
 
   renderSnackBar = () => {
-    return (<Snackbar
-      anchorOrigin={{
-        vertical: 'bottom',
-        horizontal: 'left',
-      }}
-      open={this.state.snackOpen}
-      autoHideDuration={6000}
-      onClose={this.closeSnackBar}
-      ContentProps={{
-        'aria-describedby': 'message-id',
-      }}
-      message={<span id="message-id">{this.props.message.text}</span>}
-      action={[
-        <Button key="undo" color="secondary" size="small" onClick={this.closeSnackBar}>
-          Dismiss
+    return (
+      <Snackbar
+        anchorOrigin={{
+          vertical: 'bottom',
+          horizontal: 'left',
+        }}
+        open={this.state.snackOpen}
+        autoHideDuration={6000}
+        onClose={this.closeSnackBar}
+        ContentProps={{
+          'aria-describedby': 'message-id',
+        }}
+        message={<span id="message-id">{this.props.message.text}</span>}
+        action={[
+          <Button key="undo" color="secondary" size="small" onClick={this.closeSnackBar}>
+            Dismiss
         </Button>,
-        <IconButton
-          key="close"
-          aria-label="Close"
-          color="inherit"
-          onClick={this.closeSnackBar} >
+          <IconButton
+            key="close"
+            aria-label="Close"
+            color="inherit"
+            onClick={this.closeSnackBar} >
 
-        </IconButton>,
-      ]}
-    />
+          </IconButton>,
+        ]}
+      />
+    );
+  }
+
+  handleViewOptClick = event => {
+    this.setState({ anchorEl: event.currentTarget });
+  };
+
+  handleViewOptClose = () => {
+    this.setState({ anchorEl: null });
+  };
+
+  renderViewSelect = () => {
+    const { anchorEl } = this.state;
+    return (
+      <div>
+        <Button
+          variant="raised"
+          aria-owns={anchorEl ? 'simple-menu' : null}
+          aria-haspopup="true"
+          style={{
+            margin: 4,
+            padding: 2,
+            background: 'linear-gradient(45deg, #DDD 30%, #BBB 90%)',
+          }}
+          onClick={this.handleViewOptClick}>
+          Change View
+        </Button>
+        <Menu
+          id="simple-menu"
+          anchorEl={anchorEl}
+          open={Boolean(anchorEl)}
+          onClose={this.handleViewOptClose} >
+          <MenuItem >
+            <ListItemIcon >
+              <Icon className="material-icons">visibility</Icon>
+            </ListItemIcon>
+            <Link to={`/view/${this.props.projectId}`}>View </Link>
+          </MenuItem>
+          <MenuItem >
+            <ListItemIcon >
+              <Icon className="material-icons">code</Icon>
+            </ListItemIcon>
+            <Link to={`/edit/${this.props.projectId}`}>Edit </Link>
+          </MenuItem>
+        </Menu>
+      </div>
+    );
+  }
+
+  navNewScene = () => {
+    this.setState({ modalOpen: true });
+  }
+
+  getModalStyle = () => {
+    const top = 50 + (Math.round(Math.random() * 20) - 10);
+    const left = 50 + (Math.round(Math.random() * 20) - 10);
+
+    return {
+      top: `${top}%`,
+      left: `${left}%`,
+      transform: `translate(-${top}%, -${left}%)`,
+    };
+  }
+
+  closeModal = () => {
+    this.setState({ modalOpen: false });
+  }
+
+  confirmationModal = () => {
+    const styles = {
+      paper: {
+        position: 'absolute',
+        top: '50%',
+        left: ' 50%',
+        height: 'inherit',
+        width: 'inherit',
+        transform: 'translate(-50%, -50%)'
+      },
+      confirm: {
+        float: 'left',
+        marginLeft: '10em',
+        background: 'linear-gradient(45deg, #38e438 30%, #58e458 90%)',
+      },
+      cancel: {
+        float: 'right',
+        marginRight: '10em',
+        background: 'linear-gradient(45deg, #FE3B3B 30%, #FF3B3B 90%)',
+      }
+    };
+
+    return (
+      <Modal
+        aria-labelledby="simple-modal-title"
+        aria-describedby="simple-modal-description"
+        open={this.state.modalOpen}
+        onClose={this.closeModal}
+        hideBackdrop={true}
+        id="confirmation-modal"
+        style={{...this.getModalStyle(), ...styles.paper }} >
+        <div>
+          <h1>Are you sure you want to procede? </h1>
+          <p>You will lose any unsaved work</p>
+          <Button
+            href='/'
+            onClick={() => window.href = '/'}
+            style={styles.confirm }
+            variant="raised"
+            size="small"
+            className="d-none d-md-block">
+            <Icon className="material-icons">check_circle_outline</Icon> Yes
+          </Button>
+          <Button
+            onClick={this.closeModal}
+            style={styles.cancel }
+            variant="raised"
+            size="small"
+            className="d-none d-md-block">
+            <Icon className="material-icons">highlight_off</Icon> No
+          </Button>
+        </div>
+      </Modal>
     );
   }
 
@@ -578,97 +708,115 @@ class Header extends Component {
       }
     };
     return (
-      <header className="App-header">
-        <Sidebar scene={this.props.scene} nameScene={this.props.sceneActions.nameScene} >
-          <Button label="Start a New Project"
-            variant="raised"
-            onClick={this.handleNewProj}
-            color="primary"
-            className="sidebar-btn">
-            <Icon className="material-icons">add</Icon>
-            Start New
+      <header className="App-header row align-items-center ">
+        <div className="col-2 d-flex justify-content-start">
+          <Sidebar scene={this.props.scene} nameScene={this.props.sceneActions.nameScene} >
+            <Button label="Start a New Project"
+              variant="raised"
+              onClick={this.handleNewProj}
+              color="primary"
+              className="sidebar-btn">
+              <Icon className="material-icons">add</Icon>
+              Start New
           </Button>
-          <Button label="Recover"
-            variant="raised"
-            onClick={this.props.actions.recover}
-            color="primary"
-            className="sidebar-btn">
-            <Icon className="material-icons">replay</Icon>
-            Recover
+            <Button label="Recover"
+              variant="raised"
+              onClick={this.props.actions.recover}
+              color="primary"
+              className="sidebar-btn">
+              <Icon className="material-icons">replay</Icon>
+              Recover
           </Button>
-          <Button
-            variant="raised"
-            onClick={this.handleSaveToggle}
-            color="primary"
-            className="sidebar-btn">
-            <Icon className="material-icons">save</Icon>
-            Save Project
+            <Button
+              variant="raised"
+              onClick={this.handleSaveToggle}
+              color="primary"
+              className="sidebar-btn">
+              <Icon className="material-icons">save</Icon>
+              Save Project
           </Button>
-          <Button
-            variant="raised"
-            onClick={this.handleLoadToggle}
-            color="primary"
-            className="sidebar-btn">
-            <Icon className="material-icons">file_download</Icon>
-            Open Project
+            <Button
+              variant="raised"
+              onClick={this.handleLoadToggle}
+              color="primary"
+              className="sidebar-btn">
+              <Icon className="material-icons">file_download</Icon>
+              Open Project
           </Button>
-          <Button
-            variant="raised"
-            onClick={this.openSceneOpt}
-            color="primary"
-            className="sidebar-btn">
-            <Icon className="material-icons">settings</Icon>
-            Scene Config
+            <Button
+              variant="raised"
+              onClick={this.openSceneOpt}
+              color="primary"
+              className="sidebar-btn">
+              <Icon className="material-icons">settings</Icon>
+              Scene Config
           </Button>
-        </Sidebar>
-        <Link to='/view'>
-          <h1 className="mr-2">MYR</h1>
-        </Link>
-        <Tooltip title="Render" placement="bottom-start">
-          <Button
-            variant="raised"
-            size="small"
-            onClick={this.handleRender}
-            className="header-btn"
-            style={style.play}>
-            <Icon className="material-icons">play_arrow</Icon>
-          </Button>
-        </Tooltip>
-        <Tooltip title="Stop" placement="bottom-start">
-          <Button
-            variant="raised"
-            size="small"
-            onClick={this.clear}
-            className="header-btn"
-            style={style.clear}>
-            <Icon className="material-icons">stop</Icon>
-          </Button>
-        </Tooltip>
-        <Tooltip title="Save" placement="bottom-start">
-          <Button
-            variant="raised"
-            size="small"
-            onClick={this.handleSaveToggle}
-            className="header-btn d-none d-md-block"
-            style={style.persist}>
-            <Icon className="material-icons">save</Icon>
-          </Button>
-        </Tooltip>
-        <Tooltip title="Open" placement="bottom-start">
-          <Button
-            variant="raised"
-            size="small"
-            onClick={this.handleLoadToggle}
-            className="header-btn"
-            style={style.persist}>
-            <Icon className="material-icons">file_download</Icon>
-          </Button>
-        </Tooltip>
-        <this.sceneOptions />
-        <this.loginBtn />
+          </Sidebar>
+          <Link to='/'>
+            <h1 className="mr-2">MYR</h1>
+          </Link>
+          <Tooltip title="New Scene" placement="bottom-start">
+            <Button
+              variant="flat"
+              size="small"
+              onClick={this.navNewScene}
+              style={{ color: "white" }}
+              className="header-btn" >
+              <Icon className="material-icons">add_circle_outline</Icon> New
+            </Button>
+          </Tooltip>
+        </div>
+        <div className="col-7 d-flex justify-content-start">
+          <Tooltip title="Render" placement="bottom-start">
+            <Button
+              variant="raised"
+              size="small"
+              onClick={this.handleRender}
+              className="header-btn"
+              style={style.play}>
+              <Icon className="material-icons">play_arrow</Icon>
+            </Button>
+          </Tooltip>
+          <Tooltip title="Stop" placement="bottom-start">
+            <Button
+              variant="raised"
+              size="small"
+              onClick={this.clear}
+              className="header-btn"
+              style={style.clear}>
+              <Icon className="material-icons">stop</Icon>
+            </Button>
+          </Tooltip>
+          <Tooltip title="Save" placement="bottom-start">
+            <Button
+              variant="raised"
+              size="small"
+              onClick={this.handleSaveToggle}
+              className="header-btn d-none d-md-block"
+              style={style.persist}>
+              <Icon className="material-icons">save</Icon>
+            </Button>
+          </Tooltip>
+          <Tooltip title="Open" placement="bottom-start">
+            <Button
+              variant="raised"
+              size="small"
+              onClick={this.handleLoadToggle}
+              className="header-btn"
+              style={style.persist}>
+              <Icon className="material-icons">file_download</Icon>
+            </Button>
+          </Tooltip>
+        </div>
+        <div className="col-3 d-flex justify-content-end">
+          <this.renderViewSelect />
+          <this.loginBtn />
+        </div>
+        <this.sceneOptionsDrawer />
         <this.saveDrawer />
         <this.loadDrawer />
         <this.renderSnackBar />
+        <this.confirmationModal />
       </header>
     );
   }

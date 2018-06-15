@@ -1,4 +1,5 @@
 body {
+  overflow: unset;
   margin: 0;
   padding: 0;
   font-family: 'Roboto', sans-serif;
@@ -10,10 +11,9 @@ body {
 
 .App-header {
   background-color: #222;
-  padding: 10px;
   display: flex;
   align-items: center;
-  height: 6vh;
+  min-height: 6vh;
 }
 
 .App-header h1 {
@@ -268,4 +268,17 @@ div.side-drawer>div {
 #lessons fieldset {
   height: 16vh;
   margin: 0;
+}
+
+div#confirmation-modal {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  position: absolute;
+  height: inherit;
+  width: inherit;
+  border: 1px solid;
+  padding: 1em;
+  border-radius: 5px;
+  background: #eee;
 }

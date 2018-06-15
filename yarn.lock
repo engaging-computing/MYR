@@ -3,10 +3,10 @@
 
 
 "@babel/runtime@^7.0.0-beta.42":
-  version "7.0.0-beta.49"
-  resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.0.0-beta.49.tgz#03b3bf07eb982072c8e851dd2ddd5110282e61bf"
+  version "7.0.0-beta.51"
+  resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.0.0-beta.51.tgz#48b8ed18307034c6620f643514650ca2ccc0165a"
   dependencies:
-    core-js "^2.5.6"
+    core-js "^2.5.7"
     regenerator-runtime "^0.11.1"
 
 "@firebase/app-types@0.2.0":
@@ -117,8 +117,8 @@
   resolved "https://registry.yarnpkg.com/@firebase/webchannel-wrapper/-/webchannel-wrapper-0.2.8.tgz#38a936b60b898a1ad0f3719543ff1a1031f60f8b"
 
 "@material-ui/core@^1.1.0":
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/@material-ui/core/-/core-1.2.0.tgz#ec372fd44f949faa604c4ccd4b7ee0bc5e08ac8c"
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/@material-ui/core/-/core-1.2.1.tgz#f8c73da10b875762b37be7167ec2ac79b027499f"
   dependencies:
     "@babel/runtime" "^7.0.0-beta.42"
     "@types/jss" "^9.5.3"
@@ -170,8 +170,8 @@
     "@types/react" "*"
 
 "@types/react@*":
-  version "16.3.16"
-  resolved "https://registry.yarnpkg.com/@types/react/-/react-16.3.16.tgz#78fc44a90b45701f50c8a7008f733680ba51fc86"
+  version "16.3.17"
+  resolved "https://registry.yarnpkg.com/@types/react/-/react-16.3.17.tgz#d59d1a632570b0713946ed9c2949d994773633c5"
   dependencies:
     csstype "^2.2.0"
 
@@ -1975,8 +1975,8 @@ class-utils@^0.3.5:
     static-extend "^0.1.1"
 
 classnames@^2.2.5:
-  version "2.2.5"
-  resolved "https://registry.yarnpkg.com/classnames/-/classnames-2.2.5.tgz#fb3801d453467649ef3603c7d61a02bd129bde6d"
+  version "2.2.6"
+  resolved "https://registry.yarnpkg.com/classnames/-/classnames-2.2.6.tgz#43935bffdd291f326dad0a205309b38d00f650ce"
 
 clean-css@2.2.x:
   version "2.2.23"
@@ -2262,7 +2262,7 @@ core-js@^1.0.0:
   version "1.2.7"
   resolved "https://registry.yarnpkg.com/core-js/-/core-js-1.2.7.tgz#652294c14651db28fa93bd2d5ff2983a4f08c636"
 
-core-js@^2.4.0, core-js@^2.5.0, core-js@^2.5.6:
+core-js@^2.4.0, core-js@^2.5.0, core-js@^2.5.7:
   version "2.5.7"
   resolved "https://registry.yarnpkg.com/core-js/-/core-js-2.5.7.tgz#f972608ff0cead68b841a16a932d0b183791814e"
 
@@ -3589,8 +3589,8 @@ fb-watchman@^2.0.0:
     bser "^2.0.0"
 
 fbjs@^0.8.1, fbjs@^0.8.16:
-  version "0.8.16"
-  resolved "https://registry.yarnpkg.com/fbjs/-/fbjs-0.8.16.tgz#5e67432f550dc41b572bf55847b8aca64e5337db"
+  version "0.8.17"
+  resolved "https://registry.yarnpkg.com/fbjs/-/fbjs-0.8.17.tgz#c4d598ead6949112653d6588b01a5cdcd9f90fdd"
   dependencies:
     core-js "^1.0.0"
     isomorphic-fetch "^2.1.1"
@@ -3598,7 +3598,7 @@ fbjs@^0.8.1, fbjs@^0.8.16:
     object-assign "^4.1.0"
     promise "^7.1.1"
     setimmediate "^1.0.5"
-    ua-parser-js "^0.7.9"
+    ua-parser-js "^0.7.18"
 
 figures@^2.0.0:
   version "2.0.0"
@@ -4249,9 +4249,13 @@ hoek@4.x.x:
   version "4.2.1"
   resolved "https://registry.yarnpkg.com/hoek/-/hoek-4.2.1.tgz#9634502aa12c445dd5a7c5734b572bb8738aacbb"
 
-hoist-non-react-statics@^2.3.0, hoist-non-react-statics@^2.3.1, hoist-non-react-statics@^2.5.0:
+hoist-non-react-statics@^2.3.0:
   version "2.5.0"
   resolved "https://registry.yarnpkg.com/hoist-non-react-statics/-/hoist-non-react-statics-2.5.0.tgz#d2ca2dfc19c5a91c5a6615ce8e564ef0347e2a40"
+
+hoist-non-react-statics@^2.3.1, hoist-non-react-statics@^2.5.0:
+  version "2.5.4"
+  resolved "https://registry.yarnpkg.com/hoist-non-react-statics/-/hoist-non-react-statics-2.5.4.tgz#fc3b1ac05d2ae3abedec84eba846511b0d4fcc4f"
 
 home-or-tmp@^2.0.0:
   version "2.0.0"
@@ -5392,8 +5396,8 @@ jss-vendor-prefixer@^7.0.0:
     css-vendor "^0.3.8"
 
 jss@^9.3.3, jss@^9.7.0:
-  version "9.8.2"
-  resolved "https://registry.yarnpkg.com/jss/-/jss-9.8.2.tgz#09cabdfba831545bf094e399cfa45a1743daf4a6"
+  version "9.8.3"
+  resolved "https://registry.yarnpkg.com/jss/-/jss-9.8.3.tgz#399da571c4b2c8f4cf418ca7e8627e44fc287fc8"
   dependencies:
     is-in-browser "^1.1.3"
     symbol-observable "^1.1.0"
@@ -7387,10 +7391,10 @@ react-is@^16.3.2, react-is@^16.4.0:
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.4.0.tgz#cc9fdc855ac34d2e7d9d2eb7059bbc240d35ffcf"
 
 react-jss@^8.1.0:
-  version "8.4.0"
-  resolved "https://registry.yarnpkg.com/react-jss/-/react-jss-8.4.0.tgz#7cb43d85dea56afafc8f0fd072ae27fcc0518950"
+  version "8.5.1"
+  resolved "https://registry.yarnpkg.com/react-jss/-/react-jss-8.5.1.tgz#f97c72f6a1c86aa6408932a2a2836ce40c0ab9fc"
   dependencies:
-    hoist-non-react-statics "^2.3.1"
+    hoist-non-react-statics "^2.5.0"
     jss "^9.7.0"
     jss-preset-default "^4.3.0"
     prop-types "^15.6.0"
@@ -8941,7 +8945,7 @@ typedarray@^0.0.6, typedarray@~0.0.5:
   version "0.0.6"
   resolved "https://registry.yarnpkg.com/typedarray/-/typedarray-0.0.6.tgz#867ac74e3864187b1d3d47d996a78ec5c8830777"
 
-ua-parser-js@^0.7.9:
+ua-parser-js@^0.7.18:
   version "0.7.18"
   resolved "https://registry.yarnpkg.com/ua-parser-js/-/ua-parser-js-0.7.18.tgz#a7bfd92f56edfb117083b69e31d2aa8882d4b1ed"
 
