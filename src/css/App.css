@@ -282,3 +282,8 @@ div#confirmation-modal {
   border-radius: 5px;
   background: #eee;
 }
+
+div#reference-tabs {
+  overflow: unset !important;
+  min-height: unset !important;
+}

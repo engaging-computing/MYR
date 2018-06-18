@@ -79,6 +79,7 @@ export default class Reference extends React.Component {
           variant="persistent"
           open={this.state.open}>
           <Tabs
+            id="reference-tabs"
             value={this.state.value}
             onChange={this.handleChange} >
             <Tab
@@ -101,17 +102,17 @@ export default class Reference extends React.Component {
               onClick={this.handleToggle} />
           </Tabs>
           {this.state.value === 'a' &&
-            <div style={{marginTop: 25}}>
+            <div style={{marginTop: 25, overflow: 'scroll'}}>
               <h5 >Geometry</h5>
               {this.TableEx("geometry")}
             </div>}
           {this.state.value === 'b' &&
-            <div>
+            <div style={{marginTop: 25, overflow: 'scroll'}}>
               <h5 >Transformations</h5>
               {this.TableEx("transformations")}
             </div>}
           {this.state.value === 'c' &&
-            <div>
+            <div style={{marginTop: 25, overflow: 'scroll'}}>
               <h5 >WebVR Components</h5>
               {this.TableEx("webvr_components")}
             </div>}
