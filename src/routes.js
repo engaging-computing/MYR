@@ -13,7 +13,7 @@ export default () => {
 				<Redirect from="/edit" exact to="/" />
 			  <Route path='/view/:id' component={Viewer}/>
 				<Redirect from="/view" exact to="/view/default" />
-				<Route path='/lesson/:id' component={Guided}/>
+				<Route path='/lesson' component={Guided}/>
 			</Switch>
 		</BrowserRouter>
 	);
