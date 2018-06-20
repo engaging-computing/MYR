@@ -64,7 +64,8 @@ class View extends Component {
     return (
       <a-entity id="rig" movement-controls="controls: checkpoint" checkpoint-controls="mode: animate">
         <a-entity camera
-          position="0 1.6 0"
+          position="0 1.6 2"
+          fly={true}
           look-controls // ="pointerLockEnabled: true"
           >
           <a-entity cursor

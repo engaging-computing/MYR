@@ -2,6 +2,7 @@ body {
   overflow: unset;
   margin: 0;
   padding: 0;
+  background-color: #222;
 }
 
 .App {
@@ -236,6 +237,8 @@ div.side-drawer>div {
 
 .sidebar-btn {
   margin-bottom: 10px !important;
+  justify-content: left !important;
+  padding-left: 6em !important;
 }
 
 .MuiTabs-root-76 {
@@ -285,4 +288,12 @@ div#confirmation-modal {
 div#reference-tabs {
   overflow: unset !important;
   min-height: unset !important;
+}
+
+.sidebar-btn .material-icons {
+  margin: 0 .7em;
+}
+
+a:hover {
+  color: #fff;
 }

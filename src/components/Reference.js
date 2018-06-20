@@ -65,14 +65,14 @@ export default class Reference extends React.Component {
   render() {
 
     return (
-      <div>
+      <React.Fragment>
         <Button
           variant="raised"
           color="primary"
           fullWidth
-          className="d-none d-md-block"
+          className="sidebar-btn"
           onClick={() => this.setState({ open: true })}>
-          <Icon className="material-icons md-36">description</Icon> Reference
+          <Icon className="material-icons">description</Icon> Reference
         </Button>
         <Drawer
           id="reference-drawer"
@@ -117,7 +117,7 @@ export default class Reference extends React.Component {
               {this.TableEx("webvr_components")}
             </div>}
         </Drawer>
-      </div>
+      </React.Fragment>
     );
   }
 }

@@ -263,7 +263,7 @@ class Header extends Component {
     return (
       <FormControl className="mt-2" aria-describedby="name-helper-text">
         <TextField id="name-helper"
-          value={text}
+          value={text ? text : ""}
           label="Scene Name"
           onSubmit={this.submitName}
           onBlur={this.submitName}
@@ -294,7 +294,7 @@ class Header extends Component {
   * @summary - handleNewProj will render an empty string and set the scene's name to untitled
   */
   handleNewProj = () => {
-    this.props.actions.render("", this.props.user);
+    this.props.actions.render("", this.props.user ? this.props.user.uid : 'anon');
     if (this.props.user) {
       this.props.sceneActions.nameScene("untitled");
       this.props.sceneActions.loadScene('0');
@@ -361,6 +361,7 @@ class Header extends Component {
         $(".spinner").remove();
       });
     }
+    this.handleSaveToggle();
   }
 
   /**
@@ -402,7 +403,7 @@ class Header extends Component {
           size="small"
           color="primary"
           onClick={() => this.handleSave(false)}
-          className="header-btn">
+          className="">
           <Icon className="material-icons">save</Icon> Save
           </Button>
       </Drawer>
@@ -463,9 +464,9 @@ class Header extends Component {
 
     return (
       <Drawer
-        variant="persistent"
         className="side-drawer"
         open={this.state.loadOpen}
+        onClick={this.handleLoadToggle}
         onClose={this.handleLoadToggle} >
         <IconButton variant="raised"
           color="default"
@@ -528,11 +529,11 @@ class Header extends Component {
   sceneOptionsDrawer = () => {
     return (
       <Drawer
-        docked={false}
         className="side-drawer"
         open={this.state.sceneOptOpen}
-        onRequestChange={(open) => this.setState({ open })} >
-        {/* onClose={this.closeSceneOpt} > */}
+        onRequestChange={(open) => this.setState({ open })}
+        onClick={this.closeSceneOpt} 
+        onClose={this.closeSceneOpt} >
         <IconButton variant="raised"
           color="default"
           style={exitBtnStyle}
@@ -593,6 +594,7 @@ class Header extends Component {
           variant="raised"
           aria-owns={anchorEl ? 'simple-menu' : null}
           aria-haspopup="true"
+          className=" d-none d-md-block"
           style={{
             margin: 4,
             padding: 2,
@@ -708,12 +710,13 @@ class Header extends Component {
       }
     };
     return (
-      <header className="App-header row align-items-center ">
-        <div className="col-2 d-flex justify-content-start">
+      <header className="App-header align-items-center ">
+        <div className="col-3 d-flex justify-content-start">
           <Sidebar scene={this.props.scene} nameScene={this.props.sceneActions.nameScene} >
             <Button label="Start a New Project"
               variant="raised"
-              onClick={this.handleNewProj}
+              href="/"
+              // onClick={this.handleNewProj}
               color="primary"
               className="sidebar-btn">
               <Icon className="material-icons">add</Icon>
@@ -751,19 +754,20 @@ class Header extends Component {
               <Icon className="material-icons">settings</Icon>
               Scene Config
           </Button>
+
           </Sidebar>
           <Link to='/'>
             <h1 className="mr-2">MYR</h1>
           </Link>
           <Tooltip title="New Scene" placement="bottom-start">
-            <Button
-              variant="flat"
+            <IconButton
+              // variant="flat"
               size="small"
               onClick={this.navNewScene}
               style={{ color: "white" }}
-              className="header-btn" >
-              <Icon className="material-icons">add_circle_outline</Icon> New
-            </Button>
+              className=" d-none d-sm-block" >
+              <Icon className="material-icons">add_circle_outline</Icon>
+            </IconButton>
           </Tooltip>
         </div>
         <div className="col-7 d-flex justify-content-start">
@@ -772,7 +776,7 @@ class Header extends Component {
               variant="raised"
               size="small"
               onClick={this.handleRender}
-              className="header-btn"
+              className=""
               style={style.play}>
               <Icon className="material-icons">play_arrow</Icon>
             </Button>
@@ -782,7 +786,7 @@ class Header extends Component {
               variant="raised"
               size="small"
               onClick={this.clear}
-              className="header-btn"
+              className=""
               style={style.clear}>
               <Icon className="material-icons">stop</Icon>
             </Button>
@@ -792,7 +796,7 @@ class Header extends Component {
               variant="raised"
               size="small"
               onClick={this.handleSaveToggle}
-              className="header-btn d-none d-md-block"
+              className=" d-none d-md-block"
               style={style.persist}>
               <Icon className="material-icons">save</Icon>
             </Button>
@@ -802,13 +806,13 @@ class Header extends Component {
               variant="raised"
               size="small"
               onClick={this.handleLoadToggle}
-              className="header-btn"
+              className=" d-none d-sm-block"
               style={style.persist}>
               <Icon className="material-icons">file_download</Icon>
             </Button>
           </Tooltip>
         </div>
-        <div className="col-3 d-flex justify-content-end">
+        <div className="col-2 d-flex justify-content-end">
           <this.renderViewSelect />
           <this.loginBtn />
         </div>

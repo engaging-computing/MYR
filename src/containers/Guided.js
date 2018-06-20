@@ -59,7 +59,7 @@ const Guided = ({ editor, user, scene, level, levelActions, actions, authActions
 // This makes sure we are getting what we think we should
 Guided.propTypes = {
   editor: PropTypes.object.isRequired,
-  user: PropTypes.object.isRequired,
+  user: PropTypes.object,
   scene: PropTypes.object.isRequired,
   level: PropTypes.object.isRequired,
 };

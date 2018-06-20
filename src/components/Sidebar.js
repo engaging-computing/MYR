@@ -37,7 +37,7 @@ class Sidebar extends Component {
         </IconButton>
         <Drawer
           className="side-drawer"
-          // variant="persistent"
+          style={{zIndex: 1000}}
           open={this.state.open}
           anchor="left"
           onClose={this.handleToggle} >
