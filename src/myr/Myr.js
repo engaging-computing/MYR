@@ -202,56 +202,49 @@ class Myr {
   // Render an Aframe Box Primitive with current Myr settings    
   box = (obj) => {
     let el = this.core("box");
-    let merged = { ...el, ...obj };
-    this.els.push(merged);
+    this.els.push({ ...el, ...obj });
     return el.id;
   }
 
   // Render an Aframe Sphere Primitive with current Myr settings  
   sphere = (obj) => {
     let el = this.core("sphere");
-    let merged = { ...el, ...obj };
-    this.els.push(merged);
+    this.els.push({ ...el, ...obj });
     return el.id;
   }
 
   // Render an Aframe circle Primitive with current Myr settings  
   circle = (obj) => {
     let el = this.core("circle");
-    let merged = { ...el, ...obj };
-    this.els.push(merged);
+    this.els.push({ ...el, ...obj });
     return el.id;
   }
 
   // Render an Aframe circle Primitive with current Myr settings  
   cone = (obj) => {
     let el = this.core("cone");
-    let merged = { ...el, ...obj };
-    this.els.push(merged);
+    this.els.push({ ...el, ...obj });
     return el.id;
   }
 
   // Render an Aframe Triangle Primitive with current Myr settings  
   triangle = (obj) => {
     let el = this.core("triangle");
-    let merged = { ...el, ...obj };
-    this.els.push(merged);
+    this.els.push({ ...el, ...obj });
     return el.id;
   }
 
   // Render an Aframe Text Primitive with current Myr settings  
   text = (obj) => {
     let el = this.core("text");
-    let merged = { ...el, ...obj };
-    this.els.push(merged);
+    this.els.push({ ...el, ...obj });
     return el.id;
   }
 
   // Render an Aframe Text Primitive with current Myr settings  
   cylinder = (obj) => {
     let el = this.core("cylinder");
-    let merged = { ...el, ...obj };
-    this.els.push(merged);
+    this.els.push({ ...el, ...obj });
     return el.id;
   }
 
@@ -265,39 +258,34 @@ class Myr {
         segmentsHeight: 8
       }
     };
-    let merged = { ...el, ...geometry, ...obj };
-    this.els.push(merged);
+    this.els.push({ ...el, ...geometry, ...obj });
     return el.id;
   }
 
   // Render an Aframe dodecahedron with current Myr settings  
   dodecahedron = (obj) => {
     let el = this.core("dodecahedron");
-    let merged = { ...el, ...obj };
-    this.els.push(merged);
+    this.els.push({ ...el, ...obj });
     return el.id;
   }
 
   // Render an Aframe icosahedron with current Myr settings  
   icosahedron = (obj) => {
     let el = this.core("icosahedron");
-    let merged = { ...el, ...obj };
-    this.els.push(merged);
+    this.els.push({ ...el, ...obj });
     return el.id;
   }
 
   // Render an Aframe octahedron with current Myr settings  
   octahedron = (obj) => {
     let el = this.core("octahedron");
-    let merged = { ...el, ...obj };
-    this.els.push(merged);
+    this.els.push({ ...el, ...obj });
     return el.id;
   }
 
   ring = (obj) => {
     let el = this.core("ring");
-    let merged = { ...el, ...obj };
-    this.els.push(merged);
+    this.els.push({ ...el, ...obj });
     return el.id;
   }
 
