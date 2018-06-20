@@ -8,6 +8,7 @@ import PropTypes from 'prop-types';
 import * as EditorActions from '../actions/editorActions.js';
 import * as AuthActions from '../actions/authActions.js';
 import * as SceneActions from '../actions/sceneActions.js';
+import * as LevelActions from '../actions/levelActions.js';
 
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
@@ -22,11 +23,13 @@ import { connect } from 'react-redux';
 * @param {object} user - user info
 * @param {object} scene - screne name and id
 * @param {string} errors - errors from the render process
-* @param {array} actions - render, recover, rrfresh
+* @param {array} actions - render, recover, refresh
+* @param {array} level - 
+* @param {array} levelActions - 
 * 
 * @returns - JSX expression
 */
-const Guided = ({ editor, user, scene, level, actions, authActions, match, sceneActions }) => (
+const Guided = ({ editor, user, scene, level, levelActions, actions, authActions, match, sceneActions }) => (
   <div className="App">
     <Header
       logging={authActions}
@@ -40,7 +43,7 @@ const Guided = ({ editor, user, scene, level, actions, authActions, match, scene
     <div className="row no-gutters">
       <div id="interface" className="col-12 col-md-4">
         <div style={{ height: "24vh" }}>
-          <Level level={level} actions={actions} user={user} />
+          <Level level={level} actions={actions} levelActions={levelActions} user={user} />
         </div>
         <div className='guided'>
           <Editor text={editor.text} user={user} />
@@ -55,11 +58,8 @@ const Guided = ({ editor, user, scene, level, actions, authActions, match, scene
 
 // This makes sure we are getting what we think we should
 Guided.propTypes = {
-  text: PropTypes.string.isRequired,
-  user: PropTypes.object,
-  message: PropTypes.string.isRequired,
-  objects: PropTypes.array.isRequired,
-  assets: PropTypes.array.isRequired,
+  editor: PropTypes.object.isRequired,
+  user: PropTypes.object.isRequired,
   scene: PropTypes.object.isRequired,
   level: PropTypes.object.isRequired,
 };
@@ -67,14 +67,15 @@ const mapStateToProps = state => ({
   editor: state.editor,
   user: state.user.user,
   scene: state.scene,
-  level: state.level.levels[0],
+  level: state.level
 });
 
 // This maps dispatch actions to props
 const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators(EditorActions, dispatch),
   authActions: bindActionCreators(AuthActions, dispatch),
-  sceneActions: bindActionCreators(SceneActions, dispatch)
+  sceneActions: bindActionCreators(SceneActions, dispatch),
+  levelActions: bindActionCreators(LevelActions, dispatch)
 });
 
 // This does the binding to the redux store

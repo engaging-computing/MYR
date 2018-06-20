@@ -11,14 +11,6 @@ import 'brace/theme/github';
 class Editor extends Component {
 
   /**
-  * @summary - Component did Update is part of the React lifecycle. When called we focus 
-  * the cursor in the Ace Editor Component
-  */
-  componentDidUpdate() {
-    this.refs.aceEditor.editor.focus();
-  }
-
-  /**
   * @summary -render(), creates the editor in the DOM
   */
   render() {

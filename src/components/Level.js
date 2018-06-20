@@ -7,9 +7,14 @@ class Level extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      levelIndex: 0,
       answers: defaultAnswers
     };
+  }
+  componentDidMount() {
+    this.props.actions.render(this.props.level.crntStage.sceneText,
+      this.props.user ? this.props.user.uid : 'anon');
+
+    this.props.levelActions.fetchLevel(1);
   }
 
   handleChange = index => {
@@ -25,13 +30,14 @@ class Level extends Component {
           {opts ? opts.map((it, index) => {
             return (
               <FormControlLabel
+                key={index}
                 label={it.text}
                 control=
                 {
                   <Checkbox
                     checked={this.state.answers[index]}
                     onChange={() => this.handleChange(index)}
-                    value={it.value}
+                    value={String(it.value)}
                   />
                 }
               />
@@ -45,57 +51,48 @@ class Level extends Component {
   // This looks like it could be optimized
   isCorrect = () => {
     let correct = [];
-    let stage = this.props.level.stages[this.state.levelIndex];
+    let stage = this.props.level.crntStage;
 
     if (stage.isQuiz) {
       correct = stage.opts.filter((it, index) => {
         return it.value !== this.state.answers[index];
       });
     }
-    this.setState({answers: defaultAnswers});
+    this.setState({ answers: defaultAnswers });
     return correct.length === 0;
   }
 
   stageHelper = (stage) => {
+
     if (stage.isQuiz) {
       return (
         this.formHelper(stage.opts)
       );
     } else {
-      return ( <p>{stage.levelText}</p> );
+      return (<p>{stage.levelText}</p>);
     }
   }
 
   handleForward = () => {
-    let stage = this.props.level.stages[this.state.levelIndex];
-    if(stage.isQuiz && !this.isCorrect()){
+    let stage = this.props.level.crntStage;
+    if (stage.isQuiz && !this.isCorrect()) {
       return 0;
     }
-    let nextLevel = this.state.levelIndex + 1;
-    this.setState({ levelIndex: nextLevel });
-    if (nextLevel < this.props.level.stages.length) {
-      this.setState({ levelIndex: nextLevel });
-      this.props.actions.render(this.props.level.stages[nextLevel].sceneText, this.props.user.uid);
-    }
+    this.props.levelActions.nextStage();
   }
 
   handleBackwards = () => {
-    let prevLevel = this.state.levelIndex - 1;
-    if (prevLevel >= 0) {
-      this.setState({ levelIndex: prevLevel });
-      this.props.actions.render(this.props.level.stages[prevLevel].sceneTex, this.props.user.uid);
-    }
+    this.props.levelActions.prevStage();
   }
 
 
   render() {
-    let stage = this.props.level.stages[this.state.levelIndex];
+    let stage = this.props.level.crntStage;
     return (
       <div id='lessons'>
-        {/* <div><h1>{this.props.level.name}</h1></div> */}
-        <h3>{stage.prompt}</h3>
+        <h5>{stage.prompt}</h5>
         {stage ? this.stageHelper(stage) : null}
-        <div>
+        <div id="lesson-btns">
           <Button
             size="small"
             aria-label='Menu'
@@ -103,16 +100,16 @@ class Level extends Component {
             onClick={this.handleBackwards}>
             <Icon style={{ fontSize: 32 }}>chevron_left</Icon> Go Back
           </Button>
-          {stage.isQuiz 
-            ?
+          {stage.isQuiz
+            ? // then
             <Button
               size="small"
               aria-label='Menu'
               style={{ color: '#222', marginRight: '0.25em', float: 'right' }}
               onClick={this.handleForward}>
               Submit <Icon style={{ fontSize: 32 }}>chevron_right</Icon>
-            </Button> 
-            :
+            </Button>
+            : // otherwise
             <Button
               size="small"
               aria-label='Menu'

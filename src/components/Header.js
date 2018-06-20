@@ -306,7 +306,7 @@ class Header extends Component {
   * 1. Loaded a sample project => generate new id
   * 2. Save with same name as last => overwrite current
   * 3. Save with new name from last => generate new id
-  * @param {string} text - 
+  * @param {bool} needsNewId - bool for callsite id generation
   * 
   * @returns - projectId
   */
