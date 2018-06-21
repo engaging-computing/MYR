@@ -33,7 +33,6 @@
     "react": "^16.2.0",
     "react-ace": "^5.9.0",
     "react-bootstrap": "^0.32.1",
-    "react-console-component": "^0.6.1",
     "react-dom": "^16.2.0",
     "react-highlight.js": "^1.0.7",
     "react-progressive-image": "^0.3.0",
