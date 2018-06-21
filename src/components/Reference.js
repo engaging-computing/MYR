@@ -1,17 +1,23 @@
 import React from 'react';
 import myrReference from '../myr/reference';
-import Highlight from 'react-highlight.js';
-import { Tabs, Tab, Button, Drawer, Icon } from 'material-ui';
-// import MenuItem from 'material-ui/MenuItem';
-
+import SyntaxHighlighter, { registerLanguage } from "react-syntax-highlighter/light";
+import js from 'react-syntax-highlighter/languages/hljs/javascript';
+import { github } from 'react-syntax-highlighter/styles/hljs';
 
 import {
+  Tabs, 
+  Tab, 
+  Button, 
+  Drawer, 
+  Icon,
   Table,
   TableBody,
   TableHead,
   TableRow,
   TableCell
 } from 'material-ui';
+
+registerLanguage('javascript', js);
 
 export default class Reference extends React.Component {
 
@@ -47,11 +53,7 @@ export default class Reference extends React.Component {
             <TableRow key={index}>
               <TableCell >{row.name}</TableCell>
               <TableCell  >
-              <div>
-                <Highlight language={'javascript'} >
-                  {row.parameters}
-                </Highlight>
-                </div>
+              <SyntaxHighlighter language='javascript' style={github}>{row.parameters}</SyntaxHighlighter>
               </TableCell>
               <TableCell >{row.returnValue}</TableCell>
               <TableCell >{row.description}</TableCell>
