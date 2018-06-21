@@ -18,6 +18,7 @@ import { auth, provider, db, scenes, storageRef } from '../firebase.js';
 import Sidebar from './Sidebar';
 import $ from "jquery";
 import ProgressiveImage from 'react-progressive-image';
+import DisplayMsg from './DisplayMsg';
 
 import { Link } from 'react-router-dom';
 
@@ -43,7 +44,7 @@ class Header extends Component {
       viewOptOpen: false,
       lastMsgTime: 0,
       anchorEl: null,
-      modalOpen: false,
+      navAwayModal: false,
     };
   }
 
@@ -625,67 +626,20 @@ class Header extends Component {
     );
   }
 
-  navNewScene = () => {
-    this.setState({ modalOpen: true });
+  confirmNavAway = {
+    headerText:"Are you sure?",
+    bodyText:"You will lose any unsaved work. Click 'CONTINUE' to create a new scene, click 'CANCEL' to go back",
+    confirmedFunc: () => {
+      window.location.href = window.origin;
+      this.toggleNavModal();
+    },
+    cancelFunc:() => {
+      this.toggleNavModal();
+    },
   }
 
-  closeModal = () => {
-    this.setState({ modalOpen: false });
-  }
-
-  confirmationModal = () => {
-    const styles = {
-      paper: {
-        position: 'absolute',
-        top: '50%',
-        left: ' 50%',
-        height: 'inherit',
-        width: 'inherit',
-        transform: 'translate(-50%, -50%)'
-      },
-      confirm: {
-        float: 'left',
-        marginLeft: '10em',
-        background: 'linear-gradient(45deg, #38e438 30%, #58e458 90%)',
-      },
-      cancel: {
-        float: 'right',
-        marginRight: '10em',
-        background: 'linear-gradient(45deg, #FE3B3B 30%, #FF3B3B 90%)',
-      }
-    };
-
-    return (
-      <Modal
-        aria-labelledby="simple-modal-title"
-        aria-describedby="simple-modal-description"
-        open={this.state.modalOpen}
-        onClose={this.closeModal}
-        hideBackdrop={true}
-        id="confirmation-modal"
-        style={styles.paper} >
-        <div>
-          <h1>Are you sure you want to procede? </h1>
-          <p>You will lose any unsaved work</p>
-          <Button
-            href='/'
-            style={styles.confirm}
-            variant="raised"
-            size="small"
-            className="d-none d-md-block">
-            <Icon className="material-icons">check_circle_outline</Icon> Yes
-          </Button>
-          <Button
-            onClick={this.closeModal}
-            style={styles.cancel}
-            variant="raised"
-            size="small"
-            className="d-none d-md-block">
-            <Icon className="material-icons">highlight_off</Icon> No
-          </Button>
-        </div>
-      </Modal>
-    );
+  toggleNavModal = () => {
+    this.setState({ navAwayModal: !this.state.navAwayModal });
   }
 
   /**
@@ -711,6 +665,7 @@ class Header extends Component {
     };
     return (
       <header className="App-header align-items-center ">
+        <DisplayMsg open={this.state.navAwayModal} {...this.confirmNavAway}/>
         <div className="col-10 d-flex justify-content-start">
           <Sidebar scene={this.props.scene} nameScene={this.props.sceneActions.nameScene} >
             <Button label="Start a New Project"
@@ -804,7 +759,7 @@ class Header extends Component {
           <Tooltip title="New Scene" placement="bottom-start">
             <Button
               size="small"
-              onClick={this.navNewScene}
+              onClick={this.toggleNavModal}
               style={style.default}
               className=" d-none d-sm-block" >
               <Icon className="material-icons">add_circle_outline</Icon>
@@ -819,7 +774,6 @@ class Header extends Component {
         <this.saveDrawer />
         <this.loadDrawer />
         <this.renderSnackBar />
-        <this.confirmationModal />
       </header>
     );
   }
