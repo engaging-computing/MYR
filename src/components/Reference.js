@@ -5,10 +5,10 @@ import js from 'react-syntax-highlighter/languages/hljs/javascript';
 import { github } from 'react-syntax-highlighter/styles/hljs';
 
 import {
-  Tabs, 
-  Tab, 
-  Button, 
-  Drawer, 
+  Tabs,
+  Tab,
+  Button,
+  Drawer,
   Icon,
   Table,
   TableBody,
@@ -53,7 +53,7 @@ export default class Reference extends React.Component {
             <TableRow key={index}>
               <TableCell >{row.name}</TableCell>
               <TableCell  >
-              <SyntaxHighlighter language='javascript' style={github}>{row.parameters}</SyntaxHighlighter>
+                <SyntaxHighlighter language='javascript' style={github}>{row.parameters}</SyntaxHighlighter>
               </TableCell>
               <TableCell >{row.returnValue}</TableCell>
               <TableCell >{row.description}</TableCell>
@@ -104,17 +104,17 @@ export default class Reference extends React.Component {
               onClick={this.handleToggle} />
           </Tabs>
           {this.state.value === 'a' &&
-            <div style={{marginTop: 25, overflow: 'scroll'}}>
+            <div style={{ marginTop: 25, overflow: 'scroll' }}>
               <h5 >Geometry</h5>
               {this.TableEx("geometry")}
             </div>}
           {this.state.value === 'b' &&
-            <div style={{marginTop: 25, overflow: 'scroll'}}>
+            <div style={{ marginTop: 25, overflow: 'scroll' }}>
               <h5 >Transformations</h5>
               {this.TableEx("transformations")}
             </div>}
           {this.state.value === 'c' &&
-            <div style={{marginTop: 25, overflow: 'scroll'}}>
+            <div style={{ marginTop: 25, overflow: 'scroll' }}>
               <h5 >WebVR Components</h5>
               {this.TableEx("webvr_components")}
             </div>}

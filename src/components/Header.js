@@ -10,15 +10,14 @@ import {
   IconButton,
   FormControl,
   TextField,
-  Snackbar,
-  Modal
+  Snackbar
 } from 'material-ui';
 import Avatar from 'material-ui/Avatar';
 import { auth, provider, db, scenes, storageRef } from '../firebase.js';
+import DisplayMsg from './DisplayMsg';
 import Sidebar from './Sidebar';
 import $ from "jquery";
 import ProgressiveImage from 'react-progressive-image';
-import DisplayMsg from './DisplayMsg';
 
 import { Link } from 'react-router-dom';
 
