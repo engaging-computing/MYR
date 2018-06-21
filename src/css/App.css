@@ -270,6 +270,7 @@ div.side-drawer>div {
 #lessons fieldset {
   height: 16vh;
   margin: 0;
+  background: #fff !important;
 }
 
 div#confirmation-modal {
