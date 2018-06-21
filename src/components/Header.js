@@ -172,6 +172,7 @@ class Header extends Component {
     auth.signOut().then(() => {
       // sync with application state
       this.props.logging.logout();
+      this.setState({ logMenuOpen: false });
     });
   }
 
@@ -183,6 +184,7 @@ class Header extends Component {
       const account = result.account;
       // sync with application state
       this.props.logging.login(account);
+      this.setState({ logMenuOpen: false });
     });
   }
 
@@ -532,7 +534,7 @@ class Header extends Component {
         className="side-drawer"
         open={this.state.sceneOptOpen}
         onRequestChange={(open) => this.setState({ open })}
-        onClick={this.closeSceneOpt} 
+        onClick={this.closeSceneOpt}
         onClose={this.closeSceneOpt} >
         <IconButton variant="raised"
           color="default"
@@ -667,7 +669,6 @@ class Header extends Component {
           <p>You will lose any unsaved work</p>
           <Button
             href='/'
-            onClick={() => window.href = '/'}
             style={styles.confirm}
             variant="raised"
             size="small"
@@ -693,7 +694,6 @@ class Header extends Component {
   render() {
     const style = {
       play: {
-        color: "#333",
         margin: 4,
         padding: 0,
         background: 'linear-gradient(45deg, #38e438 30%, #58e458 90%)',
@@ -703,7 +703,7 @@ class Header extends Component {
         padding: 0,
         background: 'linear-gradient(45deg, #FE3B3B 30%, #FF3B3B 90%)',
       },
-      persist: {
+      default: {
         margin: 4,
         padding: 0,
         background: 'linear-gradient(45deg, #DDD 30%, #BBB 90%)',
@@ -711,7 +711,7 @@ class Header extends Component {
     };
     return (
       <header className="App-header align-items-center ">
-        <div className="col-3 d-flex justify-content-start">
+        <div className="col-10 d-flex justify-content-start">
           <Sidebar scene={this.props.scene} nameScene={this.props.sceneActions.nameScene} >
             <Button label="Start a New Project"
               variant="raised"
@@ -759,18 +759,8 @@ class Header extends Component {
           <Link to='/'>
             <h1 className="mr-2">MYR</h1>
           </Link>
-          <Tooltip title="New Scene" placement="bottom-start">
-            <IconButton
-              // variant="flat"
-              size="small"
-              onClick={this.navNewScene}
-              style={{ color: "white" }}
-              className=" d-none d-sm-block" >
-              <Icon className="material-icons">add_circle_outline</Icon>
-            </IconButton>
-          </Tooltip>
-        </div>
-        <div className="col-7 d-flex justify-content-start">
+          {/* </div>
+        <div className="col-7 d-flex justify-content-start"> */}
           <Tooltip title="Render" placement="bottom-start">
             <Button
               variant="raised"
@@ -797,7 +787,7 @@ class Header extends Component {
               size="small"
               onClick={this.handleSaveToggle}
               className=" d-none d-md-block"
-              style={style.persist}>
+              style={style.default}>
               <Icon className="material-icons">save</Icon>
             </Button>
           </Tooltip>
@@ -807,8 +797,17 @@ class Header extends Component {
               size="small"
               onClick={this.handleLoadToggle}
               className=" d-none d-sm-block"
-              style={style.persist}>
+              style={style.default}>
               <Icon className="material-icons">file_download</Icon>
+            </Button>
+          </Tooltip>
+          <Tooltip title="New Scene" placement="bottom-start">
+            <Button
+              size="small"
+              onClick={this.navNewScene}
+              style={style.default}
+              className=" d-none d-sm-block" >
+              <Icon className="material-icons">add_circle_outline</Icon>
             </Button>
           </Tooltip>
         </div>
