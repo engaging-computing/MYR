@@ -202,10 +202,8 @@ class Header extends Component {
               onClick={this.logout}
               label="logout" />
             <span 
-              className="user d-none d-sm-block"  
-              style={{
-                color: '#fff'}}> 
-              Logged in as, <br /> 
+              className="user-name d-none d-sm-block"  > 
+              Logged in as <br /> 
               {this.props.user.displayName}
             </span>
           </React.Fragment>
