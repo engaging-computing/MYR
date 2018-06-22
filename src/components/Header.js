@@ -4,7 +4,6 @@ import {
   Icon,
   Menu,
   MenuItem,
-  Popover,
   Tooltip,
   Drawer,
   IconButton,
@@ -192,27 +191,38 @@ class Header extends Component {
   * @summary - This function produces the DOM elements to display logging functionality
   */
   loginBtn = () => {
-    let btn;
-    if (this.props.user !== null) {
-      btn = <MenuItem primaryText="Log Out" onClick={this.logout} >Log Out</MenuItem>;
-    } else {
-      btn = <MenuItem primaryText="Log In" onClick={this.login} >Log In</MenuItem>;
-    }
     let photoURL = this.props.user ? this.props.user.photoURL : process.env.PUBLIC_URL + '/img/acct_circle.svg';
     return (
       <div id="user" >
-        <Avatar
-          id="login"
-          src={photoURL}
-          onClick={this.handleLogClick}
-          label="Logout" />
-        <Popover
-          open={this.state.logMenuOpen}
-          anchorEl={document.getElementById('user')}
-          anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
-          onClose={this.handleLogClick} >
-          {btn}
-        </Popover>
+        {this.props.user && this.props.user.displayName ?
+          <React.Fragment>
+            <Avatar
+              id="login"
+              src={photoURL}
+              onClick={this.logout}
+              label="logout" />
+            <span 
+              className="user d-none d-sm-block"  
+              style={{
+                color: '#fff'}}> 
+              Logged in as, <br /> 
+              {this.props.user.displayName}
+            </span>
+          </React.Fragment>
+          :
+          <Button
+            variant="raised"
+            size="small"
+            color="primary"
+            onClick={this.login}
+            style={{
+              color: '#333',
+              margin: 4,
+              padding: 2,
+              background: 'linear-gradient(45deg, #DDD 30%, #BBB 90%)' }}>
+            Log In
+        </Button>
+        }
       </div>
     );
   }
@@ -304,14 +314,14 @@ class Header extends Component {
   }
 
   /**
-  * @summary - This function will determine which projectId to use when saving. 
+  * @summary - This function will determine which projectId to use when saving.
   * 1. Loaded a sample project => generate new id
   * 2. Save with same name as last => overwrite current
   * 3. Save with new name from last => generate new id
-  * @param {bool} needsNewId - bool for callsite id generation
-  * 
-  * @returns - projectId
-  */
+* @param {bool} needsNewId - bool for callsite id generation
+      *
+      * @returns - projectId
+      */
   getProjectId = (needsNewId) => {
     let ts = Date.now();
     let projectId = this.props.projectId ? this.props.projectId : "";
@@ -328,12 +338,12 @@ class Header extends Component {
   handleSave = (needsNewId) => {
     // render the current state so the user can see what they are saving
     this.handleRender();
-    let ts = Date.now();
     if (this.props.user && this.props.user.uid) {
       $("body").prepend("<span class='spinner'><div class='cube1'></div><div class='cube2'></div></span>");
+      let ts = Date.now();
       let projectID = this.getProjectId(needsNewId);
       let scene = document.querySelector('a-scene');
-      // Access the scene and sceen shot, with perspective view in a lossy jpeg format
+      // Access the scene and screen shot, with perspective view in a lossy jpeg format
       let img = scene.components.screenshot.getCanvas('perspective').toDataURL('image/jpeg', 0.1);
       let path = "images/perspective/" + projectID;
       let imgRef = storageRef.child(path);
@@ -481,7 +491,7 @@ class Header extends Component {
             <div className="row" id="user-proj" style={{ width: "100%" }}>
               <h3 className="col-12 p-2 mb-3 border-bottom"> Your Projects</h3>
               <hr />
-              {this.state.availProj !== null ? this.state.availProj.map((proj) => {
+              {this.state.availProj ? this.state.availProj.map((proj) => {
                 return (renderProj(proj, true));
               })
                 : null}
@@ -500,7 +510,7 @@ class Header extends Component {
   }
 
   /**
-  * @summary - This toggles the selected project to be deleted when the drawer is closed. 
+  * @summary - This toggles the selected project to be deleted when the drawer is closed.
   * Items are added and removed from the projectsToDelete collection. When the user closes the
   * drawer it will remove all projects still in the collection
   */
@@ -518,7 +528,7 @@ class Header extends Component {
 
   /**
   * @summary - Create a Drawer with options to the control the scene
-  * 
+  *
   */
   openSceneOpt = () => {
     this.setState({ sceneOptOpen: true });
@@ -626,13 +636,13 @@ class Header extends Component {
   }
 
   confirmNavAway = {
-    headerText:"Are you sure?",
-    bodyText:"You will lose any unsaved work. Click 'CONTINUE' to create a new scene, click 'CANCEL' to go back",
+    headerText: "Are you sure?",
+    bodyText: "You will lose any unsaved work. Click 'CONTINUE' to create a new scene, click 'CANCEL' to go back",
     confirmedFunc: () => {
       window.location.href = window.origin;
       this.toggleNavModal();
     },
-    cancelFunc:() => {
+    cancelFunc: () => {
       this.toggleNavModal();
     },
   }
@@ -647,25 +657,26 @@ class Header extends Component {
   render() {
     const style = {
       play: {
-        margin: 4,
+        margin: 5,
         padding: 0,
         background: 'linear-gradient(45deg, #38e438 30%, #58e458 90%)',
       },
       clear: {
-        margin: 4,
+        margin: 5,
+        marginRight: 20,
         padding: 0,
         background: 'linear-gradient(45deg, #FE3B3B 30%, #FF3B3B 90%)',
       },
       default: {
-        margin: 4,
+        margin: 2,
         padding: 0,
-        background: 'linear-gradient(45deg, #DDD 30%, #BBB 90%)',
+        color: '#fff',
       }
     };
     return (
       <header className="App-header align-items-center ">
-        <DisplayMsg open={this.state.navAwayModal} {...this.confirmNavAway}/>
-        <div className="col-10 d-flex justify-content-start">
+        <DisplayMsg open={this.state.navAwayModal} {...this.confirmNavAway} />
+        <div className="col-8 d-flex justify-content-start">
           <Sidebar scene={this.props.scene} nameScene={this.props.sceneActions.nameScene} >
             <Button label="Start a New Project"
               variant="raised"
@@ -713,14 +724,12 @@ class Header extends Component {
           <Link to='/'>
             <h1 className="mr-2">MYR</h1>
           </Link>
-          {/* </div>
-        <div className="col-7 d-flex justify-content-start"> */}
           <Tooltip title="Render" placement="bottom-start">
             <Button
               variant="raised"
               size="small"
               onClick={this.handleRender}
-              className=""
+              className="header-btn"
               style={style.play}>
               <Icon className="material-icons">play_arrow</Icon>
             </Button>
@@ -730,29 +739,9 @@ class Header extends Component {
               variant="raised"
               size="small"
               onClick={this.clear}
-              className=""
+              className="header-btn"
               style={style.clear}>
               <Icon className="material-icons">stop</Icon>
-            </Button>
-          </Tooltip>
-          <Tooltip title="Save" placement="bottom-start">
-            <Button
-              variant="raised"
-              size="small"
-              onClick={this.handleSaveToggle}
-              className=" d-none d-md-block"
-              style={style.default}>
-              <Icon className="material-icons">save</Icon>
-            </Button>
-          </Tooltip>
-          <Tooltip title="Open" placement="bottom-start">
-            <Button
-              variant="raised"
-              size="small"
-              onClick={this.handleLoadToggle}
-              className=" d-none d-sm-block"
-              style={style.default}>
-              <Icon className="material-icons">file_download</Icon>
             </Button>
           </Tooltip>
           <Tooltip title="New Scene" placement="bottom-start">
@@ -760,12 +749,34 @@ class Header extends Component {
               size="small"
               onClick={this.toggleNavModal}
               style={style.default}
-              className=" d-none d-sm-block" >
+              className="header-btn d-none d-sm-block" >
               <Icon className="material-icons">add_circle_outline</Icon>
             </Button>
           </Tooltip>
+          <Tooltip title="Save" placement="bottom-start">
+            <Button
+              // variant="raised"
+              size="small"
+              onClick={this.handleSaveToggle}
+              className="header-btn d-none d-md-block"
+              style={style.default}
+              >
+              <Icon className="material-icons">save</Icon>
+            </Button>
+          </Tooltip>
+          <Tooltip title="Open" placement="bottom-start">
+            <Button
+              // variant="raised"
+              size="small"
+              onClick={this.handleLoadToggle}
+              className="header-btn d-none d-sm-block"
+              style={style.default}
+              >
+              <Icon className="material-icons">file_download</Icon>
+            </Button>
+          </Tooltip>
         </div>
-        <div className="col-2 d-flex justify-content-end">
+        <div className="col-4 d-flex justify-content-end">
           <this.renderViewSelect />
           <this.loginBtn />
         </div>
