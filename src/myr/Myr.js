@@ -289,6 +289,24 @@ class Myr {
     return el.id;
   }
 
+  tetrahedron = (obj) => {
+    let el = this.core("tetrahedron");
+    this.els.push({ ...el, ...obj });
+    return el.id;
+  }
+
+  torus = (obj) => {
+    let el = this.core("torus");
+    this.els.push({ ...el, ...obj });
+    return el.id;
+  }
+
+  torusknot = (obj) => {
+    let el = this.core("torus-knot");
+    this.els.push({ ...el, ...obj });
+    return el.id;
+  }
+
   // Render a new Aframe light with current Myr settings  
   light = (obj) => {
     let el = {
