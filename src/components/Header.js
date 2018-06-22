@@ -9,7 +9,8 @@ import {
   IconButton,
   FormControl,
   TextField,
-  Snackbar
+  Snackbar,
+  Popover
 } from 'material-ui';
 import Avatar from 'material-ui/Avatar';
 import { auth, provider, db, scenes, storageRef } from '../firebase.js';
@@ -199,13 +200,21 @@ class Header extends Component {
             <Avatar
               id="login"
               src={photoURL}
-              onClick={this.logout}
+              open={this.state.logMenuOpen}
+              onClick={() => this.setState({logMenuOpen: !this.state.logMenuOpen})}
               label="logout" />
-            <span 
-              className="user-name d-none d-sm-block"  > 
-              Logged in as <br /> 
+            <span
+              className="user-name d-none d-sm-block"  >
+              Logged in as <br />
               {this.props.user.displayName}
             </span>
+            <Popover
+              open={this.state.logMenuOpen}
+              anchorEl={document.getElementById('user')}
+              anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
+              onClose={this.handleLogClick} >
+              <MenuItem primaryText="Log Out" onClick={this.logout} >Log Out</MenuItem>
+            </Popover>
           </React.Fragment>
           :
           <Button
@@ -217,7 +226,8 @@ class Header extends Component {
               color: '#333',
               margin: 4,
               padding: 2,
-              background: 'linear-gradient(45deg, #DDD 30%, #BBB 90%)' }}>
+              background: 'linear-gradient(45deg, #DDD 30%, #BBB 90%)'
+            }}>
             Log In
         </Button>
         }
@@ -322,8 +332,8 @@ class Header extends Component {
       */
   getProjectId = (needsNewId) => {
     let ts = Date.now();
-    let projectId = this.props.projectId ? this.props.projectId : "";
-    if (projectId === '0' || this.props.projectId === "undefined" || needsNewId) {
+    let projectId = this.props.projectId ? this.props.projectId : null;
+    if (projectId === '0' || !projectId || needsNewId) {
       // Generate a new projectId
       projectId = this.props.user.uid + '_' + ts;
     }
@@ -758,7 +768,7 @@ class Header extends Component {
               onClick={this.handleSaveToggle}
               className="header-btn d-none d-md-block"
               style={style.default}
-              >
+            >
               <Icon className="material-icons">save</Icon>
             </Button>
           </Tooltip>
@@ -769,7 +779,7 @@ class Header extends Component {
               onClick={this.handleLoadToggle}
               className="header-btn d-none d-sm-block"
               style={style.default}
-              >
+            >
               <Icon className="material-icons">file_download</Icon>
             </Button>
           </Tooltip>
