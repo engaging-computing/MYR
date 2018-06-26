@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Reference from './Reference';
-import { Drawer, Icon, IconButton } from 'material-ui';
+import { Drawer, Button, Icon, IconButton } from '@material-ui/core';
 
 
 /**
@@ -29,12 +29,13 @@ class Sidebar extends Component {
 
     return (
       <div>
-        <IconButton
+        <Button
           aria-label="Menu"
-          style={{ color: "#fff", width: "1em", marginRight: "0.25em" }}
+          size="small"
+          style={{ color: "#fff", paddingLeft: 0}}
           onClick={this.handleToggle}>
           <Icon style={{ fontSize: 32 }}>menu</Icon>
-        </IconButton>
+        </Button>
         <Drawer
           className="side-drawer"
           style={{zIndex: 1000}}

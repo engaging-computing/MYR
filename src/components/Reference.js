@@ -15,7 +15,7 @@ import {
   TableHead,
   TableRow,
   TableCell
-} from 'material-ui';
+} from '@material-ui/core';
 
 registerLanguage('javascript', js);
 

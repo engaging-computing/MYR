@@ -10,9 +10,9 @@ import {
   FormControl,
   TextField,
   Snackbar,
-  Popover
-} from 'material-ui';
-import Avatar from 'material-ui/Avatar';
+  Popover,
+  Avatar
+} from '@material-ui/core';
 import { auth, provider, db, scenes, storageRef } from '../firebase.js';
 import DisplayMsg from './DisplayMsg';
 import Sidebar from './Sidebar';

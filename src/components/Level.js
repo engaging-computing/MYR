@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Icon, Button, FormControl, FormControlLabel, FormGroup, Checkbox } from 'material-ui';
+import { Icon, Button, FormControl, FormControlLabel, FormGroup, Checkbox } from '@material-ui/core';
 
 const defaultAnswers = [false, false, false, false, false];
 
