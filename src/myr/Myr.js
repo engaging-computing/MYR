@@ -324,22 +324,42 @@ class Myr {
   prism = this.polyhedron
 
   // Animate the Aframe element which is passed as arg
-  animate = (outerElId) => {
-    // TODO: need recursion 
-    let el = {
-      position: this.position,
-      scale: this.scale,
-      geometry: {
-        primitive: "animation"
-      },
-      rotation: this.rotation,
-      dur: '10000',
-      fill: 'forwards',
+  animate = (outerElId, duration) => {
+    let el = this.getEl(outerElId);
+    let anim = {
+      property: 'rotation',
+      dir: 'alternate',
       to: '0 360 0',
-      repeat: 'indefinite',
-
+      dur: duration || '1000',
+      loop: true
     };
-    this.getEl(outerElId).animation = el;
+    el.animation = anim;
+    return outerElId;
+  };
+
+  spin = (outerElId, degrees, duration) => {
+    let el = this.getEl(outerElId);
+    let anim = {
+      property: 'rotation',
+      dir: 'alternate',
+      to: `0 ${degrees || 360} 0`,
+      dur: duration || '1000',
+      loop: true
+    };
+    el.animation = anim;
+    return outerElId;
+  };
+
+  yoyo = (outerElId, duration) => {
+    let el = this.getEl(outerElId);
+    let anim = {
+      property: "position",
+      dir: 'alternate',
+      to: `${el.position.x} ${el.position.y + 2} ${el.position.z}`,
+      dur: duration || '1000',
+      loop: true
+    };
+    el.animation = anim;
     return outerElId;
   };
 

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import 'aframe';
+import 'aframe-animation-component';
 import 'three-pathfinding/dist/three-pathfinding';
 import 'aframe-extras/dist/aframe-extras.min.js';
 import 'aframe-physics-system';
