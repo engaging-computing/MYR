@@ -302,7 +302,7 @@ class Myr {
   }
 
   torusknot = (obj) => {
-    let el = this.core("torus-knot");
+    let el = this.core("torusKnot");
     this.els.push({ ...el, ...obj });
     return el.id;
   }
