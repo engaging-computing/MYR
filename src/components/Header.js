@@ -44,6 +44,7 @@ class Header extends Component {
       lastMsgTime: 0,
       anchorEl: null,
       navAwayModal: false,
+      needsNewId: false // this explicitly tells us to make a new id
     };
   }
 
@@ -98,7 +99,8 @@ class Header extends Component {
           this.props.actions.render(data.code, this.props.user ? this.props.user.uid : 'anon');
           this.props.sceneActions.nameScene(data.name);
           if (data.uid === "1") {
-            this.props.sceneActions.loadScene('0');
+            this.setState({needsNewId: true});
+            this.props.sceneActions.loadScene(0);
           } else {
             this.props.sceneActions.loadScene(doc.id);
           }
@@ -120,9 +122,10 @@ class Header extends Component {
     if (e.ctrlKey && e.which === 13) {
       this.handleRender();
     } else if (e.ctrlKey && e.shiftKey && e.which === 83) {
-      this.handleSave(true);
+      this.setState({needsNewId: true});
+      this.handleSave();
     } else if (e.ctrlKey && e.which === 83) {
-      this.handleSave(false);
+      this.handleSave();
     }
   }
 
@@ -201,7 +204,7 @@ class Header extends Component {
               id="login"
               src={photoURL}
               open={this.state.logMenuOpen}
-              onClick={() => this.setState({logMenuOpen: !this.state.logMenuOpen})}
+              onClick={() => this.setState({ logMenuOpen: !this.state.logMenuOpen })}
               label="logout" />
             <span
               className="user-name d-none d-sm-block"  >
@@ -330,10 +333,10 @@ class Header extends Component {
       *
       * @returns - projectId
       */
-  getProjectId = (needsNewId) => {
+  getProjectId = () => {
     let ts = Date.now();
-    let projectId = this.props.projectId ? this.props.projectId : null;
-    if (projectId === '0' || !projectId || needsNewId) {
+    let projectId = this.props.projectId || null;
+    if ( !projectId || this.state.needsNewId) {
       // Generate a new projectId
       projectId = this.props.user.uid + '_' + ts;
     }
@@ -343,13 +346,13 @@ class Header extends Component {
   /**
   * @summary - When the user clicks save it will upload the information to Firebase
   */
-  handleSave = (needsNewId) => {
+  handleSave = () => {
     // render the current state so the user can see what they are saving
     this.handleRender();
     if (this.props.user && this.props.user.uid) {
       $("body").prepend("<span class='spinner'><div class='cube1'></div><div class='cube2'></div></span>");
       let ts = Date.now();
-      let projectID = this.getProjectId(needsNewId);
+      let projectID = this.getProjectId();
       let scene = document.querySelector('a-scene');
       // Access the scene and screen shot, with perspective view in a lossy jpeg format
       let img = scene.components.screenshot.getCanvas('perspective').toDataURL('image/jpeg', 0.1);
@@ -380,6 +383,9 @@ class Header extends Component {
         console.error("Error uploading a data_url string ", error);
         $(".spinner").remove();
       });
+    } else {
+      // TODO: Don't use alert
+      alert('Error: You must be logged in to save your work.');
     }
     this.handleSaveToggle();
   }
@@ -729,7 +735,7 @@ class Header extends Component {
           </Button>
 
           </Sidebar>
-            <h1 className="mr-2">MYR</h1>
+          <h1 className="mr-2">MYR</h1>
           <Tooltip title="Render" placement="bottom-start">
             <Button
               variant="raised"
