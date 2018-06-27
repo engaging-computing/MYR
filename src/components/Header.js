@@ -729,9 +729,7 @@ class Header extends Component {
           </Button>
 
           </Sidebar>
-          <Link to='/'>
             <h1 className="mr-2">MYR</h1>
-          </Link>
           <Tooltip title="Render" placement="bottom-start">
             <Button
               variant="raised"
