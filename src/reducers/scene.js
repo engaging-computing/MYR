@@ -5,7 +5,8 @@ const initial_state = {
   id: "0",
   sceneConfig: {
     skyColor: "white",
-    camConfig: 0
+    camConfig: 0,
+    showCoordHelper: false
   }
 };
 

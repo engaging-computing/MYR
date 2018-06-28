@@ -66,13 +66,12 @@ class View extends Component {
       <a-entity id="rig" movement-controls="controls: checkpoint" checkpoint-controls="mode: animate">
         <a-entity camera
           position="0 1.6 2"
-          fly={true}
           look-controls // ="pointerLockEnabled: true"
-          >
-          <a-entity cursor
-            position="0 0 -1"
-            geometry="primitive: ring; radiusInner: 0.02; radiusOuter: 0.03;"
-            material="color: #CCC; shader: flat;"></a-entity>
+        >
+        <a-entity cursor
+          position="0 0 -1"
+          geometry="primitive: ring; radiusInner: 0.02; radiusOuter: 0.03;"
+          material="color: #CCC; shader: flat;"/>
         </a-entity>
       </a-entity>
     );
@@ -80,13 +79,15 @@ class View extends Component {
 
   basicMoveCam = () => {
     return (
-      <a-entity id="rig"
+      <a-entity 
+        id="rig"
         movement-controls
         position="0 1.6 0">
-        <a-entity camera
+        <a-entity 
+          camera
           position="0 1.6 0"
-          look-controls="pointerLockEnabled: true"
-          ></a-entity>
+          look-controls // ="pointerLockEnabled: true"
+        />
       </a-entity>
     );
   }
@@ -109,23 +110,29 @@ class View extends Component {
         <a-assets>
           <a-mixin id="checkpoint"></a-mixin>
           <a-mixin id="checkpoint-hovered" color="#6CEEB5"></a-mixin>
+          <a-img id="reference" src={`${process.env.PUBLIC_URL}/img/coordHelper.jpg`} />
           {this.props.assets ? this.props.assets.map((x, index) => this.assetsHelper(x, index)) : null}
         </a-assets>
         <this.createCam />
-        <a-sky color={this.props.sceneConfig.skyColor} ></a-sky>
+        <a-sky
+          rotation="0 270 0"
+          src={this.props.sceneConfig.showCoordHelper ? "#reference" : ""}
+          color={this.props.sceneConfig.skyColor} >
+        </a-sky>
         {this.props.objects ? this.props.objects.map((x, index) => this.helper(x, index)) : null}
-        {/* <a-ocean color="#92E2E2" width="50" depth="50" density="15" speed="2"></a-ocean>
-        <a-tube path="-25 25 0, 0 25 0, 25 25 25, 0 -15 0" radius="0.5" material="color: red"></a-tube>
-        <a-grid /> */}
+        {/* <a-ocean color="#ff3333" width="50" depth="50" density="15" speed="2"></a-ocean> */}
+        {/* <a-tube path="-25 25 0, 0 25 0, 25 25 25, 0 -15 0" radius="0.5" material="color: red"></a-tube> */}
+        {/* <a-grid /> */}
         {this.props.sceneConfig.camConfig === 1 ?
           <a-entity position="0 0 0">
             <a-cylinder checkpoint radius="1" height="0.3" position="-25 1 -25" color="#39BB82"></a-cylinder>
             <a-cylinder checkpoint radius="1" height="0.3" position="25 1 25" color="#39BB82"></a-cylinder>
             <a-cylinder checkpoint radius="1" height="0.3" position="-25 1 25" color="#39BB82"></a-cylinder>
             <a-cylinder checkpoint radius="1" height="0.3" position="25 1 -25" color="#39BB82"></a-cylinder>
-            <a-cylinder checkpoint radius="1" height="0.1" position="0 10 0" material={{color:"#39BB82", transparent: true, opacity: 0.5, }}></a-cylinder>
-          </a-entity> 
-          : null}
+            <a-cylinder checkpoint radius="1" height="0.1" position="0 10 0" material={{ color: "#39BB82", transparent: true, opacity: 0.5, }}></a-cylinder>
+          </a-entity>
+          : null
+        }
       </a-scene>
     );
   }
