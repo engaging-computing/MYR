@@ -195,14 +195,13 @@ class Header extends Component {
   * @summary - This function produces the DOM elements to display logging functionality
   */
   loginBtn = () => {
-    let photoURL = this.props.user ? this.props.user.photoURL : process.env.PUBLIC_URL + '/img/acct_circle.svg';
     return (
       <div id="user" >
         {this.props.user && this.props.user.displayName ?
           <React.Fragment>
             <Avatar
               id="login"
-              src={photoURL}
+              src={this.props.user.photoURL}
               open={this.state.logMenuOpen}
               onClick={() => this.setState({ logMenuOpen: !this.state.logMenuOpen })}
               label="logout" />
