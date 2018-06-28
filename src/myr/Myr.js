@@ -31,7 +31,7 @@ class Myr {
     // all entities share certain attributes
     this.core = (type) => {
       let c = {
-        // random 5 digit integer "address"
+        // random 5 digit integer 'address'
         id: 'a' + this.counter++,
         position: this.position,
         scale: this.scale,
@@ -40,14 +40,14 @@ class Myr {
         },
         material: {
           color: this.color,
-          side: "double"
+          side: 'double'
         },
         rotation: this.rotation,
         radius: this.radius,
-        "radius-bottom": 1,
-        "radius-top": 2,
-        value: "hello",
-        // "dynamic-body":"shape: box"
+        'radius-bottom': 1,
+        'radius-top': 2,
+        value: 'hello',
+        // 'dynamic-body':'shape: box'
       };
       return c;
     };
@@ -176,7 +176,7 @@ class Myr {
 
   drop = (outerElId) => {
     this.getEl(outerElId)['dynamic-body'] = {
-      shape: "box",
+      shape: 'box',
       mass: 5
     };
     return outerElId;
@@ -184,8 +184,8 @@ class Myr {
 
   push = (outerElId, x, y, z) => {
     // Add an event listener
-    document.addEventListener("myr-view-rendered", (e) => {
-      let el = document.querySelector("#" + outerElId);
+    document.addEventListener('myr-view-rendered', (e) => {
+      let el = document.querySelector('#' + outerElId);
       if (!el) {
         return;
       }
@@ -201,56 +201,56 @@ class Myr {
 
   // Render an Aframe Box Primitive with current Myr settings    
   box = (obj) => {
-    let el = this.core("box");
+    let el = this.core('box');
     this.els.push({ ...el, ...obj });
     return el.id;
   }
 
   // Render an Aframe Sphere Primitive with current Myr settings  
   sphere = (obj) => {
-    let el = this.core("sphere");
+    let el = this.core('sphere');
     this.els.push({ ...el, ...obj });
     return el.id;
   }
 
   // Render an Aframe circle Primitive with current Myr settings  
   circle = (obj) => {
-    let el = this.core("circle");
+    let el = this.core('circle');
     this.els.push({ ...el, ...obj });
     return el.id;
   }
 
   // Render an Aframe circle Primitive with current Myr settings  
   cone = (obj) => {
-    let el = this.core("cone");
+    let el = this.core('cone');
     this.els.push({ ...el, ...obj });
     return el.id;
   }
 
   // Render an Aframe Triangle Primitive with current Myr settings  
   triangle = (obj) => {
-    let el = this.core("triangle");
+    let el = this.core('triangle');
     this.els.push({ ...el, ...obj });
     return el.id;
   }
 
   // Render an Aframe Text Primitive with current Myr settings  
   text = (obj) => {
-    let el = this.core("text");
+    let el = this.core('text');
     this.els.push({ ...el, ...obj });
     return el.id;
   }
 
   // Render an Aframe Text Primitive with current Myr settings  
   cylinder = (obj) => {
-    let el = this.core("cylinder");
+    let el = this.core('cylinder');
     this.els.push({ ...el, ...obj });
     return el.id;
   }
 
   // Render an Aframe Polyhedron with current Myr settings  
   polyhedron = (obj) => {
-    let el = this.core("cylinder");
+    let el = this.core('cylinder');
     let geometry = {
       geometry: {
         primitive: 'sphere',
@@ -264,45 +264,45 @@ class Myr {
 
   // Render an Aframe dodecahedron with current Myr settings  
   dodecahedron = (obj) => {
-    let el = this.core("dodecahedron");
+    let el = this.core('dodecahedron');
     this.els.push({ ...el, ...obj });
     return el.id;
   }
 
   // Render an Aframe icosahedron with current Myr settings  
   icosahedron = (obj) => {
-    let el = this.core("icosahedron");
+    let el = this.core('icosahedron');
     this.els.push({ ...el, ...obj });
     return el.id;
   }
 
   // Render an Aframe octahedron with current Myr settings  
   octahedron = (obj) => {
-    let el = this.core("octahedron");
+    let el = this.core('octahedron');
     this.els.push({ ...el, ...obj });
     return el.id;
   }
 
   ring = (obj) => {
-    let el = this.core("ring");
+    let el = this.core('ring');
     this.els.push({ ...el, ...obj });
     return el.id;
   }
 
   tetrahedron = (obj) => {
-    let el = this.core("tetrahedron");
+    let el = this.core('tetrahedron');
     this.els.push({ ...el, ...obj });
     return el.id;
   }
 
   torus = (obj) => {
-    let el = this.core("torus");
+    let el = this.core('torus');
     this.els.push({ ...el, ...obj });
     return el.id;
   }
 
   torusknot = (obj) => {
-    let el = this.core("torusKnot");
+    let el = this.core('torusKnot');
     this.els.push({ ...el, ...obj });
     return el.id;
   }
@@ -313,7 +313,7 @@ class Myr {
       color: this.getRandomColor(),
       position: this.position,
       geometry: {
-        primitive: "light"
+        primitive: 'light'
       },
     };
     this.els.push(el);
@@ -340,38 +340,142 @@ class Myr {
   spin = (outerElId, degrees, duration) => {
     let el = this.getEl(outerElId);
     let anim = {
-      property: 'rotation',
       dir: 'alternate',
-      to: `0 ${degrees || 360} 0`,
       dur: duration || '1000',
-      loop: true
+      loop: true,
+      property: 'rotation',
+      to: `0 ${degrees || 360} 0`,
     };
-    el.animation = anim;
+    el.animation__spin = anim;
     return outerElId;
   };
 
-  yoyo = (outerElId, duration) => {
+  yoyo = (outerElId, magnitude = 2, duration) => {
     let el = this.getEl(outerElId);
     let anim = {
-      property: "position",
       dir: 'alternate',
-      to: `${el.position.x} ${el.position.y + 2} ${el.position.z}`,
       dur: duration || '1000',
-      loop: true
+      loop: true,
+      property: 'position',
+      to: `${el.position.x} ${el.position.y + magnitude} ${el.position.z}`,
     };
-    el.animation = anim;
+    el.animation__yoyo = anim;
     return outerElId;
   };
+
+  sideToSide = (outerElId, magnitude = 2, duration) => {
+    let el = this.getEl(outerElId);
+    let anim = {
+      dir: 'alternate',
+      dur: duration || '1000',
+      loop: true,
+      property: 'position',
+      to: `${el.position.x + magnitude} ${el.position.y} ${el.position.z}`,
+    };
+    el.animation__sidetoside = anim;
+    return outerElId; 
+  };
+
+  goUp = (outerElId, magnitude = 2, duration) => {
+    let el = this.getEl(outerElId);
+    let anim = {
+      dur: duration || '1000',
+      property: 'position',
+      to: `${el.position.x} ${el.position.y + magnitude} ${el.position.z}`,
+    };
+    el.animation__goup = anim;
+    return outerElId;
+  };
+
+  goDown = (outerElId, magnitude = 2, duration) => {
+    let el = this.getEl(outerElId);
+    let anim = {
+      dur: duration || '1000',
+      property: 'position',
+      to: `${el.position.x} ${el.position.y - magnitude} ${el.position.z}`,
+    };
+    el.animation__godown = anim;
+    return outerElId;
+  };
+
+  goLeft = (outerElId, magnitude = 2, duration) => {
+    let el = this.getEl(outerElId);
+    let anim = {
+      dur: duration || '1000',
+      property: 'position',
+      to: `${el.position.x + magnitude} ${el.position.y} ${el.position.z}`,
+    };
+    el.animation__goleft = anim;
+    return outerElId;
+  };
+
+  goRight = (outerElId, magnitude = 2, duration) => {
+    let el = this.getEl(outerElId);
+    let anim = {
+      dur: duration || '1000',
+      property: 'position',
+      to: `${el.position.x - magnitude} ${el.position.y} ${el.position.z}`,
+    };
+    el.animation__goright = anim;
+    return outerElId;
+  };
+
+  goTowards = (outerElId, magnitude = 2, duration) => {
+    let el = this.getEl(outerElId);
+    let anim = {
+      dur: duration || '1000',
+      property: 'position',
+      to: `${el.position.x} ${el.position.y} ${el.position.z  + magnitude}`,
+    };
+    el.animation__goleft = anim;
+    return outerElId;
+  };
+
+  goAway = (outerElId, magnitude = 2, duration) => {
+    let el = this.getEl(outerElId);
+    let anim = {
+      dur: duration || '1000',
+      property: 'position',
+      to: `${el.position.x} ${el.position.y} ${el.position.z - magnitude}`,
+    };
+    el.animation__goright = anim;
+    return outerElId;
+  };
+
+  grow = (outerElId, magnitute = 2, duration) => {
+    let el = this.getEl(outerElId);
+    let anim = {
+      property: 'scale',
+      from: `${el.scale.x} ${el.scale.y} ${el.scale.z}`,
+      to: `${el.scale.x * magnitute} ${el.scale.y * magnitute} ${el.scale.z * magnitute}`,
+      dur: duration || '1000',
+    };
+    el.animation__yoyo = anim;
+    return outerElId;
+  }; 
+
+  shrink = (outerElId, magnitute = 2, duration) => {
+    let el = this.getEl(outerElId);
+    let anim = {
+      property: 'scale',
+      dir: 'alternate',
+      from: `${el.scale.x} ${el.scale.y} ${el.scale.z}`,
+      to: `${el.scale.x / magnitute} ${el.scale.y / magnitute} ${el.scale.z / magnitute}`,
+      dur: duration || '1000',
+    };
+    el.animation__yoyo = anim;
+    return outerElId;
+  }; 
 
   // MODELS
   addCModel = () => {
     let asset = {
-      id: "c-obj",
-      src: "/img/c.obj"
+      id: 'c-obj',
+      src: '/img/c.obj'
     };
     let el = {
-      "obj-model": "obj: #c-obj",
-      mtl: "c-mtl",
+      'obj-model': 'obj: #c-obj',
+      mtl: 'c-mtl',
       position: this.position,
       scale: this.scale,
       rotation: this.rotation
@@ -379,7 +483,7 @@ class Myr {
     this.els.push(el);
     this.assets.push(asset);
     return el;
-  }
+  } 
 
   getEl = (outerElId) => {
     return this.els[this.getIndex(outerElId)];
@@ -399,9 +503,9 @@ class Myr {
   * 
   */
   change = (outerElId, type, newParam) => {
-    document.addEventListener("myr-view-rendered", (e) => {
+    document.addEventListener('myr-view-rendered', (e) => {
       try {
-        let el = document.querySelector("#" + outerElId);
+        let el = document.querySelector('#' + outerElId);
         el.setAttribute(type, newParam);
       } catch (error) {
         return Error('change() failed execution' +
@@ -413,7 +517,7 @@ class Myr {
 
   syncChange = (outerElId, type, newParam) => {
     try {
-      let el = document.querySelector("#" + outerElId);
+      let el = document.querySelector('#' + outerElId);
       el.setAttribute(type, newParam);
     } catch (error) {
       let err = Error('syncChange() failed execution\n' +
