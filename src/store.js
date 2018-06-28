@@ -1,4 +1,4 @@
-import { createStore, combineReducers, applyMiddleware } from 'redux'
+import { createStore, combineReducers, applyMiddleware } from 'redux';
 import editor from './reducers/editor';
 import user from './reducers/user';
 import scene from './reducers/scene';
@@ -16,6 +16,6 @@ const reducer = combineReducers({
 const store = createStore(
   reducer,
   applyMiddleware(thunk)
-)
+);
 
 export default store;
