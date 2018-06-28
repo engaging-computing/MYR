@@ -13,7 +13,7 @@ import {
   Popover,
   Avatar
 } from '@material-ui/core';
-import { auth, provider, db, scenes, storageRef } from '../firebase.js';
+import firebase, { auth, provider, db, scenes, storageRef } from '../firebase.js';
 import DisplayMsg from './DisplayMsg';
 import Sidebar from './Sidebar';
 import $ from "jquery";
@@ -109,6 +109,8 @@ class Header extends Component {
       });
     }
 
+    window.fb = firebase;
+
     // Bind to keyboard to listen for shortcuts
     document.addEventListener('keydown', this.handleKeyDown.bind(this));
   }
@@ -120,6 +122,7 @@ class Header extends Component {
   */
   handleKeyDown(e) {
     if (e.ctrlKey && e.which === 13) {
+      this.clear();
       this.handleRender();
     } else if (e.ctrlKey && e.shiftKey && e.which === 83) {
       this.setState({needsNewId: true});
@@ -215,7 +218,7 @@ class Header extends Component {
               anchorEl={document.getElementById('user')}
               anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
               onClose={this.handleLogClick} >
-              <MenuItem primaryText="Log Out" onClick={this.logout} >Log Out</MenuItem>
+              <MenuItem primarytext="Log Out" onClick={this.logout} >Log Out</MenuItem>
             </Popover>
           </React.Fragment>
           :
