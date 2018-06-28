@@ -18,9 +18,7 @@ const lessonBook = {
           prompt: "Welcome to the Mix Your Reality (MYR for short) Project.",
           levelText: "Computers have changed our world in so many way. Today there is barely anything that is not somehow connected to computers. The power of computing has grown so great we can now make our own worlds.",
           sceneText:
-            `box();
-           setPosition(0,1,0);
-           sphere();`,
+          `box();\nsetPosition(0,1,0);\nsphere();`,
         },
         {
           isQuiz: true,

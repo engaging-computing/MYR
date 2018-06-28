@@ -10,6 +10,11 @@ class Level extends Component {
       answers: defaultAnswers
     };
   }
+
+  /**
+  * @summary - When the Level component mounts we want to inject the code that comes with the lesson
+  * 
+  */
   componentDidMount() {
     this.props.actions.render(this.props.level.crntStage.sceneText,
       this.props.user ? this.props.user.uid : 'anon');
@@ -17,12 +22,23 @@ class Level extends Component {
     this.props.levelActions.fetchLevel(1);
   }
 
+  /**
+  * @summary - this handles the slection of answers from the quiz
+  * 
+  */
   handleChange = index => {
     let answers = this.state.answers;
     answers[index] = !answers[index];
     this.setState({ answers: answers });
   };
 
+  /**
+  * @summary - This helps produce the quiz
+  * 
+  * @param {} opts - The options to be displayed in the quiz
+  * 
+  * @returns - 
+  */
   formHelper = (opts) => {
     return (
       <FormControl component="fieldset">
@@ -48,22 +64,33 @@ class Level extends Component {
     );
   }
 
-  // This looks like it could be optimized
+  /**
+  * @summary - This method corrects the test 
+  * 
+  * @returns {Bool} - Whether the answers are accepted or not
+  */
   isCorrect = () => {
-    let correct = [];
+    let answers = [];
     let stage = this.props.level.crntStage;
 
+    // filter answers to only incorrect solutions
     if (stage.isQuiz) {
-      correct = stage.opts.filter((it, index) => {
+      answers = stage.opts.filter((it, index) => {
         return it.value !== this.state.answers[index];
       });
     }
-    this.setState({ answers: defaultAnswers });
-    return correct.length === 0;
+    this.setState({ answers: defaultAnswers }); // reset
+    return answers.length === 0;
   }
 
+  /**
+   * @summary - This helps determines to render a prompt or a quiz
+   * 
+   * @param {object} stage - level object
+   * 
+   * @returns - 
+   */
   stageHelper = (stage) => {
-
     if (stage.isQuiz) {
       return (
         this.formHelper(stage.opts)

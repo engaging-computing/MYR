@@ -249,9 +249,6 @@ div.side-drawer>div {
   width:  1000px;
 }
 
-#lessons {
-  padding: 10px;
-}
 
 #ace-editor {
   border-bottom: 1px solid;
@@ -262,6 +259,11 @@ div.side-drawer>div {
   height: 70vh !important;
 }
 
+#lessons {
+  padding: 10px;
+  background: #fff !important;
+}
+
 #lessons p {
   height: 16vh;
   margin: 0;
@@ -270,7 +272,6 @@ div.side-drawer>div {
 #lessons fieldset {
   height: 16vh;
   margin: 0;
-  background: #fff !important;
 }
 
 div#confirmation-modal {
