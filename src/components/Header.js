@@ -16,10 +16,12 @@ import {
 import firebase, { auth, provider, db, scenes, storageRef } from '../firebase.js';
 import DisplayMsg from './DisplayMsg';
 import Sidebar from './Sidebar';
+import Reference from './Reference';
 import $ from "jquery";
 import ProgressiveImage from 'react-progressive-image';
 
 import { Link } from 'react-router-dom';
+import SceneConfig from './SceneConfig.js';
 
 const exitBtnStyle = {
   position: "fixed",
@@ -99,7 +101,7 @@ class Header extends Component {
           this.props.actions.render(data.code, this.props.user ? this.props.user.uid : 'anon');
           this.props.sceneActions.nameScene(data.name);
           if (data.uid === "1") {
-            this.setState({needsNewId: true});
+            this.setState({ needsNewId: true });
             this.props.sceneActions.loadScene(0);
           } else {
             this.props.sceneActions.loadScene(doc.id);
@@ -108,9 +110,7 @@ class Header extends Component {
         $(".spinner").remove();
       });
     }
-
-    window.fb = firebase;
-
+    
     // Bind to keyboard to listen for shortcuts
     document.addEventListener('keydown', this.handleKeyDown.bind(this));
   }
@@ -125,7 +125,7 @@ class Header extends Component {
       this.clear();
       this.handleRender();
     } else if (e.ctrlKey && e.shiftKey && e.which === 83) {
-      this.setState({needsNewId: true});
+      this.setState({ needsNewId: true });
       this.handleSave();
     } else if (e.ctrlKey && e.which === 83) {
       this.handleSave();
@@ -338,7 +338,7 @@ class Header extends Component {
   getProjectId = () => {
     let ts = Date.now();
     let projectId = this.props.projectId || null;
-    if ( !projectId || this.state.needsNewId) {
+    if (!projectId || this.state.needsNewId) {
       // Generate a new projectId
       projectId = this.props.user.uid + '_' + ts;
     }
@@ -496,7 +496,7 @@ class Header extends Component {
         open={this.state.loadOpen}
         onClick={this.handleLoadToggle}
         onClose={this.handleLoadToggle} >
-        <IconButton variant="raised"
+        <IconButton
           color="default"
           style={exitBtnStyle}
           onClick={this.handleLoadToggle}>
@@ -571,6 +571,7 @@ class Header extends Component {
         <div id="scene-options" >
           <h2> Scene Config</h2>
         </div>
+        <SceneConfig sceneActions={this.props.sceneActions} />
       </Drawer>
     );
   }
@@ -616,20 +617,22 @@ class Header extends Component {
 
   renderViewSelect = () => {
     const { anchorEl } = this.state;
+
+    const style = {
+      margin: 2,
+      padding: 0,
+      color: '#fff',
+    };
+
     return (
       <div>
         <Button
-          variant="raised"
           aria-owns={anchorEl ? 'simple-menu' : null}
           aria-haspopup="true"
-          className=" d-none d-md-block"
-          style={{
-            margin: 4,
-            padding: 2,
-            background: 'linear-gradient(45deg, #DDD 30%, #BBB 90%)',
-          }}
-          onClick={this.handleViewOptClick}>
-          Change View
+          className=" d-none d-md-block header-btn"
+          onClick={this.handleViewOptClick}
+          style={style}>
+          <Icon className="material-icons">visibility</Icon>
         </Button>
         <Menu
           id="simple-menu"
@@ -694,23 +697,22 @@ class Header extends Component {
         <DisplayMsg open={this.state.navAwayModal} {...this.confirmNavAway} />
         <div className="col-8 d-flex justify-content-start">
           <Sidebar scene={this.props.scene} nameScene={this.props.sceneActions.nameScene} >
-            <Button label="Start a New Project"
+            <Button
               variant="raised"
               href="/"
-              // onClick={this.handleNewProj}
               color="primary"
               className="sidebar-btn">
               <Icon className="material-icons">add</Icon>
               Start New
-          </Button>
-            <Button label="Recover"
+            </Button>
+            <Button
               variant="raised"
               onClick={this.props.actions.recover}
               color="primary"
               className="sidebar-btn">
               <Icon className="material-icons">replay</Icon>
               Recover
-          </Button>
+            </Button>
             <Button
               variant="raised"
               onClick={this.handleSaveToggle}
@@ -718,7 +720,7 @@ class Header extends Component {
               className="sidebar-btn">
               <Icon className="material-icons">save</Icon>
               Save Project
-          </Button>
+            </Button>
             <Button
               variant="raised"
               onClick={this.handleLoadToggle}
@@ -726,7 +728,7 @@ class Header extends Component {
               className="sidebar-btn">
               <Icon className="material-icons">file_download</Icon>
               Open Project
-          </Button>
+            </Button>
             <Button
               variant="raised"
               onClick={this.openSceneOpt}
@@ -734,7 +736,7 @@ class Header extends Component {
               className="sidebar-btn">
               <Icon className="material-icons">settings</Icon>
               Scene Config
-          </Button>
+            </Button>
 
           </Sidebar>
           <h1 className="mr-2">MYR</h1>
@@ -760,7 +762,6 @@ class Header extends Component {
           </Tooltip>
           <Tooltip title="New Scene" placement="bottom-start">
             <Button
-              size="small"
               onClick={this.toggleNavModal}
               style={style.default}
               className="header-btn d-none d-sm-block" >
@@ -769,28 +770,23 @@ class Header extends Component {
           </Tooltip>
           <Tooltip title="Save" placement="bottom-start">
             <Button
-              // variant="raised"
-              size="small"
               onClick={this.handleSaveToggle}
               className="header-btn d-none d-md-block"
-              style={style.default}
-            >
+              style={style.default} >
               <Icon className="material-icons">save</Icon>
             </Button>
           </Tooltip>
           <Tooltip title="Open" placement="bottom-start">
             <Button
-              // variant="raised"
-              size="small"
               onClick={this.handleLoadToggle}
               className="header-btn d-none d-sm-block"
-              style={style.default}
-            >
+              style={style.default}>
               <Icon className="material-icons">file_download</Icon>
             </Button>
           </Tooltip>
         </div>
         <div className="col-4 d-flex justify-content-end">
+          <Reference />
           <this.renderViewSelect />
           <this.loginBtn />
         </div>

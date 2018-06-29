@@ -1,6 +1,11 @@
 export const NAME_SCENE = 'NAME_SCENE';
 export const NEW_SCENE = 'NEW_SCENE';
 export const LOAD_SCENE = 'LOAD_SCENE';
+export const TOGGLE_COORD_SKY = 'TOGGLE_COORD_SKY';
+export const CHANGE_SKY_COLOR = 'CHANGE_SKY_COLO';
+export const CHANGE_CAM_MODE  = 'CHANGE_CAM_MODE';
+export const RESET_CAMERA = 'RESET_CAMERA';
+export const CHANGE_PERSPECTIVE = 'CHANGE_PERSPECTIVE';
 
 /**
 * @summary - This function registers the scene's name with Redux
@@ -22,4 +27,24 @@ export function nameScene(name){
 */
 export function loadScene(id){
   return {type: LOAD_SCENE, id };
+}
+
+export function toggleCoordSky(){
+  return {type: TOGGLE_COORD_SKY };
+}
+
+export function changeSkyColor(color){
+  return {type: CHANGE_SKY_COLOR, color };
+}
+
+export function changeCamMode(config){
+  return {type: CHANGE_CAM_MODE, config};
+}
+
+export function resetCamera(){
+  return {type: RESET_CAMERA};
+}
+
+export function changePerspective(){
+  return {type: CHANGE_PERSPECTIVE };
 }

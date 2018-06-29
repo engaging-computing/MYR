@@ -25,7 +25,7 @@ const Viewer = ({ editor, actions, user, scene, authActions, sceneActions, match
       projectId={match.params.id} />
     <div className="row no-gutters">
       <div id="scene" className="col-12">
-        <View objects={editor.objects} sceneConfig={scene.sceneConfig} assets={editor.assets} />
+        <View objects={editor.objects} sceneConfig={scene} assets={editor.assets} />
       </div>
     </div>
   </div>
