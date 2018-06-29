@@ -13,7 +13,7 @@ import {
   Popover,
   Avatar
 } from '@material-ui/core';
-import firebase, { auth, provider, db, scenes, storageRef } from '../firebase.js';
+import { auth, provider, db, scenes, storageRef } from '../firebase.js';
 import DisplayMsg from './DisplayMsg';
 import Sidebar from './Sidebar';
 import Reference from './Reference';
@@ -110,7 +110,7 @@ class Header extends Component {
         $(".spinner").remove();
       });
     }
-    
+
     // Bind to keyboard to listen for shortcuts
     document.addEventListener('keydown', this.handleKeyDown.bind(this));
   }
