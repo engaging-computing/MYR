@@ -337,133 +337,156 @@ class Myr {
     return outerElId;
   };
 
-  spin = (outerElId, degrees, duration) => {
+  spin = (outerElId, magnitude = 360, loop = true, duration) => {
     let el = this.getEl(outerElId);
     let anim = {
       dir: 'alternate',
       dur: duration || '1000',
-      loop: true,
+      loop: loop,
       property: 'rotation',
-      to: `0 ${degrees || 360} 0`,
+      from: `${el.rotation.x} ${el.rotation.y} ${el.rotation.z}`,
+      to: `0 ${magnitude} 0`,
     };
     el.animation__spin = anim;
     return outerElId;
   };
 
-  yoyo = (outerElId, magnitude = 2, duration) => {
+  yoyo = (outerElId, magnitude = 2, loop = true, duration) => {
     let el = this.getEl(outerElId);
     let anim = {
+      property: 'position',
       dir: 'alternate',
       dur: duration || '1000',
-      loop: true,
-      property: 'position',
+      loop: loop,
+      from: `${el.position.x} ${el.position.y} ${el.position.z}`,
       to: `${el.position.x} ${el.position.y + magnitude} ${el.position.z}`,
     };
     el.animation__yoyo = anim;
     return outerElId;
   };
 
-  sideToSide = (outerElId, magnitude = 2, duration) => {
+  sideToSide = (outerElId, magnitude = 2, loop = true, duration) => {
     let el = this.getEl(outerElId);
     let anim = {
       dir: 'alternate',
       dur: duration || '1000',
-      loop: true,
+      loop: loop,
       property: 'position',
+      from: `${el.position.x} ${el.position.y} ${el.position.z}`,
       to: `${el.position.x + magnitude} ${el.position.y} ${el.position.z}`,
     };
     el.animation__sidetoside = anim;
     return outerElId; 
   };
 
-  goUp = (outerElId, magnitude = 2, duration) => {
+  goUp = (outerElId, magnitude = 2, loop = true,  duration) => {
     let el = this.getEl(outerElId);
     let anim = {
+      dir: 'alternate',
       dur: duration || '1000',
+      loop: loop,
       property: 'position',
+      from: `${el.position.x} ${el.position.y} ${el.position.z}`,
       to: `${el.position.x} ${el.position.y + magnitude} ${el.position.z}`,
     };
     el.animation__goup = anim;
     return outerElId;
   };
 
-  goDown = (outerElId, magnitude = 2, duration) => {
+  goDown = (outerElId, magnitude = 2, loop = true, duration) => {
     let el = this.getEl(outerElId);
     let anim = {
-      dur: duration || '1000',
       property: 'position',
+      dir: 'alternate',
+      dur: duration || '1000',
+      loop: loop,
+      from: `${el.position.x} ${el.position.y} ${el.position.z}`,
       to: `${el.position.x} ${el.position.y - magnitude} ${el.position.z}`,
     };
     el.animation__godown = anim;
     return outerElId;
   };
 
-  goLeft = (outerElId, magnitude = 2, duration) => {
+  goLeft = (outerElId, magnitude = 2, loop = true, duration) => {
     let el = this.getEl(outerElId);
     let anim = {
-      dur: duration || '1000',
       property: 'position',
+      dir: 'alternate',
+      dur: duration || '1000',
+      loop: loop,
+      from: `${el.position.x} ${el.position.y} ${el.position.z}`,
       to: `${el.position.x + magnitude} ${el.position.y} ${el.position.z}`,
     };
     el.animation__goleft = anim;
     return outerElId;
   };
 
-  goRight = (outerElId, magnitude = 2, duration) => {
+  goRight = (outerElId, magnitude = 2, loop = true, duration) => {
     let el = this.getEl(outerElId);
     let anim = {
-      dur: duration || '1000',
       property: 'position',
+      dir: 'alternate',
+      dur: duration || '1000',
+      loop: loop,
+      from: `${el.position.x} ${el.position.y} ${el.position.z}`,
       to: `${el.position.x - magnitude} ${el.position.y} ${el.position.z}`,
     };
     el.animation__goright = anim;
     return outerElId;
   };
 
-  goTowards = (outerElId, magnitude = 2, duration) => {
+  goTowards = (outerElId, magnitude = 2, loop = true, duration) => {
     let el = this.getEl(outerElId);
     let anim = {
-      dur: duration || '1000',
       property: 'position',
+      dir: 'alternate',
+      dur: duration || '1000',
+      loop: loop,
+      from: `${el.position.x} ${el.position.y} ${el.position.z}`,
       to: `${el.position.x} ${el.position.y} ${el.position.z  + magnitude}`,
     };
     el.animation__goleft = anim;
     return outerElId;
   };
 
-  goAway = (outerElId, magnitude = 2, duration) => {
+  goAway = (outerElId, magnitude = 2, loop = true, duration) => {
     let el = this.getEl(outerElId);
     let anim = {
-      dur: duration || '1000',
       property: 'position',
+      dir: 'alternate',
+      dur: duration || '1000',
+      loop: loop,
       to: `${el.position.x} ${el.position.y} ${el.position.z - magnitude}`,
     };
     el.animation__goright = anim;
     return outerElId;
   };
 
-  grow = (outerElId, magnitute = 2, duration) => {
-    let el = this.getEl(outerElId);
-    let anim = {
-      property: 'scale',
-      from: `${el.scale.x} ${el.scale.y} ${el.scale.z}`,
-      to: `${el.scale.x * magnitute} ${el.scale.y * magnitute} ${el.scale.z * magnitute}`,
-      dur: duration || '1000',
-    };
-    el.animation__yoyo = anim;
-    return outerElId;
-  }; 
-
-  shrink = (outerElId, magnitute = 2, duration) => {
+  grow = (outerElId, magnitute = 2, loop = true, duration) => {
     let el = this.getEl(outerElId);
     let anim = {
       property: 'scale',
       dir: 'alternate',
+      dur: duration || '1000',
+      loop: loop,
+      from: `${el.scale.x} ${el.scale.y} ${el.scale.z}`,
+      to: `${el.scale.x * magnitute} ${el.scale.y * magnitute} ${el.scale.z * magnitute}`,
+    };
+    el.animation__grow = anim;
+    return outerElId;
+  }; 
+
+  shrink = (outerElId, magnitute = 2, loop = true, duration) => {
+    let el = this.getEl(outerElId);
+    let anim = {
+      property: 'scale',
+      dir: 'alternate',
+      dur: duration || '1000',
+      loop: loop,
       from: `${el.scale.x} ${el.scale.y} ${el.scale.z}`,
       to: `${el.scale.x / magnitute} ${el.scale.y / magnitute} ${el.scale.z / magnitute}`,
-      dur: duration || '1000',
     };
-    el.animation__yoyo = anim;
+    el.animation__shrink = anim;
     return outerElId;
   }; 
 
