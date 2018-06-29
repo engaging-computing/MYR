@@ -2,10 +2,10 @@ import {
   LOAD_SCENE,
   NAME_SCENE,
   TOGGLE_COORD_SKY,
-  CHANGE_SKY_COLOR,
-  CHANGE_CAM_MODE,
-  RESET_CAMERA,
-  CHANGE_PERSPECTIVE
+  //  CHANGE_SKY_COLOR,
+  //  CHANGE_CAM_MODE,
+  SET_CAMERA,
+  // CHANGE_PERSPECTIVE
 } from '../actions/sceneActions';
 
 const initial_state = {
@@ -34,10 +34,11 @@ export default function scene(state = initial_state, action) {
         ...state,
         showCoordHelper: !state.showCoordHelper
       };
-    case RESET_CAMERA:
+    case SET_CAMERA:
+      let camPos = `${action.z || 0} ${action.y || 1.6} ${action.z || 0}`;
       return {
         ...state,
-        cameraPosition: "0 5.6 0"
+        cameraPosition: camPos
         };
     default:
       return state;

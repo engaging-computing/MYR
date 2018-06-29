@@ -79,16 +79,16 @@ class View extends Component {
 
   basicMoveCam = () => {
     return (
-      <a-entity
+      <Entity
         id="rig"
         movement-controls
         position={this.props.sceneConfig.cameraPosition}>
-        <a-entity
+        <Entity
           camera
-          position="0 1.6 0"
+          position={this.props.sceneConfig.cameraPosition}
           look-controls // ="pointerLockEnabled: true"
         />
-      </a-entity>
+      </Entity>
     );
   }
 

@@ -4,7 +4,7 @@ export const LOAD_SCENE = 'LOAD_SCENE';
 export const TOGGLE_COORD_SKY = 'TOGGLE_COORD_SKY';
 export const CHANGE_SKY_COLOR = 'CHANGE_SKY_COLO';
 export const CHANGE_CAM_MODE  = 'CHANGE_CAM_MODE';
-export const RESET_CAMERA = 'RESET_CAMERA';
+export const SET_CAMERA = 'SET_CAMERA';
 export const CHANGE_PERSPECTIVE = 'CHANGE_PERSPECTIVE';
 
 /**
@@ -41,8 +41,8 @@ export function changeCamMode(config){
   return {type: CHANGE_CAM_MODE, config};
 }
 
-export function resetCamera(){
-  return {type: RESET_CAMERA};
+export function setCamera(x,y,z){
+  return {type: SET_CAMERA, x, y, z};
 }
 
 export function changePerspective(){
