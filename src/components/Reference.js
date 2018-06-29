@@ -14,7 +14,8 @@ import {
   TableBody,
   TableHead,
   TableRow,
-  TableCell
+  TableCell,
+  Tooltip
 } from '@material-ui/core';
 
 registerLanguage('javascript', js);
@@ -65,17 +66,23 @@ export default class Reference extends React.Component {
   };
 
   render() {
+    const style = {
+      margin: 2,
+      padding: 0,
+      color: '#fff',
+    };
 
     return (
       <React.Fragment>
-        <Button
-          variant="raised"
-          color="primary"
-          fullWidth
-          className="sidebar-btn"
-          onClick={() => this.setState({ open: true })}>
-          <Icon className="material-icons">description</Icon> Reference
-        </Button>
+        <Tooltip title="Reference" placement="bottom-start">
+          <Button
+            className="header-btn"
+            aria-haspopup="true"
+            onClick={() => this.setState({ open: true })}
+            style={style}>
+            <Icon style={{ color: '#fff' }} className="material-icons">help</Icon>
+          </Button>
+        </Tooltip>
         <Drawer
           id="reference-drawer"
           variant="persistent"

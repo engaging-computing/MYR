@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import Reference from './Reference';
 import { Drawer, Button, Icon, IconButton } from '@material-ui/core';
 
 
@@ -41,6 +40,7 @@ class Sidebar extends Component {
           style={{zIndex: 1000}}
           open={this.state.open}
           anchor="left"
+          onClick={this.handleToggle}
           onClose={this.handleToggle} >
           <IconButton variant="raised"
             color="default"
@@ -53,7 +53,6 @@ class Sidebar extends Component {
               child
             );
           })}
-          <Reference />
         </Drawer>
       </div>
     );
