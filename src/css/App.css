@@ -245,11 +245,6 @@ div.side-drawer>div {
   overflow: unset !important;
 }
 
-#reference-draw > div {
-  width:  1000px;
-}
-
-
 #ace-editor {
   border-bottom: 1px solid;
   border-top: 1px solid;
@@ -307,5 +302,5 @@ span.user-name{
 }
 
 div#reference-drawer > div {
-    max-width: 80%;
+    width: 80%;
 }

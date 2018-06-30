@@ -625,15 +625,17 @@ class Header extends Component {
     };
 
     return (
-      <div>
-        <Button
+      <React.Fragment>
+        <Tooltip title="Change View" placement="bottom-start">
+        <IconButton
           aria-owns={anchorEl ? 'simple-menu' : null}
           aria-haspopup="true"
-          className=" d-none d-md-block header-btn"
+          className="header-btn d-none d-md-block "
           onClick={this.handleViewOptClick}
           style={style}>
           <Icon className="material-icons">visibility</Icon>
-        </Button>
+        </IconButton>
+        </Tooltip>
         <Menu
           id="simple-menu"
           anchorEl={anchorEl}
@@ -650,7 +652,7 @@ class Header extends Component {
             </Link>
           </MenuItem>
         </Menu>
-      </div>
+      </React.Fragment>
     );
   }
 
@@ -761,28 +763,28 @@ class Header extends Component {
             </Button>
           </Tooltip>
           <Tooltip title="New Scene" placement="bottom-start">
-            <Button
+            <IconButton
               onClick={this.toggleNavModal}
               style={style.default}
               className="header-btn d-none d-sm-block" >
               <Icon className="material-icons">add_circle_outline</Icon>
-            </Button>
+            </IconButton>
           </Tooltip>
           <Tooltip title="Save" placement="bottom-start">
-            <Button
+            <IconButton
               onClick={this.handleSaveToggle}
               className="header-btn d-none d-md-block"
               style={style.default} >
               <Icon className="material-icons">save</Icon>
-            </Button>
+            </IconButton>
           </Tooltip>
           <Tooltip title="Open" placement="bottom-start">
-            <Button
+            <IconButton
               onClick={this.handleLoadToggle}
               className="header-btn d-none d-sm-block"
               style={style.default}>
               <Icon className="material-icons">file_download</Icon>
-            </Button>
+            </IconButton>
           </Tooltip>
         </div>
         <div className="col-4 d-flex justify-content-end">

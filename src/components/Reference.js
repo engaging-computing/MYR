@@ -7,7 +7,7 @@ import { github } from 'react-syntax-highlighter/styles/hljs';
 import {
   Tabs,
   Tab,
-  Button,
+  IconButton,
   Drawer,
   Icon,
   Table,
@@ -71,24 +71,25 @@ export default class Reference extends React.Component {
       padding: 0,
       color: '#fff',
     };
-
     return (
       <React.Fragment>
         <Tooltip title="Reference" placement="bottom-start">
-          <Button
+          <IconButton
             className="header-btn"
             aria-haspopup="true"
             onClick={() => this.setState({ open: true })}
             style={style}>
             <Icon style={{ color: '#fff' }} className="material-icons">help</Icon>
-          </Button>
+          </IconButton>
         </Tooltip>
         <Drawer
+          anchor="left"
           id="reference-drawer"
           variant="persistent"
           open={this.state.open}>
           <Tabs
             id="reference-tabs"
+            fullWidth={true}
             value={this.state.value}
             onChange={this.handleChange} >
             <Tab
