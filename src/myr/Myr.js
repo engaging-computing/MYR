@@ -32,7 +32,7 @@ class Myr {
     this.core = (type) => {
       let c = {
         // random 5 digit integer 'address'
-        id: 'a' + this.counter++,
+        id:  this.genNewId(),
         position: this.position,
         scale: this.scale,
         geometry: {
@@ -46,10 +46,11 @@ class Myr {
         radius: this.radius,
         'radius-bottom': 1,
         'radius-top': 2,
-        value: 'hello',
-        // 'dynamic-body':'shape: box'
       };
       return c;
+    };
+    this.genNewId = () => {
+      return 'a' + this.counter++;
     };
   }
 
@@ -75,8 +76,8 @@ class Myr {
     funs.forEach(element => {
       // If a collision is detected then do not override and warn
       if (window.hasOwnProperty(element)) {
-        console.warn(`The ${element} of Myr is being overridden. 
-                      If this was not intentional consider renaming the function.`);
+        console.warn(`The ${element} of Myr is being overridden.\n` + 
+                     `If this was not intentional consider renaming the function.`);
       } else {
         // Collision free so we can bind to window
         window[element] = this[element];
@@ -200,52 +201,51 @@ class Myr {
   }
 
   // Render an Aframe Box Primitive with current Myr settings    
-  box = (obj) => {
-    let el = this.core('box');
-    this.els.push({ ...el, ...obj });
-    return el.id;
+  box = (params) => {
+    return this.mergeProps('box', params);
   }
 
   // Render an Aframe Sphere Primitive with current Myr settings  
-  sphere = (obj) => {
-    let el = this.core('sphere');
-    this.els.push({ ...el, ...obj });
-    return el.id;
+  sphere = (params) => {
+    return this.mergeProps('sphere', params);
   }
 
   // Render an Aframe circle Primitive with current Myr settings  
-  circle = (obj) => {
-    let el = this.core('circle');
-    this.els.push({ ...el, ...obj });
-    return el.id;
+  circle = (params) => {
+    return this.mergeProps('circle', params);
   }
 
   // Render an Aframe circle Primitive with current Myr settings  
-  cone = (obj) => {
-    let el = this.core('cone');
-    this.els.push({ ...el, ...obj });
-    return el.id;
+  cone = (params) => {
+    return this.mergeProps('cone', params);
   }
 
   // Render an Aframe Triangle Primitive with current Myr settings  
-  triangle = (obj) => {
-    let el = this.core('triangle');
-    this.els.push({ ...el, ...obj });
+  triangle = (params) => {
+    return this.mergeProps('triangle', params);
+  }
+
+  // Render an Aframe Text Primitive with current Myr settings  
+  text = (text, params) => {
+    let el = {
+      text,
+      id: this.genNewId(),
+      value: text || "Default Text",
+      side: 'double',
+      color: this.color,
+      position: `${this.position.x} ${this.position.y} ${this.position.z}`
+    };
+    if (typeof params === 'string') {
+      this.els.push(el);
+    } else {
+      this.els.push({ ...el, ...params });
+    }
     return el.id;
   }
 
   // Render an Aframe Text Primitive with current Myr settings  
-  text = (obj) => {
-    let el = this.core('text');
-    this.els.push({ ...el, ...obj });
-    return el.id;
-  }
-
-  // Render an Aframe Text Primitive with current Myr settings  
-  cylinder = (obj) => {
-    let el = this.core('cylinder');
-    this.els.push({ ...el, ...obj });
-    return el.id;
+  cylinder = (params) => {
+    return this.mergeProps('cylinder', params);
   }
 
   // Render an Aframe Polyhedron with current Myr settings  
@@ -258,53 +258,43 @@ class Myr {
         segmentsHeight: 8
       }
     };
-    this.els.push({ ...el, ...geometry, ...obj });
+    if (typeof params === 'string') {
+      this.els.push({ ...el, ...geometry });
+    } else {
+      this.els.push({ ...el, ...geometry, ...obj });
+    }
     return el.id;
   }
 
   // Render an Aframe dodecahedron with current Myr settings  
-  dodecahedron = (obj) => {
-    let el = this.core('dodecahedron');
-    this.els.push({ ...el, ...obj });
-    return el.id;
+  dodecahedron = (params) => {
+    return this.mergeProps('dodecahedron', params);
   }
 
   // Render an Aframe icosahedron with current Myr settings  
-  icosahedron = (obj) => {
-    let el = this.core('icosahedron');
-    this.els.push({ ...el, ...obj });
-    return el.id;
+  icosahedron = (params) => {
+    return this.mergeProps('icosahedron', params);
   }
 
   // Render an Aframe octahedron with current Myr settings  
-  octahedron = (obj) => {
-    let el = this.core('octahedron');
-    this.els.push({ ...el, ...obj });
-    return el.id;
+  octahedron = (params) => {
+    return this.mergeProps('octahedron', params);
   }
 
-  ring = (obj) => {
-    let el = this.core('ring');
-    this.els.push({ ...el, ...obj });
-    return el.id;
+  ring = (params) => {
+    return this.mergeProps('ring', params);
   }
 
-  tetrahedron = (obj) => {
-    let el = this.core('tetrahedron');
-    this.els.push({ ...el, ...obj });
-    return el.id;
+  tetrahedron = (params) => {
+    return this.mergeProps('tetrahedron', params);
   }
 
-  torus = (obj) => {
-    let el = this.core('torus');
-    this.els.push({ ...el, ...obj });
-    return el.id;
+  torus = (params) => {
+    return this.mergeProps('torus', params);
   }
 
-  torusknot = (obj) => {
-    let el = this.core('torusKnot');
-    this.els.push({ ...el, ...obj });
-    return el.id;
+  torusknot = (params) => {
+    return this.mergeProps('torusKnot', params);
   }
 
   // Render a new Aframe light with current Myr settings  
@@ -376,10 +366,10 @@ class Myr {
       to: `${el.position.x + magnitude} ${el.position.y} ${el.position.z}`,
     };
     el.animation__sidetoside = anim;
-    return outerElId; 
+    return outerElId;
   };
 
-  goUp = (outerElId, magnitude = 2, loop = true,  duration) => {
+  goUp = (outerElId, magnitude = 2, loop = true, duration) => {
     let el = this.getEl(outerElId);
     let anim = {
       dir: 'alternate',
@@ -443,7 +433,7 @@ class Myr {
       dur: duration || '1000',
       loop: loop,
       from: `${el.position.x} ${el.position.y} ${el.position.z}`,
-      to: `${el.position.x} ${el.position.y} ${el.position.z  + magnitude}`,
+      to: `${el.position.x} ${el.position.y} ${el.position.z + magnitude}`,
     };
     el.animation__goleft = anim;
     return outerElId;
@@ -474,7 +464,7 @@ class Myr {
     };
     el.animation__grow = anim;
     return outerElId;
-  }; 
+  };
 
   shrink = (outerElId, magnitute = 2, loop = true, duration) => {
     let el = this.getEl(outerElId);
@@ -488,7 +478,7 @@ class Myr {
     };
     el.animation__shrink = anim;
     return outerElId;
-  }; 
+  };
 
   // MODELS
   addCModel = () => {
@@ -506,7 +496,7 @@ class Myr {
     this.els.push(el);
     this.assets.push(asset);
     return el;
-  } 
+  }
 
   getEl = (outerElId) => {
     return this.els[this.getIndex(outerElId)];
@@ -549,6 +539,23 @@ class Myr {
       console.error(err);
       return err;
     }
+  }
+
+  /**
+  * @summary - This creates an entity w shape of object and merges with supplied params
+  * 
+  * @param {string} shape - one of the allowed arguments to this.core()
+  * @param {obj} params - arguments to be merged, not guarenteed to be successful
+  * 
+  */
+  mergeProps = (shape, params) => {
+    let el = this.core(shape);
+    if (typeof params === 'string') {
+      this.els.push(el);
+    } else {
+      this.els.push({ ...el, ...params });
+    }
+    return el.id;
   }
 
   sleep = (ms) => {

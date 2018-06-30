@@ -16,32 +16,15 @@ import { Entity } from 'aframe-react';
 class View extends Component {
 
   // This renders json to aframe entities
-  helper = (ent, id) => {
+  helper = (ent) => {
     // for now only look one level deep for animations
-    var anim, cam;
-    if (ent && ent.animation) {
-      anim = <a-animation {...ent.animation} />;
-    } else {
-      anim = null;
-    }
-
-    if (ent && ent.camera) {
-      if (ent.cursor) {
-        cam = <a-camera>
-          <a-cursor></a-cursor>
-        </a-camera>;
+    if (ent) {
+      if (ent.text) {
+        return <a-text key={ent.id} {...ent}></a-text>;
       } else {
-        cam = <a-camera />;
+        return <Entity key={ent.id} {...ent}></Entity>;
       }
-      delete ent.camera;
-      return <Entity id="cam" key={id} {...ent}>{cam}</Entity>;
     }
-
-    return (
-      <Entity key={id} {...ent}>
-        {anim}
-      </Entity>
-    );
   }
 
   assetsHelper = (asset, i) => {
@@ -123,7 +106,7 @@ class View extends Component {
         </a-assets>
         <this.createCam />
         <this.skyHelper />
-        {this.props.objects ? this.props.objects.map((x, index) => this.helper(x, index)) : null}
+        {this.props.objects ? this.props.objects.map(it => this.helper(it)) : null}
         {/* <a-ocean color="#ff3333" width="50" depth="50" density="15" speed="2"></a-ocean> */}
         {/* <a-tube path="-25 25 0, 0 25 0, 25 25 25, 0 -15 0" radius="0.5" material="color: red"></a-tube> */}
         {/* <a-grid /> */}
