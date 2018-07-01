@@ -1,6 +1,5 @@
 import 'aframe';
 import 'aframe-physics-system';
-// eslint-disable-next-line
 import CANNON from 'cannon';
 
 class Myr {
