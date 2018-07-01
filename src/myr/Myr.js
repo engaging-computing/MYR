@@ -1,6 +1,5 @@
 import 'aframe';
 import 'aframe-physics-system';
-// eslint-disable-next-line
 import CANNON from 'cannon';
 
 class Myr {
@@ -144,6 +143,7 @@ class Myr {
       color += letters[Math.floor(Math.random() * 16)];
       i++;
     }
+    this.color = color;
     return color;
   }
 
@@ -155,10 +155,7 @@ class Myr {
   }
 
   drop = (outerElId) => {
-    this.getEl(outerElId)['dynamic-body'] = {
-      shape: 'box',
-      mass: 5
-    };
+    this.getEl(outerElId)['dynamic-body'] = "shape: box; mass: 5";
     return outerElId;
   }
 
@@ -209,13 +206,12 @@ class Myr {
   cone = (params) => {
     let base = {
       id: this.genNewId(),
-      geometry: `primitive: cone`,
-      'radius-bottom': 1,
-      'radius-top': 2,
+      geometry: `primitive: cone; radiusBottom: 1; radiusTop: 0.1`,
       position: this.position,
       scale: this.scale,
       rotation: this.rotation,
-      material: `color:${this.color};`,
+      material: `color:${this.color};  side: double`,
+      radius: `${this.radius}`,
     };
     return this.mergeProps(base, params);
   }
@@ -302,7 +298,7 @@ class Myr {
   ring = (params) => {
     let base = {
       id: this.genNewId(),
-      geometry: `primitive: ring; radiusInner: 0.5; radiusOuter: 1`, 
+      geometry: `primitive: ring; radiusInner: 0.5; radiusOuter: 1`,
       position: this.position,
       scale: this.scale,
       rotation: this.rotation,
@@ -347,7 +343,12 @@ class Myr {
       scale: this.scale,
       rotation: this.rotation,
     };
-    return this.mergeProps(base, params);
+    if (!params || typeof params === 'string') {
+      this.els.push(base);
+    } else {
+      this.els.push({ ...base, ...params });
+    }
+    return base.id;
   }
 
   torus = (params) => {
@@ -405,141 +406,135 @@ class Myr {
   prism = this.polyhedron
 
   // Animate the Aframe element which is passed as arg
-  animate = (outerElId, duration) => {
+  animate = (outerElId, loop = true, duration = 1000) => {
     let el = this.getEl(outerElId);
-    let anim = {
-      property: 'rotation',
-      dir: 'alternate',
-      to: '0 360 0',
-      dur: duration || '1000',
-      loop: true
-    };
+    let anim = `
+      property: rotation;
+      dir: alternate;
+      to: 0 360 0;
+      dur: ${duration};
+      loop: ${loop};
+    `;
     el.animation = anim;
     return outerElId;
   };
 
-  spin = (outerElId, magnitude = 360, loop = true, duration) => {
+  spin = (outerElId, magnitude = 360, loop = true, duration = 1000) => {
     let el = this.getEl(outerElId);
-    let anim = {
-      dir: 'alternate',
-      dur: duration || '1000',
-      loop: loop,
-      property: 'rotation',
-      from: `${el.rotation.x} ${el.rotation.y} ${el.rotation.z}`,
-      to: `0 ${magnitude} 0`,
-    };
+    let anim = `
+      property: rotation;
+      dir: alternate;
+      dur: ${duration};
+      loop: ${loop};
+      easing: linear;
+      to: ${el.rotation.x} ${el.rotation.y + magnitude} ${el.rotation.z},
+    `;
     el.animation__spin = anim;
     return outerElId;
   };
 
-  yoyo = (outerElId, magnitude = 2, loop = true, duration) => {
+  yoyo = (outerElId, magnitude = 2,  loop = true, duration = 1000) => {
     let el = this.getEl(outerElId);
-    let anim = {
-      property: 'position',
-      dir: 'alternate',
-      dur: duration || '1000',
-      loop: loop,
-      from: `${el.position.x} ${el.position.y} ${el.position.z}`,
-      to: `${el.position.x} ${el.position.y + magnitude} ${el.position.z}`,
-    };
+    let anim = `
+      property: position;
+      dir: alternate;
+      dur: ${duration};
+      loop: ${loop};
+      to: ${el.position.x} ${el.position.y + magnitude} ${el.position.z},
+    `;
     el.animation__yoyo = anim;
     return outerElId;
   };
 
-  sideToSide = (outerElId, magnitude = 2, loop = true, duration) => {
+  sideToSide = (outerElId, magnitude = 2,  loop = true, duration = 1000) => {
     let el = this.getEl(outerElId);
-    let anim = {
-      dir: 'alternate',
-      dur: duration || '1000',
-      loop: loop,
-      property: 'position',
-      from: `${el.position.x} ${el.position.y} ${el.position.z}`,
-      to: `${el.position.x + magnitude} ${el.position.y} ${el.position.z}`,
-    };
+    let anim = `
+      dir: alternate;
+      dur: ${duration};
+      loop: ${loop};
+      property: position;
+      to: ${el.position.x + magnitude} ${el.position.y} ${el.position.z};
+    `;
+    el.position = { ...el.position, x: el.position.x - magnitude };
     el.animation__sidetoside = anim;
     return outerElId;
   };
 
-  goUp = (outerElId, magnitude = 2, loop = true, duration) => {
+  goUp = (outerElId, magnitude = 2,  loop = true, duration = 1000) => {
     let el = this.getEl(outerElId);
-    let anim = {
-      dir: 'alternate',
-      dur: duration || '1000',
-      loop: loop,
-      property: 'position',
-      from: `${el.position.x} ${el.position.y} ${el.position.z}`,
-      to: `${el.position.x} ${el.position.y + magnitude} ${el.position.z}`,
-    };
+    let anim = `
+      property: position; 
+      dir: alternate; 
+      dur: ${duration}; 
+      loop: ${loop}; 
+      to: ${el.position.x} ${el.position.y + magnitude} ${el.position.z};
+    `;
     el.animation__goup = anim;
     return outerElId;
   };
 
-  goDown = (outerElId, magnitude = 2, loop = true, duration) => {
+  goDown = (outerElId, magnitude = 2,  loop = true, duration = 1000) => {
     let el = this.getEl(outerElId);
-    let anim = {
-      property: 'position',
-      dir: 'alternate',
-      dur: duration || '1000',
-      loop: loop,
-      from: `${el.position.x} ${el.position.y} ${el.position.z}`,
-      to: `${el.position.x} ${el.position.y - magnitude} ${el.position.z}`,
-    };
+    let anim = `
+      property: position; 
+      dir: alternate; 
+      dur: ${duration}; 
+      loop: ${loop}; 
+      to: ${el.position.x} ${el.position.y - magnitude} ${el.position.z};
+    `;
     el.animation__godown = anim;
     return outerElId;
   };
 
-  goLeft = (outerElId, magnitude = 2, loop = true, duration) => {
+  goLeft = (outerElId, magnitude = 2,  loop = true, duration = 1000) => {
     let el = this.getEl(outerElId);
-    let anim = {
-      property: 'position',
-      dir: 'alternate',
-      dur: duration || '1000',
-      loop: loop,
-      from: `${el.position.x} ${el.position.y} ${el.position.z}`,
-      to: `${el.position.x + magnitude} ${el.position.y} ${el.position.z}`,
-    };
+    let anim = `
+      property: position; 
+      dir: alternate; 
+      dur: ${duration}; 
+      loop: ${loop}; 
+      to: ${el.position.x - magnitude} ${el.position.y} ${el.position.z};
+    `;
     el.animation__goleft = anim;
     return outerElId;
   };
 
-  goRight = (outerElId, magnitude = 2, loop = true, duration) => {
+  goRight = (outerElId, magnitude = 2,  loop = true, duration = 1000) => {
     let el = this.getEl(outerElId);
-    let anim = {
-      property: 'position',
-      dir: 'alternate',
-      dur: duration || '1000',
-      loop: loop,
-      from: `${el.position.x} ${el.position.y} ${el.position.z}`,
-      to: `${el.position.x - magnitude} ${el.position.y} ${el.position.z}`,
-    };
+    let anim = `
+      property: position; 
+      dir: alternate; 
+      dur: ${duration}; 
+      loop: ${loop}; 
+      to: ${el.position.x + magnitude} ${el.position.y} ${el.position.z};
+    `;
     el.animation__goright = anim;
     return outerElId;
   };
 
-  goTowards = (outerElId, magnitude = 2, loop = true, duration) => {
+  goTowards = (outerElId, magnitude = 2, loop = true, duration = 1000) => {
     let el = this.getEl(outerElId);
-    let anim = {
-      property: 'position',
-      dir: 'alternate',
-      dur: duration || '1000',
-      loop: loop,
-      from: `${el.position.x} ${el.position.y} ${el.position.z}`,
-      to: `${el.position.x} ${el.position.y} ${el.position.z + magnitude}`,
-    };
+    let anim = `
+      property: position; 
+      dir: alternate; 
+      dur: ${duration}; 
+      loop: ${loop}; 
+      to: ${el.position.x} ${el.position.y} ${el.position.z + magnitude};
+    `;
     el.animation__goleft = anim;
     return outerElId;
   };
 
-  goAway = (outerElId, magnitude = 2, loop = true, duration) => {
+  goAway = (outerElId, magnitude = 2, loop = true, duration = 1000) => {
     let el = this.getEl(outerElId);
-    let anim = {
-      property: 'position',
-      dir: 'alternate',
-      dur: duration || '1000',
-      loop: loop,
-      to: `${el.position.x} ${el.position.y} ${el.position.z - magnitude}`,
-    };
-    el.animation__goright = anim;
+    let anim = `
+      property: position; 
+      dir: alternate; 
+      dur: ${duration}; 
+      loop: ${loop}; 
+      to: ${el.position.x} ${el.position.y} ${el.position.z - magnitude};
+    `;
+    el.animation__goaway = anim;
     return outerElId;
   };
 
@@ -640,13 +635,13 @@ class Myr {
   * @param {obj} params - arguments to be merged, not guarenteed to be successful
   * 
   */
-  mergeProps = (ent, params) => {
-    if (typeof params === 'string' || !params) {
-      this.els.push(ent);
+  mergeProps = (entity, params) => {
+    if (!params || typeof params === 'string') {
+      this.els.push(entity);
     } else {
-      this.els.push({ ...ent, ...params });
+      this.els.push({ ...entity, ...params });
     }
-    return ent.id;
+    return entity.id;
   }
 
   sleep = (ms) => {
