@@ -233,9 +233,13 @@ class Myr {
       value: text || "Default Text",
       side: 'double',
       color: this.color,
+      width: this.scale.x,
+      height: this.scale.y,
+      align:"center",
+      scale: `${this.scale.x} ${this.scale.y} ${this.scale.z}`,
       position: `${this.position.x} ${this.position.y} ${this.position.z}`
     };
-    if (typeof params === 'string') {
+    if (!params || typeof params === 'string') {
       this.els.push(el);
     } else {
       this.els.push({ ...el, ...params });
@@ -333,6 +337,7 @@ class Myr {
       dir: 'alternate',
       dur: duration || '1000',
       loop: loop,
+      easing: 'linear',
       property: 'rotation',
       from: `${el.rotation.x} ${el.rotation.y} ${el.rotation.z}`,
       to: `0 ${magnitude} 0`,
@@ -550,7 +555,7 @@ class Myr {
   */
   mergeProps = (shape, params) => {
     let el = this.core(shape);
-    if (typeof params === 'string') {
+    if (!params || typeof params === 'string') {
       this.els.push(el);
     } else {
       this.els.push({ ...el, ...params });
