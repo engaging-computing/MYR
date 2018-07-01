@@ -28,27 +28,6 @@ class Myr {
       z: 0
     };
     this.radius = 1;
-    // all entities share certain attributes
-    this.core = (type) => {
-      let c = {
-        // random 5 digit integer 'address'
-        id:  this.genNewId(),
-        position: this.position,
-        scale: this.scale,
-        geometry: {
-          primitive: type,
-        },
-        material: {
-          color: this.color,
-          side: 'double'
-        },
-        rotation: this.rotation,
-        radius: this.radius,
-        'radius-bottom': 1,
-        'radius-top': 2,
-      };
-      return c;
-    };
     this.genNewId = () => {
       return 'a' + this.counter++;
     };
@@ -76,8 +55,8 @@ class Myr {
     funs.forEach(element => {
       // If a collision is detected then do not override and warn
       if (window.hasOwnProperty(element)) {
-        console.warn(`The ${element} of Myr is being overridden.\n` + 
-                     `If this was not intentional consider renaming the function.`);
+        console.warn(`The ${element} of Myr is being overridden.\n` +
+          `If this was not intentional consider renaming the function.`);
       } else {
         // Collision free so we can bind to window
         window[element] = this[element];
@@ -202,32 +181,164 @@ class Myr {
 
   // Render an Aframe Box Primitive with current Myr settings    
   box = (params) => {
-    return this.mergeProps('box', params);
-  }
-
-  // Render an Aframe Sphere Primitive with current Myr settings  
-  sphere = (params) => {
-    return this.mergeProps('sphere', params);
+    let base = {
+      id: this.genNewId(),
+      position: `${this.position.x} ${this.position.y} ${this.position.z}`,
+      scale: `${this.scale.x} ${this.scale.y} ${this.scale.z}`,
+      geometry: `primitive: box`,
+      material: `color:${this.color}`,
+      rotation: `${this.rotation.x} ${this.rotation.y} ${this.rotation.z}`,
+    };
+    return this.mergeProps(base, params);
   }
 
   // Render an Aframe circle Primitive with current Myr settings  
   circle = (params) => {
-    return this.mergeProps('circle', params);
+    let base = {
+      id: this.genNewId(),
+      position: `${this.position.x} ${this.position.y} ${this.position.z}`,
+      scale: `${this.scale.x} ${this.scale.y} ${this.scale.z}`,
+      geometry: `primitive: circle`,
+      material: `color:${this.color};  side: double`,
+      rotation: `${this.rotation.x} ${this.rotation.y} ${this.rotation.z}`,
+    };
+    return this.mergeProps(base, params);
   }
 
   // Render an Aframe circle Primitive with current Myr settings  
   cone = (params) => {
-    return this.mergeProps('cone', params);
+    let base = {
+      id: this.genNewId(),
+      position: `${this.position.x} ${this.position.y} ${this.position.z}`,
+      scale: `${this.scale.x} ${this.scale.y} ${this.scale.z}`,
+      geometry: `primitive: cone`,
+      material: `color:${this.color};`,
+      rotation: `${this.rotation.x} ${this.rotation.y} ${this.rotation.z}`,
+      'radius-bottom': 1,
+      'radius-top': 2,
+    };
+    return this.mergeProps(base, params);
   }
 
-  // Render an Aframe Triangle Primitive with current Myr settings  
-  triangle = (params) => {
-    return this.mergeProps('triangle', params);
+  // Render an Aframe Text Primitive with current Myr settings  
+  cylinder = (params) => {
+    let base = {
+      id: this.genNewId(),
+      position: `${this.position.x} ${this.position.y} ${this.position.z}`,
+      scale: `${this.scale.x} ${this.scale.y} ${this.scale.z}`,
+      geometry: `primitive: cylinder`,
+      material: `color:${this.color};  side: double`,
+      rotation: `${this.rotation.x} ${this.rotation.y} ${this.rotation.z}`,
+      radius: `${this.radius}`,
+    };
+    return this.mergeProps(base, params);
+  }
+
+
+  // Render an Aframe dodecahedron with current Myr settings  
+  dodecahedron = (params) => {
+    let base = {
+      id: this.genNewId(),
+      position: `${this.position.x} ${this.position.y} ${this.position.z}`,
+      scale: `${this.scale.x} ${this.scale.y} ${this.scale.z}`,
+      geometry: `primitive: dodecahedron; radius: ${this.radius}`,
+      material: `color:${this.color};  side: double`,
+      rotation: `${this.rotation.x} ${this.rotation.y} ${this.rotation.z}`,
+    };
+    return this.mergeProps(base, params);
+  }
+
+  // Render an Aframe icosahedron with current Myr settings  
+  icosahedron = (params) => {
+    let base = {
+      id: this.genNewId(),
+      position: `${this.position.x} ${this.position.y} ${this.position.z}`,
+      scale: `${this.scale.x} ${this.scale.y} ${this.scale.z}`,
+      geometry: `primitive: icosahedron`,
+      material: `color:${this.color};  side: double`,
+      rotation: `${this.rotation.x} ${this.rotation.y} ${this.rotation.z}`,
+    };
+    return this.mergeProps(base, params);
+  }
+
+  // Render an Aframe octahedron with current Myr settings  
+  octahedron = (params) => {
+    let base = {
+      id: this.genNewId(),
+      position: `${this.position.x} ${this.position.y} ${this.position.z}`,
+      scale: `${this.scale.x} ${this.scale.y} ${this.scale.z}`,
+      geometry: `primitive: octahedron`,
+      material: `color:${this.color};  side: double`,
+      rotation: `${this.rotation.x} ${this.rotation.y} ${this.rotation.z}`,
+    };
+    return this.mergeProps(base, params);
+  }
+
+  plane = (params) => {
+    let base = {
+      id: this.genNewId(),
+      position: `${this.position.x} ${this.position.y} ${this.position.z}`,
+      scale: `${this.scale.x} ${this.scale.y} ${this.scale.z}`,
+      geometry: `primitive: plane; height: 1; width: 1`,
+      material: `color:${this.color};  side: double`,
+      rotation: `${this.rotation.x} ${this.rotation.y} ${this.rotation.z}`,
+    };
+    return this.mergeProps(base, params);
+  }
+
+  // Render an Aframe Polyhedron with current Myr settings  
+  polyhedron = (params) => {
+    let base = {
+      id: this.genNewId(),
+      position: `${this.position.x} ${this.position.y} ${this.position.z}`,
+      scale: `${this.scale.x} ${this.scale.y} ${this.scale.z}`,
+      geometry: `primitive: sphere; segmentsWidth: 2;  segmentsHeight: 8`,
+      material: `color:${this.color};  side: double`,
+      rotation: `${this.rotation.x} ${this.rotation.y} ${this.rotation.z}`,
+    };
+    return this.mergeProps(base, params);
+  }
+
+  ring = (params) => {
+    let base = {
+      id: this.genNewId(),
+      position: `${this.position.x} ${this.position.y} ${this.position.z}`,
+      scale: `${this.scale.x} ${this.scale.y} ${this.scale.z}`,
+      geometry: `primitive: ring; radiusInner: 0.5; radiusOuter: 1`,
+      material: `color:${this.color};  side: double`,
+      rotation: `${this.rotation.x} ${this.rotation.y} ${this.rotation.z}`,
+    };
+    return this.mergeProps(base, params);
+  }
+
+  // Render an Aframe Sphere Primitive with current Myr settings  
+  sphere = (params) => {
+    let base = {
+      id: this.genNewId(),
+      position: `${this.position.x} ${this.position.y} ${this.position.z}`,
+      scale: `${this.scale.x} ${this.scale.y} ${this.scale.z}`,
+      geometry: `primitive: sphere`,
+      material: `color:${this.color}`,
+      rotation: `${this.rotation.x} ${this.rotation.y} ${this.rotation.z}`,
+    };
+    return this.mergeProps(base, params);
+  }
+
+  tetrahedron = (params) => {
+    let base = {
+      id: this.genNewId(),
+      position: `${this.position.x} ${this.position.y} ${this.position.z}`,
+      scale: `${this.scale.x} ${this.scale.y} ${this.scale.z}`,
+      geometry: `primitive: tetrahedron;`,
+      material: `color:${this.color};  side: double`,
+      rotation: `${this.rotation.x} ${this.rotation.y} ${this.rotation.z}`,
+    };
+    return this.mergeProps(base, params);
   }
 
   // Render an Aframe Text Primitive with current Myr settings  
   text = (text, params) => {
-    let el = {
+    let base = {
       text,
       id: this.genNewId(),
       value: text || "Default Text",
@@ -235,66 +346,58 @@ class Myr {
       color: this.color,
       position: `${this.position.x} ${this.position.y} ${this.position.z}`
     };
-    if (typeof params === 'string') {
-      this.els.push(el);
-    } else {
-      this.els.push({ ...el, ...params });
-    }
-    return el.id;
-  }
-
-  // Render an Aframe Text Primitive with current Myr settings  
-  cylinder = (params) => {
-    return this.mergeProps('cylinder', params);
-  }
-
-  // Render an Aframe Polyhedron with current Myr settings  
-  polyhedron = (obj) => {
-    let el = this.core('cylinder');
-    let geometry = {
-      geometry: {
-        primitive: 'sphere',
-        segmentsWidth: 2,
-        segmentsHeight: 8
-      }
-    };
-    if (typeof params === 'string') {
-      this.els.push({ ...el, ...geometry });
-    } else {
-      this.els.push({ ...el, ...geometry, ...obj });
-    }
-    return el.id;
-  }
-
-  // Render an Aframe dodecahedron with current Myr settings  
-  dodecahedron = (params) => {
-    return this.mergeProps('dodecahedron', params);
-  }
-
-  // Render an Aframe icosahedron with current Myr settings  
-  icosahedron = (params) => {
-    return this.mergeProps('icosahedron', params);
-  }
-
-  // Render an Aframe octahedron with current Myr settings  
-  octahedron = (params) => {
-    return this.mergeProps('octahedron', params);
-  }
-
-  ring = (params) => {
-    return this.mergeProps('ring', params);
-  }
-
-  tetrahedron = (params) => {
-    return this.mergeProps('tetrahedron', params);
+    return this.mergeProps(base, params);
   }
 
   torus = (params) => {
-    return this.mergeProps('torus', params);
+    let base = {
+      id: this.genNewId(),
+      position: `${this.position.x} ${this.position.y} ${this.position.z}`,
+      scale: `${this.scale.x} ${this.scale.y} ${this.scale.z}`,
+      geometry: `primitive: torus; radius: ${this.radius}; radiusTubular: 0.5; arc: 360`,
+      material: `color:${this.color};  side: double`,
+      rotation: `${this.rotation.x} ${this.rotation.y} ${this.rotation.z}`,
+    };
+    return this.mergeProps(base, params);
   }
 
   torusknot = (params) => {
-    return this.mergeProps('torusKnot', params);
+    let base = {
+      id: this.genNewId(),
+      position: `${this.position.x} ${this.position.y} ${this.position.z}`,
+      scale: `${this.scale.x} ${this.scale.y} ${this.scale.z}`,
+      geometry: `primitive: torusKnot;`,
+      material: `color:${this.color};`,
+      p: 2,
+      q: 3,
+      rotation: `${this.rotation.x} ${this.rotation.y} ${this.rotation.z}`,
+    };
+    return this.mergeProps(base, params);
+  }
+
+  triangle = (params) => {
+    let base = {
+      id: this.genNewId(),
+      position: `${this.position.x} ${this.position.y} ${this.position.z}`,
+      scale: `${this.scale.x} ${this.scale.y} ${this.scale.z}`,
+      geometry: `primitive: triangle;`,
+      material: `color:${this.color};  side: double`,
+      rotation: `${this.rotation.x} ${this.rotation.y} ${this.rotation.z}`,
+    };
+    return this.mergeProps(base, params);
+  }
+
+  // Render an Aframe Text Primitive with current Myr settings  
+  text = (text, params) => {
+    let base = {
+      text: `${text}`,
+      id: this.genNewId(),
+      value: text || "Default Text",
+      side: 'double',
+      color: this.color,
+      position: `${this.position.x} ${this.position.y} ${this.position.z}`
+    };
+    return this.mergeProps(base, params);
   }
 
   // Render a new Aframe light with current Myr settings  
@@ -452,33 +555,34 @@ class Myr {
     return outerElId;
   };
 
-  grow = (outerElId, magnitute = 2, loop = true, duration) => {
+  grow = (outerElId, magnitute = 2, loop = true, duration = 1000) => {
     let el = this.getEl(outerElId);
-    let anim = {
-      property: 'scale',
-      dir: 'alternate',
-      dur: duration || '1000',
-      loop: loop,
-      from: `${el.scale.x} ${el.scale.y} ${el.scale.z}`,
-      to: `${el.scale.x * magnitute} ${el.scale.y * magnitute} ${el.scale.z * magnitute}`,
-    };
+    let anim = `
+      property: scale;
+      dir: alternate;
+      dur: ${duration};
+      loop: ${loop};
+      from: ${this.scale.x} ${this.scale.y} ${this.scale.z};
+      to: ${this.scale.x * magnitute} ${this.scale.y * magnitute} ${this.scale.z * magnitute};
+    `;
     el.animation__grow = anim;
     return outerElId;
   };
 
-  shrink = (outerElId, magnitute = 2, loop = true, duration) => {
+  shrink = (outerElId, magnitute = 2, loop = true, duration = 1000) => {
     let el = this.getEl(outerElId);
-    let anim = {
-      property: 'scale',
-      dir: 'alternate',
-      dur: duration || '1000',
-      loop: loop,
-      from: `${el.scale.x} ${el.scale.y} ${el.scale.z}`,
-      to: `${el.scale.x / magnitute} ${el.scale.y / magnitute} ${el.scale.z / magnitute}`,
-    };
+    let anim = `
+      property: scale;
+      dir: alternate;
+      dur: ${duration};
+      loop: ${loop};
+      from: ${this.scale.x} ${this.scale.y} ${this.scale.z};
+      to: ${this.scale.x / magnitute} ${this.scale.y / magnitute} ${this.scale.z / magnitute};
+    `;
     el.animation__shrink = anim;
     return outerElId;
   };
+
 
   // MODELS
   addCModel = () => {
@@ -548,14 +652,13 @@ class Myr {
   * @param {obj} params - arguments to be merged, not guarenteed to be successful
   * 
   */
-  mergeProps = (shape, params) => {
-    let el = this.core(shape);
-    if (typeof params === 'string') {
-      this.els.push(el);
+  mergeProps = (ent, params) => {
+    if (typeof params === 'string' || !params) {
+      this.els.push(ent);
     } else {
-      this.els.push({ ...el, ...params });
+      this.els.push({ ...ent, ...params });
     }
-    return el.id;
+    return ent.id;
   }
 
   sleep = (ms) => {

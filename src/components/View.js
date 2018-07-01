@@ -22,7 +22,7 @@ class View extends Component {
       if (ent.text) {
         return <a-text key={ent.id} {...ent}></a-text>;
       } else {
-        return <Entity key={ent.id} {...ent}></Entity>;
+        return <a-entity key={ent.id} {...ent}></a-entity>;
       }
     }
   }
