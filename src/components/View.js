@@ -19,10 +19,16 @@ class View extends Component {
   helper = (ent) => {
     // for now only look one level deep for animations
     if (ent) {
+      let flattened = {
+        ...ent, 
+        position: `${ent.position.x} ${ent.position.y} ${ent.position.z}`,
+        scale: `${ent.scale.x} ${ent.scale.y} ${ent.scale.z}`,
+        rotation: `${ent.rotation.x} ${ent.rotation.y} ${ent.rotation.z}`    
+      };
       if (ent.text) {
-        return <a-text key={ent.id} {...ent}></a-text>;
+        return <a-text key={ent.id} {...flattened}></a-text>;
       } else {
-        return <a-entity key={ent.id} {...ent}></a-entity>;
+        return <a-entity key={ent.id} {...flattened}></a-entity>;
       }
     }
   }

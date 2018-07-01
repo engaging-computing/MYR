@@ -182,12 +182,12 @@ class Myr {
   // Render an Aframe Box Primitive with current Myr settings    
   box = (params) => {
     let base = {
-      id: this.genNewId(),
-      position: `${this.position.x} ${this.position.y} ${this.position.z}`,
-      scale: `${this.scale.x} ${this.scale.y} ${this.scale.z}`,
       geometry: `primitive: box`,
+      id: this.genNewId(),
       material: `color:${this.color}`,
-      rotation: `${this.rotation.x} ${this.rotation.y} ${this.rotation.z}`,
+      position: this.position,
+      rotation: this.rotation,
+      scale: this.scale,
     };
     return this.mergeProps(base, params);
   }
@@ -195,12 +195,12 @@ class Myr {
   // Render an Aframe circle Primitive with current Myr settings  
   circle = (params) => {
     let base = {
-      id: this.genNewId(),
-      position: `${this.position.x} ${this.position.y} ${this.position.z}`,
-      scale: `${this.scale.x} ${this.scale.y} ${this.scale.z}`,
       geometry: `primitive: circle`,
+      id: this.genNewId(),
+      position: this.position,
+      scale: this.scale,
+      rotation: this.rotation,
       material: `color:${this.color};  side: double`,
-      rotation: `${this.rotation.x} ${this.rotation.y} ${this.rotation.z}`,
     };
     return this.mergeProps(base, params);
   }
@@ -209,13 +209,13 @@ class Myr {
   cone = (params) => {
     let base = {
       id: this.genNewId(),
-      position: `${this.position.x} ${this.position.y} ${this.position.z}`,
-      scale: `${this.scale.x} ${this.scale.y} ${this.scale.z}`,
       geometry: `primitive: cone`,
-      material: `color:${this.color};`,
-      rotation: `${this.rotation.x} ${this.rotation.y} ${this.rotation.z}`,
       'radius-bottom': 1,
       'radius-top': 2,
+      position: this.position,
+      scale: this.scale,
+      rotation: this.rotation,
+      material: `color:${this.color};`,
     };
     return this.mergeProps(base, params);
   }
@@ -224,11 +224,11 @@ class Myr {
   cylinder = (params) => {
     let base = {
       id: this.genNewId(),
-      position: `${this.position.x} ${this.position.y} ${this.position.z}`,
-      scale: `${this.scale.x} ${this.scale.y} ${this.scale.z}`,
       geometry: `primitive: cylinder`,
+      position: this.position,
+      scale: this.scale,
+      rotation: this.rotation,
       material: `color:${this.color};  side: double`,
-      rotation: `${this.rotation.x} ${this.rotation.y} ${this.rotation.z}`,
       radius: `${this.radius}`,
     };
     return this.mergeProps(base, params);
@@ -239,11 +239,11 @@ class Myr {
   dodecahedron = (params) => {
     let base = {
       id: this.genNewId(),
-      position: `${this.position.x} ${this.position.y} ${this.position.z}`,
-      scale: `${this.scale.x} ${this.scale.y} ${this.scale.z}`,
       geometry: `primitive: dodecahedron; radius: ${this.radius}`,
+      position: this.position,
+      scale: this.scale,
+      rotation: this.rotation,
       material: `color:${this.color};  side: double`,
-      rotation: `${this.rotation.x} ${this.rotation.y} ${this.rotation.z}`,
     };
     return this.mergeProps(base, params);
   }
@@ -252,11 +252,11 @@ class Myr {
   icosahedron = (params) => {
     let base = {
       id: this.genNewId(),
-      position: `${this.position.x} ${this.position.y} ${this.position.z}`,
-      scale: `${this.scale.x} ${this.scale.y} ${this.scale.z}`,
       geometry: `primitive: icosahedron`,
+      position: this.position,
+      scale: this.scale,
+      rotation: this.rotation,
       material: `color:${this.color};  side: double`,
-      rotation: `${this.rotation.x} ${this.rotation.y} ${this.rotation.z}`,
     };
     return this.mergeProps(base, params);
   }
@@ -265,11 +265,11 @@ class Myr {
   octahedron = (params) => {
     let base = {
       id: this.genNewId(),
-      position: `${this.position.x} ${this.position.y} ${this.position.z}`,
-      scale: `${this.scale.x} ${this.scale.y} ${this.scale.z}`,
       geometry: `primitive: octahedron`,
+      position: this.position,
+      scale: this.scale,
+      rotation: this.rotation,
       material: `color:${this.color};  side: double`,
-      rotation: `${this.rotation.x} ${this.rotation.y} ${this.rotation.z}`,
     };
     return this.mergeProps(base, params);
   }
@@ -277,11 +277,11 @@ class Myr {
   plane = (params) => {
     let base = {
       id: this.genNewId(),
-      position: `${this.position.x} ${this.position.y} ${this.position.z}`,
-      scale: `${this.scale.x} ${this.scale.y} ${this.scale.z}`,
       geometry: `primitive: plane; height: 1; width: 1`,
+      position: this.position,
+      scale: this.scale,
+      rotation: this.rotation,
       material: `color:${this.color};  side: double`,
-      rotation: `${this.rotation.x} ${this.rotation.y} ${this.rotation.z}`,
     };
     return this.mergeProps(base, params);
   }
@@ -290,11 +290,11 @@ class Myr {
   polyhedron = (params) => {
     let base = {
       id: this.genNewId(),
-      position: `${this.position.x} ${this.position.y} ${this.position.z}`,
-      scale: `${this.scale.x} ${this.scale.y} ${this.scale.z}`,
       geometry: `primitive: sphere; segmentsWidth: 2;  segmentsHeight: 8`,
+      position: this.position,
+      scale: this.scale,
+      rotation: this.rotation,
       material: `color:${this.color};  side: double`,
-      rotation: `${this.rotation.x} ${this.rotation.y} ${this.rotation.z}`,
     };
     return this.mergeProps(base, params);
   }
@@ -302,11 +302,11 @@ class Myr {
   ring = (params) => {
     let base = {
       id: this.genNewId(),
-      position: `${this.position.x} ${this.position.y} ${this.position.z}`,
-      scale: `${this.scale.x} ${this.scale.y} ${this.scale.z}`,
-      geometry: `primitive: ring; radiusInner: 0.5; radiusOuter: 1`,
+      geometry: `primitive: ring; radiusInner: 0.5; radiusOuter: 1`, 
+      position: this.position,
+      scale: this.scale,
+      rotation: this.rotation,
       material: `color:${this.color};  side: double`,
-      rotation: `${this.rotation.x} ${this.rotation.y} ${this.rotation.z}`,
     };
     return this.mergeProps(base, params);
   }
@@ -315,11 +315,11 @@ class Myr {
   sphere = (params) => {
     let base = {
       id: this.genNewId(),
-      position: `${this.position.x} ${this.position.y} ${this.position.z}`,
-      scale: `${this.scale.x} ${this.scale.y} ${this.scale.z}`,
       geometry: `primitive: sphere`,
+      position: this.position,
+      scale: this.scale,
+      rotation: this.rotation,
       material: `color:${this.color}`,
-      rotation: `${this.rotation.x} ${this.rotation.y} ${this.rotation.z}`,
     };
     return this.mergeProps(base, params);
   }
@@ -327,11 +327,11 @@ class Myr {
   tetrahedron = (params) => {
     let base = {
       id: this.genNewId(),
-      position: `${this.position.x} ${this.position.y} ${this.position.z}`,
-      scale: `${this.scale.x} ${this.scale.y} ${this.scale.z}`,
       geometry: `primitive: tetrahedron;`,
+      position: this.position,
+      scale: this.scale,
+      rotation: this.rotation,
       material: `color:${this.color};  side: double`,
-      rotation: `${this.rotation.x} ${this.rotation.y} ${this.rotation.z}`,
     };
     return this.mergeProps(base, params);
   }
@@ -339,12 +339,13 @@ class Myr {
   // Render an Aframe Text Primitive with current Myr settings  
   text = (text, params) => {
     let base = {
-      text,
+      text: text || "Default",
       id: this.genNewId(),
-      value: text || "Default Text",
       side: 'double',
       color: this.color,
-      position: `${this.position.x} ${this.position.y} ${this.position.z}`
+      position: this.position,
+      scale: this.scale,
+      rotation: this.rotation,
     };
     return this.mergeProps(base, params);
   }
@@ -352,11 +353,11 @@ class Myr {
   torus = (params) => {
     let base = {
       id: this.genNewId(),
-      position: `${this.position.x} ${this.position.y} ${this.position.z}`,
-      scale: `${this.scale.x} ${this.scale.y} ${this.scale.z}`,
       geometry: `primitive: torus; radius: ${this.radius}; radiusTubular: 0.5; arc: 360`,
+      position: this.position,
+      scale: this.scale,
+      rotation: this.rotation,
       material: `color:${this.color};  side: double`,
-      rotation: `${this.rotation.x} ${this.rotation.y} ${this.rotation.z}`,
     };
     return this.mergeProps(base, params);
   }
@@ -364,13 +365,13 @@ class Myr {
   torusknot = (params) => {
     let base = {
       id: this.genNewId(),
-      position: `${this.position.x} ${this.position.y} ${this.position.z}`,
-      scale: `${this.scale.x} ${this.scale.y} ${this.scale.z}`,
       geometry: `primitive: torusKnot;`,
+      position: this.position,
+      scale: this.scale,
+      rotation: this.rotation,
       material: `color:${this.color};`,
       p: 2,
       q: 3,
-      rotation: `${this.rotation.x} ${this.rotation.y} ${this.rotation.z}`,
     };
     return this.mergeProps(base, params);
   }
@@ -378,24 +379,11 @@ class Myr {
   triangle = (params) => {
     let base = {
       id: this.genNewId(),
-      position: `${this.position.x} ${this.position.y} ${this.position.z}`,
-      scale: `${this.scale.x} ${this.scale.y} ${this.scale.z}`,
       geometry: `primitive: triangle;`,
+      position: this.position,
+      scale: this.scale,
+      rotation: this.rotation,
       material: `color:${this.color};  side: double`,
-      rotation: `${this.rotation.x} ${this.rotation.y} ${this.rotation.z}`,
-    };
-    return this.mergeProps(base, params);
-  }
-
-  // Render an Aframe Text Primitive with current Myr settings  
-  text = (text, params) => {
-    let base = {
-      text: `${text}`,
-      id: this.genNewId(),
-      value: text || "Default Text",
-      side: 'double',
-      color: this.color,
-      position: `${this.position.x} ${this.position.y} ${this.position.z}`
     };
     return this.mergeProps(base, params);
   }
