@@ -112,7 +112,11 @@ class View extends Component {
         <this.skyHelper />
         {this.props.objects ? this.props.objects.map(it => this.helper(it)) : null}
         {/* <a-ocean color="#ff3333" width="50" depth="50" density="15" speed="2"></a-ocean> */}
-        {/* <a-tube path="-25 25 0, 0 25 0, 25 25 25, 0 -15 0" radius="0.5" material="color: red"></a-tube> */}
+        <a-text side="double" value=" X+ -->"></a-text>
+        <a-text rotation="0 90 0" side="double" value=" Z+ -->"></a-text>
+        <a-text rotation="0 0 90" side="double" value=" Y+ -->"></a-text>
+        <a-tube path="-25 -0.65 0, 25 -0.65 0" radius="0.35" material="color: red"></a-tube>
+        <a-tube path="0 -0.65 -25, 0 -0.65 25" radius="0.35" material="color: blue"></a-tube>
         {/* <a-grid /> */}
         {this.props.sceneConfig.camConfig === 1 ?
           <a-entity position="0 0 0">
