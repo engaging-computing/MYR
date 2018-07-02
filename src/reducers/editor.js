@@ -11,15 +11,29 @@ import { snaps } from '../firebase.js';
 let entityModel = [
   {
     id: 'floor',
-    geometry: {
-      primitive: "box",
-      depth: 50,
-      height: 1,
-      width: 50
-    },
+    geometry: `
+      primitive: box;
+      depth: 50;
+      height: 1;
+      width: 50;
+    `,
     material: "color: #222",
     "static-body": "shape: box",
-    position: "0 -1 0"
+    position: {
+      x: 0,
+      y: -1,
+      z: 0
+    },
+    scale: {
+      x: 1,
+      y: 1,
+      z: 1
+    },
+    rotation: {
+      x: 0,
+      y: 0,
+      z: 0
+    }
   },
 ];
 

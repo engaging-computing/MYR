@@ -27,27 +27,6 @@ class Myr {
       z: 0
     };
     this.radius = 1;
-    // all entities share certain attributes
-    this.core = (type) => {
-      let c = {
-        // random 5 digit integer 'address'
-        id:  this.genNewId(),
-        position: this.position,
-        scale: this.scale,
-        geometry: {
-          primitive: type,
-        },
-        material: {
-          color: this.color,
-          side: 'double'
-        },
-        rotation: this.rotation,
-        radius: this.radius,
-        'radius-bottom': 1,
-        'radius-top': 2,
-      };
-      return c;
-    };
     this.genNewId = () => {
       return 'a' + this.counter++;
     };
@@ -75,8 +54,8 @@ class Myr {
     funs.forEach(element => {
       // If a collision is detected then do not override and warn
       if (window.hasOwnProperty(element)) {
-        console.warn(`The ${element} of Myr is being overridden.\n` + 
-                     `If this was not intentional consider renaming the function.`);
+        console.warn(`The ${element} of Myr is being overridden.\n` +
+          `If this was not intentional consider renaming the function.`);
       } else {
         // Collision free so we can bind to window
         window[element] = this[element];
@@ -101,7 +80,7 @@ class Myr {
     this.els = [].concat(this.baseEls);
   }
 
-  setPosition = (x, y, z) => {
+  setPosition = (x = 0, y = 1, z = 0) => {
     return this.position = {
       x: x,
       y: y,
@@ -109,7 +88,7 @@ class Myr {
     };
   };
 
-  setScale = (x, y, z) => {
+  setScale = (x, y = 1, z = 1) => {
     return this.scale = {
       x: x,
       y: y,
@@ -117,7 +96,7 @@ class Myr {
     };
   };
 
-  setRotation = (x, y, z) => {
+  setRotation = (x, y = 0, z = 0) => {
     return this.rotation = {
       x: x,
       y: y,
@@ -164,21 +143,12 @@ class Myr {
       color += letters[Math.floor(Math.random() * 16)];
       i++;
     }
+    this.color = color;
     return color;
   }
 
-  environment = (obj) => {
-    let el = {
-      environment: true
-    };
-    this.els.push(el);
-  }
-
   drop = (outerElId) => {
-    this.getEl(outerElId)['dynamic-body'] = {
-      shape: 'box',
-      mass: 5
-    };
+    this.getEl(outerElId)['dynamic-body'] = "shape: box; mass: 5";
     return outerElId;
   }
 
@@ -201,103 +171,220 @@ class Myr {
 
   // Render an Aframe Box Primitive with current Myr settings    
   box = (params) => {
-    return this.mergeProps('box', params);
-  }
-
-  // Render an Aframe Sphere Primitive with current Myr settings  
-  sphere = (params) => {
-    return this.mergeProps('sphere', params);
+    let base = {
+      geometry: `primitive: box`,
+      id: this.genNewId(),
+      material: `color:${this.color}`,
+      position: this.position,
+      rotation: this.rotation,
+      scale: this.scale,
+    };
+    return this.mergeProps(base, params);
   }
 
   // Render an Aframe circle Primitive with current Myr settings  
   circle = (params) => {
-    return this.mergeProps('circle', params);
+    let base = {
+      geometry: `primitive: circle`,
+      id: this.genNewId(),
+      position: this.position,
+      scale: this.scale,
+      rotation: this.rotation,
+      material: `color:${this.color};  side: double`,
+    };
+    return this.mergeProps(base, params);
   }
 
   // Render an Aframe circle Primitive with current Myr settings  
   cone = (params) => {
-    return this.mergeProps('cone', params);
-  }
-
-  // Render an Aframe Triangle Primitive with current Myr settings  
-  triangle = (params) => {
-    return this.mergeProps('triangle', params);
-  }
-
-  // Render an Aframe Text Primitive with current Myr settings  
-  text = (text, params) => {
-    let el = {
-      text,
+    let base = {
       id: this.genNewId(),
-      value: text || "Default Text",
-      side: 'double',
-      color: this.color,
-      width: this.scale.x,
-      height: this.scale.y,
-      align:"center",
-      scale: `${this.scale.x} ${this.scale.y} ${this.scale.z}`,
-      position: `${this.position.x} ${this.position.y} ${this.position.z}`
+      geometry: `primitive: cone; radiusBottom: 1; radiusTop: 0.1`,
+      position: this.position,
+      scale: this.scale,
+      rotation: this.rotation,
+      material: `color:${this.color};  side: double`,
+      radius: `${this.radius}`,
     };
-    if (!params || typeof params === 'string') {
-      this.els.push(el);
-    } else {
-      this.els.push({ ...el, ...params });
-    }
-    return el.id;
+    return this.mergeProps(base, params);
   }
 
   // Render an Aframe Text Primitive with current Myr settings  
   cylinder = (params) => {
-    return this.mergeProps('cylinder', params);
+    let base = {
+      id: this.genNewId(),
+      geometry: `primitive: cylinder`,
+      position: this.position,
+      scale: this.scale,
+      rotation: this.rotation,
+      material: `color:${this.color};  side: double`,
+      radius: `${this.radius}`,
+    };
+    return this.mergeProps(base, params);
   }
 
-  // Render an Aframe Polyhedron with current Myr settings  
-  polyhedron = (obj) => {
-    let el = this.core('cylinder');
-    let geometry = {
-      geometry: {
-        primitive: 'sphere',
-        segmentsWidth: 2,
-        segmentsHeight: 8
-      }
-    };
-    if (typeof params === 'string') {
-      this.els.push({ ...el, ...geometry });
-    } else {
-      this.els.push({ ...el, ...geometry, ...obj });
-    }
-    return el.id;
-  }
 
   // Render an Aframe dodecahedron with current Myr settings  
   dodecahedron = (params) => {
-    return this.mergeProps('dodecahedron', params);
+    let base = {
+      id: this.genNewId(),
+      geometry: `primitive: dodecahedron; radius: ${this.radius}`,
+      position: this.position,
+      scale: this.scale,
+      rotation: this.rotation,
+      material: `color:${this.color};  side: double`,
+    };
+    return this.mergeProps(base, params);
   }
 
   // Render an Aframe icosahedron with current Myr settings  
   icosahedron = (params) => {
-    return this.mergeProps('icosahedron', params);
+    let base = {
+      id: this.genNewId(),
+      geometry: `primitive: icosahedron`,
+      position: this.position,
+      scale: this.scale,
+      rotation: this.rotation,
+      material: `color:${this.color};  side: double`,
+    };
+    return this.mergeProps(base, params);
   }
 
   // Render an Aframe octahedron with current Myr settings  
   octahedron = (params) => {
-    return this.mergeProps('octahedron', params);
+    let base = {
+      id: this.genNewId(),
+      geometry: `primitive: octahedron`,
+      position: this.position,
+      scale: this.scale,
+      rotation: this.rotation,
+      material: `color:${this.color};  side: double`,
+    };
+    return this.mergeProps(base, params);
+  }
+
+  plane = (params) => {
+    let base = {
+      id: this.genNewId(),
+      geometry: `primitive: plane; height: 1; width: 1`,
+      position: this.position,
+      scale: this.scale,
+      rotation: this.rotation,
+      material: `color:${this.color};  side: double`,
+    };
+    return this.mergeProps(base, params);
+  }
+
+  // Render an Aframe Polyhedron with current Myr settings  
+  polyhedron = (params) => {
+    let base = {
+      id: this.genNewId(),
+      geometry: `primitive: sphere; segmentsWidth: 2;  segmentsHeight: 8`,
+      position: this.position,
+      scale: this.scale,
+      rotation: this.rotation,
+      material: `color:${this.color};  side: double`,
+    };
+    return this.mergeProps(base, params);
   }
 
   ring = (params) => {
-    return this.mergeProps('ring', params);
+    let base = {
+      id: this.genNewId(),
+      geometry: `primitive: ring; radiusInner: 0.5; radiusOuter: 1`,
+      position: this.position,
+      scale: this.scale,
+      rotation: this.rotation,
+      material: `color:${this.color};  side: double`,
+    };
+    return this.mergeProps(base, params);
+  }
+
+  // Render an Aframe Sphere Primitive with current Myr settings  
+  sphere = (params) => {
+    let base = {
+      id: this.genNewId(),
+      geometry: `primitive: sphere`,
+      position: this.position,
+      scale: this.scale,
+      rotation: this.rotation,
+      material: `color:${this.color}`,
+    };
+    return this.mergeProps(base, params);
   }
 
   tetrahedron = (params) => {
-    return this.mergeProps('tetrahedron', params);
+    let base = {
+      id: this.genNewId(),
+      geometry: `primitive: tetrahedron;`,
+      position: this.position,
+      scale: this.scale,
+      rotation: this.rotation,
+      material: `color:${this.color};  side: double`,
+    };
+    return this.mergeProps(base, params);
+  }
+
+  /*
+  * This is a bit tricky. We need to pass text so we can decide how to render it.
+  * This throws a warning since text is not part of the entity system. 
+  * Instead we pass it and then pull it off again if we see it.
+  */
+  text = (text, params) => {
+    let base = {
+      text: true,
+      value: text || "Default",
+      id: this.genNewId(),
+      side: 'double',
+      color: this.color,
+      position: this.position,
+      scale: this.scale,
+      rotation: this.rotation,
+    };
+    if (!params || typeof params === 'string') {
+      this.els.push(base);
+    } else {
+      this.els.push({ ...base, ...params });
+    }
+    return base.id;
   }
 
   torus = (params) => {
-    return this.mergeProps('torus', params);
+    let base = {
+      id: this.genNewId(),
+      geometry: `primitive: torus; radius: ${this.radius}; radiusTubular: 0.5; arc: 360`,
+      position: this.position,
+      scale: this.scale,
+      rotation: this.rotation,
+      material: `color:${this.color};  side: double`,
+    };
+    return this.mergeProps(base, params);
   }
 
   torusknot = (params) => {
-    return this.mergeProps('torusKnot', params);
+    let base = {
+      id: this.genNewId(),
+      geometry: `primitive: torusKnot;`,
+      position: this.position,
+      scale: this.scale,
+      rotation: this.rotation,
+      material: `color:${this.color};`,
+      p: 2,
+      q: 3,
+    };
+    return this.mergeProps(base, params);
+  }
+
+  triangle = (params) => {
+    let base = {
+      id: this.genNewId(),
+      geometry: `primitive: triangle;`,
+      position: this.position,
+      scale: this.scale,
+      rotation: this.rotation,
+      material: `color:${this.color};  side: double`,
+    };
+    return this.mergeProps(base, params);
   }
 
   // Render a new Aframe light with current Myr settings  
@@ -317,172 +404,164 @@ class Myr {
   prism = this.polyhedron
 
   // Animate the Aframe element which is passed as arg
-  animate = (outerElId, duration) => {
+  animate = (outerElId, loop = true, magnitude = 360, duration = 1000) => {
     let el = this.getEl(outerElId);
-    let anim = {
-      property: 'rotation',
-      dir: 'alternate',
-      to: '0 360 0',
-      dur: duration || '1000',
-      loop: true
-    };
+    let anim = `
+      property: rotation;
+      dir: alternate;
+      to: ${el.rotation.x} ${el.rotation.y + magnitude} ${el.rotation.z},
+      dur: ${duration};
+      loop: ${loop};
+    `;
     el.animation = anim;
     return outerElId;
   };
 
-  spin = (outerElId, magnitude = 360, loop = true, duration) => {
+  spin = (outerElId, magnitude = 360, loop = true, duration = 1000) => {
     let el = this.getEl(outerElId);
-    let anim = {
-      dir: 'alternate',
-      dur: duration || '1000',
-      loop: loop,
-      easing: 'linear',
-      property: 'rotation',
-      from: `${el.rotation.x} ${el.rotation.y} ${el.rotation.z}`,
-      to: `0 ${magnitude} 0`,
-    };
+    let anim = `
+      property: rotation;
+      dir: alternate;
+      dur: ${duration};
+      loop: ${loop};
+      easing: linear;
+      to: ${el.rotation.x} ${el.rotation.y + magnitude} ${el.rotation.z},
+    `;
     el.animation__spin = anim;
     return outerElId;
   };
 
-  yoyo = (outerElId, magnitude = 2, loop = true, duration) => {
+  yoyo = (outerElId, magnitude = 2, loop = true, duration = 1000) => {
     let el = this.getEl(outerElId);
-    let anim = {
-      property: 'position',
-      dir: 'alternate',
-      dur: duration || '1000',
-      loop: loop,
-      from: `${el.position.x} ${el.position.y} ${el.position.z}`,
-      to: `${el.position.x} ${el.position.y + magnitude} ${el.position.z}`,
-    };
+    let anim = `
+      property: position;
+      dir: alternate;
+      dur: ${duration};
+      loop: ${loop};
+      to: ${el.position.x} ${el.position.y + magnitude} ${el.position.z},
+    `;
     el.animation__yoyo = anim;
     return outerElId;
   };
 
-  sideToSide = (outerElId, magnitude = 2, loop = true, duration) => {
+  sideToSide = (outerElId, magnitude = 2, loop = true, duration = 1000) => {
     let el = this.getEl(outerElId);
-    let anim = {
-      dir: 'alternate',
-      dur: duration || '1000',
-      loop: loop,
-      property: 'position',
-      from: `${el.position.x} ${el.position.y} ${el.position.z}`,
-      to: `${el.position.x + magnitude} ${el.position.y} ${el.position.z}`,
-    };
+    let anim = `
+      dir: alternate;
+      dur: ${duration};
+      loop: ${loop};
+      property: position;
+      to: ${el.position.x + magnitude} ${el.position.y} ${el.position.z};
+    `;
+    el.position = { ...el.position, x: el.position.x - magnitude };
     el.animation__sidetoside = anim;
     return outerElId;
   };
 
-  goUp = (outerElId, magnitude = 2, loop = true, duration) => {
+  goUp = (outerElId, magnitude = 2, loop = true, duration = 1000) => {
     let el = this.getEl(outerElId);
-    let anim = {
-      dir: 'alternate',
-      dur: duration || '1000',
-      loop: loop,
-      property: 'position',
-      from: `${el.position.x} ${el.position.y} ${el.position.z}`,
-      to: `${el.position.x} ${el.position.y + magnitude} ${el.position.z}`,
-    };
+    let anim = `
+      property: position; 
+      dir: alternate; 
+      dur: ${duration}; 
+      loop: ${loop}; 
+      to: ${el.position.x} ${el.position.y + magnitude} ${el.position.z};
+    `;
     el.animation__goup = anim;
     return outerElId;
   };
 
-  goDown = (outerElId, magnitude = 2, loop = true, duration) => {
+  goDown = (outerElId, magnitude = 2, loop = true, duration = 1000) => {
     let el = this.getEl(outerElId);
-    let anim = {
-      property: 'position',
-      dir: 'alternate',
-      dur: duration || '1000',
-      loop: loop,
-      from: `${el.position.x} ${el.position.y} ${el.position.z}`,
-      to: `${el.position.x} ${el.position.y - magnitude} ${el.position.z}`,
-    };
+    let anim = `
+      property: position; 
+      dir: alternate; 
+      dur: ${duration}; 
+      loop: ${loop}; 
+      to: ${el.position.x} ${el.position.y - magnitude} ${el.position.z};
+    `;
     el.animation__godown = anim;
     return outerElId;
   };
 
-  goLeft = (outerElId, magnitude = 2, loop = true, duration) => {
+  goLeft = (outerElId, magnitude = 2, loop = true, duration = 1000) => {
     let el = this.getEl(outerElId);
-    let anim = {
-      property: 'position',
-      dir: 'alternate',
-      dur: duration || '1000',
-      loop: loop,
-      from: `${el.position.x} ${el.position.y} ${el.position.z}`,
-      to: `${el.position.x + magnitude} ${el.position.y} ${el.position.z}`,
-    };
+    let anim = `
+      property: position; 
+      dir: alternate; 
+      dur: ${duration}; 
+      loop: ${loop}; 
+      to: ${el.position.x - magnitude} ${el.position.y} ${el.position.z};
+    `;
     el.animation__goleft = anim;
     return outerElId;
   };
 
-  goRight = (outerElId, magnitude = 2, loop = true, duration) => {
+  goRight = (outerElId, magnitude = 2, loop = true, duration = 1000) => {
     let el = this.getEl(outerElId);
-    let anim = {
-      property: 'position',
-      dir: 'alternate',
-      dur: duration || '1000',
-      loop: loop,
-      from: `${el.position.x} ${el.position.y} ${el.position.z}`,
-      to: `${el.position.x - magnitude} ${el.position.y} ${el.position.z}`,
-    };
+    let anim = `
+      property: position; 
+      dir: alternate; 
+      dur: ${duration}; 
+      loop: ${loop}; 
+      to: ${el.position.x + magnitude} ${el.position.y} ${el.position.z};
+    `;
     el.animation__goright = anim;
     return outerElId;
   };
 
-  goTowards = (outerElId, magnitude = 2, loop = true, duration) => {
+  goTowards = (outerElId, magnitude = 2, loop = true, duration = 1000) => {
     let el = this.getEl(outerElId);
-    let anim = {
-      property: 'position',
-      dir: 'alternate',
-      dur: duration || '1000',
-      loop: loop,
-      from: `${el.position.x} ${el.position.y} ${el.position.z}`,
-      to: `${el.position.x} ${el.position.y} ${el.position.z + magnitude}`,
-    };
+    let anim = `
+      property: position; 
+      dir: alternate; 
+      dur: ${duration}; 
+      loop: ${loop}; 
+      to: ${el.position.x} ${el.position.y} ${el.position.z + magnitude};
+    `;
     el.animation__goleft = anim;
     return outerElId;
   };
 
-  goAway = (outerElId, magnitude = 2, loop = true, duration) => {
+  goAway = (outerElId, magnitude = 2, loop = true, duration = 1000) => {
     let el = this.getEl(outerElId);
-    let anim = {
-      property: 'position',
-      dir: 'alternate',
-      dur: duration || '1000',
-      loop: loop,
-      to: `${el.position.x} ${el.position.y} ${el.position.z - magnitude}`,
-    };
-    el.animation__goright = anim;
+    let anim = `
+      property: position; 
+      dir: alternate; 
+      dur: ${duration}; 
+      loop: ${loop}; 
+      to: ${el.position.x} ${el.position.y} ${el.position.z - magnitude};
+    `;
+    el.animation__goaway = anim;
     return outerElId;
   };
 
-  grow = (outerElId, magnitute = 2, loop = true, duration) => {
+  grow = (outerElId, magnitute = 2, loop = true, duration = 1000) => {
     let el = this.getEl(outerElId);
-    let anim = {
-      property: 'scale',
-      dir: 'alternate',
-      dur: duration || '1000',
-      loop: loop,
-      from: `${el.scale.x} ${el.scale.y} ${el.scale.z}`,
-      to: `${el.scale.x * magnitute} ${el.scale.y * magnitute} ${el.scale.z * magnitute}`,
-    };
+    let anim = `
+      property: scale;
+      dir: alternate;
+      dur: ${duration};
+      loop: ${loop};
+      to: ${el.scale.x * magnitute} ${el.scale.y * magnitute} ${el.scale.z * magnitute};
+    `;
     el.animation__grow = anim;
     return outerElId;
   };
 
-  shrink = (outerElId, magnitute = 2, loop = true, duration) => {
+  shrink = (outerElId, magnitute = 2, loop = true, duration = 1000) => {
     let el = this.getEl(outerElId);
-    let anim = {
-      property: 'scale',
-      dir: 'alternate',
-      dur: duration || '1000',
-      loop: loop,
-      from: `${el.scale.x} ${el.scale.y} ${el.scale.z}`,
-      to: `${el.scale.x / magnitute} ${el.scale.y / magnitute} ${el.scale.z / magnitute}`,
-    };
+    let anim = `
+      property: scale;
+      dir: alternate;
+      dur: ${duration};
+      loop: ${loop};
+      to: ${el.scale.x / magnitute} ${el.scale.y / magnitute} ${this.scale.z / magnitute};
+    `;
     el.animation__shrink = anim;
     return outerElId;
   };
+
 
   // MODELS
   addCModel = () => {
@@ -552,14 +631,13 @@ class Myr {
   * @param {obj} params - arguments to be merged, not guarenteed to be successful
   * 
   */
-  mergeProps = (shape, params) => {
-    let el = this.core(shape);
+  mergeProps = (entity, params) => {
     if (!params || typeof params === 'string') {
-      this.els.push(el);
+      this.els.push(entity);
     } else {
-      this.els.push({ ...el, ...params });
+      this.els.push({ ...entity, ...params });
     }
-    return el.id;
+    return entity.id;
   }
 
   sleep = (ms) => {

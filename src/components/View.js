@@ -5,9 +5,6 @@ import 'three-pathfinding/dist/three-pathfinding';
 import 'aframe-extras/dist/aframe-extras.min.js';
 import 'aframe-physics-system';
 import 'aframe-environment-component';
-import { Entity } from 'aframe-react';
-
-
 /**
 * @summary - The View component return the aframe representation of the scene. This 
 * system utilizes the entity compoent system(ECS) to build objects in the scene from different 
@@ -19,10 +16,17 @@ class View extends Component {
   helper = (ent) => {
     // for now only look one level deep for animations
     if (ent) {
+      let flattened = {
+        ...ent, 
+        position: `${ent.position.x} ${ent.position.y} ${ent.position.z}`,
+        scale: `${ent.scale.x} ${ent.scale.y} ${ent.scale.z}`,
+        rotation: `${ent.rotation.x} ${ent.rotation.y} ${ent.rotation.z}`    
+      };
       if (ent.text) {
-        return <a-text key={ent.id} {...ent}></a-text>;
+        delete flattened.text; // this takes care of a warning, may not be necessary 
+        return <a-text key={ent.id} {...flattened}></a-text>;
       } else {
-        return <Entity key={ent.id} {...ent}></Entity>;
+        return <a-entity key={ent.id} {...flattened}></a-entity>;
       }
     }
   }
@@ -49,7 +53,7 @@ class View extends Component {
       <a-entity id="rig" movement-controls="controls: checkpoint" checkpoint-controls="mode: animate">
         <a-entity camera
           position={this.props.sceneConfig.cameraPosition}
-          look-controls // ="pointerLockEnabled: true"
+          look-controls="pointerLockEnabled: true"
         >
           <a-entity cursor
             position="0 0 -1"
@@ -62,16 +66,16 @@ class View extends Component {
 
   basicMoveCam = () => {
     return (
-      <Entity
+      <a-entity
         id="rig"
         movement-controls
         position={this.props.sceneConfig.cameraPosition}>
-        <Entity
+        <a-entity
           camera
           position={this.props.sceneConfig.cameraPosition}
           look-controls // ="pointerLockEnabled: true"
         />
-      </Entity>
+      </a-entity>
     );
   }
 
