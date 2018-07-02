@@ -562,6 +562,37 @@ class Myr {
     return outerElId;
   };
 
+  fadeOut = (outerElId, magnitute = 0, loop = true, duration = 1000) => {
+    let el = this.getEl(outerElId);
+    let anim = `
+      property: components.material.material.opacity;
+      dir: alternate;
+      dur: ${duration};
+      loop: ${loop};
+      isRawProperty: true;
+      from: 1;
+      to: ${magnitute};
+    `;
+    el.material = el.material + "; transparent: true;";
+    el.animation__fadeout = anim;
+    return outerElId;
+  }
+
+  fadeIn = (outerElId, magnitute = 1, loop = true, duration = 1000) => {
+    let el = this.getEl(outerElId);
+    let anim = `
+      property: components.material.material.opacity;
+      dir: alternate;
+      dur: ${duration};
+      loop: ${loop};
+      isRawProperty: true;
+      from: 0;
+      to: ${magnitute};
+    `;
+    el.material = el.material + "; transparent: true;";
+    el.animation__fadeout = anim;
+    return outerElId;
+  }
 
   // MODELS
   addCModel = () => {
