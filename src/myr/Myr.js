@@ -80,7 +80,7 @@ class Myr {
     this.els = [].concat(this.baseEls);
   }
 
-  setPosition = (x, y, z) => {
+  setPosition = (x = 0, y = 1, z = 0) => {
     return this.position = {
       x: x,
       y: y,
@@ -88,7 +88,7 @@ class Myr {
     };
   };
 
-  setScale = (x, y, z) => {
+  setScale = (x, y = 1, z = 1) => {
     return this.scale = {
       x: x,
       y: y,
@@ -96,7 +96,7 @@ class Myr {
     };
   };
 
-  setRotation = (x, y, z) => {
+  setRotation = (x, y = 0, z = 0) => {
     return this.rotation = {
       x: x,
       y: y,
@@ -145,13 +145,6 @@ class Myr {
     }
     this.color = color;
     return color;
-  }
-
-  environment = (obj) => {
-    let el = {
-      environment: true
-    };
-    this.els.push(el);
   }
 
   drop = (outerElId) => {
@@ -332,10 +325,15 @@ class Myr {
     return this.mergeProps(base, params);
   }
 
-  // Render an Aframe Text Primitive with current Myr settings  
+  /*
+  * This is a bit tricky. We need to pass text so we can decide how to render it.
+  * This throws a warning since text is not part of the entity system. 
+  * Instead we pass it and then pull it off again if we see it.
+  */
   text = (text, params) => {
     let base = {
-      text: text || "Default",
+      text: true,
+      value: text || "Default",
       id: this.genNewId(),
       side: 'double',
       color: this.color,
@@ -406,12 +404,12 @@ class Myr {
   prism = this.polyhedron
 
   // Animate the Aframe element which is passed as arg
-  animate = (outerElId, loop = true, duration = 1000) => {
+  animate = (outerElId, loop = true, magnitude = 360, duration = 1000) => {
     let el = this.getEl(outerElId);
     let anim = `
       property: rotation;
       dir: alternate;
-      to: 0 360 0;
+      to: ${el.rotation.x} ${el.rotation.y + magnitude} ${el.rotation.z},
       dur: ${duration};
       loop: ${loop};
     `;
@@ -433,7 +431,7 @@ class Myr {
     return outerElId;
   };
 
-  yoyo = (outerElId, magnitude = 2,  loop = true, duration = 1000) => {
+  yoyo = (outerElId, magnitude = 2, loop = true, duration = 1000) => {
     let el = this.getEl(outerElId);
     let anim = `
       property: position;
@@ -446,7 +444,7 @@ class Myr {
     return outerElId;
   };
 
-  sideToSide = (outerElId, magnitude = 2,  loop = true, duration = 1000) => {
+  sideToSide = (outerElId, magnitude = 2, loop = true, duration = 1000) => {
     let el = this.getEl(outerElId);
     let anim = `
       dir: alternate;
@@ -460,7 +458,7 @@ class Myr {
     return outerElId;
   };
 
-  goUp = (outerElId, magnitude = 2,  loop = true, duration = 1000) => {
+  goUp = (outerElId, magnitude = 2, loop = true, duration = 1000) => {
     let el = this.getEl(outerElId);
     let anim = `
       property: position; 
@@ -473,7 +471,7 @@ class Myr {
     return outerElId;
   };
 
-  goDown = (outerElId, magnitude = 2,  loop = true, duration = 1000) => {
+  goDown = (outerElId, magnitude = 2, loop = true, duration = 1000) => {
     let el = this.getEl(outerElId);
     let anim = `
       property: position; 
@@ -486,7 +484,7 @@ class Myr {
     return outerElId;
   };
 
-  goLeft = (outerElId, magnitude = 2,  loop = true, duration = 1000) => {
+  goLeft = (outerElId, magnitude = 2, loop = true, duration = 1000) => {
     let el = this.getEl(outerElId);
     let anim = `
       property: position; 
@@ -499,7 +497,7 @@ class Myr {
     return outerElId;
   };
 
-  goRight = (outerElId, magnitude = 2,  loop = true, duration = 1000) => {
+  goRight = (outerElId, magnitude = 2, loop = true, duration = 1000) => {
     let el = this.getEl(outerElId);
     let anim = `
       property: position; 
@@ -545,8 +543,7 @@ class Myr {
       dir: alternate;
       dur: ${duration};
       loop: ${loop};
-      from: ${this.scale.x} ${this.scale.y} ${this.scale.z};
-      to: ${this.scale.x * magnitute} ${this.scale.y * magnitute} ${this.scale.z * magnitute};
+      to: ${el.scale.x * magnitute} ${el.scale.y * magnitute} ${el.scale.z * magnitute};
     `;
     el.animation__grow = anim;
     return outerElId;
@@ -559,8 +556,7 @@ class Myr {
       dir: alternate;
       dur: ${duration};
       loop: ${loop};
-      from: ${this.scale.x} ${this.scale.y} ${this.scale.z};
-      to: ${this.scale.x / magnitute} ${this.scale.y / magnitute} ${this.scale.z / magnitute};
+      to: ${el.scale.x / magnitute} ${el.scale.y / magnitute} ${this.scale.z / magnitute};
     `;
     el.animation__shrink = anim;
     return outerElId;
