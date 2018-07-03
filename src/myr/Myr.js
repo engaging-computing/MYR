@@ -87,6 +87,23 @@ class Myr {
       z: z
     };
   };
+  setXCoordinate = (x) => {
+    return this.position = {
+        x: x
+      };
+  };
+
+  setYCoordinate = (y)=> {
+    return this.position = {
+      y:y
+    };
+  };
+
+  setZCoordinate = (z)=> {
+    return this.postion = {
+      z: z
+    };
+  };
 
   setScale = (x, y = 1, z = 1) => {
     return this.scale = {
