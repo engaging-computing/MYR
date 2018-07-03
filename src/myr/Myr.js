@@ -100,7 +100,7 @@ class Myr {
     this.position.z = z;
   };
 
-  setScale = (x, y = 1, z = 1) => {
+  setScale = (x = 1, y = 1, z = 1) => {
     return this.scale = {
       x: x,
       y: y,
@@ -108,6 +108,18 @@ class Myr {
     };
   };
 
+  setXScale = (x) => {
+    this.scale.x = x;
+  };
+
+  setYScale = (y) => {
+    this.scale.y = y;
+  };
+
+  setZScale = (z) => {
+    this.scale.z = z;
+  };
+  
   setRotation = (x, y = 0, z = 0) => {
     return this.rotation = {
       x: x,
