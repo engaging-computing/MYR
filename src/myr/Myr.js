@@ -89,16 +89,15 @@ class Myr {
   };
 
   setXPos = (x) => {
-    this.position.x = x
-
+    this.position.x = x;
   };
 
   setYPos = (y) => {
-    this.position.y = y
+    this.position.y = y;
   };
 
   setZPos = (z) => {
-    this.position.z = z
+    this.position.z = z;
   };
 
   setScale = (x = 1, y = 1, z = 1) => {
@@ -127,6 +126,18 @@ class Myr {
       y: y,
       z: z
     };
+  };
+
+  pitchX = (x) => {
+    this.rotation.x = x;
+  };
+
+  yawY = (y) => {
+    this.rotation.y = y;
+  };
+
+  rollZ = (z) => {
+    this.rotation.z = z;
   };
 
   setRadius = (i) => {
@@ -427,6 +438,9 @@ class Myr {
 
   // Prism is an alias for Polyhedron
   prism = this.polyhedron
+
+  // Cube is an alias for Box
+  cube = this.box
 
   // Animate the Aframe element which is passed as arg
   animate = (outerElId, loop = true, magnitude = 360, duration = 1000) => {
