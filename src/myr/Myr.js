@@ -87,23 +87,18 @@ class Myr {
       z: z
     };
   };
-  
+
   setXPos = (x) => {
-    return this.position = {
-      x: x
-    };
+    this.position.x = x
+
   };
 
   setYPos = (y) => {
-    return this.position = {
-      y: y
-    };
+    this.position.y = y
   };
 
   setZPos = (z) => {
-    return this.postion = {
-      z: z
-    };
+    this.position.z = z
   };
 
   setScale = (x, y = 1, z = 1) => {
