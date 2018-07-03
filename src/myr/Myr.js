@@ -87,19 +87,20 @@ class Myr {
       z: z
     };
   };
-  setXCoordinate = (x) => {
+  
+  setXPos = (x) => {
     return this.position = {
-        x: x
-      };
-  };
-
-  setYCoordinate = (y)=> {
-    return this.position = {
-      y:y
+      x: x
     };
   };
 
-  setZCoordinate = (z)=> {
+  setYPos = (y) => {
+    return this.position = {
+      y: y
+    };
+  };
+
+  setZPos = (z) => {
     return this.postion = {
       z: z
     };
