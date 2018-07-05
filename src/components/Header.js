@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import {
   Button,
   Icon,
@@ -201,7 +201,7 @@ class Header extends Component {
     return (
       <div id="user" >
         {this.props.user && this.props.user.displayName ?
-          <React.Fragment>
+          <Fragment>
             <Avatar
               id="login"
               src={this.props.user.photoURL}
@@ -220,7 +220,7 @@ class Header extends Component {
               onClose={this.handleLogClick} >
               <MenuItem primarytext="Log Out" onClick={this.logout} >Log Out</MenuItem>
             </Popover>
-          </React.Fragment>
+          </Fragment>
           :
           <Button
             variant="raised"
@@ -625,7 +625,7 @@ class Header extends Component {
     };
 
     return (
-      <React.Fragment>
+      <Fragment>
         <Tooltip title="Change View" placement="bottom-start">
         <IconButton
           aria-owns={anchorEl ? 'simple-menu' : null}
@@ -652,7 +652,7 @@ class Header extends Component {
             </Link>
           </MenuItem>
         </Menu>
-      </React.Fragment>
+      </Fragment>
     );
   }
 
