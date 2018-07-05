@@ -81,89 +81,113 @@ class Myr {
   }
 
   setPosition = (x = 0, y = 1, z = 0) => {
-    return this.position = {
-      x: x,
-      y: y,
-      z: z
+    if (typeof x === 'number' && typeof y === 'number' && typeof z === 'number') {
+      this.position = {
+        x: x,
+        y: y,
+        z: z
+      };
     };
   };
 
-  setXPos = (x) => {
-    this.position.x = x;
+  setXPos = (x = 0) => {
+    if (typeof x === 'number') {
+      this.position.x = x;
+    } else {
+      console.error("must pass a numeric for setXPos");
+    }
   };
 
-  setYPos = (y) => {
-    this.position.y = y;
+  setYPos = (y = 0) => {
+    if (typeof y === 'number') {
+      this.position.y = y;
+    } else {
+      console.error("must pass a numeric for setYPos");
+    }
   };
 
-  setZPos = (z) => {
-    this.position.z = z;
+  setZPos = (z = 0) => {
+    if (typeof z === 'number') {
+      this.position.z = z;
+    } else {
+      console.error("must pass a numeric for setZPos");
+    }
   };
 
   setScale = (x = 1, y = 1, z = 1) => {
-    return this.scale = {
-      x: x,
-      y: y,
-      z: z
+    if (typeof x === 'number' && typeof y === 'number' && typeof z === 'number') {
+      this.scale = {
+        x: x,
+        y: y,
+        z: z
+      };
     };
   };
 
   setXScale = (x) => {
-    this.scale.x = x;
+    if (typeof x === 'number') {
+      this.scale.x = x;
+    } else {
+      console.error("must pass a numeric for setXScale");
+    }
   };
 
   setYScale = (y) => {
-    this.scale.y = y;
+    if (typeof y === 'number') {
+      this.scale.y = y;
+    } else {
+      console.error("must pass a numeric for setYScale");
+    }
   };
 
   setZScale = (z) => {
-    this.scale.z = z;
+    if (typeof z === 'number') {
+      this.scale.z = z;
+    } else {
+      console.error("must pass a numeric for setZScale");
+    }
   };
-  
+
   setRotation = (x, y = 0, z = 0) => {
-    return this.rotation = {
-      x: x,
-      y: y,
-      z: z
-    };
-  };
-
-  pitchX = (x) => {
-    this.rotation.x = x;
-  };
-
-  yawY = (y) => {
-    this.rotation.y = y;
-  };
-
-  rollZ = (z) => {
-    this.rotation.z = z;
-  };
-
-  setRadius = (i) => {
-    return this.radius = i;
-  };
-
-  setCamera = (x, y, z) => {
-    let el = {
-      position: {
+    if (typeof x === 'number' && typeof y === 'number' && typeof z === 'number') {
+      this.rotation = {
         x: x,
         y: y,
         z: z
-      },
-      camera: true
+      };
     };
-    if (!this.camera) {
-      this.els.push(el);
+  }
+
+  pitchX = (x) => {
+    if (typeof x === 'number') {
+      this.rotation.x = x;
+    } else {
+      console.error("must pass a numeric for pitchX");
     }
-    this.camera = el;
   };
 
-  setCursor = (x, y, z) => {
-    if (!this.camera) {
-      this.setCamera(x, y, z);
+  yawY = (y) => {
+    if (typeof y === 'number') {
+      this.rotation.y = y;
+    } else {
+      console.error("must pass a numeric for yawY");
     }
-    this.camera.cursor = true;
+  };
+
+  rollZ = (z) => {
+    if (typeof z === 'number') {
+      this.rotation.z = z;
+    } else {
+      console.error("must pass a numeric for pitchX");
+    }
+  };
+
+  setRadius = (i) => {
+    if (typeof i === 'number') {
+      this.radius = i;
+    } else {
+      console.error("must pass a numeric for setRadius");
+    }
   };
 
   setColor = (color) => {
