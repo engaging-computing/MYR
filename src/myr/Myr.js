@@ -27,9 +27,6 @@ class Myr {
       z: 0
     };
     this.radius = 1;
-    this.genNewId = () => {
-      return 'a' + this.counter++;
-    };
   }
 
   /**
@@ -79,6 +76,10 @@ class Myr {
     // restore the base objects of the scene
     this.els = [].concat(this.baseEls);
   }
+
+  genNewId = () => {
+    return 'a' + this.counter++;
+  };
 
   setPosition = (x = 0, y = 1, z = 0) => {
     if (typeof x === 'number' && typeof y === 'number' && typeof z === 'number') {
