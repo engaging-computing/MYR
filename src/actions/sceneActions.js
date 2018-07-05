@@ -6,6 +6,7 @@ export const CHANGE_SKY_COLOR = 'CHANGE_SKY_COLO';
 export const CHANGE_CAM_MODE  = 'CHANGE_CAM_MODE';
 export const SET_CAMERA = 'SET_CAMERA';
 export const CHANGE_PERSPECTIVE = 'CHANGE_PERSPECTIVE';
+export const CHANGE_VIEW = 'CHANGE_VIEW';
 
 /**
 * @summary - This function registers the scene's name with Redux
@@ -47,4 +48,8 @@ export function setCamera(x,y,z){
 
 export function changePerspective(){
   return {type: CHANGE_PERSPECTIVE };
+}
+
+export function changeView(){
+  return {type: CHANGE_VIEW };
 }

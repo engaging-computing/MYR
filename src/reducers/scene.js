@@ -5,7 +5,8 @@ import {
   //  CHANGE_SKY_COLOR,
   //  CHANGE_CAM_MODE,
   SET_CAMERA,
-  // CHANGE_PERSPECTIVE
+  // CHANGE_PERSPECTIVE,
+  CHANGE_VIEW
 } from '../actions/sceneActions';
 
 const initial_state = {
@@ -13,8 +14,9 @@ const initial_state = {
   id: "0",
   skyColor: "white",
   camConfig: 0,
-  showCoordHelper: false,
-  cameraPosition: "0 2.6 0"
+  showCoordHelper: true,
+  cameraPosition: "0 1.6 0",
+  viewOnly: false
 };
 
 export default function scene(state = initial_state, action) {
@@ -39,6 +41,11 @@ export default function scene(state = initial_state, action) {
       return {
         ...state,
         cameraPosition: camPos
+        };
+      case CHANGE_VIEW:
+        return {
+          ...state,
+          viewOnly: !state.viewOnly
         };
     default:
       return state;
