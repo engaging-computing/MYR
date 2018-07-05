@@ -1,4 +1,6 @@
 import React, { Component, Fragment } from 'react';
+import { auth, provider, db, scenes, storageRef } from '../firebase.js';
+
 import {
   Button,
   Icon,
@@ -13,15 +15,12 @@ import {
   Popover,
   Avatar
 } from '@material-ui/core';
-import { auth, provider, db, scenes, storageRef } from '../firebase.js';
 import DisplayMsg from './DisplayMsg';
-import Sidebar from './Sidebar';
 import Reference from './Reference';
+import SceneConfig from './SceneConfig.js';
+import Sidebar from './Sidebar';
 import $ from "jquery";
 import ProgressiveImage from 'react-progressive-image';
-
-import { Link } from 'react-router-dom';
-import SceneConfig from './SceneConfig.js';
 
 const exitBtnStyle = {
   position: "fixed",
@@ -470,7 +469,7 @@ class Header extends Component {
     const renderProj = (proj, canDelete) => {
       return (
         <div key={proj.id} id={proj.id} className="grid-project p-3 mb-3" title={proj.data.name}>
-          <a href={`/edit/${proj.id}`} >
+          <a href={`/${proj.id}`} >
             <h4>{proj.data.name}</h4>
             <ProgressiveImage src={proj.url} placeholder={process.env.PUBLIC_URL + '/img/Loading_icon.gif'}>
               {(src) => <img id={proj.id} alt={proj.id} className="img-thumbnail mb-1" src={src} />}
@@ -543,40 +542,6 @@ class Header extends Component {
   }
 
   /**
-  * @summary - Create a Drawer with options to the control the scene
-  *
-  */
-  openSceneOpt = () => {
-    this.setState({ sceneOptOpen: true });
-  }
-
-  closeSceneOpt = () => {
-    this.setState({ sceneOptOpen: false });
-  }
-
-  sceneOptionsDrawer = () => {
-    return (
-      <Drawer
-        className="side-drawer"
-        open={this.state.sceneOptOpen}
-        onRequestChange={(open) => this.setState({ open })}
-        onClick={this.closeSceneOpt}
-        onClose={this.closeSceneOpt} >
-        <IconButton variant="raised"
-          color="default"
-          style={exitBtnStyle}
-          onClick={this.closeSceneOpt} >
-          <Icon className="material-icons">close</Icon>
-        </IconButton>
-        <div id="scene-options" >
-          <h2> Scene Config</h2>
-        </div>
-        <SceneConfig sceneActions={this.props.sceneActions} />
-      </Drawer>
-    );
-  }
-
-  /**
   * @summary - closes the snackabar that displays the message from render
   */
 
@@ -641,16 +606,7 @@ class Header extends Component {
           anchorEl={anchorEl}
           open={Boolean(anchorEl)}
           onClose={this.handleViewOptClose} >
-          <MenuItem >
-            <Link to={`/view/${this.props.projectId}`}>
-              <Icon style={{ verticalAlign: 'bottom' }} className="material-icons">visibility</Icon> View
-            </Link>
-          </MenuItem>
-          <MenuItem >
-            <Link to={`/edit/${this.props.projectId}`}>
-              <Icon style={{ verticalAlign: 'bottom' }} className="material-icons">code</Icon> Edit
-            </Link>
-          </MenuItem>
+          <SceneConfig scene={this.props.scene} sceneActions={this.props.sceneActions} />
         </Menu>
       </Fragment>
     );
@@ -731,15 +687,6 @@ class Header extends Component {
               <Icon className="material-icons">file_download</Icon>
               Open Project
             </Button>
-            <Button
-              variant="raised"
-              onClick={this.openSceneOpt}
-              color="primary"
-              className="sidebar-btn">
-              <Icon className="material-icons">settings</Icon>
-              Scene Config
-            </Button>
-
           </Sidebar>
           <h1 className="mr-2">MYR</h1>
           <Tooltip title="Render" placement="bottom-start">
@@ -792,7 +739,6 @@ class Header extends Component {
           <this.renderViewSelect />
           <this.loginBtn />
         </div>
-        <this.sceneOptionsDrawer />
         <this.saveDrawer />
         <this.loadDrawer />
         <this.renderSnackBar />
