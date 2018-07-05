@@ -372,7 +372,7 @@ class Header extends Component {
           console.log("Document successfully written!");
           // If we have a new projectId reload page with it
           if (projectID !== this.props.projectId) {
-            window.location.href = window.origin + '/edit/' + projectID;
+            window.location.href = window.origin + '/' + projectID;
           } else {
             this.getUserProjs();
           }
