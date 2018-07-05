@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import 'aframe';
 import 'aframe-animation-component';
 import 'three-pathfinding/dist/three-pathfinding';
@@ -17,10 +17,10 @@ class View extends Component {
     // for now only look one level deep for animations
     if (ent) {
       let flattened = {
-        ...ent, 
+        ...ent,
         position: `${ent.position.x} ${ent.position.y} ${ent.position.z}`,
         scale: `${ent.scale.x} ${ent.scale.y} ${ent.scale.z}`,
-        rotation: `${ent.rotation.x} ${ent.rotation.y} ${ent.rotation.z}`    
+        rotation: `${ent.rotation.x} ${ent.rotation.y} ${ent.rotation.z}`
       };
       if (ent.text) {
         delete flattened.text; // this takes care of a warning, may not be necessary 
@@ -79,25 +79,37 @@ class View extends Component {
     );
   }
 
-  skyHelper = () => {
+  coordinateHelper = () => {
     if (this.props.sceneConfig.showCoordHelper) {
-      return <a-sky rotation="0 270 0" src="#reference" />;
+      return (
+        <Fragment>
+          <a-grid height="50" width="50" position="0 -0.4 0" />
+          <a-tube path="-25 -0.65 0, 25 -0.65 0" radius="0.35" material="color: red"></a-tube>
+          <a-tube path="0 -0.65 -25, 0 -0.65 25" radius="0.35" material="color: blue"></a-tube>
+          <a-text
+            rotation="90 0 0"
+            position="-0.0005 0 0"
+            side="double"
+            align="center"
+            value="< -X       X + >"></a-text>
+          <a-text
+            rotation="90 270 0"
+            position="0 0 -0.01"
+            side="double"
+            align="center"
+            value="< -Z      Z+ >">
+          </a-text>
+          <a-text
+            rotation="0 0 90"
+            position="0 .1 0"
+            side="double"
+            value=" Y+ >"></a-text>
+        </Fragment>
+      );
     } else {
-      return <a-sky color={this.props.sceneConfig.skyColor} />;
+      return null;
     }
   }
-
-  // Need a navmap
-  // navMeshCam = () => {
-  //   return (
-  //     <a-entity id="rig" movement-controls="constrainToNavMesh: true">
-  //       <a-entity camera
-  //         position="0 1.6 0"
-  //         look-controls="pointerLockEnabled: true">
-  //       </a-entity>
-  //     </a-entity>
-  //   );
-  // }
 
   render = () => {
     return (
@@ -109,15 +121,9 @@ class View extends Component {
           {this.props.assets ? this.props.assets.map((x, index) => this.assetsHelper(x, index)) : null}
         </a-assets>
         <this.createCam />
-        <this.skyHelper />
+        <a-sky color={this.props.sceneConfig.skyColor} />
+        <this.coordinateHelper />
         {this.props.objects ? this.props.objects.map(it => this.helper(it)) : null}
-        {/* <a-ocean color="#ff3333" width="50" depth="50" density="15" speed="2"></a-ocean> */}
-        <a-text side="double" value=" X+ -->"></a-text>
-        <a-text rotation="0 90 0" side="double" value=" Z+ -->"></a-text>
-        <a-text rotation="0 0 90" side="double" value=" Y+ -->"></a-text>
-        <a-tube path="-25 -0.65 0, 25 -0.65 0" radius="0.35" material="color: red"></a-tube>
-        <a-tube path="0 -0.65 -25, 0 -0.65 25" radius="0.35" material="color: blue"></a-tube>
-        {/* <a-grid /> */}
         {this.props.sceneConfig.camConfig === 1 ?
           <a-entity position="0 0 0">
             <a-cylinder checkpoint radius="1" height="0.3" position="-25 1 -25" color="#39BB82"></a-cylinder>
