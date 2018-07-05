@@ -88,7 +88,9 @@ class Myr {
         y: y,
         z: z
       };
-    };
+    } else {
+      console.error("setPosition() must be all numeric values");
+    }
   };
 
   setXPos = (x = 0) => {
@@ -122,7 +124,9 @@ class Myr {
         y: y,
         z: z
       };
-    };
+    } else {
+      console.error("setScale() must be all numeric values");
+    }
   };
 
   setXScale = (x) => {
@@ -156,7 +160,9 @@ class Myr {
         y: y,
         z: z
       };
-    };
+    } else {
+      console.error("setRotation() must be all numeric values");
+    }
   }
 
   pitchX = (x) => {
@@ -179,7 +185,7 @@ class Myr {
     if (typeof z === 'number') {
       this.rotation.z = z;
     } else {
-      console.error("must pass a numeric for pitchX");
+      console.error("must pass a numeric for rollZ");
     }
   };
 
