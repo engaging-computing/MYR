@@ -1,13 +1,11 @@
 import React from 'react';
 import store from '../store';
-import { configure, shallow, mount } from 'enzyme';
+import { configure, shallow } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 
 import IDE from '../containers/Ide';
-import Viewer from '../containers/Viewer';
 import Header from '../components/Header';
 import Reference from '../components/Reference';
-import Terminal from '../components/Terminal';
 import View from '../components/View';
 import Editor from '../components/Editor';
 import Sidebar from '../components/Sidebar';
@@ -37,11 +35,11 @@ configure({ adapter: new Adapter() });
 describe('Header Component', () => {
   it('Header renders without crashing', () => {
     shallow(
-      <Header 
-        logging={{login: () => {}, logout: () => {}}} 
-        sceneActions={{nameScene: () => {}, loadScene: () => {}}}
-        actions={{render: () => {}, refresh: () => {}}}
-        user={null} 
+      <Header
+        logging={{ login: () => { }, logout: () => { } }}
+        sceneActions={{ nameScene: () => { }, loadScene: () => { } }}
+        actions={{ render: () => { }, refresh: () => { } }}
+        user={null}
         scene={{
           name: "",
           id: "0",
@@ -50,10 +48,10 @@ describe('Header Component', () => {
             camConfig: 0
           }
         }}
-        text="" 
-        message={{text: "", time: 123}} 
+        text=""
+        message={{ text: "", time: 123 }}
         projectId={"GO9g0o5rwFc9fKR6I3ifvXjlmHM2_1527191123705"} />
-        , { context: { store } });
+      , { context: { store } });
   });
 });
 
@@ -66,12 +64,6 @@ describe('Editor Component', () => {
 describe('Reference Component', () => {
   it('Reference renders without crashing', () => {
     shallow(<Reference />);
-  });
-});
-
-describe('Terminal Component', () => {
-  it('Terminal renders without crashing', () => {
-    shallow(<Terminal />);
   });
 });
 
@@ -95,11 +87,11 @@ describe('View Component', () => {
 describe('IDE Component', () => {
   it('View renders without crashing', () => {
     render(
-        <IDE 
-        text="" 
-        objects={[]} 
-        assets={[]} 
-        user={{ name: "Test" }} 
+      <IDE
+        text=""
+        objects={[]}
+        assets={[]}
+        user={{ name: "Test" }}
         scene={{
           name: "",
           id: "0",
@@ -107,15 +99,9 @@ describe('IDE Component', () => {
             skyColor: "white",
             camConfig: 0
           }
-        }} 
+        }}
         errors="" />,
       { context: { store } });
-  });
-});
-
-describe('Viewer Component', () => {
-  it('View renders without crashing', () => {
-    shallow(<Viewer />, { context: { store } });
   });
 });
 
@@ -203,50 +189,27 @@ describe('Scene Reducer', () => {
   it('should return the initial state', () => {
     expect(scene(undefined, {})).toEqual(
       {
-        name: "",
+        camConfig: 0,
+        cameraPosition: "0 1.6 0",
         id: "0",
-        sceneConfig: {
-          skyColor: "white",
-          camConfig: 0
-        }
+        name: "",
+        showCoordHelper: true,
+        skyColor: "white",
+        viewOnly: false
       }
     );
   });
 
   it('should NAME_SCENE', () => {
     expect(
-      scene(undefined, {
-        type: NAME_SCENE,
-        name: "Test"
-      }))
-      .toEqual(
-        {
-          name: "Test",
-          id: "0",
-          sceneConfig: {
-            skyColor: "white",
-            camConfig: 0
-          }
-        }
-      );
+      scene(undefined, { type: NAME_SCENE, name: "Test" }).name)
+      .toEqual("Test");
   });
 
   it('should LOAD_SCENE', () => {
     expect(
-      scene(undefined, {
-        type: LOAD_SCENE,
-        id: "1"
-      }))
-      .toEqual(
-        {
-          name: "",
-          id: "1",
-          sceneConfig: {
-            skyColor: "white",
-            camConfig: 0
-          }
-        }
-      );
+      scene(undefined, { type: LOAD_SCENE, id: "1" }).id)
+      .toEqual("1");
   });
 });
 
@@ -257,6 +220,7 @@ describe('Editor Reducer', () => {
     assets: [],
     errors: "Everything Looks Good"
   };
+  
   it('should return the initial state', () => {
     expect(
       editor(initial_state, {}))
@@ -303,6 +267,6 @@ describe('Editor Reducer', () => {
       editor(initial_state, {
         type: EDITOR_RECOVER
       }).text)
-      .toEqual( "sphere();");
+      .toEqual("sphere();");
   });
 });
