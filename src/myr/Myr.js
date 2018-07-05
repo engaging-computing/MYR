@@ -88,7 +88,19 @@ class Myr {
     };
   };
 
-  setScale = (x, y = 1, z = 1) => {
+  setXPos = (x) => {
+    this.position.x = x;
+  };
+
+  setYPos = (y) => {
+    this.position.y = y;
+  };
+
+  setZPos = (z) => {
+    this.position.z = z;
+  };
+
+  setScale = (x = 1, y = 1, z = 1) => {
     return this.scale = {
       x: x,
       y: y,
@@ -96,12 +108,36 @@ class Myr {
     };
   };
 
+  setXScale = (x) => {
+    this.scale.x = x;
+  };
+
+  setYScale = (y) => {
+    this.scale.y = y;
+  };
+
+  setZScale = (z) => {
+    this.scale.z = z;
+  };
+  
   setRotation = (x, y = 0, z = 0) => {
     return this.rotation = {
       x: x,
       y: y,
       z: z
     };
+  };
+
+  pitchX = (x) => {
+    this.rotation.x = x;
+  };
+
+  yawY = (y) => {
+    this.rotation.y = y;
+  };
+
+  rollZ = (z) => {
+    this.rotation.z = z;
   };
 
   setRadius = (i) => {
@@ -403,6 +439,9 @@ class Myr {
   // Prism is an alias for Polyhedron
   prism = this.polyhedron
 
+  // Cube is an alias for Box
+  cube = this.box
+
   // Animate the Aframe element which is passed as arg
   animate = (outerElId, loop = true, magnitude = 360, duration = 1000) => {
     let el = this.getEl(outerElId);
@@ -590,7 +629,7 @@ class Myr {
       to: ${magnitute};
     `;
     el.material = el.material + "; transparent: true;";
-    el.animation__fadeout = anim;
+    el.animation__fadein = anim;
     return outerElId;
   }
 
