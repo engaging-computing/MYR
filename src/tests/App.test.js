@@ -9,6 +9,9 @@ import Reference from '../components/Reference';
 import View from '../components/View';
 import Editor from '../components/Editor';
 import Sidebar from '../components/Sidebar';
+import DisplayMsg from '../components/DisplayMsg';
+import SceneConfig from '../components/SceneConfig';
+
 
 import user from '../reducers/user';
 import scene from '../reducers/scene';
@@ -55,6 +58,23 @@ describe('Header Component', () => {
   });
 });
 
+describe('DisplayMsg Component', () => {
+  const confirmNavAway = {
+    headerText: "Are you sure?",
+    bodyText: "You will lose any unsaved work. Click 'CONTINUE' to create a new scene, click 'CANCEL' to go back",
+    confirmedFunc: () => {
+      window.location.href = window.origin;
+      this.toggleNavModal();
+    },
+    cancelFunc: () => {
+      this.toggleNavModal();
+    },
+  };
+  it('Terminal renders without crashing', () => {
+    shallow(<DisplayMsg open={true} {...confirmNavAway} />);
+  });
+});
+
 describe('Editor Component', () => {
   it('Editor renders without crashing', () => {
     shallow(<Editor />, { context: { store } });
@@ -64,6 +84,20 @@ describe('Editor Component', () => {
 describe('Reference Component', () => {
   it('Reference renders without crashing', () => {
     shallow(<Reference />);
+  });
+});
+
+describe('SceneConfig Component', () => {
+  const sceneActions = {
+    changeView: () => { },
+    toggleCoordSky: () => { },
+    setCamera: () => { }
+  };
+  it('SceneConfig renders without crashing', () => {
+    shallow(<SceneConfig sceneActions={sceneActions} scene={{ viewOnly: true }} />);
+  });
+  it('SceneConfig renders without crashing', () => {
+    shallow(<SceneConfig sceneActions={sceneActions} scene={{ viewOnly: false }} />);
   });
 });
 
@@ -220,7 +254,7 @@ describe('Editor Reducer', () => {
     assets: [],
     errors: "Everything Looks Good"
   };
-  
+
   it('should return the initial state', () => {
     expect(
       editor(initial_state, {}))
