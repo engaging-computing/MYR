@@ -3,13 +3,11 @@ import { withStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
 import Button from '@material-ui/core/Button';
 
-function getModalStyle() {
-  return {
-    top: '38%',
-    left: '38%',
-    transform: `translate(-24%, -24%)`,
-  };
-}
+const modalStyle = {
+  top: '38%',
+  left: '38%',
+  transform: `translate(-24%, -24%)`,
+};
 
 const styles = theme => ({
   paper: {
@@ -25,13 +23,13 @@ const styles = theme => ({
 class DisplayMsg extends Component {
 
   handleCancel = () => {
-    if(typeof this.props.cancelFunc === 'function') { 
+    if (typeof this.props.cancelFunc === 'function') {
       this.props.cancelFunc();
     };
   };
 
   handleConfirm = () => {
-    if(typeof this.props.confirmedFunc === 'function') { 
+    if (typeof this.props.confirmedFunc === 'function') {
       this.props.confirmedFunc();
     };
   }
@@ -47,7 +45,7 @@ class DisplayMsg extends Component {
           onClose={this.handleCancel}
           onBackdropClick={this.handleCancel}
         >
-          <div style={getModalStyle()} className={classes.paper}>
+          <div style={modalStyle} className={classes.paper}>
             <h3>{this.props.headerText}</h3>
             <p>{this.props.bodyText}</p>
             <Button
