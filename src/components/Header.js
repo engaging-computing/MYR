@@ -372,7 +372,7 @@ class Header extends Component {
           console.log("Document successfully written!");
           // If we have a new projectId reload page with it
           if (projectID !== this.props.projectId) {
-            window.location.href = window.origin + '/edit/' + projectID;
+            window.location.href = window.origin + '/' + projectID;
           } else {
             this.getUserProjs();
           }
@@ -592,14 +592,14 @@ class Header extends Component {
     return (
       <Fragment>
         <Tooltip title="Change View" placement="bottom-start">
-        <IconButton
-          aria-owns={anchorEl ? 'simple-menu' : null}
-          aria-haspopup="true"
-          className="header-btn d-none d-md-block "
-          onClick={this.handleViewOptClick}
-          style={style}>
-          <Icon className="material-icons">visibility</Icon>
-        </IconButton>
+          <IconButton
+            aria-owns={anchorEl ? 'simple-menu' : null}
+            aria-haspopup="true"
+            className="header-btn "
+            onClick={this.handleViewOptClick}
+            style={style}>
+            <Icon className="material-icons">visibility</Icon>
+          </IconButton>
         </Tooltip>
         <Menu
           id="simple-menu"
@@ -688,7 +688,7 @@ class Header extends Component {
               Open Project
             </Button>
           </Sidebar>
-          <h1 className="mr-2">MYR</h1>
+          <h1 className="mr-2 d-none d-sm-block" >MYR</h1>
           <Tooltip title="Render" placement="bottom-start">
             <Button
               variant="raised"
