@@ -208,7 +208,7 @@ class Header extends Component {
               onClick={() => this.setState({ logMenuOpen: !this.state.logMenuOpen })}
               label="logout" />
             <span
-              className="user-name d-none d-sm-block"  >
+              className="user-name d-none d-lg-block"  >
               Logged in as <br />
               {this.props.user.displayName}
             </span>
@@ -713,7 +713,7 @@ class Header extends Component {
             <IconButton
               onClick={this.toggleNavModal}
               style={style.default}
-              className="header-btn d-none d-sm-block" >
+              className="header-btn d-none d-md-block" >
               <Icon className="material-icons">add_circle_outline</Icon>
             </IconButton>
           </Tooltip>
