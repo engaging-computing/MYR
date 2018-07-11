@@ -23,10 +23,10 @@ const Ide = ({ editor, actions, user, scene, authActions, sceneActions, match })
       message={editor.message}
       projectId={match.params.id} />
     <div className="row no-gutters">
-      <div id="interface" className="col-12 col-md-4">
+      <div id="interface" className={`col-12 ${scene.viewOnly ? "d-none" : "col-md-4"}`} >
         <Editor text={editor.text} user={user} />
       </div>
-      <div id="scene" className="col-12 col-md-8">
+      <div id="scene" className={`col-12 ${scene.viewOnly ? "" : "col-md-8"}`} >
         <View objects={editor.objects} sceneConfig={scene} assets={editor.assets} />
       </div>
     </div>

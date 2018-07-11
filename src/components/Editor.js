@@ -17,7 +17,6 @@ class Editor extends Component {
     return (
       <div id="editor" >
         <AceEditor 
-        className="d-none d-md-block"
         editorProps={{
           $blockScrolling: true,
         }}
