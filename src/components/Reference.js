@@ -44,8 +44,8 @@ export default class Reference extends React.Component {
         <TableHead >
           <TableRow>
             <TableCell>Name</TableCell>
-            <TableCell>Parameters</TableCell>
-            <TableCell>Return Value</TableCell>
+            {/* <TableCell>Parameters</TableCell> */}
+            {/* <TableCell>Return Value</TableCell> */}
             <TableCell>Description</TableCell>
           </TableRow>
         </TableHead>
@@ -53,10 +53,10 @@ export default class Reference extends React.Component {
           {this.tableData[category].map((row, index) => (
             <TableRow key={index}>
               <TableCell >{row.name}</TableCell>
-              <TableCell  >
+              {/* <TableCell  >
                 <SyntaxHighlighter language='javascript' style={github}>{row.parameters}</SyntaxHighlighter>
               </TableCell>
-              <TableCell >{row.returnValue}</TableCell>
+              <TableCell >{row.returnValue}</TableCell> */}
               <TableCell >{row.description}</TableCell>
             </TableRow>
           ))}
