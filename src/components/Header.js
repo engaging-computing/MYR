@@ -27,6 +27,7 @@ const exitBtnStyle = {
   top: 0,
   right: 0,
 };
+
 class Header extends Component {
   constructor(props) {
     super(props);
@@ -38,7 +39,6 @@ class Header extends Component {
       sampleProj: [],
       autoReload: false,
       projOpen: true,
-      projectsToDelete: [],
       loadOpen: false,
       snackOpen: true,
       viewOptOpen: false,
@@ -330,10 +330,10 @@ class Header extends Component {
   * 1. Loaded a sample project => generate new id
   * 2. Save with same name as last => overwrite current
   * 3. Save with new name from last => generate new id
-* @param {bool} needsNewId - bool for callsite id generation
-      *
-      * @returns - projectId
-      */
+  * @param {bool} needsNewId - bool for callsite id generation
+  *
+  * @returns - projectId
+  */
   getProjectId = () => {
     let ts = Date.now();
     let projectId = this.props.projectId || null;
@@ -438,31 +438,39 @@ class Header extends Component {
   }
 
   /**
+  * @summary - This function passes through the confirm dialog. If true then delete the scene 
+  * otherwise skip. 
+  * 
+  * @param {string} id - the project ID to be deleted
+  * @param {string} name - the name of the project
+  * 
+  */
+  deleteScene = (id, name) => {
+    if (window.confirm(`Are you sure you want to delete ${name}?`)) {
+      // Delete Image
+      let path = "images/perspective/" + id;
+      let imgRef = storageRef.child(path);
+      imgRef.delete().then(() => {
+        console.log("Image successfully deleted!");
+      }).catch((error) => {
+        console.error("Error removing img: ", error);
+      });
+
+      // Delete Document
+      scenes.doc(id).delete().then(() => {
+        console.log("Document successfully deleted!");
+      }).catch((error) => {
+        console.error("Error removing document: ", error);
+      });
+    }
+    this.getUserProjs();
+  }
+
+  /**
   * @summary - toggles the load project drawer
   */
   handleLoadToggle = () => {
-    if (this.state.projectsToDelete.length > 0) {
-      this.state.projectsToDelete.forEach((proj) => {
-
-        // Delete Image
-        let path = "images/perspective/" + proj;
-        let imgRef = storageRef.child(path);
-        imgRef.delete().then(() => {
-          console.log("Image successfully deleted!");
-        }).catch((error) => {
-          console.error("Error removing img: ", error);
-        });
-
-        // Delete Document
-        scenes.doc(proj).delete().then(() => {
-          console.log("Document successfully deleted!");
-        }).catch((error) => {
-          console.error("Error removing document: ", error);
-        });
-      });
-      this.getUserProjs();
-    }
-    this.setState({ projectsToDelete: [], loadOpen: !this.state.loadOpen });
+    this.setState({ loadOpen: !this.state.loadOpen });
   };
 
   loadDrawer = () => {
@@ -477,7 +485,7 @@ class Header extends Component {
           </a>
           {canDelete ?
             <Button
-              onClick={() => this.addToDeleteList(proj.id)}
+              onClick={() => this.deleteScene(proj.id, proj.data.name)}
               label="delete Project"
               fullWidth={true}
               color="secondary">
@@ -522,23 +530,6 @@ class Header extends Component {
         </div>
       </Drawer>
     );
-  }
-
-  /**
-  * @summary - This toggles the selected project to be deleted when the drawer is closed.
-  * Items are added and removed from the projectsToDelete collection. When the user closes the
-  * drawer it will remove all projects still in the collection
-  */
-  addToDeleteList = (id) => {
-    let deleteThese = this.state.projectsToDelete;
-    $('#' + id).toggleClass("to-delete");
-    if (deleteThese.includes(id)) {
-      deleteThese = deleteThese.filter((it) => it !== id);
-      this.setState({ projectsToDelete: deleteThese });
-    } else {
-      deleteThese.push(id);
-      this.setState({ projectsToDelete: deleteThese });
-    }
   }
 
   /**
