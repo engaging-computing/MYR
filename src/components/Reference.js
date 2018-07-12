@@ -1,8 +1,5 @@
 import React from 'react';
 import myrReference from '../myr/reference';
-import SyntaxHighlighter, { registerLanguage } from "react-syntax-highlighter/light";
-import js from 'react-syntax-highlighter/languages/hljs/javascript';
-import { github } from 'react-syntax-highlighter/styles/hljs';
 
 import {
   Tabs,
@@ -17,8 +14,6 @@ import {
   TableCell,
   Tooltip
 } from '@material-ui/core';
-
-registerLanguage('javascript', js);
 
 export default class Reference extends React.Component {
 

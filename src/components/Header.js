@@ -15,7 +15,6 @@ import {
   Popover,
   Avatar
 } from '@material-ui/core';
-import DisplayMsg from './DisplayMsg';
 import Reference from './Reference';
 import SceneConfig from './SceneConfig.js';
 import Sidebar from './Sidebar';
@@ -27,6 +26,7 @@ const exitBtnStyle = {
   top: 0,
   right: 0,
 };
+
 class Header extends Component {
   constructor(props) {
     super(props);
@@ -38,7 +38,6 @@ class Header extends Component {
       sampleProj: [],
       autoReload: false,
       projOpen: true,
-      projectsToDelete: [],
       loadOpen: false,
       snackOpen: true,
       viewOptOpen: false,
@@ -208,7 +207,7 @@ class Header extends Component {
               onClick={() => this.setState({ logMenuOpen: !this.state.logMenuOpen })}
               label="logout" />
             <span
-              className="user-name d-none d-sm-block"  >
+              className="user-name d-none d-lg-block"  >
               Logged in as <br />
               {this.props.user.displayName}
             </span>
@@ -263,8 +262,7 @@ class Header extends Component {
   submitName = (event) => {
     event.preventDefault();
     this.props.sceneActions.nameScene(this.state.sceneName);
-    this.props.sceneActions.loadScene('0');
-    this.setState({ sceneName: null });
+    this.setState({ sceneName: null, needsNewId: true });
   }
 
   /**
@@ -315,25 +313,14 @@ class Header extends Component {
   }
 
   /**
-  * @summary - handleNewProj will render an empty string and set the scene's name to untitled
-  */
-  handleNewProj = () => {
-    this.props.actions.render("", this.props.user ? this.props.user.uid : 'anon');
-    if (this.props.user) {
-      this.props.sceneActions.nameScene("untitled");
-      this.props.sceneActions.loadScene('0');
-    }
-  }
-
-  /**
   * @summary - This function will determine which projectId to use when saving.
   * 1. Loaded a sample project => generate new id
   * 2. Save with same name as last => overwrite current
   * 3. Save with new name from last => generate new id
-* @param {bool} needsNewId - bool for callsite id generation
-      *
-      * @returns - projectId
-      */
+  * @param {bool} needsNewId - bool for callsite id generation
+  *
+  * @returns - projectId
+  */
   getProjectId = () => {
     let ts = Date.now();
     let projectId = this.props.projectId || null;
@@ -353,16 +340,16 @@ class Header extends Component {
     if (this.props.user && this.props.user.uid) {
       $("body").prepend("<span class='spinner'><div class='cube1'></div><div class='cube2'></div></span>");
       let ts = Date.now();
-      let projectID = this.getProjectId();
+      let projectId = this.getProjectId();
       let scene = document.querySelector('a-scene');
       // Access the scene and screen shot, with perspective view in a lossy jpeg format
       let img = scene.components.screenshot.getCanvas('perspective').toDataURL('image/jpeg', 0.1);
-      let path = "images/perspective/" + projectID;
+      let path = "images/perspective/" + projectId;
       let imgRef = storageRef.child(path);
       imgRef.putString(img, 'data_url').then((snapshot) => {
         console.log('Uploaded a data_url string!');
         // Put the new document into the scenes collection
-        db.collection("scenes").doc(projectID).set({
+        db.collection("scenes").doc(projectId).set({
           name: this.props.scene.name,
           desc: this.state.sceneDesc,
           code: this.props.text,
@@ -371,8 +358,8 @@ class Header extends Component {
         }).then(() => {
           console.log("Document successfully written!");
           // If we have a new projectId reload page with it
-          if (projectID !== this.props.projectId) {
-            window.location.href = window.origin + '/' + projectID;
+          if (projectId !== this.props.projectId) {
+            window.location.href = window.origin + '/' + projectId;
           } else {
             this.getUserProjs();
           }
@@ -438,31 +425,39 @@ class Header extends Component {
   }
 
   /**
+  * @summary - This function passes through the confirm dialog. If true then delete the scene 
+  * otherwise skip. 
+  * 
+  * @param {string} id - the project ID to be deleted
+  * @param {string} name - the name of the project
+  * 
+  */
+  deleteScene = (id, name) => {
+    if (window.confirm(`Are you sure you want to delete ${name}?`)) {
+      // Delete Image
+      let path = "images/perspective/" + id;
+      let imgRef = storageRef.child(path);
+      imgRef.delete().then(() => {
+        console.log("Image successfully deleted!");
+      }).catch((error) => {
+        console.error("Error removing img: ", error);
+      });
+
+      // Delete Document
+      scenes.doc(id).delete().then(() => {
+        console.log("Document successfully deleted!");
+      }).catch((error) => {
+        console.error("Error removing document: ", error);
+      });
+    }
+    this.getUserProjs();
+  }
+
+  /**
   * @summary - toggles the load project drawer
   */
   handleLoadToggle = () => {
-    if (this.state.projectsToDelete.length > 0) {
-      this.state.projectsToDelete.forEach((proj) => {
-
-        // Delete Image
-        let path = "images/perspective/" + proj;
-        let imgRef = storageRef.child(path);
-        imgRef.delete().then(() => {
-          console.log("Image successfully deleted!");
-        }).catch((error) => {
-          console.error("Error removing img: ", error);
-        });
-
-        // Delete Document
-        scenes.doc(proj).delete().then(() => {
-          console.log("Document successfully deleted!");
-        }).catch((error) => {
-          console.error("Error removing document: ", error);
-        });
-      });
-      this.getUserProjs();
-    }
-    this.setState({ projectsToDelete: [], loadOpen: !this.state.loadOpen });
+    this.setState({ loadOpen: !this.state.loadOpen });
   };
 
   loadDrawer = () => {
@@ -477,7 +472,7 @@ class Header extends Component {
           </a>
           {canDelete ?
             <Button
-              onClick={() => this.addToDeleteList(proj.id)}
+              onClick={() => this.deleteScene(proj.id, proj.data.name)}
               label="delete Project"
               fullWidth={true}
               color="secondary">
@@ -522,23 +517,6 @@ class Header extends Component {
         </div>
       </Drawer>
     );
-  }
-
-  /**
-  * @summary - This toggles the selected project to be deleted when the drawer is closed.
-  * Items are added and removed from the projectsToDelete collection. When the user closes the
-  * drawer it will remove all projects still in the collection
-  */
-  addToDeleteList = (id) => {
-    let deleteThese = this.state.projectsToDelete;
-    $('#' + id).toggleClass("to-delete");
-    if (deleteThese.includes(id)) {
-      deleteThese = deleteThese.filter((it) => it !== id);
-      this.setState({ projectsToDelete: deleteThese });
-    } else {
-      deleteThese.push(id);
-      this.setState({ projectsToDelete: deleteThese });
-    }
   }
 
   /**
@@ -612,22 +590,6 @@ class Header extends Component {
     );
   }
 
-  confirmNavAway = {
-    headerText: "Are you sure?",
-    bodyText: "You will lose any unsaved work. Click 'CONTINUE' to create a new scene, click 'CANCEL' to go back",
-    confirmedFunc: () => {
-      window.location.href = window.origin;
-      this.toggleNavModal();
-    },
-    cancelFunc: () => {
-      this.toggleNavModal();
-    },
-  }
-
-  toggleNavModal = () => {
-    this.setState({ navAwayModal: !this.state.navAwayModal });
-  }
-
   /**
   * @summary - render() creates the header and links the buttons
   */
@@ -652,12 +614,16 @@ class Header extends Component {
     };
     return (
       <header className="App-header align-items-center ">
-        <DisplayMsg open={this.state.navAwayModal} {...this.confirmNavAway} />
+        {/* <DisplayMsg open={this.state.navAwayModal} {...this.confirmNavAway} /> */}
         <div className="col-8 d-flex justify-content-start">
           <Sidebar scene={this.props.scene} nameScene={this.props.sceneActions.nameScene} >
             <Button
               variant="raised"
-              href="/"
+              onClick={() => {
+                if (window.confirm('Are you sure you start a new scene?\nYou will lose any unsaved work!')) {
+                  window.location.href = window.origin;
+                }
+              }}
               color="primary"
               className="sidebar-btn">
               <Icon className="material-icons">add</Icon>
@@ -711,9 +677,13 @@ class Header extends Component {
           </Tooltip>
           <Tooltip title="New Scene" placement="bottom-start">
             <IconButton
-              onClick={this.toggleNavModal}
+              onClick={() => {
+                if (window.confirm('Are you sure you start a new scene?\nYou will lose any unsaved work!')) {
+                  window.location.href = window.origin;
+                }
+              }}
               style={style.default}
-              className="header-btn d-none d-sm-block" >
+              className="header-btn d-none d-md-block" >
               <Icon className="material-icons">add_circle_outline</Icon>
             </IconButton>
           </Tooltip>

@@ -239,9 +239,9 @@ class Myr {
   // Render an Aframe Box Primitive with current Myr settings    
   box = (params) => {
     let base = {
-      geometry: `primitive: box`,
+      geometry: `primitive: box;`,
       id: this.genNewId(),
-      material: `color:${this.color}`,
+      material: `color:${this.color};`,
       position: this.position,
       rotation: this.rotation,
       scale: this.scale,
@@ -252,12 +252,12 @@ class Myr {
   // Render an Aframe circle Primitive with current Myr settings  
   circle = (params) => {
     let base = {
-      geometry: `primitive: circle`,
+      geometry: `primitive: circle;`,
       id: this.genNewId(),
       position: this.position,
       scale: this.scale,
       rotation: this.rotation,
-      material: `color:${this.color};  side: double`,
+      material: `color: ${this.color}; side: double;`,
     };
     return this.mergeProps(base, params);
   }
@@ -266,11 +266,11 @@ class Myr {
   cone = (params) => {
     let base = {
       id: this.genNewId(),
-      geometry: `primitive: cone; radiusBottom: 1; radiusTop: 0.1`,
+      geometry: `primitive: cone; radiusBottom: 1; radiusTop: 0.1;`,
       position: this.position,
       scale: this.scale,
       rotation: this.rotation,
-      material: `color:${this.color};  side: double`,
+      material: `color: ${this.color}; side: double;`,
       radius: `${this.radius}`,
     };
     return this.mergeProps(base, params);
@@ -280,11 +280,11 @@ class Myr {
   cylinder = (params) => {
     let base = {
       id: this.genNewId(),
-      geometry: `primitive: cylinder`,
+      geometry: `primitive: cylinder;`,
       position: this.position,
       scale: this.scale,
       rotation: this.rotation,
-      material: `color:${this.color};  side: double`,
+      material: `color: ${this.color};  side: double;`,
       radius: `${this.radius}`,
     };
     return this.mergeProps(base, params);
@@ -299,7 +299,7 @@ class Myr {
       position: this.position,
       scale: this.scale,
       rotation: this.rotation,
-      material: `color:${this.color};  side: double`,
+      material: `color: ${this.color}; side: double;`,
     };
     return this.mergeProps(base, params);
   }
@@ -308,11 +308,11 @@ class Myr {
   icosahedron = (params) => {
     let base = {
       id: this.genNewId(),
-      geometry: `primitive: icosahedron`,
+      geometry: `primitive: icosahedron;`,
       position: this.position,
       scale: this.scale,
       rotation: this.rotation,
-      material: `color:${this.color};  side: double`,
+      material: `color: ${this.color};  side: double;`,
     };
     return this.mergeProps(base, params);
   }
@@ -321,11 +321,11 @@ class Myr {
   octahedron = (params) => {
     let base = {
       id: this.genNewId(),
-      geometry: `primitive: octahedron`,
+      geometry: `primitive: octahedron;`,
       position: this.position,
       scale: this.scale,
       rotation: this.rotation,
-      material: `color:${this.color};  side: double`,
+      material: `color: ${this.color};  side: double;`,
     };
     return this.mergeProps(base, params);
   }
@@ -333,11 +333,11 @@ class Myr {
   plane = (params) => {
     let base = {
       id: this.genNewId(),
-      geometry: `primitive: plane; height: 1; width: 1`,
+      geometry: `primitive: plane; height: 1; width: 1;`,
       position: this.position,
       scale: this.scale,
       rotation: this.rotation,
-      material: `color:${this.color};  side: double`,
+      material: `color: ${this.color}; side: double;`,
     };
     return this.mergeProps(base, params);
   }
@@ -346,11 +346,11 @@ class Myr {
   polyhedron = (params) => {
     let base = {
       id: this.genNewId(),
-      geometry: `primitive: sphere; segmentsWidth: 2;  segmentsHeight: 8`,
+      geometry: `primitive: sphere; segmentsWidth: 2; segmentsHeight: 8;`,
       position: this.position,
       scale: this.scale,
       rotation: this.rotation,
-      material: `color:${this.color};  side: double`,
+      material: `color: ${this.color}; side: double;`,
     };
     return this.mergeProps(base, params);
   }
@@ -358,11 +358,11 @@ class Myr {
   ring = (params) => {
     let base = {
       id: this.genNewId(),
-      geometry: `primitive: ring; radiusInner: 0.5; radiusOuter: 1`,
+      geometry: `primitive: ring; radiusInner: 0.5; radiusOuter: 1;`,
       position: this.position,
       scale: this.scale,
       rotation: this.rotation,
-      material: `color:${this.color};  side: double`,
+      material: `color: ${this.color}; side: double;`,
     };
     return this.mergeProps(base, params);
   }
@@ -375,7 +375,7 @@ class Myr {
       position: this.position,
       scale: this.scale,
       rotation: this.rotation,
-      material: `color:${this.color}`,
+      material: `color: ${this.color}`,
     };
     return this.mergeProps(base, params);
   }
@@ -387,7 +387,7 @@ class Myr {
       position: this.position,
       scale: this.scale,
       rotation: this.rotation,
-      material: `color:${this.color};  side: double`,
+      material: `color: ${this.color}; side: double;`,
     };
     return this.mergeProps(base, params);
   }
@@ -474,12 +474,12 @@ class Myr {
   cube = this.box
 
   // Animate the Aframe element which is passed as arg
-  animate = (outerElId, loop = true, magnitude = 360, duration = 1000) => {
+  animate = (outerElId, magnitude = 360, loop = true,  duration = 1000) => {
     let el = this.getEl(outerElId);
     let anim = `
       property: rotation;
       dir: alternate;
-      to: ${el.rotation.x} ${el.rotation.y + magnitude} ${el.rotation.z},
+      to: ${el.rotation.x} ${el.rotation.y + magnitude} ${el.rotation.z};
       dur: ${duration};
       loop: ${loop};
     `;
@@ -495,7 +495,7 @@ class Myr {
       dur: ${duration};
       loop: ${loop};
       easing: linear;
-      to: ${el.rotation.x} ${el.rotation.y + magnitude} ${el.rotation.z},
+      to: ${el.rotation.x} ${el.rotation.y + magnitude} ${el.rotation.z};
     `;
     el.animation__spin = anim;
     return outerElId;
@@ -508,7 +508,7 @@ class Myr {
       dir: alternate;
       dur: ${duration};
       loop: ${loop};
-      to: ${el.position.x} ${el.position.y + magnitude} ${el.position.z},
+      to: ${el.position.x} ${el.position.y + magnitude} ${el.position.z};
     `;
     el.animation__yoyo = anim;
     return outerElId;
