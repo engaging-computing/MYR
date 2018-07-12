@@ -262,8 +262,7 @@ class Header extends Component {
   submitName = (event) => {
     event.preventDefault();
     this.props.sceneActions.nameScene(this.state.sceneName);
-    this.props.sceneActions.loadScene('0');
-    this.setState({ sceneName: null });
+    this.setState({ sceneName: null, needsNewId: true });
   }
 
   /**
@@ -341,16 +340,16 @@ class Header extends Component {
     if (this.props.user && this.props.user.uid) {
       $("body").prepend("<span class='spinner'><div class='cube1'></div><div class='cube2'></div></span>");
       let ts = Date.now();
-      let projectID = this.getProjectId();
+      let projectId = this.getProjectId();
       let scene = document.querySelector('a-scene');
       // Access the scene and screen shot, with perspective view in a lossy jpeg format
       let img = scene.components.screenshot.getCanvas('perspective').toDataURL('image/jpeg', 0.1);
-      let path = "images/perspective/" + projectID;
+      let path = "images/perspective/" + projectId;
       let imgRef = storageRef.child(path);
       imgRef.putString(img, 'data_url').then((snapshot) => {
         console.log('Uploaded a data_url string!');
         // Put the new document into the scenes collection
-        db.collection("scenes").doc(projectID).set({
+        db.collection("scenes").doc(projectId).set({
           name: this.props.scene.name,
           desc: this.state.sceneDesc,
           code: this.props.text,
@@ -359,8 +358,8 @@ class Header extends Component {
         }).then(() => {
           console.log("Document successfully written!");
           // If we have a new projectId reload page with it
-          if (projectID !== this.props.projectId) {
-            window.location.href = window.origin + '/' + projectID;
+          if (projectId !== this.props.projectId) {
+            window.location.href = window.origin + '/' + projectId;
           } else {
             this.getUserProjs();
           }
