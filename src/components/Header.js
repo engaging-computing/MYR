@@ -15,7 +15,6 @@ import {
   Popover,
   Avatar
 } from '@material-ui/core';
-import DisplayMsg from './DisplayMsg';
 import Reference from './Reference';
 import SceneConfig from './SceneConfig.js';
 import Sidebar from './Sidebar';
@@ -315,17 +314,6 @@ class Header extends Component {
   }
 
   /**
-  * @summary - handleNewProj will render an empty string and set the scene's name to untitled
-  */
-  handleNewProj = () => {
-    this.props.actions.render("", this.props.user ? this.props.user.uid : 'anon');
-    if (this.props.user) {
-      this.props.sceneActions.nameScene("untitled");
-      this.props.sceneActions.loadScene('0');
-    }
-  }
-
-  /**
   * @summary - This function will determine which projectId to use when saving.
   * 1. Loaded a sample project => generate new id
   * 2. Save with same name as last => overwrite current
@@ -603,22 +591,6 @@ class Header extends Component {
     );
   }
 
-  confirmNavAway = {
-    headerText: "Are you sure?",
-    bodyText: "You will lose any unsaved work. Click 'CONTINUE' to create a new scene, click 'CANCEL' to go back",
-    confirmedFunc: () => {
-      window.location.href = window.origin;
-      this.toggleNavModal();
-    },
-    cancelFunc: () => {
-      this.toggleNavModal();
-    },
-  }
-
-  toggleNavModal = () => {
-    this.setState({ navAwayModal: !this.state.navAwayModal });
-  }
-
   /**
   * @summary - render() creates the header and links the buttons
   */
@@ -643,12 +615,16 @@ class Header extends Component {
     };
     return (
       <header className="App-header align-items-center ">
-        <DisplayMsg open={this.state.navAwayModal} {...this.confirmNavAway} />
+        {/* <DisplayMsg open={this.state.navAwayModal} {...this.confirmNavAway} /> */}
         <div className="col-8 d-flex justify-content-start">
           <Sidebar scene={this.props.scene} nameScene={this.props.sceneActions.nameScene} >
             <Button
               variant="raised"
-              href="/"
+              onClick={() => {
+                if (window.confirm('Are you sure you start a new scene?\nYou will lose any unsaved work!')) {
+                  window.location.href = window.origin;
+                }
+              }}
               color="primary"
               className="sidebar-btn">
               <Icon className="material-icons">add</Icon>
@@ -702,7 +678,11 @@ class Header extends Component {
           </Tooltip>
           <Tooltip title="New Scene" placement="bottom-start">
             <IconButton
-              onClick={this.toggleNavModal}
+              onClick={() => {
+                if (window.confirm('Are you sure you start a new scene?\nYou will lose any unsaved work!')) {
+                  window.location.href = window.origin;
+                }
+              }}
               style={style.default}
               className="header-btn d-none d-md-block" >
               <Icon className="material-icons">add_circle_outline</Icon>
