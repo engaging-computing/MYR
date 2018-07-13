@@ -1,3 +1,4 @@
+import React, { Component, Fragment } from 'react';
 var geometry = [
   {
     name: 'box()',
@@ -79,8 +80,12 @@ var geometry = [
   },
 
 ];
-
+var colorLink = <a href='https://htmlcolorcodes.com/color-names/' target="_blank" rel="noopener noreferrer">using these color codes</a>;
 var transformations = [
+  {
+    name: 'setColor("color")',
+    description: <span>Sets a new color {colorLink}</span>
+  },
   {
     name: 'setPosition(x,y,z)',
     parameters: [
