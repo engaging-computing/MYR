@@ -80,7 +80,7 @@ var geometry = [
   },
 
 ];
-var colorLink = React.createElement('a', { href: 'https://htmlcolorcodes.com/color-names/' }, 'using these color codes');
+var colorLink = <a href='https://htmlcolorcodes.com/color-names/' target="_blank" rel="noopener noreferrer">using these color codes</a>;
 var transformations = [
   {
     name: 'setColor("color")',
