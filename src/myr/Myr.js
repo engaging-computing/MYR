@@ -95,7 +95,7 @@ class Myr {
 
   setXPos = (x = 0) => {
     if (typeof x === 'number') {
-      this.position.x = x;
+      this.position = { ...this.position, x };
     } else {
       console.error("must pass a numeric for setXPos");
     }
@@ -103,7 +103,7 @@ class Myr {
 
   setYPos = (y = 0) => {
     if (typeof y === 'number') {
-      this.position.y = y;
+      this.position = { ...this.position, y };
     } else {
       console.error("must pass a numeric for setYPos");
     }
@@ -111,7 +111,7 @@ class Myr {
 
   setZPos = (z = 0) => {
     if (typeof z === 'number') {
-      this.position.z = z;
+      this.position = { ...this.position, z };
     } else {
       console.error("must pass a numeric for setZPos");
     }
@@ -131,7 +131,7 @@ class Myr {
 
   setXScale = (x) => {
     if (typeof x === 'number') {
-      this.scale.x = x;
+      this.scale = { ...this.scale, x };
     } else {
       console.error("must pass a numeric for setXScale");
     }
@@ -139,7 +139,7 @@ class Myr {
 
   setYScale = (y) => {
     if (typeof y === 'number') {
-      this.scale.y = y;
+      this.scale = { ...this.scale, y };
     } else {
       console.error("must pass a numeric for setYScale");
     }
@@ -147,7 +147,7 @@ class Myr {
 
   setZScale = (z) => {
     if (typeof z === 'number') {
-      this.scale.z = z;
+      this.scale = { ...this.scale, z };
     } else {
       console.error("must pass a numeric for setZScale");
     }
@@ -167,7 +167,7 @@ class Myr {
 
   pitchX = (x) => {
     if (typeof x === 'number') {
-      this.rotation.x = x;
+      this.rotation = {...this.rotation, x };
     } else {
       console.error("must pass a numeric for pitchX");
     }
@@ -175,7 +175,7 @@ class Myr {
 
   yawY = (y) => {
     if (typeof y === 'number') {
-      this.rotation.y = y;
+      this.rotation = {...this.rotation, y };
     } else {
       console.error("must pass a numeric for yawY");
     }
@@ -183,7 +183,7 @@ class Myr {
 
   rollZ = (z) => {
     if (typeof z === 'number') {
-      this.rotation.z = z;
+      this.rotation = {...this.rotation, z };
     } else {
       console.error("must pass a numeric for rollZ");
     }
@@ -191,7 +191,7 @@ class Myr {
 
   setRadius = (i) => {
     if (typeof i === 'number') {
-      this.radius = i;
+      this.radius = String(i);
     } else {
       console.error("must pass a numeric for setRadius");
     }
@@ -242,7 +242,7 @@ class Myr {
       geometry: `primitive: box;`,
       id: this.genNewId(),
       material: `color:${this.color};`,
-      position: this.position,
+      position: { ...this.position },
       rotation: this.rotation,
       scale: this.scale,
     };
@@ -252,7 +252,7 @@ class Myr {
   // Render an Aframe circle Primitive with current Myr settings  
   circle = (params) => {
     let base = {
-      geometry: `primitive: circle;`,
+      geometry: `primitive: circle; radius: ${this.radius};`,
       id: this.genNewId(),
       position: this.position,
       scale: this.scale,
@@ -266,12 +266,11 @@ class Myr {
   cone = (params) => {
     let base = {
       id: this.genNewId(),
-      geometry: `primitive: cone; radiusBottom: 1; radiusTop: 0.1;`,
+      geometry: `primitive: cone; radiusBottom: ${this.radius}; radiusTop: 0.1;`,
       position: this.position,
       scale: this.scale,
       rotation: this.rotation,
       material: `color: ${this.color}; side: double;`,
-      radius: `${this.radius}`,
     };
     return this.mergeProps(base, params);
   }
@@ -280,12 +279,11 @@ class Myr {
   cylinder = (params) => {
     let base = {
       id: this.genNewId(),
-      geometry: `primitive: cylinder;`,
+      geometry: `primitive: cylinder; radius: ${this.radius};`,
       position: this.position,
       scale: this.scale,
       rotation: this.rotation,
       material: `color: ${this.color};  side: double;`,
-      radius: `${this.radius}`,
     };
     return this.mergeProps(base, params);
   }
@@ -474,7 +472,7 @@ class Myr {
   cube = this.box
 
   // Animate the Aframe element which is passed as arg
-  animate = (outerElId, magnitude = 360, loop = true,  duration = 1000) => {
+  animate = (outerElId, magnitude = 360, loop = true, duration = 1000) => {
     let el = this.getEl(outerElId);
     let anim = `
       property: rotation;
