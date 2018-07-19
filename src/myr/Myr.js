@@ -167,7 +167,7 @@ class Myr {
 
   pitchX = (x) => {
     if (typeof x === 'number') {
-      this.rotation = {...this.rotation, x };
+      this.rotation = { ...this.rotation, x };
     } else {
       console.error("must pass a numeric for pitchX");
     }
@@ -175,7 +175,7 @@ class Myr {
 
   yawY = (y) => {
     if (typeof y === 'number') {
-      this.rotation = {...this.rotation, y };
+      this.rotation = { ...this.rotation, y };
     } else {
       console.error("must pass a numeric for yawY");
     }
@@ -183,7 +183,7 @@ class Myr {
 
   rollZ = (z) => {
     if (typeof z === 'number') {
-      this.rotation = {...this.rotation, z };
+      this.rotation = { ...this.rotation, z };
     } else {
       console.error("must pass a numeric for rollZ");
     }

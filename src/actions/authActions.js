@@ -8,8 +8,8 @@ export const LOGOUT = 'LOGOUT';
  * 
  * @returns - reducer action obj with type: LOGIN and user obj
  */
-export function login(user){
-  return {type: LOGIN, user};
+export function login(user) {
+  return { type: LOGIN, user };
 }
 
 /**
@@ -17,6 +17,6 @@ export function login(user){
  * 
  * @returns - reducer action obj with type: LOGOUT
  */
-export function logout(){
-  return {type: LOGOUT};
+export function logout() {
+  return { type: LOGOUT };
 }

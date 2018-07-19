@@ -101,7 +101,7 @@ export default function editor(state = initial_state, action) {
       catch (err) {
         // Notify that eval failed
         console.error("Eval failed: " + err);
-        message = {...message, text: "Eval failed: " + err };
+        message = { ...message, text: "Eval failed: " + err };
         snap = { ...snap, error: true };
       }
       // Otherwise we successfully rendered
@@ -109,7 +109,7 @@ export default function editor(state = initial_state, action) {
         els = m.els;
         assets = m.assets;
       }
-      snaps.doc( snap.user + '_' + snap.timestamp).set(snap);
+      snaps.doc(snap.user + '_' + snap.timestamp).set(snap);
       snapshots.push(snap);
       return {
         ...state,
@@ -129,7 +129,7 @@ export default function editor(state = initial_state, action) {
       let stableIndex = snapshots.length - 1;
 
       // Work backwards until we find a non-error snap
-      while(snapshots[stableIndex].error === true){
+      while (snapshots[stableIndex].error === true) {
         stableIndex--;
       }
 
