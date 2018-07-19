@@ -624,7 +624,7 @@ class Myr {
       dir: alternate;
       dur: ${duration};
       loop: ${loop};
-      to: ${el.scale.x / magnitute} ${el.scale.y / magnitute} ${this.scale.z / magnitute};
+      to: ${el.scale.x / magnitute} ${el.scale.y / magnitute} ${el.scale.z / magnitute};
     `;
     el.animation__shrink = anim;
     return outerElId;
