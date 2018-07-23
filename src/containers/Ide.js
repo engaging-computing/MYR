@@ -13,7 +13,7 @@ import { connect } from 'react-redux';
 
 const Ide = ({ editor, actions, user, scene, authActions, sceneActions, match }) => (
   <div className="App">
-    <Header 
+    <Header
       logging={authActions}
       sceneActions={sceneActions}
       actions={actions}

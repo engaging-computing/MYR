@@ -16,18 +16,18 @@ class Editor extends Component {
   render() {
     return (
       <div id="editor" >
-        <AceEditor 
-        editorProps={{
-          $blockScrolling: true,
-        }}
-        height="94vh" 
-        mode="javascript" 
-        name="ace-editor" 
-        ref="aceEditor" 
-        theme="github" 
-        value={this.props.text} 
-        width="100%" 
-        wrap={true} />
+        <AceEditor
+          editorProps={{
+            $blockScrolling: true,
+          }}
+          height="94vh"
+          mode="javascript"
+          name="ace-editor"
+          ref="aceEditor"
+          theme="github"
+          value={this.props.text}
+          width="100%"
+          wrap={true} />
       </div>
     );
   }

@@ -295,12 +295,12 @@ a.sidebar-btn:hover {
   color: #fff;
 }
 
-span.user-name{
+span.user-name {
   color: rgb(255, 255, 255);
   font-size: 90%;
   margin-left: 20px;
 }
 
-div#reference-drawer > div {
-    width: 80%;
+div#reference-drawer>div {
+  width: 80%;
 }
