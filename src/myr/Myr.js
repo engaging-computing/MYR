@@ -1,6 +1,6 @@
 import 'aframe';
 import 'aframe-physics-system';
-import Entity from './Entity';
+import Group from './Group';
 import CANNON from 'cannon';
 
 class Myr {
@@ -750,25 +750,26 @@ class Myr {
     return new Promise(resolve => setTimeout(resolve, ms));
   }
 
-  entity = () => {
+  // Return a Entity that can be used to group elements together
+  group = () => {
     let base = {
       id: this.genNewId(),
       position: { ...this.position },
       rotation: this.rotation,
       scale: this.scale,
     };
-    let entity = new Entity(this);
+    let entity = new Group(this, base.id);
     this.els.push({ ...base, ...entity.entObj() });
     return entity;
   }
 
+  // Transfer the object from MYR to the Entity
   transfer = (id) => {
     let index = this.getIndex(id);
     let retVal = this.els[index];
     delete this.els[index];
     return retVal;
   }
-
 }
 
 export default Myr;
