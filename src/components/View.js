@@ -1,3 +1,4 @@
+
 import React, { Component, Fragment } from 'react';
 import 'aframe';
 import 'aframe-animation-component';
@@ -6,9 +7,9 @@ import 'aframe-extras/dist/aframe-extras.min.js';
 import 'aframe-physics-system';
 import 'aframe-environment-component';
 /**
-* @summary - The View component return the aframe representation of the scene. This 
-* system utilizes the entity compoent system(ECS) to build objects in the scene from different 
-* components. 
+* @summary - The View component return the aframe representation of the scene. This
+* system utilizes the entity compoent system(ECS) to build objects in the scene from different
+* components.
 */
 class View extends Component {
 
@@ -22,8 +23,15 @@ class View extends Component {
         scale: `${ent.scale.x} ${ent.scale.y} ${ent.scale.z}`,
         rotation: `${ent.rotation.x} ${ent.rotation.y} ${ent.rotation.z}`
       };
+      if (ent.entity) {
+        return (
+          <a-entity key={ent.id} {...flattened}>
+            {ent.els ? ent.els.map(it => this.helper(it)) : null}
+          </a-entity>
+        )
+      }
       if (ent.text) {
-        delete flattened.text; // this takes care of a warning, may not be necessary 
+        delete flattened.text; // this takes care of a warning, may not be necessary
         return <a-text key={ent.id} {...flattened}></a-text>;
       } else {
         return <a-entity key={ent.id} {...flattened}></a-entity>;

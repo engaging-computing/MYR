@@ -98,8 +98,8 @@ export default class Reference extends React.Component {
               label="TRANSFORMATIONS"
               value='b' />
             <Tab
-              icon={<Icon className="material-icons">settings</Icon>}
-              label="WEBVR COMPONENTS"
+              icon={<Icon className="material-icons animation-ref">zoom_out_map</Icon>} //swap_horiz control_camera category
+              label="ANIMATIONS"
               value='c' />
             <Tab
               icon={<Icon className="material-icons">close</Icon>}
@@ -119,8 +119,8 @@ export default class Reference extends React.Component {
             </div>}
           {this.state.value === 'c' &&
             <div style={{ marginTop: 25, overflow: 'scroll' }}>
-              <h5 >WebVR Components</h5>
-              {this.TableEx("webvr_components")}
+              <h5 >Animations</h5>
+              {this.TableEx("animations")}
             </div>}
         </Drawer>
       </React.Fragment>
