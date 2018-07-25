@@ -1,5 +1,6 @@
 import 'aframe';
 import 'aframe-physics-system';
+import Group from './Group';
 import CANNON from 'cannon';
 
 class Myr {
@@ -31,9 +32,9 @@ class Myr {
 
   /**
   * @summary - init creates and binds the myr object to the window
-  * 
-  * @param [{}] objs - these are the base objects for this object 
-  * 
+  *
+  * @param [{}] objs - these are the base objects for this object
+  *
   */
   init = (objs) => {
     this.baseEls = objs || [];
@@ -236,7 +237,7 @@ class Myr {
     return outerElId;
   }
 
-  // Render an Aframe Box Primitive with current Myr settings    
+  // Render an Aframe Box Primitive with current Myr settings
   box = (params) => {
     let base = {
       geometry: `primitive: box;`,
@@ -249,7 +250,7 @@ class Myr {
     return this.mergeProps(base, params);
   }
 
-  // Render an Aframe circle Primitive with current Myr settings  
+  // Render an Aframe circle Primitive with current Myr settings
   circle = (params) => {
     let base = {
       geometry: `primitive: circle; radius: ${this.radius};`,
@@ -262,7 +263,7 @@ class Myr {
     return this.mergeProps(base, params);
   }
 
-  // Render an Aframe circle Primitive with current Myr settings  
+  // Render an Aframe circle Primitive with current Myr settings
   cone = (params) => {
     let base = {
       id: this.genNewId(),
@@ -275,7 +276,7 @@ class Myr {
     return this.mergeProps(base, params);
   }
 
-  // Render an Aframe Text Primitive with current Myr settings  
+  // Render an Aframe Text Primitive with current Myr settings
   cylinder = (params) => {
     let base = {
       id: this.genNewId(),
@@ -289,7 +290,7 @@ class Myr {
   }
 
 
-  // Render an Aframe dodecahedron with current Myr settings  
+  // Render an Aframe dodecahedron with current Myr settings
   dodecahedron = (params) => {
     let base = {
       id: this.genNewId(),
@@ -302,7 +303,7 @@ class Myr {
     return this.mergeProps(base, params);
   }
 
-  // Render an Aframe icosahedron with current Myr settings  
+  // Render an Aframe icosahedron with current Myr settings
   icosahedron = (params) => {
     let base = {
       id: this.genNewId(),
@@ -315,7 +316,7 @@ class Myr {
     return this.mergeProps(base, params);
   }
 
-  // Render an Aframe octahedron with current Myr settings  
+  // Render an Aframe octahedron with current Myr settings
   octahedron = (params) => {
     let base = {
       id: this.genNewId(),
@@ -340,7 +341,7 @@ class Myr {
     return this.mergeProps(base, params);
   }
 
-  // Render an Aframe Polyhedron with current Myr settings  
+  // Render an Aframe Polyhedron with current Myr settings
   polyhedron = (params) => {
     let base = {
       id: this.genNewId(),
@@ -365,7 +366,7 @@ class Myr {
     return this.mergeProps(base, params);
   }
 
-  // Render an Aframe Sphere Primitive with current Myr settings  
+  // Render an Aframe Sphere Primitive with current Myr settings
   sphere = (params) => {
     let base = {
       id: this.genNewId(),
@@ -392,7 +393,7 @@ class Myr {
 
   /*
   * This is a bit tricky. We need to pass text so we can decide how to render it.
-  * This throws a warning since text is not part of the entity system. 
+  * This throws a warning since text is not part of the entity system.
   * Instead we pass it and then pull it off again if we see it.
   */
   text = (text, params) => {
@@ -452,7 +453,7 @@ class Myr {
     return this.mergeProps(base, params);
   }
 
-  // Render a new Aframe light with current Myr settings  
+  // Render a new Aframe light with current Myr settings
   light = (obj) => {
     let el = {
       color: this.getRandomColor(),
@@ -529,10 +530,10 @@ class Myr {
   goUp = (outerElId, magnitude = 2, loop = true, duration = 1000) => {
     let el = this.getEl(outerElId);
     let anim = `
-      property: position; 
-      dir: alternate; 
-      dur: ${duration}; 
-      loop: ${loop}; 
+      property: position;
+      dir: alternate;
+      dur: ${duration};
+      loop: ${loop};
       to: ${el.position.x} ${el.position.y + magnitude} ${el.position.z};
     `;
     el.animation__goup = anim;
@@ -542,10 +543,10 @@ class Myr {
   goDown = (outerElId, magnitude = 2, loop = true, duration = 1000) => {
     let el = this.getEl(outerElId);
     let anim = `
-      property: position; 
-      dir: alternate; 
-      dur: ${duration}; 
-      loop: ${loop}; 
+      property: position;
+      dir: alternate;
+      dur: ${duration};
+      loop: ${loop};
       to: ${el.position.x} ${el.position.y - magnitude} ${el.position.z};
     `;
     el.animation__godown = anim;
@@ -555,10 +556,10 @@ class Myr {
   goLeft = (outerElId, magnitude = 2, loop = true, duration = 1000) => {
     let el = this.getEl(outerElId);
     let anim = `
-      property: position; 
-      dir: alternate; 
-      dur: ${duration}; 
-      loop: ${loop}; 
+      property: position;
+      dir: alternate;
+      dur: ${duration};
+      loop: ${loop};
       to: ${el.position.x - magnitude} ${el.position.y} ${el.position.z};
     `;
     el.animation__goleft = anim;
@@ -568,10 +569,10 @@ class Myr {
   goRight = (outerElId, magnitude = 2, loop = true, duration = 1000) => {
     let el = this.getEl(outerElId);
     let anim = `
-      property: position; 
-      dir: alternate; 
-      dur: ${duration}; 
-      loop: ${loop}; 
+      property: position;
+      dir: alternate;
+      dur: ${duration};
+      loop: ${loop};
       to: ${el.position.x + magnitude} ${el.position.y} ${el.position.z};
     `;
     el.animation__goright = anim;
@@ -581,10 +582,10 @@ class Myr {
   goTowards = (outerElId, magnitude = 2, loop = true, duration = 1000) => {
     let el = this.getEl(outerElId);
     let anim = `
-      property: position; 
-      dir: alternate; 
-      dur: ${duration}; 
-      loop: ${loop}; 
+      property: position;
+      dir: alternate;
+      dur: ${duration};
+      loop: ${loop};
       to: ${el.position.x} ${el.position.y} ${el.position.z + magnitude};
     `;
     el.animation__goleft = anim;
@@ -594,10 +595,10 @@ class Myr {
   goAway = (outerElId, magnitude = 2, loop = true, duration = 1000) => {
     let el = this.getEl(outerElId);
     let anim = `
-      property: position; 
-      dir: alternate; 
-      dur: ${duration}; 
-      loop: ${loop}; 
+      property: position;
+      dir: alternate;
+      dur: ${duration};
+      loop: ${loop};
       to: ${el.position.x} ${el.position.y} ${el.position.z - magnitude};
     `;
     el.animation__goaway = anim;
@@ -681,21 +682,27 @@ class Myr {
   }
 
   getEl = (outerElId) => {
+    if (outerElId.entity) {
+      outerElId = outerElId.id;
+    }
     return this.els[this.getIndex(outerElId)];
   }
 
   getIndex = (outerElId) => {
+    if (outerElId.entity) {
+      outerElId = outerElId.id;
+    }
     return Number(outerElId.substr(1, outerElId.length));
   }
 
   /**
   * @summary - Interface for setting an object's parameters in the DOM
-  * the idea is the setup an event listener as an almost DOM ready listener. 
-  * 
+  * the idea is the setup an event listener as an almost DOM ready listener.
+  *
   * @param {string} outerElId - target
   * @param {string} type - what param to change
   * @param {obj} newParam - changes
-  * 
+  *
   */
   change = (outerElId, type, newParam) => {
     document.addEventListener('myr-view-rendered', (e) => {
@@ -725,10 +732,10 @@ class Myr {
 
   /**
   * @summary - This creates an entity w shape of object and merges with supplied params
-  * 
+  *
   * @param {string} shape - one of the allowed arguments to this.core()
   * @param {obj} params - arguments to be merged, not guarenteed to be successful
-  * 
+  *
   */
   mergeProps = (entity, params) => {
     if (!params || typeof params === 'string') {
@@ -743,6 +750,26 @@ class Myr {
     return new Promise(resolve => setTimeout(resolve, ms));
   }
 
+  // Return a Entity that can be used to group elements together
+  group = () => {
+    let base = {
+      id: this.genNewId(),
+      position: { ...this.position },
+      rotation: this.rotation,
+      scale: this.scale,
+    };
+    let entity = new Group(this, base.id);
+    this.els.push({ ...base, ...entity.entObj() });
+    return entity;
+  }
+
+  // Transfer the object from MYR to the Entity
+  transfer = (id) => {
+    let index = this.getIndex(id);
+    let retVal = this.els[index];
+    delete this.els[index];
+    return retVal;
+  }
 }
 
 export default Myr;
