@@ -304,3 +304,30 @@ span.user-name {
 div#reference-drawer>div {
   width: 80%;
 }
+
+.animation-ref{
+  animation: animate infinite 4s linear;
+}
+@keyframes animate {
+  25% {
+    transform: rotate(0deg) scale(.85);
+  }
+  50% {
+    transform: rotate(180deg);
+  }
+  75% {
+    transform: rotate(180deg) scale(1.15);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+span.bool{
+  color: red;
+}
+span.number{
+  color: blue;
+}
+span.string{
+  color: green;
+}
