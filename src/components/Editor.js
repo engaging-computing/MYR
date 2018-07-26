@@ -6,7 +6,6 @@ import 'brace/ext/language_tools';
 
 var customCompleter = {
   getCompletions: function (editor, session, pos, prefix, callback) {
-
     var BasicAutocompleteKeyWords = [
       "const",
       "yield",
@@ -42,6 +41,7 @@ var customCompleter = {
     var keyWords = [
       "box()",
       "sphere()",
+      "circle()",
       "cone()",
       "cylinder()",
       "dodecahedron()",
@@ -80,10 +80,8 @@ var customCompleter = {
       "grow()",
       "shrink()",
       "fadeOut()",
-      "fadeIn()"
-
-
-
+      "fadeIn()",
+      "group()"
     ];
 
     var Colors = [
@@ -264,13 +262,11 @@ var customCompleter = {
       };
     }));
   }
-
-
 };
 
 /**
-* @summary - Editor is a React Component that creat the Ace Editor in the DOM. 
-* 
+* @summary - Editor is a React Component that creat the Ace Editor in the DOM.
+*
 */
 class Editor extends Component {
 
@@ -298,7 +294,6 @@ class Editor extends Component {
           wrap={true}
           enableBasicAutocompletion={false}
           enableLiveAutocompletion={true}
-
         />
       </div>
     );
