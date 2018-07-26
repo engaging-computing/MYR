@@ -2,63 +2,63 @@ import React from 'react';
 var geometry = [
   {
     name: 'box()',
-    description: "Renders a box using current internal MYR properties"
+    description: "Renders a box using current internal MYR properties."
   },
   {
     name: 'circle()',
-    description: "Renders a circle using current internal MYR properties"
+    description: "Renders a circle using current internal MYR properties."
   },
   {
     name: 'cone()',
-    description: "Renders a cone using current internal MYR properties"
+    description: "Renders a cone using current internal MYR properties."
   },
   {
     name: 'cylinder()',
-    description: "Renders a cylinder using current internal MYR properties"
+    description: "Renders a cylinder using current internal MYR properties."
   },
   {
     name: 'dodecahedron()',
-    description: "Renders a dodecahedron using current internal MYR properties"
+    description: "Renders a dodecahedron using current internal MYR properties."
   },
   {
     name: 'icosahedron()',
-    description: "Renders a icosahedron using current internal MYR properties"
+    description: "Renders a icosahedron using current internal MYR properties."
   },
   {
     name: 'octahedron()',
-    description: "Renders a octahedron using current internal MYR properties"
+    description: "Renders a octahedron using current internal MYR properties."
   },
   {
     name: 'prism()',
-    description: "Renders a prism using current internal MYR properties. Pass a obj.segments value greater than 2."
+    description: "Renders a prism using current internal MYR properties."
   },
   {
     name: 'ring()',
-    description: "Renders a ring using current internal MYR properties"
+    description: "Renders a ring using current internal MYR properties."
   },
   {
     name: 'sphere()',
-    description: "Renders a sphere using current internal MYR properties"
+    description: "Renders a sphere using current internal MYR properties."
   },
   {
     name: 'tetrahedron()',
-    description: "Renders a tetrahedron using current internal MYR properties"
+    description: "Renders a tetrahedron using current internal MYR properties."
   },
   {
     name: 'text()',
-    description: "Renders text using current internal MYR properties"
+    description: "Renders text using current internal MYR properties."
   },
   {
     name: 'torus()',
-    description: "Renders a torus using current internal MYR properties"
+    description: "Renders a torus using current internal MYR properties."
   },
   {
     name: 'torusknot()',
-    description: "Renders a torusknot using current internal MYR properties"
+    description: "Renders a torusknot using current internal MYR properties."
   },
   {
     name: 'triangle()',
-    description: "Renders a triangle using current internal MYR properties"
+    description: "Renders a triangle using current internal MYR properties."
   },
 
 ];
@@ -69,55 +69,55 @@ var transformations = [
   },
   {
     name: <span>setPosition(<span className="number">x</span>,<span className="number">y</span>,<span className="number">z</span>)</span>,
-    description: "Sets a new 3D position"
+    description: "Sets a new 3D position."
   },
   {
     name: <span>setXPos(<span className="number">x</span>)</span>,
-    description: <span>Sets a new <span className="number">x</span> position</span>
+    description: <span>Sets a new <span className="number">x</span> position.</span>
   },
   {
     name: <span>setYPos(<span className="number">y</span>)</span>,
-    description: <span>Sets a new <span className="number">y</span> position</span>
+    description: <span>Sets a new <span className="number">y</span> position.</span>
   },
   {
     name: <span>setZPos(<span className="number">z</span>)</span>,
-    description: <span>Sets a new <span className="number">z</span> position</span>
+    description: <span>Sets a new <span className="number">z</span> position.</span>
   },
   {
     name: <span>setScale(<span className="number">x</span>,<span className="number">y</span>,<span className="number">z</span>)</span>,
-    description: "Sets a new 3D scaling factor"
+    description: "Sets a new 3D scaling factor."
   },
   {
     name: <span>setXScale(<span className="number">x</span>)</span>,
-    description: <span>Sets a new <span className="number">x</span> scaling factor</span>
+    description: <span>Sets a new <span className="number">x</span> scaling factor.</span>
   },
   {
     name: <span>setYScale(<span className="number">y</span>)</span>,
-    description: <span>Sets a new <span className="number">y</span> scaling factor</span>
+    description: <span>Sets a new <span className="number">y</span> scaling factor.</span>
   },
   {
     name: <span>setZScale(<span className="number">z</span>)</span>,
-    description: <span>Sets a new <span className="number">z</span> scaling factor</span>
+    description: <span>Sets a new <span className="number">z</span> scaling factor.</span>
   },
   {
     name: <span>setRotation(<span className="number">x</span>, <span className="number">y</span>, <span className="number">z</span>)</span>,
-    description: "Sets new 3D rotation angles"
+    description: "Sets new 3D rotation angles."
   },
   {
     name: <span>pitchX(<span className="number">x</span>)</span>,
-    description: <span>Sets a new <span className="number">x</span> rotation angle</span>
+    description: <span>Sets a new <span className="number">x</span> rotation angle.</span>
   },
   {
     name: <span>yawY(<span className="number">y</span>)</span>,
-    description: <span>Sets a new <span className="number">y</span> rotation angle</span>
+    description: <span>Sets a new <span className="number">y</span> rotation angle.</span>
   },
   {
     name: <span>rollZ(<span className="number">z</span>)</span>,
-    description: <span>Sets a new <span className="number">z</span> rotation angle</span>
+    description: <span>Sets a new <span className="number">z</span> rotation angle.</span>
   },
   {
     name: <span>setRadius(<span className="number">radius</span>)</span>,
-    description: <span>Sets a new <span className="number">radius</span> attribute</span>
+    description: <span>Sets a new <span className="number">radius</span> attribute.</span>
   },
 ];
 var animations = [
