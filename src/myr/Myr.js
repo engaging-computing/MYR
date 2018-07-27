@@ -220,6 +220,21 @@ class Myr {
     return outerElId;
   }
 
+  // Allows the entity to be dropped
+  makeDroppable = (outerElId, mass = 2) => {
+    let el = this.getEl(outerElId);
+    let dynamicBody = `shape: auto; mass: ${mass}; angularDamping: 0.5; linearDamping: 0.5;`;
+    el["dynamic-body"] = dynamicBody;
+    return outerElId;
+  }
+
+  // Disallows the entity to be dropped
+  makeUnDroppable = (outerElId, mass = 2) => {
+    let el = this.getEl(outerElId);
+    el["dynamic-body"] = "";
+    return outerElId;
+  }
+
   push = (outerElId, x, y, z) => {
     // Add an event listener
     document.addEventListener('myr-view-rendered', (e) => {
@@ -234,6 +249,23 @@ class Myr {
         );
       });
     });
+    return outerElId;
+  }
+
+  // Allows the entity to be pushed
+  makePushable = (outerElId, mass = 2) => {
+    let el = this.getEl(outerElId);
+    let dynamicBody = `shape: auto; mass: ${mass}; angularDamping: 0.5; linearDamping: 0.5;`;
+    el["dynamic-body"] = dynamicBody;
+    el["force-pushable"] = "true";
+    return outerElId;
+  }
+
+  // Disallows the entity to be pushed
+  makeUnPushable = (outerElId) => {
+    let el = this.getEl(outerElId);
+    el["dynamic-body"] = "";
+    el["force-pushable"] = null;
     return outerElId;
   }
 

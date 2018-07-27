@@ -74,15 +74,16 @@ class View extends Component {
 
   basicMoveCam = () => {
     return (
-      <a-entity
-        id="rig"
+      <a-entity id="rig"
         movement-controls
-        position={this.props.sceneConfig.cameraPosition}>
-        <a-entity
-          camera
-          position={this.props.sceneConfig.cameraPosition}
-          look-controls // ="pointerLockEnabled: true"
-        />
+        position={this.props.sceneConfig.cameraPosition} >
+        <a-entity camera
+          look-controls="pointerLockEnabled: true">
+          <a-entity cursor
+            position="0 0 -1"
+            geometry="primitive: ring; radiusInner: 0.02; radiusOuter: 0.03;"
+            material="color: #CCC; shader: flat;" />
+        </a-entity>
       </a-entity>
     );
   }
@@ -121,7 +122,7 @@ class View extends Component {
 
   render = () => {
     return (
-      <a-scene physics="debug: false; friction: 3; restitution: .1" embedded debug="false">
+      <a-scene physics="debug: false; friction: 3; restitution: .3; linearDamping: .5; angularDamping: .5;" embedded debug="false">
         <a-assets>
           <a-mixin id="checkpoint"></a-mixin>
           <a-mixin id="checkpoint-hovered" color="#6CEEB5"></a-mixin>
