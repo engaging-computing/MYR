@@ -71,7 +71,7 @@ a-scene[aframe-inspector-removed-embedded] {
 th:nth-child(1),
 td:nth-child(1) {
   color: #266d90;
-  width: 15%;
+  padding: 10px;
 }
 
 /* inspector fixes */
@@ -304,7 +304,27 @@ span.user-name {
 div#reference-drawer>div {
   width: 80%;
 }
-
+.geometry{
+  transform: scale(1.2);
+}
+.color-change{
+  -webkit-animation: colorchange 8s infinite linear;
+  transform: scale(1.5);
+}
+@-webkit-keyframes colorchange {
+  25% {
+    color: red;
+  }
+  50% {
+    color: green;
+  }
+  75% {
+    color: blue;
+  }
+  100% {
+    color: black;
+  }
+}
 .animation-ref{
   animation: animate infinite 4s linear;
 }
@@ -322,6 +342,7 @@ div#reference-drawer>div {
     transform: rotate(360deg);
   }
 }
+
 span.bool{
   color: red;
 }
@@ -330,4 +351,7 @@ span.number{
 }
 span.string{
   color: green;
+}
+span.array{
+  font-weight: bolder;
 }

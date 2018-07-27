@@ -650,7 +650,7 @@ class Header extends Component {
               onClick={this.handleLoadToggle}
               color="primary"
               className="sidebar-btn">
-              <Icon className="material-icons">file_download</Icon>
+              <Icon className="material-icons">perm_media</Icon>
               Open Project
             </Button>
           </Sidebar>
@@ -700,7 +700,7 @@ class Header extends Component {
               onClick={this.handleLoadToggle}
               className="header-btn d-none d-sm-block"
               style={style.default}>
-              <Icon className="material-icons">file_download</Icon>
+              <Icon className="material-icons">perm_media</Icon>
             </IconButton>
           </Tooltip>
         </div>
