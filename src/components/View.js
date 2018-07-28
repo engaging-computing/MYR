@@ -92,27 +92,30 @@ class View extends Component {
     if (this.props.sceneConfig.showCoordHelper) {
       return (
         <Fragment>
-          <a-grid height="50" width="50" position="0 -0.4 0" />
-          <a-tube path="-25 -0.65 0, 25 -0.65 0" radius="0.35" material="color: red"></a-tube>
-          <a-tube path="0 -0.65 -25, 0 -0.65 25" radius="0.35" material="color: blue"></a-tube>
+          <a-grid height="50" width="50" position="1 -0.26 1" scale="1.5 1.5 1.5" />
+          <a-tube path="-25 0 0, 25 0 0" radius="0.05" material="color: red"></a-tube>
+          <a-tube path="0 0 -25, 0 0 25" radius="0.05" material="color: blue"></a-tube>
           <a-text
-            rotation="90 0 0"
-            position="-0.0005 0 0"
+            color="#555"
+            rotation="0 0 0"
+            position="-0.0005 .25 0"
             side="double"
             align="center"
-            value="< -X       X + >"></a-text>
+            value="- X       X +"></a-text>
           <a-text
-            rotation="90 270 0"
-            position="0 0 -0.01"
+            color="#555"
+            rotation="0 90 0"
+            position="0 .25 -0.01"
             side="double"
             align="center"
-            value="< -Z      Z+ >">
+            value="+ Z      Z -">
           </a-text>
           <a-text
+            color="#555"
             rotation="0 0 90"
             position="0 .1 0"
             side="double"
-            value=" Y+ >"></a-text>
+            value=" Y + "></a-text>
         </Fragment>
       );
     } else {
@@ -122,7 +125,7 @@ class View extends Component {
 
   render = () => {
     return (
-      <a-scene physics="debug: false; friction: 3; restitution: .3; linearDamping: .5; angularDamping: .5;" embedded debug="false">
+      <a-scene physics="debug: false; friction: 3; restitution: .3;" embedded debug="false">
         <a-assets>
           <a-mixin id="checkpoint"></a-mixin>
           <a-mixin id="checkpoint-hovered" color="#6CEEB5"></a-mixin>
