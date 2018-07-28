@@ -2,63 +2,63 @@ import React from 'react';
 var geometry = [
   {
     name: 'box()',
-    description: "Renders a box using current internal MYR properties."
+    description: <span>Renders a box using current internal MYR properties. Returns an <span className="string element">element id</span>.</span>
   },
   {
     name: 'circle()',
-    description: "Renders a circle using current internal MYR properties."
+    description: <span>Renders a circle using current internal MYR properties. Returns an <span className="string element">element id</span>.</span>
   },
   {
     name: 'cone()',
-    description: "Renders a cone using current internal MYR properties."
+    description: <span>Renders a cone using current internal MYR properties. Returns an <span className="string element">element id</span>.</span>
   },
   {
     name: 'cylinder()',
-    description: "Renders a cylinder using current internal MYR properties."
+    description: <span>Renders a cylinder using current internal MYR properties. Returns an <span className="string element">element id</span>.</span>
   },
   {
     name: 'dodecahedron()',
-    description: "Renders a dodecahedron using current internal MYR properties."
+    description: <span>Renders a dodecahedron using current internal MYR properties. Returns an <span className="string element">element id</span>.</span>
   },
   {
     name: 'icosahedron()',
-    description: "Renders a icosahedron using current internal MYR properties."
+    description: <span>Renders a icosahedron using current internal MYR properties. Returns an <span className="string element">element id</span>.</span>
   },
   {
     name: 'octahedron()',
-    description: "Renders a octahedron using current internal MYR properties."
+    description: <span>Renders a octahedron using current internal MYR properties. Returns an <span className="string element">element id</span>.</span>
   },
   {
     name: 'prism()',
-    description: "Renders a prism using current internal MYR properties."
+    description: <span>Renders a prism using current internal MYR properties.. Returns an <span className="string element">element id</span>.</span>
   },
   {
     name: 'ring()',
-    description: "Renders a ring using current internal MYR properties."
+    description: <span>Renders a ring using current internal MYR properties.. Returns an <span className="string element">element id</span>.</span>
   },
   {
     name: 'sphere()',
-    description: "Renders a sphere using current internal MYR properties."
+    description: <span>Renders a sphere using current internal MYR properties.. Returns an <span className="string element">element id</span>.</span>
   },
   {
     name: 'tetrahedron()',
-    description: "Renders a tetrahedron using current internal MYR properties."
+    description: <span>Renders a tetrahedron using current internal MYR properties. Returns an <span className="string element">element id</span>.</span>
   },
   {
     name: 'text()',
-    description: "Renders text using current internal MYR properties."
+    description: <span>Renders text using current internal MYR properties. Returns an <span className="string element">element id</span>.</span>
   },
   {
     name: 'torus()',
-    description: "Renders a torus using current internal MYR properties."
+    description: <span>Renders a torus using current internal MYR properties. Returns an <span className="string element">element id</span>.</span>
   },
   {
     name: 'torusknot()',
-    description: "Renders a torusknot using current internal MYR properties."
+    description: <span>Renders a torusknot using current internal MYR properties. Returns an <span className="string element">element id</span>.</span>
   },
   {
     name: 'triangle()',
-    description: "Renders a triangle using current internal MYR properties."
+    description: <span>Renders a triangle using current internal MYR properties. Returns an <span className="string element">element id</span>.</span>
   },
 
 ];
