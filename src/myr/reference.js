@@ -119,6 +119,14 @@ var transformations = [
     name: <span>setRadius(<span className="number">radius</span>)</span>,
     description: <span>Sets a new <span className="number">radius</span> attribute.</span>
   },
+  {
+    name: <span>makeDroppable(<span className="string">element</span>, <span className="number">mass</span>)</span>,
+    description: <span>Makes entity droppable with <span className="number">mass</span>.</span>
+  },
+  {
+    name: <span>makePushable(<span className="string">element</span>, <span className="number">mass</span>)</span>,
+    description: <span>Entity can be pushed using the cursor and with the given <span className="number">mass</span>(default = 2). Will make droppable also.</span>
+  },
 ];
 var animations = [
   {
