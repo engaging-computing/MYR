@@ -205,12 +205,14 @@ class Header extends Component {
               src={this.props.user.photoURL}
               open={this.state.logMenuOpen}
               onClick={() => this.setState({ logMenuOpen: !this.state.logMenuOpen })}
-              label="logout" />
-            <span
-              className="user-name d-none d-lg-block"  >
-              Logged in as <br />
-              {this.props.user.displayName}
-            </span>
+              label="logout" 
+              style={{marginTop: 5, marginLeft: 15}}/>
+              
+              {/* <span
+               className="user-name d-none d-lg-block"  >
+               Logged in as <br />
+               {this.props.user.displayName}
+               </span> */}
             <Popover
               open={this.state.logMenuOpen}
               anchorEl={document.getElementById('user')}
@@ -221,17 +223,19 @@ class Header extends Component {
           </Fragment>
           :
           <Button
+            type="button" 
+            class="btn btn-outline-light"
             variant="raised"
             size="small"
             color="primary"
             onClick={this.login}
             style={{
-              color: '#333',
+              color: "white",
               margin: 4,
               padding: 2,
-              background: 'linear-gradient(45deg, #DDD 30%, #BBB 90%)'
+              background: "transparent"
             }}>
-            Log In
+            <span style={{padding:10}}>Log In</span>
         </Button>
         }
       </div>

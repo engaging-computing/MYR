@@ -108,7 +108,7 @@ export default class Reference extends React.Component {
               onClick={this.handleToggle} />
           </Tabs>
 
-          {<div style={{ margin: 5, overflow: 'scroll' }}>
+          {<div style={{ margin: 5, overflow: 'hidden' }}>
               <p style={{fontSize:"80%"}}> Key: <span className="array">array </span>
               <span className="bool">bool </span>
               <span className="number">number </span>
