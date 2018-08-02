@@ -11,13 +11,13 @@ class Lesson extends Component {
   }
 
   nextLesson = () => {
-    if (this.props.lesson.next && window.confirm('Are you sure you start a new scene?\nYou will lose any unsaved work!')) {
+    if (this.props.lesson.next && window.confirm('Are you sure you want to continue?\nYou will lose any unsaved work!')) {
       this.props.lessonActions.fetchLesson(this.props.lesson.next);
     }
   }
 
   lastLesson = () => {
-    if (this.props.lesson.last && window.confirm('Are you sure you start a new scene?\nYou will lose any unsaved work!')) {
+    if (this.props.lesson.last && window.confirm('Are you sure you want to continue?\nYou will lose any unsaved work!')) {
       this.props.lessonActions.fetchLesson(this.props.lesson.last);
     }
   }

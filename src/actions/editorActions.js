@@ -64,5 +64,4 @@ export function fetchScene(id, uid = "anon") {
       }
     });
   };
-
 }

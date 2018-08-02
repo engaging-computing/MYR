@@ -56,7 +56,7 @@ class Group {
 
   entObj = () => {
     return {
-      entity: true,
+      group: true,
       els: this.els
     };
   }

@@ -3,10 +3,10 @@ import {
 } from '../actions/lessonActions';
 
 const initial_state = {
-  name: "-1",
+  name: "Loading....",
   id: -1,
-  prompt: "No prompt",
-  code: "// Uh Oh",
+  prompt: "Please wait",
+  code: "// Loading",
   next: 2,
   last: 0
 };

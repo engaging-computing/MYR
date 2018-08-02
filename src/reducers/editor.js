@@ -63,7 +63,7 @@ let m = new Myr();
 m.init(entityModel);
 
 // Use this to attach it to the window for debugging
-window.m = m;
+// window.m = m;
 
 // ESLint doesn't like this but it is better than eval
 function noEvalEvaluation(text) {
@@ -83,7 +83,7 @@ export default function editor(state = initial_state, action) {
       };
 
       let message = {
-        text: "Everything Looks Good",
+        text: "",
         time: Date.now()
       };
 

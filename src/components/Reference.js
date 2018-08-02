@@ -109,11 +109,11 @@ export default class Reference extends React.Component {
           </Tabs>
 
           {<div style={{ margin: 5, overflow: 'hidden' }}>
-              <p style={{fontSize:"80%"}}> Key: <span className="array">array </span>
+            <p style={{ fontSize: "80%" }}> Key: <span className="array">array </span>
               <span className="bool">bool </span>
               <span className="number">number </span>
               <span className="string">string </span></p>
-            </div>}
+          </div>}
           {this.state.value === 'a' &&
             <div style={{ marginTop: 0, overflow: 'scroll' }}>
               {this.TableEx("geometry")}

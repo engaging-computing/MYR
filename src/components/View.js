@@ -6,16 +6,25 @@ import 'three-pathfinding/dist/three-pathfinding';
 import 'aframe-extras/dist/aframe-extras.min.js';
 import 'aframe-physics-system';
 import 'aframe-environment-component';
+
 /**
-* @summary - The View component return the aframe representation of the scene. This
-* system utilizes the entity compoent system(ECS) to build objects in the scene from different
-* components.
-*/
+ * @summary - The View component return the aframe representation of the scene. This
+ * system utilizes the entity compoent system(ECS) to build objects in the scene from different
+ * components.
+ */
 class View extends Component {
+
+  // This fires off an event when the system is fully rendered.
+  componentDidUpdate() {
+    // Create the event
+    var event = new CustomEvent("myr-view-rendered");
+
+    // Dispatch/Trigger/Fire the event
+    document.dispatchEvent(event);
+  }
 
   // This renders json to aframe entities
   helper = (ent) => {
-    // for now only look one level deep for animations
     if (ent) {
       let flattened = {
         ...ent,
@@ -23,7 +32,8 @@ class View extends Component {
         scale: `${ent.scale.x} ${ent.scale.y} ${ent.scale.z}`,
         rotation: `${ent.rotation.x} ${ent.rotation.y} ${ent.rotation.z}`
       };
-      if (ent.entity) {
+      // If it is group then render children then render parent
+      if (ent.group) {
         return (
           <a-entity key={ent.id} {...flattened}>
             {ent.els ? ent.els.map(it => this.helper(it)) : null}
@@ -33,9 +43,8 @@ class View extends Component {
       if (ent.text) {
         delete flattened.text; // this takes care of a warning, may not be necessary
         return <a-text key={ent.id} {...flattened}></a-text>;
-      } else {
-        return <a-entity key={ent.id} {...flattened}></a-entity>;
       }
+      return <a-entity key={ent.id} {...flattened}></a-entity>;
     }
   }
 
@@ -88,6 +97,10 @@ class View extends Component {
     );
   }
 
+  /**
+  * @summary - Produces the grid on the ground and the coordinate lines
+  *
+  */
   coordinateHelper = () => {
     if (this.props.sceneConfig.showCoordHelper) {
       return (
@@ -148,14 +161,6 @@ class View extends Component {
         }
       </a-scene>
     );
-  }
-
-  componentDidUpdate() {
-    // Create the event
-    var event = new CustomEvent("myr-view-rendered");
-
-    // Dispatch/Trigger/Fire the event
-    document.dispatchEvent(event);
   }
 }
 
