@@ -304,13 +304,16 @@ span.user-name {
 div#reference-drawer>div {
   width: 80%;
 }
-.geometry{
+
+.geometry {
   transform: scale(1.2);
 }
-.color-change{
+
+.color-change {
   -webkit-animation: colorchange 8s infinite linear;
   transform: scale(1.5);
 }
+
 @-webkit-keyframes colorchange {
   25% {
     color: red;
@@ -325,9 +328,11 @@ div#reference-drawer>div {
     color: black;
   }
 }
-.animation-ref{
+
+.animation-ref {
   animation: animate infinite 4s linear;
 }
+
 @keyframes animate {
   25% {
     transform: rotate(0deg) scale(.85);
@@ -343,15 +348,22 @@ div#reference-drawer>div {
   }
 }
 
-span.bool{
+span.bool {
   color: red;
 }
-span.number{
+
+span.number {
   color: blue;
 }
-span.string{
+
+span.string {
   color: green;
 }
-span.array{
+
+span.array {
   font-weight: bolder;
+}
+
+#lesson {
+  margin: 10px;
 }

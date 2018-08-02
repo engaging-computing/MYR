@@ -15,9 +15,9 @@ import {
   Popover,
   Avatar
 } from '@material-ui/core';
-import Reference from './Reference';
+import Reference from './Reference.js';
 import SceneConfig from './SceneConfig.js';
-import Sidebar from './Sidebar';
+import Sidebar from './Sidebar.js';
 import $ from "jquery";
 import ProgressiveImage from 'react-progressive-image';
 

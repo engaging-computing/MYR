@@ -42,7 +42,7 @@ const initial_state = {
   objects: entityModel,
   assets: [],
   message: {
-    text: "Scene is Ready",
+    text: "",
     time: 0
   }
 };

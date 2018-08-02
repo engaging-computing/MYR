@@ -1,7 +1,7 @@
 import firebase from 'firebase';
 import '@firebase/firestore';
 
-const settings = {timestampsInSnapshots: true};
+const settings = { timestampsInSnapshots: true };
 
 var config = {
   apiKey: "AIzaSyBLnha_cHiHuJGWla5B73vKgz1feTkgXbc",
