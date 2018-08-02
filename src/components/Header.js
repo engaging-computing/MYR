@@ -92,18 +92,10 @@ class Header extends Component {
       scenes.doc(this.props.projectId).onSnapshot({
         includeMetadataChanges: true,
       }, (doc) => {
-        let data = doc.data();
-        if (data && data.code) {
-          // Clear contents for fresh render and then render
-          this.props.actions.refresh("", this.props.user ? this.props.user.uid : 'anon');
-          this.props.actions.render(data.code, this.props.user ? this.props.user.uid : 'anon');
-          this.props.sceneActions.nameScene(data.name);
-          if (data.uid === "1") {
-            this.setState({ needsNewId: true });
-            this.props.sceneActions.loadScene(0);
-          } else {
-            this.props.sceneActions.loadScene(doc.id);
-          }
+        if (this.props.user && this.props.user.uid) {
+          this.props.actions.fetchScene(this.props.projectId, this.props.user.uid);
+        } else {
+          this.props.actions.fetchScene(this.props.projectId);
         }
         $(".spinner").remove();
       });
@@ -317,17 +309,13 @@ class Header extends Component {
 
   /**
   * @summary - This function will determine which projectId to use when saving.
-  * 1. Loaded a sample project => generate new id
-  * 2. Save with same name as last => overwrite current
-  * 3. Save with new name from last => generate new id
-  * @param {bool} needsNewId - bool for callsite id generation
   *
   * @returns - projectId
   */
   getProjectId = () => {
     let ts = Date.now();
     let projectId = this.props.projectId || null;
-    if (!projectId || this.state.needsNewId) {
+    if (!projectId || !this.props.scene.id || this.state.needsNewId) {
       // Generate a new projectId
       projectId = this.props.user.uid + '_' + ts;
     }
@@ -617,7 +605,6 @@ class Header extends Component {
     };
     return (
       <header className="App-header align-items-center ">
-        {/* <DisplayMsg open={this.state.navAwayModal} {...this.confirmNavAway} /> */}
         <div className="col-8 d-flex justify-content-start">
           <Sidebar scene={this.props.scene} nameScene={this.props.sceneActions.nameScene} >
             <Button
