@@ -39,7 +39,7 @@ class Header extends Component {
       autoReload: false,
       projOpen: true,
       loadOpen: false,
-      snackOpen: true,
+      snackOpen: false,
       viewOptOpen: false,
       lastMsgTime: 0,
       anchorEl: null,
@@ -83,7 +83,6 @@ class Header extends Component {
         this.setState({ sampleProj: samplVals });
       });
     }
-    this.setState({ snackOpen: true, lastMsgTime: this.props.message.time });
 
     // 4. Render project if we have projectId. This should only happen if coming from viewer
     if (this.props.projectId) {
@@ -135,7 +134,7 @@ class Header extends Component {
   * props.message.time
   */
   componentDidUpdate() {
-    if (this.state.lastMsgTime !== this.props.message.time) {
+    if (this.state.lastMsgTime !== this.props.message.time && this.props.message.text !== "") {
       this.setState({ snackOpen: true, lastMsgTime: this.props.message.time });
     }
   }
@@ -605,6 +604,7 @@ class Header extends Component {
     };
     return (
       <header className="App-header align-items-center ">
+        {/* <DisplayMsg open={this.state.navAwayModal} {...this.confirmNavAway} /> */}
         <div className="col-8 d-flex justify-content-start">
           <Sidebar scene={this.props.scene} nameScene={this.props.sceneActions.nameScene} >
             <Button
