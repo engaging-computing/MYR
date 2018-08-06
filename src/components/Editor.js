@@ -54,6 +54,7 @@ var customCompleter = {
       "torus()",
       "torusknot()",
       "triangle()",
+      "circle()",
       "setColor()",
       "setPosition()",
       "setXPos()",
@@ -80,7 +81,9 @@ var customCompleter = {
       "grow()",
       "shrink()",
       "fadeOut()",
-      "fadeIn()"
+      "fadeIn()",
+      "group()",
+      "getRandomColor()"
 
 
 
