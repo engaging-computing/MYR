@@ -52,7 +52,7 @@ class Header extends Component {
   * @summary - When the component is done rendering, we want to:
   * 1. sync authentication with Firebase and Redux.
   * 2. Load the user projects.
-  * 3. Load sample projects. 
+  * 3. Load sample projects.
   * 4. Render project if we have projectId
   */
   componentDidMount() {
@@ -115,7 +115,7 @@ class Header extends Component {
 
   /**
   * @summary - Catches certain keyboard shortcuts
-  * 
+  *
   * @param {event} e - event from the keystroke.
   */
   handleKeyDown(e) {
@@ -205,12 +205,14 @@ class Header extends Component {
               src={this.props.user.photoURL}
               open={this.state.logMenuOpen}
               onClick={() => this.setState({ logMenuOpen: !this.state.logMenuOpen })}
-              label="logout" />
-            <span
-              className="user-name d-none d-lg-block"  >
-              Logged in as <br />
-              {this.props.user.displayName}
-            </span>
+              label="logout"
+              style={{ marginTop: 5, marginLeft: 15 }} />
+
+            {/* <span
+               className="user-name d-none d-lg-block"  >
+               Logged in as <br />
+               {this.props.user.displayName}
+               </span> */}
             <Popover
               open={this.state.logMenuOpen}
               anchorEl={document.getElementById('user')}
@@ -221,18 +223,19 @@ class Header extends Component {
           </Fragment>
           :
           <Button
-            variant="raised"
+            type="button"
+            variant="outlined"
             size="small"
             color="primary"
             onClick={this.login}
             style={{
-              color: '#333',
+              color: "white",
               margin: 4,
               padding: 2,
-              background: 'linear-gradient(45deg, #DDD 30%, #BBB 90%)'
+              border: "1px solid #fff"
             }}>
             Log In
-        </Button>
+          </Button>
         }
       </div>
     );
@@ -425,12 +428,12 @@ class Header extends Component {
   }
 
   /**
-  * @summary - This function passes through the confirm dialog. If true then delete the scene 
-  * otherwise skip. 
-  * 
+  * @summary - This function passes through the confirm dialog. If true then delete the scene
+  * otherwise skip.
+  *
   * @param {string} id - the project ID to be deleted
   * @param {string} name - the name of the project
-  * 
+  *
   */
   deleteScene = (id, name) => {
     if (window.confirm(`Are you sure you want to delete ${name}?`)) {
@@ -650,7 +653,7 @@ class Header extends Component {
               onClick={this.handleLoadToggle}
               color="primary"
               className="sidebar-btn">
-              <Icon className="material-icons">file_download</Icon>
+              <Icon className="material-icons">perm_media</Icon>
               Open Project
             </Button>
           </Sidebar>
@@ -700,7 +703,7 @@ class Header extends Component {
               onClick={this.handleLoadToggle}
               className="header-btn d-none d-sm-block"
               style={style.default}>
-              <Icon className="material-icons">file_download</Icon>
+              <Icon className="material-icons">perm_media</Icon>
             </IconButton>
           </Tooltip>
         </div>

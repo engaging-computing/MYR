@@ -89,12 +89,12 @@ export default class Reference extends React.Component {
             value={this.state.value}
             onChange={this.handleChange} >
             <Tab
-              icon={<Icon className="material-icons">change_history</Icon>}
+              icon={<Icon className="material-icons geometry">category</Icon>}
               label="Geometry"
               value='a'>
             </Tab>
             <Tab
-              icon={<Icon className="material-icons">build</Icon>}
+              icon={<Icon className="material-icons color-change">bubble_chart</Icon>}
               label="TRANSFORMATIONS"
               value='b' />
             <Tab
@@ -107,19 +107,23 @@ export default class Reference extends React.Component {
               value='x'
               onClick={this.handleToggle} />
           </Tabs>
+
+          {<div style={{ margin: 5, overflow: 'hidden' }}>
+              <p style={{fontSize:"80%"}}> Key: <span className="array">array </span>
+              <span className="bool">bool </span>
+              <span className="number">number </span>
+              <span className="string">string </span></p>
+            </div>}
           {this.state.value === 'a' &&
-            <div style={{ marginTop: 25, overflow: 'scroll' }}>
-              <h5 >Geometry</h5>
+            <div style={{ marginTop: 0, overflow: 'scroll' }}>
               {this.TableEx("geometry")}
             </div>}
           {this.state.value === 'b' &&
-            <div style={{ marginTop: 25, overflow: 'scroll' }}>
-              <h5 >Transformations</h5>
+            <div style={{ marginTop: 0, overflow: 'scroll' }}>
               {this.TableEx("transformations")}
             </div>}
           {this.state.value === 'c' &&
-            <div style={{ marginTop: 25, overflow: 'scroll' }}>
-              <h5 >Animations</h5>
+            <div style={{ marginTop: 0, overflow: 'scroll' }}>
               {this.TableEx("animations")}
             </div>}
         </Drawer>

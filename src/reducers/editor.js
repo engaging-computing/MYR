@@ -14,14 +14,14 @@ let entityModel = [
     geometry: `
       primitive: box;
       depth: 50;
-      height: 1;
+      height: 0.25;
       width: 50;
     `,
     material: "color: #222",
     "static-body": "shape: box",
     position: {
       x: 0,
-      y: -1,
+      y: -0.5,
       z: 0
     },
     scale: {
