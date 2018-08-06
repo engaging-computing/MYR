@@ -54,6 +54,7 @@ var customCompleter = {
       "torus()",
       "torusknot()",
       "triangle()",
+      "circle()",
       "setColor()",
       "setPosition()",
       "setXPos()",
@@ -81,8 +82,9 @@ var customCompleter = {
       "shrink()",
       "fadeOut()",
       "fadeIn()",
-      "group()"
-    ];
+      "group()",
+      "getRandomColor()"
+        ];
 
     var Colors = [
       "aliceblue",
