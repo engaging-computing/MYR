@@ -84,7 +84,7 @@ var customCompleter = {
       "fadeIn()",
       "group()",
       "getRandomColor()"
-        ];
+    ];
 
     var Colors = [
       "aliceblue",
