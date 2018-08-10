@@ -14,4 +14,3 @@ ReactDOM.render(
     <AppRoutes />
   </Provider>,
   document.getElementById('root'));
-

@@ -105,7 +105,7 @@ class View extends Component {
     if (this.props.sceneConfig.showCoordHelper) {
       return (
         <Fragment>
-          <a-grid height="50" width="50" position="1 -0.26 1" scale="1.5 1.5 1.5" />
+          <a-grid height="53.33" width="53.33" position="0 -0.26 0" scale="1.5 1.5 1.5" />
           <a-tube path="-25 0 0, 25 0 0" radius="0.05" material="color: red"></a-tube>
           <a-tube path="0 0 -25, 0 0 25" radius="0.05" material="color: blue"></a-tube>
           <a-text
@@ -128,7 +128,7 @@ class View extends Component {
             rotation="0 0 90"
             position="0 .1 0"
             side="double"
-            value=" Y + "></a-text>
+            value="    Y + "></a-text>
         </Fragment>
       );
     } else {
@@ -148,7 +148,7 @@ class View extends Component {
         <this.createCam />
         <a-sky color={this.props.sceneConfig.skyColor} />
         <this.coordinateHelper />
-        {this.props.objects ? this.props.objects.map(it => this.helper(it)) : null}
+        {window.m.els ? window.m.els.map(it => this.helper(it)) : null}
         {this.props.sceneConfig.camConfig === 1 ?
           <a-entity position="0 0 0">
             <a-cylinder checkpoint radius="1" height="0.3" position="-25 1 -25" color="#39BB82"></a-cylinder>

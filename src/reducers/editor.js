@@ -13,9 +13,9 @@ let entityModel = [
     id: 'floor',
     geometry: `
       primitive: box;
-      depth: 50;
+      depth: 80;
       height: 0.25;
-      width: 50;
+      width: 80;
     `,
     material: "color: #222",
     "static-body": "shape: box",
@@ -63,7 +63,7 @@ let m = new Myr();
 m.init(entityModel);
 
 // Use this to attach it to the window for debugging
-// window.m = m;
+window.m = m;
 
 // ESLint doesn't like this but it is better than eval
 function noEvalEvaluation(text) {
@@ -91,7 +91,7 @@ export default function editor(state = initial_state, action) {
       * Initializing with [] avoid issues with mapping in View.
       * In the future we might want to calculate diff and store it
       */
-      m.reset();
+      // m.reset();
       let els = [];
       let assets = [];
 
