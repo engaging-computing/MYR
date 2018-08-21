@@ -44,10 +44,11 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
+    "prod":   "react-scripts build && mv build ../MYR-backend && rm -r ../MYR-backend/public && mv ../MYR-backend/build ../MYR-backend/public",
     "coverage": "react-scripts test --env=jsdom --coverage --collectCoverageFrom=src/**/*.{js,jsx} --browser --silent",
     "test": "react-scripts test --env=jsdom --browser --silent",
     "eject": "react-scripts eject",
     "analyze": "source-map-explorer build/static/js/main.*"
   },
-  "proxy": "http://localhost:3001/"
+  "proxy": "http://localhost:1337/"
 }
