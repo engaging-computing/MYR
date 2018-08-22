@@ -37,16 +37,16 @@ export default function scene(state = initial_state, action) {
         showCoordHelper: !state.showCoordHelper
       };
     case SET_CAMERA:
-      let camPos = `${action.z || 0} ${action.y || 1.6} ${action.z || 0}`;
+      let camPos = `${action.x || 0} ${action.y || 1.6} ${action.z || 0}`;
       return {
         ...state,
         cameraPosition: camPos
-        };
-      case CHANGE_VIEW:
-        return {
-          ...state,
-          viewOnly: !state.viewOnly
-        };
+      };
+    case CHANGE_VIEW:
+      return {
+        ...state,
+        viewOnly: !state.viewOnly
+      };
     default:
       return state;
   }
