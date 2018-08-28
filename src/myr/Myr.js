@@ -62,7 +62,7 @@ class Myr {
   }
 
   /**
-  * @summary - Reset this.els to the base elements supplied to the constuctor
+  * @summary - Reset this.els to the base elements supplied to the constructor
   */
   reset = () => {
     // add the base elements and then calculate the offset to user defined objects
