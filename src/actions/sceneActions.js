@@ -11,7 +11,7 @@ export const CHANGE_VIEW = 'CHANGE_VIEW';
 /**
 * @summary - This function registers the scene's name with Redux
 *
-* @param {string} name - the name is givn by the user or when a scene is loarded
+* @param {string} name - the name is given by the user or when a scene is loaded
 *
 * @returns - a reducer action with type:NAME_SCENE
 */
