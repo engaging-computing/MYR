@@ -84,7 +84,7 @@ class View extends Component {
   basicMoveCam = () => {
     return (
       <a-entity id="rig"
-        movement-controls
+        movement-controls="fly: true">
         position={this.props.sceneConfig.cameraPosition} >
         <a-entity camera
           look-controls="pointerLockEnabled: true">
