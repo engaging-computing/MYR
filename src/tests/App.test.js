@@ -9,6 +9,7 @@ import Reference from '../components/Reference';
 import View from '../components/View';
 import Editor from '../components/Editor';
 import Sidebar from '../components/Sidebar';
+import DisplayMsg from '../components/DisplayMsg';
 import SceneConfig from '../components/SceneConfig';
 
 
