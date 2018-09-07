@@ -15,7 +15,7 @@ const initial_state = {
   skyColor: "white",
   camConfig: 0,
   showCoordHelper: true,
-  cameraPosition: "0 1.6 0",
+  cameraPosition: "0 1.6 3",
   viewOnly: false
 };
 
