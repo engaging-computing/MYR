@@ -33,13 +33,13 @@ class SceneConfig extends Component {
           </ListItemIcon>
           <ListItemText inset primary="Grid" />
         </MenuItem>
-        <MenuItem onClick={() => this.props.sceneActions.setCamera(0, 1.6, 0)} >
+        <MenuItem onClick={() => this.props.sceneActions.setCamera(0, 1.6, 3)} >
           <ListItemIcon>
             <Icon className="material-icons">switch_camera</Icon>
           </ListItemIcon>
           <ListItemText inset primary="Origin" />
         </MenuItem>
-        <MenuItem onClick={() => this.props.sceneActions.setCamera(0, 8, 0)} >
+        <MenuItem onClick={() => this.props.sceneActions.setCamera(0, 8, 3)} >
           <ListItemIcon>
             <Icon className="material-icons">switch_camera</Icon>
           </ListItemIcon>
