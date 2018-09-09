@@ -109,30 +109,30 @@ class View extends Component {
     if (this.props.sceneConfig.showCoordHelper) {
       return (
         <Fragment>
-          <a-grid height="53.33" width="53.33" position="0 -0.26 0" scale="1.5 1.5 1.5" />
-          <a-tube path="-25 0 0, 25 0 0" radius="0.05" material="color: red"></a-tube>
-          <a-tube path="0 0 -25, 0 0 25" radius="0.05" material="color: blue"></a-tube>
+          <a-grid height="53.33" width="53.33" position="-0.5 -0.26 -0.5" scale="1.5 1.5 1.5" />
+          <a-tube path="-35 -0.2 0, 35 -0.2 0" radius="0.05" material="color: red"></a-tube>
+          <a-tube path="0 -0.2 -35, 0 -0.2 35" radius="0.05" material="color: blue"></a-tube>
           <a-text
             color="#555"
             rotation="0 0 0"
-            position="-0.0005 .25 0"
+            position="-0.0005 .1 0"
             side="double"
             align="center"
-            value="- X       X +"></a-text>
+            value="- X           X +"></a-text>
           <a-text
             color="#555"
             rotation="0 90 0"
-            position="0 .25 -0.01"
+            position="0 .1 -0.01"
             side="double"
             align="center"
-            value="+ Z      Z -">
+            value="+ Z          Z -">
           </a-text>
           <a-text
             color="#555"
-            rotation="0 0 90"
+            rotation="0 90 90"
             position="0 .1 0"
             side="double"
-            value="    Y + "></a-text>
+            value=" Y + "></a-text>
         </Fragment>
       );
     } else {

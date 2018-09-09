@@ -17,7 +17,7 @@ const initial_state = {
   camConfig: 0,
   showCoordHelper: true,
   showFlyHelper: false,
-  cameraPosition: "0 1.6 0",
+  cameraPosition: "0 1.6 3",
   viewOnly: false
 };
 
