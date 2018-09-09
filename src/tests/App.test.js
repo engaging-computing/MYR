@@ -228,6 +228,7 @@ describe('Scene Reducer', () => {
         id: "0",
         name: "",
         showCoordHelper: true,
+        showFlyHelper: false,
         skyColor: "white",
         viewOnly: false
       }

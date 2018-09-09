@@ -82,9 +82,11 @@ class View extends Component {
   }
 
   basicMoveCam = () => {
+
+
     return (
       <a-entity id="rig"
-        movement-controls
+        movement-controls={this.props.sceneConfig.showFlyHelper ? "fly:true" : "fly:false"}
         position={this.props.sceneConfig.cameraPosition} >
         <a-entity camera
           look-controls="pointerLockEnabled: true">
@@ -96,6 +98,8 @@ class View extends Component {
       </a-entity>
     );
   }
+
+
 
   /**
   * @summary - Produces the grid on the ground and the coordinate lines
