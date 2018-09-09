@@ -7,6 +7,7 @@ export const CHANGE_CAM_MODE = 'CHANGE_CAM_MODE';
 export const SET_CAMERA = 'SET_CAMERA';
 export const CHANGE_PERSPECTIVE = 'CHANGE_PERSPECTIVE';
 export const CHANGE_VIEW = 'CHANGE_VIEW';
+export const TOGGLE_FLY = 'TOGGLE_FLY';
 
 /**
 * @summary - This function registers the scene's name with Redux
@@ -52,4 +53,8 @@ export function changePerspective() {
 
 export function changeView() {
   return { type: CHANGE_VIEW };
+}
+
+export function toggleFly() {
+  return { type: TOGGLE_FLY };
 }

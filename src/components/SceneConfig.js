@@ -51,6 +51,26 @@ class SceneConfig extends Component {
           </ListItemIcon>
           <ListItemText inset primary="Iso" />
         </MenuItem>
+        {
+          this.props.scene.showFlyHelper
+            ?
+            <MenuItem onClick={() => this.props.sceneActions.toggleFly()} >
+              <ListItemIcon>
+                <Icon className="material-icons">clear</Icon>
+              </ListItemIcon>
+              <ListItemText inset primary="Disable Fly" />
+            </MenuItem>
+            :
+            <MenuItem onClick={() => this.props.sceneActions.toggleFly()} >
+              <ListItemIcon>
+                <Icon className="material-icons">arrow_upward</Icon>
+              </ListItemIcon>
+              <ListItemText inset primary="Enable Fly" />
+            </MenuItem>
+        }
+
+
+
       </ React.Fragment >
     );
   }

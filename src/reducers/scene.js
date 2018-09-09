@@ -6,7 +6,8 @@ import {
   //  CHANGE_CAM_MODE,
   SET_CAMERA,
   // CHANGE_PERSPECTIVE,
-  CHANGE_VIEW
+  CHANGE_VIEW,
+  TOGGLE_FLY,
 } from '../actions/sceneActions';
 
 const initial_state = {
@@ -15,6 +16,7 @@ const initial_state = {
   skyColor: "white",
   camConfig: 0,
   showCoordHelper: true,
+  showFlyHelper: false,
   cameraPosition: "0 1.6 0",
   viewOnly: false
 };
@@ -35,6 +37,12 @@ export default function scene(state = initial_state, action) {
       return {
         ...state,
         showCoordHelper: !state.showCoordHelper
+      };
+    case TOGGLE_FLY:
+      return {
+        ...state,
+        showFlyHelper: !state.showFlyHelper
+
       };
     case SET_CAMERA:
       let camPos = `${action.x || 0} ${action.y || 1.6} ${action.z || 0}`;
