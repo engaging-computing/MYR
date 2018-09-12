@@ -6,6 +6,7 @@ import 'three-pathfinding/dist/three-pathfinding';
 import 'aframe-extras/dist/aframe-extras.min.js';
 import 'aframe-physics-system';
 import 'aframe-environment-component';
+import * as THREE from 'three';
 
 /**
  * @summary - The View component return the aframe representation of the scene. This
@@ -21,6 +22,9 @@ class View extends Component {
 
     // Dispatch/Trigger/Fire the event
     document.dispatchEvent(event);
+
+    var el = document.getElementById('rig');
+    el.components["movement-controls"].velocity = new THREE.Vector3(0, 0, 0)
   }
 
   // This renders json to aframe entities
@@ -82,10 +86,9 @@ class View extends Component {
   }
 
   basicMoveCam = () => {
-
-
     return (
       <a-entity id="rig"
+        debug={true}
         movement-controls={this.props.sceneConfig.showFlyHelper ? "fly:true" : "fly:false"}
         position={this.props.sceneConfig.cameraPosition} >
         <a-entity camera
