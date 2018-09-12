@@ -60,6 +60,9 @@ export function fetchScene(id, uid = "anon") {
           dispatch(loadScene(id));
         }
       } else {
+        if (id !== 'error-404') {
+          window.location.href = window.origin + '/error-404';
+        }
         console.error("Unable to fetch scene:" + id);
       }
     });

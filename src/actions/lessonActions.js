@@ -3,7 +3,7 @@ import { render } from './editorActions';
 
 export const LOAD_LESSON = "LOAD_LESSON";
 
-const ref = 'http://localhost:3001/lessons/';
+const ref = '/apiv1/lessons/';
 
 export function fetchLesson(lvlId) {
   return (dispatch) => {
