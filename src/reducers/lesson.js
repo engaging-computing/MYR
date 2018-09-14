@@ -7,7 +7,7 @@ const initial_state = {
   id: -1,
   prompt: "Please wait",
   code: "// Loading",
-  next: 2,
+  next: 0,
   last: 0
 };
 
@@ -22,7 +22,7 @@ export default function lesson(state = initial_state, action) {
         prompt: payload.prompt,
         code: payload.code,
         next: payload.next,
-        last: payload.last
+        previous: payload.previous
       };
     default:
       return state;
