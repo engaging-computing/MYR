@@ -17,8 +17,8 @@ class Lesson extends Component {
   }
 
   lastLesson = () => {
-    if (this.props.lesson.last && window.confirm('Are you sure you want to continue?\nYou will lose any unsaved work!')) {
-      this.props.lessonActions.fetchLesson(this.props.lesson.last);
+    if (this.props.lesson.previous && window.confirm('Are you sure you want to continue?\nYou will lose any unsaved work!')) {
+      this.props.lessonActions.fetchLesson(this.props.lesson.previous);
     }
   }
 
