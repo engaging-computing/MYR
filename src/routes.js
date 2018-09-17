@@ -10,10 +10,6 @@ export default () => {
         <Route exact path='/' component={Ide} />
         <Route path='/lesson' component={Guided} />
         <Route path='/:id' component={Ide} />
-        <Route path='/edit/:id' component={Ide} />
-        <Redirect from="/edit" exact to="/" />
-        <Redirect from='/view/:id' to="/:id" />
-        <Redirect from="/view" exact to="/" />
       </Switch>
     </BrowserRouter>
   );
