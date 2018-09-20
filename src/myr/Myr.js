@@ -37,14 +37,12 @@ class Myr {
   *
   */
   init = (objs) => {
-    this.baseEls = objs || [];
-    if (objs) {
-      this.els = this.els.concat(objs);
-      this.counter = objs.length;
-    }
+    Object.keys(objs).forEach(it => {
+      this.baseEls[it.id] = it;
+    })
 
     // Get all the function names of the Myr(this) class
-    let funs = Object.getOwnPropertyNames(this).filter((p) => {
+    let funs = Object.keys(this).filter((p) => {
       return typeof this[p] === 'function';
     });
 
@@ -440,9 +438,9 @@ class Myr {
       rotation: this.rotation,
     };
     if (!params || typeof params === 'string') {
-      this.els.push(base);
+      this.els[base.id] = { ...base };
     } else {
-      this.els.push({ ...base, ...params });
+      this.els[base.id] = { ...base, ...params };
     }
     return base.id;
   }
@@ -717,7 +715,7 @@ class Myr {
     if (outerElId.entity) {
       outerElId = outerElId.id;
     }
-    return this.els[this.getIndex(outerElId)];
+    return this.els[outerElId];
   }
 
   getIndex = (outerElId) => {
@@ -770,12 +768,13 @@ class Myr {
   *
   */
   mergeProps = (entity, params) => {
+    let id = params && params.id ? params.id : entity.id;
     if (!params || typeof params === 'string') {
-      this.els.push(entity);
+      this.els[id] = entity;
     } else {
-      this.els.push({ ...entity, ...params });
+      this.els[id] = { ...entity, ...params };
     }
-    return entity.id;
+    return id;
   }
 
   sleep = (ms) => {
@@ -791,15 +790,14 @@ class Myr {
       scale: this.scale,
     };
     let entity = new Group(this, base.id);
-    this.els.push({ ...base, ...entity.entObj() });
+    this.els[base.id] = { ...base, ...entity.entObj() };
     return entity;
   }
 
   // Transfer the object from MYR to the Entity
   transfer = (id) => {
-    let index = this.getIndex(id);
-    let retVal = this.els[index];
-    delete this.els[index];
+    let retVal = this.els[id];
+    delete this.els[id];
     return retVal;
   }
 }
