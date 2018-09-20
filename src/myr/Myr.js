@@ -77,7 +77,7 @@ class Myr {
   }
 
   genNewId = () => {
-    return 'a' + this.counter++;
+    return this.counter++;
   };
 
   setPosition = (x = 0, y = 1, z = 0) => {
