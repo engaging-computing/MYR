@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
+import { BrowserRouter, Route, Switch, /*Redirect*/ } from 'react-router-dom';
 import Ide from './containers/Ide';
 import Guided from './containers/Guided';
 
