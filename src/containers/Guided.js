@@ -48,7 +48,7 @@ const Guided = ({ editor, user, scene, lesson, lessonActions, actions, authActio
         </div>
       </div>
       <div id="scene" className="col-12 col-md-8">
-        <View sceneConfig={scene} assets={editor.assets} />
+        <View objects={editor.objects} sceneConfig={scene} assets={editor.assets} />
       </div>
     </div>
   </div>
