@@ -156,8 +156,8 @@ class View extends Component {
         <a-sky color={this.props.sceneConfig.skyColor} />
         <this.coordinateHelper />
         {
-          Object.keys(window.m.els).map(it => {
-            return this.helper(window.m.els[it]);
+          Object.keys(this.props.objects).map(it => {
+            return this.helper(this.props.objects[it]);
           })
         }
         {this.props.sceneConfig.camConfig === 1 ?

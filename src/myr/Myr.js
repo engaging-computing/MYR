@@ -4,9 +4,9 @@ import Group from './Group';
 import CANNON from 'cannon';
 
 class Myr {
-  constructor() {
+  constructor(baseEls) {
     this.counter = 0;
-    this.baseEls = [];
+    this.baseEls = baseEls;
     this.els = [];
     this.assets = [];
     this.res = { els: this.els, assets: this.assets };
@@ -28,6 +28,12 @@ class Myr {
       z: 0
     };
     this.radius = 1;
+    if (baseEls) {
+      Object.keys(this.baseEls).forEach(it => {
+        this.els[it] = this.baseEls[it];
+      });
+    }
+
   }
 
   /**
@@ -36,10 +42,7 @@ class Myr {
   * @param [{}] objs - these are the base objects for this object
   *
   */
-  init = (objs) => {
-    Object.keys(objs).forEach(it => {
-      this.baseEls[it.id] = it;
-    })
+  init = () => {
 
     // Get all the function names of the Myr(this) class
     let funs = Object.keys(this).filter((p) => {
@@ -63,10 +66,9 @@ class Myr {
   * @summary - Reset this.els to the base elements supplied to the constructor
   */
   reset = () => {
-    // add the base elements and then calculate the offset to user defined objects
-    this.counter = this.baseEls ? this.baseEls.length : 0;
 
     // Reset base params, we might be able to merge two objects later
+    this.id = 0;
     this.color = 'red';
     this.position = { x: 0, y: 0, z: 0 };
     this.scale = { x: 1, y: 1, z: 1 };
@@ -74,6 +76,9 @@ class Myr {
     this.radius = 1;
     // restore the base objects of the scene
     this.els = [].concat(this.baseEls);
+    Object.keys(this.baseEls).forEach(it => {
+      this.els[it] = this.baseEls[it];
+    });
   }
 
   genNewId = () => {
@@ -799,6 +804,11 @@ class Myr {
     let retVal = this.els[id];
     delete this.els[id];
     return retVal;
+  }
+
+  HALT = () => {
+    console.log(this);
+    console.log('Halted');
   }
 }
 
