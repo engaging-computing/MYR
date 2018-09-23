@@ -37,14 +37,16 @@
     "react-progressive-image": "^0.3.0",
     "react-redux": "^5.0.7",
     "react-router-dom": "^4.2.2",
+    "reactour": "^1.9.0",
     "redux": "^3.7.2",
     "redux-thunk": "^2.3.0",
-    "source-map-explorer": "^1.5.0"
+    "source-map-explorer": "^1.5.0",
+    "styled-components": "^3.4.9"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "prod":   "react-scripts build && mv build ../MYR-backend && rm -r ../MYR-backend/public && mv ../MYR-backend/build ../MYR-backend/public",
+    "prod": "react-scripts build && mv build ../MYR-backend && rm -r ../MYR-backend/public && mv ../MYR-backend/build ../MYR-backend/public",
     "coverage": "react-scripts test --env=jsdom --coverage --collectCoverageFrom=src/**/*.{js,jsx} --browser --silent",
     "test": "react-scripts test --env=jsdom --browser --silent",
     "eject": "react-scripts eject",

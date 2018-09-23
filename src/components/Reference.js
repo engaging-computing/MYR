@@ -39,8 +39,6 @@ export default class Reference extends React.Component {
         <TableHead >
           <TableRow>
             <TableCell>Name</TableCell>
-            {/* <TableCell>Parameters</TableCell> */}
-            {/* <TableCell>Return Value</TableCell> */}
             <TableCell>Description</TableCell>
           </TableRow>
         </TableHead>
@@ -48,10 +46,6 @@ export default class Reference extends React.Component {
           {this.tableData[category].map((row, index) => (
             <TableRow key={index}>
               <TableCell >{row.name}</TableCell>
-              {/* <TableCell  >
-                <SyntaxHighlighter language='javascript' style={github}>{row.parameters}</SyntaxHighlighter>
-              </TableCell>
-              <TableCell >{row.returnValue}</TableCell> */}
               <TableCell >{row.description}</TableCell>
             </TableRow>
           ))}
@@ -70,7 +64,8 @@ export default class Reference extends React.Component {
       <React.Fragment>
         <Tooltip title="Reference" placement="bottom-start">
           <IconButton
-            className="header-btn"
+            id="ref-btn"
+            className="header-btn d-none d-sm-block"
             aria-haspopup="true"
             onClick={() => this.setState({ open: true })}
             style={style}>

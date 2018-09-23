@@ -18,7 +18,7 @@ class Group {
   }
 
   getEl = (outerElId) => {
-    return this.els[this.getIndex(outerElId)];
+    return this.els[outerElId];
   }
 
   getIndex = (outerElId) => {
@@ -35,7 +35,7 @@ class Group {
     ent.position = {
       x, y, z
     };
-    this.myr.els[this.myr.getIndex(this.id)] = ent;
+    this.myr.els[this.id] = ent;
   }
 
   setScale = (x = 1, y = 1, z = 1) => {
@@ -43,7 +43,7 @@ class Group {
     ent.scale = {
       x, y, z
     };
-    this.myr.els[this.myr.getIndex(this.id)] = ent;
+    this.myr.els[this.id] = ent;
   }
 
   setRotation = (x = 0, y = 0, z = 0) => {
@@ -51,7 +51,7 @@ class Group {
     ent.rotation = {
       x, y, z
     };
-    this.myr.els[this.myr.getIndex(this.id)] = ent;
+    this.myr.els[this.id] = ent;
   }
 
   entObj = () => {

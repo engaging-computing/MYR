@@ -18,6 +18,7 @@ import {
 import Reference from './Reference.js';
 import SceneConfig from './SceneConfig.js';
 import Sidebar from './Sidebar.js';
+import MyrTour from './MyrTour';
 import $ from "jquery";
 import ProgressiveImage from 'react-progressive-image';
 
@@ -561,6 +562,7 @@ class Header extends Component {
       <Fragment>
         <Tooltip title="Change View" placement="bottom-start">
           <IconButton
+            id="view-btn"
             aria-owns={anchorEl ? 'simple-menu' : null}
             aria-haspopup="true"
             className="header-btn "
@@ -605,7 +607,7 @@ class Header extends Component {
     return (
       <header className="App-header align-items-center ">
         {/* <DisplayMsg open={this.state.navAwayModal} {...this.confirmNavAway} /> */}
-        <div className="col-8 d-flex justify-content-start">
+        <div className="col-9 d-flex justify-content-start">
           <Sidebar scene={this.props.scene} nameScene={this.props.sceneActions.nameScene} >
             <Button
               variant="raised"
@@ -647,6 +649,7 @@ class Header extends Component {
           <h1 className="mr-2 d-none d-sm-block" >MYR</h1>
           <Tooltip title="Render" placement="bottom-start">
             <Button
+              id="play-btn"
               variant="raised"
               size="small"
               onClick={this.handleRender}
@@ -657,6 +660,7 @@ class Header extends Component {
           </Tooltip>
           <Tooltip title="Stop" placement="bottom-start">
             <Button
+              id="stop-btn"
               variant="raised"
               size="small"
               onClick={this.clear}
@@ -667,6 +671,7 @@ class Header extends Component {
           </Tooltip>
           <Tooltip title="New Scene" placement="bottom-start">
             <IconButton
+              id="new-btn"
               onClick={() => {
                 if (window.confirm('Are you sure you start a new scene?\nYou will lose any unsaved work!')) {
                   window.location.href = window.origin;
@@ -679,6 +684,7 @@ class Header extends Component {
           </Tooltip>
           <Tooltip title="Save" placement="bottom-start">
             <IconButton
+              id="save-btn"
               onClick={this.handleSaveToggle}
               className="header-btn d-none d-md-block"
               style={style.default} >
@@ -687,14 +693,16 @@ class Header extends Component {
           </Tooltip>
           <Tooltip title="Open" placement="bottom-start">
             <IconButton
+              id="open-btn"
               onClick={this.handleLoadToggle}
               className="header-btn d-none d-sm-block"
               style={style.default}>
               <Icon className="material-icons">perm_media</Icon>
             </IconButton>
           </Tooltip>
+          <MyrTour />
         </div>
-        <div className="col-4 d-flex justify-content-end">
+        <div className="col-3 d-flex justify-content-end">
           <Reference />
           <this.renderViewSelect />
           <this.loginBtn />
