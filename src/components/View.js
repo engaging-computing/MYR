@@ -155,7 +155,11 @@ class View extends Component {
         <this.createCam />
         <a-sky color={this.props.sceneConfig.skyColor} />
         <this.coordinateHelper />
-        {window.m.els ? window.m.els.map(it => this.helper(it)) : null}
+        {
+          Object.keys(this.props.objects).map(it => {
+            return this.helper(this.props.objects[it]);
+          })
+        }
         {this.props.sceneConfig.camConfig === 1 ?
           <a-entity position="0 0 0">
             <a-cylinder checkpoint radius="1" height="0.3" position="-25 1 -25" color="#39BB82"></a-cylinder>

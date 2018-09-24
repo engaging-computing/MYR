@@ -1,7 +1,7 @@
 import React from 'react';
 import Editor from '../components/Editor';
-import View from '../components/View';
 import Header from '../components/Header';
+import View from '../components/View';
 import PropTypes from 'prop-types';
 
 import * as EditorActions from '../actions/editorActions.js';

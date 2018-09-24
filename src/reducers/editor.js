@@ -19,26 +19,21 @@ let entityModel = [
     `,
     material: "color: #222",
     "static-body": "shape: box",
-    position: {
-      x: 0,
-      y: -0.5,
-      z: 0
-    },
-    scale: {
-      x: 1,
-      y: 1,
-      z: 1
-    },
-    rotation: {
-      x: 0,
-      y: 0,
-      z: 0
-    }
+    position: { x: 0, y: -0.5, z: 0 },
+    scale: { x: 1, y: 1, z: 1 },
+    rotation: { x: 0, y: 0, z: 0 }
   },
 ];
 
+const welcomeText =
+  `/**********************************************************
+*                   Welcome to MYR!                       *
+*  Getting Started? - https://www.learnmyr.org/first-time *
+**********************************************************/
+`;
+
 const initial_state = {
-  text: "",
+  text: welcomeText,
   objects: entityModel,
   assets: [],
   message: {
@@ -59,8 +54,8 @@ let snapshots = [
 ];
 
 
-let m = new Myr();
-m.init(entityModel);
+let m = new Myr(entityModel);
+m.init();
 
 // Use this to attach it to the window for debugging
 window.m = m;

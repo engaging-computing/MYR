@@ -4,9 +4,9 @@ import Group from './Group';
 import CANNON from 'cannon';
 
 class Myr {
-  constructor() {
+  constructor(baseEls) {
     this.counter = 0;
-    this.baseEls = [];
+    this.baseEls = baseEls;
     this.els = [];
     this.assets = [];
     this.res = { els: this.els, assets: this.assets };
@@ -28,6 +28,12 @@ class Myr {
       z: 0
     };
     this.radius = 1;
+    if (baseEls) {
+      Object.keys(this.baseEls).forEach(it => {
+        this.els[it] = this.baseEls[it];
+      });
+    }
+
   }
 
   /**
@@ -36,15 +42,10 @@ class Myr {
   * @param [{}] objs - these are the base objects for this object
   *
   */
-  init = (objs) => {
-    this.baseEls = objs || [];
-    if (objs) {
-      this.els = this.els.concat(objs);
-      this.counter = objs.length;
-    }
+  init = () => {
 
     // Get all the function names of the Myr(this) class
-    let funs = Object.getOwnPropertyNames(this).filter((p) => {
+    let funs = Object.keys(this).filter((p) => {
       return typeof this[p] === 'function';
     });
 
@@ -65,10 +66,9 @@ class Myr {
   * @summary - Reset this.els to the base elements supplied to the constructor
   */
   reset = () => {
-    // add the base elements and then calculate the offset to user defined objects
-    this.counter = this.baseEls ? this.baseEls.length : 0;
 
     // Reset base params, we might be able to merge two objects later
+    this.id = 0;
     this.color = 'red';
     this.position = { x: 0, y: 0, z: 0 };
     this.scale = { x: 1, y: 1, z: 1 };
@@ -76,10 +76,13 @@ class Myr {
     this.radius = 1;
     // restore the base objects of the scene
     this.els = [].concat(this.baseEls);
+    Object.keys(this.baseEls).forEach(it => {
+      this.els[it] = this.baseEls[it];
+    });
   }
 
   genNewId = () => {
-    return 'a' + this.counter++;
+    return this.counter++;
   };
 
   setPosition = (x = 0, y = 1, z = 0) => {
@@ -440,9 +443,9 @@ class Myr {
       rotation: this.rotation,
     };
     if (!params || typeof params === 'string') {
-      this.els.push(base);
+      this.els[base.id] = { ...base };
     } else {
-      this.els.push({ ...base, ...params });
+      this.els[base.id] = { ...base, ...params };
     }
     return base.id;
   }
@@ -717,7 +720,7 @@ class Myr {
     if (outerElId.entity) {
       outerElId = outerElId.id;
     }
-    return this.els[this.getIndex(outerElId)];
+    return this.els[outerElId];
   }
 
   getIndex = (outerElId) => {
@@ -770,12 +773,13 @@ class Myr {
   *
   */
   mergeProps = (entity, params) => {
+    let id = params && params.id ? params.id : entity.id;
     if (!params || typeof params === 'string') {
-      this.els.push(entity);
+      this.els[id] = entity;
     } else {
-      this.els.push({ ...entity, ...params });
+      this.els[id] = { ...entity, ...params };
     }
-    return entity.id;
+    return id;
   }
 
   sleep = (ms) => {
@@ -791,16 +795,20 @@ class Myr {
       scale: this.scale,
     };
     let entity = new Group(this, base.id);
-    this.els.push({ ...base, ...entity.entObj() });
+    this.els[base.id] = { ...base, ...entity.entObj() };
     return entity;
   }
 
   // Transfer the object from MYR to the Entity
   transfer = (id) => {
-    let index = this.getIndex(id);
-    let retVal = this.els[index];
-    delete this.els[index];
+    let retVal = this.els[id];
+    delete this.els[id];
     return retVal;
+  }
+
+  HALT = () => {
+    console.log(this);
+    console.log('Halted');
   }
 }
 
