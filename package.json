@@ -46,7 +46,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "prod": "react-scripts build && mv build ../MYR-backend && rm -r ../MYR-backend/public && mv ../MYR-backend/build ../MYR-backend/public",
+    "prod": "react-scripts build && mv build ../MYR-backend && rm -r ../MYR-backend/public/myr && mv ../MYR-backend/build ../MYR-backend/public/myr",
     "coverage": "react-scripts test --env=jsdom --coverage --collectCoverageFrom=src/**/*.{js,jsx} --browser --silent",
     "test": "react-scripts test --env=jsdom --browser --silent",
     "eject": "react-scripts eject",
