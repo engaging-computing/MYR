@@ -18,7 +18,7 @@ export default function lesson(state = initial_state, action) {
       payload = action.payload;
       return {
         name: payload.name,
-        id: payload.id,
+        id: payload._id,
         prompt: payload.prompt,
         code: payload.code,
         next: payload.next,
