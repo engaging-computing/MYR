@@ -4,15 +4,6 @@ import {
   Icon
 } from '@material-ui/core';
 
-const sortFunc = (a, b) => {
-  // Assuming you want case-insensitive comparison
-  a = a.toLowerCase();
-  b = b.toLowerCase();
-
-  return (a < b) ? -1 : (a > b) ? 1 : 0;
-};
-
-
 class SceneDisplay extends React.Component {
   constructor(props) {
     super(props);
@@ -21,7 +12,7 @@ class SceneDisplay extends React.Component {
     };
   }
 
-  builer = (proj, canDelete) => {
+  helper = (proj, canDelete) => {
     if (proj) {
       let id = proj.id;
       return (
@@ -67,7 +58,7 @@ class SceneDisplay extends React.Component {
             userProjs.sort(function (a, b) {
               return a.name < b.name ? -1 : a.name > b.name ? 1 : 0;
             }).map(proj => {
-              return this.builer(proj, true);
+              return this.helper(proj, true);
             })
           }
         </div>
@@ -78,7 +69,7 @@ class SceneDisplay extends React.Component {
             examplProjs.sort(function (a, b) {
               return a.name < b.name ? -1 : a.name > b.name ? 1 : 0;
             }).map(proj => {
-              return this.builer(proj, false);
+              return this.helper(proj, false);
             })
           }
         </div>
