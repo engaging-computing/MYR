@@ -68,7 +68,6 @@ class Sidebar extends Component {
             onClick={this.handleToggle}>
             <Icon className="material-icons">close</Icon>
           </IconButton>
-          <h1>MYR</h1>
           <h1>MYR - {this.github}</h1>
           {React.Children.map(this.props.children, child => {
             return (
