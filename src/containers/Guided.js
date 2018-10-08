@@ -9,40 +9,27 @@ import * as EditorActions from '../actions/editorActions';
 import * as AuthActions from '../actions/authActions';
 import * as SceneActions from '../actions/sceneActions';
 import * as LessonActions from '../actions/lessonActions';
+import * as ProjectActions from '../actions/projectActions.js';
 
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
-/**
-* @summary - Guided is used for scripted lesson plans. This path is tightly controlled
-* and designed to reduce errors at the cost of some creative freedom.
-*
-* @param {string} text - text for the editor
-* @param {array} objects - objects for the MYR render
-* @param {array} assets - obj models
-* @param {object} user - user info
-* @param {object} scene - screne name and id
-* @param {string} errors - errors from the render process
-* @param {array} actions - render, recover, refresh
-* @param {array} level -
-* @param {array} levelActions -
-*
-* @returns - JSX expression
-*/
-const Guided = ({ editor, user, scene, lesson, lessonActions, actions, authActions, match, sceneActions }) => (
+const Guided = ({ editor, user, scene, lesson, lessonActions, editorActions, authActions, projectActions, projects, match, sceneActions }) => (
   <div className="App">
     <Header
       logging={authActions}
       sceneActions={sceneActions}
-      actions={actions}
+      actions={editorActions}
       user={user}
       scene={scene}
       text={editor.text}
       message={editor.message}
-      projectId={match.params.id} />
+      projectId={match.params.id}
+      projectActions={projectActions}
+      projects={projects} />
     <div className="row no-gutters">
       <div id="interface" className="col-12 col-md-4">
-        <Lesson lesson={lesson} actions={actions} lessonActions={lessonActions} />
+        <Lesson lesson={lesson} actions={editorActions} lessonActions={lessonActions} />
         <div className='guided'>
           <Editor text={editor.text} user={user} />
         </div>
@@ -65,15 +52,17 @@ const mapStateToProps = state => ({
   editor: state.editor,
   user: state.user.user,
   scene: state.scene,
-  lesson: state.lesson
+  lesson: state.lesson,
+  projects: state.project
 });
 
 // This maps dispatch actions to props
 const mapDispatchToProps = dispatch => ({
-  actions: bindActionCreators(EditorActions, dispatch),
+  editorActions: bindActionCreators(EditorActions, dispatch),
   authActions: bindActionCreators(AuthActions, dispatch),
   sceneActions: bindActionCreators(SceneActions, dispatch),
-  lessonActions: bindActionCreators(LessonActions, dispatch)
+  lessonActions: bindActionCreators(LessonActions, dispatch),
+  projectActions: bindActionCreators(ProjectActions, dispatch)
 });
 
 // This does the binding to the redux store

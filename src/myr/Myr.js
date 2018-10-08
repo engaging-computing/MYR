@@ -75,7 +75,7 @@ class Myr {
     this.rotation = { x: 0, y: 0, z: 0 };
     this.radius = 1;
     // restore the base objects of the scene
-    this.els = [].concat(this.baseEls);
+    this.els = [];
     Object.keys(this.baseEls).forEach(it => {
       this.els[it] = this.baseEls[it];
     });

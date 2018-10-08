@@ -19,8 +19,7 @@ import Reference from './Reference.js';
 import SceneConfig from './SceneConfig.js';
 import Sidebar from './Sidebar.js';
 import MyrTour from './MyrTour';
-import $ from "jquery";
-import ProgressiveImage from 'react-progressive-image';
+import SceneDisplay from './SceneDisplay';
 
 const exitBtnStyle = {
   position: "fixed",
@@ -45,7 +44,8 @@ class Header extends Component {
       lastMsgTime: 0,
       anchorEl: null,
       navAwayModal: false,
-      needsNewId: false // this explicitly tells us to make a new id
+      needsNewId: false, // this explicitly tells us to make a new id
+      spinnerOpen: false
     };
   }
 
@@ -62,32 +62,17 @@ class Header extends Component {
       if (account) {
         this.props.logging.login(account);
         // 2. If we have a user, load their projects
-        this.getUserProjs();
+        this.props.projectActions.asyncUserProj(this.props.user.uid);
       } else {
         this.props.logging.logout();
       }
     });
 
-    // 3. Load the sample projects
-    if (this.state.sampleProj.length === 0) {
-      let samplVals = [];
-      scenes.where('uid', '==', "1").get().then(snap => {
-        snap.forEach(doc => {
-          storageRef.child(`/images/perspective/${doc.id}`).getDownloadURL().then((img) => {
-            samplVals.push({
-              id: doc.id,
-              data: doc.data(),
-              url: img
-            });
-          });
-        });
-        this.setState({ sampleProj: samplVals });
-      });
-    }
+    this.props.projectActions.asyncExampleProj();
 
     // 4. Render project if we have projectId. This should only happen if coming from viewer
     if (this.props.projectId) {
-      $("body").prepend("<span class='spinner'><div class='cube1'></div><div class='cube2'></div></span>");
+      this.setState({ spinnerOpen: true });
       // When the data's metedata changes, ie update
       scenes.doc(this.props.projectId).onSnapshot({
         includeMetadataChanges: true,
@@ -97,12 +82,13 @@ class Header extends Component {
         } else {
           this.props.actions.fetchScene(this.props.projectId);
         }
-        $(".spinner").remove();
+        this.setState({ spinnerOpen: false });
       });
     }
 
     // Bind to keyboard to listen for shortcuts
     document.addEventListener('keydown', this.handleKeyDown.bind(this));
+
   }
 
   /**
@@ -199,12 +185,6 @@ class Header extends Component {
               onClick={() => this.setState({ logMenuOpen: !this.state.logMenuOpen })}
               label="logout"
               style={{ marginTop: 5, marginLeft: 15 }} />
-
-            {/* <span
-               className="user-name d-none d-lg-block"  >
-               Logged in as <br />
-               {this.props.user.displayName}
-               </span> */}
             <Popover
               open={this.state.logMenuOpen}
               anchorEl={document.getElementById('user')}
@@ -322,6 +302,19 @@ class Header extends Component {
     return projectId;
   }
 
+  spinner = () => {
+    if (this.state.spinnerOpen) {
+      return (
+        <span className='spinner'>
+          <div className='cube1'></div>
+          <div className='cube2'></div>
+        </span>
+      );
+    } else {
+      return null;
+    }
+  }
+
   /**
   * @summary - When the user clicks save it will upload the information to Firebase
   */
@@ -329,7 +322,7 @@ class Header extends Component {
     // render the current state so the user can see what they are saving
     this.handleRender();
     if (this.props.user && this.props.user.uid) {
-      $("body").prepend("<span class='spinner'><div class='cube1'></div><div class='cube2'></div></span>");
+      this.setState({ spinnerOpen: true });
       let ts = Date.now();
       let projectId = this.getProjectId();
       let scene = document.querySelector('a-scene');
@@ -356,11 +349,11 @@ class Header extends Component {
           }
         }).catch((error) => {
           console.error("Error writing document: ", error);
-          $(".spinner").remove();
+          this.setState({ spinnerOpen: false });
         });
       }).catch((error) => {
         console.error("Error uploading a data_url string ", error);
-        $(".spinner").remove();
+        this.setState({ spinnerOpen: false });
       });
     } else {
       // TODO: Don't use alert
@@ -416,35 +409,6 @@ class Header extends Component {
   }
 
   /**
-  * @summary - This function passes through the confirm dialog. If true then delete the scene
-  * otherwise skip.
-  *
-  * @param {string} id - the project ID to be deleted
-  * @param {string} name - the name of the project
-  *
-  */
-  deleteScene = (id, name) => {
-    if (window.confirm(`Are you sure you want to delete ${name}?`)) {
-      // Delete Image
-      let path = "images/perspective/" + id;
-      let imgRef = storageRef.child(path);
-      imgRef.delete().then(() => {
-        console.log("Image successfully deleted!");
-      }).catch((error) => {
-        console.error("Error removing img: ", error);
-      });
-
-      // Delete Document
-      scenes.doc(id).delete().then(() => {
-        console.log("Document successfully deleted!");
-      }).catch((error) => {
-        console.error("Error removing document: ", error);
-      });
-    }
-    this.getUserProjs();
-  }
-
-  /**
   * @summary - toggles the load project drawer
   */
   handleLoadToggle = () => {
@@ -452,29 +416,6 @@ class Header extends Component {
   };
 
   loadDrawer = () => {
-    const renderProj = (proj, canDelete) => {
-      return (
-        <div key={proj.id} id={proj.id} className="grid-project p-3 mb-3" title={proj.data.name}>
-          <a href={`/${proj.id}`} >
-            <h4>{proj.data.name}</h4>
-            <ProgressiveImage src={proj.url} placeholder={process.env.PUBLIC_URL + '/img/Loading_icon.gif'}>
-              {(src) => <img id={proj.id} alt={proj.id} className="img-thumbnail mb-1" src={src} />}
-            </ProgressiveImage>
-          </a>
-          {canDelete ?
-            <Button
-              onClick={() => this.deleteScene(proj.id, proj.data.name)}
-              label="delete Project"
-              fullWidth={true}
-              color="secondary">
-              <Icon className="material-icons">delete</Icon>
-            </Button>
-            : null
-          }
-        </div>
-      );
-    };
-
     return (
       <Drawer
         className="side-drawer"
@@ -488,23 +429,10 @@ class Header extends Component {
           <Icon className="material-icons">close</Icon>
         </IconButton>
         <div id="project-list" >
-          {this.props.user !== null ?
-            <div className="row" id="user-proj" style={{ width: "100%" }}>
-              <h3 className="col-12 p-2 mb-3 border-bottom"> Your Projects</h3>
-              <hr />
-              {this.state.availProj ? this.state.availProj.map((proj) => {
-                return (renderProj(proj, true));
-              })
-                : null}
-            </div>
-            : null}
-          <div className="row" id="sample-proj" style={{ width: "100%" }}>
-            <h3 className="col-12 p-2 mb-3 border-bottom">Sample Projects</h3>
-            {this.state.sampleProj !== null ? this.state.sampleProj.map((proj) => {
-              return (renderProj(proj, false));
-            })
-              : null}
-          </div>
+          <SceneDisplay
+            deleteFunc={this.props.projectActions.deleteProj}
+            userProjs={this.props.projects.userProjs}
+            examplProjs={this.props.projects.examplProjs} />
         </div>
       </Drawer>
     );
@@ -606,7 +534,6 @@ class Header extends Component {
     };
     return (
       <header className="App-header align-items-center ">
-        {/* <DisplayMsg open={this.state.navAwayModal} {...this.confirmNavAway} /> */}
         <div className="col-9 d-flex justify-content-start">
           <Sidebar scene={this.props.scene} nameScene={this.props.sceneActions.nameScene} >
             <Button
@@ -710,6 +637,7 @@ class Header extends Component {
         <this.saveDrawer />
         <this.loadDrawer />
         <this.renderSnackBar />
+        <this.spinner />
       </header>
     );
   }
