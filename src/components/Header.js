@@ -19,7 +19,7 @@ import Reference from './Reference.js';
 import SceneConfig from './SceneConfig.js';
 import Sidebar from './Sidebar.js';
 import MyrTour from './MyrTour';
-import SceneDisplay from './SceneDisplay';
+import ProjectView from './ProjectView.js';
 
 const exitBtnStyle = {
   position: "fixed",
@@ -51,13 +51,11 @@ class Header extends Component {
 
   /**
   * @summary - When the component is done rendering, we want to:
-  * 1. sync authentication with Firebase and Redux.
-  * 2. Load the user projects.
-  * 3. Load sample projects.
-  * 4. Render project if we have projectId
   */
   componentDidMount() {
-    // 1. Sync authentication
+    this.props.projectActions.asyncExampleProj();
+
+    // Sync authentication
     auth.onAuthStateChanged((account) => {
       if (account) {
         this.props.logging.login(account);
@@ -68,9 +66,7 @@ class Header extends Component {
       }
     });
 
-    this.props.projectActions.asyncExampleProj();
-
-    // 4. Render project if we have projectId. This should only happen if coming from viewer
+    // Render project if we have projectId. This should only happen if coming from viewer
     if (this.props.projectId) {
       this.setState({ spinnerOpen: true });
       // When the data's metedata changes, ie update
@@ -88,7 +84,6 @@ class Header extends Component {
 
     // Bind to keyboard to listen for shortcuts
     document.addEventListener('keydown', this.handleKeyDown.bind(this));
-
   }
 
   /**
@@ -123,27 +118,6 @@ class Header extends Component {
   componentDidUpdate() {
     if (this.state.lastMsgTime !== this.props.message.time && this.props.message.text !== "") {
       this.setState({ snackOpen: true, lastMsgTime: this.props.message.time });
-    }
-  }
-
-  /**
-  * @summary - sets component state:availProj to the the user's projects if logged in
-  */
-  getUserProjs = () => {
-    if (this.props.user && this.props.user.uid) {
-      let userVals = [];
-      scenes.where('uid', '==', this.props.user.uid).get().then(snap => {
-        snap.forEach(doc => {
-          storageRef.child(`/images/perspective/${doc.id}`).getDownloadURL().then((img) => {
-            userVals.push({
-              id: doc.id,
-              data: doc.data(),
-              url: img
-            });
-          });
-        });
-        this.setState({ availProj: userVals });
-      });
     }
   }
 
@@ -428,12 +402,10 @@ class Header extends Component {
           onClick={this.handleLoadToggle}>
           <Icon className="material-icons">close</Icon>
         </IconButton>
-        <div id="project-list" >
-          <SceneDisplay
-            deleteFunc={this.props.projectActions.deleteProj}
-            userProjs={this.props.projects.userProjs}
-            examplProjs={this.props.projects.examplProjs} />
-        </div>
+        <ProjectView
+          deleteFunc={this.props.projectActions.deleteProj}
+          userProjs={this.props.projects.userProjs}
+          examplProjs={this.props.projects.examplProjs} />
       </Drawer>
     );
   }

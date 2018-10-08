@@ -4,7 +4,7 @@ import {
   Icon
 } from '@material-ui/core';
 
-class SceneDisplay extends React.Component {
+class ProjectView extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -78,4 +78,4 @@ class SceneDisplay extends React.Component {
   }
 }
 
-export default SceneDisplay;
+export default ProjectView;
