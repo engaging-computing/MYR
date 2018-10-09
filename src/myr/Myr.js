@@ -276,7 +276,7 @@ class Myr {
   box = (params) => {
     let base = {
       geometry: `primitive: box;`,
-      id: this.genNewId(),
+      id: 'box' + this.genNewId(),
       material: `color:${this.color};`,
       position: { ...this.position },
       rotation: this.rotation,
@@ -289,7 +289,7 @@ class Myr {
   circle = (params) => {
     let base = {
       geometry: `primitive: circle; radius: ${this.radius};`,
-      id: this.genNewId(),
+      id: 'circ' + this.genNewId(),
       position: this.position,
       scale: this.scale,
       rotation: this.rotation,
@@ -301,7 +301,7 @@ class Myr {
   // Render an Aframe circle Primitive with current Myr settings
   cone = (params) => {
     let base = {
-      id: this.genNewId(),
+      id: 'cone' + this.genNewId(),
       geometry: `primitive: cone; radiusBottom: ${this.radius}; radiusTop: 0.1;`,
       position: this.position,
       scale: this.scale,
@@ -314,7 +314,7 @@ class Myr {
   // Render an Aframe Text Primitive with current Myr settings
   cylinder = (params) => {
     let base = {
-      id: this.genNewId(),
+      id: 'cyl' + this.genNewId(),
       geometry: `primitive: cylinder; radius: ${this.radius};`,
       position: this.position,
       scale: this.scale,
@@ -328,7 +328,7 @@ class Myr {
   // Render an Aframe dodecahedron with current Myr settings
   dodecahedron = (params) => {
     let base = {
-      id: this.genNewId(),
+      id: 'dod' + this.genNewId(),
       geometry: `primitive: dodecahedron; radius: ${this.radius}`,
       position: this.position,
       scale: this.scale,
@@ -341,7 +341,7 @@ class Myr {
   // Render an Aframe icosahedron with current Myr settings
   icosahedron = (params) => {
     let base = {
-      id: this.genNewId(),
+      id: 'iso' + this.genNewId(),
       geometry: `primitive: icosahedron;`,
       position: this.position,
       scale: this.scale,
@@ -354,7 +354,7 @@ class Myr {
   // Render an Aframe octahedron with current Myr settings
   octahedron = (params) => {
     let base = {
-      id: this.genNewId(),
+      id: 'oct' + this.genNewId(),
       geometry: `primitive: octahedron;`,
       position: this.position,
       scale: this.scale,
@@ -366,7 +366,7 @@ class Myr {
 
   plane = (params) => {
     let base = {
-      id: this.genNewId(),
+      id: 'plane' + this.genNewId(),
       geometry: `primitive: plane; height: 1; width: 1;`,
       position: this.position,
       scale: this.scale,
@@ -379,7 +379,7 @@ class Myr {
   // Render an Aframe Polyhedron with current Myr settings
   polyhedron = (params) => {
     let base = {
-      id: this.genNewId(),
+      id: 'poly' + this.genNewId(),
       geometry: `primitive: sphere; segmentsWidth: 2; segmentsHeight: 8;`,
       position: this.position,
       scale: this.scale,
@@ -391,7 +391,7 @@ class Myr {
 
   ring = (params) => {
     let base = {
-      id: this.genNewId(),
+      id: 'ring' + this.genNewId(),
       geometry: `primitive: ring; radiusInner: 0.5; radiusOuter: 1;`,
       position: this.position,
       scale: this.scale,
@@ -404,7 +404,7 @@ class Myr {
   // Render an Aframe Sphere Primitive with current Myr settings
   sphere = (params) => {
     let base = {
-      id: this.genNewId(),
+      id: 'sphere' + this.genNewId(),
       geometry: `primitive: sphere`,
       position: this.position,
       scale: this.scale,
@@ -416,7 +416,7 @@ class Myr {
 
   tetrahedron = (params) => {
     let base = {
-      id: this.genNewId(),
+      id: 'tetra' + this.genNewId(),
       geometry: `primitive: tetrahedron;`,
       position: this.position,
       scale: this.scale,
@@ -435,7 +435,7 @@ class Myr {
     let base = {
       text: true,
       value: text || "Default",
-      id: this.genNewId(),
+      id: 'txt' + this.genNewId(),
       side: 'double',
       color: this.color,
       position: this.position,
@@ -452,7 +452,7 @@ class Myr {
 
   torus = (params) => {
     let base = {
-      id: this.genNewId(),
+      id: 'torus' + this.genNewId(),
       geometry: `primitive: torus; radius: ${this.radius}; radiusTubular: 0.5; arc: 360`,
       position: this.position,
       scale: this.scale,
@@ -464,7 +464,7 @@ class Myr {
 
   torusknot = (params) => {
     let base = {
-      id: this.genNewId(),
+      id: 'torKn' + this.genNewId(),
       geometry: `primitive: torusKnot;`,
       position: this.position,
       scale: this.scale,
@@ -478,7 +478,7 @@ class Myr {
 
   triangle = (params) => {
     let base = {
-      id: this.genNewId(),
+      id: 'tri' + this.genNewId(),
       geometry: `primitive: triangle;`,
       position: this.position,
       scale: this.scale,
@@ -491,7 +491,7 @@ class Myr {
   // Render a new Aframe light with current Myr settings
   light = (obj) => {
     let el = {
-      color: this.getRandomColor(),
+      color: 'lgt' + this.getRandomColor(),
       position: this.position,
       geometry: {
         primitive: 'light'

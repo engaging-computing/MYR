@@ -93,12 +93,15 @@ class Header extends Component {
   */
   handleKeyDown(e) {
     if (e.ctrlKey && e.which === 13) {
+      e.preventDefault();
       this.clear();
       this.handleRender();
     } else if (e.ctrlKey && e.shiftKey && e.which === 83) {
+      e.preventDefault();
       this.setState({ needsNewId: true });
       this.handleSave();
     } else if (e.ctrlKey && e.which === 83) {
+      e.preventDefault();
       this.handleSave();
     }
   }
