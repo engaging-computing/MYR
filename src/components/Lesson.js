@@ -29,7 +29,7 @@ class Lesson extends Component {
           variant="outlined"
           onClick={() => this.lastLesson()}
           color="primary"
-          disabled={this.props.lesson.previous == 0}
+          disabled={this.props.lesson.previous === 0}
           fullWidth
           className="">
           <Icon className="material-icons">chevron_left</Icon>
@@ -41,7 +41,7 @@ class Lesson extends Component {
           variant="outlined"
           onClick={() => this.nextLesson()}
           color="primary"
-          disabled={this.props.lesson.next == 0}
+          disabled={this.props.lesson.next === 0}
           fullWidth
           className="">
           Next
