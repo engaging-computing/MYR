@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Drawer, Button, Icon, IconButton } from '@material-ui/core';
 
-
 /**
 * @summary - The side bar provides a drawer with options to make changes to the scene.
 */
@@ -19,7 +18,7 @@ class Sidebar extends Component {
 
   github = (
     <a
-      tabindex="0"
+      tabIndex="0"
       style={{ maxHeight: 30 }}
       target="_blank"
       rel="noopener noreferrer"
@@ -69,8 +68,7 @@ class Sidebar extends Component {
             onClick={this.handleToggle}>
             <Icon className="material-icons">close</Icon>
           </IconButton>
-          <h1>MYR</h1>
-          {/* <h1>MYR - {this.github}</h1> */}
+          <h1>MYR - {this.github}</h1>
           {React.Children.map(this.props.children, child => {
             return (
               child

@@ -68,9 +68,6 @@ class SceneConfig extends Component {
               <ListItemText inset primary="Enable Fly" />
             </MenuItem>
         }
-
-
-
       </ React.Fragment >
     );
   }
