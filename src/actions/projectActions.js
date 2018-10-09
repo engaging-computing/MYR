@@ -42,9 +42,11 @@ export function asyncExampleProj() {
       snap.forEach(doc => {
         storageRef.child(`/images/perspective/${doc.id}`)
           .getDownloadURL().then((img) => {
+            let dat = doc.data();
             exampleVals.push({
+              name: dat.name,
               id: doc.id,
-              data: doc.data(),
+              data: dat,
               url: img
             });
           });
@@ -59,7 +61,6 @@ export function syncExampleProj(payload) {
 }
 
 export function deleteProj(id, name) {
-  let payload = { ...id, ...name };
   if (window.confirm(`Are you sure you want to delete ${name}?`)) {
     // Delete Image
     let path = "images/perspective/" + id;
@@ -76,6 +77,6 @@ export function deleteProj(id, name) {
     }).catch((error) => {
       console.error("Error removing document: ", error);
     });
-    return { type: DELTE_PROJ, payload: payload };
+    return { type: DELTE_PROJ, id: id };
   }
 }

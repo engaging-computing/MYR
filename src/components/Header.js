@@ -392,6 +392,7 @@ class Header extends Component {
   loadDrawer = () => {
     return (
       <Drawer
+        id="projectDrawer"
         className="side-drawer"
         open={this.state.loadOpen}
         onClick={this.handleLoadToggle}

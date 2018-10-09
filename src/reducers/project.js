@@ -18,12 +18,13 @@ export default function project(state = initial_state, action) {
         examplProjs: action.payload
       };
     case DELTE_PROJ:
-      let userProjs = state.userProjs.filter(x => {
-        return x.id !== action.payload.id;
+      let projs = [];
+      projs = state.userProjs.filter(x => {
+        return x.id !== action.id;
       });
       return {
         ...state,
-        ...userProjs
+        userProjs: projs
       };
     default:
       return state;

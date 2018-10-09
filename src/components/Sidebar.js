@@ -18,7 +18,7 @@ class Sidebar extends Component {
 
   github = (
     <a
-      tabindex="0"
+      tabIndex="0"
       style={{ maxHeight: 30 }}
       target="_blank"
       rel="noopener noreferrer"
