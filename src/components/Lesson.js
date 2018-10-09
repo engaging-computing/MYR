@@ -7,7 +7,7 @@ import {
 
 class Lesson extends Component {
   componentDidMount() {
-    this.props.lessonActions.fetchLesson(1);
+    this.props.lessonActions.fetchFirstLesson(1);
   }
 
   nextLesson = () => {
@@ -29,6 +29,7 @@ class Lesson extends Component {
           variant="outlined"
           onClick={() => this.lastLesson()}
           color="primary"
+          disabled={this.props.lesson.previous == 0}
           fullWidth
           className="">
           <Icon className="material-icons">chevron_left</Icon>
@@ -40,6 +41,7 @@ class Lesson extends Component {
           variant="outlined"
           onClick={() => this.nextLesson()}
           color="primary"
+          disabled={this.props.lesson.next == 0}
           fullWidth
           className="">
           Next
@@ -52,7 +54,7 @@ class Lesson extends Component {
   render() {
     return (
       <div id="lesson">
-        <h1>{this.props.lesson.name}<span>{this.props.lesson.id}</span></h1>
+        <h1>{this.props.lesson.name}</h1>
         <p>{this.props.lesson.prompt} </p>
         <this.renderBtns />
       </div>
