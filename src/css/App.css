@@ -368,6 +368,10 @@ span.array {
   margin: 10px;
 }
 
-.grid-project {
-  width: 100%;
+div#projectDrawer>div {
+  width: 80%;
+}
+
+.delete-btn {
+  margin-top: 4px !important;
 }
