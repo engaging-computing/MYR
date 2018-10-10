@@ -397,7 +397,7 @@ class Header extends Component {
       <Drawer
         id="projectDrawer"
         className="side-drawer"
-        variant="persistent"
+        // variant="persistent"
         open={this.state.loadOpen}
         onClose={this.handleLoadToggle} >
         <IconButton
