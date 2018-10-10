@@ -251,7 +251,7 @@ div.side-drawer>div {
 }
 
 .guided div#ace-editor {
-  height: 70vh !important;
+  height: 73.5vh !important;
 }
 
 #lessons {
@@ -368,6 +368,10 @@ span.array {
   margin: 10px;
 }
 
-.grid-project {
-  width: 100%;
+div#projectDrawer>div {
+  width: 80%;
+}
+
+.delete-btn {
+  margin-top: 4px !important;
 }
