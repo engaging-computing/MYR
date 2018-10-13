@@ -48,6 +48,9 @@ class View extends Component {
         delete flattened.text; // this takes care of a warning, may not be necessary
         return <a-text key={ent.id} {...flattened}></a-text>;
       }
+      if (ent.tube) {
+        return <a-tube path={ent.path} radius={ent.radius} material={ent.material}></a-tube>;
+      }
       return <a-entity key={ent.id} {...flattened}></a-entity>;
     }
   }

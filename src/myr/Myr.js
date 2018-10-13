@@ -364,6 +364,20 @@ class Myr {
     return this.mergeProps(base, params);
   }
 
+  line = (path, params) => {
+    let base = {
+      id: 'line' + this.genNewId(),
+      tube: true,
+      radius: ".01",
+      path: path,
+      position: this.position,
+      scale: this.scale,
+      rotation: this.rotation,
+      material: `color:${this.color};  side: double`,
+    };
+    return this.mergeProps(base, params);
+  }
+
   plane = (params) => {
     let base = {
       id: 'plane' + this.genNewId(),
@@ -480,6 +494,20 @@ class Myr {
     let base = {
       id: 'tri' + this.genNewId(),
       geometry: `primitive: triangle;`,
+      position: this.position,
+      scale: this.scale,
+      rotation: this.rotation,
+      material: `color:${this.color};  side: double`,
+    };
+    return this.mergeProps(base, params);
+  }
+
+  tube = (path, params) => {
+    let base = {
+      id: 'tube' + this.genNewId(),
+      tube: true,
+      radius: this.radius,
+      path: path,
       position: this.position,
       scale: this.scale,
       rotation: this.rotation,
@@ -789,7 +817,7 @@ class Myr {
   // Return a Entity that can be used to group elements together
   group = () => {
     let base = {
-      id: this.genNewId(),
+      id: 'grp' + this.genNewId(),
       position: { ...this.position },
       rotation: this.rotation,
       scale: this.scale,
