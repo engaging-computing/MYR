@@ -107,7 +107,11 @@ export default function editor(state = initial_state, action) {
         assets = m.assets;
       }
       snaps.doc(snap.user + '_' + snap.timestamp).set(snap);
-      snapshots.push(snap);
+      fetch('/apiv1/snapshots/', {
+        headers: new Headers({ 'Content-Type': 'application/json' }),
+        method: 'post',
+        body: JSON.stringify(snap)
+      })
       return {
         ...state,
         text: action.text,
