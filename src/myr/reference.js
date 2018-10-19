@@ -30,15 +30,15 @@ var geometry = [
   },
   {
     name: 'prism()',
-    description: <span>Renders a prism using current internal MYR properties.. Returns an <span className="string element">element id</span>.</span>
+    description: <span>Renders a prism using current internal MYR properties. Returns an <span className="string element">element id</span>.</span>
   },
   {
     name: 'ring()',
-    description: <span>Renders a ring using current internal MYR properties.. Returns an <span className="string element">element id</span>.</span>
+    description: <span>Renders a ring using current internal MYR properties. Returns an <span className="string element">element id</span>.</span>
   },
   {
     name: 'sphere()',
-    description: <span>Renders a sphere using current internal MYR properties.. Returns an <span className="string element">element id</span>.</span>
+    description: <span>Renders a sphere using current internal MYR properties. Returns an <span className="string element">element id</span>.</span>
   },
   {
     name: 'tetrahedron()',
