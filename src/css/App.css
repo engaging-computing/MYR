@@ -230,9 +230,27 @@ div.react-console-welcome {
 
 div.side-drawer>div {
   padding: 10px;
-  width: 400px;
+  width: 85%;
   padding-top: 3em;
   overflow: visible;
+}
+
+@media (min-width: 650px) {
+  div.side-drawer>div {
+    padding: 10px;
+    width: 400px;
+    padding-top: 3em;
+    overflow: visible;
+  }
+}
+
+@media (min-width: 1200px) {
+  div.side-drawer>div {
+    padding: 10px;
+    width: 400px;
+    padding-top: 3em;
+    overflow: visible;
+  }
 }
 
 .sidebar-btn {
