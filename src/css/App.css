@@ -2,7 +2,7 @@ body {
   overflow: unset;
   margin: 0;
   padding: 0;
-  background-color: #fff;
+  background-color: #222;
 }
 
 .App {
@@ -52,7 +52,8 @@ div#user {
 
 #scene {
   height: 94vh;
-  border: #222 1px solid;
+  border-left: #222 1px solid;
+  border-top: #222 1px solid;
 }
 
 a-scene {
@@ -235,12 +236,17 @@ div.side-drawer>div {
   overflow: visible;
 }
 
-@media (min-width: 650px) {
+@media (min-width: 450px) {
   div.side-drawer>div {
     padding: 10px;
     width: 400px;
     padding-top: 3em;
     overflow: visible;
+  }
+  .sidebar-btn {
+    margin-bottom: 10px !important;
+    justify-content: left !important;
+    padding-left: 6em !important;
   }
 }
 
@@ -256,7 +262,6 @@ div.side-drawer>div {
 .sidebar-btn {
   margin-bottom: 10px !important;
   justify-content: left !important;
-  padding-left: 6em !important;
 }
 
 .MuiTabs-root-76 {
@@ -269,20 +274,20 @@ div.side-drawer>div {
 }
 
 .guided div#ace-editor {
-  height: 73.5vh !important;
+  height: 67.1vh !important;
 }
 
-#lessons {
+#lesson {
   padding: 10px;
   background: #fff !important;
 }
 
-#lessons p {
-  height: 16vh;
+#lesson p {
+  height: 12vh;
   margin: 0;
 }
 
-#lessons fieldset {
+#lesson fieldset {
   height: 16vh;
   margin: 0;
 }
@@ -382,14 +387,24 @@ span.array {
   font-weight: bolder;
 }
 
-#lesson {
-  margin: 10px;
-}
-
 div#projectDrawer>div {
   width: 80%;
 }
 
 .delete-btn {
   margin-top: 4px !important;
+}
+
+footer {
+  background-color: #222;
+  color: #fff;
+  margin-top: 20px;
+}
+
+footer a {
+  color: #fff;
+}
+
+footer a:hover {
+  color: #999;
 }

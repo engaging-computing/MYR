@@ -1,5 +1,6 @@
 import React from 'react';
 import Editor from '../components/Editor';
+import Footer from '../components/Footer';
 import Header from '../components/Header';
 import View from '../components/View';
 import PropTypes from 'prop-types';
@@ -34,6 +35,7 @@ const Ide = ({ editor, editorActions, user, authActions, scene, sceneActions, pr
         <View objects={editor.objects} sceneConfig={scene} assets={editor.assets} />
       </div>
     </div>
+    <Footer />
   </div>
 );
 
