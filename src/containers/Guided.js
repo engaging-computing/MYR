@@ -1,8 +1,9 @@
 import React from 'react';
 import Editor from '../components/Editor';
-import View from '../components/View';
 import Header from '../components/Header';
+import Footer from '../components/Footer';
 import Lesson from '../components/Lesson';
+import View from '../components/View';
 import PropTypes from 'prop-types';
 
 import * as EditorActions from '../actions/editorActions';
@@ -38,6 +39,7 @@ const Guided = ({ editor, user, scene, lesson, lessonActions, editorActions, aut
         <View objects={editor.objects} sceneConfig={scene} assets={editor.assets} />
       </div>
     </div>
+    <Footer />
   </div>
 );
 
