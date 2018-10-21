@@ -9,31 +9,31 @@ class Footer extends Component {
             <span><strong>MYR:</strong></span>
             <ul className="pl-2 list-inline">
               <li className="pl-2 list-inline-item">
-                <a href="https://learnmyr.org/about/">About</a>
+                <a href="https://learnmyr.org/about/" target="_blank" rel="noopener noreferrer">About</a>
               </li>
               <li className="pl-2 list-inline-item">
-                <a href="mailto:support@learnmyr.org" >Support</a>
+                <a href="mailto:support@learnmyr.org" target="_blank" rel="noopener noreferrer">Support</a>
               </li>
               <li className="pl-2 list-inline-item">
-                <a href="https://learnmyr.org/about/team/">Team </a>
+                <a href="https://learnmyr.org/about/team/" target="_blank" rel="noopener noreferrer">Team </a>
               </li>
               <li className="pl-2 list-inline-item">
-                <a href="https://github.com/isenseDev/MYR" >GitHub</a>
+                <a href="https://github.com/isenseDev/MYR" target="_blank" rel="noopener noreferrer">GitHub</a>
               </li>
             </ul>
           </div>
           <div className="col-lg-4 text-center">
             <div>© 2018 - <span>&nbsp;</span>
-              <a href="https://sites.uml.edu/engaging-computing/">Engaging Computing Group</a>
+              <a href="https://sites.uml.edu/engaging-computing/" target="_blank" rel="noopener noreferrer">Engaging Computing Group</a>
             </div>
           </div>
           <div className="col-lg-4">
             <ul className=" list-inline text-lg-right">
               <li className="pl-2 list-inline-item">
-                <a href="https://learnmyr.org/about/privacy/">Privacy Policy</a>
+                <a href="https://learnmyr.org/about/privacy/" target="_blank" rel="noopener noreferrer">Privacy Policy</a>
               </li>
               <li className="pl-2 list-inline-item">
-                <a href="https://learnmyr.org/about/tos/">Terms of Service</a>
+                <a href="https://learnmyr.org/about/tos/" target="_blank" rel="noopener noreferrer">Terms of Service</a>
               </li>
             </ul>
           </div>
