@@ -50,7 +50,7 @@ const steps = [
   },
   {
     selector: '#scene',
-    content: 'The View is where you can see you work. \n Click the goggle to view in VR.'
+    content: 'The View is where you can see your work. \n Click the goggle to view in VR.'
   },
   {
     selector: '#new-btn',
@@ -70,7 +70,7 @@ const steps = [
   },
   {
     selector: '#view-btn',
-    content: 'Change you view in the scene, fly, and/or disable the grid.',
+    content: 'Change your view in the scene, fly, and/or disable the grid.',
   },
   {
     selector: '#user',
