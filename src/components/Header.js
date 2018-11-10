@@ -4,7 +4,6 @@ import { auth, provider, db, scenes, storageRef } from '../firebase.js';
 import {
   Button,
   Icon,
-  Menu,
   MenuItem,
   Tooltip,
   Drawer,
@@ -16,7 +15,7 @@ import {
   Avatar
 } from '@material-ui/core';
 import Reference from './Reference.js';
-import SceneConfig from './SceneConfig.js';
+import SceneConfigMenu from './SceneConfigMenu.js';
 import Sidebar from './Sidebar.js';
 import MyrTour from './MyrTour';
 import ProjectView from './ProjectView.js';
@@ -453,39 +452,6 @@ class Header extends Component {
     this.setState({ anchorEl: null });
   };
 
-  renderViewSelect = () => {
-    const { anchorEl } = this.state;
-
-    const style = {
-      margin: 2,
-      padding: 0,
-      color: '#fff',
-    };
-
-    return (
-      <Fragment>
-        <Tooltip title="Change View" placement="bottom-start">
-          <IconButton
-            id="view-btn"
-            aria-owns={anchorEl ? 'simple-menu' : null}
-            aria-haspopup="true"
-            className="header-btn "
-            onClick={this.handleViewOptClick}
-            style={style}>
-            <Icon className="material-icons">visibility</Icon>
-          </IconButton>
-        </Tooltip>
-        <Menu
-          id="simple-menu"
-          anchorEl={anchorEl}
-          open={Boolean(anchorEl)}
-          onClose={this.handleViewOptClose} >
-          <SceneConfig scene={this.props.scene} sceneActions={this.props.sceneActions} />
-        </Menu>
-      </Fragment>
-    );
-  }
-
   /**
   * @summary - render() creates the header and links the buttons
   */
@@ -607,7 +573,7 @@ class Header extends Component {
         </div>
         <div className="col-3 d-flex justify-content-end">
           <Reference />
-          <this.renderViewSelect />
+          <SceneConfigMenu scene={this.props.scene} sceneActions={this.props.sceneActions} />
           <this.loginBtn />
         </div>
         <this.saveDrawer />

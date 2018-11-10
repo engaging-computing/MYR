@@ -92,7 +92,7 @@ class View extends Component {
     return (
       <a-entity id="rig"
         debug={true}
-        movement-controls={this.props.sceneConfig.showFlyHelper ? "fly:true" : "fly:false"}
+        movement-controls={this.props.sceneConfig.canFly ? "fly:true" : "fly:false"}
         position={this.props.sceneConfig.cameraPosition} >
         <a-entity camera
           look-controls="pointerLockEnabled: true">
@@ -146,6 +146,22 @@ class View extends Component {
     }
   }
 
+  makeFloor = () => {
+    if (this.props.sceneConfig.showFloor) {
+      return (
+        <a-entity id="floor"
+          geometry="primitive: box;"
+          material="color: #222"
+          static-body="shape: box"
+          scale="80 .01 80"
+          position="0 -0.5 0"
+        />
+      );
+    } else {
+      return null;
+    }
+  }
+
   render = () => {
     return (
       <a-scene physics="debug: false; friction: 3; restitution: .3;" embedded debug="false">
@@ -158,7 +174,8 @@ class View extends Component {
         <this.createCam />
         <a-sky color={this.props.sceneConfig.skyColor} />
         <this.coordinateHelper />
-        {
+        <this.makeFloor />
+        { // create the entities
           Object.keys(this.props.objects).map(it => {
             return this.helper(this.props.objects[it]);
           })
