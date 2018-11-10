@@ -2,12 +2,11 @@ import {
   LOAD_SCENE,
   NAME_SCENE,
   TOGGLE_COORD_SKY,
-  //  CHANGE_SKY_COLOR,
-  //  CHANGE_CAM_MODE,
   SET_CAMERA,
-  // CHANGE_PERSPECTIVE,
   CHANGE_VIEW,
   TOGGLE_FLY,
+  CHANGE_SKY_COLOR,
+  TOGGLE_FLOOR,
 } from '../actions/sceneActions';
 
 const initial_state = {
@@ -15,8 +14,9 @@ const initial_state = {
   id: "0",
   skyColor: "white",
   camConfig: 0,
-  showCoordHelper: true,
-  showFlyHelper: false,
+  showCoordHelper: false,
+  canFly: false,
+  showFloor: true,
   cameraPosition: "0 1.6 3",
   viewOnly: false
 };
@@ -41,11 +41,10 @@ export default function scene(state = initial_state, action) {
     case TOGGLE_FLY:
       return {
         ...state,
-        showFlyHelper: !state.showFlyHelper
-
+        canFly: !state.canFly
       };
     case SET_CAMERA:
-      let camPos = `${action.x || 0} ${action.y || 1.6} ${action.z || 0}`;
+      let camPos = `${action.x || 0} ${action.y + (Math.random() / 10) || 1.6} ${action.z || 0}`;
       return {
         ...state,
         cameraPosition: camPos
@@ -54,6 +53,16 @@ export default function scene(state = initial_state, action) {
       return {
         ...state,
         viewOnly: !state.viewOnly
+      };
+    case CHANGE_SKY_COLOR:
+      return {
+        ...state,
+        skyColor: action.color
+      };
+    case TOGGLE_FLOOR:
+      return {
+        ...state,
+        showFloor: !state.showFloor
       };
     default:
       return state;

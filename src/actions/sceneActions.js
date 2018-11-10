@@ -1,16 +1,17 @@
-export const NAME_SCENE = 'NAME_SCENE';
-export const NEW_SCENE = 'NEW_SCENE';
-export const LOAD_SCENE = 'LOAD_SCENE';
-export const TOGGLE_COORD_SKY = 'TOGGLE_COORD_SKY';
-export const CHANGE_SKY_COLOR = 'CHANGE_SKY_COLO';
-export const CHANGE_CAM_MODE = 'CHANGE_CAM_MODE';
-export const SET_CAMERA = 'SET_CAMERA';
-export const CHANGE_PERSPECTIVE = 'CHANGE_PERSPECTIVE';
-export const CHANGE_VIEW = 'CHANGE_VIEW';
-export const TOGGLE_FLY = 'TOGGLE_FLY';
+export const NAME_SCENE = "NAME_SCENE";
+export const NEW_SCENE = "NEW_SCENE";
+export const LOAD_SCENE = "LOAD_SCENE";
+export const TOGGLE_COORD_SKY = "TOGGLE_COORD_SKY";
+export const CHANGE_SKY_COLOR = "CHANGE_SKY_COLO";
+export const CHANGE_CAM_MODE = "CHANGE_CAM_MODE";
+export const SET_CAMERA = "SET_CAMERA";
+export const CHANGE_PERSPECTIVE = "CHANGE_PERSPECTIVE";
+export const CHANGE_VIEW = "CHANGE_VIEW";
+export const TOGGLE_FLY = "TOGGLE_FLY";
+export const TOGGLE_FLOOR = "TOGGLE_FLOOR";
 
 /**
-* @summary - This function registers the scene's name with Redux
+* @summary - This function registers the scene"s name with Redux
 *
 * @param {string} name - the name is given by the user or when a scene is loaded
 *
@@ -57,4 +58,8 @@ export function changeView() {
 
 export function toggleFly() {
   return { type: TOGGLE_FLY };
+}
+
+export function toggleFloor() {
+  return { type: TOGGLE_FLOOR };
 }
