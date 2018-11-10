@@ -76,9 +76,11 @@ class Myr {
     this.radius = 1;
     // restore the base objects of the scene
     this.els = [];
-    Object.keys(this.baseEls).forEach(it => {
-      this.els[it] = this.baseEls[it];
-    });
+    if (this.baseEls) {
+      Object.keys(this.baseEls).forEach(it => {
+        this.els[it] = this.baseEls[it];
+      });
+    }
   }
 
   genNewId = () => {
