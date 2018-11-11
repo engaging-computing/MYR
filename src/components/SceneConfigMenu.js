@@ -38,8 +38,7 @@ const modelStyles = theme => ({
 // CSS for buttons
 const btnStyle = {
   base: {
-    padding: 5,
-    margin: 5,
+    marginTop: 20,
     justifyContent: "right",
     width: "100%"
   },
@@ -101,18 +100,18 @@ class ConfigModal extends Component {
 
   // Toggles whether the editor is showing
   viewToggle = () => {
-    let style = this.props.scene.viewOnly ? btnStyle.on : btnStyle.off;
+    let style = this.props.scene.viewOnly ? btnStyle.off : btnStyle.on;
     style = { ...btnStyle.base, ...style };
     return (
       <ButtonBase
         style={style}
-        onClick={() => this.props.sceneActions.changeView()} >
+        onClick={() => !this.props.sceneActions.changeView()} >
         {
-          this.props.scene.viewOnly
+          !this.props.scene.viewOnly
             ? <Icon className="material-icons">toggle_on</Icon>
             : <Icon className="material-icons">toggle_off</Icon>
         }
-        View Only
+        Show Editor
       </ButtonBase >
     );
   }
@@ -173,13 +172,13 @@ class ConfigModal extends Component {
 
   // Resets the camera, but also applies a small random num to make it reset
   // See reducer for more info
-  resetCam = () => {
+  resetPosition = () => {
     return (
       <ButtonBase
         style={btnStyle.base}
         onClick={() => this.props.sceneActions.setCamera(0, 1.6, 3)} >
         <Icon className="material-icons">settings_backup_restore</Icon>
-        Reset Camera
+        Reset Position
       </ButtonBase >
     );
   }
@@ -219,21 +218,21 @@ class ConfigModal extends Component {
               </div>
               <div className="col-6">
                 <this.gridToggle />
-              </div>
-              <div className="col-6">
-                <this.resetCam />
-              </div>
-              <div className="col-12 border-bottom pt-4">Movement Control</div>
-              <div className="col-6">
-                <this.flyToggle />
-              </div>
-              <div className="col-6">
                 <TextField id="name-helper"
                   value={this.state.skyColor || ""}
                   label="Sky Color"
                   onSubmit={this.submitColor}
                   onBlur={this.submitColor}
                   onChange={this.handleSceneColorChange} />
+              </div>
+              <div className="col-6">
+              </div>
+              <div className="col-12 border-bottom pt-4">Movement Control</div>
+              <div className="col-6">
+                <this.flyToggle />
+              </div>
+              <div className="col-6">
+                <this.resetPosition />
               </div>
               <div className="col-12 border-bottom mt-3"></div>
               <div className="offset-4 col-4">
