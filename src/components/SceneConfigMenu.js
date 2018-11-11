@@ -105,7 +105,7 @@ class ConfigModal extends Component {
     return (
       <ButtonBase
         style={style}
-        onClick={() => !this.props.sceneActions.changeView()} >
+        onClick={() => this.props.sceneActions.changeView()} >
         {
           !this.props.scene.viewOnly
             ? <Icon className="material-icons">toggle_on</Icon>
@@ -202,8 +202,7 @@ class ConfigModal extends Component {
           aria-labelledby="simple-modal-title"
           aria-describedby="simple-modal-description"
           open={this.state.open}
-          onClose={this.handleClose}
-        >
+          onClose={this.handleClose} >
           <div style={getModalStyle()} className={classes.paper}>
             <ButtonBase
               style={{ position: "absolute", right: 15, top: 15 }}
