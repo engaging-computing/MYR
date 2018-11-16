@@ -10,12 +10,13 @@ import * as EditorActions from '../actions/editorActions';
 import * as AuthActions from '../actions/authActions';
 import * as SceneActions from '../actions/sceneActions';
 import * as LessonActions from '../actions/lessonActions';
-import * as ProjectActions from '../actions/projectActions.js';
+import * as ProjectActions from '../actions/projectActions';
+import * as CourseActions from '../actions/courseActions';
 
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
-const Guided = ({ editor, user, scene, lesson, lessonActions, editorActions, authActions, projectActions, projects, match, sceneActions }) => (
+const Guided = ({ editor, user, scene, lesson, lessonActions, editorActions, authActions, projectActions, projects, courseActions, courses, course, match, sceneActions }) => (
   <div className="App">
     <Header
       logging={authActions}
@@ -27,10 +28,14 @@ const Guided = ({ editor, user, scene, lesson, lessonActions, editorActions, aut
       message={editor.message}
       projectId={match.params.id}
       projectActions={projectActions}
-      projects={projects} />
+      projects={projects}
+      courseActions={courseActions}
+      courses={courses}
+      course={course}
+      courseName={match.params.shortname} />
     <div className="row no-gutters">
       <div id="interface" className="col-12 col-md-4">
-        <Lesson lesson={lesson} actions={editorActions} lessonActions={lessonActions} />
+        <Lesson lesson={lesson} course={course} courseName={match.params.shortname} actions={editorActions} courseActions={courseActions} lessonActions={lessonActions} />
         <div className='guided'>
           <Editor text={editor.text} user={user} />
         </div>
@@ -49,13 +54,16 @@ Guided.propTypes = {
   user: PropTypes.object,
   scene: PropTypes.object.isRequired,
   lesson: PropTypes.object.isRequired,
+  course: PropTypes.object.isRequired,
 };
 const mapStateToProps = state => ({
   editor: state.editor,
   user: state.user.user,
   scene: state.scene,
   lesson: state.lesson,
-  projects: state.project
+  projects: state.project,
+  courses: state.courses,
+  course: state.courses.course
 });
 
 // This maps dispatch actions to props
@@ -64,7 +72,8 @@ const mapDispatchToProps = dispatch => ({
   authActions: bindActionCreators(AuthActions, dispatch),
   sceneActions: bindActionCreators(SceneActions, dispatch),
   lessonActions: bindActionCreators(LessonActions, dispatch),
-  projectActions: bindActionCreators(ProjectActions, dispatch)
+  projectActions: bindActionCreators(ProjectActions, dispatch),
+  courseActions: bindActionCreators(CourseActions, dispatch)
 });
 
 // This does the binding to the redux store
