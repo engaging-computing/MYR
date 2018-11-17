@@ -8,23 +8,6 @@ import Myr from '../myr/Myr';
 
 import { snaps } from '../firebase.js';
 
-let entityModel = [
-  {
-    id: 'floor',
-    geometry: `
-      primitive: box;
-      depth: 80;
-      height: 0.25;
-      width: 80;
-    `,
-    material: "color: #222",
-    "static-body": "shape: box",
-    position: { x: 0, y: -0.5, z: 0 },
-    scale: { x: 1, y: 1, z: 1 },
-    rotation: { x: 0, y: 0, z: 0 }
-  },
-];
-
 const welcomeText =
   `/**********************************************************
 *                   Welcome to MYR!                       *
@@ -34,7 +17,7 @@ const welcomeText =
 
 const initial_state = {
   text: welcomeText,
-  objects: entityModel,
+  objects: [],
   assets: [],
   message: {
     text: "",
@@ -54,7 +37,7 @@ let snapshots = [
 ];
 
 
-let m = new Myr(entityModel);
+let m = new Myr();
 m.init();
 
 // Use this to attach it to the window for debugging
@@ -70,7 +53,7 @@ export default function editor(state = initial_state, action) {
 
   switch (action.type) {
     case EDITOR_RENDER:
-      m.reset()
+      m.reset();
       // build an object to save the snap
       let snap = {
         user: action.uid ? action.uid : 'unknown',
