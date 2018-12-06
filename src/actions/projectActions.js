@@ -77,7 +77,9 @@ export function deleteProj(id, name) {
     }).catch((error) => {
       console.error("Error removing document: ", error);
     });
-    window.location.href = window.origin;
+    if (window.location.href === window.origin + '/' + id) {
+      window.location.href = window.origin;
+    }
     return { type: DELTE_PROJ, id: id };
   }
 }
