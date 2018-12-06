@@ -1,6 +1,7 @@
 import React from 'react';
 import {
   Button,
+  ButtonBase,
   Icon,
   IconButton,
   ListItemIcon,
@@ -139,7 +140,7 @@ class Project extends React.Component {
     return (
       <div>
         <h5>QR Code to Your Project</h5>
-        <img src="https://store-images.s-microsoft.com/image/apps.33967.13510798887182917.246b0a3d-c3cc-46fc-9cea-021069d15c09.392bf5f5-ade4-4b36-aa63-bb15d5c3817a?mode=scale&q=90&h=270&w=270&background=%230078D7" />
+        <img style={{ width: "100%" }} src="https://store-images.s-microsoft.com/image/apps.33967.13510798887182917.246b0a3d-c3cc-46fc-9cea-021069d15c09.392bf5f5-ade4-4b36-aa63-bb15d5c3817a?mode=scale&q=90&h=270&w=270&background=%230078D7" />
       </div>
     );
   };
@@ -258,6 +259,11 @@ class Project extends React.Component {
           open={this.state.qrCodeOpen}
           onClose={this.handleQrToggle} >
           <div style={getModalStyle()} className={classes.paper}>
+            <ButtonBase
+              style={{ position: "absolute", right: 15, top: 15 }}
+              onClick={() => this.handleQrToggle()} >
+              <Icon className="material-icons">clear</Icon>
+            </ButtonBase >
             <this.qrCodeOpen />
           </div>
         </Modal>
@@ -267,6 +273,11 @@ class Project extends React.Component {
           open={this.state.shareOpen}
           onClose={this.handleShrToggle} >
           <div style={getModalStyle()} className={classes.paper}>
+            <ButtonBase
+              style={{ position: "absolute", right: 15, top: 15 }}
+              onClick={() => this.handleShrToggle()} >
+              <Icon className="material-icons">clear</Icon>
+            </ButtonBase >
             <this.shareOptions />
           </div>
         </Modal>
@@ -276,6 +287,11 @@ class Project extends React.Component {
           open={this.state.pwProtectOpen}
           onClose={this.handlePwToggle} >
           <div style={getModalStyle()} className={classes.paper}>
+            <ButtonBase
+              style={{ position: "absolute", right: 15, top: 15 }}
+              onClick={() => this.handlePwToggle()} >
+              <Icon className="material-icons">clear</Icon>
+            </ButtonBase >
             <this.pwProtect />
           </div>
         </Modal>
