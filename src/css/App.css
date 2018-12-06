@@ -1,410 +1,426 @@
 body {
-  overflow: unset;
-  margin: 0;
-  padding: 0;
-  background-color: #222;
+    overflow: unset;
+    margin: 0;
+    padding: 0;
+    background-color: #222;
 }
 
 .App {
-  padding: 0 15px;
+    padding: 0 15px;
 }
 
 .App-header {
-  background-color: #222;
-  display: flex;
-  align-items: center;
-  min-height: 6vh;
+    background-color: #222;
+    display: flex;
+    align-items: center;
+    min-height: 6vh;
 }
 
 .App-header h1 {
-  color: white;
-  margin: 0;
+    color: white;
+    margin: 0;
 }
 
 .App-intro {
-  font-size: large;
+    font-size: large;
 }
 
 div#user {
-  display: flex;
-  flex-direction: row-reverse;
+    display: flex;
+    flex-direction: row-reverse;
 }
 
 #user img {
-  float: right;
+    float: right;
 }
 
 #editor {
-  padding-left: 0;
+    padding-left: 0;
 }
 
 @media (min-width: 1200px) {
-  #editor {
-    border-right: 0;
-  }
-  .App {
-    padding: 0;
-  }
-  #interface {
-    padding-right: 0;
-  }
+    #editor {
+        border-right: 0;
+    }
+    .App {
+        padding: 0;
+    }
+    #interface {
+        padding-right: 0;
+    }
 }
 
 #scene {
-  height: 94vh;
-  border-left: #222 1px solid;
-  border-top: #222 1px solid;
+    height: 94vh;
+    border-left: #222 1px solid;
+    border-top: #222 1px solid;
 }
 
 a-scene {
-  height: 100% !important;
+    height: 100% !important;
 }
 
 a-scene[aframe-inspector-removed-embedded] {
-  width: 100vh;
-  left: -35%;
+    width: 100vh;
+    left: -35%;
 }
 
 .ace-github .ace_print-margin {
-  background: #fff !important;
+    background: #fff !important;
 }
 
 th:nth-child(1),
 td:nth-child(1) {
-  color: #266d90;
-  padding: 10px;
+    color: #266d90;
+    padding: 10px;
 }
 
 /* inspector fixes */
 
 #sidebar,
 .components {
-  width: 400px !important;
+    width: 400px !important;
 }
 
 .components .row {
-  margin-left: 5px;
+    margin-left: 5px;
 }
 
 .toggle-edit {
-  left: 150px !important;
-  position: absolute !important;
-  width: 150px !important;
+    left: 150px !important;
+    position: absolute !important;
+    width: 150px !important;
 }
 
 body.aframe-inspector-opened .toggle-edit {
-  left: 0 !important;
-  top: 0 !important;
+    left: 0 !important;
+    top: 0 !important;
 }
 
 /* animations */
 
 @keyframes spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
 }
 
 #project-list {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-around;
-  overflow: scroll;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    overflow: scroll;
 }
 
 .delete-btn {
-  float: right;
+    float: right;
 }
 
 #interface {
-  border-right: 0;
+    border-right: 0;
 }
 
 .spinner {
-  position: fixed;
-  z-index: 999;
-  height: 2em;
-  width: 2em;
-  overflow: show;
-  margin: auto;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
+    position: fixed;
+    z-index: 999;
+    height: 2em;
+    width: 2em;
+    overflow: show;
+    margin: auto;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
 }
 
 /* Transparent Overlay */
 
 .spinner:before {
-  content: '';
-  display: block;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.3);
+    content: '';
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.3);
 }
 
 /* :not(:required) hides these rules from IE9 and below */
 
 .spinner:not(:required) {
-  /* hide "spinner..." text */
-  font: 0/0 a;
-  color: transparent;
-  text-shadow: none;
-  background-color: transparent;
-  border: 0;
+    /* hide "spinner..." text */
+    font: 0/0 a;
+    color: transparent;
+    text-shadow: none;
+    background-color: transparent;
+    border: 0;
 }
 
 .cube1,
 .cube2,
 cube3 {
-  background-color: #222;
-  width: 35px;
-  height: 35px;
-  position: absolute;
-  top: 0;
-  left: 0;
-  -webkit-animation: sk-cubemove 1.8s infinite ease-in-out;
-  animation: sk-cubemove 3.8s infinite ease-in-out;
+    background-color: #222;
+    width: 35px;
+    height: 35px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    -webkit-animation: sk-cubemove 1.8s infinite ease-in-out;
+    animation: sk-cubemove 3.8s infinite ease-in-out;
 }
 
 .cube2 {
-  -webkit-animation-delay: -0.9s;
-  animation-delay: -0.9s;
+    -webkit-animation-delay: -0.9s;
+    animation-delay: -0.9s;
 }
 
 @-webkit-keyframes sk-cubemove {
-  25% {
-    -webkit-transform: translateX(42px) rotate(-90deg) scale(4.5)
-  }
-  50% {
-    -webkit-transform: translateX(42px) translateY(42px) rotate(-180deg)
-  }
-  75% {
-    -webkit-transform: translateX(0px) translateY(42px) rotate(-270deg) scale(4.5)
-  }
-  100% {
-    -webkit-transform: rotate(-360deg)
-  }
+    25% {
+        -webkit-transform: translateX(42px) rotate(-90deg) scale(4.5)
+    }
+    50% {
+        -webkit-transform: translateX(42px) translateY(42px) rotate(-180deg)
+    }
+    75% {
+        -webkit-transform: translateX(0px) translateY(42px) rotate(-270deg) scale(4.5)
+    }
+    100% {
+        -webkit-transform: rotate(-360deg)
+    }
 }
 
 @keyframes sk-cubemove {
-  25% {
-    transform: translateX(42px) rotate(-90deg) scale(0.5);
-    -webkit-transform: translateX(42px) rotate(-90deg) scale(0.5);
-  }
-  50% {
-    transform: translateX(42px) translateY(42px) rotate(-179deg);
-    -webkit-transform: translateX(42px) translateY(42px) rotate(-179deg);
-  }
-  50.1% {
-    transform: translateX(42px) translateY(42px) rotate(-180deg);
-    -webkit-transform: translateX(42px) translateY(42px) rotate(-180deg);
-  }
-  75% {
-    transform: translateX(0px) translateY(42px) rotate(-270deg) scale(0.5);
-    -webkit-transform: translateX(0px) translateY(42px) rotate(-270deg) scale(0.5);
-  }
-  100% {
-    transform: rotate(-360deg);
-    -webkit-transform: rotate(-360deg);
-  }
+    25% {
+        transform: translateX(42px) rotate(-90deg) scale(0.5);
+        -webkit-transform: translateX(42px) rotate(-90deg) scale(0.5);
+    }
+    50% {
+        transform: translateX(42px) translateY(42px) rotate(-179deg);
+        -webkit-transform: translateX(42px) translateY(42px) rotate(-179deg);
+    }
+    50.1% {
+        transform: translateX(42px) translateY(42px) rotate(-180deg);
+        -webkit-transform: translateX(42px) translateY(42px) rotate(-180deg);
+    }
+    75% {
+        transform: translateX(0px) translateY(42px) rotate(-270deg) scale(0.5);
+        -webkit-transform: translateX(0px) translateY(42px) rotate(-270deg) scale(0.5);
+    }
+    100% {
+        transform: rotate(-360deg);
+        -webkit-transform: rotate(-360deg);
+    }
 }
 
 .to-delete {
-  filter: grayscale();
+    filter: grayscale();
 }
 
 div.react-console-welcome.error {
-  color: red !important;
+    color: red !important;
 }
 
 div.react-console-welcome {
-  font-size: 14pt;
-  border-bottom: 1px solid;
+    font-size: 14pt;
+    border-bottom: 1px solid;
 }
 
 div.side-drawer>div {
-  padding: 10px;
-  width: 85%;
-  padding-top: 3em;
-  overflow: visible;
+    padding: 10px;
+    width: 85%;
+    padding-top: 3em;
+    overflow: visible;
 }
 
 @media (min-width: 450px) {
-  div.side-drawer>div {
-    padding: 10px;
-    width: 400px;
-    padding-top: 3em;
-    overflow: visible;
-  }
-  .sidebar-btn {
-    margin-bottom: 10px !important;
-    justify-content: left !important;
-    padding-left: 6em !important;
-  }
+    div.side-drawer>div {
+        padding: 10px;
+        width: 400px;
+        padding-top: 3em;
+        overflow: visible;
+    }
+    .sidebar-btn {
+        margin-bottom: 10px !important;
+        justify-content: left !important;
+        padding-left: 6em !important;
+    }
 }
 
 @media (min-width: 1200px) {
-  div.side-drawer>div {
-    padding: 10px;
-    width: 400px;
-    padding-top: 3em;
-    overflow: visible;
-  }
+    div.side-drawer>div {
+        padding: 10px;
+        width: 400px;
+        padding-top: 3em;
+        overflow: visible;
+    }
 }
 
 .sidebar-btn {
-  margin-bottom: 10px !important;
-  justify-content: left !important;
+    margin-bottom: 10px !important;
+    justify-content: left !important;
 }
 
 .MuiTabs-root-76 {
-  overflow: unset !important;
+    overflow: unset !important;
 }
 
 #ace-editor {
-  border-bottom: 1px solid;
-  border-top: 1px solid;
+    border-bottom: 1px solid;
+    border-top: 1px solid;
 }
 
 .guided div#ace-editor {
-  height: 67.1vh !important;
+    height: 67.1vh !important;
 }
 
 #lesson {
-  padding: 10px;
-  background: #fff !important;
+    padding: 10px;
+    background: #fff !important;
 }
 
 #lesson p {
-  height: 12vh;
-  margin: 0;
+    height: 12vh;
+    margin: 0;
 }
 
 #lesson fieldset {
-  height: 16vh;
-  margin: 0;
+    height: 16vh;
+    margin: 0;
 }
 
 div#confirmation-modal {
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  position: absolute;
-  height: inherit;
-  width: inherit;
-  border: 1px solid;
-  padding: 1em;
-  border-radius: 5px;
-  background: #eee;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    position: absolute;
+    height: inherit;
+    width: inherit;
+    border: 1px solid;
+    padding: 1em;
+    border-radius: 5px;
+    background: #eee;
 }
 
 div#reference-tabs {
-  overflow: unset !important;
-  min-height: unset !important;
+    overflow: unset !important;
+    min-height: unset !important;
 }
 
 .sidebar-btn .material-icons {
-  margin: 0 .7em;
+    margin: 0 .7em;
 }
 
 a.sidebar-btn:hover {
-  color: #fff;
+    color: #fff;
 }
 
 span.user-name {
-  color: rgb(255, 255, 255);
-  font-size: 90%;
-  margin-left: 20px;
+    color: rgb(255, 255, 255);
+    font-size: 90%;
+    margin-left: 20px;
 }
 
 div#reference-drawer>div {
-  width: 80%;
+    width: 80%;
 }
 
 .geometry {
-  transform: scale(1.2);
+    transform: scale(1.2);
 }
 
 .color-change {
-  -webkit-animation: colorchange 8s infinite linear;
-  transform: scale(1.5);
+    -webkit-animation: colorchange 8s infinite linear;
+    transform: scale(1.5);
 }
 
 @-webkit-keyframes colorchange {
-  25% {
-    color: red;
-  }
-  50% {
-    color: green;
-  }
-  75% {
-    color: blue;
-  }
-  100% {
-    color: black;
-  }
+    25% {
+        color: red;
+    }
+    50% {
+        color: green;
+    }
+    75% {
+        color: blue;
+    }
+    100% {
+        color: black;
+    }
 }
 
 .animation-ref {
-  animation: animate infinite 4s linear;
+    animation: animate infinite 4s linear;
 }
 
 @keyframes animate {
-  25% {
-    transform: rotate(0deg) scale(.85);
-  }
-  50% {
-    transform: rotate(180deg);
-  }
-  75% {
-    transform: rotate(180deg) scale(1.15);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
+    25% {
+        transform: rotate(0deg) scale(.85);
+    }
+    50% {
+        transform: rotate(180deg);
+    }
+    75% {
+        transform: rotate(180deg) scale(1.15);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
 }
 
 span.bool {
-  color: red;
+    color: red;
 }
 
 span.number {
-  color: blue;
+    color: blue;
 }
 
 span.string {
-  color: green;
+    color: green;
 }
 
 span.array {
-  font-weight: bolder;
+    font-weight: bolder;
 }
 
 div#projectDrawer>div {
-  width: 80%;
+    width: 80%;
 }
 
 .delete-btn {
-  margin-top: 4px !important;
+    margin-top: 4px !important;
 }
 
 footer {
-  background-color: #222;
-  color: #fff;
-  margin-top: 20px;
+    background-color: #222;
+    color: #fff;
+    margin-top: 20px;
 }
 
 footer a {
-  color: #fff;
+    color: #fff;
 }
 
 footer a:hover {
-  color: #999;
+    color: #999;
+}
+
+.scene-btns {
+    display: none;
+    background: #33333399;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.proj:hover .scene-btns {
+    position: absolute;
+    z-index: 200;
+    top: 50%;
+    left: 50%;
+    display: inline;
+    transform: translate(-50%, -50%);
 }
