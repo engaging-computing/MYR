@@ -67,7 +67,7 @@ export function deleteProj(id, name) {
     let imgRef = storageRef.child(path);
 
     // If deleting current project, redirect to home
-    if (window.location.href === window.origin + '/' + id) {
+    if (window.location.href === window.origin + '/' + id || window.location.href === window.origin + '/' + id + '/') {
       window.location.href = window.origin;
     }
 
@@ -83,7 +83,7 @@ export function deleteProj(id, name) {
     }).catch((error) => {
       console.error("Error removing document: ", error);
     });
-    
+
     return { type: DELTE_PROJ, id: id };
   }
 }
