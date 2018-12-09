@@ -46,6 +46,10 @@ export function fetchScene(id, uid = "anon") {
   return (dispatch) => {  // Return a functions that dispatches events after async
     scenes.doc(id).get().then((scene) => {
       let data = scene.data();
+      if (data && data.pw) {
+        let pw = prompt("Please enter the PW");
+        if (pw !== data.pw) { return; }
+      };
       if (data && data.code) { // If it worked
         // render the editor
         dispatch(render(data.code, uid || 'anon'));

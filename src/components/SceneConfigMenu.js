@@ -1,11 +1,14 @@
 import React, { Component } from "react";
 import {
+  Button,
   ButtonBase,
   IconButton,
   Icon,
   Modal,
   TextField
 } from "@material-ui/core";
+
+import QRCode from "qrcode.react";
 
 import { withStyles } from "@material-ui/core/styles";
 
@@ -67,7 +70,13 @@ class ConfigModal extends Component {
     super(props);
     this.state = {
       open: false,
-      skyColor: this.props.scene.color
+      skyColor: this.props.scene.color,
+      anchorEl: null,
+      qrCodeOpen: false,
+      pwProtectOpen: false,
+      shareOpen: false,
+      email: "",
+      sendTo: []
     }
   }
 
@@ -79,6 +88,89 @@ class ConfigModal extends Component {
   // Closes the modal
   handleClose = () => {
     this.setState({ open: false });
+  };
+
+  handleClick = event => {
+    this.setState({ anchorEl: event.currentTarget, projectId: event.currentTarget.id });
+  };
+
+  handleTextChange = name => event => {
+    this.setState({
+      [name]: event.target.value,
+    });
+  };
+
+  handleAddEmail = () => {
+    let arr = [].concat(this.state.sendTo);
+    arr.push(this.state.email);
+    this.setState({ sendTo: arr, email: "" });
+  }
+
+  handleQrToggle = () => {
+    this.setState({ qrCodeOpen: !this.state.qrCodeOpen });
+  }
+
+  handlePwToggle = () => {
+    this.setState({ pwProtectOpen: !this.state.pwProtectOpen });
+  }
+
+  handleShrToggle = () => {
+    this.setState({ shareOpen: !this.state.shareOpen });
+  }
+
+  pwProtect = () => (
+    <div>
+      <h5>Please enter a PW.</h5>
+      <TextField
+        id="standard-name"
+        type="password"
+        onChange={this.handleTextChange('pw')}
+      />
+      <Button
+        color="primary"
+        onClick={this.handlePwToggle} >
+        Save
+      </Button>
+      <p style={{ fontSize: "80%", marginTop: 10 }}>
+        <b>Legal disclaimer:</b> This will only slow down people from accessing your work. MYR is not sutiable for sensitive information.
+      </p>
+    </div>
+  );
+
+  shareOptions = () => (
+    <div>
+      <h5>Enter one or more email addresses</h5>
+      {
+        this.state.sendTo.map((it, index) => {
+          return <p key={index}>{it}</p>;
+        })
+      }
+      <TextField
+        id="standard-name"
+        label="Email"
+        onChange={this.handleTextChange('email')}
+      />
+      <IconButton
+        variant="raised"
+        onClick={this.handleAddEmail}
+        color="primary">
+        <Icon className="material-icons">add</Icon>
+      </IconButton>
+      <Button
+        color="primary"
+        href={`mailto:${this.state.sendTo.join(", ")}?subject=Check out my VR Scene in MYR&body=You can find my scene at ${window.location.href}`}>
+        Send
+      </Button>
+    </div>
+  );
+
+  qrCodeOpen = () => {
+    return (
+      <div>
+        <h5>QR Code to Your Project</h5>
+        <QRCode size={330} value={window.location.href} />
+      </div>
+    );
   };
 
   // Toggles the grid on and off
@@ -229,9 +321,39 @@ class ConfigModal extends Component {
               <div className="col-12 border-bottom pt-4">Movement Control</div>
               <div className="col-6">
                 <this.flyToggle />
+
+                <ButtonBase
+                  style={btnStyle.base}
+                  onClick={() => { this.handleShrToggle(); }} >
+                  <Icon className="material-icons">send</Icon>
+                  Share
+                  </ButtonBase>
               </div>
               <div className="col-6">
                 <this.resetPosition />
+              </div>
+              <div className="col-12 border-bottom pt-4">Sharing</div>
+              <div className="col-6">
+                <ButtonBase
+                  style={btnStyle.base}
+                  onClick={() => { this.handleQrToggle(); }} >
+                  <Icon className="material-icons">gradient</Icon>
+                  QR Code
+                  </ButtonBase>
+                <ButtonBase
+                  style={btnStyle.base}
+                  onClick={() => { this.handleShrToggle(); }} >
+                  <Icon className="material-icons">send</Icon>
+                  Send To
+                  </ButtonBase>
+              </div>
+              <div className="col-6">
+                <ButtonBase
+                  style={btnStyle.base}
+                  onClick={() => { this.handlePwToggle(); }} >
+                  <Icon className="material-icons">lock</Icon>
+                  Add PW
+                  </ButtonBase>
               </div>
               <div className="col-12 border-bottom mt-3"></div>
               <div className="offset-4 col-4">
@@ -250,6 +372,48 @@ class ConfigModal extends Component {
                 </ButtonBase >
               </div> */}
             </div>
+          </div>
+        </Modal >
+        <Modal
+          aria-labelledby="simple-modal-title"
+          aria-describedby="simple-modal-description"
+          open={this.state.qrCodeOpen}
+          onClose={this.handleQrToggle} >
+          <div style={getModalStyle()} className={classes.paper}>
+            <ButtonBase
+              style={{ position: "absolute", right: 15, top: 15 }}
+              onClick={() => this.handleQrToggle()} >
+              <Icon className="material-icons">clear</Icon>
+            </ButtonBase >
+            <this.qrCodeOpen />
+          </div>
+        </Modal>
+        <Modal
+          aria-labelledby="simple-modal-title"
+          aria-describedby="simple-modal-description"
+          open={this.state.shareOpen}
+          onClose={this.handleShrToggle} >
+          <div style={getModalStyle()} className={classes.paper}>
+            <ButtonBase
+              style={{ position: "absolute", right: 15, top: 15 }}
+              onClick={() => this.handleShrToggle()} >
+              <Icon className="material-icons">clear</Icon>
+            </ButtonBase >
+            <this.shareOptions />
+          </div>
+        </Modal>
+        <Modal
+          aria-labelledby="simple-modal-title"
+          aria-describedby="simple-modal-description"
+          open={this.state.pwProtectOpen}
+          onClose={this.handlePwToggle} >
+          <div style={getModalStyle()} className={classes.paper}>
+            <ButtonBase
+              style={{ position: "absolute", right: 15, top: 15 }}
+              onClick={() => this.handlePwToggle()} >
+              <Icon className="material-icons">clear</Icon>
+            </ButtonBase >
+            <this.pwProtect />
           </div>
         </Modal>
       </div >

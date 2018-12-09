@@ -292,19 +292,6 @@ div.side-drawer>div {
     margin: 0;
 }
 
-div#confirmation-modal {
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    position: absolute;
-    height: inherit;
-    width: inherit;
-    border: 1px solid;
-    padding: 1em;
-    border-radius: 5px;
-    background: #eee;
-}
-
 div#reference-tabs {
     overflow: unset !important;
     min-height: unset !important;
@@ -319,7 +306,7 @@ a.sidebar-btn:hover {
 }
 
 span.user-name {
-    color: rgb(255, 255, 255);
+    color: #fff;
     font-size: 90%;
     margin-left: 20px;
 }
@@ -410,17 +397,9 @@ footer a:hover {
 }
 
 .scene-btns {
-    display: none;
-    background: #33333399;
-    padding: 10px;
-    border-radius: 10px;
-}
-
-.proj:hover .scene-btns {
     position: absolute;
     z-index: 200;
-    top: 50%;
-    left: 50%;
-    display: inline;
-    transform: translate(-50%, -50%);
+    display: flex;
+    bottom: 4px;
+    right: 18px;
 }

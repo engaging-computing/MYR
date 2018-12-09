@@ -1,4 +1,5 @@
 import React from 'react';
+import QRCode from 'qrcode.react';
 import {
   Button,
   ButtonBase,
@@ -51,12 +52,13 @@ class Project extends React.Component {
       pwProtectOpen: false,
       shareOpen: false,
       email: "",
+      pw: "",
       sendTo: []
     };
   }
 
   handleClick = event => {
-    this.setState({ anchorEl: event.currentTarget });
+    this.setState({ anchorEl: event.currentTarget, projectId: event.currentTarget.id });
   };
 
   handleClose = () => {
@@ -91,14 +93,14 @@ class Project extends React.Component {
     <div>
       <h5>Please enter a PW.</h5>
       <TextField
-        id="standard-name"
         type="password"
         label="Password"
-        value={this.state.email}
-        onChange={this.handleTextChange('email')}
+        value={this.state.pw}
+        onChange={this.handleTextChange('pw')}
         margin="normal"
       />
       <Button
+        color="primary"
         onClick={this.handlePwToggle} >
         Save
       </Button>
@@ -130,7 +132,8 @@ class Project extends React.Component {
         <Icon className="material-icons">add</Icon>
       </IconButton>
       <Button
-        href={`mailto:${this.state.sendTo.join(", ")}?subject="Check out my VR Scene in MYR&body=You can find my scene at ${window.location.href}`}>
+        color="primary"
+        href={`mailto:${this.state.sendTo.join(", ")}?subject=Check out my VR Scene in MYR&body=You can find my scene at ${window.location.href}`}>
         Send
       </Button>
     </div>
@@ -140,7 +143,7 @@ class Project extends React.Component {
     return (
       <div>
         <h5>QR Code to Your Project</h5>
-        <img style={{ width: "100%" }} src="https://store-images.s-microsoft.com/image/apps.33967.13510798887182917.246b0a3d-c3cc-46fc-9cea-021069d15c09.392bf5f5-ade4-4b36-aa63-bb15d5c3817a?mode=scale&q=90&h=270&w=270&background=%230078D7" />
+        <QRCode size={330} value={window.origin + '/' + this.state.projectId} />
       </div>
     );
   };
@@ -160,7 +163,7 @@ class Project extends React.Component {
           {canDelete ?
             <span className="scene-btns">
               <IconButton
-                id="new-btn"
+                id={id}
                 color="primary"
                 onClick={this.handleClick}
                 className="" >
@@ -169,7 +172,6 @@ class Project extends React.Component {
               <IconButton
                 label="delete Project"
                 color="secondary"
-                className="delete-btn"
                 fullwidth={String(!this.state.showImg)}
                 onClick={() => this.props.deleteFunc(id, proj.data.name)}>
                 <Icon className="material-icons">delete</Icon>
@@ -183,6 +185,35 @@ class Project extends React.Component {
       return null;
     }
   }
+
+  sceneMenu = () => (
+    <Menu
+      id="simple-menu"
+      anchorEl={this.state.anchorEl}
+      open={Boolean(this.state.anchorEl)}
+      onClose={this.handleClose} >
+      <MenuItem
+        onClick={() => { this.handleClose(); this.handleQrToggle(); }}>
+        <ListItemIcon >
+          <Icon className="material-icons">gradient</Icon>
+        </ListItemIcon>
+        <ListItemText inset primary="QR Code" />
+      </MenuItem>
+      <MenuItem
+        onClick={() => { this.handleClose(); this.handleShrToggle(); }}>
+        <ListItemIcon >
+          <Icon className="material-icons">send</Icon>
+        </ListItemIcon>
+        <ListItemText inset primary="Send" />
+      </MenuItem>
+      <MenuItem
+        onClick={() => { this.handleClose(); this.handlePwToggle(); }}>
+        <ListItemIcon >
+          <Icon className="material-icons">lock</Icon>
+        </ListItemIcon>
+        <ListItemText inset primary="PW Protect" /></MenuItem>
+    </Menu>
+  );
 
   render() {
     const { classes } = this.props;
@@ -229,30 +260,7 @@ class Project extends React.Component {
             })
           }
         </div>
-        <Menu
-          id="simple-menu"
-          anchorEl={this.state.anchorEl}
-          open={Boolean(this.state.anchorEl)}
-          onClose={this.handleClose}
-        >
-          <MenuItem onClick={() => { this.handleClose(); this.handleQrToggle(); }}>
-            <ListItemIcon >
-              <Icon className="material-icons">gradient</Icon>
-            </ListItemIcon>
-            <ListItemText inset primary="QR Code" />
-          </MenuItem>
-          <MenuItem onClick={() => { this.handleClose(); this.handleShrToggle(); }}>
-            <ListItemIcon >
-              <Icon className="material-icons">send</Icon>
-            </ListItemIcon>
-            <ListItemText inset primary="Send" />
-          </MenuItem>
-          <MenuItem onClick={() => { this.handleClose(); this.handlePwToggle(); }}>
-            <ListItemIcon >
-              <Icon className="material-icons">lock</Icon>
-            </ListItemIcon>
-            <ListItemText inset primary="PW Protect" /></MenuItem>
-        </Menu>
+        <this.sceneMenu />
         <Modal
           aria-labelledby="simple-modal-title"
           aria-describedby="simple-modal-description"
