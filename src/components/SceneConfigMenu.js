@@ -318,21 +318,14 @@ class ConfigModal extends Component {
               </div>
               <div className="col-6">
               </div>
-              <div className="col-12 border-bottom pt-4">Movement Control</div>
+              <div className="col-12 border-bottom pt-4">Camera Control</div>
               <div className="col-6">
                 <this.flyToggle />
-
-                <ButtonBase
-                  style={btnStyle.base}
-                  onClick={() => { this.handleShrToggle(); }} >
-                  <Icon className="material-icons">send</Icon>
-                  Share
-                  </ButtonBase>
               </div>
               <div className="col-6">
                 <this.resetPosition />
               </div>
-              <div className="col-12 border-bottom pt-4">Sharing</div>
+              <div className="col-12 border-bottom pt-4">Privacy Control</div>
               <div className="col-6">
                 <ButtonBase
                   style={btnStyle.base}
