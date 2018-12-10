@@ -68,11 +68,6 @@ export function deleteProj(id, name) {
 
     imgRef.delete().then(() => {
       console.log("Image successfully deleted!");
-
-      // If deleting current project, redirect to home
-      if (window.location.href === window.origin + '/' + id || window.location.href === window.origin + '/' + id + '/') {
-        window.location.href = window.origin;
-      }
     }).catch((error) => {
       console.error("Error removing img: ", error);
     });
@@ -80,6 +75,11 @@ export function deleteProj(id, name) {
     // Delete Document
     scenes.doc(id).delete().then(() => {
       console.log("Document successfully deleted!");
+
+      // If deleting current project, redirect to home
+      if (window.location.href === window.origin + '/' + id || window.location.href === window.origin + '/' + id + '/') {
+        window.location.href = window.origin;
+      }
     }).catch((error) => {
       console.error("Error removing document: ", error);
     });
