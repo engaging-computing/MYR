@@ -66,13 +66,13 @@ export function deleteProj(id, name) {
     let path = "images/perspective/" + id;
     let imgRef = storageRef.child(path);
 
-    // If deleting current project, redirect to home
-    if (window.location.href === window.origin + '/' + id) {
-      window.location.href = window.origin;
-    }
-
     imgRef.delete().then(() => {
       console.log("Image successfully deleted!");
+
+      // If deleting current project, redirect to home
+      if (window.location.href === window.origin + '/' + id || window.location.href === window.origin + '/' + id + '/') {
+        window.location.href = window.origin;
+      }
     }).catch((error) => {
       console.error("Error removing img: ", error);
     });
@@ -83,7 +83,7 @@ export function deleteProj(id, name) {
     }).catch((error) => {
       console.error("Error removing document: ", error);
     });
-    
+
     return { type: DELTE_PROJ, id: id };
   }
 }
