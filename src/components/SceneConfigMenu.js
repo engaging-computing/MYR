@@ -39,7 +39,7 @@ const modelStyles = theme => ({
 const btnStyle = {
   base: {
     marginTop: 20,
-    justifyContent: "right",
+    justifyContent: "left",
     width: "100%"
   },
   on: {
