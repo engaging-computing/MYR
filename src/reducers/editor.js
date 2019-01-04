@@ -94,7 +94,7 @@ export default function editor(state = initial_state, action) {
         headers: new Headers({ 'Content-Type': 'application/json' }),
         method: 'post',
         body: JSON.stringify(snap)
-      })
+      });
       return {
         ...state,
         text: action.text,
