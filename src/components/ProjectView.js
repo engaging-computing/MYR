@@ -55,6 +55,7 @@ class Project extends React.Component {
       pw: "",
       sendTo: []
     };
+    this.emailRef = React.createRef();
   }
 
   handleClick = event => {
@@ -74,6 +75,7 @@ class Project extends React.Component {
   handleAddEmail = () => {
     let arr = [].concat(this.state.sendTo);
     arr.push(this.state.email);
+    this.emailRef.current.value = "";
     this.setState({ sendTo: arr, email: "" });
   }
 
@@ -122,6 +124,7 @@ class Project extends React.Component {
         id="standard-name"
         label="Email"
         value={this.state.email}
+        inputRef={this.emailRef}
         onChange={this.handleTextChange('email')}
         margin="normal"
       />

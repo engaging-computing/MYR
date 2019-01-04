@@ -78,6 +78,7 @@ class ConfigModal extends Component {
       email: "",
       sendTo: []
     }
+    this.emailRef = React.createRef();
   }
 
   // Opens the modal
@@ -103,6 +104,7 @@ class ConfigModal extends Component {
   handleAddEmail = () => {
     let arr = [].concat(this.state.sendTo);
     arr.push(this.state.email);
+    this.emailRef.current.value = "";
     this.setState({ sendTo: arr, email: "" });
   }
 
@@ -148,6 +150,7 @@ class ConfigModal extends Component {
       <TextField
         id="standard-name"
         label="Email"
+        inputRef={this.emailRef}
         onChange={this.handleTextChange('email')}
       />
       <IconButton
