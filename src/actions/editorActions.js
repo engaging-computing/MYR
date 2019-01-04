@@ -53,7 +53,7 @@ export function fetchScene(id, uid = "anon") {
         dispatch(nameScene(data.name));
 
         if (data.uid !== uid) {
-          // If it isn't your scene, load 0 as scene id so we save as not save
+          // If it isn't your scene, load 0 as scene id so we prompt for "save as" not "save"
           dispatch(loadScene(0));
         } else {
           // Otherwise save the scenes
