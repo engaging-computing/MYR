@@ -83,7 +83,6 @@ export function deleteProj(id, name) {
     }).catch((error) => {
       console.error("Error removing document: ", error);
     });
-
     return { type: DELETE_PROJ, id: id };
   }
 }

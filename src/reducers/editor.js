@@ -9,7 +9,7 @@ import Myr from '../myr/Myr';
 const welcomeText =
   `/**********************************************************
 *                   Welcome to MYR!                       *
-*  Getting Started? - https://www.learnmyr.org/first-time *
+*  Getting Started? - https://learnmyr.org/first-time *
 **********************************************************/
 `;
 
