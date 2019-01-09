@@ -1,5 +1,10 @@
 import React, { Component, Fragment } from 'react';
 import { auth, provider, db, scenes, storageRef } from '../firebase.js';
+import Reference from './Reference.js';
+import SceneConfigMenu from './SceneConfigMenu.js';
+import Sidebar from './Sidebar.js';
+import MyrTour from './MyrTour';
+import ProjectView from './ProjectView.js';
 
 import {
   Button,
@@ -14,11 +19,6 @@ import {
   Popover,
   Avatar
 } from '@material-ui/core';
-import Reference from './Reference.js';
-import SceneConfigMenu from './SceneConfigMenu.js';
-import Sidebar from './Sidebar.js';
-import MyrTour from './MyrTour';
-import ProjectView from './ProjectView.js';
 
 const exitBtnStyle = {
   position: "fixed",
@@ -296,7 +296,8 @@ class Header extends Component {
   */
   handleSave = () => {
     // render the current state so the user can see what they are saving
-    this.handleRender();
+    // this.handleRender();
+
     if (this.props.user && this.props.user.uid) {
       this.setState({ spinnerOpen: true });
       let ts = Date.now();
@@ -314,6 +315,7 @@ class Header extends Component {
           desc: this.state.sceneDesc,
           code: this.props.text,
           uid: this.props.user.uid,
+          settings: this.props.scene,
           ts: ts,
         }).then(() => {
           console.log("Document successfully written!");
@@ -321,7 +323,7 @@ class Header extends Component {
           if (projectId !== this.props.projectId) {
             window.location.href = window.origin + '/' + projectId;
           } else {
-            this.getUserProjs();
+            this.asyncUserProj();
           }
         }).catch((error) => {
           console.error("Error writing document: ", error);

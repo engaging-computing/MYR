@@ -9,6 +9,8 @@ export const CHANGE_PERSPECTIVE = "CHANGE_PERSPECTIVE";
 export const CHANGE_VIEW = "CHANGE_VIEW";
 export const TOGGLE_FLY = "TOGGLE_FLY";
 export const TOGGLE_FLOOR = "TOGGLE_FLOOR";
+export const LOAD_SETTINGS = "LOAD_SETTINGS";
+export const CHANGE_SETTING = "CHANGE_SETTING";
 
 /**
 * @summary - This function registers the scene"s name with Redux
@@ -62,4 +64,12 @@ export function toggleFly() {
 
 export function toggleFloor() {
   return { type: TOGGLE_FLOOR };
+}
+
+export function loadSettings(payload) {
+  return { type: LOAD_SETTINGS, payload };
+}
+
+export function changeSetting(payload) {
+  return { type: LOAD_SETTINGS, payload };
 }
