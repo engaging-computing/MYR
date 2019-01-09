@@ -1,0 +1,6 @@
+.course-listing p{
+    height: 3em;
+    overflow: auto;
+    text-overflow: ellipsis;
+    color: #333;
+}

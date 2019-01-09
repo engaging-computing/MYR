@@ -19,6 +19,7 @@ import SceneConfigMenu from './SceneConfigMenu.js';
 import Sidebar from './Sidebar.js';
 import MyrTour from './MyrTour';
 import ProjectView from './ProjectView.js';
+import CourseSelect from './CourseSelect.js';
 
 const exitBtnStyle = {
   position: "fixed",
@@ -53,6 +54,12 @@ class Header extends Component {
   */
   componentDidMount() {
     this.props.projectActions.asyncExampleProj();
+    this.props.courseActions.fetchCourses();
+    console.log(this)
+    if (this.props.courseName) {
+      console.log("fetching")
+      this.props.courseActions.fetchCourse(this.props.courseName)
+    }
 
     // Sync authentication
     auth.onAuthStateChanged((account) => {
@@ -574,6 +581,7 @@ class Header extends Component {
         <div className="col-3 d-flex justify-content-end">
           <Reference />
           <SceneConfigMenu scene={this.props.scene} sceneActions={this.props.sceneActions} />
+          <CourseSelect courses={this.props.courses.courses} />
           <this.loginBtn />
         </div>
         <this.saveDrawer />
