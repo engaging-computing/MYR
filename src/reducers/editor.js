@@ -29,7 +29,7 @@ const initial_state = {
 let snapshots = [
   {
     timestamp: Date.now(),
-    text: `// Starting text:\n ${initial_state.text}`,
+    text: `${initial_state.text}`,
     error: false
   }
 ];
