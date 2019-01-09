@@ -11,7 +11,7 @@ import { snaps } from '../firebase.js';
 const welcomeText =
   `/**********************************************************
 *                   Welcome to MYR!                       *
-*  Getting Started? - https://www.learnmyr.org/first-time *
+*  Getting Started? - https://learnmyr.org/first-time *
 **********************************************************/
 `;
 

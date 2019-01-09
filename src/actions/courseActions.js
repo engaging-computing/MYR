@@ -1,18 +1,20 @@
 import './editorActions';
 import { render } from './editorActions';
-import { loadLesson } from './lessonActions';
 
-// export const LOAD_COURSES = 'LOAD_COURSES';
-// export const ASYNC_COURSES = 'ASYNC_COURSES';
 export const SYNC_COURSES = 'SYNC_COURSES';
 export const LOAD_COURSE = 'LOAD_COURSE';
+export const LOAD_LESSON = 'LOAD_LESSON';
+export const SET_INDEX = 'SET_INDEX';
 
-const ref = '/apiv1/courses/';
+const courseRef = '/apiv1/courses/';
+const lessonRef = '/apiv1/lessons/id/';
 const getFirst = '?getLesson=true';
+
+//Course Actions
 
 export function fetchCourses() {
     return (dispatch) => {
-        fetch(ref, {
+        fetch(courseRef, {
             headers: { 'content-type': 'application/json' },
         })
             .then(response => response.json().then(json => ({ json, response })))
@@ -31,7 +33,7 @@ export function syncCourses(payload) {
 
 export function fetchCourse(courseId) {
     return (dispatch) => {
-        fetch(ref + courseId + getFirst, {
+        fetch(courseRef + courseId + getFirst, {
             headers: { 'content-type': 'application/json' },
         })
             .then(response => response.json().then(json => ({ json, response })))
@@ -50,5 +52,54 @@ export function loadCourse(course) {
     return {
         type: LOAD_COURSE,
         payload: course
+    };
+}
+
+//Lesson Actions
+export function fetchLesson(lvlId) {
+    return (dispatch) => {
+        fetch(lessonRef + lvlId, {
+            headers: { 'content-type': 'application/json' },
+        })
+            .then(response => response.json().then(json => ({ json, response })))
+            .then(({ json, response }) => {
+                if (!response.ok) {
+                    return Promise.reject(json);
+                }
+                dispatch(loadLesson(json));
+                dispatch(render(json.code || ""));
+            })
+            .then(
+                response => response,
+                error => error
+            );
+    };
+}
+
+export function nextLesson(currentIndex, nextID) {
+    return (dispatch) => {
+        dispatch(setCurrentIndex(currentIndex + 1));
+        dispatch(fetchLesson(nextID));
+    }
+}
+
+export function previousLesson(currentIndex, nextID) {
+    return (dispatch) => {
+        dispatch(setCurrentIndex(currentIndex - 1));
+        dispatch(fetchLesson(nextID));
+    }
+}
+
+export function setCurrentIndex(newIndex) {
+    return {
+        type: SET_INDEX,
+        payload: newIndex
+    };
+}
+
+export function loadLesson(lesson) {
+    return {
+        type: LOAD_LESSON,
+        payload: lesson
     };
 }

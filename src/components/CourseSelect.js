@@ -11,6 +11,8 @@ import {
 
 import { withStyles } from "@material-ui/core/styles";
 
+import "../css/CourseSelect.css"
+
 // FUNC to position modal in the middle of the screen
 function getModalStyle() {
     const top = 50;
@@ -27,7 +29,8 @@ function getModalStyle() {
 const modelStyles = theme => ({
     paper: {
         position: "absolute",
-        width: theme.spacing.unit * 150,
+        width: theme.spacing.unit * 100,
+        maxWidth: "90%",
         backgroundColor: theme.palette.background.paper,
         boxShadow: theme.shadows[5],
         padding: theme.spacing.unit * 4,
@@ -72,7 +75,7 @@ class CourseSelectModal extends Component {
         };
     }
 
-    helper = (course, canDelete) => {
+    helper = (course) => {
         if (course) {
             let id = course._id;
             let shortname = course.shortname;
@@ -80,12 +83,10 @@ class CourseSelectModal extends Component {
             let description = course.description;
             let link = '/course/' + shortname;
             return (
-                // <div key={id} id={id} title={name}
-                //     className="col-xs-12 col-md-6 col-lg-4 pt-2 pl-0">
-                <div key={id} id={id} title={name} className="col-lg-12">
+                <div key={id} id={id} title={name}
+                    className="course-listing col-xs-12 col-md-6">
                     <a
                         tabIndex="0"
-                        style={{ maxHeight: 30 }}
                         rel="noopener noreferrer"
                         role="button"
                         href={link}>
@@ -136,14 +137,19 @@ class CourseSelectModal extends Component {
                     open={this.state.open}
                     onClose={this.handleClose} >
                     <div style={getModalStyle()} className={classes.paper}>
-                        <div className="row" id="courses" style={{ width: "100%" }}>
+                        <ButtonBase
+                            style={{ position: "absolute", right: 15, top: 15 }}
+                            onClick={() => this.handleClose()} >
+                            <Icon className="material-icons">clear</Icon>
+                        </ButtonBase >
+                        <div className="row" id="courses">
                             <h3 className="col-12 p-0 mb-3 border-bottom">Available Courses</h3>
                             <hr />
                             { // Sort the users projects in alphabetical order
                                 courses.sort(function (a, b) {
                                     return a.name < b.name ? -1 : a.name > b.name ? 1 : 0;
                                 }).map(course => {
-                                    return this.helper(course, true);
+                                    return this.helper(course);
                                 })
                             }
                         </div>

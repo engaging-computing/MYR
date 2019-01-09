@@ -1,6 +1,5 @@
 import { createStore, combineReducers, applyMiddleware } from 'redux';
 import editor from './reducers/editor';
-import lesson from './reducers/lesson';
 import project from './reducers/project';
 import scene from './reducers/scene';
 import user from './reducers/user';
@@ -12,7 +11,6 @@ const reducer = combineReducers({
   editor,
   user,
   scene,
-  lesson,
   project,
   courses
 });

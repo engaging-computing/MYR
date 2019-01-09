@@ -4,7 +4,7 @@ export const ASYNC_USER_PROJ = 'ASYNC_USER_PROJ';
 export const SYNC_USER_PROJ = 'SYNC_USER_PROJ';
 export const ASYNC_EXAMP_PROJ = 'ASYNC_EXAMP_PROJ';
 export const SYNC_EXAMP_PROJ = 'SYNC_EXAMP_PROJ';
-export const DELTE_PROJ = 'DELTE_PROJ';
+export const DELETE_PROJ = 'DELETE_PROJ';
 
 export function asyncUserProj(id) {
   // fetch user's project
@@ -77,6 +77,6 @@ export function deleteProj(id, name) {
     }).catch((error) => {
       console.error("Error removing document: ", error);
     });
-    return { type: DELTE_PROJ, id: id };
+    return { type: DELETE_PROJ, id: id };
   }
 }
