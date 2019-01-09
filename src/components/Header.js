@@ -5,6 +5,7 @@ import SceneConfigMenu from './SceneConfigMenu.js';
 import Sidebar from './Sidebar.js';
 import MyrTour from './MyrTour';
 import ProjectView from './ProjectView.js';
+import CourseSelect from './CourseSelect.js';
 
 import {
   Button,
@@ -19,13 +20,6 @@ import {
   Popover,
   Avatar
 } from '@material-ui/core';
-
-import Reference from './Reference.js';
-import SceneConfigMenu from './SceneConfigMenu.js';
-import Sidebar from './Sidebar.js';
-import MyrTour from './MyrTour';
-import ProjectView from './ProjectView.js';
-import CourseSelect from './CourseSelect.js';
 
 const exitBtnStyle = {
   position: "fixed",
