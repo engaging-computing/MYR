@@ -1,19 +1,19 @@
 import React, { Component } from "react";
+import { ChromePicker } from 'react-color';
 import {
   ButtonBase,
   IconButton,
   Icon,
-  Modal,
-  TextField
+  Modal
 } from "@material-ui/core";
-
 import { withStyles } from "@material-ui/core/styles";
+
+import '../css/SceneConfig.css';
 
 // FUNC to position modal in the middle of the screen
 function getModalStyle() {
   const top = 50;
   const left = 50;
-
   return {
     top: `${top}%`,
     left: `${left}%`,
@@ -39,7 +39,7 @@ const modelStyles = theme => ({
 const btnStyle = {
   base: {
     marginTop: 20,
-    justifyContent: "right",
+    justifyContent: "left",
     width: "100%"
   },
   on: {
@@ -67,8 +67,9 @@ class ConfigModal extends Component {
     super(props);
     this.state = {
       open: false,
-      skyColor: this.props.scene.color
-    }
+      skyColor: this.props.scene.color,
+      displayColorPicker: false
+    };
   }
 
   // Opens the modal
@@ -78,7 +79,7 @@ class ConfigModal extends Component {
 
   // Closes the modal
   handleClose = () => {
-    this.setState({ open: false });
+    this.setState({ open: false, displayColorPicker: false });
   };
 
   // Toggles the grid on and off
@@ -86,17 +87,18 @@ class ConfigModal extends Component {
     this.props.sceneActions.toggleCoordSky();
   }
 
-  // Handles local changes to the text input
-  handleSceneColorChange = (event) => {
-    this.setState({ skyColor: event.target.value });
-  }
+  handleChangeComplete = (color) => {
+    this.setState({ skyColor: color.hex });
+    this.props.sceneActions.changeSkyColor(color.hex);
+  };
 
-  // Sends sky color to the reducer
-  submitColor = (event) => {
-    event.preventDefault();
-    this.props.sceneActions.changeSkyColor(this.state.skyColor);
-    this.setState({ skyColor: null });
-  }
+  handleColorClick = () => {
+    this.setState({ displayColorPicker: !this.state.displayColorPicker });
+  };
+
+  handleColorClose = () => {
+    this.setState({ displayColorPicker: false });
+  };
 
   // Toggles whether the editor is showing
   viewToggle = () => {
@@ -183,6 +185,17 @@ class ConfigModal extends Component {
     );
   }
 
+  changeSkyColor = () => {
+    return (
+      <ButtonBase
+        style={btnStyle.base}
+        onClick={this.handleColorClick}>
+        <Icon className="material-icons">color_lens</Icon>
+        Edit Sky Color
+      </ButtonBase>
+    );
+  }
+
   // Render all of the elements
   render() {
     const { classes } = this.props;
@@ -217,12 +230,7 @@ class ConfigModal extends Component {
               </div>
               <div className="col-6">
                 <this.gridToggle />
-                <TextField id="name-helper"
-                  value={this.state.skyColor || ""}
-                  label="Sky Color"
-                  onSubmit={this.submitColor}
-                  onBlur={this.submitColor}
-                  onChange={this.handleSceneColorChange} />
+                <this.changeSkyColor />
               </div>
               <div className="col-6">
               </div>
@@ -249,6 +257,20 @@ class ConfigModal extends Component {
                   Cancel
                 </ButtonBase >
               </div> */}
+              {this.state.displayColorPicker
+                ?
+                <div id="color-popover">
+                  <ButtonBase
+                    onClick={this.handleColorClose}
+                    style={{ position: "absolute", right: -25, top: -17, zIndex: 100 }}>
+                    <Icon className="material-icons">clear</Icon>
+                  </ButtonBase >
+                  <div id="color-cover" onClick={this.handleColorClose} />
+                  <ChromePicker disableAlpha={true} color={this.state.skyColor} onChangeComplete={this.handleChangeComplete} />
+                </div>
+                :
+                null
+              }
             </div>
           </div>
         </Modal>

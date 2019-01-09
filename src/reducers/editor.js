@@ -6,8 +6,6 @@ import {
 
 import Myr from '../myr/Myr';
 
-import { snaps } from '../firebase.js';
-
 const welcomeText =
   `/**********************************************************
 *                   Welcome to MYR!                       *
@@ -31,7 +29,7 @@ const initial_state = {
 let snapshots = [
   {
     timestamp: Date.now(),
-    text: `// Starting text:\n ${initial_state.text}`,
+    text: `${initial_state.text}`,
     error: false
   }
 ];
@@ -39,9 +37,7 @@ let snapshots = [
 
 let m = new Myr();
 m.init();
-
-// Use this to attach it to the window for debugging
-window.m = m;
+// window.m = m; // Use this to attach it to the window for debugging
 
 // ESLint doesn't like this but it is better than eval
 function noEvalEvaluation(text) {
@@ -54,6 +50,7 @@ export default function editor(state = initial_state, action) {
   switch (action.type) {
     case EDITOR_RENDER:
       m.reset();
+
       // build an object to save the snap
       let snap = {
         user: action.uid ? action.uid : 'unknown',
@@ -67,14 +64,6 @@ export default function editor(state = initial_state, action) {
         time: Date.now()
       };
 
-      /* For now we want to re-render everything.
-      * Initializing with [] avoid issues with mapping in View.
-      * In the future we might want to calculate diff and store it
-      */
-      // m.reset();
-      let els = [];
-      let assets = [];
-
       try {
         noEvalEvaluation(action.text);
       }
@@ -84,34 +73,33 @@ export default function editor(state = initial_state, action) {
         message = { ...message, text: "Eval failed: " + err };
         snap = { ...snap, error: true };
       }
-      // Otherwise we successfully rendered
-      if (m) {
-        els = m.els;
-        assets = m.assets;
-      }
-      snaps.doc(snap.user + '_' + snap.timestamp).set(snap);
+
+      snapshots.push(snap);
+
       fetch('/apiv1/snapshots/', {
         headers: new Headers({ 'Content-Type': 'application/json' }),
         method: 'post',
         body: JSON.stringify(snap)
       });
+
       return {
         ...state,
         text: action.text,
-        objects: els,
-        assets: assets,
+        objects: m.els || [],
+        assets: m.assets || [],
         message
       };
+
     case EDITOR_REFRESH:
       m.reset();
       return {
         ...initial_state,
         text: action.text
       };
+
     case EDITOR_RECOVER:
       // Start at last snap
       let stableIndex = snapshots.length - 1;
-
       // Work backwards until we find a non-error snap
       while (snapshots[stableIndex].error === true) {
         stableIndex--;

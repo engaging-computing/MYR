@@ -1,13 +1,13 @@
 import { scenes } from '../firebase.js';
-import { nameScene, loadScene } from './sceneActions';
+import { loadSettings } from './sceneActions';
+import { DEF_SETTINGS } from '../reducers/scene';
 
 export const EDITOR_RENDER = 'EDITOR_RENDER';
 export const EDITOR_REFRESH = 'EDITOR_REFRESH';
 export const EDITOR_RECOVER = 'EDITOR_RECOVER';
 
-
 /**
- * @function - Sends a signal to the reducer to render the Aframe scene with the given text
+ * @function - Sends a signal to the reducer to render the scene
  *
  * @param {string} text - Text from the Ace Editor component
  *
@@ -38,28 +38,30 @@ export function recover() {
 }
 
 /**
-* @summary - This does an async fetch to Firebase to grab the scene, then dispatches
-* the neccessary functions to update the state.
+* @summary - This does an async fetch to Firebase to grab the scene, then
+* dispatches the neccessary functions to update the state.
 *
 */
 export function fetchScene(id, uid = "anon") {
-  return (dispatch) => {  // Return a functions that dispatches events after async
+  return (dispatch) => {  // Return a func that dispatches events after async
     scenes.doc(id).get().then((scene) => {
       let data = scene.data();
       if (data && data.code) { // If it worked
         // render the editor
         dispatch(render(data.code, uid || 'anon'));
-        // store the name of the scene
-        dispatch(nameScene(data.name));
 
-        if (data.uid !== uid) {
-          // If it isn't your scene, load 0 as scene id so we prompt for "save as" not "save"
-          dispatch(loadScene(0));
-        } else {
-          // Otherwise save the scenes
-          dispatch(loadScene(id));
+        // Use default for eventual consistency in db
+        let settings = DEF_SETTINGS;
+
+        // if the incoming scene has a settings, merge default with incoming
+        if (data.settings) {
+          settings = { ...settings, ...data.settings };
         }
-      } else {
+
+        // apply settings, set id to 0 if not the owner of the scene
+        dispatch(loadSettings({ ...settings, id: data.uid === uid ? id : 0 }));
+
+      } else { // If no scene is found and we are not looking for 404 return 404
         if (id !== 'error-404') {
           window.location.href = window.origin + '/error-404';
         }

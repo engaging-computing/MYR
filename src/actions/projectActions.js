@@ -65,6 +65,7 @@ export function deleteProj(id, name) {
     // Delete Image
     let path = "images/perspective/" + id;
     let imgRef = storageRef.child(path);
+
     imgRef.delete().then(() => {
       console.log("Image successfully deleted!");
     }).catch((error) => {
@@ -74,6 +75,11 @@ export function deleteProj(id, name) {
     // Delete Document
     scenes.doc(id).delete().then(() => {
       console.log("Document successfully deleted!");
+
+      // If deleting current project, redirect to home
+      if (window.location.href === window.origin + '/' + id || window.location.href === window.origin + '/' + id + '/') {
+        window.location.href = window.origin;
+      }
     }).catch((error) => {
       console.error("Error removing document: ", error);
     });

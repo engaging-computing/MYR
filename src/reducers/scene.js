@@ -7,9 +7,12 @@ import {
   TOGGLE_FLY,
   CHANGE_SKY_COLOR,
   TOGGLE_FLOOR,
+  LOAD_SETTINGS,
+  CHANGE_SETTING
+
 } from '../actions/sceneActions';
 
-const initial_state = {
+export const DEF_SETTINGS = {
   name: "",
   id: "0",
   skyColor: "white",
@@ -21,7 +24,7 @@ const initial_state = {
   viewOnly: false
 };
 
-export default function scene(state = initial_state, action) {
+export default function scene(state = DEF_SETTINGS, action) {
   switch (action.type) {
     case NAME_SCENE:
       return {
@@ -63,6 +66,15 @@ export default function scene(state = initial_state, action) {
       return {
         ...state,
         showFloor: !state.showFloor
+      };
+    case LOAD_SETTINGS:
+      return {
+        ...action.payload
+      };
+    case CHANGE_SETTING:
+      return {
+        ...state,
+        ...action.payload
       };
     default:
       return state;
