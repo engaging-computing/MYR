@@ -12,18 +12,18 @@ class Lesson extends Component {
   }
 
   nextLesson = () => {
-    const { currentIndex } = this.props.courses;
-    const { lessons } = this.props.course;
+    const currentIndex = this.props.courses.currentIndex;
+    const lessons = this.props.course.lessons;
     if (window.confirm('Are you sure you want to continue?\nYou will lose any unsaved work!')) {
       this.props.courseActions.nextLesson(currentIndex, lessons[currentIndex + 1]);
     }
   }
 
   lastLesson = () => {
-    const { currentIndex } = this.props;
-    const { lessons } = this.props.course;
+    const currentIndex = this.props.courses.currentIndex;
+    const lessons = this.props.course.lessons;
     if (window.confirm('Are you sure you want to continue?\nYou will lose any unsaved work!')) {
-      this.props.courseActions.previousLesson(currentIndex, lessons[currentIndex + 1]);
+      this.props.courseActions.previousLesson(currentIndex, lessons[currentIndex - 1]);
     }
   }
 
@@ -32,7 +32,7 @@ class Lesson extends Component {
     let nextValid = courses && courses.currentIndex != null && course && course.lessons;
     let prevValid = courses && courses.currentIndex != null;
     return (
-      <Grid container spacing={24} id="lesson=btns">
+      <Grid container spacing={24} id="lesson-btns">
         <Grid item xs={6}>
           <Button
             variant="outlined"
