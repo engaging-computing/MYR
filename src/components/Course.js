@@ -7,8 +7,8 @@ import {
 
 class Lesson extends Component {
   componentDidMount() {
-    console.log(this.props)
-    console.log(this.props.course)
+    console.log(this.props);
+    console.log(this.props.course);
   }
 
   nextLesson = () => {
@@ -58,7 +58,7 @@ class Lesson extends Component {
           </Button>
         </Grid>
       </Grid>
-    )
+    );
   }
 
   render() {

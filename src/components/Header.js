@@ -55,10 +55,8 @@ class Header extends Component {
   componentDidMount() {
     this.props.projectActions.asyncExampleProj();
     this.props.courseActions.fetchCourses();
-    console.log(this)
     if (this.props.courseName) {
-      console.log("fetching")
-      this.props.courseActions.fetchCourse(this.props.courseName)
+      this.props.courseActions.fetchCourse(this.props.courseName);
     }
 
     // Sync authentication
