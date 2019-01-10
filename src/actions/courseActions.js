@@ -9,6 +9,12 @@ const courseRef = '/apiv1/courses/';
 const lessonRef = '/apiv1/lessons/id/';
 const getFirst = '?getLesson=true';
 const header = { headers: { 'content-type': 'application/json' } };
+const problem = {
+  name: "Error",
+  id: -1,
+  prompt: "There has been an error. Please try reloading the page.",
+  code: ""
+};
 
 //Course Actions
 export function fetchCourses() {
@@ -39,9 +45,15 @@ export function fetchCourse(courseId) {
             dispatch(loadLesson(json.firstLesson));
             dispatch(render(json.firstLesson.code || ""));
           })
-          .catch(err => { console.error(err); });
+          .catch(err => {
+            console.error(err);
+            dispatch(loadLesson(problem));
+          });
       })
-      .catch(err => { console.error(err); });
+      .catch(err => {
+        console.error(err);
+        dispatch(loadLesson(problem));
+      });
   };
 }
 

@@ -25,6 +25,7 @@ const Guided = ({ editor, user, scene, lesson, editorActions, authActions, proje
       scene={scene}
       text={editor.text}
       message={editor.message}
+      match={match}
       projectId={match.params.id}
       projectActions={projectActions}
       projects={projects}

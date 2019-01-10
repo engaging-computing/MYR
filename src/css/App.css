@@ -410,6 +410,8 @@ footer a:hover {
     color: #999;
 }
 
-.header-btn {
-    width: 30px !important;
+@media (max-width: 370px) {
+    .header-btn {
+        width: 30px !important;
+    }
 }

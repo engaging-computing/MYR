@@ -71,16 +71,18 @@ class Header extends Component {
     });
 
     // Render project if we have projectId. This should only happen if coming from viewer
-    if (this.props.projectId) {
+    const { match } = this.props;
+    const projectId = (match && match.params && match.params.id) || "";
+    if (this.props.match && projectId) {
       this.setState({ spinnerOpen: true });
       // When the data's metedata changes, ie update
-      scenes.doc(this.props.projectId).onSnapshot({
+      scenes.doc(projectId).onSnapshot({
         includeMetadataChanges: true,
       }, (doc) => {
         if (this.props.user && this.props.user.uid) {
-          this.props.actions.fetchScene(this.props.projectId, this.props.user.uid);
+          this.props.actions.fetchScene(projectId, this.props.user.uid);
         } else {
-          this.props.actions.fetchScene(this.props.projectId);
+          this.props.actions.fetchScene(projectId);
         }
         this.setState({ spinnerOpen: false });
       });
@@ -276,7 +278,8 @@ class Header extends Component {
   */
   getProjectId = () => {
     let ts = Date.now();
-    let projectId = this.props.projectId || null;
+    const { match } = this.props;
+    let projectId = (match && match.params && match.params.id) || null;
     if (!projectId || !this.props.scene.id || this.state.needsNewId) {
       // Generate a new projectId
       projectId = this.props.user.uid + '_' + ts;
@@ -325,7 +328,10 @@ class Header extends Component {
         }).then(() => {
           console.log("Document successfully written!");
           // If we have a new projectId reload page with it
-          if (projectId !== this.props.projectId) {
+          if (this.props.courseName) {
+            this.setState({ spinnerOpen: false });
+            window.open(window.origin + '/' + projectId);
+          } else if (projectId !== this.props.projectId) {
             window.location.href = window.origin + '/' + projectId;
           } else {
             this.asyncUserProj();

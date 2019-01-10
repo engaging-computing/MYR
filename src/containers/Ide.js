@@ -25,6 +25,7 @@ const Ide = ({ editor, editorActions, user, authActions, scene, sceneActions, pr
       text={editor.text}
       message={editor.message}
       projectId={match.params.id}
+      match={match}
       projectActions={projectActions}
       courseActions={courseActions}
       projects={projects}
