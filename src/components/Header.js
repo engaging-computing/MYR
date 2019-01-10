@@ -217,6 +217,7 @@ class Header extends Component {
   */
   submitName = (event) => {
     event.preventDefault();
+    this.handleRender();
     this.props.sceneActions.nameScene(this.state.sceneName);
     this.setState({ sceneName: null, needsNewId: true });
   }
@@ -339,7 +340,7 @@ class Header extends Component {
       });
     } else {
       // TODO: Don't use alert
-      alert('Error: You must be logged in to save your work.');
+      alert('Cannot Save!');
     }
     this.handleSaveToggle();
   }
