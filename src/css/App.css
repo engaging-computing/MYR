@@ -54,7 +54,6 @@ div#user {
 #scene {
     height: 94vh;
     border-left: #222 1px solid;
-    border-top: #222 1px solid;
 }
 
 a-scene {
@@ -275,7 +274,7 @@ div.side-drawer>div {
 }
 
 .guided div#ace-editor {
-    height: 67.1vh !important;
+    height: 69.5vh !important;
 }
 
 #lesson {

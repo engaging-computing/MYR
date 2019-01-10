@@ -24,10 +24,16 @@ export function fetchCourses() {
         response.json()
           .then(json => { dispatch(syncCourses(json)); })
           // likely a parsing issue
-          .catch(err => { console.error(err); });
+          .catch(err => {
+            dispatch(loadLesson(problem));
+            console.error(err);
+          });
       })
       // likely an HTTP error
-      .catch(err => { console.error(err); });
+      .catch(err => {
+        dispatch(loadLesson(problem));
+        console.error(err);
+      });
   };
 };
 
@@ -74,9 +80,15 @@ export function fetchLesson(lvlId) {
             dispatch(loadLesson(json));
             dispatch(render(json.code || ""));
           })
-          .catch(err => { console.error(err); });
+          .catch(err => {
+            dispatch(loadLesson(problem));
+            console.error(err);
+          });
       })
-      .catch(err => { console.error(err); });
+      .catch(err => {
+        dispatch(loadLesson(problem));
+        console.error(err);
+      });
   };
 }
 

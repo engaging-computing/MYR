@@ -1,15 +1,12 @@
 import React, { Component } from 'react';
 import {
   Button,
+  Grid,
   Icon,
-  Grid
+  Tooltip
 } from '@material-ui/core';
 
 class Lesson extends Component {
-  componentDidMount() {
-    console.log(this.props);
-    console.log(this.props.course);
-  }
 
   nextLesson = () => {
     const currentIndex = this.props.courses.currentIndex;
@@ -32,30 +29,31 @@ class Lesson extends Component {
     let nextValid = courses && courses.currentIndex != null && course && course.lessons;
     let prevValid = courses && courses.currentIndex != null;
     return (
-      <Grid container spacing={24} id="lesson-btns">
-        <Grid item xs={6}>
-          <Button
-            variant="outlined"
-            onClick={() => this.lastLesson()}
-            color="primary"
-            disabled={prevValid ? courses.currentIndex <= 0 : true}
-            fullWidth
-            className="">
-            <Icon className="material-icons">chevron_left</Icon>
-            Prev
-        </Button>
+      <Grid container spacing={48} id="lesson-btns">
+        <Grid item xs={2}>
+          <Tooltip title="Previous Lesson" placement="top-start">
+            <Button
+              onClick={() => this.lastLesson()}
+              color="primary"
+              disabled={prevValid ? courses.currentIndex <= 0 : true}
+              fullWidth
+              className="">
+              <Icon className="material-icons">chevron_left</Icon>
+            </Button>
+          </Tooltip>
         </Grid>
-        <Grid item xs={6}>
-          <Button
-            variant="outlined"
-            onClick={() => this.nextLesson()}
-            color="primary"
-            disabled={nextValid ? courses.currentIndex >= course.lessons.length - 1 : true}
-            fullWidth
-            className="">
-            Next
-            <Icon className="material-icons">chevron_right</Icon>
-          </Button>
+        <Grid item xs={8}></Grid>
+        <Grid item xs={2}>
+          <Tooltip title="Next Lesson" placement="top-start">
+            <Button
+              onClick={() => this.nextLesson()}
+              color="primary"
+              disabled={nextValid ? courses.currentIndex >= course.lessons.length - 1 : true}
+              fullWidth
+              className="">
+              <Icon className="material-icons">chevron_right</Icon>
+            </Button>
+          </Tooltip>
         </Grid>
       </Grid>
     );
@@ -64,7 +62,7 @@ class Lesson extends Component {
   render() {
     return (
       <div id="lesson">
-        <h1>{(this.props.lesson && this.props.lesson.name) ? this.props.lesson.name : "Loading..."}</h1>
+        <h3>{(this.props.lesson && this.props.lesson.name) ? this.props.lesson.name : "Loading..."}</h3>
         <p>{(this.props.lesson && this.props.lesson.prompt) ? this.props.lesson.prompt : "Loading..."} </p>
         <this.renderBtns />
       </div>
