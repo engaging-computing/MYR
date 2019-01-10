@@ -165,7 +165,7 @@ class Header extends Component {
               open={this.state.logMenuOpen}
               onClick={() => this.setState({ logMenuOpen: !this.state.logMenuOpen })}
               label="logout"
-              style={{ marginTop: 5, marginLeft: 15 }} />
+              style={{ marginTop: 5 }} />
             <Popover
               open={this.state.logMenuOpen}
               anchorEl={document.getElementById('user')}
@@ -471,7 +471,7 @@ class Header extends Component {
       },
       clear: {
         margin: 5,
-        marginRight: 20,
+        marginRight: 10,
         padding: 0,
         background: 'linear-gradient(45deg, #FE3B3B 30%, #FF3B3B 90%)',
       },
@@ -483,7 +483,7 @@ class Header extends Component {
     };
     return (
       <header className="App-header align-items-center ">
-        <div className="col-9 d-flex justify-content-start">
+        <div className="col-9 d-flex justify-content-start" style={{ paddingLeft: 0 }}>
           <Sidebar scene={this.props.scene} nameScene={this.props.sceneActions.nameScene} >
             <Button
               variant="raised"
@@ -562,7 +562,7 @@ class Header extends Component {
             <IconButton
               id="save-btn"
               onClick={this.handleSaveToggle}
-              className="header-btn d-none d-md-block"
+              className="header-btn d-none d-sm-block"
               style={style.default} >
               <Icon className="material-icons">save</Icon>
             </IconButton>
@@ -571,7 +571,7 @@ class Header extends Component {
             <IconButton
               id="open-btn"
               onClick={this.handleLoadToggle}
-              className="header-btn d-none d-sm-block"
+              className="header-btn"
               style={style.default}>
               <Icon className="material-icons">perm_media</Icon>
             </IconButton>

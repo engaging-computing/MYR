@@ -22,6 +22,7 @@ function getModalStyle() {
     top: `${top}%`,
     left: `${left}%`,
     transform: `translate(-${top}%, -${left}%)`,
+    maxWidth: "90%"
   };
 }
 
@@ -124,6 +125,7 @@ class CourseSelectModal extends Component {
         <IconButton
           onClick={this.handleOpen}
           id="configure-scene"
+          className="header-btn d-none d-md-block"
           style={{
             color: "#fff",
             margin: 2,
@@ -142,9 +144,8 @@ class CourseSelectModal extends Component {
               onClick={() => this.handleClose()} >
               <Icon className="material-icons">clear</Icon>
             </ButtonBase >
+            <h3 className="col-12 p-0 mb-3 border-bottom">Available Courses</h3>
             <div className="row" id="courses">
-              <h3 className="col-12 p-0 mb-3 border-bottom">Available Courses</h3>
-              <hr />
               { // Sort the users projects in alphabetical order
                 courses.sort(function (a, b) {
                   return a.name < b.name ? -1 : a.name > b.name ? 1 : 0;
@@ -153,6 +154,7 @@ class CourseSelectModal extends Component {
                 })
               }
             </div>
+            <hr />
             <div className="offset-4 col-4">
               <ButtonBase
                 style={btnStyle.save}

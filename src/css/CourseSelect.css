@@ -1,6 +1,19 @@
 .course-listing p {
-    height: 3em;
+    height: 4.5em;
     overflow: auto;
-    text-overflow: ellipsis;
     color: #333;
+}
+
+.course-listing p:hover {
+    color: #000;
+}
+
+.course-listing a:hover {
+    text-decoration: none;
+    color: blue;
+}
+
+div#courses {
+    max-height: 70vh;
+    overflow: scroll;
 }

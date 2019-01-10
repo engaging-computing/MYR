@@ -3,6 +3,7 @@ body {
     margin: 0;
     padding: 0;
     background-color: #222;
+    box-sizing: border-box;
 }
 
 .App {
@@ -407,4 +408,8 @@ footer a {
 
 footer a:hover {
     color: #999;
+}
+
+.header-btn {
+    width: 30px !important;
 }

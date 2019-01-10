@@ -65,7 +65,7 @@ export default class Reference extends React.Component {
         <Tooltip title="Reference" placement="bottom-start">
           <IconButton
             id="ref-btn"
-            className="header-btn d-none d-sm-block"
+            className="header-btn d-none d-md-block"
             aria-haspopup="true"
             onClick={() => this.setState({ open: true })}
             style={style}>
