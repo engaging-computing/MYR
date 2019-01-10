@@ -300,10 +300,9 @@ class Header extends Component {
   * @summary - When the user clicks save it will upload the information to Firebase
   */
   handleSave = () => {
-    // render the current state so the user can see what they are saving
-    // this.handleRender();
-
-    if (this.props.user && this.props.user.uid) {
+    let editor = window.ace.edit("ace-editor");
+    let text = editor.getSession().getValue();
+    if (this.props.user && this.props.user.uid && text) {
       this.setState({ spinnerOpen: true });
       let ts = Date.now();
       let projectId = this.getProjectId();
@@ -318,7 +317,7 @@ class Header extends Component {
         db.collection("scenes").doc(projectId).set({
           name: this.props.scene.name,
           desc: this.state.sceneDesc,
-          code: this.props.text,
+          code: text,
           uid: this.props.user.uid,
           settings: this.props.scene,
           ts: ts,
