@@ -17,12 +17,14 @@ export function fetchCourses() {
         fetch(courseRef, {
             headers: { 'content-type': 'application/json' },
         })
-            .then(response => response.json().then(json => ({ json, response })))
-            .then(({ json, response }) => {
-                if (!response.ok) {
-                    return Promise.reject(json);
-                }
-                dispatch(syncCourses(json));
+            .then(response => {
+                if (response.status === 500) { return Promise.reject(response.statusText) }
+                response.json().then(json => ({ json, response })).then(({ json, response }) => {
+                    if (!response.ok) {
+                        return Promise.reject(json);
+                    }
+                    dispatch(syncCourses(json));
+                })
             });
     };
 }
@@ -36,14 +38,16 @@ export function fetchCourse(courseId) {
         fetch(courseRef + courseId + getFirst, {
             headers: { 'content-type': 'application/json' },
         })
-            .then(response => response.json().then(json => ({ json, response })))
-            .then(({ json, response }) => {
-                if (!response.ok) {
-                    return Promise.reject(json);
-                }
-                dispatch(loadCourse(json));
-                dispatch(loadLesson(json.firstLesson));
-                dispatch(render(json.firstLesson.code || ""));
+            .then(response => {
+                if (response.status === 500) { return Promise.reject(response.statusText) }
+                response.json().then(json => ({ json, response })).then(({ json, response }) => {
+                    if (!response.ok) {
+                        return Promise.reject(json);
+                    }
+                    dispatch(loadCourse(json));
+                    dispatch(loadLesson(json.firstLesson));
+                    dispatch(render(json.firstLesson.code || ""));
+                })
             });
     };
 }
@@ -61,18 +65,16 @@ export function fetchLesson(lvlId) {
         fetch(lessonRef + lvlId, {
             headers: { 'content-type': 'application/json' },
         })
-            .then(response => response.json().then(json => ({ json, response })))
-            .then(({ json, response }) => {
-                if (!response.ok) {
-                    return Promise.reject(json);
-                }
-                dispatch(loadLesson(json));
-                dispatch(render(json.code || ""));
-            })
-            .then(
-                response => response,
-                error => error
-            );
+            .then(response => {
+                if (response.status === 500) { return Promise.reject(response.statusText) }
+                response.json().then(json => ({ json, response })).then(({ json, response }) => {
+                    if (!response.ok) {
+                        return Promise.reject(json);
+                    }
+                    dispatch(loadLesson(json));
+                    dispatch(render(json.code || ""));
+                })
+            });
     };
 }
 
