@@ -1,0 +1,21 @@
+.chrome-picker {
+    width: 100% !important;
+    left: 0;
+    top: 0;
+}
+
+#color-popover {
+    position: absolute;
+    z-index: 2;
+    left: 10%;
+    width: 80%;
+}
+
+#color-cover {
+    position: fixed;
+    top: 0px;
+    right: 0px;
+    bottom: 0px;
+    left: 0px;
+    background: #fff;
+}

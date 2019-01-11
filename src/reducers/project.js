@@ -1,4 +1,4 @@
-import { SYNC_USER_PROJ, SYNC_EXAMP_PROJ, DELTE_PROJ } from '../actions/projectActions';
+import { SYNC_USER_PROJ, SYNC_EXAMP_PROJ, DELETE_PROJ } from '../actions/projectActions';
 
 const initial_state = {
   userProjs: [],
@@ -17,7 +17,7 @@ export default function project(state = initial_state, action) {
         ...state,
         examplProjs: action.payload
       };
-    case DELTE_PROJ:
+    case DELETE_PROJ:
       let projs = [];
       projs = state.userProjs.filter(x => {
         return x.id !== action.id;

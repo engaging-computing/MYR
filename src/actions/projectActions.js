@@ -4,7 +4,7 @@ export const ASYNC_USER_PROJ = 'ASYNC_USER_PROJ';
 export const SYNC_USER_PROJ = 'SYNC_USER_PROJ';
 export const ASYNC_EXAMP_PROJ = 'ASYNC_EXAMP_PROJ';
 export const SYNC_EXAMP_PROJ = 'SYNC_EXAMP_PROJ';
-export const DELTE_PROJ = 'DELTE_PROJ';
+export const DELETE_PROJ = 'DELETE_PROJ';
 
 export function asyncUserProj(id) {
   // fetch user's project
@@ -65,6 +65,7 @@ export function deleteProj(id, name) {
     // Delete Image
     let path = "images/perspective/" + id;
     let imgRef = storageRef.child(path);
+
     imgRef.delete().then(() => {
       console.log("Image successfully deleted!");
     }).catch((error) => {
@@ -74,9 +75,14 @@ export function deleteProj(id, name) {
     // Delete Document
     scenes.doc(id).delete().then(() => {
       console.log("Document successfully deleted!");
+
+      // If deleting current project, redirect to home
+      if (window.location.href === window.origin + '/' + id || window.location.href === window.origin + '/' + id + '/') {
+        window.location.href = window.origin;
+      }
     }).catch((error) => {
       console.error("Error removing document: ", error);
     });
-    return { type: DELTE_PROJ, id: id };
+    return { type: DELETE_PROJ, id: id };
   }
 }

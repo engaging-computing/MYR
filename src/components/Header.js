@@ -1,5 +1,11 @@
 import React, { Component, Fragment } from 'react';
 import { auth, provider, db, scenes, storageRef } from '../firebase.js';
+import Reference from './Reference.js';
+import SceneConfigMenu from './SceneConfigMenu.js';
+import Sidebar from './Sidebar.js';
+import MyrTour from './MyrTour';
+import ProjectView from './ProjectView.js';
+import CourseSelect from './CourseSelect.js';
 
 import {
   Button,
@@ -14,11 +20,6 @@ import {
   Popover,
   Avatar
 } from '@material-ui/core';
-import Reference from './Reference.js';
-import SceneConfigMenu from './SceneConfigMenu.js';
-import Sidebar from './Sidebar.js';
-import MyrTour from './MyrTour';
-import ProjectView from './ProjectView.js';
 
 const exitBtnStyle = {
   position: "fixed",
@@ -53,6 +54,10 @@ class Header extends Component {
   */
   componentDidMount() {
     this.props.projectActions.asyncExampleProj();
+    this.props.courseActions.fetchCourses();
+    if (this.props.courseName) {
+      this.props.courseActions.fetchCourse(this.props.courseName);
+    }
 
     // Sync authentication
     auth.onAuthStateChanged((account) => {
@@ -66,16 +71,18 @@ class Header extends Component {
     });
 
     // Render project if we have projectId. This should only happen if coming from viewer
-    if (this.props.projectId) {
+    const { match } = this.props;
+    const projectId = (match && match.params && match.params.id) || "";
+    if (this.props.match && projectId) {
       this.setState({ spinnerOpen: true });
       // When the data's metedata changes, ie update
-      scenes.doc(this.props.projectId).onSnapshot({
+      scenes.doc(projectId).onSnapshot({
         includeMetadataChanges: true,
       }, (doc) => {
         if (this.props.user && this.props.user.uid) {
-          this.props.actions.fetchScene(this.props.projectId, this.props.user.uid);
+          this.props.actions.fetchScene(projectId, this.props.user.uid);
         } else {
-          this.props.actions.fetchScene(this.props.projectId);
+          this.props.actions.fetchScene(projectId);
         }
         this.setState({ spinnerOpen: false });
       });
@@ -160,7 +167,7 @@ class Header extends Component {
               open={this.state.logMenuOpen}
               onClick={() => this.setState({ logMenuOpen: !this.state.logMenuOpen })}
               label="logout"
-              style={{ marginTop: 5, marginLeft: 15 }} />
+              style={{ marginTop: 5 }} />
             <Popover
               open={this.state.logMenuOpen}
               anchorEl={document.getElementById('user')}
@@ -212,6 +219,7 @@ class Header extends Component {
   */
   submitName = (event) => {
     event.preventDefault();
+    this.handleRender();
     this.props.sceneActions.nameScene(this.state.sceneName);
     this.setState({ sceneName: null, needsNewId: true });
   }
@@ -270,7 +278,8 @@ class Header extends Component {
   */
   getProjectId = () => {
     let ts = Date.now();
-    let projectId = this.props.projectId || null;
+    const { match } = this.props;
+    let projectId = (match && match.params && match.params.id) || null;
     if (!projectId || !this.props.scene.id || this.state.needsNewId) {
       // Generate a new projectId
       projectId = this.props.user.uid + '_' + ts;
@@ -295,9 +304,9 @@ class Header extends Component {
   * @summary - When the user clicks save it will upload the information to Firebase
   */
   handleSave = () => {
-    // render the current state so the user can see what they are saving
-    this.handleRender();
-    if (this.props.user && this.props.user.uid) {
+    let editor = window.ace.edit("ace-editor");
+    let text = editor.getSession().getValue();
+    if (this.props.user && this.props.user.uid && text) {
       this.setState({ spinnerOpen: true });
       let ts = Date.now();
       let projectId = this.getProjectId();
@@ -312,16 +321,20 @@ class Header extends Component {
         db.collection("scenes").doc(projectId).set({
           name: this.props.scene.name,
           desc: this.state.sceneDesc,
-          code: this.props.text,
+          code: text,
           uid: this.props.user.uid,
+          settings: this.props.scene,
           ts: ts,
         }).then(() => {
           console.log("Document successfully written!");
           // If we have a new projectId reload page with it
-          if (projectId !== this.props.projectId) {
+          if (this.props.courseName) {
+            this.setState({ spinnerOpen: false });
+            window.open(window.origin + '/' + projectId);
+          } else if (projectId !== this.props.projectId) {
             window.location.href = window.origin + '/' + projectId;
           } else {
-            this.getUserProjs();
+            this.asyncUserProj();
           }
         }).catch((error) => {
           console.error("Error writing document: ", error);
@@ -333,7 +346,7 @@ class Header extends Component {
       });
     } else {
       // TODO: Don't use alert
-      alert('Error: You must be logged in to save your work.');
+      alert('Cannot Save!');
     }
     this.handleSaveToggle();
   }
@@ -464,7 +477,7 @@ class Header extends Component {
       },
       clear: {
         margin: 5,
-        marginRight: 20,
+        marginRight: 10,
         padding: 0,
         background: 'linear-gradient(45deg, #FE3B3B 30%, #FF3B3B 90%)',
       },
@@ -476,7 +489,7 @@ class Header extends Component {
     };
     return (
       <header className="App-header align-items-center ">
-        <div className="col-9 d-flex justify-content-start">
+        <div className="col-9 d-flex justify-content-start" style={{ paddingLeft: 0 }}>
           <Sidebar scene={this.props.scene} nameScene={this.props.sceneActions.nameScene} >
             <Button
               variant="raised"
@@ -555,7 +568,7 @@ class Header extends Component {
             <IconButton
               id="save-btn"
               onClick={this.handleSaveToggle}
-              className="header-btn d-none d-md-block"
+              className="header-btn d-none d-sm-block"
               style={style.default} >
               <Icon className="material-icons">save</Icon>
             </IconButton>
@@ -564,7 +577,7 @@ class Header extends Component {
             <IconButton
               id="open-btn"
               onClick={this.handleLoadToggle}
-              className="header-btn d-none d-sm-block"
+              className="header-btn"
               style={style.default}>
               <Icon className="material-icons">perm_media</Icon>
             </IconButton>
@@ -574,6 +587,7 @@ class Header extends Component {
         <div className="col-3 d-flex justify-content-end">
           <Reference />
           <SceneConfigMenu scene={this.props.scene} sceneActions={this.props.sceneActions} />
+          <CourseSelect courses={this.props.courses.courses} />
           <this.loginBtn />
         </div>
         <this.saveDrawer />
