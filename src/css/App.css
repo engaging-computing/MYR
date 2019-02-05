@@ -277,21 +277,6 @@ div.side-drawer>div {
     height: 69.5vh !important;
 }
 
-#lesson {
-    padding: 10px;
-    background: #fff !important;
-}
-
-#lesson p {
-    height: 12vh;
-    margin: 0;
-}
-
-#lesson fieldset {
-    height: 16vh;
-    margin: 0;
-}
-
 div#confirmation-modal {
     top: 50%;
     left: 50%;
