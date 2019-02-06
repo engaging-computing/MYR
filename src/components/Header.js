@@ -109,6 +109,7 @@ class Header extends Component {
     } else if (e.ctrlKey && e.which === 83) {
       e.preventDefault();
       this.handleSave();
+      this.handleSaveClose();
     }
   }
 
@@ -367,6 +368,11 @@ class Header extends Component {
   * @summary - toggles the save drawer
   */
   handleSaveToggle = () => this.setState({ saveOpen: !this.state.saveOpen });
+
+  /**
+  * @summary - forces save drawer closed
+  */
+  handleSaveClose = () => this.setState({ saveOpen: false });
 
   /**
   * @summary - creates the save drawer
