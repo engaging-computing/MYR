@@ -137,7 +137,7 @@ class Project extends React.Component {
       <Button
         color="primary"
         onClick={this.handleAddEmail}
-        href={`mailto:${this.state.sendTo.join(", ")}?subject=Check out my VR Scene in MYR&body=You can find my scene at ${window.location.href}`}>
+        href={`mailto:${this.state.sendTo.join(", ")}?subject=Check out my VR Scene in MYR&body=You can find my scene at ${window.origin + '/' + this.state.projectId}`}>
         Send
       </Button>
     </div>
