@@ -15,5 +15,21 @@
 
 div#courses {
     max-height: 70vh;
-    overflow: scroll;
+    overflow: auto;
+}
+
+#lesson {
+    padding: 10px;
+    background: #fff !important;
+}
+
+#lesson p {
+    height: 12vh;
+    margin: 0;
+    overflow: auto;
+}
+
+#lesson fieldset {
+    height: 16vh;
+    margin: 0;
 }
