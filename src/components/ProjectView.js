@@ -88,7 +88,7 @@ class Project extends React.Component {
   }
 
   handleShrToggle = () => {
-    this.setState({ shareOpen: !this.state.shareOpen });
+    this.setState({ shareOpen: !this.state.shareOpen, sendTo: [] });
   }
 
   // pwProtect = () => (

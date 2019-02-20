@@ -121,7 +121,7 @@ class ConfigModal extends Component {
   }
 
   handleShrToggle = () => {
-    this.setState({ shareOpen: !this.state.shareOpen });
+    this.setState({ shareOpen: !this.state.shareOpen, sendTo: [] });
   }
 
   pwProtect = () => (
