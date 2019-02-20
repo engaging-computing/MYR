@@ -9,7 +9,6 @@ import {
   TOGGLE_FLOOR,
   LOAD_SETTINGS,
   CHANGE_SETTING
-
 } from '../actions/sceneActions';
 
 export const DEF_SETTINGS = {

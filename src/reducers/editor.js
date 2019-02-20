@@ -1,7 +1,8 @@
 import {
   EDITOR_RENDER,
   EDITOR_REFRESH,
-  EDITOR_RECOVER
+  EDITOR_RECOVER,
+  // ADD_PW
 } from '../actions/editorActions';
 
 import Myr from '../myr/Myr';
