@@ -278,12 +278,11 @@ class Header extends Component {
   * @returns - projectId
   */
   getProjectId = () => {
-    let ts = Date.now();
     const { match } = this.props;
     let projectId = (match && match.params && match.params.id) || null;
     if (!projectId || !this.props.scene.id || this.state.needsNewId) {
       // Generate a new projectId
-      projectId = this.props.user.uid + '_' + ts;
+      projectId = db.collection("scenes").doc().id;
     }
     return projectId;
   }

@@ -5,6 +5,8 @@ import { DEF_SETTINGS } from '../reducers/scene';
 export const EDITOR_RENDER = 'EDITOR_RENDER';
 export const EDITOR_REFRESH = 'EDITOR_REFRESH';
 export const EDITOR_RECOVER = 'EDITOR_RECOVER';
+export const ADD_PW = "ADD_PW";
+
 
 /**
  * @function - Sends a signal to the reducer to render the scene
@@ -46,6 +48,10 @@ export function fetchScene(id, uid = "anon") {
   return (dispatch) => {  // Return a func that dispatches events after async
     scenes.doc(id).get().then((scene) => {
       let data = scene.data();
+      if (data && data.pw) {
+        let pw = prompt("Please enter the PW");
+        if (pw !== data.pw) { return; }
+      };
       if (data && data.code) { // If it worked
         // render the editor
         dispatch(render(data.code, uid || 'anon'));
@@ -69,4 +75,8 @@ export function fetchScene(id, uid = "anon") {
       }
     });
   };
+}
+
+export function addPassword(payload) {
+  return { type: ADD_PW, payload };
 }

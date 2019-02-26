@@ -54,6 +54,7 @@ div#user {
 #scene {
     height: 94vh;
     border-left: #222 1px solid;
+    border-top: #222 1px solid;
 }
 
 a-scene {
@@ -304,7 +305,7 @@ a.sidebar-btn:hover {
 }
 
 span.user-name {
-    color: rgb(255, 255, 255);
+    color: #fff;
     font-size: 90%;
     margin-left: 20px;
 }
@@ -397,5 +398,12 @@ footer a:hover {
 @media (max-width: 370px) {
     .header-btn {
         width: 30px !important;
+    }
+    .scene-btns {
+        position: absolute;
+        z-index: 200;
+        display: flex;
+        bottom: 4px;
+        right: 18px;
     }
 }
