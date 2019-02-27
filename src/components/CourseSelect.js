@@ -124,7 +124,7 @@ class CourseSelectModal extends Component {
       <div>
         <IconButton
           onClick={this.handleOpen}
-          id="configure-scene"
+          id="select-course"
           className="header-btn d-none d-md-block"
           style={{
             color: "#fff",

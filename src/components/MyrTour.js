@@ -69,12 +69,16 @@ const steps = [
     content: 'Use the Reference to see all MYR has to offer.',
   },
   {
-    selector: '#view-btn',
-    content: 'Change your view in the scene, fly, and/or disable the grid.',
+    selector: '#configure-scene',
+    content: 'Modify and share your scene including setting the background color, enabling the grid, and enabling flying.',
+  },
+  {
+    selector: '#select-course',
+    content: 'View the list of available courses to get you started on using MYR.',
   },
   {
     selector: '#user',
-    content: 'You can log in with a Google account.',
+    content: 'You can log in with a Google account in order to save your scenes.',
   },
 ];
 
