@@ -545,7 +545,7 @@ class Myr {
       dir: alternate;
       to: ${el.rotation.x} ${el.rotation.y + magnitude} ${el.rotation.z};
       dur: ${duration};
-      loop: ${loop};
+      loop: ${Boolean(loop)};
     `;
     el.animation = anim;
     return outerElId;
@@ -557,7 +557,7 @@ class Myr {
       property: rotation;
       dir: alternate;
       dur: ${duration};
-      loop: ${loop};
+      loop: ${Boolean(loop)};
       easing: linear;
       to: ${el.rotation.x} ${el.rotation.y + magnitude} ${el.rotation.z};
     `;
@@ -571,7 +571,7 @@ class Myr {
       property: position;
       dir: alternate;
       dur: ${duration};
-      loop: ${loop};
+      loop: ${Boolean(loop)};
       to: ${el.position.x} ${el.position.y + magnitude} ${el.position.z};
     `;
     el.animation__yoyo = anim;
@@ -583,7 +583,7 @@ class Myr {
     let anim = `
       dir: alternate;
       dur: ${duration};
-      loop: ${loop};
+      loop: ${Boolean(loop)};
       property: position;
       to: ${el.position.x + magnitude} ${el.position.y} ${el.position.z};
     `;
@@ -598,7 +598,7 @@ class Myr {
       property: position;
       dir: alternate;
       dur: ${duration};
-      loop: ${loop};
+      loop: ${Boolean(loop)};
       to: ${el.position.x} ${el.position.y + magnitude} ${el.position.z};
     `;
     el.animation__goup = anim;
@@ -611,7 +611,7 @@ class Myr {
       property: position;
       dir: alternate;
       dur: ${duration};
-      loop: ${loop};
+      loop: ${Boolean(loop)};
       to: ${el.position.x} ${el.position.y - magnitude} ${el.position.z};
     `;
     el.animation__godown = anim;
@@ -624,7 +624,7 @@ class Myr {
       property: position;
       dir: alternate;
       dur: ${duration};
-      loop: ${loop};
+      loop: ${Boolean(loop)};
       to: ${el.position.x - magnitude} ${el.position.y} ${el.position.z};
     `;
     el.animation__goleft = anim;
@@ -637,7 +637,7 @@ class Myr {
       property: position;
       dir: alternate;
       dur: ${duration};
-      loop: ${loop};
+      loop: ${Boolean(loop)};
       to: ${el.position.x + magnitude} ${el.position.y} ${el.position.z};
     `;
     el.animation__goright = anim;
@@ -650,7 +650,7 @@ class Myr {
       property: position;
       dir: alternate;
       dur: ${duration};
-      loop: ${loop};
+      loop: ${Boolean(loop)};
       to: ${el.position.x} ${el.position.y} ${el.position.z + magnitude};
     `;
     el.animation__goleft = anim;
@@ -663,7 +663,7 @@ class Myr {
       property: position;
       dir: alternate;
       dur: ${duration};
-      loop: ${loop};
+      loop: ${Boolean(loop)};
       to: ${el.position.x} ${el.position.y} ${el.position.z - magnitude};
     `;
     el.animation__goaway = anim;
@@ -676,7 +676,7 @@ class Myr {
       property: scale;
       dir: alternate;
       dur: ${duration};
-      loop: ${loop};
+      loop: ${Boolean(loop)};
       to: ${el.scale.x * magnitute} ${el.scale.y * magnitute} ${el.scale.z * magnitute};
     `;
     el.animation__grow = anim;
@@ -689,7 +689,7 @@ class Myr {
       property: scale;
       dir: alternate;
       dur: ${duration};
-      loop: ${loop};
+      loop: ${Boolean(loop)};
       to: ${el.scale.x / magnitute} ${el.scale.y / magnitute} ${el.scale.z / magnitute};
     `;
     el.animation__shrink = anim;
@@ -702,7 +702,7 @@ class Myr {
       property: components.material.material.opacity;
       dir: alternate;
       dur: ${duration};
-      loop: ${loop};
+      loop: ${Boolean(loop)};
       isRawProperty: true;
       from: 1;
       to: ${magnitute};
@@ -718,7 +718,7 @@ class Myr {
       property: components.material.material.opacity;
       dir: alternate;
       dur: ${duration};
-      loop: ${loop};
+      loop: ${Boolean(loop)};
       isRawProperty: true;
       from: 0;
       to: ${magnitute};
