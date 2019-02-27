@@ -131,7 +131,7 @@ class CourseSelectModal extends Component {
             margin: 2,
             padding: 0,
           }}>
-          <Icon className="material-icons">book</Icon>
+          <Icon className="material-icons">school</Icon>
         </IconButton >
         <Modal
           aria-labelledby="simple-modal-title"
