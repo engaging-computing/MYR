@@ -22,9 +22,14 @@ class Footer extends Component {
               </li>
             </ul>
           </div>
-          <div className="col-lg-4 text-center">
-            <div>© 2018 - <span>&nbsp;</span>
-              <a href="https://sites.uml.edu/engaging-computing/" target="_blank" rel="noopener noreferrer">Engaging Computing Group</a>
+          <div className="col-lg-4 d-none d-md-block text-center">
+            <div>© 2019 -<span>&nbsp;</span>
+              <a href="https://sites.uml.edu/engaging-computing/" target="_blank" rel="noopener noreferrer">University of Massachusetts Lowell, Engaging Computing Group</a>
+            </div>
+          </div>
+          <div className="col-sm-12 d-block d-md-none text-center">
+            <div>© 2019 -<br />
+              <a href="https://sites.uml.edu/engaging-computing/" target="_blank" rel="noopener noreferrer">University of Massachusetts Lowell,<br />Engaging Computing Group</a>
             </div>
           </div>
           <div className="col-lg-4">
