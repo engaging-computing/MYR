@@ -98,15 +98,16 @@ class Header extends Component {
   * @param {event} e - event from the keystroke.
   */
   handleKeyDown(e) {
-    if (e.ctrlKey && e.which === 13) {
+    //13 is enter/return, 83 is "s", 224 is cmd on Firefox, 91 is cmd on Chrome/Safari
+    if ((e.ctrlKey || e.which === 224 || e.which === 91) && e.which === 13) {
       e.preventDefault();
       this.clear();
       this.handleRender();
-    } else if (e.ctrlKey && e.shiftKey && e.which === 83) {
+    } else if ((e.ctrlKey || e.which === 224 || e.which === 91) && e.shiftKey && e.which === 83) {
       e.preventDefault();
       this.setState({ needsNewId: true });
       this.handleSave();
-    } else if (e.ctrlKey && e.which === 83) {
+    } else if ((e.ctrlKey || e.which === 224 || e.which === 91) && e.which === 83) {
       e.preventDefault();
       this.handleSave();
       this.handleSaveClose();
