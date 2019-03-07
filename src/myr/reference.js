@@ -127,6 +127,10 @@ var transformations = [
     name: <span>makePushable(<span className="string">element</span>, <span className="number">mass</span>)</span>,
     description: <span>Entity can be pushed using the cursor and with the given <span className="number">mass</span>(default = 2). Will make droppable also.</span>
   },
+  {
+    name: <span>resetCursor()</span>,
+    description: <span>Resets the cursor to the default state.</span>
+  },
 ];
 var animations = [
   {
