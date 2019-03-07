@@ -83,6 +83,17 @@ class Myr {
     }
   }
 
+  /**
+  * @summary - Reset the cursor to the default
+  */
+  resetCursor = () => {
+    this.color = 'red';
+    this.position = { x: 0, y: 0, z: 0 };
+    this.scale = { x: 1, y: 1, z: 1 };
+    this.rotation = { x: 0, y: 0, z: 0 };
+    this.radius = 1;
+  }
+
   genNewId = () => {
     return this.counter++;
   };

@@ -69,6 +69,7 @@ var customCompleter = {
       "yawY()",
       "rollZ()",
       "setRadius()",
+      "resetCursor()",
       "spin()",
       "yoyo()",
       "sideToSide()",
