@@ -80,8 +80,13 @@ class Project extends React.Component {
     this.setState({ anchorEl: event.currentTarget, projectId: event.currentTarget.id });
   };
 
-  handleInfoClick = event => {
-    this.setState({ projectId: event.currentTarget.id });
+  handleInfoUserClick = event => {
+    this.setState({ projectId: event.currentTarget.id, isUserProj: true });
+    this.handleInfoToggle();
+  };
+
+  handleInfoExampleClick = event => {
+    this.setState({ projectId: event.currentTarget.id, isUserProj: false });
     this.handleInfoToggle();
   };
 
@@ -172,9 +177,18 @@ class Project extends React.Component {
 
   infoOpen = () => {
     let projectId = this.state.projectId;
-    let project = this.props.userProjs.find(function (project) {
-      return project.id === projectId;
-    });
+    let project;
+    console.log(this.state)
+    if (this.state.isUserProj) {
+      project = this.props.userProjs.find(function (project) {
+        return project.id === projectId;
+      });
+    }
+    else {
+      project = this.props.examplProjs.find(function (project) {
+        return project.id === projectId;
+      });
+    }
     if (!project) {
       return (
         <div>
@@ -219,7 +233,7 @@ class Project extends React.Component {
               <IconButton
                 id={id}
                 color="primary"
-                onClick={this.handleInfoClick}
+                onClick={this.handleInfoUserClick}
                 className="" >
                 <Icon className="material-icons">info</Icon>
               </IconButton>
@@ -228,7 +242,7 @@ class Project extends React.Component {
                 color="primary"
                 onClick={this.handleClick}
                 className="" >
-                <Icon className="material-icons">settings</Icon>
+                <Icon className="material-icons">share</Icon>
               </IconButton>
               <IconButton
                 label="delete Project"
@@ -238,7 +252,22 @@ class Project extends React.Component {
                 <Icon className="material-icons">delete</Icon>
               </IconButton>
             </span>
-            : null
+            : <span className="scene-btns">
+              <IconButton
+                id={id}
+                color="primary"
+                onClick={this.handleInfoExampleClick}
+                className="" >
+                <Icon className="material-icons">info</Icon>
+              </IconButton>
+              <IconButton
+                id={id}
+                color="primary"
+                onClick={this.handleClick}
+                className="" >
+                <Icon className="material-icons">share</Icon>
+              </IconButton>
+            </span>
           }
         </div>
       );
