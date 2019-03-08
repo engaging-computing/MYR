@@ -14,8 +14,20 @@ import {
 } from '@material-ui/core';
 
 import { withStyles } from "@material-ui/core/styles";
+import "../css/ProjectView.css";
 
 function getModalStyle() {
+  const top = 50;
+  const left = 50;
+
+  return {
+    top: `${top}%`,
+    left: `${left}%`,
+    transform: `translate(-${top}%, -${left}%)`,
+  };
+}
+
+function getInfoModalStyle() {
   const top = 50;
   const left = 50;
 
@@ -35,12 +47,17 @@ const modelStyles = theme => ({
     boxShadow: theme.shadows[5],
     padding: theme.spacing.unit * 4,
   },
+  info: {
+    position: "absolute",
+    width: theme.spacing.unit * 100,
+    backgroundColor: theme.palette.background.paper,
+    boxShadow: theme.shadows[5],
+    padding: theme.spacing.unit * 4,
+  },
   button: {
     margin: theme.spacing.unit,
   }
 });
-
-
 class Project extends React.Component {
   constructor(props) {
     super(props);
@@ -51,6 +68,7 @@ class Project extends React.Component {
       qrCodeOpen: false,
       pwProtectOpen: false,
       shareOpen: false,
+      infoOpen: false,
       email: "",
       pw: "",
       sendTo: []
@@ -60,6 +78,11 @@ class Project extends React.Component {
 
   handleClick = event => {
     this.setState({ anchorEl: event.currentTarget, projectId: event.currentTarget.id });
+  };
+
+  handleInfoClick = event => {
+    this.setState({ projectId: event.currentTarget.id });
+    this.handleInfoToggle();
   };
 
   handleClose = () => {
@@ -77,6 +100,10 @@ class Project extends React.Component {
     arr.push(this.state.email);
     this.emailRef.current.value = "";
     this.setState({ sendTo: arr, email: "" });
+  }
+
+  handleInfoToggle = () => {
+    this.setState({ infoOpen: !this.state.infoOpen });
   }
 
   handleQrToggle = () => {
@@ -143,6 +170,29 @@ class Project extends React.Component {
     </div>
   );
 
+  infoOpen = () => {
+    let projectId = this.state.projectId;
+    let project = this.props.userProjs.find(function (project) {
+      return project.id === projectId;
+    });
+    if (!project) {
+      return (
+        <div>
+          <h5>Project Information</h5>
+          <h6>Error: Unable to load project information</h6>
+        </div>
+      );
+    }
+    let lastMod = new Date(project.data.ts);
+    return (
+      <div>
+        <h3>{project.name}</h3>
+        <p id="info-description">{project.data.desc}</p>
+        <small>Last Modified: {lastMod.toDateString()}</small>
+      </div>
+    );
+  };
+
   qrCodeOpen = () => {
     return (
       <div>
@@ -166,6 +216,13 @@ class Project extends React.Component {
           </a>
           {canDelete ?
             <span className="scene-btns">
+              <IconButton
+                id={id}
+                color="primary"
+                onClick={this.handleInfoClick}
+                className="" >
+                <Icon className="material-icons">info</Icon>
+              </IconButton>
               <IconButton
                 id={id}
                 color="primary"
@@ -266,6 +323,20 @@ class Project extends React.Component {
           }
         </div>
         <this.sceneMenu />
+        <Modal
+          aria-labelledby="simple-modal-title"
+          aria-describedby="simple-modal-description"
+          open={this.state.infoOpen}
+          onClose={this.handleInfoToggle} >
+          <div style={getInfoModalStyle()} className={classes.info}>
+            <ButtonBase
+              style={{ position: "absolute", right: 15, top: 15 }}
+              onClick={() => this.handleInfoToggle()} >
+              <Icon className="material-icons">clear</Icon>
+            </ButtonBase >
+            <this.infoOpen />
+          </div>
+        </Modal>
         <Modal
           aria-labelledby="simple-modal-title"
           aria-describedby="simple-modal-description"
