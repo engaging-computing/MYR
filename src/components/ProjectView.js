@@ -178,7 +178,6 @@ class Project extends React.Component {
   infoOpen = () => {
     let projectId = this.state.projectId;
     let project;
-    console.log(this.state)
     if (this.state.isUserProj) {
       project = this.props.userProjs.find(function (project) {
         return project.id === projectId;
