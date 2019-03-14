@@ -1,0 +1,11 @@
+p#info-description {
+    max-height: 70vh;
+    overflow: auto;
+}
+
+#project-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    overflow: scroll;
+}
