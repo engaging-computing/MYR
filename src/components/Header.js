@@ -349,7 +349,7 @@ class Header extends Component {
       });
     } else {
       // TODO: Don't use alert
-      alert('Cannot Save!');
+      alert('We were unable to save your project. Are you currently logged in?');
     }
     this.handleSaveToggle();
   }
