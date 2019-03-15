@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import { auth, provider, db, scenes, storageRef } from '../firebase.js';
 import Reference from './Reference.js';
+import Classroom from './Classroom.js';
 import SceneConfigMenu from './SceneConfigMenu.js';
 import Sidebar from './Sidebar.js';
 import MyrTour from './MyrTour';
@@ -65,6 +66,7 @@ class Header extends Component {
         this.props.logging.login(account);
         // 2. If we have a user, load their projects
         this.props.projectActions.asyncUserProj(this.props.user.uid);
+        this.props.classroomActions.asyncClasses(this.props.user.uid);
       } else {
         this.props.logging.logout();
       }
@@ -103,7 +105,7 @@ class Header extends Component {
       e.preventDefault();
       this.clear();
       this.handleRender();
-    } else if (e.ctrlKey  && e.shiftKey && (e.key === "s" || e.key === "S")) {
+    } else if (e.ctrlKey && e.shiftKey && (e.key === "s" || e.key === "S")) {
       //ctrl/cmd + shift + s saves the scene with a new ID
       e.preventDefault();
       this.setState({ needsNewId: true });
@@ -319,7 +321,6 @@ class Header extends Component {
       let path = "images/perspective/" + projectId;
       let imgRef = storageRef.child(path);
       imgRef.putString(img, 'data_url').then((snapshot) => {
-        console.log('Uploaded a data_url string!');
         // Put the new document into the scenes collection
         db.collection("scenes").doc(projectId).set({
           name: this.props.scene.name,
@@ -329,7 +330,6 @@ class Header extends Component {
           settings: this.props.scene,
           ts: ts,
         }).then(() => {
-          console.log("Document successfully written!");
           // If we have a new projectId reload page with it
           if (this.props.courseName) {
             this.setState({ spinnerOpen: false });
@@ -435,7 +435,7 @@ class Header extends Component {
   }
 
   /**
-  * @summary - closes the snackabar that displays the message from render
+  * @summary - closes the snackbar that displays the message from render
   */
 
   closeSnackBar = () => {
@@ -593,6 +593,8 @@ class Header extends Component {
           <MyrTour />
         </div>
         <div className="col-3 d-flex justify-content-end">
+        {console.log(this.props)}
+          <Classroom classrooms={this.props.classrooms} classroomActions={this.props.classroomActions}/>
           <Reference />
           <SceneConfigMenu scene={this.props.scene} sceneActions={this.props.sceneActions} />
           <CourseSelect courses={this.props.courses.courses} />

@@ -10,11 +10,12 @@ import * as EditorActions from '../actions/editorActions.js';
 import * as ProjectActions from '../actions/projectActions.js';
 import * as SceneActions from '../actions/sceneActions.js';
 import * as CourseActions from '../actions/courseActions.js';
+import * as ClassroomActions from '../actions/classroomActions.js';
 
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
-const Ide = ({ editor, editorActions, user, authActions, scene, sceneActions, projectActions, courseActions, projects, courses, match }) => (
+const Ide = ({ editor, editorActions, user, authActions, scene, sceneActions, projectActions, courseActions, projects, courses, match, classroomActions, classrooms }) => (
   <div className="App">
     <Header
       logging={authActions}
@@ -30,6 +31,8 @@ const Ide = ({ editor, editorActions, user, authActions, scene, sceneActions, pr
       courseActions={courseActions}
       projects={projects}
       courses={courses}
+      classroomActions={classroomActions}
+      classrooms={classrooms}
     />
     <div className="row no-gutters">
       {
@@ -66,7 +69,8 @@ const mapStateToProps = state => ({
   user: state.user.user,
   scene: state.scene,
   projects: state.project,
-  courses: state.courses
+  courses: state.courses,
+  classrooms: state.classrooms
 });
 
 // This maps dispatch actions to props
@@ -75,7 +79,8 @@ const mapDispatchToProps = dispatch => ({
   authActions: bindActionCreators(AuthActions, dispatch),
   sceneActions: bindActionCreators(SceneActions, dispatch),
   projectActions: bindActionCreators(ProjectActions, dispatch),
-  courseActions: bindActionCreators(CourseActions, dispatch)
+  courseActions: bindActionCreators(CourseActions, dispatch),
+  classroomActions: bindActionCreators(ClassroomActions, dispatch)
 });
 
 // This does the binding to the redux store

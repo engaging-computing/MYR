@@ -23,4 +23,5 @@ export const db = firebase.firestore();
 db.settings(settings);
 export const scenes = db.collection('scenes');
 export const snaps = db.collection('snaps');
+export const classes = db.collection('classes');
 export const storageRef = firebase.storage().ref();

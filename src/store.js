@@ -4,6 +4,7 @@ import project from './reducers/project';
 import scene from './reducers/scene';
 import user from './reducers/user';
 import courses from './reducers/course';
+import classrooms from './reducers/classes';
 
 import thunk from 'redux-thunk';
 
@@ -12,7 +13,8 @@ const reducer = combineReducers({
   user,
   scene,
   project,
-  courses
+  courses,
+  classrooms
 });
 
 const store = createStore(
