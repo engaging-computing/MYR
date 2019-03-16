@@ -1,11 +1,14 @@
-import React, { Component } from "react";
+import React, {
+    Component,
+    Suspense
+} from "react";
 import Select from 'react-select';
 
 import {
     ButtonBase,
     IconButton,
     Icon,
-    Modal,
+    Modal
 } from "@material-ui/core";
 
 import { withStyles } from "@material-ui/core/styles";
@@ -69,10 +72,7 @@ class ClassroomModal extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            open: false,
-            currentOpen: false,
-            selectedClassroom: "",
-            selectedProject: ""
+            open: false
         };
     }
 
@@ -80,17 +80,11 @@ class ClassroomModal extends Component {
         this.setState({ open: !this.state.open });
     }
 
-    handleCurrentToggle = () => {
-        this.setState({ currentOpen: !this.state.currentOpen });
-    }
-
     handleChange = (selectedClassroom) => {
-        this.setState({ selectedClassroom: selectedClassroom.value, currentOpen: true });
-        this.props.classroomActions.asyncClass(this.state.selectedClassroom);
+        window.location.href = window.origin + '/class/' + selectedClassroom.value;
     }
 
     selectClassroom = () => {
-        const { selectedClassroom } = this.state;
         const userClassrooms = this.props.classrooms.classrooms;
         let optionItems = [];
         const placeholder = "Select a classroom";
@@ -104,56 +98,7 @@ class ClassroomModal extends Component {
 
         return (
             <div>
-                <Select placeholder={placeholder} options={optionItems} onChange={this.handleChange} value={selectedClassroom} />
-            </div>
-        );
-    }
-
-    handleProjectSelect = (selectedProject) => {
-        console.log(selectedProject.value)
-        this.setState({ selectedProject: selectedProject.value });
-    }
-
-    selectProject = () => {
-        const { selectedProject } = this.state;
-        const classroom = this.props.classrooms.classroom;
-        let optionItems = [];
-        const placeholder = "Select a project";
-
-        classroom.map((classroom) =>
-            optionItems.push({
-                value: classroom.classroomID,
-                label: classroom.classroomID
-            })
-        );
-
-        return (
-            <div>
-                <Select placeholder={placeholder} options={optionItems} onChange={this.handleProjectSelect} value={selectedProject} />
-            </div>
-        );
-    };
-
-    currentClassroom = () => {
-        const { classes } = this.props;
-        return (
-            <div>
-                <Modal
-                    aria-labelledby="simple-modal-title"
-                    aria-describedby="simple-modal-description"
-                    open={this.state.currentOpen}
-                    onClose={this.handleCurrentToggle} >
-                    <div style={getModalStyle()} className={classes.paper}>
-                        <ButtonBase
-                            style={{ position: "absolute", right: 15, top: 15 }}
-                            onClick={this.handleCurrentToggle} >
-                            <Icon className="material-icons">clear</Icon>
-                        </ButtonBase >
-                        <div>{"Classroom:" + this.state.currentClassroom}</div>
-                        <div className="col-12 border-bottom">Submitted Projects</div>
-                        <this.selectProject />
-                    </div>
-                </Modal >
+                <Select placeholder={placeholder} options={optionItems} onChange={this.handleChange} />
             </div>
         );
     }
@@ -187,7 +132,6 @@ class ClassroomModal extends Component {
                         <div>Classroom Options</div>
                         <div className="col-12 border-bottom">Current Classrooms</div>
                         <this.selectClassroom />
-                        <this.currentClassroom />
                         <div className="col-12 border-bottom">Create a Classroom</div>
                     </div>
                 </Modal >

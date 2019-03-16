@@ -59,6 +59,10 @@ class Header extends Component {
     if (this.props.courseName) {
       this.props.courseActions.fetchCourse(this.props.courseName);
     }
+    else if (this.props.classroom) {
+      //todo, check auth
+      this.props.classroomActions.asyncClass(this.props.classroom);
+    }
 
     // Sync authentication
     auth.onAuthStateChanged((account) => {
@@ -593,8 +597,7 @@ class Header extends Component {
           <MyrTour />
         </div>
         <div className="col-3 d-flex justify-content-end">
-        {console.log(this.props)}
-          <Classroom classrooms={this.props.classrooms} classroomActions={this.props.classroomActions}/>
+          <Classroom classrooms={this.props.classrooms} classroomActions={this.props.classroomActions} />
           <Reference />
           <SceneConfigMenu scene={this.props.scene} sceneActions={this.props.sceneActions} />
           <CourseSelect courses={this.props.courses.courses} />

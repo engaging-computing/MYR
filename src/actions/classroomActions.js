@@ -1,4 +1,4 @@
-import { classes, scenes, storageRef } from '../firebase.js';
+import { classes, scenes } from '../firebase.js';
 
 export const SYNC_CLASSES = 'SYNC_CLASSES';
 export const SYNC_CLASS = 'SYNC_CLASS';
@@ -33,21 +33,26 @@ export function asyncClass(classroomID) {
     return (dispatch) => {
         if (classroomID) {
             let classProjects = [];
+            let projectOptions = [];
             scenes.where('classroomID', '==', classroomID).get().then(snap => {
                 snap.forEach(doc => {
-                    storageRef.child(`/images/perspective/${doc.id}`)
-                        .getDownloadURL().then((img) => {
-                            let dat = doc.data();
-                            classProjects.push({
-                                name: dat.name,
-                                id: doc.id,
-                                data: dat,
-                                url: img
-                            });
-                        });
+                    let dat = doc.data();
+                    classProjects.push({
+                        id: doc.id,
+                        name: dat.name,
+                        classroomID: dat.classroomID,
+                        data: dat
+                    });
                 });
+            }).then(() => {
+                classProjects.map((proj) =>
+                    projectOptions.push({
+                        value: proj.id,
+                        label: proj.name
+                    })
+                );
             });
-            dispatch(syncClass(classProjects));
+            dispatch(syncClass(projectOptions));
         }
     };
 }
