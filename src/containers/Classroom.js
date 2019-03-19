@@ -38,7 +38,7 @@ const Classroom = ({ editor, editorActions, user, authActions, scene, sceneActio
         />
         <div className="row no-gutters">
             <div id="interface" className="col-12 col-md-4">
-                <SelectProject selectedClassroom={match.params.classroom} classrooms={classrooms} fetchScene={editorActions.fetchScene} user={user} />
+                <SelectProject selectedClassroom={match.params.classroom} classroom={classrooms.classroom} fetchScene={editorActions.fetchScene} user={user} />
                 <div className='guided'>
                     <Editor text={editor.text} user={user} />
                 </div>
