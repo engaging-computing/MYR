@@ -14,6 +14,7 @@ class SelectProject extends Component {
     componentWillReceiveProps(nextProps) {
         if (nextProps.classrooms.classroom !== this.state.classroom) {
             this.setState({ classroom: nextProps.classrooms.classroom });
+            this.forceUpdate();
         }
     }
 
@@ -27,25 +28,25 @@ class SelectProject extends Component {
     }
 
     renderSelect = () => {
-        let classroom = this.state.classroom;
+        // let classroom = this.state.classroom;
 
-        if (classroom.length !== 0) {
+        // if (this.state.classroom.length !== 0) {
             const placeholder = "Select a project";
 
             return (
                 <div>
-                    <Select key={classroom} placeholder={placeholder} options={classroom} onChange={this.handleChange} />
+                    <Select key={this.state.classroom} placeholder={placeholder} options={this.state.classroom} onChange={this.handleChange} />
                 </div >
             );
-        }
-        else {
-            const placeholder = "This class contains no projects";
-            return (
-                <div>
-                    <Select key={classroom} placeholder={placeholder} isDisabled={true} />
-                </div >
-            );
-        }
+        // }
+        // else {
+        //     const placeholder = "This class contains no projects";
+        //     return (
+        //         <div>
+        //             <Select key={this.state.classroom} placeholder={placeholder} isDisabled={true} />
+        //         </div >
+        //     );
+        // }
     }
 
     render() {

@@ -11,6 +11,7 @@ export const TOGGLE_FLY = "TOGGLE_FLY";
 export const TOGGLE_FLOOR = "TOGGLE_FLOOR";
 export const LOAD_SETTINGS = "LOAD_SETTINGS";
 export const CHANGE_SETTING = "CHANGE_SETTING";
+export const ADD_CLASSROOM = 'ADD_CLASSROOM';
 
 /**
 * @summary - This function registers the scene"s name with Redux
@@ -72,4 +73,8 @@ export function loadSettings(payload) {
 
 export function changeSetting(payload) {
   return { type: LOAD_SETTINGS, payload };
+}
+
+export function addClassroomID(payload) {
+  return { type: ADD_CLASSROOM, payload };
 }
