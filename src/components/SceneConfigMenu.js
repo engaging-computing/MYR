@@ -306,6 +306,7 @@ class ConfigModal extends Component {
   addClass = () => (
     <div>
       <h5>Please enter your class code</h5>
+      {this.props.scene && this.props.scene.classroomID ? <p>{"Current classroom: " + this.props.scene.classroomID}</p> : null}
       <TextField
         id="standard-name"
         type="text"
