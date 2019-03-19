@@ -1,7 +1,4 @@
-import React, {
-    Component,
-    Suspense
-} from "react";
+import React, { Component } from "react";
 import Select from 'react-select';
 
 import {
@@ -40,33 +37,6 @@ const modelStyles = theme => ({
         margin: theme.spacing.unit,
     }
 });
-
-// CSS for buttons
-const btnStyle = {
-    base: {
-        marginTop: 20,
-        justifyContent: "left",
-        width: "100%"
-    },
-    on: {
-        color: "#3f51b5",
-    },
-    off: {
-        color: "#333",
-    },
-    save: {
-        padding: 5,
-        margin: 5,
-        color: "#333",
-        width: "100%"
-    },
-    cancel: {
-        padding: 5,
-        margin: 5,
-        color: "red",
-        width: "100%"
-    }
-};
 
 class ClassroomModal extends Component {
     constructor(props) {
