@@ -317,6 +317,8 @@ class ConfigModal extends Component {
         onClick={() => {
           this.handleAddClassToggle();
           this.props.sceneActions.addClassroomID(this.state.classroomID);
+          this.props.handleSave();
+          this.props.handleSaveClose();
         }} >
         Save
       </Button>
