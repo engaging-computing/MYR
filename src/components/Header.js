@@ -599,7 +599,7 @@ class Header extends Component {
         <div className="col-3 d-flex justify-content-end">
           <Classroom classrooms={this.props.classrooms} classroomActions={this.props.classroomActions} />
           <Reference />
-          <SceneConfigMenu scene={this.props.scene} sceneActions={this.props.sceneActions} />
+          <SceneConfigMenu scene={this.props.scene} sceneActions={this.props.sceneActions} handleSave={this.handleSave} handleSaveClose={this.handleSaveClose} />
           <CourseSelect courses={this.props.courses.courses} />
           <this.loginBtn />
         </div>
