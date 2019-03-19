@@ -34,7 +34,7 @@ export function asyncClass(classroomID) {
         if (classroomID) {
             let classProjects = [];
             let projectOptions = [];
-            scenes.where('classroomID', '==', classroomID).get().then(snap => {
+            scenes.where('settings.classroomID', '==', classroomID).get().then(snap => {
                 snap.forEach(doc => {
                     let dat = doc.data();
                     classProjects.push({
