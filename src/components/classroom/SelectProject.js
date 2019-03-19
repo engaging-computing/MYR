@@ -3,57 +3,76 @@ import Select from 'react-select';
 
 import '../../css/Classroom.css';
 
+const selectStyle = {
+    control: (base, state) => ({
+        ...base,
+        background: "#fff",
+    }),
+    menu: base => ({
+        ...base,
+    }),
+    menuList: base => ({
+        ...base,
+    }),
+    option: base => ({
+        ...base,
+        background: '#FFF'
+    })
+};
+
 class SelectProject extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            classroom: this.props.classrooms.classroom
+            classroom: this.props.classroom
         };
     }
 
     componentWillReceiveProps(nextProps) {
-        if (nextProps.classrooms.classroom !== this.state.classroom) {
-            this.setState({ classroom: nextProps.classrooms.classroom });
+        if (nextProps.classroom !== this.state.classroom) {
+            this.setState({ classroom: nextProps.classroom });
             this.forceUpdate();
         }
     }
 
     handleChange = (projectID) => {
         if (this.props.user && this.props.user.uid) {
-            this.props.fetchScene(projectID, this.props.uid);
+            console.log(projectID);
+            this.props.fetchScene(projectID.value, this.props.uid);
         }
         else {
-            this.props.fetchScene(projectID);
+            console.log(projectID);
+            this.props.fetchScene(projectID.value);
         }
     }
 
     renderSelect = () => {
-        // let classroom = this.state.classroom;
+        let classroom = this.props.classroom;
 
-        // if (this.state.classroom.length !== 0) {
+        if (this.state.classroom.length !== 0) {
             const placeholder = "Select a project";
 
             return (
                 <div>
-                    <Select key={this.state.classroom} placeholder={placeholder} options={this.state.classroom} onChange={this.handleChange} />
+                    <Select key={classroom} placeholder={placeholder} options={classroom} onChange={this.handleChange} styles={selectStyle} />
                 </div >
             );
-        // }
-        // else {
-        //     const placeholder = "This class contains no projects";
-        //     return (
-        //         <div>
-        //             <Select key={this.state.classroom} placeholder={placeholder} isDisabled={true} />
-        //         </div >
-        //     );
-        // }
+        }
+        else {
+            const placeholder = "This class contains no projects";
+            return (
+                <div>
+                    <Select key={this.state.classroom} placeholder={placeholder} isDisabled={true} />
+                </div >
+            );
+        }
     }
 
     render() {
         return (
             <div id="select-project">
                 <h3>{(this.props.selectedClassroom) ? "Classroom: " + this.props.selectedClassroom : "Loading classroom..."}</h3>
-                <p>{(this.props.classrooms && this.props.classrooms.classroom) ? <this.renderSelect /> : "Loading..."} </p>
+                <p>{this.props.classroom ? <this.renderSelect /> : "Loading..."} </p>
             </div>
         );
     }
