@@ -4,7 +4,7 @@ import Select from 'react-select';
 import '../../css/Classroom.css';
 
 const selectStyle = {
-    control: (base) => ({
+    control: base => ({
         ...base,
         background: "#fff",
     }),
@@ -14,11 +14,12 @@ const selectStyle = {
     menuList: base => ({
         ...base,
     }),
-    option: base => ({
+    option: (base, state) => ({
         ...base,
         background: '#FFF',
+        color: state.isSelected ? '#4169E1' : '#222'
     }),
-    container: (base) => ({
+    container: base => ({
         ...base,
         zIndex: "999"
     })
