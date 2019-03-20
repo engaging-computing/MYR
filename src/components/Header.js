@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react';
-import { auth, provider, db, scenes, storageRef } from '../firebase.js';
+import { auth, provider, scenes, classes, storageRef } from '../firebase.js';
 import Reference from './Reference.js';
 import Classroom from './Classroom.js';
 import SceneConfigMenu from './SceneConfigMenu.js';
@@ -60,8 +60,24 @@ class Header extends Component {
       this.props.courseActions.fetchCourse(this.props.courseName);
     }
     else if (this.props.classroom) {
-      //todo, check auth
-      this.props.classroomActions.asyncClass(this.props.classroom);
+      let userClasses = [];
+      classes.where('classroomID', '==', this.props.classroom).get().then(snap => {
+        snap.forEach(doc => {
+          let dat = doc.data();
+          userClasses.push({
+            classroomID: dat.classroomID,
+            uid: dat.uid
+          });
+        });
+      }).then(() => {
+        if (this.props.user && this.props.user.uid && userClasses.length === 1 && userClasses[0].uid === this.props.user.uid) {
+          this.props.classroomActions.asyncClass(this.props.classroom);
+        }
+        else {
+          window.alert("Error: You are not logged in as the owner of this class");
+        }
+      })
+
     }
 
     // Sync authentication
@@ -291,7 +307,7 @@ class Header extends Component {
     let projectId = (match && match.params && match.params.id) || null;
     if (!projectId || !this.props.scene.id || this.state.needsNewId) {
       // Generate a new projectId
-      projectId = db.collection("scenes").doc().id;
+      projectId = scenes.doc().id;
     }
     return projectId;
   }
@@ -326,7 +342,7 @@ class Header extends Component {
       let imgRef = storageRef.child(path);
       imgRef.putString(img, 'data_url').then((snapshot) => {
         // Put the new document into the scenes collection
-        db.collection("scenes").doc(projectId).set({
+        scenes.doc(projectId).set({
           name: this.props.scene.name,
           desc: this.state.sceneDesc,
           code: text,
@@ -597,9 +613,9 @@ class Header extends Component {
           <MyrTour />
         </div>
         <div className="col-3 d-flex justify-content-end">
-          <Classroom classrooms={this.props.classrooms} classroomActions={this.props.classroomActions} />
+          <Classroom classrooms={this.props.classrooms} classroomActions={this.props.classroomActions} user={this.props.user} />
           <Reference />
-          <SceneConfigMenu scene={this.props.scene} sceneActions={this.props.sceneActions} handleSave={this.handleSave} handleSaveClose={this.handleSaveClose} />
+          <SceneConfigMenu scene={this.props.scene} sceneActions={this.props.sceneActioactionsns} handleSave={this.handleSave} handleSaveClose={this.handleSaveClose} />
           <CourseSelect courses={this.props.courses.courses} />
           <this.loginBtn />
         </div>
