@@ -42,11 +42,10 @@ class SelectProject extends Component {
 
     handleChange = (projectID) => {
         if (this.props.user && this.props.user.uid) {
-            console.log(projectID);
+
             this.props.fetchScene(projectID.value, this.props.uid);
         }
         else {
-            console.log(projectID);
             this.props.fetchScene(projectID.value);
         }
     }
