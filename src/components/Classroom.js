@@ -1,11 +1,14 @@
 import React, { Component } from "react";
 import Select from 'react-select';
+import { classes } from '../firebase.js';
 
 import {
+    Button,
     ButtonBase,
     IconButton,
     Icon,
-    Modal
+    Modal,
+    TextField
 } from "@material-ui/core";
 
 import { withStyles } from "@material-ui/core/styles";
@@ -38,11 +41,39 @@ const modelStyles = theme => ({
     }
 });
 
+const btnStyle = {
+    base: {
+        marginTop: 20,
+        justifyContent: "left",
+        width: "100%"
+    },
+    on: {
+        color: "#3f51b5",
+    },
+    off: {
+        color: "#333",
+    },
+    save: {
+        padding: 5,
+        margin: 5,
+        color: "#333",
+        width: "100%"
+    },
+    cancel: {
+        padding: 5,
+        margin: 5,
+        color: "red",
+        width: "100%"
+    }
+};
+
 class ClassroomModal extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            open: false
+            open: false,
+            addOpen: false,
+            newClassroomID: ""
         };
     }
 
@@ -52,6 +83,20 @@ class ClassroomModal extends Component {
 
     handleChange = (selectedClassroom) => {
         window.location.href = window.origin + '/class/' + selectedClassroom.value;
+    }
+
+    handleTextChange = name => event => {
+        this.setState({
+            [name]: event.target.value,
+        });
+    };
+
+    handleAddClassToggle = () => {
+        this.setState({ addOpen: !this.state.addOpen });
+    }
+
+    handleCloseAll = () => {
+        this.setState({ open: false, addOpen: false });
     }
 
     selectClassroom = () => {
@@ -72,6 +117,56 @@ class ClassroomModal extends Component {
             </div>
         );
     }
+
+    handleSubmit = () => {
+        let existingClasses = [];
+        if (!this.props.user) {
+            window.alert("You must be signed in to create a class.");
+            this.handleAddClassToggle();
+        }
+        else {
+            classes.where('classroomID', '==', this.state.newClassroomID).get().then(snap => {
+                snap.forEach(doc => {
+                    existingClasses.push({
+                        id: doc.id
+                    });
+                });
+            }).then(() => {
+                if (existingClasses.length > 0) {
+                    window.alert("Error: A class already exists with that class code.");
+                }
+                else {
+                    let newID = classes.doc().id;
+                    classes.doc(newID).set({
+                        classroomID: this.state.newClassroomID,
+                        timestamp: Date.now(),
+                        uid: this.props.user.uid
+                    }).then(() => {
+                        this.props.classroomActions.asyncClasses(this.props.user.uid);
+                        this.handleCloseAll();
+                    });
+                }
+            });
+        }
+    }
+
+    addClass = () => (
+        <div>
+            <h5>Please enter a new class code</h5>
+            <TextField
+                id="standard-name"
+                type="text"
+                onChange={this.handleTextChange('newClassroomID')}
+            />
+            <Button
+                color="primary"
+                onClick={() => {
+                    this.handleSubmit();
+                }} >
+                Submit
+      </Button>
+        </div>
+    );
 
     // Render all of the elements
     render() {
@@ -102,9 +197,29 @@ class ClassroomModal extends Component {
                         <div>Classroom Options</div>
                         <div className="col-12 border-bottom">Current Classrooms</div>
                         <this.selectClassroom />
-                        <div className="col-12 border-bottom">Create a Classroom</div>
+                        <div className="col-12 border-bottom pt-4">Create a Classroom</div>
+                        <ButtonBase
+                            style={btnStyle.base}
+                            onClick={() => { this.handleAddClassToggle(); }} >
+                            <Icon className="material-icons">add</Icon>
+                            Create Class
+                  </ButtonBase>
                     </div>
                 </Modal >
+                <Modal
+                    aria-labelledby="simple-modal-title"
+                    aria-describedby="simple-modal-description"
+                    open={this.state.addOpen}
+                    onClose={this.handleAddClassToggle} >
+                    <div style={getModalStyle()} className={classes.paper}>
+                        <ButtonBase
+                            style={{ position: "absolute", right: 15, top: 15 }}
+                            onClick={() => this.handleAddClassToggle()} >
+                            <Icon className="material-icons">clear</Icon>
+                        </ButtonBase >
+                        <this.addClass />
+                    </div>
+                </Modal>
             </div >
         );
     }
