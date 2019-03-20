@@ -1,9 +1,6 @@
 import { render } from './editorActions';
 
-export const SYNC_COURSES = 'SYNC_COURSES';
-export const LOAD_COURSE = 'LOAD_COURSE';
-export const LOAD_LESSON = 'LOAD_LESSON';
-export const SET_INDEX = 'SET_INDEX';
+import * as types from '../constants/ActionTypes';
 
 const courseRef = '/apiv1/courses/';
 const lessonRef = '/apiv1/lessons/id/';
@@ -38,7 +35,7 @@ export function fetchCourses() {
 };
 
 export function syncCourses(payload) {
-  return { type: SYNC_COURSES, payload: payload };
+  return { type: types.SYNC_COURSES, payload: payload };
 }
 
 export function fetchCourse(courseId) {
@@ -65,7 +62,7 @@ export function fetchCourse(courseId) {
 
 export function loadCourse(course) {
   return {
-    type: LOAD_COURSE,
+    type: types.LOAD_COURSE,
     payload: course
   };
 }
@@ -110,14 +107,26 @@ export function previousLesson(currentIndex, nextID) {
 
 export function setCurrentIndex(newIndex) {
   return {
-    type: SET_INDEX,
+    type: types.SET_INDEX,
     payload: newIndex
   };
 }
 
 export function loadLesson(lesson) {
   return {
-    type: LOAD_LESSON,
+    type: types.LOAD_LESSON,
     payload: lesson
   };
 }
+
+export default {
+  fetchCourses,
+  syncCourses,
+  nextLesson,
+  previousLesson,
+  fetchCourse,
+  setCurrentIndex,
+  loadLesson,
+  fetchLesson,
+  loadCourse
+};

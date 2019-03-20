@@ -1,5 +1,4 @@
-export const LOGIN = 'LOGIN';
-export const LOGOUT = 'LOGOUT';
+import * as types from '../constants/ActionTypes';
 
 /**
  * @function - Sends a signal to the reducer to login with the given user
@@ -9,7 +8,7 @@ export const LOGOUT = 'LOGOUT';
  * @returns - reducer action obj with type: LOGIN and user obj
  */
 export function login(user) {
-  return { type: LOGIN, user };
+  return { type: types.LOGIN, user };
 }
 
 /**
@@ -18,5 +17,10 @@ export function login(user) {
  * @returns - reducer action obj with type: LOGOUT
  */
 export function logout() {
-  return { type: LOGOUT };
+  return { type: types.LOGOUT };
 }
+
+export default {
+  login,
+  logout
+};
