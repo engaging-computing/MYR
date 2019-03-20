@@ -6,11 +6,7 @@ import Course from '../components/Course';
 import View from '../components/View';
 import PropTypes from 'prop-types';
 
-import * as EditorActions from '../actions/editorActions';
-import * as AuthActions from '../actions/authActions';
-import * as SceneActions from '../actions/sceneActions';
-import * as ProjectActions from '../actions/projectActions';
-import * as CourseActions from '../actions/courseActions';
+import * as Actions from '../actions';
 
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
@@ -34,13 +30,13 @@ const Guided = ({ editor, user, scene, lesson, editorActions, authActions, proje
       course={course}
       courseName={match.params.shortname} />
     <div className="row no-gutters">
-      <div id="interface" className="col-12 col-md-4">
+      <div id="interface" className="col-12 col-md-5">
         <Course lesson={courses.currentLesson} courses={courses} course={course} courseName={match.params.shortname} actions={editorActions} courseActions={courseActions} />
         <div className='guided'>
           <Editor text={editor.text} user={user} />
         </div>
       </div>
-      <div id="scene" className="col-12 col-md-8">
+      <div id="scene" className="col-12 col-md-7">
         <View objects={editor.objects} sceneConfig={scene} assets={editor.assets} />
       </div>
     </div>
@@ -69,11 +65,11 @@ const mapStateToProps = state => ({
 
 // This maps dispatch actions to props
 const mapDispatchToProps = dispatch => ({
-  editorActions: bindActionCreators(EditorActions, dispatch),
-  authActions: bindActionCreators(AuthActions, dispatch),
-  sceneActions: bindActionCreators(SceneActions, dispatch),
-  projectActions: bindActionCreators(ProjectActions, dispatch),
-  courseActions: bindActionCreators(CourseActions, dispatch)
+  editorActions: bindActionCreators(Actions.EditorActions, dispatch),
+  authActions: bindActionCreators(Actions.AuthActions, dispatch),
+  sceneActions: bindActionCreators(Actions.SceneActions, dispatch),
+  projectActions: bindActionCreators(Actions.ProjectActions, dispatch),
+  courseActions: bindActionCreators(Actions.CourseActions, dispatch)
 });
 
 // This does the binding to the redux store

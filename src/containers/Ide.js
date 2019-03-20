@@ -5,11 +5,7 @@ import Header from '../components/Header';
 import View from '../components/View';
 import PropTypes from 'prop-types';
 
-import * as AuthActions from '../actions/authActions.js';
-import * as EditorActions from '../actions/editorActions.js';
-import * as ProjectActions from '../actions/projectActions.js';
-import * as SceneActions from '../actions/sceneActions.js';
-import * as CourseActions from '../actions/courseActions.js';
+import * as actions from '../actions';
 
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
@@ -40,10 +36,10 @@ const Ide = ({ editor, editorActions, user, authActions, scene, sceneActions, pr
           </div>
           :
           <>
-            <div id="interface" className="col-12 col-md-4" >
+            <div id="interface" className="col-12 col-md-5" >
               <Editor text={editor.text} user={user} />
             </div>
-            <div id="scene" className="col-12 col-md-8" >
+            <div id="scene" className="col-12 col-md-7" >
               <View objects={editor.objects} sceneConfig={scene} assets={editor.assets} />
             </div>
           </>
@@ -71,11 +67,11 @@ const mapStateToProps = state => ({
 
 // This maps dispatch actions to props
 const mapDispatchToProps = dispatch => ({
-  editorActions: bindActionCreators(EditorActions, dispatch),
-  authActions: bindActionCreators(AuthActions, dispatch),
-  sceneActions: bindActionCreators(SceneActions, dispatch),
-  projectActions: bindActionCreators(ProjectActions, dispatch),
-  courseActions: bindActionCreators(CourseActions, dispatch)
+  editorActions: bindActionCreators(actions.EditorActions, dispatch),
+  authActions: bindActionCreators(actions.AuthActions, dispatch),
+  sceneActions: bindActionCreators(actions.SceneActions, dispatch),
+  projectActions: bindActionCreators(actions.ProjectActions, dispatch),
+  courseActions: bindActionCreators(actions.CourseActions, dispatch)
 });
 
 // This does the binding to the redux store
