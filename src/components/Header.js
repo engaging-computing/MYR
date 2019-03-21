@@ -144,7 +144,7 @@ class Header extends Component {
   * @summary - Removes listener for real time sync process
   */
   componentWillUnmount() {
-    var unsubscribe = scenes.onSnapshot(function () { });
+    let unsubscribe = scenes.onSnapshot(function () { });
     unsubscribe();
   }
 
