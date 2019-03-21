@@ -71,18 +71,26 @@ class ClassroomModal extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            open: false,
             addOpen: false,
+            openOpen: false,
+            deleteOpen: false,
             newClassroomID: ""
         };
     }
 
-    handleToggle = () => {
-        this.setState({ open: !this.state.open });
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.open !== this.state.open) {
+            this.setState({ open: nextProps.open });
+        }
     }
 
     handleChange = (selectedClassroom) => {
         window.location.href = window.origin + '/class/' + selectedClassroom.value;
+    }
+
+    handleDelete = (selectedClassroom) => {
+        this.props.classroomActions.deleteClass(selectedClassroom.value, selectedClassroom.label);
+        this.handleCloseAll();
     }
 
     handleTextChange = name => event => {
@@ -95,8 +103,17 @@ class ClassroomModal extends Component {
         this.setState({ addOpen: !this.state.addOpen });
     }
 
+    handleOpenClassToggle = () => {
+        this.setState({ openOpen: !this.state.openOpen });
+    }
+
+    handleDeleteClassToggle = () => {
+        this.setState({ deleteOpen: !this.state.deleteOpen });
+    }
+
     handleCloseAll = () => {
-        this.setState({ open: false, addOpen: false });
+        this.setState({ addOpen: false, openOpen: false, deleteOpen: false });
+        this.props.handleClassroomClose();
     }
 
     selectClassroom = () => {
@@ -113,7 +130,28 @@ class ClassroomModal extends Component {
 
         return (
             <div>
+                <h5>Select a classroom to open.</h5>
                 <Select placeholder={placeholder} options={optionItems} onChange={this.handleChange} />
+            </div>
+        );
+    }
+
+    deleteClassroom = () => {
+        const userClassrooms = this.props.classrooms.classrooms;
+        let optionItems = [];
+        const placeholder = "Select a classroom";
+
+        userClassrooms.map((classroom) =>
+            optionItems.push({
+                value: classroom.id,
+                label: classroom.classroomID
+            })
+        );
+
+        return (
+            <div>
+                <h5>Select a classroom to delete.</h5>
+                <Select placeholder={placeholder} options={optionItems} onChange={this.handleDelete} />
             </div>
         );
     }
@@ -143,6 +181,7 @@ class ClassroomModal extends Component {
                         uid: this.props.user.uid
                     }).then(() => {
                         this.props.classroomActions.asyncClasses(this.props.user.uid);
+                        window.alert("Classroom added!");
                         this.handleCloseAll();
                     });
                 }
@@ -152,7 +191,7 @@ class ClassroomModal extends Component {
 
     addClass = () => (
         <div>
-            <h5>Please enter a new class code</h5>
+            <h5>Please enter a new class code.</h5>
             <TextField
                 id="standard-name"
                 type="text"
@@ -174,7 +213,7 @@ class ClassroomModal extends Component {
         return (
             <div>
                 <IconButton
-                    onClick={this.handleToggle}
+                    onClick={this.props.handleClassroomToggle}
                     id="configure-scene"
                     style={{
                         color: "#fff",
@@ -186,24 +225,45 @@ class ClassroomModal extends Component {
                 <Modal
                     aria-labelledby="simple-modal-title"
                     aria-describedby="simple-modal-description"
-                    open={this.state.open}
-                    onClose={this.handleToggle} >
+                    open={this.props.open}
+                    onClose={this.props.handleClassroomToggle} >
                     <div style={getModalStyle()} className={classes.paper}>
                         <ButtonBase
                             style={{ position: "absolute", right: 15, top: 15 }}
-                            onClick={this.handleToggle} >
+                            onClick={this.props.handleClassroomToggle} >
                             <Icon className="material-icons">clear</Icon>
                         </ButtonBase >
-                        <div>Classroom Options</div>
-                        <div className="col-12 border-bottom">Current Classrooms</div>
-                        <this.selectClassroom />
-                        <div className="col-12 border-bottom pt-4">Create a Classroom</div>
-                        <ButtonBase
-                            style={btnStyle.base}
-                            onClick={() => { this.handleAddClassToggle(); }} >
-                            <Icon className="material-icons">add</Icon>
-                            Create Class
-                  </ButtonBase>
+                        <div className="row d-flex">
+                            <div className="col-12 border-bottom">Classroom Options</div>
+                            <div className="col-6">
+                                <ButtonBase
+                                    style={btnStyle.base}
+                                    onClick={() => { this.handleOpenClassToggle(); }} >
+                                    <Icon className="material-icons">storage</Icon>
+                                    Open a Class
+                        </ButtonBase>
+                                <ButtonBase
+                                    style={btnStyle.base}
+                                    onClick={() => { this.handleDeleteClassToggle(); }} >
+                                    <Icon className="material-icons">delete</Icon>
+                                    Delete a Class
+                        </ButtonBase>
+                            </div>
+                            <div className="col-6">
+                                <ButtonBase
+                                    style={btnStyle.base}
+                                    onClick={() => { this.handleAddClassToggle(); }} >
+                                    <Icon className="material-icons">add_circle</Icon>
+                                    Create a Class
+                            </ButtonBase>
+                                <ButtonBase
+                                    style={btnStyle.base}
+                                    onClick={() => window.open(window.origin + '/about/classrooms')} >
+                                    <Icon className="material-icons">info</Icon>
+                                    About Classes
+                            </ButtonBase>
+                            </div>
+                        </div>
                     </div>
                 </Modal >
                 <Modal
@@ -218,6 +278,34 @@ class ClassroomModal extends Component {
                             <Icon className="material-icons">clear</Icon>
                         </ButtonBase >
                         <this.addClass />
+                    </div>
+                </Modal>
+                <Modal
+                    aria-labelledby="simple-modal-title"
+                    aria-describedby="simple-modal-description"
+                    open={this.state.openOpen}
+                    onClose={this.handleOpenClassToggle} >
+                    <div style={getModalStyle()} className={classes.paper}>
+                        <ButtonBase
+                            style={{ position: "absolute", right: 15, top: 15 }}
+                            onClick={() => this.handleOpenClassToggle()} >
+                            <Icon className="material-icons">clear</Icon>
+                        </ButtonBase >
+                        <this.selectClassroom />
+                    </div>
+                </Modal>
+                <Modal
+                    aria-labelledby="simple-modal-title"
+                    aria-describedby="simple-modal-description"
+                    open={this.state.deleteOpen}
+                    onClose={this.handleDeleteClassToggle} >
+                    <div style={getModalStyle()} className={classes.paper}>
+                        <ButtonBase
+                            style={{ position: "absolute", right: 15, top: 15 }}
+                            onClick={() => this.handleDeleteClassToggle()} >
+                            <Icon className="material-icons">clear</Icon>
+                        </ButtonBase >
+                        <this.deleteClassroom />
                     </div>
                 </Modal>
             </div >
