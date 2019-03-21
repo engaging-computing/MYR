@@ -19,7 +19,7 @@ export default function classes(state = initial_state, action) {
             };
         case DELETE_CLASS:
             let userClasses = [];
-            userClasses = state.userClasses.filter(x => {
+            userClasses = state.classrooms.filter(x => {
                 return x.id !== action.id;
             });
             return {
