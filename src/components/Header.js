@@ -121,17 +121,18 @@ class Header extends Component {
   * @param {event} e - event from the keystroke.
   */
   handleKeyDown(e) {
-    if (e.ctrlKey && (e.key === "Enter" || e.key === "Return")) {
+    //metaKey is cmd and windows key in some browsers
+    if ((e.ctrlKey || e.metaKey) && (e.key === "Enter" || e.key === "Return")) {
       //ctrl/cmd + enter renders the scene
       e.preventDefault();
       this.clear();
       this.handleRender();
-    } else if (e.ctrlKey && e.shiftKey && (e.key === "s" || e.key === "S")) {
+    } else if ((e.ctrlKey || e.metaKey) && e.shiftKey && (e.key === "s" || e.key === "S")) {
       //ctrl/cmd + shift + s saves the scene with a new ID
       e.preventDefault();
       this.setState({ needsNewId: true });
       this.handleSave();
-    } else if (e.ctrlKey && (e.key === "s" || e.key === "S")) {
+    } else if ((e.ctrlKey || e.metaKey) && (e.key === "s" || e.key === "S")) {
       //ctrl/cmd + s saves the scene
       e.preventDefault();
       this.handleSave();
