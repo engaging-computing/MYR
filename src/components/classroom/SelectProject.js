@@ -36,17 +36,15 @@ class SelectProject extends Component {
     componentWillReceiveProps(nextProps) {
         if (nextProps.classroom !== this.state.classroom) {
             this.setState({ classroom: nextProps.classroom });
-            this.forceUpdate();
         }
     }
 
     handleChange = (projectID) => {
         if (this.props.user && this.props.user.uid) {
-
-            this.props.fetchScene(projectID.value, this.props.uid);
+            this.props.editorActions.fetchScene(projectID.value, this.props.uid);
         }
         else {
-            this.props.fetchScene(projectID.value);
+            this.props.editorActions.fetchScene(projectID.value);
         }
     }
 
