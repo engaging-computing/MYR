@@ -212,16 +212,6 @@ class ClassroomModal extends Component {
         const { classes } = this.props;
         return (
             <div>
-                <IconButton
-                    onClick={this.props.handleClassroomToggle}
-                    id="configure-scene"
-                    style={{
-                        color: "#fff",
-                        margin: 2,
-                        padding: 0,
-                    }}>
-                    <Icon className="material-icons">library_books</Icon>
-                </IconButton >
                 <Modal
                     aria-labelledby="simple-modal-title"
                     aria-describedby="simple-modal-description"
