@@ -38,6 +38,7 @@ class Header extends Component {
       availProj: [],
       sampleProj: [],
       autoReload: false,
+      classroomOpen: false,
       projOpen: true,
       loadOpen: false,
       snackOpen: false,
@@ -432,6 +433,14 @@ class Header extends Component {
     this.setState({ loadOpen: !this.state.loadOpen });
   };
 
+  handleClassroomToggle = () => {
+    this.setState({ classroomOpen: !this.state.classroomOpen });
+  };
+
+  handleClassroomClose = () => {
+    this.setState({ classroomOpen: false });
+  };
+
   loadDrawer = () => {
     return (
       <Drawer
@@ -451,6 +460,18 @@ class Header extends Component {
           userProjs={this.props.projects.userProjs}
           examplProjs={this.props.projects.examplProjs} />
       </Drawer>
+    );
+  }
+
+  loadClassroom = () => {
+    return (
+      <Classroom
+        classrooms={this.props.classrooms}
+        classroomActions={this.props.classroomActions}
+        user={this.props.user}
+        open={this.state.classroomOpen}
+        handleClassroomToggle={this.handleClassroomToggle}
+        handleClassroomClose={this.handleClassroomClose} />
     );
   }
 
@@ -555,6 +576,14 @@ class Header extends Component {
               <Icon className="material-icons">perm_media</Icon>
               Open Project
             </Button>
+            <Button
+              variant="raised"
+              onClick={this.handleClassroomToggle}
+              color="primary"
+              className="sidebar-btn">
+              <Icon className="material-icons">assignment</Icon>
+              Classrooms
+            </Button>
           </Sidebar>
           <h1 className="mr-2 d-none d-sm-block" >MYR</h1>
           <Tooltip title="Render" placement="bottom-start">
@@ -613,9 +642,9 @@ class Header extends Component {
           <MyrTour />
         </div>
         <div className="col-3 d-flex justify-content-end">
-          <Classroom classrooms={this.props.classrooms} classroomActions={this.props.classroomActions} user={this.props.user} />
+          {/* <Classroom classrooms={this.props.classrooms} classroomActions={this.props.classroomActions} user={this.props.user} /> */}
           <Reference />
-          <SceneConfigMenu scene={this.props.scene} sceneActions={this.props.sceneActioactionsns} handleSave={this.handleSave} handleSaveClose={this.handleSaveClose} />
+          <SceneConfigMenu scene={this.props.scene} sceneActions={this.props.sceneActions} handleSave={this.handleSave} handleSaveClose={this.handleSaveClose} />
           <CourseSelect courses={this.props.courses.courses} />
           <this.loginBtn />
         </div>
@@ -623,6 +652,7 @@ class Header extends Component {
         <this.loadDrawer />
         <this.renderSnackBar />
         <this.spinner />
+        <this.loadClassroom />
       </header>
     );
   }
