@@ -1,5 +1,5 @@
 import React from 'react';
-var geometry = [
+let geometry = [
   {
     name: 'box()',
     description: <span>Renders a box using current internal MYR properties. Returns an <span className="string element">element id</span>.</span>
@@ -62,7 +62,7 @@ var geometry = [
   },
 
 ];
-var transformations = [
+let transformations = [
   {
     name: <span>setColor(<span className="string">color</span>)</span>,
     description: <span>Changes the color <a href='https://htmlcolorcodes.com/color-names/' target="_blank" rel="noopener noreferrer">using these color codes</a>.</span>
@@ -132,7 +132,7 @@ var transformations = [
     description: <span>Resets the cursor to the default state.</span>
   },
 ];
-var animations = [
+let animations = [
   {
     name: <span>spin(<span className="string">element</span>, <span className="number">magnitude</span>, <span className="bool">loop</span>, <span className="number">duration</span>)</span>,
     description: <span>Spins the element on the y axis <span className="number">magnitude</span> degrees.</span>

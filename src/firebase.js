@@ -3,7 +3,7 @@ import '@firebase/firestore';
 
 const settings = { timestampsInSnapshots: true };
 
-var config = {
+let config = {
   apiKey: "AIzaSyBLnha_cHiHuJGWla5B73vKgz1feTkgXbc",
   authDomain: "myrjsecg.firebaseapp.com",
   databaseURL: "https://myrjsecg.firebaseio.com",
