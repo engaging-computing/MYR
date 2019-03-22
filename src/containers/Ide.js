@@ -36,10 +36,10 @@ const Ide = ({ editor, editorActions, user, authActions, scene, sceneActions, pr
           </div>
           :
           <>
-            <div id="interface" className="col-12 col-md-5" >
+            <div id="interface" className="col-12 col-md-4" >
               <Editor text={editor.text} user={user} />
             </div>
-            <div id="scene" className="col-12 col-md-7" >
+            <div id="scene" className="col-12 col-md-8" >
               <View objects={editor.objects} sceneConfig={scene} assets={editor.assets} />
             </div>
           </>
