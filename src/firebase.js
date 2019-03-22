@@ -1,8 +1,6 @@
 import firebase from 'firebase';
 import '@firebase/firestore';
 
-const settings = { timestampsInSnapshots: true };
-
 let config = {
   apiKey: "AIzaSyBLnha_cHiHuJGWla5B73vKgz1feTkgXbc",
   authDomain: "myrjsecg.firebaseapp.com",
@@ -20,7 +18,6 @@ provider.setCustomParameters({
 });
 export const auth = firebase.auth();
 export const db = firebase.firestore();
-db.settings(settings);
 export const scenes = db.collection('scenes');
 export const snaps = db.collection('snaps');
 export const classes = db.collection('classes');

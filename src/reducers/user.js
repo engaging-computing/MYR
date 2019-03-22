@@ -1,4 +1,4 @@
-import { LOGIN, LOGOUT } from '../actions/authActions';
+import * as types from '../constants/ActionTypes';
 
 const initial_state = {
   user: null,
@@ -6,11 +6,11 @@ const initial_state = {
 
 export default function user(state = initial_state, action) {
   switch (action.type) {
-    case LOGIN:
+    case types.LOGIN:
       return {
         user: action.user
       };
-    case LOGOUT:
+    case types.LOGOUT:
       return {
         user: null
       };

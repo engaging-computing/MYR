@@ -1,8 +1,6 @@
 import { classes, scenes } from '../firebase.js';
 
-export const SYNC_CLASSES = 'SYNC_CLASSES';
-export const SYNC_CLASS = 'SYNC_CLASS';
-export const DELETE_CLASS = 'DELETE_CLASS';
+import * as types from '../constants/ActionTypes';
 
 export function asyncClasses(id) {
     // fetch user's classes
@@ -25,7 +23,7 @@ export function asyncClasses(id) {
 }
 
 export function syncClasses(payload) {
-    return { type: SYNC_CLASSES, payload: payload };
+    return { type: types.SYNC_CLASSES, payload: payload };
 }
 
 export function asyncClass(classroomID) {
@@ -58,7 +56,7 @@ export function asyncClass(classroomID) {
 }
 
 export function syncClass(payload) {
-    return { type: SYNC_CLASS, payload: payload };
+    return { type: types.SYNC_CLASS, payload: payload };
 }
 
 export function deleteClass(id, name = null) {
@@ -69,6 +67,15 @@ export function deleteClass(id, name = null) {
             .catch((error) => {
                 console.error("Error removing class: ", error);
             });
-        return { type: DELETE_CLASS, id: id };
+        return { type: types.DELETE_CLASS, id: id };
     }
 }
+
+
+export default {
+    asyncClass,
+    asyncClasses,
+    deleteClass,
+    syncClass,
+    syncClasses
+};

@@ -1,4 +1,4 @@
-import { SYNC_CLASSES, SYNC_CLASS, DELETE_CLASS } from '../actions/classroomActions';
+import * as types from '../constants/ActionTypes';
 
 const initial_state = {
     classrooms: [],
@@ -7,17 +7,17 @@ const initial_state = {
 
 export default function classes(state = initial_state, action) {
     switch (action.type) {
-        case SYNC_CLASSES:
+        case types.SYNC_CLASSES:
             return {
                 ...state,
                 classrooms: action.payload
             };
-        case SYNC_CLASS:
+        case types.SYNC_CLASS:
             return {
                 ...state,
                 classroom: action.payload
             };
-        case DELETE_CLASS:
+        case types.DELETE_CLASS:
             let userClasses = [];
             userClasses = state.classrooms.filter(x => {
                 return x.id !== action.id;

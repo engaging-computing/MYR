@@ -1,10 +1,11 @@
 import { createStore, combineReducers, applyMiddleware } from 'redux';
-import editor from './reducers/editor';
-import project from './reducers/project';
-import scene from './reducers/scene';
-import user from './reducers/user';
-import courses from './reducers/course';
-import classrooms from './reducers/classes';
+
+import editor from './editor';
+import project from './project';
+import scene from './scene';
+import user from './user';
+import courses from './course';
+import classrooms from './classes';
 
 import thunk from 'redux-thunk';
 

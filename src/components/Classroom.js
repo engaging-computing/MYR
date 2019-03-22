@@ -5,7 +5,6 @@ import { classes } from '../firebase.js';
 import {
     Button,
     ButtonBase,
-    IconButton,
     Icon,
     Modal,
     TextField

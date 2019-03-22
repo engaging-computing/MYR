@@ -1,12 +1,7 @@
 import { scenes } from '../firebase.js';
 import { loadSettings } from './sceneActions';
 import { DEF_SETTINGS } from '../reducers/scene';
-
-export const EDITOR_RENDER = 'EDITOR_RENDER';
-export const EDITOR_REFRESH = 'EDITOR_REFRESH';
-export const EDITOR_RECOVER = 'EDITOR_RECOVER';
-export const ADD_PW = "ADD_PW";
-
+import * as types from '../constants/ActionTypes';
 
 /**
  * @function - Sends a signal to the reducer to render the scene
@@ -16,7 +11,7 @@ export const ADD_PW = "ADD_PW";
  * @returns - reducer action obj with action type and text
  */
 export function render(text, uid) {
-  return { type: EDITOR_RENDER, text, uid };
+  return { type: types.EDITOR_RENDER, text, uid };
 }
 
 /**
@@ -27,7 +22,7 @@ export function render(text, uid) {
  * @returns - reducer action obj with action type and text
  */
 export function refresh(text, uid) {
-  return { type: EDITOR_REFRESH, text, uid };
+  return { type: types.EDITOR_REFRESH, text, uid };
 }
 
 /**
@@ -36,7 +31,7 @@ export function refresh(text, uid) {
  * @returns - reducer action obj with action type
  */
 export function recover() {
-  return { type: EDITOR_RECOVER };
+  return { type: types.EDITOR_RECOVER };
 }
 
 /**
@@ -78,5 +73,13 @@ export function fetchScene(id, uid = "anon") {
 }
 
 export function addPassword(payload) {
-  return { type: ADD_PW, payload };
+  return { type: types.ADD_PW, payload };
 }
+
+export default {
+  render,
+  refresh,
+  recover,
+  fetchScene,
+  addPassword
+};

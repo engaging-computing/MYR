@@ -1,16 +1,4 @@
-import {
-  LOAD_SCENE,
-  NAME_SCENE,
-  TOGGLE_COORD_SKY,
-  SET_CAMERA,
-  CHANGE_VIEW,
-  TOGGLE_FLY,
-  CHANGE_SKY_COLOR,
-  TOGGLE_FLOOR,
-  LOAD_SETTINGS,
-  CHANGE_SETTING,
-  ADD_CLASSROOM
-} from '../actions/sceneActions';
+import * as types from '../constants/ActionTypes';
 
 export const DEF_SETTINGS = {
   name: "",
@@ -27,60 +15,61 @@ export const DEF_SETTINGS = {
 
 export default function scene(state = DEF_SETTINGS, action) {
   switch (action.type) {
-    case NAME_SCENE:
+    case types.NAME_SCENE:
       return {
         ...state,
         name: action.name
       };
-    case LOAD_SCENE:
+    case types.LOAD_SCENE:
       return {
         ...state,
         id: action.id
       };
-    case TOGGLE_COORD_SKY:
+    case types.TOGGLE_COORD_SKY:
       return {
         ...state,
         showCoordHelper: !state.showCoordHelper
       };
-    case TOGGLE_FLY:
+    case types.TOGGLE_FLY:
       return {
         ...state,
         canFly: !state.canFly
       };
-    case SET_CAMERA:
+    case types.SET_CAMERA:
       let camPos = `${action.x || 0} ${action.y + (Math.random() / 10) || 1.6} ${action.z || 0}`;
       return {
         ...state,
         cameraPosition: camPos
       };
-    case CHANGE_VIEW:
+    case types.CHANGE_VIEW:
       return {
         ...state,
         viewOnly: !state.viewOnly
       };
-    case CHANGE_SKY_COLOR:
+    case types.CHANGE_SKY_COLOR:
       return {
         ...state,
         skyColor: action.color
       };
-    case TOGGLE_FLOOR:
+    case types.TOGGLE_FLOOR:
       return {
         ...state,
         showFloor: !state.showFloor
       };
-    case ADD_CLASSROOM:
+    case types.ADD_CLASSROOM:
       return {
         ...state,
         classroomID: action.payload
       };
-    case LOAD_SETTINGS:
+    case types.LOAD_SETTINGS:
       return {
         ...action.payload
       };
-    case CHANGE_SETTING:
+    case types.CHANGE_SETTING:
+      const { param, val } = action.payload;
       return {
         ...state,
-        ...action.payload
+        [param]: val
       };
     default:
       return state;
