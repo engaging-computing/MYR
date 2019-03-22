@@ -5,7 +5,7 @@ import './utils/AframeReg';
 import 'bootstrap/dist/css/bootstrap.css';
 import './css/App.css';
 
-import store from './store';
+import store from './reducers/index';
 
 import AppRoutes from './routes';
 
