@@ -383,6 +383,10 @@ span.string {
     color: green;
 }
 
+span.group{
+    color: purple;
+}
+
 span.array {
     font-weight: bolder;
 }

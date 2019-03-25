@@ -85,9 +85,8 @@ export default class Reference extends React.Component {
             onChange={this.handleChange} >
             <Tab
               icon={<Icon className="material-icons geometry">category</Icon>}
-              label="Geometry"
-              value='a'>
-            </Tab>
+              label="GEOMETRY"
+              value='a' />
             <Tab
               icon={<Icon className="material-icons color-change">bubble_chart</Icon>}
               label="TRANSFORMATIONS"
@@ -96,6 +95,10 @@ export default class Reference extends React.Component {
               icon={<Icon className="material-icons animation-ref">zoom_out_map</Icon>} //swap_horiz control_camera category
               label="ANIMATIONS"
               value='c' />
+            <Tab
+              icon={<Icon className="material-icons geometry">widgets</Icon>}
+              label="GROUPS"
+              value='d' />
             <Tab
               icon={<Icon className="material-icons">close</Icon>}
               label="CLOSE"
@@ -107,7 +110,8 @@ export default class Reference extends React.Component {
             <p style={{ fontSize: "80%" }}> Key: <span className="array">array </span>
               <span className="bool">bool </span>
               <span className="number">number </span>
-              <span className="string">string </span></p>
+              <span className="string">string </span>
+              <span className="group">group </span></p>
           </div>}
           {this.state.value === 'a' &&
             <div style={{ marginTop: 0, overflow: 'scroll' }}>
@@ -120,6 +124,10 @@ export default class Reference extends React.Component {
           {this.state.value === 'c' &&
             <div style={{ marginTop: 0, overflow: 'scroll' }}>
               {this.TableEx("animations")}
+            </div>}
+          {this.state.value === 'd' &&
+            <div style={{ marginTop: 0, overflow: 'scroll' }}>
+              {this.TableEx("groups")}
             </div>}
         </Drawer>
       </React.Fragment>
