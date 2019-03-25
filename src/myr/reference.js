@@ -74,10 +74,10 @@ let geometry = [
     description: <span>Renders a tube using current internal MYR properties. Returns an <span className="string element">element id</span>.</span>
   },
   //should this be documented?
-  {
-    name: 'light()',
-    description: <span>Renders a light using current internal MYR properties. Returns an <span className="string element">element id</span>.</span>
-  },
+  // {
+  //   name: 'light()',
+  //   description: <span>Renders a light using current internal MYR properties. Returns an <span className="string element">element id</span>.</span>
+  // },
 
 ];
 
