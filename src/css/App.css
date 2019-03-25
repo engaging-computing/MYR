@@ -54,6 +54,7 @@ div#user {
 #scene {
     height: 94vh;
     border-left: #222 1px solid;
+    border-top: #222 1px solid;
 }
 
 a-scene {
@@ -108,15 +109,9 @@ body.aframe-inspector-opened .toggle-edit {
     }
 }
 
-#project-list {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
-    overflow: scroll;
-}
-
 .delete-btn {
     float: right;
+    margin-top: 4px !important;
 }
 
 #interface {
@@ -277,21 +272,6 @@ div.side-drawer>div {
     height: 69.5vh !important;
 }
 
-#lesson {
-    padding: 10px;
-    background: #fff !important;
-}
-
-#lesson p {
-    height: 12vh;
-    margin: 0;
-}
-
-#lesson fieldset {
-    height: 16vh;
-    margin: 0;
-}
-
 div#confirmation-modal {
     top: 50%;
     left: 50%;
@@ -319,7 +299,7 @@ a.sidebar-btn:hover {
 }
 
 span.user-name {
-    color: rgb(255, 255, 255);
+    color: #fff;
     font-size: 90%;
     margin-left: 20px;
 }
@@ -395,10 +375,6 @@ div#projectDrawer>div {
     width: 80%;
 }
 
-.delete-btn {
-    margin-top: 4px !important;
-}
-
 footer {
     background-color: #222;
     color: #fff;
@@ -416,5 +392,12 @@ footer a:hover {
 @media (max-width: 370px) {
     .header-btn {
         width: 30px !important;
+    }
+    .scene-btns {
+        position: absolute;
+        z-index: 200;
+        display: flex;
+        bottom: 4px;
+        right: 18px;
     }
 }

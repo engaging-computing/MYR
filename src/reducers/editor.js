@@ -1,17 +1,8 @@
-import {
-  EDITOR_RENDER,
-  EDITOR_REFRESH,
-  EDITOR_RECOVER
-} from '../actions/editorActions';
+import * as types from '../constants/ActionTypes';
 
 import Myr from '../myr/Myr';
 
-const welcomeText =
-  `/**********************************************************
-*                   Welcome to MYR!                       *
-*  Getting Started? - https://learnmyr.org/first-time     *
-**********************************************************/
-`;
+const welcomeText = `//Getting Started? - https://learnmyr.org/first-time`;
 
 const initial_state = {
   text: welcomeText,
@@ -48,7 +39,7 @@ function noEvalEvaluation(text) {
 export default function editor(state = initial_state, action) {
 
   switch (action.type) {
-    case EDITOR_RENDER:
+    case types.EDITOR_RENDER:
       m.reset();
 
       // build an object to save the snap
@@ -90,14 +81,14 @@ export default function editor(state = initial_state, action) {
         message
       };
 
-    case EDITOR_REFRESH:
+    case types.EDITOR_REFRESH:
       m.reset();
       return {
         ...initial_state,
         text: action.text
       };
 
-    case EDITOR_RECOVER:
+    case types.EDITOR_RECOVER:
       // Start at last snap
       let stableIndex = snapshots.length - 1;
       // Work backwards until we find a non-error snap
@@ -106,7 +97,7 @@ export default function editor(state = initial_state, action) {
       }
 
       // Call editor function again with new params
-      return editor({ ...state }, { type: EDITOR_RENDER, text: snapshots[stableIndex].text });
+      return editor({ ...state }, { type: types.EDITOR_RENDER, text: snapshots[stableIndex].text });
     default:
       return state;
   }

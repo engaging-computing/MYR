@@ -124,14 +124,14 @@ class CourseSelectModal extends Component {
       <div>
         <IconButton
           onClick={this.handleOpen}
-          id="configure-scene"
+          id="select-course"
           className="header-btn d-none d-md-block"
           style={{
             color: "#fff",
             margin: 2,
             padding: 0,
           }}>
-          <Icon className="material-icons">book</Icon>
+          <Icon className="material-icons">school</Icon>
         </IconButton >
         <Modal
           aria-labelledby="simple-modal-title"

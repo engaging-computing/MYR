@@ -69,6 +69,7 @@ var customCompleter = {
       "yawY()",
       "rollZ()",
       "setRadius()",
+      "resetCursor()",
       "spin()",
       "yoyo()",
       "sideToSide()",
@@ -283,7 +284,7 @@ class Editor extends Component {
     return (
       <AceEditor
         editorProps={{
-          $blockScrolling: true,
+          $blockScrolling: Infinity,
         }}
         height="94vh"
         mode="javascript"
@@ -292,7 +293,7 @@ class Editor extends Component {
         theme="github"
         value={this.props.text}
         width="100%"
-        wrap={true}
+        wrapEnabled={true}
         enableBasicAutocompletion={false}
         enableLiveAutocompletion={true}
       />

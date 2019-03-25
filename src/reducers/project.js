@@ -1,4 +1,4 @@
-import { SYNC_USER_PROJ, SYNC_EXAMP_PROJ, DELETE_PROJ } from '../actions/projectActions';
+import * as types from '../constants/ActionTypes';
 
 const initial_state = {
   userProjs: [],
@@ -7,17 +7,17 @@ const initial_state = {
 
 export default function project(state = initial_state, action) {
   switch (action.type) {
-    case SYNC_USER_PROJ:
+    case types.SYNC_USER_PROJ:
       return {
         ...state,
         userProjs: action.payload
       };
-    case SYNC_EXAMP_PROJ:
+    case types.SYNC_EXAMP_PROJ:
       return {
         ...state,
         examplProjs: action.payload
       };
-    case DELETE_PROJ:
+    case types.DELETE_PROJ:
       let projs = [];
       projs = state.userProjs.filter(x => {
         return x.id !== action.id;

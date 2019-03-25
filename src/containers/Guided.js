@@ -6,11 +6,7 @@ import Course from '../components/Course';
 import View from '../components/View';
 import PropTypes from 'prop-types';
 
-import * as EditorActions from '../actions/editorActions';
-import * as AuthActions from '../actions/authActions';
-import * as SceneActions from '../actions/sceneActions';
-import * as ProjectActions from '../actions/projectActions';
-import * as CourseActions from '../actions/courseActions';
+import * as Actions from '../actions';
 
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
@@ -69,11 +65,11 @@ const mapStateToProps = state => ({
 
 // This maps dispatch actions to props
 const mapDispatchToProps = dispatch => ({
-  editorActions: bindActionCreators(EditorActions, dispatch),
-  authActions: bindActionCreators(AuthActions, dispatch),
-  sceneActions: bindActionCreators(SceneActions, dispatch),
-  projectActions: bindActionCreators(ProjectActions, dispatch),
-  courseActions: bindActionCreators(CourseActions, dispatch)
+  editorActions: bindActionCreators(Actions.EditorActions, dispatch),
+  authActions: bindActionCreators(Actions.AuthActions, dispatch),
+  sceneActions: bindActionCreators(Actions.SceneActions, dispatch),
+  projectActions: bindActionCreators(Actions.ProjectActions, dispatch),
+  courseActions: bindActionCreators(Actions.CourseActions, dispatch)
 });
 
 // This does the binding to the redux store

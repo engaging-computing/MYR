@@ -98,17 +98,21 @@ class Header extends Component {
   * @param {event} e - event from the keystroke.
   */
   handleKeyDown(e) {
-    if (e.ctrlKey && e.which === 13) {
+    if (e.ctrlKey && (e.key === "Enter" || e.key === "Return")) {
+      //ctrl/cmd + enter renders the scene
       e.preventDefault();
       this.clear();
       this.handleRender();
-    } else if (e.ctrlKey && e.shiftKey && e.which === 83) {
+    } else if (e.ctrlKey  && e.shiftKey && (e.key === "s" || e.key === "S")) {
+      //ctrl/cmd + shift + s saves the scene with a new ID
       e.preventDefault();
       this.setState({ needsNewId: true });
       this.handleSave();
-    } else if (e.ctrlKey && e.which === 83) {
+    } else if (e.ctrlKey && (e.key === "s" || e.key === "S")) {
+      //ctrl/cmd + s saves the scene
       e.preventDefault();
       this.handleSave();
+      this.handleSaveClose();
     }
   }
 
@@ -277,12 +281,11 @@ class Header extends Component {
   * @returns - projectId
   */
   getProjectId = () => {
-    let ts = Date.now();
     const { match } = this.props;
     let projectId = (match && match.params && match.params.id) || null;
     if (!projectId || !this.props.scene.id || this.state.needsNewId) {
       // Generate a new projectId
-      projectId = this.props.user.uid + '_' + ts;
+      projectId = db.collection("scenes").doc().id;
     }
     return projectId;
   }
@@ -346,7 +349,7 @@ class Header extends Component {
       });
     } else {
       // TODO: Don't use alert
-      alert('Cannot Save!');
+      alert('We were unable to save your project. Are you currently logged in?');
     }
     this.handleSaveToggle();
   }
@@ -367,6 +370,11 @@ class Header extends Component {
   * @summary - toggles the save drawer
   */
   handleSaveToggle = () => this.setState({ saveOpen: !this.state.saveOpen });
+
+  /**
+  * @summary - forces save drawer closed
+  */
+  handleSaveClose = () => this.setState({ saveOpen: false });
 
   /**
   * @summary - creates the save drawer
