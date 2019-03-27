@@ -4,9 +4,9 @@ import 'brace/mode/javascript';
 import 'brace/theme/github';
 import 'brace/ext/language_tools';
 
-var customCompleter = {
+let customCompleter = {
   getCompletions: function (editor, session, pos, prefix, callback) {
-    var BasicAutocompleteKeyWords = [
+    let BasicAutocompleteKeyWords = [
       "const",
       "yield",
       "import",
@@ -38,7 +38,7 @@ var customCompleter = {
       "static"
     ];
 
-    var keyWords = [
+    let keyWords = [
       "box()",
       "sphere()",
       "circle()",
@@ -84,10 +84,11 @@ var customCompleter = {
       "fadeOut()",
       "fadeIn()",
       "group()",
-      "getRandomColor()"
+      "getRandomColor()",
+      "setPhiLength()"
     ];
 
-    var Colors = [
+    let Colors = [
       "aliceblue",
       "antiquewhite",
       "aqua",
