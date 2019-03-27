@@ -1,10 +1,5 @@
+import * as types from '../constants/ActionTypes';
 import { scenes, storageRef } from '../firebase.js';
-
-export const ASYNC_USER_PROJ = 'ASYNC_USER_PROJ';
-export const SYNC_USER_PROJ = 'SYNC_USER_PROJ';
-export const ASYNC_EXAMP_PROJ = 'ASYNC_EXAMP_PROJ';
-export const SYNC_EXAMP_PROJ = 'SYNC_EXAMP_PROJ';
-export const DELETE_PROJ = 'DELETE_PROJ';
 
 export function asyncUserProj(id) {
   // fetch user's project
@@ -31,10 +26,10 @@ export function asyncUserProj(id) {
 }
 
 export function syncUserProj(payload) {
-  return { type: SYNC_USER_PROJ, payload: payload };
+  return { type: types.SYNC_USER_PROJ, payload: payload };
 }
 
-export function asyncExampleProj() {
+export const asyncExampleProj = () => {
   // fetch example projects
   return (dispatch) => {
     let exampleVals = [];
@@ -57,7 +52,7 @@ export function asyncExampleProj() {
 }
 
 export function syncExampleProj(payload) {
-  return { type: SYNC_EXAMP_PROJ, payload: payload };
+  return { type: types.SYNC_EXAMP_PROJ, payload: payload };
 }
 
 export function deleteProj(id, name) {
@@ -83,6 +78,14 @@ export function deleteProj(id, name) {
     }).catch((error) => {
       console.error("Error removing document: ", error);
     });
-    return { type: DELETE_PROJ, id: id };
+    return { type: types.DELETE_PROJ, id: id };
   }
 }
+
+export default {
+  asyncUserProj,
+  syncUserProj,
+  asyncExampleProj,
+  syncExampleProj,
+  deleteProj
+};

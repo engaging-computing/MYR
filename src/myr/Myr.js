@@ -28,6 +28,7 @@ class Myr {
       z: 0
     };
     this.radius = 1;
+    this.phiLength = 360;
     if (baseEls) {
       Object.keys(this.baseEls).forEach(it => {
         this.els[it] = this.baseEls[it];
@@ -213,6 +214,16 @@ class Myr {
       console.error("must pass a numeric for setRadius");
     }
   };
+
+  setPhiLength = (i) => {
+    if (typeof i === 'number') {
+      this.phiLength = String(i);
+      console.log(this.phiLength);
+    } else {
+      console.error("must pass a numeric for setRadius");
+    }
+  };
+
 
   setColor = (color) => {
     this.color = color;
@@ -432,11 +443,11 @@ class Myr {
   sphere = (params) => {
     let base = {
       id: 'sphere' + this.genNewId(),
-      geometry: `primitive: sphere`,
+      geometry: `primitive: sphere; phi-length: ${this.phiLength}`,
       position: this.position,
       scale: this.scale,
       rotation: this.rotation,
-      material: `color: ${this.color}`,
+      material: `color: ${this.color}; side: double;`,
     };
     return this.mergeProps(base, params);
   }

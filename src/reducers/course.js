@@ -1,4 +1,4 @@
-import { SYNC_COURSES, LOAD_COURSE, LOAD_LESSON, SET_INDEX } from '../actions/courseActions';
+import * as types from '../constants/ActionTypes';
 
 const initial_state = {
   courses: [],
@@ -15,17 +15,17 @@ const initial_state = {
 export default function course(state = initial_state, action) {
   let payload;
   switch (action.type) {
-    case SYNC_COURSES:
+    case types.SYNC_COURSES:
       return {
         ...state,
         courses: action.payload
       };
-    case LOAD_COURSE:
+    case types.LOAD_COURSE:
       return {
         ...state,
         course: action.payload
       };
-    case LOAD_LESSON:
+    case types.LOAD_LESSON:
       payload = action.payload;
       return {
         ...state,
@@ -36,7 +36,7 @@ export default function course(state = initial_state, action) {
           code: payload.code
         }
       };
-    case SET_INDEX:
+    case types.SET_INDEX:
       return {
         ...state,
         currentIndex: action.payload,
