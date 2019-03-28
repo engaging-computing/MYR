@@ -1,8 +1,9 @@
 import firebase from 'firebase';
 import '@firebase/firestore';
+import firebaseKey from './keys/firebase.js';
 
 var config = {
-  apiKey: "AIzaSyBLnha_cHiHuJGWla5B73vKgz1feTkgXbc",
+  apiKey: firebaseKey,
   authDomain: "myrjsecg.firebaseapp.com",
   databaseURL: "https://myrjsecg.firebaseio.com",
   projectId: "myrjsecg",
