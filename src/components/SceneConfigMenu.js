@@ -354,11 +354,11 @@ class ConfigModal extends Component {
               <div className="col-6">
                 <this.viewToggle />
                 <this.floorToggle />
-                <this.changeFloorColor />
+                <this.gridToggle />
               </div>
               <div className="col-6">
-                <this.gridToggle />
                 <this.changeSkyColor />
+                <this.changeFloorColor />
               </div>
               <div className="col-6">
               </div>
