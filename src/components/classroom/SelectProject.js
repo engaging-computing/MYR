@@ -29,13 +29,26 @@ class SelectProject extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            classroom: this.props.classroom
+            isDisabled: true
         };
     }
 
+    componentDidMount() {
+        if (this.props.classroom && this.props.classroom.length !== 0) {
+            this.setState({ isDisabled: false });
+        }
+        else {
+            this.setState({ isDisabled: true });
+        }
+    }
+
+
     componentWillReceiveProps(nextProps) {
-        if (nextProps.classroom !== this.state.classroom) {
-            this.setState({ classroom: nextProps.classroom });
+        if (nextProps.classroom && nextProps.classroom.length !== 0) {
+            this.setState({ isDisabled: false });
+        }
+        else {
+            this.setState({ isDisabled: true });
         }
     }
 
@@ -50,24 +63,19 @@ class SelectProject extends Component {
 
     renderSelect = () => {
         let classroom = this.props.classroom;
+        const placeholder = "Select a project";
 
-        if (this.state.classroom.length !== 0) {
-            const placeholder = "Select a project";
-
-            return (
-                <div>
-                    <Select key={classroom} placeholder={placeholder} options={classroom} onChange={this.handleChange} styles={selectStyle} />
-                </div >
-            );
-        }
-        else {
-            const placeholder = "This class contains no projects";
-            return (
-                <div>
-                    <Select key={this.state.classroom} placeholder={placeholder} isDisabled={true} />
-                </div >
-            );
-        }
+        return (
+            <div>
+                <Select
+                    key={classroom}
+                    placeholder={placeholder}
+                    options={classroom}
+                    onChange={this.handleChange}
+                    styles={selectStyle}
+                    isDisabled={this.state.isDisabled} />
+            </div >
+        );
     }
 
     render() {

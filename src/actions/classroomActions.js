@@ -49,8 +49,10 @@ export function asyncClass(classroomID) {
                         label: proj.name
                     })
                 );
+            }).then(() => {
+                dispatch(syncClass(projectOptions));
             });
-            dispatch(syncClass(projectOptions));
+
         }
     };
 }
