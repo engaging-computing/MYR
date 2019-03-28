@@ -66,6 +66,10 @@ export function changeSetting(payload) {
   return { type: types.LOAD_SETTINGS, payload };
 }
 
+export function addClassroomID(payload) {
+  return { type: types.ADD_CLASSROOM, payload };
+}
+
 export default {
   nameScene,
   loadScene,
@@ -80,5 +84,5 @@ export default {
   toggleFloor,
   loadSettings,
   changeSetting,
-
+  addClassroomID
 };

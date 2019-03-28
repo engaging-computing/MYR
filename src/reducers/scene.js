@@ -10,7 +10,8 @@ export const DEF_SETTINGS = {
   canFly: false,
   showFloor: true,
   cameraPosition: "0 1.6 3",
-  viewOnly: false
+  viewOnly: false,
+  classroomID: ""
 };
 
 export default function scene(state = DEF_SETTINGS, action) {
@@ -60,6 +61,11 @@ export default function scene(state = DEF_SETTINGS, action) {
       return {
         ...state,
         showFloor: !state.showFloor
+      };
+    case types.ADD_CLASSROOM:
+      return {
+        ...state,
+        classroomID: action.payload
       };
     case types.LOAD_SETTINGS:
       return {

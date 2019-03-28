@@ -1,0 +1,11 @@
+#classroom-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    overflow: scroll;
+}
+
+#select-project {
+    padding: 10px;
+    background: #fff !important;
+}

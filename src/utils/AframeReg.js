@@ -11,7 +11,7 @@ AFRAME.registerComponent('force-pushable', {
     this.el.addEventListener('click', this.forcePush.bind(this));
   },
   forcePush: function () {
-    var force,
+    let force,
       el = this.el,
       pStart = this.pStart.copy(this.sourceEl.getAttribute('position'));
 

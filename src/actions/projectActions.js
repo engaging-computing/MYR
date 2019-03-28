@@ -62,14 +62,12 @@ export function deleteProj(id, name) {
     let imgRef = storageRef.child(path);
 
     imgRef.delete().then(() => {
-      console.log("Image successfully deleted!");
     }).catch((error) => {
       console.error("Error removing img: ", error);
     });
 
     // Delete Document
     scenes.doc(id).delete().then(() => {
-      console.log("Document successfully deleted!");
 
       // If deleting current project, redirect to home
       if (window.location.href === window.origin + '/' + id || window.location.href === window.origin + '/' + id + '/') {
