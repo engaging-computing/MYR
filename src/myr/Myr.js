@@ -93,6 +93,7 @@ class Myr {
     this.scale = { x: 1, y: 1, z: 1 };
     this.rotation = { x: 0, y: 0, z: 0 };
     this.radius = 1;
+    this.phiLength = 360;
   }
 
   genNewId = () => {
