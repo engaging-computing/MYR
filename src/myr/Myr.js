@@ -28,6 +28,7 @@ class Myr {
       z: 0
     };
     this.radius = 1;
+    this.phiLength = 360;
     if (baseEls) {
       Object.keys(this.baseEls).forEach(it => {
         this.els[it] = this.baseEls[it];
@@ -214,6 +215,15 @@ class Myr {
     }
   };
 
+  setPhiLength = (i) => {
+    if (typeof i === 'number') {
+      this.phiLength = String(i);
+    } else {
+      console.error("must pass a numeric for setRadius");
+    }
+  };
+
+
   setColor = (color) => {
     this.color = color;
   }
@@ -301,7 +311,7 @@ class Myr {
   // Render an Aframe circle Primitive with current Myr settings
   circle = (params) => {
     let base = {
-      geometry: `primitive: circle; radius: ${this.radius};`,
+      geometry: `primitive: circle; radius: ${this.radius}; theta-length: ${this.phiLength};`,
       id: 'circ' + this.genNewId(),
       position: this.position,
       scale: this.scale,
@@ -328,7 +338,7 @@ class Myr {
   cylinder = (params) => {
     let base = {
       id: 'cyl' + this.genNewId(),
-      geometry: `primitive: cylinder; radius: ${this.radius};`,
+      geometry: `primitive: cylinder; radius: ${this.radius}; theta-length: ${this.phiLength};`,
       position: this.position,
       scale: this.scale,
       rotation: this.rotation,
@@ -342,7 +352,7 @@ class Myr {
   dodecahedron = (params) => {
     let base = {
       id: 'dod' + this.genNewId(),
-      geometry: `primitive: dodecahedron; radius: ${this.radius}`,
+      geometry: `primitive: dodecahedron; radius: ${this.radius};`,
       position: this.position,
       scale: this.scale,
       rotation: this.rotation,
@@ -394,7 +404,7 @@ class Myr {
   plane = (params) => {
     let base = {
       id: 'plane' + this.genNewId(),
-      geometry: `primitive: plane; height: 1; width: 1;`,
+      geometry: `primitive: plane; height: 1; width: 1; phi-length: ${this.phiLength};`,
       position: this.position,
       scale: this.scale,
       rotation: this.rotation,
@@ -407,7 +417,7 @@ class Myr {
   polyhedron = (params) => {
     let base = {
       id: 'poly' + this.genNewId(),
-      geometry: `primitive: sphere; segmentsWidth: 2; segmentsHeight: 8;`,
+      geometry: `primitive: sphere; segmentsWidth: 2; segmentsHeight: 8; phi-length: ${this.phiLength};`,
       position: this.position,
       scale: this.scale,
       rotation: this.rotation,
@@ -419,7 +429,7 @@ class Myr {
   ring = (params) => {
     let base = {
       id: 'ring' + this.genNewId(),
-      geometry: `primitive: ring; radiusInner: 0.5; radiusOuter: 1;`,
+      geometry: `primitive: ring; radiusInner: 0.5; radiusOuter: 1; theta-length: ${this.phiLength};`,
       position: this.position,
       scale: this.scale,
       rotation: this.rotation,
@@ -432,11 +442,11 @@ class Myr {
   sphere = (params) => {
     let base = {
       id: 'sphere' + this.genNewId(),
-      geometry: `primitive: sphere`,
+      geometry: `primitive: sphere; phi-length: ${this.phiLength}`,
       position: this.position,
       scale: this.scale,
       rotation: this.rotation,
-      material: `color: ${this.color}`,
+      material: `color: ${this.color}; side: double;`,
     };
     return this.mergeProps(base, params);
   }
@@ -480,7 +490,7 @@ class Myr {
   torus = (params) => {
     let base = {
       id: 'torus' + this.genNewId(),
-      geometry: `primitive: torus; radius: ${this.radius}; radiusTubular: 0.5; arc: 360`,
+      geometry: `primitive: torus; radius: ${this.radius}; radiusTubular: 0.5; arc: 360; arc: ${this.phiLength};`,
       position: this.position,
       scale: this.scale,
       rotation: this.rotation,
