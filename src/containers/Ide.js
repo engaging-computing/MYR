@@ -10,7 +10,7 @@ import * as Actions from '../actions';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
-const Ide = ({ editor, editorActions, user, authActions, scene, sceneActions, projectActions, courseActions, projects, courses, match }) => (
+const Ide = ({ editor, editorActions, user, authActions, scene, sceneActions, projectActions, courseActions, projects, courses, match, classroomActions, classrooms }) => (
   <div className="App">
     <Header
       logging={authActions}
@@ -26,6 +26,8 @@ const Ide = ({ editor, editorActions, user, authActions, scene, sceneActions, pr
       courseActions={courseActions}
       projects={projects}
       courses={courses}
+      classroomActions={classroomActions}
+      classrooms={classrooms}
     />
     <div className="row no-gutters">
       {
@@ -62,7 +64,8 @@ const mapStateToProps = state => ({
   user: state.user.user,
   scene: state.scene,
   projects: state.project,
-  courses: state.courses
+  courses: state.courses,
+  classrooms: state.classrooms
 });
 
 // This maps dispatch actions to props
@@ -71,7 +74,8 @@ const mapDispatchToProps = dispatch => ({
   authActions: bindActionCreators(Actions.AuthActions, dispatch),
   sceneActions: bindActionCreators(Actions.SceneActions, dispatch),
   projectActions: bindActionCreators(Actions.ProjectActions, dispatch),
-  courseActions: bindActionCreators(Actions.CourseActions, dispatch)
+  courseActions: bindActionCreators(Actions.CourseActions, dispatch),
+  classroomActions: bindActionCreators(Actions.ClassroomActions, dispatch)
 });
 
 // This does the binding to the redux store

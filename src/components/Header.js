@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from 'react';
-import { auth, provider, db, scenes, storageRef } from '../firebase.js';
+import { auth, provider, scenes, classes, storageRef } from '../firebase.js';
 import Reference from './Reference.js';
+import Classroom from './Classroom.js';
 import SceneConfigMenu from './SceneConfigMenu.js';
 import Sidebar from './Sidebar.js';
 import MyrTour from './MyrTour';
@@ -37,6 +38,7 @@ class Header extends Component {
       availProj: [],
       sampleProj: [],
       autoReload: false,
+      classroomOpen: false,
       projOpen: true,
       loadOpen: false,
       snackOpen: false,
@@ -58,6 +60,26 @@ class Header extends Component {
     if (this.props.courseName) {
       this.props.courseActions.fetchCourse(this.props.courseName);
     }
+    else if (this.props.classroom) {
+      let userClasses = [];
+      classes.where('classroomID', '==', this.props.classroom).get().then(snap => {
+        snap.forEach(doc => {
+          let dat = doc.data();
+          userClasses.push({
+            classroomID: dat.classroomID,
+            uid: dat.uid
+          });
+        });
+      }).then(() => {
+        if (this.props.user && this.props.user.uid && userClasses.length === 1 && userClasses[0].uid === this.props.user.uid) {
+          this.props.classroomActions.asyncClass(this.props.classroom);
+        }
+        else {
+          window.alert("Error: You are not logged in as the owner of this class");
+        }
+      })
+
+    }
 
     // Sync authentication
     auth.onAuthStateChanged((account) => {
@@ -65,6 +87,7 @@ class Header extends Component {
         this.props.logging.login(account);
         // 2. If we have a user, load their projects
         this.props.projectActions.asyncUserProj(this.props.user.uid);
+        this.props.classroomActions.asyncClasses(this.props.user.uid);
       } else {
         this.props.logging.logout();
       }
@@ -98,17 +121,18 @@ class Header extends Component {
   * @param {event} e - event from the keystroke.
   */
   handleKeyDown(e) {
-    if (e.ctrlKey && (e.key === "Enter" || e.key === "Return")) {
+    //metaKey is cmd and windows key in some browsers
+    if ((e.ctrlKey || e.metaKey) && (e.key === "Enter" || e.key === "Return")) {
       //ctrl/cmd + enter renders the scene
       e.preventDefault();
       this.clear();
       this.handleRender();
-    } else if (e.ctrlKey  && e.shiftKey && (e.key === "s" || e.key === "S")) {
+    } else if ((e.ctrlKey || e.metaKey) && e.shiftKey && (e.key === "s" || e.key === "S")) {
       //ctrl/cmd + shift + s saves the scene with a new ID
       e.preventDefault();
       this.setState({ needsNewId: true });
       this.handleSave();
-    } else if (e.ctrlKey && (e.key === "s" || e.key === "S")) {
+    } else if ((e.ctrlKey || e.metaKey) && (e.key === "s" || e.key === "S")) {
       //ctrl/cmd + s saves the scene
       e.preventDefault();
       this.handleSave();
@@ -120,7 +144,7 @@ class Header extends Component {
   * @summary - Removes listener for real time sync process
   */
   componentWillUnmount() {
-    var unsubscribe = scenes.onSnapshot(function () { });
+    let unsubscribe = scenes.onSnapshot(function () { });
     unsubscribe();
   }
 
@@ -285,7 +309,7 @@ class Header extends Component {
     let projectId = (match && match.params && match.params.id) || null;
     if (!projectId || !this.props.scene.id || this.state.needsNewId) {
       // Generate a new projectId
-      projectId = db.collection("scenes").doc().id;
+      projectId = scenes.doc().id;
     }
     return projectId;
   }
@@ -319,9 +343,8 @@ class Header extends Component {
       let path = "images/perspective/" + projectId;
       let imgRef = storageRef.child(path);
       imgRef.putString(img, 'data_url').then((snapshot) => {
-        console.log('Uploaded a data_url string!');
         // Put the new document into the scenes collection
-        db.collection("scenes").doc(projectId).set({
+        scenes.doc(projectId).set({
           name: this.props.scene.name,
           desc: this.state.sceneDesc,
           code: text,
@@ -329,7 +352,6 @@ class Header extends Component {
           settings: this.props.scene,
           ts: ts,
         }).then(() => {
-          console.log("Document successfully written!");
           // If we have a new projectId reload page with it
           if (this.props.courseName) {
             this.setState({ spinnerOpen: false });
@@ -412,6 +434,14 @@ class Header extends Component {
     this.setState({ loadOpen: !this.state.loadOpen });
   };
 
+  handleClassroomToggle = () => {
+    this.setState({ classroomOpen: !this.state.classroomOpen });
+  };
+
+  handleClassroomClose = () => {
+    this.setState({ classroomOpen: false });
+  };
+
   loadDrawer = () => {
     return (
       <Drawer
@@ -434,8 +464,20 @@ class Header extends Component {
     );
   }
 
+  loadClassroom = () => {
+    return (
+      <Classroom
+        classrooms={this.props.classrooms}
+        classroomActions={this.props.classroomActions}
+        user={this.props.user}
+        open={this.state.classroomOpen}
+        handleClassroomToggle={this.handleClassroomToggle}
+        handleClassroomClose={this.handleClassroomClose} />
+    );
+  }
+
   /**
-  * @summary - closes the snackabar that displays the message from render
+  * @summary - closes the snackbar that displays the message from render
   */
 
   closeSnackBar = () => {
@@ -535,6 +577,14 @@ class Header extends Component {
               <Icon className="material-icons">perm_media</Icon>
               Open Project
             </Button>
+            <Button
+              variant="raised"
+              onClick={this.handleClassroomToggle}
+              color="primary"
+              className="sidebar-btn">
+              <Icon className="material-icons">assignment</Icon>
+              Classrooms
+            </Button>
           </Sidebar>
           <h1 className="mr-2 d-none d-sm-block" >MYR</h1>
           <Tooltip title="Render" placement="bottom-start">
@@ -593,8 +643,9 @@ class Header extends Component {
           <MyrTour />
         </div>
         <div className="col-3 d-flex justify-content-end">
+          {/* <Classroom classrooms={this.props.classrooms} classroomActions={this.props.classroomActions} user={this.props.user} /> */}
           <Reference />
-          <SceneConfigMenu scene={this.props.scene} sceneActions={this.props.sceneActions} />
+          <SceneConfigMenu scene={this.props.scene} sceneActions={this.props.sceneActions} handleSave={this.handleSave} handleSaveClose={this.handleSaveClose} />
           <CourseSelect courses={this.props.courses.courses} />
           <this.loginBtn />
         </div>
@@ -602,6 +653,7 @@ class Header extends Component {
         <this.loadDrawer />
         <this.renderSnackBar />
         <this.spinner />
+        <this.loadClassroom />
       </header>
     );
   }

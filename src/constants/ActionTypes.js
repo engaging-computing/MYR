@@ -34,3 +34,8 @@ export const TOGGLE_FLY = "TOGGLE_FLY";
 export const TOGGLE_FLOOR = "TOGGLE_FLOOR";
 export const LOAD_SETTINGS = "LOAD_SETTINGS";
 export const CHANGE_SETTING = "CHANGE_SETTING";
+export const ADD_CLASSROOM = 'ADD_CLASSROOM';
+
+export const SYNC_CLASSES = 'SYNC_CLASSES';
+export const SYNC_CLASS = 'SYNC_CLASS';
+export const DELETE_CLASS = 'DELETE_CLASS';
