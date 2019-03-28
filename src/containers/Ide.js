@@ -1,55 +1,9 @@
-import React from 'react';
-import Editor from '../components/Editor';
-import Footer from '../components/Footer';
-import Header from '../components/Header';
-import View from '../components/View';
 import PropTypes from 'prop-types';
-
+import Ide from '../components/layouts/Ide.js';
 import * as Actions from '../actions';
 
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-
-const Ide = ({ editor, editorActions, user, authActions, scene, sceneActions, projectActions, courseActions, projects, courses, match, classroomActions, classrooms }) => (
-  <div className="App">
-    <Header
-      logging={authActions}
-      sceneActions={sceneActions}
-      actions={editorActions}
-      user={user}
-      scene={scene}
-      text={editor.text}
-      message={editor.message}
-      projectId={match.params.id}
-      match={match}
-      projectActions={projectActions}
-      courseActions={courseActions}
-      projects={projects}
-      courses={courses}
-      classroomActions={classroomActions}
-      classrooms={classrooms}
-    />
-    <div className="row no-gutters">
-      {
-        scene.viewOnly
-          ?
-          <div id="scene" className="col-12" >
-            <View objects={editor.objects} sceneConfig={scene} assets={editor.assets} />
-          </div>
-          :
-          <>
-            <div id="interface" className="col-12 col-md-4" >
-              <Editor text={editor.text} user={user} />
-            </div>
-            <div id="scene" className="col-12 col-md-8" >
-              <View objects={editor.objects} sceneConfig={scene} assets={editor.assets} />
-            </div>
-          </>
-      }
-    </div>
-    <Footer />
-  </div>
-);
 
 // This makes sure we are getting what we think we should
 Ide.propTypes = {
