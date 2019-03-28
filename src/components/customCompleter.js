@@ -78,7 +78,8 @@ export const customCompleter = {
             "fadeOut()",
             "fadeIn()",
             "group()",
-            "getRandomColor()"
+            "getRandomColor()",
+            "setPhiLength()"
         ];
 
         let Colors = [
