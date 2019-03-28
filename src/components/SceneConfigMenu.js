@@ -74,7 +74,8 @@ class ConfigModal extends Component {
     this.state = {
       open: false,
       skyColor: this.props.scene.color,
-      displayColorPicker: false,
+      displaySkyColorPicker: false,
+      displayFloorColorPicker: false,
       anchorEl: null,
       qrCodeOpen: false,
       pwProtectOpen: false,
@@ -92,7 +93,7 @@ class ConfigModal extends Component {
 
   // Closes the modal
   handleClose = () => {
-    this.setState({ open: false, displayColorPicker: false });
+    this.setState({ open: false, displaySkyColorPicker: false, displayFloorColorPicker: false });
   };
 
   handleClick = event => {
@@ -189,17 +190,30 @@ class ConfigModal extends Component {
     this.props.sceneActions.toggleCoordSky();
   }
 
-  handleChangeComplete = (color) => {
+  handleSkyChangeComplete = (color) => {
     this.setState({ skyColor: color.hex });
     this.props.sceneActions.changeSkyColor(color.hex);
   };
 
-  handleColorClick = () => {
-    this.setState({ displayColorPicker: !this.state.displayColorPicker });
+  handleFloorChangeComplete = (color) => {
+    this.setState({ floorColor: color.hex });
+    this.props.sceneActions.changeFloorColor(color.hex);
   };
 
-  handleColorClose = () => {
-    this.setState({ displayColorPicker: false });
+  handleSkyColorClick = () => {
+    this.setState({ displaySkyColorPicker: !this.state.displaySkyColorPicker });
+  };
+
+  handleFloorColorClick = () => {
+    this.setState({ displayFloorColorPicker: !this.state.displayFloorColorPicker });
+  };
+
+  handleSkyColorClose = () => {
+    this.setState({ displaySkyColorPicker: false });
+  };
+
+  handleFloorColorClose = () => {
+    this.setState({ displayFloorColorPicker: false });
   };
 
   // Toggles whether the editor is showing
@@ -291,9 +305,20 @@ class ConfigModal extends Component {
     return (
       <ButtonBase
         style={btnStyle.base}
-        onClick={this.handleColorClick}>
+        onClick={this.handleSkyColorClick}>
         <Icon className="material-icons">color_lens</Icon>
         Edit Sky Color
+      </ButtonBase>
+    );
+  }
+
+  changeFloorColor = () => {
+    return (
+      <ButtonBase
+        style={btnStyle.base}
+        onClick={this.handleFloorColorClick}>
+        <Icon className="material-icons">color_lens</Icon>
+        Edit Floor Color
       </ButtonBase>
     );
   }
@@ -329,6 +354,7 @@ class ConfigModal extends Component {
               <div className="col-6">
                 <this.viewToggle />
                 <this.floorToggle />
+                <this.changeFloorColor />
               </div>
               <div className="col-6">
                 <this.gridToggle />
@@ -382,16 +408,30 @@ class ConfigModal extends Component {
                   Cancel
                 </ButtonBase >
               </div> */}
-              {this.state.displayColorPicker
+              {this.state.displaySkyColorPicker
                 ?
                 <div id="color-popover">
                   <ButtonBase
-                    onClick={this.handleColorClose}
+                    onClick={this.handleSkyColorClose}
                     style={{ position: "absolute", right: -25, top: -17, zIndex: 100 }}>
                     <Icon className="material-icons">clear</Icon>
                   </ButtonBase >
-                  <div id="color-cover" onClick={this.handleColorClose} />
-                  <ChromePicker disableAlpha={true} color={this.state.skyColor} onChangeComplete={this.handleChangeComplete} />
+                  <div id="color-cover" onClick={this.handleSkyColorClose} />
+                  <ChromePicker disableAlpha={true} color={this.state.skyColor} onChangeComplete={this.handleSkyChangeComplete} />
+                </div>
+                :
+                null
+              }
+              {this.state.displayFloorColorPicker
+                ?
+                <div id="color-popover">
+                  <ButtonBase
+                    onClick={this.handleFloorColorClose}
+                    style={{ position: "absolute", right: -25, top: -17, zIndex: 100 }}>
+                    <Icon className="material-icons">clear</Icon>
+                  </ButtonBase >
+                  <div id="color-cover" onClick={this.handleFloorColorClose} />
+                  <ChromePicker disableAlpha={true} color={this.state.floorColor} onChangeComplete={this.handleFloorChangeComplete} />
                 </div>
                 :
                 null

@@ -30,6 +30,10 @@ export function changeSkyColor(color) {
   return { type: types.CHANGE_SKY_COLOR, color };
 }
 
+export function changeFloorColor(color) {
+  return { type: types.CHANGE_FLOOR_COLOR, color };
+}
+
 export function changeCamMode(config) {
   return { type: types.CHANGE_CAM_MODE, config };
 }
@@ -67,6 +71,7 @@ export default {
   loadScene,
   toggleCoordSky,
   changeSkyColor,
+  changeFloorColor,
   changeCamMode,
   setCamera,
   changePerspective,
