@@ -4,6 +4,7 @@ export const DEF_SETTINGS = {
   name: "",
   id: "0",
   skyColor: "white",
+  floorColor: "#222",
   camConfig: 0,
   showCoordHelper: false,
   canFly: false,
@@ -49,6 +50,11 @@ export default function scene(state = DEF_SETTINGS, action) {
       return {
         ...state,
         skyColor: action.color
+      };
+    case types.CHANGE_FLOOR_COLOR:
+      return {
+        ...state,
+        floorColor: action.color
       };
     case types.TOGGLE_FLOOR:
       return {

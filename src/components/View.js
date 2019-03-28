@@ -158,7 +158,7 @@ class View extends Component {
       return (
         <a-entity id="floor"
           geometry="primitive: box;"
-          material="color: #222"
+          material={"color: " + this.props.sceneConfig.floorColor}
           static-body="shape: box"
           scale="80 .01 80"
           position="0 -0.5 0"
