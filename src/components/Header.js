@@ -37,12 +37,9 @@ class Header extends Component {
       sceneDesc: "",
       availProj: [],
       sampleProj: [],
-      autoReload: false,
       classroomOpen: false,
-      projOpen: true,
       loadOpen: false,
       snackOpen: false,
-      viewOptOpen: false,
       lastMsgTime: 0,
       anchorEl: null,
       navAwayModal: false,
@@ -77,8 +74,16 @@ class Header extends Component {
         else {
           window.alert("Error: You are not logged in as the owner of this class");
         }
-      })
+      });
 
+    }
+
+    if (this.props.scene && this.props.scene.name) {
+      this.setState({ sceneName: this.props.scene.name });
+    }
+
+    if (this.props.scene && this.props.scene.desc) {
+      this.setState({ sceneDesc: this.props.scene.desc });
     }
 
     // Sync authentication
@@ -137,6 +142,16 @@ class Header extends Component {
       e.preventDefault();
       this.handleSave();
       this.handleSaveClose();
+    }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.scene && nextProps.scene.name) {
+      this.setState({ sceneName: nextProps.scene.name });
+    }
+
+    if (nextProps.scene && nextProps.scene.desc) {
+      this.setState({ sceneDesc: nextProps.scene.desc });
     }
   }
 
@@ -242,17 +257,6 @@ class Header extends Component {
   }
 
   /**
-  * @summary - submitName is called when we are ready to synce the local component's state with
-  * the reducer.
-  */
-  submitName = (event) => {
-    event.preventDefault();
-    this.handleRender();
-    this.props.sceneActions.nameScene(this.state.sceneName);
-    this.setState({ sceneName: null, needsNewId: true });
-  }
-
-  /**
   * @summary - This sets the components current state to the input from the scene description form
   */
   handleDescChange = (event) => {
@@ -274,12 +278,12 @@ class Header extends Component {
         <TextField id="name-helper"
           value={text ? text : ""}
           label="Scene Name"
-          onSubmit={this.submitName}
-          onBlur={this.submitName}
+          onBlur={this.handleNameChange}
           onChange={this.handleNameChange} />
         <TextField
           value={this.state.sceneDesc}
           onChange={this.handleDescChange}
+          onBlur={this.handleDescChange}
           label="Description"
           margin="normal"
         />
@@ -345,11 +349,11 @@ class Header extends Component {
       imgRef.putString(img, 'data_url').then((snapshot) => {
         // Put the new document into the scenes collection
         scenes.doc(projectId).set({
-          name: this.props.scene.name,
+          name: this.state.sceneName,
           desc: this.state.sceneDesc,
           code: text,
           uid: this.props.user.uid,
-          settings: this.props.scene,
+          settings: this.props.scene.settings,
           ts: ts,
         }).then(() => {
           // If we have a new projectId reload page with it
@@ -359,7 +363,7 @@ class Header extends Component {
           } else if (projectId !== this.props.projectId) {
             window.location.href = window.origin + '/' + projectId;
           } else {
-            this.asyncUserProj();
+            this.props.projectActions.asyncUserProj(this.props.user.uid);
           }
         }).catch((error) => {
           console.error("Error writing document: ", error);
@@ -506,14 +510,6 @@ class Header extends Component {
       />
     );
   }
-
-  handleViewOptClick = event => {
-    this.setState({ anchorEl: event.currentTarget });
-  };
-
-  handleViewOptClose = () => {
-    this.setState({ anchorEl: null });
-  };
 
   /**
   * @summary - render() creates the header and links the buttons
