@@ -27,7 +27,7 @@ class Myr {
       y: 0,
       z: 0
     };
-    this.radius = 1;
+    this.radius = "1";
     this.phiLength = 360;
     if (baseEls) {
       Object.keys(this.baseEls).forEach(it => {
@@ -71,10 +71,12 @@ class Myr {
     // Reset base params, we might be able to merge two objects later
     this.id = 0;
     this.color = 'red';
+    this.counter = 0;
     this.position = { x: 0, y: 0, z: 0 };
     this.scale = { x: 1, y: 1, z: 1 };
     this.rotation = { x: 0, y: 0, z: 0 };
     this.radius = 1;
+    this.phiLength = 360;
     // restore the base objects of the scene
     this.els = [];
     if (this.baseEls) {
@@ -92,7 +94,7 @@ class Myr {
     this.position = { x: 0, y: 0, z: 0 };
     this.scale = { x: 1, y: 1, z: 1 };
     this.rotation = { x: 0, y: 0, z: 0 };
-    this.radius = 1;
+    this.radius = "1";
     this.phiLength = 360;
   }
 
