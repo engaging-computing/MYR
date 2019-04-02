@@ -74,13 +74,16 @@ class ConfigModal extends Component {
     this.state = {
       open: false,
       skyColor: this.props.scene.color,
-      displayColorPicker: false,
+      displaySkyColorPicker: false,
+      displayFloorColorPicker: false,
       anchorEl: null,
       qrCodeOpen: false,
       pwProtectOpen: false,
       shareOpen: false,
+      addClassOpen: false,
       email: "",
-      sendTo: []
+      sendTo: [],
+      classroomID: ""
     };
     this.emailRef = React.createRef();
   }
@@ -92,7 +95,7 @@ class ConfigModal extends Component {
 
   // Closes the modal
   handleClose = () => {
-    this.setState({ open: false, displayColorPicker: false });
+    this.setState({ open: false, displaySkyColorPicker: false, displayFloorColorPicker: false });
   };
 
   handleClick = event => {
@@ -136,7 +139,7 @@ class ConfigModal extends Component {
         color="primary"
         onClick={() => {
           this.handlePwToggle();
-          this.props.sceneActions.addPassword(this.state.pw)
+          this.props.sceneActions.addPassword(this.state.pw);
         }} >
         Save
       </Button>
@@ -189,17 +192,30 @@ class ConfigModal extends Component {
     this.props.sceneActions.toggleCoordSky();
   }
 
-  handleChangeComplete = (color) => {
+  handleSkyChangeComplete = (color) => {
     this.setState({ skyColor: color.hex });
     this.props.sceneActions.changeSkyColor(color.hex);
   };
 
-  handleColorClick = () => {
-    this.setState({ displayColorPicker: !this.state.displayColorPicker });
+  handleFloorChangeComplete = (color) => {
+    this.setState({ floorColor: color.hex });
+    this.props.sceneActions.changeFloorColor(color.hex);
   };
 
-  handleColorClose = () => {
-    this.setState({ displayColorPicker: false });
+  handleSkyColorClick = () => {
+    this.setState({ displaySkyColorPicker: !this.state.displaySkyColorPicker });
+  };
+
+  handleFloorColorClick = () => {
+    this.setState({ displayFloorColorPicker: !this.state.displayFloorColorPicker });
+  };
+
+  handleSkyColorClose = () => {
+    this.setState({ displaySkyColorPicker: false });
+  };
+
+  handleFloorColorClose = () => {
+    this.setState({ displayFloorColorPicker: false });
   };
 
   // Toggles whether the editor is showing
@@ -274,6 +290,57 @@ class ConfigModal extends Component {
     );
   }
 
+  addClassroomToggle = () => {
+    return (
+      <ButtonBase
+        style={btnStyle.base}
+        onClick={this.handleAddClassToggle}
+      >
+        <Icon className="material-icons">library_add</Icon>
+        Add to Class
+      </ButtonBase >
+    );
+  }
+
+  handleAddClassToggle = () => {
+    this.setState({ addClassOpen: !this.state.addClassOpen });
+  }
+
+  classInfoToggle = () => {
+    return (
+      <ButtonBase
+        style={btnStyle.base}
+        onClick={() => window.open(window.origin + '/about/classrooms')} >
+        <Icon className="material-icons">info</Icon>
+        About
+      </ButtonBase >
+    );
+  }
+
+  addClass = () => (
+    <div>
+      <h5>Please enter your class code</h5>
+      {this.props.scene && this.props.scene.classroomID ? <p>{"Current classroom: " + this.props.scene.classroomID}</p> : null}
+      <TextField
+        id="standard-name"
+        type="text"
+        onChange={this.handleTextChange('classroomID')}
+      />
+      <Button
+        color="primary"
+        onClick={() => {
+          this.handleAddClassToggle();
+          this.props.sceneActions.addClassroomID(this.state.classroomID);
+          this.props.handleSave();
+          this.props.handleSaveClose();
+        }} >
+        Save
+      </Button>
+    </div>
+  );
+
+
+
   // Resets the camera, but also applies a small random num to make it reset
   // See reducer for more info
   resetPosition = () => {
@@ -291,9 +358,20 @@ class ConfigModal extends Component {
     return (
       <ButtonBase
         style={btnStyle.base}
-        onClick={this.handleColorClick}>
+        onClick={this.handleSkyColorClick}>
         <Icon className="material-icons">color_lens</Icon>
         Edit Sky Color
+      </ButtonBase>
+    );
+  }
+
+  changeFloorColor = () => {
+    return (
+      <ButtonBase
+        style={btnStyle.base}
+        onClick={this.handleFloorColorClick}>
+        <Icon className="material-icons">color_lens</Icon>
+        Edit Floor Color
       </ButtonBase>
     );
   }
@@ -329,12 +407,11 @@ class ConfigModal extends Component {
               <div className="col-6">
                 <this.viewToggle />
                 <this.floorToggle />
-              </div>
-              <div className="col-6">
                 <this.gridToggle />
-                <this.changeSkyColor />
               </div>
               <div className="col-6">
+                <this.changeSkyColor />
+                <this.changeFloorColor />
               </div>
               <div className="col-12 border-bottom pt-4">Camera Control</div>
               <div className="col-6">
@@ -366,6 +443,13 @@ class ConfigModal extends Component {
                   Add PW
                   </ButtonBase> */}
               </div>
+              <div className="col-12 border-bottom pt-4">Classroom Control</div>
+              <div className="col-6">
+                <this.addClassroomToggle />
+              </div>
+              <div className="col-6">
+                <this.classInfoToggle />
+              </div>
               <div className="col-12 border-bottom mt-3"></div>
               <div className="offset-4 col-4">
                 <ButtonBase
@@ -382,16 +466,30 @@ class ConfigModal extends Component {
                   Cancel
                 </ButtonBase >
               </div> */}
-              {this.state.displayColorPicker
+              {this.state.displaySkyColorPicker
                 ?
                 <div id="color-popover">
                   <ButtonBase
-                    onClick={this.handleColorClose}
+                    onClick={this.handleSkyColorClose}
                     style={{ position: "absolute", right: -25, top: -17, zIndex: 100 }}>
                     <Icon className="material-icons">clear</Icon>
                   </ButtonBase >
-                  <div id="color-cover" onClick={this.handleColorClose} />
-                  <ChromePicker disableAlpha={true} color={this.state.skyColor} onChangeComplete={this.handleChangeComplete} />
+                  <div id="color-cover" onClick={this.handleSkyColorClose} />
+                  <ChromePicker disableAlpha={true} color={this.state.skyColor} onChangeComplete={this.handleSkyChangeComplete} />
+                </div>
+                :
+                null
+              }
+              {this.state.displayFloorColorPicker
+                ?
+                <div id="color-popover">
+                  <ButtonBase
+                    onClick={this.handleFloorColorClose}
+                    style={{ position: "absolute", right: -25, top: -17, zIndex: 100 }}>
+                    <Icon className="material-icons">clear</Icon>
+                  </ButtonBase >
+                  <div id="color-cover" onClick={this.handleFloorColorClose} />
+                  <ChromePicker disableAlpha={true} color={this.state.floorColor} onChangeComplete={this.handleFloorChangeComplete} />
                 </div>
                 :
                 null
@@ -439,6 +537,20 @@ class ConfigModal extends Component {
               <Icon className="material-icons">clear</Icon>
             </ButtonBase >
             <this.pwProtect />
+          </div>
+        </Modal>
+        <Modal
+          aria-labelledby="simple-modal-title"
+          aria-describedby="simple-modal-description"
+          open={this.state.addClassOpen}
+          onClose={this.handleAddClassToggle} >
+          <div style={getModalStyle()} className={classes.paper}>
+            <ButtonBase
+              style={{ position: "absolute", right: 15, top: 15 }}
+              onClick={() => this.handleAddClassToggle()} >
+              <Icon className="material-icons">clear</Icon>
+            </ButtonBase >
+            <this.addClass />
           </div>
         </Modal>
       </div >

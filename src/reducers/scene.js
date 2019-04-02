@@ -4,12 +4,14 @@ export const DEF_SETTINGS = {
   name: "",
   id: "0",
   skyColor: "white",
+  floorColor: "#222",
   camConfig: 0,
   showCoordHelper: false,
   canFly: false,
   showFloor: true,
   cameraPosition: "0 1.6 3",
-  viewOnly: false
+  viewOnly: false,
+  classroomID: ""
 };
 
 export default function scene(state = DEF_SETTINGS, action) {
@@ -50,10 +52,20 @@ export default function scene(state = DEF_SETTINGS, action) {
         ...state,
         skyColor: action.color
       };
+    case types.CHANGE_FLOOR_COLOR:
+      return {
+        ...state,
+        floorColor: action.color
+      };
     case types.TOGGLE_FLOOR:
       return {
         ...state,
         showFloor: !state.showFloor
+      };
+    case types.ADD_CLASSROOM:
+      return {
+        ...state,
+        classroomID: action.payload
       };
     case types.LOAD_SETTINGS:
       return {

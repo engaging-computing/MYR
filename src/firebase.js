@@ -1,8 +1,9 @@
 import firebase from 'firebase';
 import '@firebase/firestore';
+import firebaseKey from './keys/firebase.js';
 
-var config = {
-  apiKey: "AIzaSyBLnha_cHiHuJGWla5B73vKgz1feTkgXbc",
+let config = {
+  apiKey: firebaseKey,
   authDomain: "myrjsecg.firebaseapp.com",
   databaseURL: "https://myrjsecg.firebaseio.com",
   projectId: "myrjsecg",
@@ -20,4 +21,5 @@ export const auth = firebase.auth();
 export const db = firebase.firestore();
 export const scenes = db.collection('scenes');
 export const snaps = db.collection('snaps');
+export const classes = db.collection('classes');
 export const storageRef = firebase.storage().ref();

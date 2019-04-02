@@ -25,12 +25,12 @@ class View extends Component {
   // This fires off an event when the system is fully rendered.
   componentDidUpdate() {
     // Create the event
-    var event = new CustomEvent("myr-view-rendered");
+    let event = new CustomEvent("myr-view-rendered");
 
     // Dispatch/Trigger/Fire the event
     document.dispatchEvent(event);
 
-    var el = document.getElementById('rig');
+    let el = document.getElementById('rig');
     el.components["movement-controls"].velocity = new THREE.Vector3(0, 0, 0)
   }
 
@@ -158,7 +158,7 @@ class View extends Component {
       return (
         <a-entity id="floor"
           geometry="primitive: box;"
-          material="color: #222"
+          material={"color: " + this.props.sceneConfig.floorColor}
           static-body="shape: box"
           scale="80 .01 80"
           position="0 -0.5 0"

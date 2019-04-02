@@ -30,6 +30,10 @@ export function changeSkyColor(color) {
   return { type: types.CHANGE_SKY_COLOR, color };
 }
 
+export function changeFloorColor(color) {
+  return { type: types.CHANGE_FLOOR_COLOR, color };
+}
+
 export function changeCamMode(config) {
   return { type: types.CHANGE_CAM_MODE, config };
 }
@@ -62,11 +66,16 @@ export function changeSetting(payload) {
   return { type: types.LOAD_SETTINGS, payload };
 }
 
+export function addClassroomID(payload) {
+  return { type: types.ADD_CLASSROOM, payload };
+}
+
 export default {
   nameScene,
   loadScene,
   toggleCoordSky,
   changeSkyColor,
+  changeFloorColor,
   changeCamMode,
   setCamera,
   changePerspective,
@@ -75,5 +84,5 @@ export default {
   toggleFloor,
   loadSettings,
   changeSetting,
-
+  addClassroomID
 };

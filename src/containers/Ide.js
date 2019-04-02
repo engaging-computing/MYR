@@ -1,53 +1,9 @@
-import React from 'react';
-import Editor from '../components/Editor';
-import Footer from '../components/Footer';
-import Header from '../components/Header';
-import View from '../components/View';
 import PropTypes from 'prop-types';
-
+import Ide from '../components/layouts/Ide.js';
 import * as Actions from '../actions';
 
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-
-const Ide = ({ editor, editorActions, user, authActions, scene, sceneActions, projectActions, courseActions, projects, courses, match }) => (
-  <div className="App">
-    <Header
-      logging={authActions}
-      sceneActions={sceneActions}
-      actions={editorActions}
-      user={user}
-      scene={scene}
-      text={editor.text}
-      message={editor.message}
-      projectId={match.params.id}
-      match={match}
-      projectActions={projectActions}
-      courseActions={courseActions}
-      projects={projects}
-      courses={courses}
-    />
-    <div className="row no-gutters">
-      {
-        scene.viewOnly
-          ?
-          <div id="scene" className="col-12" >
-            <View objects={editor.objects} sceneConfig={scene} assets={editor.assets} />
-          </div>
-          :
-          <>
-            <div id="interface" className="col-12 col-md-4" >
-              <Editor text={editor.text} user={user} />
-            </div>
-            <div id="scene" className="col-12 col-md-8" >
-              <View objects={editor.objects} sceneConfig={scene} assets={editor.assets} />
-            </div>
-          </>
-      }
-    </div>
-    <Footer />
-  </div>
-);
 
 // This makes sure we are getting what we think we should
 Ide.propTypes = {
@@ -62,7 +18,8 @@ const mapStateToProps = state => ({
   user: state.user.user,
   scene: state.scene,
   projects: state.project,
-  courses: state.courses
+  courses: state.courses,
+  classrooms: state.classrooms
 });
 
 // This maps dispatch actions to props
@@ -71,7 +28,8 @@ const mapDispatchToProps = dispatch => ({
   authActions: bindActionCreators(Actions.AuthActions, dispatch),
   sceneActions: bindActionCreators(Actions.SceneActions, dispatch),
   projectActions: bindActionCreators(Actions.ProjectActions, dispatch),
-  courseActions: bindActionCreators(Actions.CourseActions, dispatch)
+  courseActions: bindActionCreators(Actions.CourseActions, dispatch),
+  classroomActions: bindActionCreators(Actions.ClassroomActions, dispatch)
 });
 
 // This does the binding to the redux store
