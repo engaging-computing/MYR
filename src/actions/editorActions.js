@@ -1,5 +1,5 @@
 import { scenes } from '../firebase.js';
-import { loadSettings } from './sceneActions';
+import { loadScene } from './sceneActions';
 import { DEF_SETTINGS } from '../reducers/scene';
 import * as types from '../constants/ActionTypes';
 
@@ -59,8 +59,16 @@ export function fetchScene(id, uid = "anon") {
           settings = { ...settings, ...data.settings };
         }
 
+        // apply name/desc
+        dispatch(loadScene({
+          name: data.name ? data.name : "",
+          id: data.uid === uid ? id : 0,
+          ts: data.ts ? data.ts : Date.now(),
+          desc: data.desc ? data.desc : "",
+          settings: settings
+        }));
         // apply settings, set id to 0 if not the owner of the scene
-        dispatch(loadSettings({ ...settings, id: data.uid === uid ? id : 0 }));
+        // dispatch(loadSettings(settings));
 
       } else { // If no scene is found and we are not looking for 404 return 404
         if (id !== 'error-404') {
