@@ -73,7 +73,7 @@ class ConfigModal extends Component {
     super(props);
     this.state = {
       open: false,
-      skyColor: this.props.scene.color,
+      skyColor: this.props.scene.settings.color,
       displaySkyColorPicker: false,
       displayFloorColorPicker: false,
       anchorEl: null,
@@ -220,14 +220,14 @@ class ConfigModal extends Component {
 
   // Toggles whether the editor is showing
   viewToggle = () => {
-    let style = this.props.scene.viewOnly ? btnStyle.off : btnStyle.on;
+    let style = this.props.scene.settings.viewOnly ? btnStyle.off : btnStyle.on;
     style = { ...btnStyle.base, ...style };
     return (
       <ButtonBase
         style={style}
         onClick={() => this.props.sceneActions.changeView()} >
         {
-          !this.props.scene.viewOnly
+          !this.props.scene.settings.viewOnly
             ? <Icon className="material-icons">toggle_on</Icon>
             : <Icon className="material-icons">toggle_off</Icon>
         }
@@ -238,14 +238,14 @@ class ConfigModal extends Component {
 
   // Toggles the ability to fly in the scene
   flyToggle = () => {
-    let style = this.props.scene.canFly ? btnStyle.on : btnStyle.off;
+    let style = this.props.scene.settings.canFly ? btnStyle.on : btnStyle.off;
     style = { ...btnStyle.base, ...style };
     return (
       <ButtonBase
         style={style}
         onClick={() => this.props.sceneActions.toggleFly()} >
         {
-          this.props.scene.canFly
+          this.props.scene.settings.canFly
             ? <Icon className="material-icons">toggle_on</Icon>
             : <Icon className="material-icons">toggle_off</Icon>
         }
@@ -256,14 +256,14 @@ class ConfigModal extends Component {
 
   // Toggles the grid on and off
   gridToggle = () => {
-    let style = this.props.scene.showCoordHelper ? btnStyle.on : btnStyle.off;
+    let style = this.props.scene.settings.showCoordHelper ? btnStyle.on : btnStyle.off;
     style = { ...btnStyle.base, ...style };
     return (
       <ButtonBase
         style={style}
         onClick={() => this.props.sceneActions.toggleCoordSky()} >
         {
-          this.props.scene.showCoordHelper
+          this.props.scene.settings.showCoordHelper
             ? <Icon className="material-icons">toggle_on</Icon>
             : <Icon className="material-icons">toggle_off</Icon>
         }
@@ -274,14 +274,14 @@ class ConfigModal extends Component {
 
   // Toggles the floor on and off
   floorToggle = () => {
-    let style = this.props.scene.showFloor ? btnStyle.on : btnStyle.off;
+    let style = this.props.scene.settings.showFloor ? btnStyle.on : btnStyle.off;
     style = { ...btnStyle.base, ...style };
     return (
       <ButtonBase
         style={style}
         onClick={() => this.props.sceneActions.toggleFloor()} >
         {
-          this.props.scene.showFloor
+          this.props.scene.settings.showFloor
             ? <Icon className="material-icons">toggle_on</Icon>
             : <Icon className="material-icons">toggle_off</Icon>
         }
@@ -320,7 +320,7 @@ class ConfigModal extends Component {
   addClass = () => (
     <div>
       <h5>Please enter your class code</h5>
-      {this.props.scene && this.props.scene.classroomID ? <p>{"Current classroom: " + this.props.scene.classroomID}</p> : null}
+      {this.props.scene && this.props.scene.settings.classroomID ? <p>{"Current classroom: " + this.props.scene.settings.classroomID}</p> : null}
       <TextField
         id="standard-name"
         type="text"
@@ -379,6 +379,7 @@ class ConfigModal extends Component {
   // Render all of the elements
   render() {
     const { classes } = this.props;
+    console.log(this.props.scene);
     return (
       <div>
         <IconButton

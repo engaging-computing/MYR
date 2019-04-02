@@ -25,7 +25,7 @@ export const Ide = ({ editor, editorActions, user, authActions, scene, sceneActi
         />
         <div className="row no-gutters">
             {
-                scene.viewOnly
+                scene.settings.viewOnly
                     ?
                     <div id="scene" className="col-12" >
                         <View objects={editor.objects} sceneConfig={scene} assets={editor.assets} />
