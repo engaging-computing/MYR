@@ -28,11 +28,11 @@ describe(`Updates to Myr's Model`, () => {
 
   it(`to SetRadius`, () => {
     myr.setRadius(10);
-    expect(myr.radius).toEqual(10);
+    expect(myr.radius).toEqual("10");
     myr.setRadius('a');
-    expect(myr.radius).toEqual(10);
+    expect(myr.radius).toEqual("10");
     myr.setRadius({});
-    expect(myr.radius).toEqual(10);
+    expect(myr.radius).toEqual("10");
   });
 
   it(`to makes Random Color`, () => {
@@ -44,9 +44,8 @@ describe(`Updates to Myr's Model`, () => {
 
 describe('Component Renders', () => {
   it(`Box`, () => {
-    myr.els = [];
-    myr.box({ material: "color: blue;", position: { x: 1, y: 1, z: 1 } });
-    let box = myr.els[0];
+    let id = myr.box({ material: "color: blue;", position: { x: 1, y: 1, z: 1 } });
+    let box= myr.els[id];
     expect(box).toBeDefined();
     expect(box.material).toEqual("color: blue;");
     expect(box.position).toEqual({ x: 1, y: 1, z: 1 });
@@ -54,8 +53,8 @@ describe('Component Renders', () => {
 
   it(`Sphere`, () => {
     myr.els = [];
-    myr.sphere({ material: "color: blue;", position: { x: 1, y: 1, z: 1 } });
-    let sphere = myr.els[0];
+    let id = myr.sphere({ material: "color: blue;", position: { x: 1, y: 1, z: 1 } });
+    let sphere = myr.els[id];
     expect(sphere).toBeDefined();
     expect(sphere.material).toEqual("color: blue;");
     expect(sphere.position).toEqual({ x: 1, y: 1, z: 1 });
@@ -63,8 +62,8 @@ describe('Component Renders', () => {
 
   it(`Circle`, () => {
     myr.els = [];
-    myr.circle({ material: "color: blue;", position: { x: 1, y: 1, z: 1 } });
-    let circle = myr.els[0];
+    let id=myr.circle({ material: "color: blue;", position: { x: 1, y: 1, z: 1 } });
+    let circle = myr.els[id];
     expect(circle).toBeDefined();
     expect(circle.material).toEqual("color: blue;");
     expect(circle.position).toEqual({ x: 1, y: 1, z: 1 });
@@ -73,8 +72,8 @@ describe('Component Renders', () => {
   
   it(`Cone`, () => {
     myr.els = [];
-    myr.cone({ material: "color: blue;", position: { x: 1, y: 1, z: 1 } });
-    let cone = myr.els[0];
+    let id=myr.cone({ material: "color: blue;", position: { x: 1, y: 1, z: 1 } });
+    let cone = myr.els[id];
     expect(cone).toBeDefined();
     expect(cone.material).toEqual("color: blue;");
     expect(cone.position).toEqual({ x: 1, y: 1, z: 1 });
@@ -82,18 +81,18 @@ describe('Component Renders', () => {
   
   it(`Cylinder`, () => {
     myr.els = [];
-    myr.cylinder({ material: "color: blue;", position: { x: 1, y: 1, z: 1 } });
-    let cylinder = myr.els[0];
+    let id=myr.cylinder({ material: "color: blue;", position: { x: 1, y: 1, z: 1 } });
+    let cylinder = myr.els[id];
     expect(cylinder).toBeDefined();
-    expect(cylinder.geometry).toEqual("primitive: cylinder;");
+    expect(cylinder.geometry).toEqual("primitive: cylinder; radius: 10;");
     expect(cylinder.material).toEqual("color: blue;");
     expect(cylinder.position).toEqual({ x: 1, y: 1, z: 1 });
   });
 
   it(`Ring`, () => {
     myr.reset();
-    myr.ring();
-    let ring = myr.els[0];
+    let id=myr.ring();
+    let ring = myr.els[id];
     expect(ring).toBeDefined();
     expect(ring.geometry).toEqual("primitive: ring; radiusInner: 0.5; radiusOuter: 1;");
     expect(ring.material).toEqual("color: red; side: double;");
@@ -103,8 +102,8 @@ describe('Component Renders', () => {
   it(`Plane`, () => {
     myr.reset();
     myr.els = [];
-    myr.plane();
-    let plane = myr.els[0];
+    let id=myr.plane();
+    let plane = myr.els[id];
     expect(plane).toBeDefined();
     expect(plane.geometry).toEqual("primitive: plane; height: 1; width: 1;");
     expect(plane.material).toEqual("color: red; side: double;");
@@ -113,8 +112,8 @@ describe('Component Renders', () => {
 
   it('Tetrahedron', () => {
     myr.reset();
-    myr.tetrahedron();
-    let tetrahedron = myr.els[0];
+    let id=myr.tetrahedron();
+    let tetrahedron = myr.els[id];
     expect(tetrahedron).toBeDefined();
     expect(tetrahedron.material).toEqual("color: red; side: double;");
     expect(tetrahedron.position).toEqual({ x: 0, y: 0, z: 0 });
@@ -122,8 +121,8 @@ describe('Component Renders', () => {
 
   it('Triangle', () => {
     myr.els = [];
-    myr.triangle({ material: "color: blue;", position: { x: 1, y: 1, z: 1 } });
-    let triangle = myr.els[0];
+    let id=myr.triangle({ material: "color: blue;", position: { x: 1, y: 1, z: 1 } });
+    let triangle = myr.els[id];
     expect(triangle).toBeDefined();
     expect(triangle.material).toEqual("color: blue;");
     expect(triangle.position).toEqual({ x: 1, y: 1, z: 1 });
@@ -133,8 +132,8 @@ describe('Component Renders', () => {
   it('Text', () => {
     myr.els = [];
     myr.setPosition(0, 0, 0);
-    myr.text("Hello World!");
-    let text = myr.els[0];
+    let id=myr.text("Hello World!");
+    let text = myr.els[id];
     expect(text).toBeDefined();
     expect(text.position).toEqual({ x: 0, y: 0, z: 0 });
     expect(text.value).toEqual("Hello World!");
@@ -143,12 +142,12 @@ describe('Component Renders', () => {
 
   it('polyhedron', () => {
     myr.els = [];
-    myr.polyhedron({
+    let id=myr.polyhedron({
       position: { x: 1, y: 1, z: 1 },
       rotation: { x: 1, y: 1, z: 1 },
       scale: { x: 1, y: 1, z: 1 }
     });
-    let polyhedron = myr.els[0];
+    let polyhedron = myr.els[id];
     expect(polyhedron).toBeDefined();
     expect(polyhedron.position).toEqual({ x: 1, y: 1, z: 1 });
     expect(polyhedron.rotation).toEqual({ x: 1, y: 1, z: 1 });
@@ -157,8 +156,8 @@ describe('Component Renders', () => {
 
   it('dodecahedron', () => {
     myr.els = [];
-    myr.dodecahedron({ material: "color: blue;", position: { x: 1, y: 1, z: 1 } });
-    let dodecahedron = myr.els[0];
+    let id=myr.dodecahedron({ material: "color: blue;", position: { x: 1, y: 1, z: 1 } });
+    let dodecahedron = myr.els[id];
     expect(dodecahedron).toBeDefined();
     expect(dodecahedron.material).toEqual("color: blue;");
     expect(dodecahedron.position).toEqual({ x: 1, y: 1, z: 1 });
@@ -166,8 +165,8 @@ describe('Component Renders', () => {
 
   it('icosahedron', () => {
     myr.els = [];
-    myr.icosahedron({ material: "color: blue;", position: { x: 1, y: 1, z: 1 } });
-    let icosahedron = myr.els[0];
+   let id= myr.icosahedron({ material: "color: blue;", position: { x: 1, y: 1, z: 1 } });
+    let icosahedron = myr.els[id];
     expect(icosahedron).toBeDefined();
     expect(icosahedron.material).toEqual("color: blue;");
     expect(icosahedron.position).toEqual({ x: 1, y: 1, z: 1 });
@@ -175,8 +174,8 @@ describe('Component Renders', () => {
 
   it('octahedron', () => {
     myr.els = [];
-    myr.octahedron({ material: "color: blue;", position: { x: 1, y: 1, z: 1 } });
-    let octahedron = myr.els[0];
+    let id=myr.octahedron({ material: "color: blue;", position: { x: 1, y: 1, z: 1 } });
+    let octahedron = myr.els[id];
     expect(octahedron).toBeDefined();
     expect(octahedron.material).toEqual("color: blue;");
     expect(octahedron.position).toEqual({ x: 1, y: 1, z: 1 });

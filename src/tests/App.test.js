@@ -1,3 +1,4 @@
+
 import React from 'react';
 import store from '../store';
 import { configure, shallow } from 'enzyme';
@@ -9,8 +10,7 @@ import Reference from '../components/Reference';
 import View from '../components/View';
 import Editor from '../components/Editor';
 import Sidebar from '../components/Sidebar';
-import DisplayMsg from '../components/DisplayMsg';
-import SceneConfig from '../components/SceneConfig';
+import SceneConfig from '../components/SceneConfigMenu';
 
 
 import user from '../reducers/user';
@@ -58,22 +58,6 @@ describe('Header Component', () => {
   });
 });
 
-describe('DisplayMsg Component', () => {
-  const confirmNavAway = {
-    headerText: "Are you sure?",
-    bodyText: "You will lose any unsaved work. Click 'CONTINUE' to create a new scene, click 'CANCEL' to go back",
-    confirmedFunc: () => {
-      window.location.href = window.origin;
-      this.toggleNavModal();
-    },
-    cancelFunc: () => {
-      this.toggleNavModal();
-    },
-  };
-  it('Terminal renders without crashing', () => {
-    shallow(<DisplayMsg open={true} {...confirmNavAway} />);
-  });
-});
 
 describe('Editor Component', () => {
   it('Editor renders without crashing', () => {
@@ -224,7 +208,7 @@ describe('Scene Reducer', () => {
     expect(scene(undefined, {})).toEqual(
       {
         camConfig: 0,
-        cameraPosition: "0 1.6 0",
+        cameraPosition: "0 1.6 3",
         id: "0",
         name: "",
         showCoordHelper: true,
