@@ -235,7 +235,7 @@ describe('Component Animations', () => {
 
 describe(`Other Myr functionality`, () => {
   it(`Should add a model`, () => {
-    myr.reset()
+    myr.reset();
     myr.assets = [];
     myr.addCModel();
     expect(myr.assets).toContainEqual({ id: "c-obj", src: "/img/c.obj" });
