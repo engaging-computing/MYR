@@ -13,6 +13,8 @@ import QRCode from "qrcode.react";
 
 import { withStyles } from "@material-ui/core/styles";
 
+import * as layoutTypes from '../constants/LayoutTypes.js';
+
 import '../css/SceneConfig.css';
 
 // FUNC to position modal in the middle of the screen
@@ -379,182 +381,185 @@ class ConfigModal extends Component {
   // Render all of the elements
   render() {
     const { classes } = this.props;
-    console.log(this.props.scene);
+    let isDisabled = this.props.layoutType === layoutTypes.REFERENCE;
     return (
       <div>
-        <IconButton
-          onClick={this.handleOpen}
-          id="configure-scene"
-          style={{
-            color: "#fff",
-            margin: 2,
-            padding: 0,
-          }}>
-          <Icon className="material-icons">settings</Icon>
-        </IconButton >
-        <Modal
-          aria-labelledby="simple-modal-title"
-          aria-describedby="simple-modal-description"
-          open={this.state.open}
-          onClose={this.handleClose} >
-          <div style={getModalStyle()} className={classes.paper}>
-            <ButtonBase
-              style={{ position: "absolute", right: 15, top: 15 }}
-              onClick={() => this.handleClose()} >
-              <Icon className="material-icons">clear</Icon>
-            </ButtonBase >
-            <div className="row d-flex">
-              <div className="col-12 border-bottom">View Control</div>
-              <div className="col-6">
-                <this.viewToggle />
-                <this.floorToggle />
-                <this.gridToggle />
-              </div>
-              <div className="col-6">
-                <this.changeSkyColor />
-                <this.changeFloorColor />
-              </div>
-              <div className="col-12 border-bottom pt-4">Camera Control</div>
-              <div className="col-6">
-                <this.flyToggle />
-              </div>
-              <div className="col-6">
-                <this.resetPosition />
-              </div>
-              <div className="col-12 border-bottom pt-4">Privacy Control</div>
-              <div className="col-6">
-                <ButtonBase
-                  style={btnStyle.base}
-                  onClick={() => { this.handleQrToggle(); }} >
-                  <Icon className="material-icons">gradient</Icon>
-                  QR Code
-                  </ButtonBase>
-              </div>
-              <div className="col-6">
-                <ButtonBase
-                  style={btnStyle.base}
-                  onClick={() => { this.handleShrToggle(); }} >
-                  <Icon className="material-icons">send</Icon>
-                  Send To
-                  </ButtonBase>
-                {/* <ButtonBase
-                  style={btnStyle.base}
-                  onClick={() => { this.handlePwToggle(); }} >
-                  <Icon className="material-icons">lock</Icon>
-                  Add PW
-                  </ButtonBase> */}
-              </div>
-              <div className="col-12 border-bottom pt-4">Classroom Control</div>
-              <div className="col-6">
-                <this.addClassroomToggle />
-              </div>
-              <div className="col-6">
-                <this.classInfoToggle />
-              </div>
-              <div className="col-12 border-bottom mt-3"></div>
-              <div className="offset-4 col-4">
-                <ButtonBase
-                  style={btnStyle.save}
-                  onClick={() => this.handleClose()} >
-                  Close
-                </ButtonBase >
-              </div>
-              {/* This is for the dual button config
-              <div className="col-6">
-                <ButtonBase
-                  style={btnStyle.cancel}
-                  onClick={() => this.handleClose()} >
-                  Cancel
-                </ButtonBase >
-              </div> */}
-              {this.state.displaySkyColorPicker
-                ?
-                <div id="color-popover">
-                  <ButtonBase
-                    onClick={this.handleSkyColorClose}
-                    style={{ position: "absolute", right: -25, top: -17, zIndex: 100 }}>
-                    <Icon className="material-icons">clear</Icon>
-                  </ButtonBase >
-                  <div id="color-cover" onClick={this.handleSkyColorClose} />
-                  <ChromePicker disableAlpha={true} color={this.state.skyColor} onChangeComplete={this.handleSkyChangeComplete} />
+        {!isDisabled ?
+        <div>
+          <IconButton
+            onClick={this.handleOpen}
+            id="configure-scene"
+            style={{
+              color: "#fff",
+              margin: 2,
+              padding: 0,
+            }}>
+            <Icon className="material-icons">settings</Icon>
+          </IconButton >
+          <Modal
+            aria-labelledby="simple-modal-title"
+            aria-describedby="simple-modal-description"
+            open={this.state.open}
+            onClose={this.handleClose} >
+            <div style={getModalStyle()} className={classes.paper}>
+              <ButtonBase
+                style={{ position: "absolute", right: 15, top: 15 }}
+                onClick={() => this.handleClose()} >
+                <Icon className="material-icons">clear</Icon>
+              </ButtonBase >
+              <div className="row d-flex">
+                <div className="col-12 border-bottom">View Control</div>
+                <div className="col-6">
+                  <this.viewToggle />
+                  <this.floorToggle />
+                  <this.gridToggle />
                 </div>
-                :
-                null
-              }
-              {this.state.displayFloorColorPicker
-                ?
-                <div id="color-popover">
-                  <ButtonBase
-                    onClick={this.handleFloorColorClose}
-                    style={{ position: "absolute", right: -25, top: -17, zIndex: 100 }}>
-                    <Icon className="material-icons">clear</Icon>
-                  </ButtonBase >
-                  <div id="color-cover" onClick={this.handleFloorColorClose} />
-                  <ChromePicker disableAlpha={true} color={this.state.floorColor} onChangeComplete={this.handleFloorChangeComplete} />
+                <div className="col-6">
+                  <this.changeSkyColor />
+                  <this.changeFloorColor />
                 </div>
-                :
-                null
-              }
+                <div className="col-12 border-bottom pt-4">Camera Control</div>
+                <div className="col-6">
+                  <this.flyToggle />
+                </div>
+                <div className="col-6">
+                  <this.resetPosition />
+                </div>
+                <div className="col-12 border-bottom pt-4">Privacy Control</div>
+                <div className="col-6">
+                  <ButtonBase
+                    style={btnStyle.base}
+                    onClick={() => { this.handleQrToggle(); }} >
+                    <Icon className="material-icons">gradient</Icon>
+                    QR Code
+                    </ButtonBase>
+                </div>
+                <div className="col-6">
+                  <ButtonBase
+                    style={btnStyle.base}
+                    onClick={() => { this.handleShrToggle(); }} >
+                    <Icon className="material-icons">send</Icon>
+                    Send To
+                    </ButtonBase>
+                  {/* <ButtonBase
+                    style={btnStyle.base}
+                    onClick={() => { this.handlePwToggle(); }} >
+                    <Icon className="material-icons">lock</Icon>
+                    Add PW
+                    </ButtonBase> */}
+                </div>
+                <div className="col-12 border-bottom pt-4">Classroom Control</div>
+                <div className="col-6">
+                  <this.addClassroomToggle />
+                </div>
+                <div className="col-6">
+                  <this.classInfoToggle />
+                </div>
+                <div className="col-12 border-bottom mt-3"></div>
+                <div className="offset-4 col-4">
+                  <ButtonBase
+                    style={btnStyle.save}
+                    onClick={() => this.handleClose()} >
+                    Close
+                  </ButtonBase >
+                </div>
+                {/* This is for the dual button config
+                <div className="col-6">
+                  <ButtonBase
+                    style={btnStyle.cancel}
+                    onClick={() => this.handleClose()} >
+                    Cancel
+                  </ButtonBase >
+                </div> */}
+                {this.state.displaySkyColorPicker
+                  ?
+                  <div id="color-popover">
+                    <ButtonBase
+                      onClick={this.handleSkyColorClose}
+                      style={{ position: "absolute", right: -25, top: -17, zIndex: 100 }}>
+                      <Icon className="material-icons">clear</Icon>
+                    </ButtonBase >
+                    <div id="color-cover" onClick={this.handleSkyColorClose} />
+                    <ChromePicker disableAlpha={true} color={this.state.skyColor} onChangeComplete={this.handleSkyChangeComplete} />
+                  </div>
+                  :
+                  null
+                }
+                {this.state.displayFloorColorPicker
+                  ?
+                  <div id="color-popover">
+                    <ButtonBase
+                      onClick={this.handleFloorColorClose}
+                      style={{ position: "absolute", right: -25, top: -17, zIndex: 100 }}>
+                      <Icon className="material-icons">clear</Icon>
+                    </ButtonBase >
+                    <div id="color-cover" onClick={this.handleFloorColorClose} />
+                    <ChromePicker disableAlpha={true} color={this.state.floorColor} onChangeComplete={this.handleFloorChangeComplete} />
+                  </div>
+                  :
+                  null
+                }
+              </div>
             </div>
-          </div>
-        </Modal >
-        <Modal
-          aria-labelledby="simple-modal-title"
-          aria-describedby="simple-modal-description"
-          open={this.state.qrCodeOpen}
-          onClose={this.handleQrToggle} >
-          <div style={getModalStyle()} className={classes.paper}>
-            <ButtonBase
-              style={{ position: "absolute", right: 15, top: 15 }}
-              onClick={() => this.handleQrToggle()} >
-              <Icon className="material-icons">clear</Icon>
-            </ButtonBase >
-            <this.qrCodeOpen />
-          </div>
-        </Modal>
-        <Modal
-          aria-labelledby="simple-modal-title"
-          aria-describedby="simple-modal-description"
-          open={this.state.shareOpen}
-          onClose={this.handleShrToggle} >
-          <div style={getModalStyle()} className={classes.paper}>
-            <ButtonBase
-              style={{ position: "absolute", right: 15, top: 15 }}
-              onClick={() => this.handleShrToggle()} >
-              <Icon className="material-icons">clear</Icon>
-            </ButtonBase >
-            <this.shareOptions />
-          </div>
-        </Modal>
-        <Modal
-          aria-labelledby="simple-modal-title"
-          aria-describedby="simple-modal-description"
-          open={this.state.pwProtectOpen}
-          onClose={this.handlePwToggle} >
-          <div style={getModalStyle()} className={classes.paper}>
-            <ButtonBase
-              style={{ position: "absolute", right: 15, top: 15 }}
-              onClick={() => this.handlePwToggle()} >
-              <Icon className="material-icons">clear</Icon>
-            </ButtonBase >
-            <this.pwProtect />
-          </div>
-        </Modal>
-        <Modal
-          aria-labelledby="simple-modal-title"
-          aria-describedby="simple-modal-description"
-          open={this.state.addClassOpen}
-          onClose={this.handleAddClassToggle} >
-          <div style={getModalStyle()} className={classes.paper}>
-            <ButtonBase
-              style={{ position: "absolute", right: 15, top: 15 }}
-              onClick={() => this.handleAddClassToggle()} >
-              <Icon className="material-icons">clear</Icon>
-            </ButtonBase >
-            <this.addClass />
-          </div>
-        </Modal>
-      </div >
+          </Modal >
+          <Modal
+            aria-labelledby="simple-modal-title"
+            aria-describedby="simple-modal-description"
+            open={this.state.qrCodeOpen}
+            onClose={this.handleQrToggle} >
+            <div style={getModalStyle()} className={classes.paper}>
+              <ButtonBase
+                style={{ position: "absolute", right: 15, top: 15 }}
+                onClick={() => this.handleQrToggle()} >
+                <Icon className="material-icons">clear</Icon>
+              </ButtonBase >
+              <this.qrCodeOpen />
+            </div>
+          </Modal>
+          <Modal
+            aria-labelledby="simple-modal-title"
+            aria-describedby="simple-modal-description"
+            open={this.state.shareOpen}
+            onClose={this.handleShrToggle} >
+            <div style={getModalStyle()} className={classes.paper}>
+              <ButtonBase
+                style={{ position: "absolute", right: 15, top: 15 }}
+                onClick={() => this.handleShrToggle()} >
+                <Icon className="material-icons">clear</Icon>
+              </ButtonBase >
+              <this.shareOptions />
+            </div>
+          </Modal>
+          <Modal
+            aria-labelledby="simple-modal-title"
+            aria-describedby="simple-modal-description"
+            open={this.state.pwProtectOpen}
+            onClose={this.handlePwToggle} >
+            <div style={getModalStyle()} className={classes.paper}>
+              <ButtonBase
+                style={{ position: "absolute", right: 15, top: 15 }}
+                onClick={() => this.handlePwToggle()} >
+                <Icon className="material-icons">clear</Icon>
+              </ButtonBase >
+              <this.pwProtect />
+            </div>
+          </Modal>
+          <Modal
+            aria-labelledby="simple-modal-title"
+            aria-describedby="simple-modal-description"
+            open={this.state.addClassOpen}
+            onClose={this.handleAddClassToggle} >
+            <div style={getModalStyle()} className={classes.paper}>
+              <ButtonBase
+                style={{ position: "absolute", right: 15, top: 15 }}
+                onClick={() => this.handleAddClassToggle()} >
+                <Icon className="material-icons">clear</Icon>
+              </ButtonBase >
+              <this.addClass />
+            </div>
+          </Modal>
+        </div > : null}
+      </div>
     );
   }
 }

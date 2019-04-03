@@ -3,12 +3,14 @@ import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
 import Ide from './containers/Ide';
 import Guided from './containers/Guided';
 import Classroom from './containers/Classroom';
+import Reference from './containers/Reference';
 
 export default () => {
   return (
     <BrowserRouter>
       <Switch>
         <Route exact path='/' component={Ide} />
+        <Route exact path='/reference' component={Reference} />
         <Route path='/course/:shortname' component={Guided} />
         <Route path='/class/:classroom' component={Classroom} />
         <Route path='/:id' component={Ide} />

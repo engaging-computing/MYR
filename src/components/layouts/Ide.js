@@ -4,6 +4,8 @@ import Footer from '../Footer';
 import Header from '../Header';
 import View from '../View';
 
+import * as layoutTypes from '../../constants/LayoutTypes.js';
+
 export const Ide = ({ editor, editorActions, user, authActions, scene, sceneActions, projectActions, courseActions, projects, courses, match, classroomActions, classrooms }) => (
     <div className="App">
         <Header
@@ -22,6 +24,7 @@ export const Ide = ({ editor, editorActions, user, authActions, scene, sceneActi
             courses={courses}
             classroomActions={classroomActions}
             classrooms={classrooms}
+            layoutType={layoutTypes.IDE}
         />
         <div className="row no-gutters">
             {
