@@ -14,13 +14,13 @@ import * as THREE from 'three';
  */
 class View extends Component {
 
-  componentDidMount(){
-    window.addEventListener("keydown", function(e) {
+  componentDidMount() {
+    window.addEventListener("keydown", function (e) {
       //KEYS: left and right: 37, 39; up and down: 38, 40; space: 32
-      if([38, 40].indexOf(e.keyCode) > -1) {
-          e.preventDefault();
+      if ([38, 40].indexOf(e.keyCode) > -1) {
+        e.preventDefault();
       }
-  }, false);
+    }, false);
   }
   // This fires off an event when the system is fully rendered.
   componentDidUpdate() {
@@ -69,7 +69,7 @@ class View extends Component {
   }
 
   createCam = () => {
-    switch (this.props.sceneConfig.camConfig) {
+    switch (this.props.sceneConfig.settings.camConfig) {
       case 0:
         return this.basicMoveCam();
       case 1:
@@ -83,7 +83,7 @@ class View extends Component {
     return (
       <a-entity id="rig" movement-controls="controls: checkpoint" checkpoint-controls="mode: animate">
         <a-entity camera
-          position={this.props.sceneConfig.cameraPosition}
+          position={this.props.sceneConfig.settings.cameraPosition}
           look-controls="pointerLockEnabled: true"
         >
           <a-entity cursor
@@ -99,8 +99,8 @@ class View extends Component {
     return (
       <a-entity id="rig"
         debug={true}
-        movement-controls={this.props.sceneConfig.canFly ? "fly:true" : "fly:false"}
-        position={this.props.sceneConfig.cameraPosition} >
+        movement-controls={this.props.sceneConfig.settings.canFly ? "fly:true" : "fly:false"}
+        position={this.props.sceneConfig.settings.cameraPosition} >
         <a-entity camera
           look-controls="pointerLockEnabled: true">
           <a-entity cursor
@@ -119,7 +119,7 @@ class View extends Component {
   *
   */
   coordinateHelper = () => {
-    if (this.props.sceneConfig.showCoordHelper) {
+    if (this.props.sceneConfig.settings.showCoordHelper) {
       return (
         <Fragment>
           <a-grid height="53.33" width="53.33" position="-0.5 -0.26 -0.5" scale="1.5 1.5 1.5" />
@@ -154,11 +154,11 @@ class View extends Component {
   }
 
   makeFloor = () => {
-    if (this.props.sceneConfig.showFloor) {
+    if (this.props.sceneConfig.settings.showFloor) {
       return (
         <a-entity id="floor"
           geometry="primitive: box;"
-          material={"color: " + this.props.sceneConfig.floorColor}
+          material={"color: " + this.props.sceneConfig.settings.floorColor}
           static-body="shape: box"
           scale="80 .01 80"
           position="0 -0.5 0"
@@ -179,7 +179,7 @@ class View extends Component {
           {this.props.assets ? this.props.assets.map((x, index) => this.assetsHelper(x, index)) : null}
         </a-assets>
         <this.createCam />
-        <a-sky color={this.props.sceneConfig.skyColor} />
+        <a-sky color={this.props.sceneConfig.settings.skyColor} />
         <this.coordinateHelper />
         <this.makeFloor />
         { // create the entities
@@ -187,7 +187,7 @@ class View extends Component {
             return this.helper(this.props.objects[it]);
           })
         }
-        {this.props.sceneConfig.camConfig === 1 ?
+        {this.props.sceneConfig.settings.camConfig === 1 ?
           <a-entity position="0 0 0">
             <a-cylinder checkpoint radius="1" height="0.3" position="-25 1 -25" color="#39BB82"></a-cylinder>
             <a-cylinder checkpoint radius="1" height="0.3" position="25 1 25" color="#39BB82"></a-cylinder>

@@ -18,8 +18,8 @@ export function nameScene(name) {
 *
 * @returns - a reducer action with type:LOAD_SCENE
 */
-export function loadScene(id) {
-  return { type: types.LOAD_SCENE, id };
+export function loadScene(data) {
+  return { type: types.LOAD_SCENE, data };
 }
 
 export function toggleCoordSky() {
@@ -70,6 +70,15 @@ export function addClassroomID(payload) {
   return { type: types.ADD_CLASSROOM, payload };
 }
 
+export function setDesc(payload) {
+  return { type: types.SET_DESC, payload };
+}
+
+export function setNameDesc(payload) {
+  console.log(payload)
+  return { type: types.SET_NAME_DESC, payload };
+}
+
 export default {
   nameScene,
   loadScene,
@@ -84,5 +93,7 @@ export default {
   toggleFloor,
   loadSettings,
   changeSetting,
-  addClassroomID
+  addClassroomID,
+  setDesc,
+  setNameDesc
 };

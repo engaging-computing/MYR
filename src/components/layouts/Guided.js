@@ -5,6 +5,8 @@ import Footer from '../Footer';
 import Course from '../Course';
 import View from '../View';
 
+import * as layoutTypes from '../../constants/LayoutTypes.js';
+
 export const Guided = ({ editor, user, scene, lesson, editorActions, authActions, projectActions, projects, courseActions, courses, course, match, sceneActions }) => (
     <div className="App">
         <Header
@@ -22,7 +24,9 @@ export const Guided = ({ editor, user, scene, lesson, editorActions, authActions
             courseActions={courseActions}
             courses={courses}
             course={course}
-            courseName={match.params.shortname} />
+            courseName={match.params.shortname}
+            layoutType={layoutTypes.GUIDED}
+            />
         <div className="row no-gutters">
             <div id="interface" className="col-12 col-md-4">
                 <Course lesson={courses.currentLesson} courses={courses} course={course} courseName={match.params.shortname} actions={editorActions} courseActions={courseActions} />

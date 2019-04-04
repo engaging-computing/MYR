@@ -35,6 +35,8 @@ export const TOGGLE_FLOOR = "TOGGLE_FLOOR";
 export const LOAD_SETTINGS = "LOAD_SETTINGS";
 export const CHANGE_SETTING = "CHANGE_SETTING";
 export const ADD_CLASSROOM = 'ADD_CLASSROOM';
+export const SET_DESC = 'SET_DESC';
+export const SET_NAME_DESC = 'SET_NAME_DESC';
 
 export const SYNC_CLASSES = 'SYNC_CLASSES';
 export const SYNC_CLASS = 'SYNC_CLASS';

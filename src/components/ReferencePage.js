@@ -1,28 +1,24 @@
 import React from 'react';
 import myrReference from '../myr/reference';
 
-import * as layoutTypes from '../constants/LayoutTypes.js';
-
 import {
   Tabs,
   Tab,
-  IconButton,
-  Drawer,
   Icon,
   Table,
   TableBody,
   TableHead,
   TableRow,
   TableCell,
-  Tooltip
 } from '@material-ui/core';
+
+import '../css/ReferencePage.css';
 
 export default class Reference extends React.Component {
 
   constructor(props) {
     super(props);
     this.state = {
-      open: false,
       value: 'a',
     };
     this.tableData = myrReference();
@@ -32,11 +28,6 @@ export default class Reference extends React.Component {
 
   handleChange = (event, value) => {
     this.setState({ value });
-  };
-
-  handleOpen = () => {
-   window.open(window.origin + '/reference');
-    this.setState({ value: 'a' });
   };
 
   TableEx = (category) => {
@@ -62,32 +53,8 @@ export default class Reference extends React.Component {
   };
 
   render() {
-    const style = {
-      margin: 2,
-      padding: 0,
-      color: '#fff',
-    };
-    let isDisabled = this.props.layoutType === layoutTypes.REFERENCE;
     return (
-      <div>
-      {!isDisabled ? 
-      <React.Fragment>
-        <Tooltip title="Reference" placement="bottom-start">
-          <IconButton
-            id="ref-btn"
-            className="header-btn d-none d-md-block"
-            aria-haspopup="true"
-            onClick={() => this.setState({ open: true })}
-            style={style}>
-            <Icon style={{ color: '#fff' }} className="material-icons">help</Icon>
-          </IconButton>
-        </Tooltip>
-        <Drawer
-          anchor="left"
-          id="reference-drawer"
-          variant="persistent"
-          className={!this.state.open ? 'd-none' : ""}
-          open={this.state.open}>
+      <div id="reference-page">
           <Tabs
             id="reference-tabs"
             fullWidth={true}
@@ -109,19 +76,8 @@ export default class Reference extends React.Component {
               icon={<Icon className="material-icons geometry">widgets</Icon>}
               label="GROUPS"
               value='d' />
-            <Tab
-              icon={<Icon className="material-icons">open_in_new</Icon>}
-              label="OPEN IN NEW TAB"
-              value='n'
-              onClick={this.handleOpen} />
-            <Tab
-              icon={<Icon className="material-icons">close</Icon>}
-              label="CLOSE"
-              value='x'
-              onClick={this.handleToggle} />
           </Tabs>
-
-          {<div style={{ margin: 5, overflow: 'hidden' }}>
+          {<div style={{ margin: 5 }}>
             <p style={{ fontSize: "80%" }}> Key: <span className="array">array </span>
               <span className="bool">bool </span>
               <span className="number">number </span>
@@ -129,24 +85,22 @@ export default class Reference extends React.Component {
               <span className="group">group </span></p>
           </div>}
           {this.state.value === 'a' &&
-            <div style={{ marginTop: 0, overflow: 'scroll' }}>
+            <div style={{ marginTop: 0 }}>
               {this.TableEx("geometry")}
             </div>}
           {this.state.value === 'b' &&
-            <div style={{ marginTop: 0, overflow: 'scroll' }}>
+            <div style={{ marginTop: 0 }}>
               {this.TableEx("transformations")}
             </div>}
           {this.state.value === 'c' &&
-            <div style={{ marginTop: 0, overflow: 'scroll' }}>
+            <div style={{ marginTop: 0 }}>
               {this.TableEx("animations")}
             </div>}
           {this.state.value === 'd' &&
-            <div style={{ marginTop: 0, overflow: 'scroll' }}>
+            <div style={{ marginTop: 0 }}>
               {this.TableEx("groups")}
             </div>}
-        </Drawer>
-      </React.Fragment> : null}
-      </div>
+            </div>
     );
   }
 }
