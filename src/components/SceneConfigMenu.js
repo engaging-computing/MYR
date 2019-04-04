@@ -105,10 +105,11 @@ class ConfigModal extends Component {
   };
 
   handleTextChange = name => event => {
-    this.setState({
-      [name]: event.target.value,
-    });
+      this.setState({
+        [name]: event.target.value,
+      });
   };
+  
 
   handleAddEmail = () => {
     let arr = [].concat(this.state.sendTo);
@@ -332,7 +333,7 @@ class ConfigModal extends Component {
         color="primary"
         onClick={() => {
           this.handleAddClassToggle();
-          this.props.sceneActions.addClassroomID(this.state.classroomID);
+          this.props.sceneActions.addClassroomID(this.state.classroomID.toLowerCase());
           this.props.handleSave();
           this.props.handleSaveClose();
         }} >
