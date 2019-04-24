@@ -2,7 +2,7 @@ import * as types from '../constants/ActionTypes';
 
 import Myr from '../myr/Myr';
 
-const welcomeText = `//Getting Started? - https://learnmyr.org/first-time`;
+const welcomeText = `//Getting Started? - https://learnmyr.org/first-time\n`;
 
 const initial_state = {
   text: welcomeText,

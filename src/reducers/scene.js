@@ -1,8 +1,6 @@
 import * as types from '../constants/ActionTypes';
 
 export const DEF_SETTINGS = {
-  name: "",
-  id: "0",
   skyColor: "white",
   floorColor: "#222",
   camConfig: 0,
@@ -14,7 +12,18 @@ export const DEF_SETTINGS = {
   classroomID: ""
 };
 
-export default function scene(state = DEF_SETTINGS, action) {
+const initial_state = {
+  name: "",
+  id: 0,
+  desc: "",
+  ts: 0,
+  uid: -1,
+  settings: DEF_SETTINGS
+};
+
+
+
+export default function scene(state = initial_state, action) {
   switch (action.type) {
     case types.NAME_SCENE:
       return {
@@ -24,58 +33,100 @@ export default function scene(state = DEF_SETTINGS, action) {
     case types.LOAD_SCENE:
       return {
         ...state,
-        id: action.id
+        ...action.data
       };
     case types.TOGGLE_COORD_SKY:
-      return {
+      return{
         ...state,
-        showCoordHelper: !state.showCoordHelper
+        settings:{
+          ...state.settings,
+          showCoordHelper: !state.settings.showCoordHelper
+        }
       };
     case types.TOGGLE_FLY:
       return {
         ...state,
-        canFly: !state.canFly
+        settings: {
+          ...state.settings,
+          canFly: !state.settings.canFly
+        }
       };
     case types.SET_CAMERA:
       let camPos = `${action.x || 0} ${action.y + (Math.random() / 10) || 1.6} ${action.z || 0}`;
       return {
         ...state,
-        cameraPosition: camPos
+        settings: {
+          ...state.settings,
+          cameraPosition: camPos
+        }
       };
     case types.CHANGE_VIEW:
       return {
         ...state,
-        viewOnly: !state.viewOnly
+        settings: {
+          ...state.settings,
+          viewOnly: !state.settings.viewOnly
+        }
       };
     case types.CHANGE_SKY_COLOR:
       return {
         ...state,
-        skyColor: action.color
+        settings: {
+          ...state.settings,
+          skyColor: action.color
+        }
       };
     case types.CHANGE_FLOOR_COLOR:
       return {
         ...state,
-        floorColor: action.color
-      };
+        settings: {
+          ...state.settings,
+          floorColor: action.color
+        }
+      };    
     case types.TOGGLE_FLOOR:
       return {
         ...state,
-        showFloor: !state.showFloor
+        settings: {
+          ...state.settings,
+          showFloor: !state.settings.showFloor
+        }
       };
     case types.ADD_CLASSROOM:
       return {
         ...state,
-        classroomID: action.payload
+        settings: {
+          ...state.settings,
+          classroomID: action.payload
+        }
       };
     case types.LOAD_SETTINGS:
       return {
-        ...action.payload
+        ...state,
+        settings: {
+          ...state.settings,
+          ...action.payload
+        }
+      };
+    case types.SET_DESC:
+      return {
+        ...state,
+        desc: action.payload
+      };
+    case types.SET_NAME_DESC:
+      return {
+        ...state,
+        name: action.payload.name,
+        desc: action.payload.desc
       };
     case types.CHANGE_SETTING:
       const { param, val } = action.payload;
       return {
         ...state,
-        [param]: val
+        settings: {
+          ...state.settings,
+          [param]: val
+        }
       };
     default:
       return state;

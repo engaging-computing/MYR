@@ -162,7 +162,8 @@ class ClassroomModal extends Component {
             this.handleAddClassToggle();
         }
         else {
-            classes.where('classroomID', '==', this.state.newClassroomID).get().then(snap => {
+            let newClassroomID = this.state.newClassroomID.toLowerCase();
+            classes.where('classroomID', '==', newClassroomID).get().then(snap => {
                 snap.forEach(doc => {
                     existingClasses.push({
                         id: doc.id
@@ -175,7 +176,7 @@ class ClassroomModal extends Component {
                 else {
                     let newID = classes.doc().id;
                     classes.doc(newID).set({
-                        classroomID: this.state.newClassroomID,
+                        classroomID: newClassroomID,
                         timestamp: Date.now(),
                         uid: this.props.user.uid
                     }).then(() => {

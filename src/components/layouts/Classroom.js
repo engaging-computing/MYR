@@ -5,6 +5,8 @@ import Header from '../Header';
 import View from '../View';
 import SelectProject from '../classroom/SelectProject.js';
 
+import * as layoutTypes from '../../constants/LayoutTypes.js';
+
 export const Classroom = ({ editor, editorActions, user, authActions, scene, sceneActions, projectActions, courseActions, projects, courses, match, classroomActions, classrooms }) => (
     <div className="App">
         <Header
@@ -24,6 +26,7 @@ export const Classroom = ({ editor, editorActions, user, authActions, scene, sce
             classroomActions={classroomActions}
             classrooms={classrooms}
             classroom={match.params.classroom}
+            layoutType={layoutTypes.CLASSROOM}
         />
         <div className="row no-gutters">
             <div id="interface" className="col-12 col-md-4">
