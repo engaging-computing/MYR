@@ -110,7 +110,6 @@ class ConfigModal extends Component {
       });
   };
   
-
   handleAddEmail = () => {
     let arr = [].concat(this.state.sendTo);
     arr.push(this.state.email);
