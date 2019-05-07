@@ -39,9 +39,9 @@ class View extends Component {
     if (ent) {
       let flattened = {
         ...ent,
-        position: `${ent.position.x} ${ent.position.y} ${ent.position.z}`,
-        scale: `${ent.scale.x} ${ent.scale.y} ${ent.scale.z}`,
-        rotation: `${ent.rotation.x} ${ent.rotation.y} ${ent.rotation.z}`
+        position: `${ent.position.x || 0} ${ent.position.y || 0} ${ent.position.z || 0}`,
+        scale: `${ent.scale.x || 1} ${ent.scale.y || 1} ${ent.scale.z || 1}`,
+        rotation: `${ent.rotation.x || 0} ${ent.rotation.y || 0} ${ent.rotation.z || 0}`
       };
       // If it is group then render children then render parent
       if (ent.group) {
