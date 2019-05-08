@@ -14,7 +14,8 @@ jobs:
 
     steps:
       - checkout
-      - run: touch ~/src/keys/firebase.js
+      - run: mkdir ~/MYR/src/keys
+      - run: touch ~/MYR/src/keys/firebase.js
       - run: echo -e "export const firebaseKey = \"$FIREBASE_KEY\";\n export default firebaseKey;" > src/keys/firebase.js
       # Download and cache dependencies
       - restore_cache:
