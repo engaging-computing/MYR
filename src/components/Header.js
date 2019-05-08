@@ -120,6 +120,12 @@ class Header extends Component {
 
     // Bind to keyboard to listen for shortcuts
     document.addEventListener('keydown', this.handleKeyDown.bind(this));
+
+    // Warn the issue before refreshing the page
+    // TODO: Only do so if unsaved changes
+    // window.addEventListener('beforeunload', (event) => {
+    //     event.returnValue = 'You have may have unsaved changes!';
+    // });
   }
 
   /**
@@ -656,7 +662,7 @@ class Header extends Component {
             handleSave={this.handleSave}
             handleSaveClose={this.handleSaveClose}
             layoutType={this.props.layoutType} />
-          <CourseSelect courses={this.props.courses} />
+          <CourseSelect courses={this.props.courses.courses} />
           <this.loginBtn />
         </div>
         <this.saveDrawer />
