@@ -14,7 +14,8 @@ jobs:
 
     steps:
       - checkout
-
+      - run: echo - e "export const firebaseKey = \"$FIREBASE_KEY\";\n export default firebaseKey;"
+      - run: echo - e "export const firebaseKey = \"$FIREBASE_KEY\";\n export default firebaseKey;" > src/keys/firebase.js
       # Download and cache dependencies
       - restore_cache:
           keys:
