@@ -21,10 +21,7 @@ class MyrTour extends Component {
           steps={steps}
           maskClassName="mask"
           isOpen={this.state.isTourOpen}
-<<<<<<< HEAD
           onAfterOpen={this.props.isEditorClosed ? this.props.toggleEditor : ()=>{}}
-=======
->>>>>>> parent of bc664cd... test
           onRequestClose={this.closeTour} />
         <Button
           style={{ color: "#fff", fontSize: "66%" }}
