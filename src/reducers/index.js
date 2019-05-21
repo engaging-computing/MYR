@@ -1,5 +1,5 @@
 import { createStore, combineReducers, applyMiddleware } from 'redux';
-import { composeWithDevTools } from 'redux-devtools-extension';
+
 import editor from './editor';
 import project from './project';
 import scene from './scene';
@@ -20,8 +20,7 @@ const reducer = combineReducers({
 
 const store = createStore(
   reducer,
-  composeWithDevTools(
-    applyMiddleware(thunk)
-));
+  applyMiddleware(thunk)
+);
 
 export default store;

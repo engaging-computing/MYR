@@ -21,6 +21,8 @@ const initial_state = {
   settings: DEF_SETTINGS
 };
 
+
+
 export default function scene(state = initial_state, action) {
   switch (action.type) {
     case types.NAME_SCENE:
