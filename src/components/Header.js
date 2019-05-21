@@ -651,7 +651,9 @@ class Header extends Component {
               <Icon className="material-icons">perm_media</Icon>
             </IconButton>
           </Tooltip>
-          <MyrTour />
+          <MyrTour 
+            isEditorClosed={this.props.scene.settings.viewOnly}
+            toggleEditor={this.props.sceneActions.changeView}/>
         </div>
         <div className="col-3 d-flex justify-content-end">
           {/* <Classroom classrooms={this.props.classrooms} classroomActions={this.props.classroomActions} user={this.props.user} /> */}

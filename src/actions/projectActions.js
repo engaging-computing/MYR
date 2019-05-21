@@ -25,9 +25,10 @@ export function asyncUserProj(id) {
   };
 }
 
-export function syncUserProj(payload) {
-  return { type: types.SYNC_USER_PROJ, payload: payload };
-}
+export const syncUserProj = payload => ({
+  type: types.SYNC_USER_PROJ, 
+  payload: payload 
+});
 
 export const asyncExampleProj = () => {
   // fetch example projects
@@ -51,9 +52,10 @@ export const asyncExampleProj = () => {
   };
 }
 
-export function syncExampleProj(payload) {
-  return { type: types.SYNC_EXAMP_PROJ, payload: payload };
-}
+export const syncExampleProj = payload => ({
+  type: types.SYNC_EXAMP_PROJ, 
+  payload: payload
+});
 
 export function deleteProj(id, name) {
   if (window.confirm(`Are you sure you want to delete ${name}?`)) {
