@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Tour from 'reactour';
 import { Button } from '@material-ui/core';
+import store from '../reducers';
 
 class MyrTour extends Component {
   constructor() {
@@ -21,6 +22,7 @@ class MyrTour extends Component {
           steps={steps}
           maskClassName="mask"
           isOpen={this.state.isTourOpen}
+          //onAfterOpen={store.getState().scene.settings.viewOnly === true ? () => {store.dispatch({type:"CHANGE_VIEW"})} : ()=>{}}
           onRequestClose={this.closeTour} />
         <Button
           style={{ color: "#fff", fontSize: "66%" }}
