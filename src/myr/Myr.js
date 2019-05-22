@@ -399,7 +399,7 @@ class Myr {
       position: this.position,
       scale: this.scale,
       rotation: this.rotation,
-      material: `color:${this.color};  side: double`,
+      material: `color:${this.color};  side: double;`,
     };
     return this.mergeProps(base, params);
   }
@@ -497,7 +497,7 @@ class Myr {
       position: this.position,
       scale: this.scale,
       rotation: this.rotation,
-      material: `color:${this.color};  side: double`,
+      material: `color:${this.color};  side: double;`,
     };
     return this.mergeProps(base, params);
   }
@@ -523,7 +523,7 @@ class Myr {
       position: this.position,
       scale: this.scale,
       rotation: this.rotation,
-      material: `color:${this.color};  side: double`,
+      material: `color: ${this.color};  side: double;`,
     };
     return this.mergeProps(base, params);
   }
@@ -537,7 +537,7 @@ class Myr {
       position: this.position,
       scale: this.scale,
       rotation: this.rotation,
-      material: `color:${this.color};  side: double`,
+      material: `color:${this.color};  side: double;`,
     };
     return this.mergeProps(base, params);
   }
@@ -775,13 +775,6 @@ class Myr {
       outerElId = outerElId.id;
     }
     return this.els[outerElId];
-  }
-
-  getIndex = (outerElId) => {
-    if (outerElId.entity) {
-      outerElId = outerElId.id;
-    }
-    return Number(outerElId.substr(1, outerElId.length));
   }
 
   /**

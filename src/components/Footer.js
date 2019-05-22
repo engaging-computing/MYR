@@ -18,7 +18,7 @@ class Footer extends Component {
                 <a href="https://learnmyr.org/about/team/" target="_blank" rel="noopener noreferrer">Team </a>
               </li>
               <li className="pl-2 list-inline-item">
-                <a href="https://github.com/isenseDev/MYR" target="_blank" rel="noopener noreferrer">GitHub</a>
+                <a href="https://github.com/engaging-computing/MYR" target="_blank" rel="noopener noreferrer">GitHub</a>
               </li>
             </ul>
           </div>

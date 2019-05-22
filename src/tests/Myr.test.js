@@ -1,4 +1,5 @@
 import Myr from '../myr/Myr';
+import MyrTour from '../components/MyrTour';
 
 const myr = new Myr();
 
@@ -28,11 +29,11 @@ describe(`Updates to Myr's Model`, () => {
 
   it(`to SetRadius`, () => {
     myr.setRadius(10);
-    expect(myr.radius).toEqual(10);
+    expect(myr.radius).toEqual("10");
     myr.setRadius('a');
-    expect(myr.radius).toEqual(10);
+    expect(myr.radius).toEqual("10");
     myr.setRadius({});
-    expect(myr.radius).toEqual(10);
+    expect(myr.radius).toEqual("10");
   });
 
   it(`to makes Random Color`, () => {
@@ -44,88 +45,96 @@ describe(`Updates to Myr's Model`, () => {
 
 describe('Component Renders', () => {
   it(`Box`, () => {
-    myr.els = [];
-    myr.box({ material: "color: blue;", position: { x: 1, y: 1, z: 1 } });
-    let box = myr.els[0];
+    let id = myr.box({ material: "color: blue;", position: { x: 1, y: 1, z: 1 } });
+    let box = myr.els[id];
     expect(box).toBeDefined();
-    expect(box.material).toEqual("color: blue;");
+    expect(box.geometry).toMatch(/box/);
+    expect(box.material).toMatch(/color: blue;/);
     expect(box.position).toEqual({ x: 1, y: 1, z: 1 });
   });
 
   it(`Sphere`, () => {
     myr.els = [];
-    myr.sphere({ material: "color: blue;", position: { x: 1, y: 1, z: 1 } });
-    let sphere = myr.els[0];
+    let id = myr.sphere({ material: "color: blue;", position: { x: 1, y: 1, z: 1 } });
+    let sphere = myr.els[id];
     expect(sphere).toBeDefined();
-    expect(sphere.material).toEqual("color: blue;");
+    expect(sphere.geometry).toMatch(/sphere/);
+    expect(sphere.material).toMatch(/color: blue;/);
     expect(sphere.position).toEqual({ x: 1, y: 1, z: 1 });
   });
 
   it(`Circle`, () => {
     myr.els = [];
-    myr.circle({ material: "color: blue;", position: { x: 1, y: 1, z: 1 } });
-    let circle = myr.els[0];
+    let id = myr.circle({ material: "color: blue;", position: { x: 1, y: 1, z: 1 } });
+    let circle = myr.els[id];
     expect(circle).toBeDefined();
-    expect(circle.material).toEqual("color: blue;");
+    expect(circle.geometry).toMatch(/circle/);
+    expect(circle.material).toMatch(/color: blue;/);
     expect(circle.position).toEqual({ x: 1, y: 1, z: 1 });
   });
 
-  
+
   it(`Cone`, () => {
     myr.els = [];
-    myr.cone({ material: "color: blue;", position: { x: 1, y: 1, z: 1 } });
-    let cone = myr.els[0];
+    let id = myr.cone({ material: "color: blue;", position: { x: 1, y: 1, z: 1 } });
+    let cone = myr.els[id];
     expect(cone).toBeDefined();
-    expect(cone.material).toEqual("color: blue;");
+    expect(cone.geometry).toMatch(/cone/);
+    expect(cone.material).toMatch(/color: blue;/);
     expect(cone.position).toEqual({ x: 1, y: 1, z: 1 });
   });
-  
+
   it(`Cylinder`, () => {
     myr.els = [];
-    myr.cylinder({ material: "color: blue;", position: { x: 1, y: 1, z: 1 } });
-    let cylinder = myr.els[0];
+    let id = myr.cylinder({ material: "color: blue;", position: { x: 1, y: 1, z: 1 } });
+    let cylinder = myr.els[id];
     expect(cylinder).toBeDefined();
-    expect(cylinder.geometry).toEqual("primitive: cylinder;");
-    expect(cylinder.material).toEqual("color: blue;");
+    expect(cylinder.geometry).toMatch(/cylinder/);
+    expect(cylinder.material).toMatch(/color: blue;/);
     expect(cylinder.position).toEqual({ x: 1, y: 1, z: 1 });
   });
 
   it(`Ring`, () => {
     myr.reset();
-    myr.ring();
-    let ring = myr.els[0];
+    let id = myr.ring();
+    let ring = myr.els[id];
     expect(ring).toBeDefined();
-    expect(ring.geometry).toEqual("primitive: ring; radiusInner: 0.5; radiusOuter: 1;");
-    expect(ring.material).toEqual("color: red; side: double;");
+    expect(ring.geometry).toMatch(/ring/);
+    expect(ring.material).toMatch(/color: red;/);
+    expect(ring.material).toMatch(/side: double;/);
     expect(ring.position).toEqual({ x: 0, y: 0, z: 0 });
   });
 
   it(`Plane`, () => {
     myr.reset();
     myr.els = [];
-    myr.plane();
-    let plane = myr.els[0];
+    let id = myr.plane();
+    let plane = myr.els[id];
     expect(plane).toBeDefined();
-    expect(plane.geometry).toEqual("primitive: plane; height: 1; width: 1;");
-    expect(plane.material).toEqual("color: red; side: double;");
+    expect(plane.geometry).toMatch(/plane/);
+    expect(plane.material).toMatch(/color: red;/);
+    expect(plane.material).toMatch(/side: double;/);
     expect(plane.position).toEqual({ x: 0, y: 0, z: 0 });
   });
 
   it('Tetrahedron', () => {
     myr.reset();
-    myr.tetrahedron();
-    let tetrahedron = myr.els[0];
+    let id = myr.tetrahedron();
+    let tetrahedron = myr.els[id];
     expect(tetrahedron).toBeDefined();
-    expect(tetrahedron.material).toEqual("color: red; side: double;");
+    expect(tetrahedron.geometry).toMatch(/tetrahedron/);
+    expect(tetrahedron.material).toMatch(/color: red;/);
+    expect(tetrahedron.material).toMatch(/side: double;/);
     expect(tetrahedron.position).toEqual({ x: 0, y: 0, z: 0 });
   });
 
   it('Triangle', () => {
     myr.els = [];
-    myr.triangle({ material: "color: blue;", position: { x: 1, y: 1, z: 1 } });
-    let triangle = myr.els[0];
+    let id = myr.triangle({ material: "color: blue;", position: { x: 1, y: 1, z: 1 } });
+    let triangle = myr.els[id];
     expect(triangle).toBeDefined();
-    expect(triangle.material).toEqual("color: blue;");
+    expect(triangle.geometry).toMatch(/triangle/);
+    expect(triangle.material).toMatch(/color: blue;/);
     expect(triangle.position).toEqual({ x: 1, y: 1, z: 1 });
   });
 
@@ -133,22 +142,65 @@ describe('Component Renders', () => {
   it('Text', () => {
     myr.els = [];
     myr.setPosition(0, 0, 0);
-    myr.text("Hello World!");
-    let text = myr.els[0];
+    let id = myr.text("Hello World!");
+    let text = myr.els[id];
     expect(text).toBeDefined();
     expect(text.position).toEqual({ x: 0, y: 0, z: 0 });
     expect(text.value).toEqual("Hello World!");
     expect(text.text).toBeTruthy();
   });
 
+  it('Tube', () => {
+    myr.els = [];
+    myr.setColor('blue');
+    let id = myr.tube({ position: { x: 1, y: 1, z: 1 } });
+    let tube = myr.els[id];
+    expect(tube).toBeDefined();
+    expect(tube.material).toMatch(/color:blue;/);
+    expect(tube).toHaveProperty('tube');
+  });
+
+  it('Line', () => {
+    myr.els = [];
+    myr.setColor('blue');
+    let id = myr.line('1 0 0, 2 0 0', { position: { x: 1, y: 1, z: 1 } });
+    let line = myr.els[id];
+    expect(line).toBeDefined();
+    expect(line.material).toMatch(/color:blue;/);
+    expect(line.path).toEqual('1 0 0, 2 0 0');
+    expect(line.position).toEqual({ x: 1, y: 1, z: 1 });
+  });
+
+  it('Torus', () => {
+    myr.els = [];
+    myr.setColor('blue');
+    let id = myr.torus({ position: { x: 1, y: 1, z: 1 } });
+    let torus = myr.els[id];
+    expect(torus).toBeDefined();
+    expect(torus.geometry).toMatch(/torus/);
+    expect(torus.material).toMatch(/color:blue;/);
+    expect(torus.position).toEqual({ x: 1, y: 1, z: 1 });
+  });
+
+  it('torusknot', () => {
+    myr.els = [];
+    myr.setColor('blue');
+    let id = myr.torusknot({ position: { x: 1, y: 1, z: 1 } });
+    let torusknot = myr.els[id];
+    expect(torusknot).toBeDefined();
+    expect(torusknot.geometry).toMatch(/torus/);
+    expect(torusknot.material).toMatch(/color:blue;/);
+    expect(torusknot.position).toEqual({ x: 1, y: 1, z: 1 });
+  });
+
   it('polyhedron', () => {
     myr.els = [];
-    myr.polyhedron({
+    let id = myr.polyhedron({
       position: { x: 1, y: 1, z: 1 },
       rotation: { x: 1, y: 1, z: 1 },
       scale: { x: 1, y: 1, z: 1 }
     });
-    let polyhedron = myr.els[0];
+    let polyhedron = myr.els[id];
     expect(polyhedron).toBeDefined();
     expect(polyhedron.position).toEqual({ x: 1, y: 1, z: 1 });
     expect(polyhedron.rotation).toEqual({ x: 1, y: 1, z: 1 });
@@ -157,28 +209,31 @@ describe('Component Renders', () => {
 
   it('dodecahedron', () => {
     myr.els = [];
-    myr.dodecahedron({ material: "color: blue;", position: { x: 1, y: 1, z: 1 } });
-    let dodecahedron = myr.els[0];
+    let id = myr.dodecahedron({ material: "color: blue;", position: { x: 1, y: 1, z: 1 } });
+    let dodecahedron = myr.els[id];
     expect(dodecahedron).toBeDefined();
-    expect(dodecahedron.material).toEqual("color: blue;");
+    expect(dodecahedron.geometry).toMatch(/dodecahedron/);
+    expect(dodecahedron.material).toMatch(/color: blue;/);
     expect(dodecahedron.position).toEqual({ x: 1, y: 1, z: 1 });
   });
 
   it('icosahedron', () => {
     myr.els = [];
-    myr.icosahedron({ material: "color: blue;", position: { x: 1, y: 1, z: 1 } });
-    let icosahedron = myr.els[0];
+    let id = myr.icosahedron({ material: "color: blue;", position: { x: 1, y: 1, z: 1 } });
+    let icosahedron = myr.els[id];
     expect(icosahedron).toBeDefined();
-    expect(icosahedron.material).toEqual("color: blue;");
+    expect(icosahedron.geometry).toMatch(/icosahedron/);
+    expect(icosahedron.material).toMatch(/color: blue;/);
     expect(icosahedron.position).toEqual({ x: 1, y: 1, z: 1 });
   });
 
   it('octahedron', () => {
     myr.els = [];
-    myr.octahedron({ material: "color: blue;", position: { x: 1, y: 1, z: 1 } });
-    let octahedron = myr.els[0];
+    let id = myr.octahedron({ material: "color: blue;", position: { x: 1, y: 1, z: 1 } });
+    let octahedron = myr.els[id];
     expect(octahedron).toBeDefined();
-    expect(octahedron.material).toEqual("color: blue;");
+    expect(octahedron.geometry).toMatch(/octahedron/);
+    expect(octahedron.material).toMatch(/color: blue;/);
     expect(octahedron.position).toEqual({ x: 1, y: 1, z: 1 });
   });
 });
@@ -189,7 +244,7 @@ describe('Component Animations', () => {
     let bId = myr.box();
     myr.animate(bId);
     let el = myr.getEl(bId);
-    expect( el.animation).toEqual(`
+    expect(el.animation).toEqual(`
       property: rotation;
       dir: alternate;
       to: 0 360 0;
@@ -197,7 +252,7 @@ describe('Component Animations', () => {
       loop: true;
     `);
     myr.animate(bId, 720, false, 2000);
-    expect( el.animation).toEqual(`
+    expect(el.animation).toEqual(`
       property: rotation;
       dir: alternate;
       to: 0 720 0;
@@ -211,7 +266,7 @@ describe('Component Animations', () => {
     let bId = myr.box();
     myr.spin(bId);
     let el = myr.getEl(bId);
-    expect( el.animation__spin).toEqual(`
+    expect(el.animation__spin).toEqual(`
       property: rotation;
       dir: alternate;
       dur: 1000;
@@ -220,7 +275,7 @@ describe('Component Animations', () => {
       to: 0 360 0;
     `);
     myr.spin(bId, 720, false, 2000);
-    expect( el.animation__spin).toEqual(`
+    expect(el.animation__spin).toEqual(`
       property: rotation;
       dir: alternate;
       dur: 2000;
@@ -230,12 +285,144 @@ describe('Component Animations', () => {
     `);
   });
 
+  it('should add the yoyo animiation', () => {
+    myr.reset();
+    let id = myr.box();
+    myr.yoyo(id);
+    let el = myr.getEl(id);
+    expect(el).toHaveProperty('animation__yoyo');
+  });
+
+  it('should add the sideToSide animiation', () => {
+    myr.reset();
+    let id = myr.box();
+    myr.sideToSide(id);
+    let el = myr.getEl(id);
+    expect(el).toHaveProperty('animation__sidetoside');
+  });
+
+  it('should add the goUp animiation', () => {
+    myr.reset();
+    let id = myr.box();
+    myr.goUp(id);
+    let el = myr.getEl(id);
+    expect(el).toHaveProperty('animation__goup');
+  });
+
+  it('should add the goDown animiation', () => {
+    myr.reset();
+    let id = myr.box();
+    myr.goDown(id);
+    let el = myr.getEl(id);
+    expect(el).toHaveProperty('animation__godown');
+  });
+
+  it('should add the goLeft animiation', () => {
+    myr.reset();
+    let id = myr.box();
+    myr.goLeft(id);
+    let el = myr.getEl(id);
+    expect(el).toHaveProperty('animation__goleft');
+  });
+
+  it('should add the goRight animiation', () => {
+    myr.reset();
+    let id = myr.box();
+    myr.goRight(id);
+    let el = myr.getEl(id);
+    expect(el).toHaveProperty('animation__goright');
+  });
+
+  it('should add the goTowards animiation', () => {
+    myr.reset();
+    let id = myr.box();
+    myr.goTowards(id);
+    let el = myr.getEl(id);
+    expect(el).toHaveProperty('animation__goleft');
+  });
+
+  it('should add the goAway animiation', () => {
+    myr.reset();
+    let id = myr.box();
+    myr.goAway(id);
+    let el = myr.getEl(id);
+    expect(el).toHaveProperty('animation__goaway');
+  });
+
+
+  it('should add the grow animiation', () => {
+    myr.reset();
+    let id = myr.box();
+    myr.grow(id);
+    let el = myr.getEl(id);
+    expect(el).toHaveProperty('animation__grow');
+  });
+
+
+  it('should add the shrink animiation', () => {
+    myr.reset();
+    let id = myr.box();
+    myr.shrink(id);
+    let el = myr.getEl(id);
+    expect(el).toHaveProperty('animation__shrink');
+  });
+
+  it('should add the fadeOut animiation', () => {
+    myr.reset();
+    let id = myr.box();
+    myr.fadeOut(id);
+    let el = myr.getEl(id);
+    expect(el).toHaveProperty('animation__fadeout');
+    expect(el.material).toMatch(/transparent: true;/);
+  });
+
+  it('should add the fadeIn animiation', () => {
+    myr.reset();
+    let id = myr.box();
+    myr.fadeIn(id);
+    let el = myr.getEl(id);
+    expect(el).toHaveProperty('animation__fadein');
+    expect(el.material).toMatch(/transparent: true;/);
+  });
+
+  it('should add the shrink animiation', () => {
+    myr.reset();
+    let id = myr.box();
+    myr.shrink(id);
+    let el = myr.getEl(id);
+    expect(el).toHaveProperty('animation__shrink');
+  });
+
+  it('should add the shrink animiation', () => {
+    myr.reset();
+    let id = myr.box();
+    myr.shrink(id);
+    let el = myr.getEl(id);
+    expect(el).toHaveProperty('animation__shrink');
+  });
+
+  it('should add the shrink animiation', () => {
+    myr.reset();
+    let id = myr.box();
+    myr.shrink(id);
+    let el = myr.getEl(id);
+    expect(el).toHaveProperty('animation__shrink');
+  });
+
+  it('should add the shrink animiation', () => {
+    myr.reset();
+    let id = myr.box();
+    myr.shrink(id);
+    let el = myr.getEl(id);
+    expect(el).toHaveProperty('animation__shrink');
+  });
+
 
 });
 
 describe(`Other Myr functionality`, () => {
   it(`Should add a model`, () => {
-    myr.reset()
+    myr.reset();
     myr.assets = [];
     myr.addCModel();
     expect(myr.assets).toContainEqual({ id: "c-obj", src: "/img/c.obj" });
@@ -245,7 +432,7 @@ describe(`Other Myr functionality`, () => {
     myr.reset();
     let el = myr.box({ material: "color: blue;", position: { x: 1, y: 1, z: 1 } });
     myr.drop(el);
-    let thisEl = myr.els[0];
+    let thisEl = myr.els[el];
     expect(thisEl).toHaveProperty('dynamic-body');
   });
 
@@ -267,32 +454,41 @@ describe(`Other Myr functionality`, () => {
   it('should get the right index', () => {
     myr.reset();
     let id = myr.box();
-    expect(myr.getIndex(id)).toBeDefined();
-    expect(myr.getIndex(id)).toEqual(0);
+    expect(myr.els[id]).toBeDefined();
   });
 
   it('should initialize Myr', () => {
-    myr.reset();
     let obj = [{ name: "test" }];
-    myr.init(obj);
-    expect(myr.els[0].name).toEqual("test");
-  });
-
-  it('should reset Myr', () => {
-    let m = new Myr();
-    let obj = [{ name: "test" }];
-    m.init();
-    m.sphere();
-    m.sphere();
-    expect(m.els.length).toEqual(2);
-
-    m.reset();
-    expect(m.els.length).toEqual(0);
-
-    m.init(obj);
+    let m = new Myr(obj);
     expect(m.els.length).toEqual(1);
-    expect(m.genNewId()).toEqual('a1');
+    expect(m.baseEls.length).toEqual(1);
   });
+
+  // it('should reset Myr', () => {
+  //   myr.reset();
+  //   expect(myr.els.length).toEqual(0);
+  //   let m = new Myr([{ id: "item" }])
+  //   m.reset();
+  //   expect(m.els.length).toEqual(1);
+  // });
+
+  it('should reset cursor', () => {
+    const defaultCursor = {
+      color: 'red',
+      position: { x: 0, y: 0, z: 0 },
+      scale: { x: 1, y: 1, z: 1 },
+      rotation: { x: 0, y: 0, z: 0 },
+      radius: "1",
+      phiLength: 360,
+    }
+    myr.resetCursor();
+    expect(myr.color).toEqual(defaultCursor.color);
+    expect(myr.position).toEqual(defaultCursor.position);
+    expect(myr.scale).toEqual(defaultCursor.scale);
+    expect(myr.rotation).toEqual(defaultCursor.rotation);
+    expect(myr.radius).toEqual(defaultCursor.radius);
+    expect(myr.phiLength).toEqual(defaultCursor.phiLength);
+  })
 
   it('should set the position in Myr', () => {
     myr.reset();
@@ -506,6 +702,12 @@ describe(`Other Myr functionality`, () => {
     myr.rollZ(() => { });
     expect(myr.rotation.z).toEqual(-5);
     expect(myr.rotation).toEqual({ x: 0, y: 0, z: -5 });
+  });
+
+  it('should set phi-length', () => {
+    myr.reset();
+    myr.setPhiLength(45);
+    expect(myr.phiLength).toBe("45");
   });
 
 });
