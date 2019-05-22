@@ -222,7 +222,7 @@ class Myr {
     if (typeof i === 'number') {
       this.phiLength = String(i);
     } else {
-      console.error("must pass a numeric for setPhiLength");
+      console.error("must pass a numeric for setRadius");
     }
   };
 
