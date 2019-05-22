@@ -32,13 +32,12 @@ export default function scene(state = initial_state, action) {
       };
     case types.LOAD_SCENE:
       return {
-        ...state,
         ...action.data
       };
     case types.TOGGLE_COORD_SKY:
-      return{
+      return {
         ...state,
-        settings:{
+        settings: {
           ...state.settings,
           showCoordHelper: !state.settings.showCoordHelper
         }
@@ -83,7 +82,7 @@ export default function scene(state = initial_state, action) {
           ...state.settings,
           floorColor: action.color
         }
-      };    
+      };
     case types.TOGGLE_FLOOR:
       return {
         ...state,

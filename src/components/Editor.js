@@ -12,7 +12,11 @@ import customCompleter from './customCompleter.js'
 class Editor extends Component {
 
   componentDidMount() {
-    this.refs.aceEditor.editor.completers = [customCompleter];
+    try {
+      this.refs.aceEditor.editor.completers = [customCompleter];
+    } catch (error) {
+      console.error('Unable to attach custom completers');
+    }
   }
 
   /**

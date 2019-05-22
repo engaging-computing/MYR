@@ -1,7 +1,12 @@
+
 import React from 'react';
-import store from '../store';
+import store from '../reducers/index';
 import { configure, shallow } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
+
+import * as Actions from '../actions/';
+import * as layoutTypes from '../constants/LayoutTypes';
+import * as types from '../constants/ActionTypes';
 
 import IDE from '../containers/Ide';
 import Header from '../components/Header';
@@ -9,81 +14,153 @@ import Reference from '../components/Reference';
 import View from '../components/View';
 import Editor from '../components/Editor';
 import Sidebar from '../components/Sidebar';
-import DisplayMsg from '../components/DisplayMsg';
-import SceneConfig from '../components/SceneConfig';
-
+import SceneConfig from '../components/SceneConfigMenu';
+import Footer from '../components/Footer';
+import MyrTour from '../components/MyrTour';
 
 import user from '../reducers/user';
 import scene from '../reducers/scene';
 import editor from '../reducers/editor';
 
-import {
-  refresh, EDITOR_REFRESH,
-  render, EDITOR_RENDER,
-  recover, EDITOR_RECOVER
-} from '../actions/editorActions';
 
-import {
-  login, LOGIN,
-  logout, LOGOUT
-} from '../actions/authActions';
-
-import {
-  nameScene, NAME_SCENE,
-  loadScene, LOAD_SCENE
-} from '../actions/sceneActions';
+const generateMockProps = () => {
+  return {
+    logging: {
+      login: jest.fn(),
+      logout: jest.fn(),
+    },
+    sceneActions: {
+      nameScene: jest.fn(),
+      loadScene: jest.fn(),
+      toggleCoordSky: jest.fn(),
+      changeSkyColor: jest.fn(),
+      changeFloorColor: jest.fn(),
+      changeCamMode: jest.fn(),
+      setCamera: jest.fn(),
+      changePerspective: jest.fn(),
+      changeView: jest.fn(),
+      toggleFly: jest.fn(),
+      toggleFloor: jest.fn(),
+      loadSettings: jest.fn(),
+      changeSetting: jest.fn(),
+      addClassroomID: jest.fn(),
+      setDesc: jest.fn(),
+      setNameDes: jest.fn(),
+    },
+    actions: {
+      render: jest.fn(),
+      refresh: jest.fn(),
+      recover: jest.fn(),
+      fetchScene: jest.fn(),
+      addPasswor: jest.fn(),
+    },
+    user: null,
+    scene: {
+      name: "",
+      id: 0,
+      desc: "",
+      ts: 0,
+      uid: -1,
+      settings: {
+        skyColor: "white",
+        floorColor: "#222",
+        camConfig: 0,
+        showCoordHelper: false,
+        canFly: false,
+        showFloor: true,
+        cameraPosition: "0 1.6 3",
+        viewOnly: false,
+        classroomID: ""
+      },
+    },
+    projectActions: {
+      asyncUserProj: jest.fn(),
+      syncUserProj: jest.fn(),
+      asyncExampleProj: jest.fn(),
+      syncExampleProj: jest.fn(),
+      deletePro: jest.fn(),
+    },
+    courseActions: {
+      fetchCourses: jest.fn(),
+      syncCourses: jest.fn(),
+      nextLesson: jest.fn(),
+      previousLesson: jest.fn(),
+      fetchCourse: jest.fn(),
+      setCurrentIndex: jest.fn(),
+      loadLesson: jest.fn(),
+      fetchLesson: jest.fn(),
+      loadCours: jest.fn(),
+    },
+    projects: {
+      userProjs: [],
+      examplProjs: [],
+    },
+    courses: {
+      courses: [],
+      course: {},
+      currentIndex: 0,
+      currentLesson: {
+        name: "Loading....",
+        id: -1,
+        prompt: "Please wait",
+        code: "// Loading"
+      }
+    },
+    classroomActions: {
+      asyncClass: jest.fn(),
+      asyncClasses: jest.fn(),
+      deleteClass: jest.fn(),
+      syncClass: jest.fn(),
+      syncClasse: jest.fn(),
+    },
+    classrooms: {
+      classrooms: [],
+      classroom: []
+    },
+    layoutType: layoutTypes.IDE,
+  };
+};
 
 configure({ adapter: new Adapter() });
 
 describe('Header Component', () => {
-  it('Header renders without crashing', () => {
-    shallow(
-      <Header
-        logging={{ login: () => { }, logout: () => { } }}
-        sceneActions={{ nameScene: () => { }, loadScene: () => { } }}
-        actions={{ render: () => { }, refresh: () => { } }}
-        user={null}
-        scene={{
-          name: "",
-          id: "0",
-          sceneConfig: {
-            skyColor: "white",
-            camConfig: 0
-          }
-        }}
-        text=""
-        message={{ text: "", time: 123 }}
-        projectId={"GO9g0o5rwFc9fKR6I3ifvXjlmHM2_1527191123705"} />
-      , { context: { store } });
-  });
-});
 
-describe('DisplayMsg Component', () => {
-  const confirmNavAway = {
-    headerText: "Are you sure?",
-    bodyText: "You will lose any unsaved work. Click 'CONTINUE' to create a new scene, click 'CANCEL' to go back",
-    confirmedFunc: () => {
-      window.location.href = window.origin;
-      this.toggleNavModal();
-    },
-    cancelFunc: () => {
-      this.toggleNavModal();
-    },
-  };
-  it('Terminal renders without crashing', () => {
-    shallow(<DisplayMsg open={true} {...confirmNavAway} />);
+  it('Header renders without crashing', () => {
+    const mockProps = generateMockProps();
+    const wrapper = shallow(<Header {...mockProps} />);
+    expect(wrapper).toBeTruthy();
   });
+
 });
 
 describe('Editor Component', () => {
-  it('Editor renders without crashing', () => {
-    shallow(<Editor />, { context: { store } });
+  it('should render editor', () => {
+    const mockProps = generateMockProps();
+    const wrapper = shallow(<Editor {...mockProps} />);
+    expect(wrapper).toBeTruthy();
   });
 });
 
+describe('Footer', () => {
+  it('Should render without crashing', () => {
+    const mockProps = generateMockProps();
+    const wrapper = shallow(<Footer {...mockProps} />);
+    expect(wrapper).toBeTruthy();
+  })
+})
+
+describe('MyrTour', () => {
+  it('Should render without crashing', () => {
+    const mockProps = generateMockProps();
+    const wrapper = shallow(<MyrTour {...mockProps} />);
+    expect(wrapper).toBeTruthy();
+  })
+})
+
 describe('Reference Component', () => {
   it('Reference renders without crashing', () => {
-    shallow(<Reference />);
+    const wrapper = shallow(<Reference />);
+    expect(wrapper).toBeTruthy();
   });
 });
 
@@ -108,19 +185,32 @@ describe('Sidebar Component', () => {
 });
 
 describe('View Component', () => {
-  let sceneConfig = {
-    skyColor: 'white'
+  const generateMockProps = () => {
+    return {
+      objects: [{
+        id: "1",
+        position: { x: 1, y: 2, z: 3 },
+        scale: { x: 1, y: 2, z: 3 },
+        rotation: { x: 1, y: 2, z: 3 },
+      }],
+      sceneConfig: {
+        settings: {
+          skyColor: 'white',
+        }
+      }
+    };
   };
 
+
   it('View renders without crashing', () => {
-    shallow(<View sceneConfig={sceneConfig} />);
+    shallow(<View {...generateMockProps()} />);
   });
 
 });
 
 describe('IDE Component', () => {
   it('View renders without crashing', () => {
-    render(
+    shallow(
       <IDE
         text=""
         objects={[]}
@@ -141,46 +231,40 @@ describe('IDE Component', () => {
 
 describe('Editor Actions', () => {
   it('should return a REFRESH action', () => {
-    let x = refresh("");
-    expect(x.type).toEqual(EDITOR_REFRESH);
+    let x = Actions.EditorActions.refresh("");
+    expect(x.type).toEqual(types.EDITOR_REFRESH);
   });
   it('should return a RENDER action', () => {
-    let x = render("test");
-    expect(x.type).toEqual(EDITOR_RENDER);
-    expect(x.text).toEqual("test");
+    let x = Actions.EditorActions.render("test");
+    expect(x.type).toEqual(types.EDITOR_RENDER);
   });
 
-  // This needs to be tested more in depth
   it('should return a RECOVER action', () => {
-    let x = recover();
-    expect(x.type).toEqual(EDITOR_RECOVER);
+    let x = Actions.EditorActions.recover();
+    expect(x.type).toEqual(types.EDITOR_RECOVER);
   });
 });
 
 describe('Auth Actions', () => {
   it('should return a LOGIN action', () => {
     let user = { name: 'test', uid: '1' };
-    let x = login(user);
-    expect(x.type).toEqual(LOGIN);
-    expect(x.user.name).toEqual('test');
-    expect(x.user.uid).toEqual('1');
+    let x = Actions.AuthActions.login(user);
+    expect(x.type).toEqual(types.LOGIN);
   });
   it('should return a LOGOUT action', () => {
-    let x = logout();
-    expect(x.type).toEqual(LOGOUT);
+    let x = Actions.AuthActions.logout();
+    expect(x.type).toEqual(types.LOGOUT);
   });
 });
 
 describe('Scene Actions', () => {
   it('should return a Refresh action', () => {
-    let x = nameScene('test');
-    expect(x.type).toEqual(NAME_SCENE);
-    expect(x.name).toEqual('test');
+    let x = Actions.SceneActions.nameScene('test');
+    expect(x.type).toEqual(types.NAME_SCENE);
   });
   it('should return a Refresh action', () => {
-    let x = loadScene('test');
-    expect(x.type).toEqual(LOAD_SCENE);
-    expect(x.id).toEqual('test');
+    let x = Actions.SceneActions.loadScene('test');
+    expect(x.type).toEqual(types.LOAD_SCENE);
   });
 });
 
@@ -197,7 +281,7 @@ describe('User Reducer', () => {
     let testUser = { name: "user" };
     expect(
       user(undefined, {
-        type: LOGIN,
+        type: types.LOGIN,
         user: testUser
       })
     ).toEqual(
@@ -210,7 +294,7 @@ describe('User Reducer', () => {
   it('should handle LOGOUT', () => {
     expect(
       user(undefined, {
-        type: LOGOUT,
+        type: types.LOGOUT,
       })
     ).toEqual({
       user: null
@@ -220,31 +304,44 @@ describe('User Reducer', () => {
 });
 
 describe('Scene Reducer', () => {
-  it('should return the initial state', () => {
-    expect(scene(undefined, {})).toEqual(
-      {
-        camConfig: 0,
-        cameraPosition: "0 1.6 0",
-        id: "0",
-        name: "",
-        showCoordHelper: true,
-        showFlyHelper: false,
+  const creatDefaultScene = () => {
+    return {
+      name: "",
+      id: 0,
+      desc: "",
+      ts: 0,
+      uid: -1,
+      settings: {
         skyColor: "white",
-        viewOnly: false
+        floorColor: "#222",
+        camConfig: 0,
+        showCoordHelper: false,
+        canFly: false,
+        showFloor: true,
+        cameraPosition: "0 1.6 3",
+        viewOnly: false,
+        classroomID: ""
       }
-    );
+    };
+  };
+
+
+  it('should return the initial state', () => {
+    expect(scene(undefined, {})).toEqual(creatDefaultScene());
   });
 
   it('should NAME_SCENE', () => {
     expect(
-      scene(undefined, { type: NAME_SCENE, name: "Test" }).name)
+      scene(undefined, { type: types.NAME_SCENE, name: "Test" }).name)
       .toEqual("Test");
   });
 
   it('should LOAD_SCENE', () => {
+    let testObj = creatDefaultScene();
+    testObj.id = 1;
     expect(
-      scene(undefined, { type: LOAD_SCENE, id: "1" }).id)
-      .toEqual("1");
+      scene(undefined, { type: types.LOAD_SCENE, data: testObj }))
+      .toEqual(testObj);
   });
 });
 
@@ -274,7 +371,7 @@ describe('Editor Reducer', () => {
     expect(
       editor(initial_state,
         {
-          type: EDITOR_RENDER,
+          type: types.EDITOR_RENDER,
           text: "sphere();"
         }).text)
       .toEqual("sphere();");
@@ -283,7 +380,7 @@ describe('Editor Reducer', () => {
     expect(
       editor(initial_state,
         {
-          type: EDITOR_RENDER,
+          type: types.EDITOR_RENDER,
           text: "s\nERROR"
         }).message.text)
       .toEqual("Eval failed: ReferenceError: s is not defined");
@@ -292,7 +389,7 @@ describe('Editor Reducer', () => {
     expect(
       editor(initial_state,
         {
-          type: EDITOR_REFRESH,
+          type: types.EDITOR_REFRESH,
           text: ""
         }).text)
       .toEqual("");
@@ -300,7 +397,7 @@ describe('Editor Reducer', () => {
   it('should RECOVER', () => {
     expect(
       editor(initial_state, {
-        type: EDITOR_RECOVER
+        type: types.EDITOR_RECOVER
       }).text)
       .toEqual("sphere();");
   });

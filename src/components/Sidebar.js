@@ -23,7 +23,7 @@ class Sidebar extends Component {
       target="_blank"
       rel="noopener noreferrer"
       role="button"
-      href="https://github.com/isenseDev/MYR"
+      href="https://github.com/engaging-computing/MYR"
       aria-labelledby="appbar-github"
       aria-describedby="appbar-github">
       {this.githubSvg}

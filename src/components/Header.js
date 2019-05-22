@@ -120,6 +120,12 @@ class Header extends Component {
 
     // Bind to keyboard to listen for shortcuts
     document.addEventListener('keydown', this.handleKeyDown.bind(this));
+
+    // Warn the issue before refreshing the page
+    // TODO: Only do so if unsaved changes
+    // window.addEventListener('beforeunload', (event) => {
+    //     event.returnValue = 'You have may have unsaved changes!';
+    // });
   }
 
   /**
@@ -569,7 +575,7 @@ class Header extends Component {
               onClick={this.handleSaveToggle}
               color="primary"
               className="sidebar-btn"
-              disabled={this.props.layoutType===layoutTypes.REFERENCE}>
+              disabled={this.props.layoutType === layoutTypes.REFERENCE}>
               <Icon className="material-icons">save</Icon>
               Save Project
             </Button>
@@ -632,7 +638,7 @@ class Header extends Component {
               onClick={this.handleSaveToggle}
               className="header-btn d-none d-sm-block"
               style={this.props.layoutType === layoutTypes.REFERENCE ? style.disabled : style.default}
-            disabled={this.props.layoutType === layoutTypes.REFERENCE} >
+              disabled={this.props.layoutType === layoutTypes.REFERENCE} >
               <Icon className="material-icons">save</Icon>
             </IconButton>
           </Tooltip>
@@ -649,7 +655,7 @@ class Header extends Component {
         </div>
         <div className="col-3 d-flex justify-content-end">
           {/* <Classroom classrooms={this.props.classrooms} classroomActions={this.props.classroomActions} user={this.props.user} /> */}
-          <Reference layoutType={this.props.layoutType}/>
+          <Reference layoutType={this.props.layoutType} />
           <SceneConfigMenu
             scene={this.props.scene}
             sceneActions={this.props.sceneActions}
