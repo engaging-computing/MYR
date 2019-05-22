@@ -143,6 +143,10 @@ let transformations = [
     description: <span>Sets the radius of the cursor to the given <span className="number">radius</span>.</span>
   },
   {
+    name: <span>setPhiLength(<span className="number">phiLength</span>)</span>,
+    description: <span>Sets the phi length of the cursor to the given <span className="number">phiLength</span> in degrees. This changes the fraction of the circumference shown on certain shapes to be <span className="number">phiLength</span>/360.</span>
+  },
+  {
     name: <span>makeDroppable(<span className="string">element</span>, <span className="number">mass</span>)</span>,
     description: <span>Allows the <span className="string">element</span> to be affected by physics, and sets the mass of the object to <span className="number">mass</span>.</span>
   },
