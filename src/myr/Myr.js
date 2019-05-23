@@ -1,5 +1,6 @@
 import 'aframe';
 import 'aframe-physics-system';
+import 'aframe-csg-meshs'
 import Group from './Group';
 import CANNON from 'cannon';
 
@@ -226,7 +227,6 @@ class Myr {
     }
   };
 
-
   setColor = (color) => {
     this.color = color;
   }
@@ -290,11 +290,31 @@ class Myr {
     return outerElId;
   }
 
+  // Makes the entity subtract from entities it overlaps with
+  makeSubtractive = (outerElId) => {
+    let el = this.getEl(outerElId);
+    el["class"] = "negative";
+    el["material"] += " transparent: true; opacity: 0;";
+    delete el["mixin"];
+    return outerElId;
+  }
+
   // Disallows the entity to be pushed
   makeUnPushable = (outerElId) => {
     let el = this.getEl(outerElId);
     el["dynamic-body"] = "";
     el["force-pushable"] = null;
+    return outerElId;
+  }
+
+  // Gives the entity normal additive geometry properties based on current cursor state
+  makeUnSubtractive = (outerElId) => {
+    let el = this.getEl(outerElId);
+    if(el["class"]) {
+      delete el["class"];
+      el["material"].replace(" transparent: true; opacity: 0", "");
+      el["mixin"] = "enable-subtractive";
+    }
     return outerElId;
   }
 
@@ -307,6 +327,7 @@ class Myr {
       position: { ...this.position },
       rotation: this.rotation,
       scale: this.scale,
+      mixin: "enable-subtractive",
     };
     return this.mergeProps(base, params);
   }
@@ -320,6 +341,7 @@ class Myr {
       scale: this.scale,
       rotation: this.rotation,
       material: `color: ${this.color}; side: double;`,
+      mixin: "enable-subtractive",
     };
     return this.mergeProps(base, params);
   }
@@ -333,6 +355,7 @@ class Myr {
       scale: this.scale,
       rotation: this.rotation,
       material: `color: ${this.color}; side: double;`,
+      mixin: "enable-subtractive",
     };
     return this.mergeProps(base, params);
   }
@@ -346,6 +369,7 @@ class Myr {
       scale: this.scale,
       rotation: this.rotation,
       material: `color: ${this.color};  side: double;`,
+      mixin: "enable-subtractive",
     };
     return this.mergeProps(base, params);
   }
@@ -360,6 +384,7 @@ class Myr {
       scale: this.scale,
       rotation: this.rotation,
       material: `color: ${this.color}; side: double;`,
+      mixin: "enable-subtractive",
     };
     return this.mergeProps(base, params);
   }
@@ -373,6 +398,7 @@ class Myr {
       scale: this.scale,
       rotation: this.rotation,
       material: `color: ${this.color};  side: double;`,
+      mixin: "enable-subtractive",
     };
     return this.mergeProps(base, params);
   }
@@ -386,6 +412,7 @@ class Myr {
       scale: this.scale,
       rotation: this.rotation,
       material: `color: ${this.color};  side: double;`,
+      mixin: "enable-subtractive",
     };
     return this.mergeProps(base, params);
   }
@@ -400,6 +427,7 @@ class Myr {
       scale: this.scale,
       rotation: this.rotation,
       material: `color:${this.color};  side: double;`,
+      mixin: "enable-subtractive",
     };
     return this.mergeProps(base, params);
   }
@@ -412,6 +440,7 @@ class Myr {
       scale: this.scale,
       rotation: this.rotation,
       material: `color: ${this.color}; side: double;`,
+      mixin: "enable-subtractive",
     };
     return this.mergeProps(base, params);
   }
@@ -425,6 +454,7 @@ class Myr {
       scale: this.scale,
       rotation: this.rotation,
       material: `color: ${this.color}; side: double;`,
+      mixin: "enable-subtractive",
     };
     return this.mergeProps(base, params);
   }
@@ -437,6 +467,7 @@ class Myr {
       scale: this.scale,
       rotation: this.rotation,
       material: `color: ${this.color}; side: double;`,
+      mixin: "enable-subtractive",
     };
     return this.mergeProps(base, params);
   }
@@ -450,6 +481,7 @@ class Myr {
       scale: this.scale,
       rotation: this.rotation,
       material: `color: ${this.color}; side: double;`,
+      mixin: "enable-subtractive",
     };
     return this.mergeProps(base, params);
   }
@@ -462,6 +494,7 @@ class Myr {
       scale: this.scale,
       rotation: this.rotation,
       material: `color: ${this.color}; side: double;`,
+      mixin: "enable-subtractive",
     };
     return this.mergeProps(base, params);
   }
@@ -481,6 +514,7 @@ class Myr {
       position: this.position,
       scale: this.scale,
       rotation: this.rotation,
+      mixin: "enable-subtractive",
     };
     if (!params || typeof params === 'string') {
       this.els[base.id] = { ...base };
@@ -497,7 +531,8 @@ class Myr {
       position: this.position,
       scale: this.scale,
       rotation: this.rotation,
-      material: `color:${this.color};  side: double;`,
+      material: `color:${this.color}; side: double;`,
+      mixin: "enable-subtractive",
     };
     return this.mergeProps(base, params);
   }
@@ -510,6 +545,7 @@ class Myr {
       scale: this.scale,
       rotation: this.rotation,
       material: `color:${this.color};`,
+      mixin: "enable-subtractive",
       p: 2,
       q: 3,
     };
@@ -524,6 +560,7 @@ class Myr {
       scale: this.scale,
       rotation: this.rotation,
       material: `color: ${this.color};  side: double;`,
+      mixin: "enable-subtractive",
     };
     return this.mergeProps(base, params);
   }
@@ -538,6 +575,7 @@ class Myr {
       scale: this.scale,
       rotation: this.rotation,
       material: `color:${this.color};  side: double;`,
+      mixin: "enable-subtractive",
     };
     return this.mergeProps(base, params);
   }
