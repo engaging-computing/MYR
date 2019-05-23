@@ -1523,6 +1523,13 @@ aframe-animation-component@^5.0.0:
   dependencies:
     animejs "2.2.0"
 
+aframe-csg-meshs@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/aframe-csg-meshs/-/aframe-csg-meshs-1.0.0.tgz#1c5f087da4b5f573da5e6c1a9d8aa7f8e382a725"
+  integrity sha1-HF8IfaS19XPaXmwanYqn+OOCpyU=
+  dependencies:
+    aframe "^0.7.0"
+
 aframe-environment-component@^1.0.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/aframe-environment-component/-/aframe-environment-component-1.1.0.tgz#0c2c5842b86e91b59968150f7965402df859d8d7"
@@ -1548,6 +1555,26 @@ aframe-react@^4.4.0:
   version "4.4.0"
   resolved "https://registry.yarnpkg.com/aframe-react/-/aframe-react-4.4.0.tgz#f8af660bc4f64746d7cddb065ad9cc5e88f358b9"
   integrity sha512-/3C0fhCRJywLSP7JsZM/nG/bGQxbt8oEnRK3DLOUmcCtd6xulpwOf8i/Mb0Mbg/U77Y097wdSZ0mVXgEL2+u4Q==
+
+aframe@^0.7.0:
+  version "0.7.1"
+  resolved "https://registry.yarnpkg.com/aframe/-/aframe-0.7.1.tgz#f42c520a0d7bbcff75893f2baaca740f716719ac"
+  integrity sha1-9CxSCg17vP91iT8rqsp0D3FnGaw=
+  dependencies:
+    "@tweenjs/tween.js" "^16.8.0"
+    browserify-css "^0.8.2"
+    debug ngokevin/debug#noTimestamp
+    deep-assign "^2.0.0"
+    document-register-element dmarcos/document-register-element#8ccc532b7
+    envify "^3.4.1"
+    load-bmfont "^1.2.3"
+    object-assign "^4.0.1"
+    present "0.0.6"
+    promise-polyfill "^3.1.0"
+    style-attr "^1.0.2"
+    three "^0.87.0"
+    three-bmfont-text "^2.1.0"
+    webvr-polyfill "^0.9.36"
 
 aframe@^0.8.2:
   version "0.8.2"
@@ -3637,7 +3664,7 @@ debug@^4.1.0:
   dependencies:
     ms "^2.1.1"
 
-debug@ngokevin/debug#noTimestamp:
+"debug@github:ngokevin/debug#noTimestamp", debug@ngokevin/debug#noTimestamp:
   version "2.2.0"
   resolved "https://codeload.github.com/ngokevin/debug/tar.gz/ef5f8e66d49ce8bc64c6f282c15f8b7164409e3a"
 
@@ -3897,7 +3924,7 @@ doctrine@^2.1.0:
   dependencies:
     esutils "^2.0.2"
 
-document-register-element@dmarcos/document-register-element#8ccc532b7:
+document-register-element@dmarcos/document-register-element#8ccc532b7, "document-register-element@github:dmarcos/document-register-element#8ccc532b7":
   version "0.5.4"
   resolved "https://codeload.github.com/dmarcos/document-register-element/tar.gz/8ccc532b7f3744be954574caf3072a5fd260ca90"
 
@@ -11410,6 +11437,11 @@ three-to-cannon@^1.3.0:
   resolved "https://registry.yarnpkg.com/three-to-cannon/-/three-to-cannon-1.4.1.tgz#37e44eb40a83089ab7fe4821d5dc9ce7aa147e49"
   integrity sha512-AhaDXAqRg48wYBjMGo/Nxl0o67sW4/nGN3yIIfxMkQwL5nYLaLVnkz6aQNpn1vNNKuqHhqLFCZR7qSnSXzhhog==
 
+three@^0.87.0:
+  version "0.87.1"
+  resolved "https://registry.yarnpkg.com/three/-/three-0.87.1.tgz#466a34edc4543459ced9b9d7d276b65216fe2ba8"
+  integrity sha1-Rmo07cRUNFnO2bnX0na2Uhb+K6g=
+
 three@^0.98.0:
   version "0.98.0"
   resolved "https://registry.yarnpkg.com/three/-/three-0.98.0.tgz#11d4e3cca4b5d099c7de0ea5afa153b5d20cda84"
@@ -12096,6 +12128,11 @@ webvr-polyfill@^0.10.5:
   integrity sha512-WdKQ1XR9X2Gj9RUtmr+DajvWBWPva75m1rm0Z7CibR7ZstCm913zHYToxw0p/EK342wAxGfiWKsBmb3Jd5OO0w==
   dependencies:
     cardboard-vr-display "^1.0.16"
+
+webvr-polyfill@^0.9.36:
+  version "0.9.41"
+  resolved "https://registry.yarnpkg.com/webvr-polyfill/-/webvr-polyfill-0.9.41.tgz#dcaaed05ea8e14a44b629679ca32b9a35780e0e3"
+  integrity sha512-xgZPm7DXd2iUn4wh+/ubh1AzYWaHlx6VCmpxgTvoKzi1sMz9ePChQvsq1tm18aUfuzs6dtMrnNWoaQIwl81QsQ==
 
 webworkify@^1.4.0:
   version "1.5.0"
