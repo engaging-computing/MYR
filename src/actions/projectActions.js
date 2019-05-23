@@ -26,10 +26,7 @@ export function asyncUserProj(id) {
 }
 
 export function syncUserProj(payload) {
-  return {
-    type: types.SYNC_USER_PROJ,
-    payload: payload
-  };
+  return { type: types.SYNC_USER_PROJ, payload: payload };
 }
 
 export const asyncExampleProj = () => {
@@ -55,10 +52,7 @@ export const asyncExampleProj = () => {
 }
 
 export function syncExampleProj(payload) {
-  return {
-    type: types.SYNC_EXAMP_PROJ,
-    payload: payload
-  };
+  return { type: types.SYNC_EXAMP_PROJ, payload: payload };
 }
 
 export function deleteProj(id, name) {
