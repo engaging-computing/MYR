@@ -98,6 +98,14 @@ class Myr {
     this.phiLength = 360;
   }
 
+  cursorStatus = () => {
+    console.log("color: " + this.color);
+    console.log("pos: " + this.position);
+    console.log("scale: " + this.scale);
+    console.log("rotate: " + this.rotation);
+    console.log("radius: " + this.radius);
+  }
+
   genNewId = () => {
     return this.counter++;
   };

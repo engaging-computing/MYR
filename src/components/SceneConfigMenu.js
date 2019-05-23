@@ -263,7 +263,10 @@ class ConfigModal extends Component {
     return (
       <ButtonBase
         style={style}
-        onClick={() => this.props.sceneActions.toggleCoordSky()} >
+        onClick={() => {
+          this.props.handleRender();
+          this.props.sceneActions.toggleCoordSky();
+        }} >
         {
           this.props.scene.settings.showCoordHelper
             ? <Icon className="material-icons">toggle_on</Icon>
