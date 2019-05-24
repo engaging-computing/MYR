@@ -294,6 +294,7 @@ class Myr {
   makeSubtractive = (outerElId) => {
     let el = this.getEl(outerElId);
     el["mixin"] = "subtractive-entity";
+    el["class"] = "negative";
     return outerElId;
   }
 
@@ -308,7 +309,10 @@ class Myr {
   // Gives the entity normal additive geometry properties based on current cursor state
   makeUnSubtractive = (outerElId) => {
     let el = this.getEl(outerElId);
-    el["mixin"] = "attitive-entity";
+    if(el["class"]) {
+      delete el["class"];
+      el["mixin"] = "additive-entity";
+    }
     return outerElId;
   }
 
