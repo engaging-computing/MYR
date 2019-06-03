@@ -646,7 +646,7 @@ class Header extends Component {
           <Tooltip title="Open" placement="bottom-start">
             <IconButton
               id="open-btn"
-              onClick={this.handleLoadTfoggle}
+              onClick={this.handleLoadToggle}
               className="header-btn"
               style={style.default}>
               <Icon className="material-icons">perm_media</Icon>
