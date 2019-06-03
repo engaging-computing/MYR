@@ -345,6 +345,7 @@ class Header extends Component {
   handleSave = () => {
     let editor = window.ace.edit("ace-editor");
     let text = editor.getSession().getValue();
+    
     if (this.props.user && this.props.user.uid && text) {
       this.setState({ spinnerOpen: true });
       let ts = Date.now();
@@ -367,7 +368,7 @@ class Header extends Component {
           // If we have a new projectId reload page with it
           if (this.props.courseName) {
             this.setState({ spinnerOpen: false });
-            window.open(window.origin + '/' + projectId);
+            //window.open(window.origin + '/' + projectId);
           } else if (projectId !== this.props.projectId) {
             window.location.href = window.origin + '/' + projectId;
           } else {
@@ -645,7 +646,7 @@ class Header extends Component {
           <Tooltip title="Open" placement="bottom-start">
             <IconButton
               id="open-btn"
-              onClick={this.handleLoadToggle}
+              onClick={this.handleLoadTfoggle}
               className="header-btn"
               style={style.default}>
               <Icon className="material-icons">perm_media</Icon>

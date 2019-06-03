@@ -10,6 +10,12 @@ import customCompleter from './customCompleter.js'
 *
 */
 class Editor extends Component {
+  componentWillUnmount() {
+    //Text is saved in state when editor unmounts / when in view only.
+    //This does not fully 'save' it because state will be lost when we 
+    //leave the page
+    this.props.refresh(window.ace.edit("ace-editor").getSession().getValue(), this.props.user ? this.props.user.uid : 'anon');
+  }
 
   componentDidMount() {
     try {
