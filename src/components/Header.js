@@ -652,8 +652,8 @@ class Header extends Component {
             </IconButton>
           </Tooltip>
           <MyrTour 
-            isEditorClosed={this.props.scene.settings.viewOnly}
-            toggleEditor={this.props.sceneActions.changeView}/>
+            viewOnly={this.props.scene.settings.viewOnly}
+            changeView={this.props.sceneActions.changeView}/>
         </div>
         <div className="col-3 d-flex justify-content-end">
           {/* <Classroom classrooms={this.props.classrooms} classroomActions={this.props.classroomActions} user={this.props.user} /> */}
