@@ -6,15 +6,14 @@ class MyrTour extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      isTourOpen: false
+      isTourOpen: false,
+      viewOnlyOnOpen: this.props.viewOnly
     };
-
-    this.viewOnlyOnOpen = this.props.viewOnly;
   }
 
   closeTour = () => {
     this.setState({ isTourOpen: false });
-    if (this.viewOnlyOnOpen) {
+    if (this.state.viewOnlyOnOpen) {
       this.props.changeView();
     }
   }
@@ -27,7 +26,7 @@ class MyrTour extends Component {
           maskClassName="mask"
           isOpen={this.state.isTourOpen}  
           onAfterOpen={()=>{
-            this.viewOnlyOnOpen = this.props.viewOnly;
+            this.setState({ viewOnlyOnOpen: this.props.viewOnly });
             if(this.props.viewOnly) {
               this.props.changeView();
             }
@@ -49,11 +48,9 @@ const steps = [
   {
     selector: '#ace-editor',
     content: 'This is the editor. You can create 3D scenes using JavaScript ' +
-      'and a special set of instructions or functions to MYR.'
-  },
-  {
-    selector: '#configure-scene',
-    content: 'You can toggle whether the editor is displayed or not by opening the settings menu and clicking the "View Editor" switch.'
+      'and a special set of instructions or functions to MYR.\n The editor can be ' + 
+      'toggled on and off by opening the settings menu in the top right and ' + 
+      'clicking the "View Editor" switch.'
   },
   {
     selector: '#play-btn',
