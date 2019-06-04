@@ -181,59 +181,59 @@ let animations = [
   },
   {
     name: <span>spin(<span className="string">element</span>)</span>,
-    description: <span>Spins the element around the y axis <span className="number">magnitude</span> degrees.</span>
+    description: <span>Spins the element around the y axis [magnitude] degrees.</span>
   },
   {
     name: <span>yoyo(<span className="string">element</span>)</span>,
-    description: <span>Bounces the element <span className="number">magnitude</span> units in a positive direction on the y axis for <span className="number">duration</span> milliseconds.</span>
+    description: <span>Bounces the element [magnitude] units in a positive direction on the y axis</span>
   },
   {
     name: <span>sideToSide(<span className="string">element</span>)</span>,
-    description: <span>Shifts the element <span className="number">magnitude</span> units in a negative direction on the x axis and back to the original coordinate over <span className="number">duration</span> milliseconds.</span>
+    description: <span>Shifts the element [magnitude] units in a negative direction on the x axis and back to the original coordinates.</span>
   },
   {
     name: <span>goUp(<span className="string">element</span>)</span>,
-    description: <span>Translates the element <span className="number">magnitude</span> units in a positive direction on the y axis over <span className="number">duration</span> milliseconds.</span>
+    description: <span>Translates the element [magnitude] units in a positive direction on the y axis.</span>
   },
   {
     name: <span>goDown(<span className="string">element</span>)</span>,
-    description: <span>Translates the element <span className="number">magnitude</span> units in a negative direction on the y axis over <span className="number">duration</span> milliseconds.</span>
+    description: <span>Translates the element [magnitude] units in a negative direction on the y axis.</span>
   },
   {
     name: <span>goRight(<span className="string">element</span>)</span>,
-    description: <span>Translates the element <span className="number">magnitude</span> units in a positive direction on the x axis over <span className="number">duration</span> milliseconds.</span>
+    description: <span>Translates the element [magnitude] units in a positive direction on the x axis.</span>
   },
   {
     name: <span>goLeft(<span className="string">element</span>)</span>,
-    description: <span>Translates the element <span className="number">magnitude</span> units in a negative direction on the x axis over <span className="number">duration</span> milliseconds.</span>
+    description: <span>Translates the element [magnitude] units in a negative direction on the x axis.</span>
   },
   {
     name: <span>goTowards(<span className="string">element</span>)</span>,
-    description: <span>Translates the element <span className="number">magnitude</span> units in a positive direction on the z axis over <span className="number">duration</span> milliseconds.</span>
+    description: <span>Translates the element [magnitude] units in a positive direction on the z axis.</span>
   },
   {
     name: <span>goAway(<span className="string">element</span>)</span>,
-    description: <span>Translates the element <span className="number">magnitude</span> units in a negative direction on the z axis over <span className="number">duration</span> milliseconds.</span>
+    description: <span>Translates the element [magnitude] units in a negative direction on the z axis.</span>
   },
   {
     name: <span>grow(<span className="string">element</span>)</span>,
-    description: <span>Scales the element by a <span className="number">magnitude</span> multiplier over <span className="number">duration</span> milliseconds.</span>
+    description: <span>Scales the element by a multiplier, the cursor's magnitude.</span>
   },
   {
     name: <span>shrink(<span className="string">element</span>)</span>,
-    description: <span>Scales the element by a 1/<span className="number">magnitude</span> multiplier over <span className="number">duration</span> milliseconds.</span>
+    description: <span>Scales the element by a 1/[magnitude] multiplier.</span>
   },
   {
     name: <span>fadeOut(<span className="string">element</span>)</span>,
-    description: <span>Modifies transparency from 1 to <span className="number">magnitude</span> [0,1) over <span className="number">duration</span> milliseconds.</span>
+    description: <span>Modifies transparency from 1 to the cursor's magnitude, [0,1).</span>
   },
   {
     name: <span>fadeIn(<span className="string">element</span>)</span>,
-    description: <span>Modifies transparency from 0 to <span className="number">magnitude</span> (0,1] over <span className="number">duration</span> milliseconds.</span>
+    description: <span>Modifies transparency from 0 to the cursor's magnitude, (0,1].</span>
   },
   {
     name: <span>colorShift(<span className="string">element</span>, <span className="string">color</span>)</span>,
-    description: <span>Shifts from the cursor color to the given color over <span className="number">duration</span> milliseconds.</span>
+    description: <span>Shifts from the cursor color to the given color.</span>
   },
 
   // {
