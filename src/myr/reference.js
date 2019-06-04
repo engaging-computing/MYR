@@ -451,7 +451,7 @@ let transformations = [
   //Not quite sure about the inner workings of this one yet
   {
     name: <span>makeSubtractive(<span className="string">element</span>)</span>,
-    description: <span>Makes the <span className="string">element</span> erase from other shapes instead of being drawn as a new shape.</span>
+    description: <span>Makes the <span className="string">element</span> erase other shapes that it overlaps with, instead of being drawn as a new shape.</span>
   },
   {
     name: <span>makeUnSubtractive(<span className="string">element</span>)</span>,
