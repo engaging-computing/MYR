@@ -1,6 +1,6 @@
 import 'aframe';
 import 'aframe-physics-system';
-import 'aframe-csg-meshs'
+import 'aframe-csg-meshs';
 import Group from './Group';
 import CANNON from 'cannon';
 
