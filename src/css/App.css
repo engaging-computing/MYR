@@ -309,7 +309,7 @@ span.user-name {
 }
 
 div#reference-drawer>div {
-    width: 80%;
+    /*width: 80%;*/
 }
 
 .geometry {
