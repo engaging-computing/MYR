@@ -79,7 +79,11 @@ export const customCompleter = {
             "fadeIn()",
             "group()",
             "getRandomColor()",
-            "setPhiLength()"
+            "setPhiLength()",
+            "setLoop()",
+            "setDuration()",
+            "setMagnitude()",
+            "shiftToColor()"
         ];
 
         let Colors = [
