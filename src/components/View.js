@@ -32,7 +32,7 @@ class View extends Component {
     document.dispatchEvent(event);
 
     let el = document.getElementById('rig');
-    el.components["movement-controls"].velocity = new THREE.Vector3(0, 0, 0)
+    el.components["movement-controls"].velocity = new THREE.Vector3(0, 0, 0);
   }
 
   // This renders json to aframe entities
@@ -50,7 +50,7 @@ class View extends Component {
           <a-entity key={ent.id} {...flattened}>
             {ent.els ? ent.els.map(it => this.helper(it)) : null}
           </a-entity>
-        )
+        );
       }
       if (ent.text) {
         delete flattened.text; // this takes care of a warning, may not be necessary
