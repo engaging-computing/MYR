@@ -263,7 +263,10 @@ class ConfigModal extends Component {
     return (
       <ButtonBase
         style={style}
-        onClick={() => this.props.sceneActions.toggleCoordSky()} >
+        onClick={() => {
+          this.props.handleRender();
+          this.props.sceneActions.toggleCoordSky();
+        }} >
         {
           this.props.scene.settings.showCoordHelper
             ? <Icon className="material-icons">toggle_on</Icon>
@@ -281,7 +284,10 @@ class ConfigModal extends Component {
     return (
       <ButtonBase
         style={style}
-        onClick={() => this.props.sceneActions.toggleFloor()} >
+        onClick={() => {
+          this.props.handleRender();
+          this.props.sceneActions.toggleFloor();
+        }} >
         {
           this.props.scene.settings.showFloor
             ? <Icon className="material-icons">toggle_on</Icon>
@@ -360,7 +366,10 @@ class ConfigModal extends Component {
     return (
       <ButtonBase
         style={btnStyle.base}
-        onClick={this.handleSkyColorClick}>
+        onClick={() => {
+          this.props.handleRender();
+          this.handleSkyColorClick();
+        }}>
         <Icon className="material-icons">color_lens</Icon>
         Edit Sky Color
       </ButtonBase>
@@ -371,7 +380,10 @@ class ConfigModal extends Component {
     return (
       <ButtonBase
         style={btnStyle.base}
-        onClick={this.handleFloorColorClick}>
+        onClick={() => {
+          this.props.handleRender();
+          this.handleFloorColorClick();
+        }}>
         <Icon className="material-icons">color_lens</Icon>
         Edit Floor Color
       </ButtonBase>
