@@ -8,10 +8,15 @@ import * as layoutTypes from '../../constants/LayoutTypes.js';
 
 class Ide extends React.Component {
     render() {
+        let editorClass;
+        if(this.props.scene.settings.viewOnly)
+            editorClass = "col-0";
+        else
+            editorClass = "col-12 col-md-4"
         return (
             <div className="App">
                 <Header
-                    viewOnly = {this.props.scene.settings.view}
+                    viewOnly = {this.props.scene.settings.viewOnly}
                     logging={this.props.authActions}
                     sceneActions={this.props.sceneActions}
                     actions={this.props.editorActions}
@@ -31,15 +36,10 @@ class Ide extends React.Component {
                 />
 
                 <div className="row no-gutters">
+                    <div id="interface" className={editorClass} >
+                        <Editor refresh = {this.props.editorActions.refresh} text={this.props.editor.text} user={this.props.user} sendEditorDataOnUnmount = {this.recieveEditorDataOnUnmount} sendTextOnUnmount = {this.recieveTextOnUnmount}/>
+                    </div>
                     {
-                        /*
-                            Won't be able to save with this conditional rendering bc 
-                            ace.edit('editor') wont be found when the editor is closed
-
-                            1. Find way to save latest instance of editor before it unmounts
-                            2. Don't allow saving while it is not rendered
-                            3. 'Hide' editor in some way instead of unmounting it completely
-                        */
                         this.props.scene.settings.viewOnly
                             ?
                                 <div id="scene" className="col-12" >
@@ -47,9 +47,6 @@ class Ide extends React.Component {
                                 </div>
                             :
                             <>
-                                <div id="interface" className="col-12 col-md-4" >
-                                    <Editor refresh = {this.props.editorActions.refresh} text={this.props.editor.text} user={this.props.user} sendEditorDataOnUnmount = {this.recieveEditorDataOnUnmount} sendTextOnUnmount = {this.recieveTextOnUnmount}/>
-                                </div>
                                 <div id="scene" className="col-12 col-md-8" >
                                     <View objects={this.props.editor.objects} sceneConfig={this.props.scene} assets={this.props.editor.assets} />
                                 </div>

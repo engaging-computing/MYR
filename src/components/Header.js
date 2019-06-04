@@ -346,6 +346,9 @@ class Header extends Component {
     let editor = window.ace.edit("ace-editor");
     let text = editor.getSession().getValue();
     
+    //Refresh state before save, needed when saving with editor minimized
+    this.props.actions.refresh(text, this.props.user ? this.props.user.uid : 'anon');
+
     if (this.props.user && this.props.user.uid && text) {
       this.setState({ spinnerOpen: true });
       let ts = Date.now();
