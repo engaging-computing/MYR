@@ -1,7 +1,15 @@
+<<<<<<< HEAD
 import "aframe";
 import "aframe-physics-system";
 import Group from "./Group";
 import CANNON from "cannon";
+=======
+import 'aframe';
+import 'aframe-physics-system';
+import 'aframe-csg-meshs';
+import Group from './Group';
+import CANNON from 'cannon';
+>>>>>>> updated Reference.js and Myr.js
 
 class Myr {
     constructor(baseEls) {
