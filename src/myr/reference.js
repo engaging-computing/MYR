@@ -395,6 +395,7 @@ let transformations = [
         parameters: [{ type: "string", name: "key" }],
         description: <span>The getCursorAttribute function allows the user to get a cursor attributes set by the setCursorAttribute function or by any other cursor setter.</span>
     }
+    //Not quite sure about the inner workings of this one yet
 ];
 
 let animations = [
