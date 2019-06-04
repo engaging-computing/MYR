@@ -29,6 +29,13 @@ class Myr {
     };
     this.radius = "1";
     this.phiLength = 360;
+    this.loop = true;
+    this.duration = 1000;
+    this.magnitude = {
+      spin: 360,
+      fadeOut: 0,
+      general: 1
+    };
     if (baseEls) {
       Object.keys(this.baseEls).forEach(it => {
         this.els[it] = this.baseEls[it];
@@ -77,6 +84,9 @@ class Myr {
     this.rotation = { x: 0, y: 0, z: 0 };
     this.radius = 1;
     this.phiLength = 360;
+    this.loop = true;
+    this.duration = 1000;
+    this.magnitude = { spin: 360, fadeOut: 0, general: 1 };
     // restore the base objects of the scene
     this.els = [];
     if (this.baseEls) {
@@ -96,6 +106,9 @@ class Myr {
     this.rotation = { x: 0, y: 0, z: 0 };
     this.radius = "1";
     this.phiLength = 360;
+    this.loop = true;
+    this.duration = 1000;
+    this.magnitude = { spin: 360, fadeOut: 0, general: 1 };
   }
 
   genNewId = () => {
@@ -226,6 +239,29 @@ class Myr {
     }
   };
 
+  setLoop = (i) => {
+    this.loop = Boolean(i);
+  };
+
+  setMagnitude = (i) => {
+    if (typeof i === 'number') {
+      this.magnitude = {
+        spin: i,
+        fadeOut: i,
+        general: i
+      };
+    } else {
+      console.error("must pass a numeric for setMagnitude");
+    }
+  };
+
+  setDuration = (i) => {
+    if (typeof i === 'number') {
+      this.duration = i;
+    } else {
+      console.error("must pass a numeric for setDuration");
+    }
+  };
 
   setColor = (color) => {
     this.color = color;
@@ -562,7 +598,10 @@ class Myr {
   cube = this.box
 
   // Animate the Aframe element which is passed as arg
-  animate = (outerElId, magnitude = 360, loop = true, duration = 1000) => {
+  animate = (outerElId, magnitude = null, loop = null, duration = null) => {
+    magnitude = magnitude != null ? magnitude : this.magnitude.spin;
+    loop = loop != null ? loop : this.loop;
+    duration = duration != null ? duration : this.duration;
     let el = this.getEl(outerElId);
     let anim = `
       property: rotation;
@@ -575,7 +614,10 @@ class Myr {
     return outerElId;
   };
 
-  spin = (outerElId, magnitude = 360, loop = true, duration = 1000) => {
+  spin = (outerElId, magnitude = null, loop = null, duration = null) => {
+    magnitude = magnitude != null ? magnitude : this.magnitude.spin;
+    loop = loop != null ? loop : this.loop;
+    duration = duration != null ? duration : this.duration;
     let el = this.getEl(outerElId);
     let anim = `
       property: rotation;
@@ -589,7 +631,10 @@ class Myr {
     return outerElId;
   };
 
-  yoyo = (outerElId, magnitude = 2, loop = true, duration = 1000) => {
+  yoyo = (outerElId, magnitude = null, loop = null, duration = null) => {
+    magnitude = magnitude != null ? magnitude : this.magnitude.general;
+    loop = loop != null ? loop : this.loop;
+    duration = duration != null ? duration : this.duration;
     let el = this.getEl(outerElId);
     let anim = `
       property: position;
@@ -602,7 +647,10 @@ class Myr {
     return outerElId;
   };
 
-  sideToSide = (outerElId, magnitude = 2, loop = true, duration = 1000) => {
+  sideToSide = (outerElId, magnitude = null, loop = null, duration = null) => {
+    magnitude = magnitude != null ? magnitude : this.magnitude.general;
+    loop = loop != null ? loop : this.loop;
+    duration = duration != null ? duration : this.duration;
     let el = this.getEl(outerElId);
     let anim = `
       dir: alternate;
@@ -616,7 +664,10 @@ class Myr {
     return outerElId;
   };
 
-  goUp = (outerElId, magnitude = 2, loop = true, duration = 1000) => {
+  goUp = (outerElId, magnitude = null, loop = null, duration = null) => {
+    magnitude = magnitude != null ? magnitude : this.magnitude.general;
+    loop = loop != null ? loop : this.loop;
+    duration = duration != null ? duration : this.duration;
     let el = this.getEl(outerElId);
     let anim = `
       property: position;
@@ -629,7 +680,10 @@ class Myr {
     return outerElId;
   };
 
-  goDown = (outerElId, magnitude = 2, loop = true, duration = 1000) => {
+  goDown = (outerElId, magnitude = null, loop = null, duration = null) => {
+    magnitude = magnitude != null ? magnitude : this.magnitude.general;
+    loop = loop != null ? loop : this.loop;
+    duration = duration != null ? duration : this.duration;
     let el = this.getEl(outerElId);
     let anim = `
       property: position;
@@ -642,7 +696,10 @@ class Myr {
     return outerElId;
   };
 
-  goLeft = (outerElId, magnitude = 2, loop = true, duration = 1000) => {
+  goLeft = (outerElId, magnitude = null, loop = null, duration = null) => {
+    magnitude = magnitude != null ? magnitude : this.magnitude.general;
+    loop = loop != null ? loop : this.loop;
+    duration = duration != null ? duration : this.duration;
     let el = this.getEl(outerElId);
     let anim = `
       property: position;
@@ -655,7 +712,10 @@ class Myr {
     return outerElId;
   };
 
-  goRight = (outerElId, magnitude = 2, loop = true, duration = 1000) => {
+  goRight = (outerElId, magnitude = null, loop = null, duration = null) => {
+    magnitude = magnitude != null ? magnitude : this.magnitude.general;
+    loop = loop != null ? loop : this.loop;
+    duration = duration != null ? duration : this.duration;
     let el = this.getEl(outerElId);
     let anim = `
       property: position;
@@ -668,7 +728,10 @@ class Myr {
     return outerElId;
   };
 
-  goTowards = (outerElId, magnitude = 2, loop = true, duration = 1000) => {
+  goTowards = (outerElId, magnitude = null, loop = null, duration = null) => {
+    magnitude = magnitude != null ? magnitude : this.magnitude.general;
+    loop = loop != null ? loop : this.loop;
+    duration = duration != null ? duration : this.duration;
     let el = this.getEl(outerElId);
     let anim = `
       property: position;
@@ -681,7 +744,10 @@ class Myr {
     return outerElId;
   };
 
-  goAway = (outerElId, magnitude = 2, loop = true, duration = 1000) => {
+  goAway = (outerElId, magnitude = null, loop = null, duration = null) => {
+    magnitude = magnitude != null ? magnitude : this.magnitude.general;
+    loop = loop != null ? loop : this.loop;
+    duration = duration != null ? duration : this.duration;
     let el = this.getEl(outerElId);
     let anim = `
       property: position;
@@ -694,33 +760,42 @@ class Myr {
     return outerElId;
   };
 
-  grow = (outerElId, magnitute = 2, loop = true, duration = 1000) => {
+  grow = (outerElId, magnitude = null, loop = null, duration = null) => {
+    magnitude = magnitude != null ? magnitude : this.magnitude.general;
+    loop = loop != null ? loop : this.loop;
+    duration = duration != null ? duration : this.duration;
     let el = this.getEl(outerElId);
     let anim = `
       property: scale;
       dir: alternate;
       dur: ${duration};
       loop: ${Boolean(loop)};
-      to: ${el.scale.x * magnitute} ${el.scale.y * magnitute} ${el.scale.z * magnitute};
+      to: ${el.scale.x * magnitude} ${el.scale.y * magnitude} ${el.scale.z * magnitude};
     `;
     el.animation__grow = anim;
     return outerElId;
   };
 
-  shrink = (outerElId, magnitute = 2, loop = true, duration = 1000) => {
+  shrink = (outerElId, magnitude = null, loop = null, duration = null) => {
+    magnitude = magnitude != null ? magnitude : this.magnitude.general;
+    loop = loop != null ? loop : this.loop;
+    duration = duration != null ? duration : this.duration;
     let el = this.getEl(outerElId);
     let anim = `
       property: scale;
       dir: alternate;
       dur: ${duration};
       loop: ${Boolean(loop)};
-      to: ${el.scale.x / magnitute} ${el.scale.y / magnitute} ${el.scale.z / magnitute};
+      to: ${el.scale.x / magnitude} ${el.scale.y / magnitude} ${el.scale.z / magnitude};
     `;
     el.animation__shrink = anim;
     return outerElId;
   };
 
-  fadeOut = (outerElId, magnitute = 0, loop = true, duration = 1000) => {
+  fadeOut = (outerElId, magnitude = null, loop = null, duration = null) => {
+    magnitude = magnitude != null ? magnitude : this.magnitude.fadeOut;
+    loop = loop != null ? loop : this.loop;
+    duration = duration != null ? duration : this.duration;
     let el = this.getEl(outerElId);
     let anim = `
       property: components.material.material.opacity;
@@ -729,14 +804,17 @@ class Myr {
       loop: ${Boolean(loop)};
       isRawProperty: true;
       from: 1;
-      to: ${magnitute};
+      to: ${magnitude};
     `;
     el.material = el.material + "; transparent: true;";
     el.animation__fadeout = anim;
     return outerElId;
   }
 
-  fadeIn = (outerElId, magnitute = 1, loop = true, duration = 1000) => {
+  fadeIn = (outerElId, magnitude = null, loop = null, duration = null) => {
+    magnitude = magnitude != null ? magnitude : this.magnitude.general;
+    loop = loop != null ? loop : this.loop;
+    duration = duration != null ? duration : this.duration;
     let el = this.getEl(outerElId);
     let anim = `
       property: components.material.material.opacity;
@@ -745,10 +823,26 @@ class Myr {
       loop: ${Boolean(loop)};
       isRawProperty: true;
       from: 0;
-      to: ${magnitute};
+      to: ${magnitude};
     `;
     el.material = el.material + "; transparent: true;";
     el.animation__fadein = anim;
+    return outerElId;
+  }
+
+  shiftToColor = (outerElId, color) => {
+    let el = this.getEl(outerElId);
+    let anim = `
+      property: components.material.material.color;
+      from: ${this.color};
+      to: ${color};
+      dur: ${this.duration};
+      dir: alternate;
+      loop: ${Boolean(this.loop)};
+      isRawProperty: true;
+      type: color;
+    `;
+    el.animation__color = anim;
     return outerElId;
   }
 
