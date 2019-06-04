@@ -75,7 +75,6 @@ export function setDesc(payload) {
 }
 
 export function setNameDesc(payload) {
-  console.log(payload)
   return { type: types.SET_NAME_DESC, payload };
 }
 
