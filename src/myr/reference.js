@@ -164,6 +164,14 @@ let transformations = [
     description: <span>Prevents the <span className="string">element</span> from being pushed by the cursor, or being affected by physics.</span>
   },
   //Not quite sure about the inner workings of this one yet
+  {
+    name: <span>makeSubtractive(<span className="string">element</span>)</span>,
+    description: <span>Makes the <span className="string">element</span> erase from other shapes instead of being drawn as a new shape.</span>
+  },
+  {
+    name: <span>makeUnSubtractive(<span className="string">element</span>)</span>,
+    description: <span>Allows the <span className="string">element</span> to be drawn as a normal geometric shape.</span>
+  },
 ];
 
 let animations = [
