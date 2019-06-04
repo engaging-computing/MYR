@@ -339,7 +339,7 @@ class Myr {
     let base = {
       geometry: `primitive: box;`,
       id: 'box' + this.genNewId(),
-      material: `color:${this.color};`,
+      material: `color: ${this.color};`,
       position: { ...this.position },
       rotation: this.rotation,
       scale: this.scale,
@@ -435,7 +435,7 @@ class Myr {
       position: this.position,
       scale: this.scale,
       rotation: this.rotation,
-      material: `color:${this.color};  side: double;`,
+      material: `color: ${this.color};  side: double;`,
     };
     return this.mergeProps(base, params);
   }
@@ -533,7 +533,7 @@ class Myr {
       position: this.position,
       scale: this.scale,
       rotation: this.rotation,
-      material: `color:${this.color};  side: double;`,
+      material: `color: ${this.color};  side: double;`,
     };
     return this.mergeProps(base, params);
   }
@@ -545,7 +545,7 @@ class Myr {
       position: this.position,
       scale: this.scale,
       rotation: this.rotation,
-      material: `color:${this.color};`,
+      material: `color: ${this.color};`,
       p: 2,
       q: 3,
     };
@@ -573,7 +573,7 @@ class Myr {
       position: this.position,
       scale: this.scale,
       rotation: this.rotation,
-      material: `color:${this.color};  side: double;`,
+      material: `color: ${this.color};  side: double;`,
     };
     return this.mergeProps(base, params);
   }
@@ -830,8 +830,28 @@ class Myr {
     return outerElId;
   }
 
-  shiftToColor = (outerElId, color) => {
+  colorShift = (outerElId, color) => {
     let el = this.getEl(outerElId);
+    if (String(el.id).includes('grp')) {
+      for (let i in el.els) {
+        let innerEl = el.els[i];
+        //innerEl.material.split(/\s|;/) returns an array of strings separated by " " and ";",
+        //color is always its first attribute (after "color: ")
+        let anim = `
+          property: components.material.material.color;
+          from: ${(innerEl.material.split(/\s|;/))[1]};
+          to: ${color};
+          dur: ${this.duration};
+          dir: alternate;
+          loop: ${Boolean(this.loop)};
+          isRawProperty: true;
+          type: color;
+        `;
+        innerEl.animation__color = anim;
+
+      }
+      return outerElId;
+    }
     let anim = `
       property: components.material.material.color;
       from: ${this.color};
@@ -844,113 +864,113 @@ class Myr {
     `;
     el.animation__color = anim;
     return outerElId;
-  }
+}
 
-  // MODELS
-  addCModel = () => {
-    let asset = {
-      id: 'c-obj',
-      src: '/img/c.obj'
-    };
-    let el = {
-      'obj-model': 'obj: #c-obj',
-      mtl: 'c-mtl',
-      position: this.position,
-      scale: this.scale,
-      rotation: this.rotation
-    };
-    this.els.push(el);
-    this.assets.push(asset);
-    return el;
-  }
+// MODELS
+addCModel = () => {
+  let asset = {
+    id: 'c-obj',
+    src: '/img/c.obj'
+  };
+  let el = {
+    'obj-model': 'obj: #c-obj',
+    mtl: 'c-mtl',
+    position: this.position,
+    scale: this.scale,
+    rotation: this.rotation
+  };
+  this.els.push(el);
+  this.assets.push(asset);
+  return el;
+}
 
-  getEl = (outerElId) => {
-    if (outerElId.entity) {
-      outerElId = outerElId.id;
-    }
-    return this.els[outerElId];
+getEl = (outerElId) => {
+  if (outerElId.entity) {
+    outerElId = outerElId.id;
   }
+  return this.els[outerElId];
+}
 
-  /**
-  * @summary - Interface for setting an object's parameters in the DOM
-  * the idea is the setup an event listener as an almost DOM ready listener.
-  *
-  * @param {string} outerElId - target
-  * @param {string} type - what param to change
-  * @param {obj} newParam - changes
-  *
-  */
-  change = (outerElId, type, newParam) => {
-    document.addEventListener('myr-view-rendered', (e) => {
-      try {
-        let el = document.querySelector('#' + outerElId);
-        el.setAttribute(type, newParam);
-      } catch (error) {
-        return Error('change() failed execution' +
-          'Ensure you are passing the proper id to the method' +
-          `Error msg: ${error}`);
-      }
-    });
-  }
-
-  syncChange = (outerElId, type, newParam) => {
+/**
+* @summary - Interface for setting an object's parameters in the DOM
+* the idea is the setup an event listener as an almost DOM ready listener.
+*
+* @param {string} outerElId - target
+* @param {string} type - what param to change
+* @param {obj} newParam - changes
+*
+*/
+change = (outerElId, type, newParam) => {
+  document.addEventListener('myr-view-rendered', (e) => {
     try {
       let el = document.querySelector('#' + outerElId);
       el.setAttribute(type, newParam);
     } catch (error) {
-      let err = Error('syncChange() failed execution\n' +
+      return Error('change() failed execution' +
         'Ensure you are passing the proper id to the method' +
         `Error msg: ${error}`);
-      console.error(err);
-      return err;
     }
-  }
+  });
+}
 
-  /**
-  * @summary - This creates an entity w shape of object and merges with supplied params
-  *
-  * @param {string} shape - one of the allowed arguments to this.core()
-  * @param {obj} params - arguments to be merged, not guarenteed to be successful
-  *
-  */
-  mergeProps = (entity, params) => {
-    let id = params && params.id ? params.id : entity.id;
-    if (!params || typeof params === 'string') {
-      this.els[id] = entity;
-    } else {
-      this.els[id] = { ...entity, ...params };
-    }
-    return id;
+syncChange = (outerElId, type, newParam) => {
+  try {
+    let el = document.querySelector('#' + outerElId);
+    el.setAttribute(type, newParam);
+  } catch (error) {
+    let err = Error('syncChange() failed execution\n' +
+      'Ensure you are passing the proper id to the method' +
+      `Error msg: ${error}`);
+    console.error(err);
+    return err;
   }
+}
 
-  sleep = (ms) => {
-    return new Promise(resolve => setTimeout(resolve, ms));
+/**
+* @summary - This creates an entity w shape of object and merges with supplied params
+*
+* @param {string} shape - one of the allowed arguments to this.core()
+* @param {obj} params - arguments to be merged, not guarenteed to be successful
+*
+*/
+mergeProps = (entity, params) => {
+  let id = params && params.id ? params.id : entity.id;
+  if (!params || typeof params === 'string') {
+    this.els[id] = entity;
+  } else {
+    this.els[id] = { ...entity, ...params };
   }
+  return id;
+}
 
-  // Return a Entity that can be used to group elements together
-  group = () => {
-    let base = {
-      id: 'grp' + this.genNewId(),
-      position: { ...this.position },
-      rotation: this.rotation,
-      scale: this.scale,
-    };
-    let entity = new Group(this, base.id);
-    this.els[base.id] = { ...base, ...entity.entObj() };
-    return entity;
-  }
+sleep = (ms) => {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
 
-  // Transfer the object from MYR to the Entity
-  transfer = (id) => {
-    let retVal = this.els[id];
-    delete this.els[id];
-    return retVal;
-  }
+// Return a Entity that can be used to group elements together
+group = () => {
+  let base = {
+    id: 'grp' + this.genNewId(),
+    position: { ...this.position },
+    rotation: this.rotation,
+    scale: this.scale,
+  };
+  let entity = new Group(this, base.id);
+  this.els[base.id] = { ...base, ...entity.entObj() };
+  return entity;
+}
 
-  HALT = () => {
-    console.log(this);
-    console.log('Halted');
-  }
+// Transfer the object from MYR to the Entity
+transfer = (id) => {
+  let retVal = this.els[id];
+  delete this.els[id];
+  return retVal;
+}
+
+HALT = () => {
+  console.log(this);
+  console.log('Halted');
+}
 }
 
 export default Myr;

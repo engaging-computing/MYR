@@ -232,7 +232,7 @@ let animations = [
     description: <span>Modifies transparency from 0 to <span className="number">magnitude</span> (0,1] over <span className="number">duration</span> milliseconds.</span>
   },
   {
-    name: <span>shiftToColor(<span className="string">element</span>, <span className="string">color</span>)</span>,
+    name: <span>colorShift(<span className="string">element</span>, <span className="string">color</span>)</span>,
     description: <span>Shifts from the cursor color to the given color over <span className="number">duration</span> milliseconds.</span>
   },
 

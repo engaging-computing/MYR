@@ -83,7 +83,7 @@ export const customCompleter = {
             "setLoop()",
             "setDuration()",
             "setMagnitude()",
-            "shiftToColor()"
+            "colorShift()"
         ];
 
         let Colors = [
