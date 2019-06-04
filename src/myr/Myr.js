@@ -29,6 +29,13 @@ class Myr {
     };
     this.radius = "1";
     this.phiLength = 360;
+    this.loop = true;
+    this.duration = 1000;
+    this.magnitude = {
+      spin: 360,
+      fadeOut: 0,
+      general: 1
+    };
     if (baseEls) {
       Object.keys(this.baseEls).forEach(it => {
         this.els[it] = this.baseEls[it];
@@ -77,6 +84,9 @@ class Myr {
     this.rotation = { x: 0, y: 0, z: 0 };
     this.radius = 1;
     this.phiLength = 360;
+    this.loop = true;
+    this.duration = 1000;
+    this.magnitude = { spin: 360, fadeOut: 0, general: 1 };
     // restore the base objects of the scene
     this.els = [];
     if (this.baseEls) {
@@ -96,6 +106,9 @@ class Myr {
     this.rotation = { x: 0, y: 0, z: 0 };
     this.radius = "1";
     this.phiLength = 360;
+    this.loop = true;
+    this.duration = 1000;
+    this.magnitude = { spin: 360, fadeOut: 0, general: 1 };
   }
 
   genNewId = () => {
@@ -226,6 +239,29 @@ class Myr {
     }
   };
 
+  setLoop = (i) => {
+    this.loop = Boolean(i);
+  };
+
+  setMagnitude = (i) => {
+    if (typeof i === 'number') {
+      this.magnitude = {
+        spin: i,
+        fadeOut: i,
+        general: i
+      };
+    } else {
+      console.error("must pass a numeric for setMagnitude");
+    }
+  };
+
+  setDuration = (i) => {
+    if (typeof i === 'number') {
+      this.duration = i;
+    } else {
+      console.error("must pass a numeric for setDuration");
+    }
+  };
 
   setColor = (color) => {
     this.color = color;
@@ -303,7 +339,7 @@ class Myr {
     let base = {
       geometry: `primitive: box;`,
       id: 'box' + this.genNewId(),
-      material: `color:${this.color};`,
+      material: `color: ${this.color};`,
       position: { ...this.position },
       rotation: this.rotation,
       scale: this.scale,
@@ -399,7 +435,7 @@ class Myr {
       position: this.position,
       scale: this.scale,
       rotation: this.rotation,
-      material: `color:${this.color};  side: double;`,
+      material: `color: ${this.color};  side: double;`,
     };
     return this.mergeProps(base, params);
   }
@@ -497,7 +533,7 @@ class Myr {
       position: this.position,
       scale: this.scale,
       rotation: this.rotation,
-      material: `color:${this.color};  side: double;`,
+      material: `color: ${this.color};  side: double;`,
     };
     return this.mergeProps(base, params);
   }
@@ -509,7 +545,7 @@ class Myr {
       position: this.position,
       scale: this.scale,
       rotation: this.rotation,
-      material: `color:${this.color};`,
+      material: `color: ${this.color};`,
       p: 2,
       q: 3,
     };
@@ -537,7 +573,7 @@ class Myr {
       position: this.position,
       scale: this.scale,
       rotation: this.rotation,
-      material: `color:${this.color};  side: double;`,
+      material: `color: ${this.color};  side: double;`,
     };
     return this.mergeProps(base, params);
   }
@@ -562,7 +598,10 @@ class Myr {
   cube = this.box
 
   // Animate the Aframe element which is passed as arg
-  animate = (outerElId, magnitude = 360, loop = true, duration = 1000) => {
+  animate = (outerElId, magnitude = null, loop = null, duration = null) => {
+    magnitude = magnitude != null ? magnitude : this.magnitude.spin;
+    loop = loop != null ? loop : this.loop;
+    duration = duration != null ? duration : this.duration;
     let el = this.getEl(outerElId);
     let anim = `
       property: rotation;
@@ -575,7 +614,10 @@ class Myr {
     return outerElId;
   };
 
-  spin = (outerElId, magnitude = 360, loop = true, duration = 1000) => {
+  spin = (outerElId, magnitude = null, loop = null, duration = null) => {
+    magnitude = magnitude != null ? magnitude : this.magnitude.spin;
+    loop = loop != null ? loop : this.loop;
+    duration = duration != null ? duration : this.duration;
     let el = this.getEl(outerElId);
     let anim = `
       property: rotation;
@@ -589,7 +631,10 @@ class Myr {
     return outerElId;
   };
 
-  yoyo = (outerElId, magnitude = 2, loop = true, duration = 1000) => {
+  yoyo = (outerElId, magnitude = null, loop = null, duration = null) => {
+    magnitude = magnitude != null ? magnitude : this.magnitude.general;
+    loop = loop != null ? loop : this.loop;
+    duration = duration != null ? duration : this.duration;
     let el = this.getEl(outerElId);
     let anim = `
       property: position;
@@ -602,7 +647,10 @@ class Myr {
     return outerElId;
   };
 
-  sideToSide = (outerElId, magnitude = 2, loop = true, duration = 1000) => {
+  sideToSide = (outerElId, magnitude = null, loop = null, duration = null) => {
+    magnitude = magnitude != null ? magnitude : this.magnitude.general;
+    loop = loop != null ? loop : this.loop;
+    duration = duration != null ? duration : this.duration;
     let el = this.getEl(outerElId);
     let anim = `
       dir: alternate;
@@ -616,7 +664,10 @@ class Myr {
     return outerElId;
   };
 
-  goUp = (outerElId, magnitude = 2, loop = true, duration = 1000) => {
+  goUp = (outerElId, magnitude = null, loop = null, duration = null) => {
+    magnitude = magnitude != null ? magnitude : this.magnitude.general;
+    loop = loop != null ? loop : this.loop;
+    duration = duration != null ? duration : this.duration;
     let el = this.getEl(outerElId);
     let anim = `
       property: position;
@@ -629,7 +680,10 @@ class Myr {
     return outerElId;
   };
 
-  goDown = (outerElId, magnitude = 2, loop = true, duration = 1000) => {
+  goDown = (outerElId, magnitude = null, loop = null, duration = null) => {
+    magnitude = magnitude != null ? magnitude : this.magnitude.general;
+    loop = loop != null ? loop : this.loop;
+    duration = duration != null ? duration : this.duration;
     let el = this.getEl(outerElId);
     let anim = `
       property: position;
@@ -642,7 +696,10 @@ class Myr {
     return outerElId;
   };
 
-  goLeft = (outerElId, magnitude = 2, loop = true, duration = 1000) => {
+  goLeft = (outerElId, magnitude = null, loop = null, duration = null) => {
+    magnitude = magnitude != null ? magnitude : this.magnitude.general;
+    loop = loop != null ? loop : this.loop;
+    duration = duration != null ? duration : this.duration;
     let el = this.getEl(outerElId);
     let anim = `
       property: position;
@@ -655,7 +712,10 @@ class Myr {
     return outerElId;
   };
 
-  goRight = (outerElId, magnitude = 2, loop = true, duration = 1000) => {
+  goRight = (outerElId, magnitude = null, loop = null, duration = null) => {
+    magnitude = magnitude != null ? magnitude : this.magnitude.general;
+    loop = loop != null ? loop : this.loop;
+    duration = duration != null ? duration : this.duration;
     let el = this.getEl(outerElId);
     let anim = `
       property: position;
@@ -668,7 +728,10 @@ class Myr {
     return outerElId;
   };
 
-  goTowards = (outerElId, magnitude = 2, loop = true, duration = 1000) => {
+  goTowards = (outerElId, magnitude = null, loop = null, duration = null) => {
+    magnitude = magnitude != null ? magnitude : this.magnitude.general;
+    loop = loop != null ? loop : this.loop;
+    duration = duration != null ? duration : this.duration;
     let el = this.getEl(outerElId);
     let anim = `
       property: position;
@@ -681,7 +744,10 @@ class Myr {
     return outerElId;
   };
 
-  goAway = (outerElId, magnitude = 2, loop = true, duration = 1000) => {
+  goAway = (outerElId, magnitude = null, loop = null, duration = null) => {
+    magnitude = magnitude != null ? magnitude : this.magnitude.general;
+    loop = loop != null ? loop : this.loop;
+    duration = duration != null ? duration : this.duration;
     let el = this.getEl(outerElId);
     let anim = `
       property: position;
@@ -694,33 +760,42 @@ class Myr {
     return outerElId;
   };
 
-  grow = (outerElId, magnitute = 2, loop = true, duration = 1000) => {
+  grow = (outerElId, magnitude = null, loop = null, duration = null) => {
+    magnitude = magnitude != null ? magnitude : this.magnitude.general;
+    loop = loop != null ? loop : this.loop;
+    duration = duration != null ? duration : this.duration;
     let el = this.getEl(outerElId);
     let anim = `
       property: scale;
       dir: alternate;
       dur: ${duration};
       loop: ${Boolean(loop)};
-      to: ${el.scale.x * magnitute} ${el.scale.y * magnitute} ${el.scale.z * magnitute};
+      to: ${el.scale.x * magnitude} ${el.scale.y * magnitude} ${el.scale.z * magnitude};
     `;
     el.animation__grow = anim;
     return outerElId;
   };
 
-  shrink = (outerElId, magnitute = 2, loop = true, duration = 1000) => {
+  shrink = (outerElId, magnitude = null, loop = null, duration = null) => {
+    magnitude = magnitude != null ? magnitude : this.magnitude.general;
+    loop = loop != null ? loop : this.loop;
+    duration = duration != null ? duration : this.duration;
     let el = this.getEl(outerElId);
     let anim = `
       property: scale;
       dir: alternate;
       dur: ${duration};
       loop: ${Boolean(loop)};
-      to: ${el.scale.x / magnitute} ${el.scale.y / magnitute} ${el.scale.z / magnitute};
+      to: ${el.scale.x / magnitude} ${el.scale.y / magnitude} ${el.scale.z / magnitude};
     `;
     el.animation__shrink = anim;
     return outerElId;
   };
 
-  fadeOut = (outerElId, magnitute = 0, loop = true, duration = 1000) => {
+  fadeOut = (outerElId, magnitude = null, loop = null, duration = null) => {
+    magnitude = magnitude != null ? magnitude : this.magnitude.fadeOut;
+    loop = loop != null ? loop : this.loop;
+    duration = duration != null ? duration : this.duration;
     let el = this.getEl(outerElId);
     let anim = `
       property: components.material.material.opacity;
@@ -729,14 +804,17 @@ class Myr {
       loop: ${Boolean(loop)};
       isRawProperty: true;
       from: 1;
-      to: ${magnitute};
+      to: ${magnitude};
     `;
     el.material = el.material + "; transparent: true;";
     el.animation__fadeout = anim;
     return outerElId;
   }
 
-  fadeIn = (outerElId, magnitute = 1, loop = true, duration = 1000) => {
+  fadeIn = (outerElId, magnitude = null, loop = null, duration = null) => {
+    magnitude = magnitude != null ? magnitude : this.magnitude.general;
+    loop = loop != null ? loop : this.loop;
+    duration = duration != null ? duration : this.duration;
     let el = this.getEl(outerElId);
     let anim = `
       property: components.material.material.opacity;
@@ -745,118 +823,154 @@ class Myr {
       loop: ${Boolean(loop)};
       isRawProperty: true;
       from: 0;
-      to: ${magnitute};
+      to: ${magnitude};
     `;
     el.material = el.material + "; transparent: true;";
     el.animation__fadein = anim;
     return outerElId;
   }
 
-  // MODELS
-  addCModel = () => {
-    let asset = {
-      id: 'c-obj',
-      src: '/img/c.obj'
-    };
-    let el = {
-      'obj-model': 'obj: #c-obj',
-      mtl: 'c-mtl',
-      position: this.position,
-      scale: this.scale,
-      rotation: this.rotation
-    };
-    this.els.push(el);
-    this.assets.push(asset);
-    return el;
-  }
+  colorShift = (outerElId, color) => {
+    let el = this.getEl(outerElId);
+    if (String(el.id).includes('grp')) {
+      for (let i in el.els) {
+        let innerEl = el.els[i];
+        //innerEl.material.split(/\s|;/) returns an array of strings separated by " " and ";",
+        //color is always its first attribute (after "color: ")
+        let anim = `
+          property: components.material.material.color;
+          from: ${(innerEl.material.split(/\s|;/))[1]};
+          to: ${color};
+          dur: ${this.duration};
+          dir: alternate;
+          loop: ${Boolean(this.loop)};
+          isRawProperty: true;
+          type: color;
+        `;
+        innerEl.animation__color = anim;
 
-  getEl = (outerElId) => {
-    if (outerElId.entity) {
-      outerElId = outerElId.id;
-    }
-    return this.els[outerElId];
-  }
-
-  /**
-  * @summary - Interface for setting an object's parameters in the DOM
-  * the idea is the setup an event listener as an almost DOM ready listener.
-  *
-  * @param {string} outerElId - target
-  * @param {string} type - what param to change
-  * @param {obj} newParam - changes
-  *
-  */
-  change = (outerElId, type, newParam) => {
-    document.addEventListener('myr-view-rendered', (e) => {
-      try {
-        let el = document.querySelector('#' + outerElId);
-        el.setAttribute(type, newParam);
-      } catch (error) {
-        return Error('change() failed execution' +
-          'Ensure you are passing the proper id to the method' +
-          `Error msg: ${error}`);
       }
-    });
-  }
+      return outerElId;
+    }
+    let anim = `
+      property: components.material.material.color;
+      from: ${this.color};
+      to: ${color};
+      dur: ${this.duration};
+      dir: alternate;
+      loop: ${Boolean(this.loop)};
+      isRawProperty: true;
+      type: color;
+    `;
+    el.animation__color = anim;
+    return outerElId;
+}
 
-  syncChange = (outerElId, type, newParam) => {
+// MODELS
+addCModel = () => {
+  let asset = {
+    id: 'c-obj',
+    src: '/img/c.obj'
+  };
+  let el = {
+    'obj-model': 'obj: #c-obj',
+    mtl: 'c-mtl',
+    position: this.position,
+    scale: this.scale,
+    rotation: this.rotation
+  };
+  this.els.push(el);
+  this.assets.push(asset);
+  return el;
+}
+
+getEl = (outerElId) => {
+  if (outerElId.entity) {
+    outerElId = outerElId.id;
+  }
+  return this.els[outerElId];
+}
+
+/**
+* @summary - Interface for setting an object's parameters in the DOM
+* the idea is the setup an event listener as an almost DOM ready listener.
+*
+* @param {string} outerElId - target
+* @param {string} type - what param to change
+* @param {obj} newParam - changes
+*
+*/
+change = (outerElId, type, newParam) => {
+  document.addEventListener('myr-view-rendered', (e) => {
     try {
       let el = document.querySelector('#' + outerElId);
       el.setAttribute(type, newParam);
     } catch (error) {
-      let err = Error('syncChange() failed execution\n' +
+      return Error('change() failed execution' +
         'Ensure you are passing the proper id to the method' +
         `Error msg: ${error}`);
-      console.error(err);
-      return err;
     }
-  }
+  });
+}
 
-  /**
-  * @summary - This creates an entity w shape of object and merges with supplied params
-  *
-  * @param {string} shape - one of the allowed arguments to this.core()
-  * @param {obj} params - arguments to be merged, not guarenteed to be successful
-  *
-  */
-  mergeProps = (entity, params) => {
-    let id = params && params.id ? params.id : entity.id;
-    if (!params || typeof params === 'string') {
-      this.els[id] = entity;
-    } else {
-      this.els[id] = { ...entity, ...params };
-    }
-    return id;
+syncChange = (outerElId, type, newParam) => {
+  try {
+    let el = document.querySelector('#' + outerElId);
+    el.setAttribute(type, newParam);
+  } catch (error) {
+    let err = Error('syncChange() failed execution\n' +
+      'Ensure you are passing the proper id to the method' +
+      `Error msg: ${error}`);
+    console.error(err);
+    return err;
   }
+}
 
-  sleep = (ms) => {
-    return new Promise(resolve => setTimeout(resolve, ms));
+/**
+* @summary - This creates an entity w shape of object and merges with supplied params
+*
+* @param {string} shape - one of the allowed arguments to this.core()
+* @param {obj} params - arguments to be merged, not guarenteed to be successful
+*
+*/
+mergeProps = (entity, params) => {
+  let id = params && params.id ? params.id : entity.id;
+  if (!params || typeof params === 'string') {
+    this.els[id] = entity;
+  } else {
+    this.els[id] = { ...entity, ...params };
   }
+  return id;
+}
 
-  // Return a Entity that can be used to group elements together
-  group = () => {
-    let base = {
-      id: 'grp' + this.genNewId(),
-      position: { ...this.position },
-      rotation: this.rotation,
-      scale: this.scale,
-    };
-    let entity = new Group(this, base.id);
-    this.els[base.id] = { ...base, ...entity.entObj() };
-    return entity;
-  }
+sleep = (ms) => {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
 
-  // Transfer the object from MYR to the Entity
-  transfer = (id) => {
-    let retVal = this.els[id];
-    delete this.els[id];
-    return retVal;
-  }
+// Return a Entity that can be used to group elements together
+group = () => {
+  let base = {
+    id: 'grp' + this.genNewId(),
+    position: { ...this.position },
+    rotation: this.rotation,
+    scale: this.scale,
+  };
+  let entity = new Group(this, base.id);
+  this.els[base.id] = { ...base, ...entity.entObj() };
+  return entity;
+}
 
-  HALT = () => {
-    console.log(this);
-    console.log('Halted');
-  }
+// Transfer the object from MYR to the Entity
+transfer = (id) => {
+  let retVal = this.els[id];
+  delete this.els[id];
+  return retVal;
+}
+
+HALT = () => {
+  console.log(this);
+  console.log('Halted');
+}
 }
 
 export default Myr;
