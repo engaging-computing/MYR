@@ -156,7 +156,7 @@ describe('Component Renders', () => {
     let id = myr.tube({ position: { x: 1, y: 1, z: 1 } });
     let tube = myr.els[id];
     expect(tube).toBeDefined();
-    expect(tube.material).toMatch(/color: blue;/);
+    expect(tube.material).toMatch(/color:blue;/);
     expect(tube).toHaveProperty('tube');
   });
 
@@ -166,7 +166,7 @@ describe('Component Renders', () => {
     let id = myr.line('1 0 0, 2 0 0', { position: { x: 1, y: 1, z: 1 } });
     let line = myr.els[id];
     expect(line).toBeDefined();
-    expect(line.material).toMatch(/color: blue;/);
+    expect(line.material).toMatch(/color:blue;/);
     expect(line.path).toEqual('1 0 0, 2 0 0');
     expect(line.position).toEqual({ x: 1, y: 1, z: 1 });
   });
@@ -178,7 +178,7 @@ describe('Component Renders', () => {
     let torus = myr.els[id];
     expect(torus).toBeDefined();
     expect(torus.geometry).toMatch(/torus/);
-    expect(torus.material).toMatch(/color: blue;/);
+    expect(torus.material).toMatch(/color:blue;/);
     expect(torus.position).toEqual({ x: 1, y: 1, z: 1 });
   });
 
@@ -189,7 +189,7 @@ describe('Component Renders', () => {
     let torusknot = myr.els[id];
     expect(torusknot).toBeDefined();
     expect(torusknot.geometry).toMatch(/torus/);
-    expect(torusknot.material).toMatch(/color: blue;/);
+    expect(torusknot.material).toMatch(/color:blue;/);
     expect(torusknot.position).toEqual({ x: 1, y: 1, z: 1 });
   });
 
