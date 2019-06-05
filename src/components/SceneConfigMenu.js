@@ -412,7 +412,6 @@ class ConfigModal extends Component {
           </IconButton >
           </Tooltip>
           <Modal
-            title="Scene Config Menu"
             aria-labelledby="simple-modal-title"
             aria-describedby="simple-modal-description"
             open={this.state.open}
