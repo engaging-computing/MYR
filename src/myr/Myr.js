@@ -240,8 +240,6 @@ class Myr {
     }
   };
 
-<<<<<<< HEAD
-=======
   setLoop = (i) => {
     this.loop = Boolean(i);
   };
@@ -265,8 +263,6 @@ class Myr {
       console.error("must pass a numeric for setDuration");
     }
   };
-
->>>>>>> a16e22051d9834615392e66e45c9eccf4656e201
   setColor = (color) => {
     this.color = color;
   }
@@ -464,12 +460,8 @@ class Myr {
       position: this.position,
       scale: this.scale,
       rotation: this.rotation,
-<<<<<<< HEAD
       material: `color:${this.color};  side: double;`,
       mixin: "additive-entity",
-=======
-      material: `color: ${this.color};  side: double;`,
->>>>>>> a16e22051d9834615392e66e45c9eccf4656e201
     };
     return this.mergeProps(base, params);
   }
@@ -573,12 +565,8 @@ class Myr {
       position: this.position,
       scale: this.scale,
       rotation: this.rotation,
-<<<<<<< HEAD
       material: `color:${this.color}; side: double;`,
       mixin: "additive-entity",
-=======
-      material: `color: ${this.color};  side: double;`,
->>>>>>> a16e22051d9834615392e66e45c9eccf4656e201
     };
     return this.mergeProps(base, params);
   }
@@ -590,12 +578,8 @@ class Myr {
       position: this.position,
       scale: this.scale,
       rotation: this.rotation,
-<<<<<<< HEAD
       material: `color:${this.color};`,
       mixin: "additive-entity",
-=======
-      material: `color: ${this.color};`,
->>>>>>> a16e22051d9834615392e66e45c9eccf4656e201
       p: 2,
       q: 3,
     };
@@ -624,12 +608,8 @@ class Myr {
       position: this.position,
       scale: this.scale,
       rotation: this.rotation,
-<<<<<<< HEAD
       material: `color:${this.color};  side: double;`,
       mixin: "additive-entity",
-=======
-      material: `color: ${this.color};  side: double;`,
->>>>>>> a16e22051d9834615392e66e45c9eccf4656e201
     };
     return this.mergeProps(base, params);
   }

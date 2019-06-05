@@ -80,17 +80,14 @@ export const customCompleter = {
             "group()",
             "getRandomColor()",
             "setPhiLength()",
-<<<<<<< HEAD
             "makePushable()",
             "makeUnPushable()",
             "makeSubtractive()",
-            "makeUnSubtractive()"
-=======
+            "makeUnSubtractive()",
             "setLoop()",
             "setDuration()",
             "setMagnitude()",
             "colorShift()"
->>>>>>> a16e22051d9834615392e66e45c9eccf4656e201
         ];
 
         let Colors = [
