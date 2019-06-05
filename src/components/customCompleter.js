@@ -80,6 +80,8 @@ export const customCompleter = {
             "group()",
             "getRandomColor()",
             "setPhiLength()",
+            "makeDroppable()",
+            "makeUnDroppable()",
             "makePushable()",
             "makeUnPushable()",
             "makeSubtractive()",
