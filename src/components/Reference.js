@@ -83,7 +83,7 @@ export default class Reference extends React.Component {
           </IconButton>
         </Tooltip>
         <Drawer
-          anchor="left"
+          anchor="right"
           id="reference-drawer"
           variant="persistent"
           className={!this.state.open ? 'd-none' : ""}
