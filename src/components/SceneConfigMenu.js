@@ -399,7 +399,7 @@ class ConfigModal extends Component {
       <div>
         {!isDisabled ?
         <div>
-          <Tooltip title = "Scene Config Menu">
+          <Tooltip title = "Scene Settings">
           <IconButton
             onClick={this.handleOpen}
             id="configure-scene"
