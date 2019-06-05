@@ -651,7 +651,9 @@ class Header extends Component {
               <Icon className="material-icons">perm_media</Icon>
             </IconButton>
           </Tooltip>
-          <MyrTour />
+          <MyrTour 
+            viewOnly={this.props.scene.settings.viewOnly}
+            changeView={this.props.sceneActions.changeView}/>
         </div>
         <div className="col-3 d-flex justify-content-end">
           {/* <Classroom classrooms={this.props.classrooms} classroomActions={this.props.classroomActions} user={this.props.user} /> */}
@@ -659,6 +661,7 @@ class Header extends Component {
           <SceneConfigMenu
             scene={this.props.scene}
             sceneActions={this.props.sceneActions}
+            handleRender={this.handleRender}
             handleSave={this.handleSave}
             handleSaveClose={this.handleSaveClose}
             layoutType={this.props.layoutType} />
