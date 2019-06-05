@@ -6,7 +6,8 @@ import {
   IconButton,
   Icon,
   Modal,
-  TextField
+  TextField,
+  Tooltip
 } from "@material-ui/core";
 
 import QRCode from "qrcode.react";
@@ -398,6 +399,7 @@ class ConfigModal extends Component {
       <div>
         {!isDisabled ?
         <div>
+          <Tooltip title = "Scene Config Menu">
           <IconButton
             onClick={this.handleOpen}
             id="configure-scene"
@@ -408,7 +410,9 @@ class ConfigModal extends Component {
             }}>
             <Icon className="material-icons">settings</Icon>
           </IconButton >
+          </Tooltip>
           <Modal
+            title="Scene Config Menu"
             aria-labelledby="simple-modal-title"
             aria-describedby="simple-modal-description"
             open={this.state.open}
