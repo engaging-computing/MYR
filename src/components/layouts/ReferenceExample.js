@@ -2,12 +2,14 @@ import React from 'react';
 import Editor from '../Editor';
 import Header from '../Header';
 import Footer from '../Footer';
-import Course from '../Course';
+import RefExInfo from '../RefExInfo';
 import View from '../View';
 
 import * as layoutTypes from '../../constants/LayoutTypes.js';
 
-export const Guided = ({ editor, user, scene, editorActions, authActions, projectActions, projects, courseActions, courses, course, match, sceneActions }) => (
+import '../../css/ReferencePage.css';
+
+export const ReferenceExample = ({ editor, user, scene, referenceExample, referenceExampleActions, editorActions, authActions, projectActions, projects, courseActions, courses, match, sceneActions, classroomActions, classrooms }) => (
     <div className="App">
         <Header
             logging={authActions}
@@ -17,20 +19,22 @@ export const Guided = ({ editor, user, scene, editorActions, authActions, projec
             scene={scene}
             text={editor.text}
             message={editor.message}
-            match={match}
             projectId={match.params.id}
+            match={match}
             projectActions={projectActions}
-            projects={projects}
             courseActions={courseActions}
+            projects={projects}
             courses={courses}
-            course={course}
-            courseName={match.params.shortname}
-            layoutType={layoutTypes.GUIDED}
+            classroomActions={classroomActions}
+            classrooms={classrooms}
+            refExName={match.params.function}
+            referenceExampleActions={referenceExampleActions}
+            layoutType={layoutTypes.REF_EXAMPLE}
         />
         <div className="row no-gutters">
             <div id="interface" className="col-12 col-md-4">
-                <Course lesson={courses.currentLesson} courses={courses} course={course} courseName={match.params.shortname} actions={editorActions} courseActions={courseActions} />
-                <div className='guided'>
+                <RefExInfo referenceExample={referenceExample} />
+                <div className='ref-ex-edit'>
                     <Editor text={editor.text} user={user} />
                 </div>
             </div>
@@ -42,4 +46,4 @@ export const Guided = ({ editor, user, scene, editorActions, authActions, projec
     </div>
 );
 
-export default Guided;
+export default ReferenceExample;
