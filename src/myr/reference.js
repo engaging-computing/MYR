@@ -233,7 +233,7 @@ let animations = [
   },
   {
     name: <span>colorShift(<span className="string">element</span>, <span className="string">color</span>)</span>,
-    description: <span>Shifts from the cursor color to the given color.</span>
+    description: <span>Shifts from the the element's current color to the given color.</span>
   },
 
   // {
