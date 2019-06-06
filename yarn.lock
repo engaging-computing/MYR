@@ -1523,10 +1523,9 @@ aframe-animation-component@^5.0.0:
   dependencies:
     animejs "2.2.0"
 
-aframe-csg-meshs@^1.0.0:
+"aframe-csg-meshs@https://github.com/samuel-zuk/aframe-csg-meshs/tarball/master":
   version "1.0.0"
-  resolved "https://registry.yarnpkg.com/aframe-csg-meshs/-/aframe-csg-meshs-1.0.0.tgz#1c5f087da4b5f573da5e6c1a9d8aa7f8e382a725"
-  integrity sha1-HF8IfaS19XPaXmwanYqn+OOCpyU=
+  resolved "https://github.com/samuel-zuk/aframe-csg-meshs/tarball/master#70dd528aed890f1a1c1061b5cf48a53c5f577aec"
   dependencies:
     aframe "^0.7.0"
 
