@@ -6,7 +6,8 @@ import {
   IconButton,
   Icon,
   Modal,
-  TextField
+  TextField,
+  Tooltip
 } from "@material-ui/core";
 
 import QRCode from "qrcode.react";
@@ -267,7 +268,10 @@ class ConfigModal extends Component {
     return (
       <ButtonBase
         style={style}
-        onClick={() => this.props.sceneActions.toggleCoordSky()} >
+        onClick={() => {
+          this.props.handleRender();
+          this.props.sceneActions.toggleCoordSky();
+        }} >
         {
           this.props.scene.settings.showCoordHelper
             ? <Icon className="material-icons">toggle_on</Icon>
@@ -285,7 +289,10 @@ class ConfigModal extends Component {
     return (
       <ButtonBase
         style={style}
-        onClick={() => this.props.sceneActions.toggleFloor()} >
+        onClick={() => {
+          this.props.handleRender();
+          this.props.sceneActions.toggleFloor();
+        }} >
         {
           this.props.scene.settings.showFloor
             ? <Icon className="material-icons">toggle_on</Icon>
@@ -364,7 +371,10 @@ class ConfigModal extends Component {
     return (
       <ButtonBase
         style={btnStyle.base}
-        onClick={this.handleSkyColorClick}>
+        onClick={() => {
+          this.props.handleRender();
+          this.handleSkyColorClick();
+        }}>
         <Icon className="material-icons">color_lens</Icon>
         Edit Sky Color
       </ButtonBase>
@@ -375,7 +385,10 @@ class ConfigModal extends Component {
     return (
       <ButtonBase
         style={btnStyle.base}
-        onClick={this.handleFloorColorClick}>
+        onClick={() => {
+          this.props.handleRender();
+          this.handleFloorColorClick();
+        }}>
         <Icon className="material-icons">color_lens</Icon>
         Edit Floor Color
       </ButtonBase>
@@ -390,6 +403,7 @@ class ConfigModal extends Component {
       <div>
         {!isDisabled ?
         <div>
+          <Tooltip title = "Scene Settings">
           <IconButton
             onClick={this.handleOpen}
             id="configure-scene"
@@ -400,6 +414,7 @@ class ConfigModal extends Component {
             }}>
             <Icon className="material-icons">settings</Icon>
           </IconButton >
+          </Tooltip>
           <Modal
             aria-labelledby="simple-modal-title"
             aria-describedby="simple-modal-description"

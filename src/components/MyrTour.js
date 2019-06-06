@@ -1,34 +1,56 @@
 import React, { Component } from 'react';
 import Tour from 'reactour';
 import { Button } from '@material-ui/core';
+import * as layoutTypes from '../constants/LayoutTypes';
 
 class MyrTour extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
-      isTourOpen: false
+      isTourOpen: false,
+      viewOnlyOnOpen: this.props.viewOnly
     };
   }
 
   closeTour = () => {
     this.setState({ isTourOpen: false });
+    if (this.state.viewOnlyOnOpen) {
+      this.props.changeView();
+    }
   }
 
   render() {
+    let isDisabled = this.props.layoutType === layoutTypes.REFERENCE;
     return (
       <React.Fragment>
-        <Tour
-          steps={steps}
-          maskClassName="mask"
-          isOpen={this.state.isTourOpen}
-          onRequestClose={this.closeTour} />
-        <Button
-          style={{ color: "#fff", fontSize: "66%" }}
-          size="small"
-          className="d-none d-md-block"
-          onClick={() => this.setState({ isTourOpen: true })}>
-          Take the Tour
-        </ Button>
+        {!isDisabled ?
+          <React.Fragment>
+            <Tour
+              steps={steps}
+              maskClassName="mask"
+              isOpen={this.state.isTourOpen}  
+              onAfterOpen={()=>{
+                this.setState({ viewOnlyOnOpen: this.props.viewOnly });
+                if(this.props.viewOnly) {
+                  this.props.changeView();
+                }
+              }}
+              onRequestClose={this.closeTour} />
+            <Button
+              style={{ color: "#fff", fontSize: "66%" }}
+              size="small"
+              className="d-none d-md-block"
+              onClick={() => {
+                this.setState({ isTourOpen: true });
+                if(this.props.referenceOpen) {
+                  this.props.handleReferenceToggle();
+                }
+              }}>
+              Take the Tour
+            </ Button>
+          </React.Fragment> 
+          : null
+        }
       </React.Fragment>
     );
   }
@@ -38,7 +60,9 @@ const steps = [
   {
     selector: '#ace-editor',
     content: 'This is the editor. You can create 3D scenes using JavaScript ' +
-      'and a special set of instructions or functions to MYR.',
+      'and a special set of instructions or functions to MYR.\n The editor can be ' + 
+      'toggled on and off by opening the settings menu in the top right and ' + 
+      'clicking the "View Editor" switch.'
   },
   {
     selector: '#play-btn',

@@ -22,13 +22,10 @@ export default class Reference extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      open: false,
       value: 'a',
     };
     this.tableData = myrReference();
   }
-
-  handleToggle = () => this.setState({ open: !this.state.open, value: 'a' });
 
   handleChange = (event, value) => {
     this.setState({ value });
@@ -77,17 +74,17 @@ export default class Reference extends React.Component {
             id="ref-btn"
             className="header-btn d-none d-md-block"
             aria-haspopup="true"
-            onClick={() => this.setState({ open: true })}
+            onClick={this.props.handleReferenceToggle}
             style={style}>
             <Icon style={{ color: '#fff' }} className="material-icons">help</Icon>
           </IconButton>
         </Tooltip>
         <Drawer
-          anchor="left"
+          anchor="right"
           id="reference-drawer"
           variant="persistent"
-          className={!this.state.open ? 'd-none' : ""}
-          open={this.state.open}>
+          className={!this.props.referenceOpen ? 'd-none' : ""}
+          open={this.props.referenceOpen}>
           <Tabs
             id="reference-tabs"
             fullWidth={true}
@@ -110,15 +107,20 @@ export default class Reference extends React.Component {
               label="GROUPS"
               value='d' />
             <Tab
+              style={{ background: "green", color: "white" }}
               icon={<Icon className="material-icons">open_in_new</Icon>}
               label="OPEN IN NEW TAB"
               value='n'
               onClick={this.handleOpen} />
             <Tab
+              style={{ background: "red", color: "white" }}
               icon={<Icon className="material-icons">close</Icon>}
               label="CLOSE"
               value='x'
-              onClick={this.handleToggle} />
+              onClick={() => {
+                this.props.handleReferenceToggle();
+                this.setState({ value: 'a' });
+              }}/>
           </Tabs>
 
           {<div style={{ margin: 5, overflow: 'hidden' }}>
