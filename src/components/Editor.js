@@ -12,8 +12,8 @@ import customCompleter from './customCompleter.js'
 
 class Editor extends Component {
   componentWillUnmount() {
-    //Refreshes text in state
-    this.props.refresh(window.ace.edit("ace-editor").getSession().getValue(), this.props.user ? this.props.user.uid : 'anon');    
+    //Updates state in reducer before closing editor
+    this.props.refresh(window.ace.edit("ace-editor").getSession().getValue(), this.props.user ? this.props.user.uid : 'anon');
   }
 
   componentDidMount() {
