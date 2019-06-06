@@ -59,6 +59,9 @@ class Header extends Component {
     if (this.props.courseName) {
       this.props.courseActions.fetchCourse(this.props.courseName);
     }
+    else if (this.props.refExName) {
+      this.props.referenceExampleActions.fetchReferenceExample(this.props.refExName);
+    }
     else if (this.props.classroom) {
       let userClasses = [];
       classes.where('classroomID', '==', this.props.classroom).get().then(snap => {
