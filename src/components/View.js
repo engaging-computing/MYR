@@ -13,7 +13,6 @@ import * as THREE from 'three';
  * components.
  */
 class View extends Component {
-
   componentDidMount() {
     window.addEventListener("keydown", function (e) {
       //KEYS: left and right: 37, 39; up and down: 38, 40; space: 32
@@ -187,6 +186,8 @@ class View extends Component {
             return this.helper(this.props.objects[it]);
           })
         }
+
+
         {this.props.sceneConfig.settings.camConfig === 1 ?
           <a-entity position="0 0 0">
             <a-cylinder checkpoint radius="1" height="0.3" position="-25 1 -25" color="#39BB82"></a-cylinder>

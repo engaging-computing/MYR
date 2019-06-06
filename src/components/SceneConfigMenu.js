@@ -223,11 +223,15 @@ class ConfigModal extends Component {
   // Toggles whether the editor is showing
   viewToggle = () => {
     let style = this.props.scene.settings.viewOnly ? btnStyle.off : btnStyle.on;
+
     style = { ...btnStyle.base, ...style };
     return (
       <ButtonBase
         style={style}
-        onClick={() => this.props.sceneActions.changeView()} >
+        onClick={() => {
+          return this.props.sceneActions.changeView()}
+        }
+           >
         {
           !this.props.scene.settings.viewOnly
             ? <Icon className="material-icons">toggle_on</Icon>
