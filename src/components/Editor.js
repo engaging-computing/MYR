@@ -15,7 +15,9 @@ import 'brace/ext/searchbox';
 class Editor extends Component {
   componentWillUnmount() {
     //Updates state in reducer before closing editor
-    this.props.refresh(window.ace.edit("ace-editor").getSession().getValue(), this.props.user ? this.props.user.uid : 'anon');
+    const text = window.ace.edit("ace-editor").getSession().getValue();
+    this.props.refresh(text, this.props.user ? this.props.user.uid : 'anon');
+    this.props.render(text);
   }
 
   componentDidMount() {
