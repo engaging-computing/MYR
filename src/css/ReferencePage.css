@@ -3,3 +3,23 @@
     min-height: 94vh;
     width: 100%
 }
+
+#ref-ex {
+    padding: 10px !important;
+    background: #fff !important;
+}
+
+.ref-ex-edit div#ace-editor {
+    height: 69.5vh !important;
+}
+
+#ref-ex p {
+    height: 12vh;
+    margin: 0;
+    overflow: auto;
+}
+
+#ref-ex fieldset {
+    height: 16vh;
+    margin: 0;
+}

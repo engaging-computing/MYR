@@ -243,6 +243,12 @@ div.side-drawer>div {
         justify-content: left !important;
         padding-left: 6em !important;
     }
+    .ref-ex-btn {
+        margin-bottom: 10px !important;
+        justify-content: left !important;
+        padding-left: 6em !important;
+        width: 100% !important;
+    }
 }
 
 @media (min-width: 1200px) {
@@ -255,6 +261,11 @@ div.side-drawer>div {
 }
 
 .sidebar-btn {
+    margin-bottom: 10px !important;
+    justify-content: left !important;
+}
+
+.ref-ex-btn {
     margin-bottom: 10px !important;
     justify-content: left !important;
 }
@@ -299,6 +310,14 @@ div#reference-tabs {
 }
 
 a.sidebar-btn:hover {
+    color: #fff;
+}
+
+.ref-ex-btn .material-icons {
+    margin: 0 .7em;
+}
+
+a.ref-ex-btn:hover {
     color: #fff;
 }
 
