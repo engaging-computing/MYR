@@ -170,35 +170,35 @@ class View extends Component {
 
   render = () => {
     return (
-        <a-scene physics="debug: false; friction: 3; restitution: .3;" embedded debug="false">
-          <a-assets>
-            <a-mixin id="checkpoint"></a-mixin>
-            <a-mixin id="checkpoint-hovered" color="#6CEEB5"></a-mixin>
-            <a-img id="reference" src={`${process.env.PUBLIC_URL}/img/coordHelper.jpg`} />
-            {this.props.assets ? this.props.assets.map((x, index) => this.assetsHelper(x, index)) : null}
-          </a-assets>
-          <this.createCam />
-          <a-sky color={this.props.sceneConfig.settings.skyColor} />
-          <this.coordinateHelper />
-          <this.makeFloor />
-          { // create the entities
-            Object.keys(this.props.objects).map(it => {
-              return this.helper(this.props.objects[it]);
-            })
-          }
-          
+      <a-scene physics="debug: false; friction: 3; restitution: .3;" embedded debug="false">
+        <a-assets>
+          <a-mixin id="checkpoint"></a-mixin>
+          <a-mixin id="checkpoint-hovered" color="#6CEEB5"></a-mixin>
+          <a-img id="reference" src={`${process.env.PUBLIC_URL}/img/coordHelper.jpg`} />
+          {this.props.assets ? this.props.assets.map((x, index) => this.assetsHelper(x, index)) : null}
+        </a-assets>
+        <this.createCam />
+        <a-sky color={this.props.sceneConfig.settings.skyColor} />
+        <this.coordinateHelper />
+        <this.makeFloor />
+        { // create the entities
+          Object.keys(this.props.objects).map(it => {
+            return this.helper(this.props.objects[it]);
+          })
+        }
 
-          {this.props.sceneConfig.settings.camConfig === 1 ?
-            <a-entity position="0 0 0">
-              <a-cylinder checkpoint radius="1" height="0.3" position="-25 1 -25" color="#39BB82"></a-cylinder>
-              <a-cylinder checkpoint radius="1" height="0.3" position="25 1 25" color="#39BB82"></a-cylinder>
-              <a-cylinder checkpoint radius="1" height="0.3" position="-25 1 25" color="#39BB82"></a-cylinder>
-              <a-cylinder checkpoint radius="1" height="0.3" position="25 1 -25" color="#39BB82"></a-cylinder>
-              <a-circle checkpoint radius="1" rotation="90 0 0" position="0 10 0" color="#39BB82"></a-circle>
-            </a-entity>
-            : null
-          }
-        </a-scene>
+
+        {this.props.sceneConfig.settings.camConfig === 1 ?
+          <a-entity position="0 0 0">
+            <a-cylinder checkpoint radius="1" height="0.3" position="-25 1 -25" color="#39BB82"></a-cylinder>
+            <a-cylinder checkpoint radius="1" height="0.3" position="25 1 25" color="#39BB82"></a-cylinder>
+            <a-cylinder checkpoint radius="1" height="0.3" position="-25 1 25" color="#39BB82"></a-cylinder>
+            <a-cylinder checkpoint radius="1" height="0.3" position="25 1 -25" color="#39BB82"></a-cylinder>
+            <a-circle checkpoint radius="1" rotation="90 0 0" position="0 10 0" color="#39BB82"></a-circle>
+          </a-entity>
+          : null
+        }
+      </a-scene>
     );
   }
 }
