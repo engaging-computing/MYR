@@ -23,3 +23,23 @@
     height: 16vh;
     margin: 0;
 }
+
+.ref-ex-btn .material-icons {
+    margin: 0 .3em;
+}
+
+a.ref-ex-btn:hover {
+    color: #fff;
+}
+
+.ref-ex-btn {
+    margin-bottom: 10px !important;
+    justify-content: center !important;
+    padding-left: 1em !important;
+    width: 100% !important;
+    text-align: center !important;
+}
+
+#suggested-course {
+    padding-right: 2em;
+}

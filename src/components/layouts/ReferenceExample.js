@@ -2,7 +2,7 @@ import React from 'react';
 import Editor from '../Editor';
 import Header from '../Header';
 import Footer from '../Footer';
-import ReferenceExampleBox from '../ReferenceExampleBox';
+import RefExInfo from '../RefExInfo';
 import View from '../View';
 
 import * as layoutTypes from '../../constants/LayoutTypes.js';
@@ -33,7 +33,7 @@ export const ReferenceExample = ({ editor, user, scene, referenceExample, refere
         />
         <div className="row no-gutters">
             <div id="interface" className="col-12 col-md-4">
-                <ReferenceExampleBox referenceExample={referenceExample} />
+                <RefExInfo referenceExample={referenceExample} />
                 <div className='ref-ex-edit'>
                     <Editor text={editor.text} user={user} />
                 </div>

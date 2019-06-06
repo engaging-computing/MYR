@@ -1,7 +1,8 @@
 import * as types from '../constants/ActionTypes';
 
 const initial_state = {
-    name: "Loading...",
+    functionName: "",
+    functionParams: [],
     type: "Unknown",
     info: "Please wait.",
     suggestedCourse: null,
