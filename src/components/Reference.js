@@ -110,13 +110,11 @@ export default class Reference extends React.Component {
               icon={<Icon className="material-icons">open_in_new</Icon>}
               label="OPEN IN NEW TAB"
               value='n'
-              style={{backgroundColor: "#000", color: "white"}}
               onClick={this.handleOpen} />
             <Tab
               icon={<Icon className="material-icons">close</Icon>}
               label="CLOSE"
               value='x'
-              style={{backgroundColor: "#000", color: "white"}}
               onClick={() => {
                 this.props.handleReferenceToggle();
                 this.setState({ value: 'a' });

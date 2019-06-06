@@ -28,10 +28,10 @@ class MyrTour extends Component {
             <Tour
               steps={steps}
               maskClassName="mask"
-              isOpen={this.state.isTourOpen}  
-              onAfterOpen={()=>{
+              isOpen={this.state.isTourOpen}
+              onAfterOpen={() => {
                 this.setState({ viewOnlyOnOpen: this.props.viewOnly });
-                if(this.props.viewOnly) {
+                if (this.props.viewOnly) {
                   this.props.changeView();
                 }
               }}
@@ -42,13 +42,13 @@ class MyrTour extends Component {
               className="d-none d-md-block"
               onClick={() => {
                 this.setState({ isTourOpen: true });
-                if(this.props.referenceOpen) {
+                if (this.props.referenceOpen) {
                   this.props.handleReferenceToggle();
                 }
               }}>
               Take the Tour
             </ Button>
-          </React.Fragment> 
+          </React.Fragment>
           : null
         }
       </React.Fragment>
@@ -60,8 +60,8 @@ const steps = [
   {
     selector: '#ace-editor',
     content: 'This is the editor. You can create 3D scenes using JavaScript ' +
-      'and a special set of instructions or functions to MYR.\n The editor can be ' + 
-      'toggled on and off by opening the settings menu in the top right and ' + 
+      'and a special set of instructions or functions to MYR.\n The editor can be ' +
+      'toggled on and off by opening the settings menu in the top right and ' +
       'clicking the "View Editor" switch.'
   },
   {
@@ -94,7 +94,8 @@ const steps = [
   },
   {
     selector: '#configure-scene',
-    content: 'Modify and share your scene including setting the background color, enabling the grid, and enabling flying.',
+    content: 'Modify and share your scene including setting the background color, ' +
+      'enabling the grid, and enabling flying.',
   },
   {
     selector: '#select-course',
