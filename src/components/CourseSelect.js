@@ -6,7 +6,8 @@ import {
   CardContent,
   IconButton,
   Icon,
-  Modal
+  Modal,
+  Tooltip
 } from "@material-ui/core";
 
 import { withStyles } from "@material-ui/core/styles";
@@ -122,6 +123,7 @@ class CourseSelectModal extends Component {
     const courses = [].concat(this.props.courses);
     return (
       <div>
+        <Tooltip title = "Courses">
         <IconButton
           onClick={this.handleOpen}
           id="select-course"
@@ -133,6 +135,7 @@ class CourseSelectModal extends Component {
           }}>
           <Icon className="material-icons">school</Icon>
         </IconButton >
+        </Tooltip>
         <Modal
           aria-labelledby="simple-modal-title"
           aria-describedby="simple-modal-description"
