@@ -306,6 +306,7 @@ class Header extends Component {
   handleRender = () => {
     try {
       let editor = window.ace.edit("ace-editor");
+      this.props.actions.refresh(editor.getSession().getValue());
       this.props.actions.render(editor.getSession().getValue(), this.props.user ? this.props.user.uid : 'anon');
     } catch (error) {
       this.props.actions.render(this.props.text, this.props.user ? this.props.user.uid : 'anon');
@@ -344,8 +345,17 @@ class Header extends Component {
   * @summary - When the user clicks save it will upload the information to Firebase
   */
   handleSave = () => {
-    let editor = window.ace.edit("ace-editor");
-    let text = editor.getSession().getValue();
+    let editor, text;
+    if(!this.props.viewOnly) {
+      //If in editor mode, gets text directly from editor
+      editor = window.ace.edit("ace-editor");
+      text = editor.getSession().getValue();
+      this.props.actions.refresh(text, this.props.user ? this.props.user.uid : 'anon');
+    } else {
+      //Otherwise, gets text from state (should be up to date since it is refreshed on editor unmount) 
+      text = this.props.text;
+    }
+
     if (this.props.user && this.props.user.uid && text) {
       this.setState({ spinnerOpen: true });
       let ts = Date.now();
@@ -355,6 +365,7 @@ class Header extends Component {
       let img = scene.components.screenshot.getCanvas('perspective').toDataURL('image/jpeg', 0.1);
       let path = "images/perspective/" + projectId;
       let imgRef = storageRef.child(path);
+
       imgRef.putString(img, 'data_url').then((snapshot) => {
         // Put the new document into the scenes collection
         scenes.doc(projectId).set({
@@ -368,7 +379,7 @@ class Header extends Component {
           // If we have a new projectId reload page with it
           if (this.props.courseName) {
             this.setState({ spinnerOpen: false });
-            window.open(window.origin + '/' + projectId);
+            //window.open(window.origin + '/' + projectId);
           } else if (projectId !== this.props.projectId) {
             window.location.href = window.origin + '/' + projectId;
           } else {

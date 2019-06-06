@@ -5,11 +5,20 @@ import 'brace/theme/github';
 import 'brace/ext/language_tools';
 import customCompleter from './customCompleter.js'
 
+import 'brace/ext/searchbox';
+
 /**
 * @summary - Editor is a React Component that creat the Ace Editor in the DOM.
 *
 */
+
 class Editor extends Component {
+  componentWillUnmount() {
+    //Updates state in reducer before closing editor
+    const text = window.ace.edit("ace-editor").getSession().getValue();
+    this.props.refresh(text, this.props.user ? this.props.user.uid : 'anon');
+    this.props.render(text);
+  }
 
   componentDidMount() {
     try {
