@@ -46,7 +46,8 @@ class Header extends Component {
       anchorEl: null,
       navAwayModal: false,
       needsNewId: false, // this explicitly tells us to make a new id
-      spinnerOpen: false
+      spinnerOpen: false,
+      referenceOpen: false
     };
   }
 
@@ -468,6 +469,10 @@ class Header extends Component {
     this.setState({ classroomOpen: false });
   };
 
+  handleReferenceToggle = () => {
+    this.setState({ referenceOpen: !this.state.referenceOpen });
+  };
+
   loadDrawer = () => {
     return (
       <Drawer
@@ -659,6 +664,8 @@ class Header extends Component {
           <Tooltip title="Open" placement="bottom-start">
             <IconButton
               id="open-btn"
+              referenceOpen={this.state.referenceOpen}
+              handleReferenceToggle={this.handleReferenceToggle}
               onClick={this.handleLoadToggle}
               className="header-btn"
               style={style.default}>
@@ -667,11 +674,17 @@ class Header extends Component {
           </Tooltip>
           <MyrTour 
             viewOnly={this.props.scene.settings.viewOnly}
-            changeView={this.props.sceneActions.changeView}/>
+            changeView={this.props.sceneActions.changeView}
+            layoutType={this.props.layoutType}
+            referenceOpen={this.state.referenceOpen}
+            handleReferenceToggle={this.handleReferenceToggle}/>
         </div>
         <div className="col-3 d-flex justify-content-end">
           {/* <Classroom classrooms={this.props.classrooms} classroomActions={this.props.classroomActions} user={this.props.user} /> */}
-          <Reference layoutType={this.props.layoutType} />
+          <Reference 
+            layoutType={this.props.layoutType}
+            referenceOpen={this.state.referenceOpen}
+            handleReferenceToggle={this.handleReferenceToggle} />
           <SceneConfigMenu
             scene={this.props.scene}
             sceneActions={this.props.sceneActions}
