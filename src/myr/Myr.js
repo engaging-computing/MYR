@@ -854,7 +854,7 @@ class Myr {
     }
     let anim = `
       property: components.material.material.color;
-      from: ${this.color};
+      from: ${(el.material.split(/\s|;/))[1]};
       to: ${color};
       dur: ${this.duration};
       dir: alternate;
