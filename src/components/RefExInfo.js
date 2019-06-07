@@ -28,7 +28,7 @@ class ReferenceExampleBox extends Component {
         let returnString = "(";
         for (let i = 0; i < functionParams.length; i++) {
             returnString += functionParams[i];
-            if (i !== functionParams.length - 1) { returnString += ","; }
+            if (i !== functionParams.length - 1) { returnString += ", "; }
         }
         return returnString += ")";
         // return returnString;
