@@ -329,9 +329,19 @@ class Myr {
   // Makes the entity subtract from entities it overlaps with
   makeSubtractive = (outerElId) => {
     let el = this.getEl(outerElId);
-    el["mixin"] = "subtractive-entity";
-    el["class"] = "negative";
-    return outerElId;
+    if (String(el.id).includes('grp')) {
+      for (let i in el.els) {
+        let innerEl = el.els[i];
+        innerEl["mixin"] = "subtractive-entity";
+        innerEl["class"] = "negative";
+      }
+      return outerElId;
+    }
+    else {
+      el["mixin"] = "subtractive-entity";
+      el["class"] = "negative";
+      return outerElId;
+    }
   }
 
   // Disallows the entity to be pushed
@@ -345,11 +355,23 @@ class Myr {
   // Gives the entity normal additive geometry properties based on current cursor state
   makeUnSubtractive = (outerElId) => {
     let el = this.getEl(outerElId);
-    if(el["class"]) {
-      delete el["class"];
-      el["mixin"] = "additive-entity";
+    if (String(el.id).includes('grp')) {
+      for (let i in el.els) {
+        let innerEl = el.els[i];
+        if(innerEl["class"]) {
+          delete innerEl["class"];
+          innerEl["mixin"] = "additive-entity";
+        }
+      }
+      return outerElId;
     }
-    return outerElId;
+    else {
+      if(el["class"]) {
+        delete el["class"];
+        el["mixin"] = "additive-entity";
+      }
+      return outerElId;
+    }
   }
 
   // Render an Aframe Box Primitive with current Myr settings
