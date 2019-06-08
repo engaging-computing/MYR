@@ -1,14 +1,14 @@
 import React, { Component, Fragment } from 'react';
-import { auth, provider, scenes, classes, storageRef } from '../firebase.js';
-import Reference from './Reference.js';
-import Classroom from './Classroom.js';
+import { auth, provider, scenes, classes, storageRef } from '../../../firebase.js';
+import Reference from '../../reference/Reference.js';
+import Classroom from '../../classroom/Classroom.js';
 import SceneConfigMenu from './SceneConfigMenu.js';
 import Sidebar from './Sidebar.js';
-import MyrTour from './MyrTour';
+import MyrTour from './MyrTour.js';
 import ProjectView from './ProjectView.js';
-import CourseSelect from './CourseSelect.js';
+import CourseSelect from '../../courses/CourseSelect.js';
 
-import * as layoutTypes from '../constants/LayoutTypes.js';
+import * as layoutTypes from '../../../constants/LayoutTypes.js';
 
 import {
   Button,
@@ -349,7 +349,7 @@ class Header extends Component {
   */
   handleSave = () => {
     let editor, text;
-    if(!this.props.viewOnly) {
+    if (!this.props.viewOnly) {
       //If in editor mode, gets text directly from editor
       editor = window.ace.edit("ace-editor");
       text = editor.getSession().getValue();
@@ -672,16 +672,15 @@ class Header extends Component {
               <Icon className="material-icons">perm_media</Icon>
             </IconButton>
           </Tooltip>
-          <MyrTour 
+          <MyrTour
             viewOnly={this.props.scene.settings.viewOnly}
             changeView={this.props.sceneActions.changeView}
             layoutType={this.props.layoutType}
             referenceOpen={this.state.referenceOpen}
-            handleReferenceToggle={this.handleReferenceToggle}/>
+            handleReferenceToggle={this.handleReferenceToggle} />
         </div>
         <div className="col-3 d-flex justify-content-end">
-          {/* <Classroom classrooms={this.props.classrooms} classroomActions={this.props.classroomActions} user={this.props.user} /> */}
-          <Reference 
+          <Reference
             layoutType={this.props.layoutType}
             referenceOpen={this.state.referenceOpen}
             handleReferenceToggle={this.handleReferenceToggle} />

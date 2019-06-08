@@ -1,7 +1,7 @@
 import React from 'react';
-import myrReference from '../myr/reference';
+import myrReference from '../../myr/reference';
 
-import * as layoutTypes from '../constants/LayoutTypes.js';
+import * as layoutTypes from '../../constants/LayoutTypes';
 
 import {
   Tabs,
