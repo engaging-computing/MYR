@@ -316,6 +316,9 @@ span.user-name {
 div#reference-drawer>div {
     width: 67%;
 }
+.refExample {
+    margin-right: 10px;
+}
 
 .geometry {
     transform: scale(1.2);
