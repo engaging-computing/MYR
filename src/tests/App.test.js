@@ -9,14 +9,14 @@ import * as layoutTypes from '../constants/LayoutTypes';
 import * as types from '../constants/ActionTypes';
 
 import IDE from '../containers/Ide';
-import Header from '../components/Header';
-import Reference from '../components/Reference';
-import View from '../components/View';
-import Editor from '../components/Editor';
-import Sidebar from '../components/Sidebar';
-import SceneConfig from '../components/SceneConfigMenu';
-import Footer from '../components/Footer';
-import MyrTour from '../components/MyrTour';
+import Header from '../components/structural/header/Header';
+import Reference from '../components/reference/Reference';
+import View from '../components/structural/View';
+import Editor from '../components/editor/Editor';
+import Sidebar from '../components/structural/header/Sidebar';
+import SceneConfig from '../components/structural/header/SceneConfigMenu';
+import Footer from '../components/structural/Footer';
+import MyrTour from '../components/structural/headerMyrTour';
 
 import user from '../reducers/user';
 import scene from '../reducers/scene';
