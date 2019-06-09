@@ -1,8 +1,8 @@
 import React from 'react';
-import Editor from '../Editor';
-import Footer from '../Footer';
-import Header from '../Header';
-import View from '../View';
+import Editor from '../editor/Editor';
+import Header from '../structural/header/Header';
+import Footer from '../structural/Footer';
+import View from '../structural/View';
 import SelectProject from '../classroom/SelectProject.js';
 
 import * as layoutTypes from '../../constants/LayoutTypes.js';
