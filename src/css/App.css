@@ -259,6 +259,11 @@ div.side-drawer>div {
     justify-content: left !important;
 }
 
+.ref-ex-btn {
+    margin-bottom: 10px !important;
+    justify-content: left !important;
+}
+
 .MuiTabs-root-76 {
     overflow: unset !important;
 }
@@ -310,6 +315,9 @@ span.user-name {
 
 div#reference-drawer>div {
     width: 67%;
+}
+.refExample {
+    margin-right: 10px;
 }
 
 .geometry {

@@ -41,3 +41,5 @@ export const SET_NAME_DESC = 'SET_NAME_DESC';
 export const SYNC_CLASSES = 'SYNC_CLASSES';
 export const SYNC_CLASS = 'SYNC_CLASS';
 export const DELETE_CLASS = 'DELETE_CLASS';
+
+export const LOAD_REF_EX = 'LOAD_REF_EX';
