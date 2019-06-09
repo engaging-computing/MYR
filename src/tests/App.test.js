@@ -16,7 +16,7 @@ import Editor from '../components/editor/Editor';
 import Sidebar from '../components/structural/header/Sidebar';
 import SceneConfig from '../components/structural/header/SceneConfigMenu';
 import Footer from '../components/structural/Footer';
-import MyrTour from '../components/structural/headerMyrTour';
+import MyrTour from '../components/structural/header/MyrTour';
 
 import user from '../reducers/user';
 import scene from '../reducers/scene';
