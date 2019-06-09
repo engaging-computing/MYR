@@ -96,6 +96,9 @@ class Myr {
     }
   }
 
+
+  /********************* TRANSFORMATIONS *********************/
+
   /**
   * @summary - Reset the cursor to the default
   */
@@ -333,6 +336,9 @@ class Myr {
     el["force-pushable"] = null;
     return outerElId;
   }
+
+
+  /********************* GEOMETRY *********************/
 
   // Render an Aframe Box Primitive with current Myr settings
   box = (params) => {
@@ -596,6 +602,9 @@ class Myr {
 
   // Cube is an alias for Box
   cube = this.box
+
+
+  /********************* ANIMATIONS *********************/
 
   // Animate the Aframe element which is passed as arg
   animate = (outerElId, magnitude = null, loop = null, duration = null) => {
@@ -865,6 +874,56 @@ class Myr {
     el.animation__color = anim;
     return outerElId;
 }
+
+/********************* GETTERS *********************/
+
+getColor = () => {
+  return this.color;
+};
+getXPos = () => {
+  return this.position.x;
+};
+getYPos = () => {
+  return this.position.y;
+};
+getZPos = () => {
+  return this.position.z;
+};
+getXScale = () => {
+  return this.scale.x;
+};
+getYScale = () => {
+  return this.scale.y;
+};
+getZScale = () => {
+  return this.scale.z;
+};
+getXRotation = () => {
+  return this.rotation.x;
+};
+getYRotation = () => {
+  return this.rotation.y;
+};
+getZRotation = () => {
+  return this.rotation.z;
+};
+getRadius = () => {
+  return this.radius;
+};
+getPhiLength = () => {
+  return this.phiLength;
+};
+getLoop = () => {
+  return this.loop;
+};
+getDuration = () => {
+  return this.duration;
+};
+getMagnitude = () => {
+  return this.magnitude.general;
+};
+
+
 
 // MODELS
 addCModel = () => {

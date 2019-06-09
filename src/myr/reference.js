@@ -86,11 +86,11 @@ let geometry = [
     description: <span>Renders a triangle using current internal cursor properties. Returns an <span className="string element">element id</span>.</span>,
     example: 'triangle'
   },
-  {
-    name: <span>tube()</span>,
-    description: <span>Renders a tube using current internal cursor properties. Returns an <span className="string element">element id</span>.</span>,
-    example: 'tube'
-  },
+  //{
+  //  name: <span>tube()</span>,
+  //  description: <span>Renders a tube using current internal cursor properties. Returns an <span className="string element">element id</span>.</span>,
+  //  example: 'tube'
+  //},
   //should this be documented?
   // {
   //   name: 'light()',
@@ -109,6 +109,11 @@ let transformations = [
     name: <span>setColor(<span className="string">color</span>)</span>,
     description: <span>Changes the color of the cursor <a href='https://htmlcolorcodes.com/color-names/' target="_blank" rel="noopener noreferrer">using these color codes</a>, or HEX values. Default: 'red'</span>,
     example: 'setColor'
+  },
+  {
+    name: <span>getRandomColor()</span>,
+    description: <span>Changes the color of the cursor to a random color, and returns the color. Default: 'red'</span>,
+    example: 'getRandomColor'
   },
   {
     name: <span>setPosition(<span className="number">x</span>,<span className="number">y</span>,<span className="number">z</span>)</span>,

@@ -84,7 +84,23 @@ export const customCompleter = {
             "setMagnitude()",
             "colorShift()",
             "makeDroppable()",
-            "makePushable()"
+            "makePushable()",
+            "getColor()",
+            "getXPos()",
+            "getYPos()",
+            "getZPos()",
+            "getXScale()",
+            "getYScale()",
+            "getZScale()",
+            "getXRotation()",
+            "getYRotation()",
+            "getZRotation()",
+            "getRadius()",
+            "getPhiLength()",
+            "getLoop()",
+            "getDuration()",
+            "getMagnitude()",
+
         ];
 
         let Colors = [
