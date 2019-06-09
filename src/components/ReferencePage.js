@@ -5,6 +5,7 @@ import {
   Tabs,
   Tab,
   Icon,
+  IconButton,
   Table,
   TableBody,
   TableHead,
@@ -30,6 +31,21 @@ export default class Reference extends React.Component {
     this.setState({ value });
   };
 
+  exampleHelper = (example) => {
+    if (example) {
+      let link = '/reference/' + example;
+      return (
+        <IconButton 
+        href={link} 
+        className="material-icons">
+        link
+      </IconButton>
+      );
+    } else {
+      return null;
+    }
+  }
+
   TableEx = (category) => {
 
     return (
@@ -38,6 +54,7 @@ export default class Reference extends React.Component {
           <TableRow>
             <TableCell>Name</TableCell>
             <TableCell>Description</TableCell>
+            <TableCell className='refExample'>Example</TableCell>
           </TableRow>
         </TableHead>
         <TableBody  >
@@ -45,6 +62,7 @@ export default class Reference extends React.Component {
             <TableRow key={index}>
               <TableCell >{row.name}</TableCell>
               <TableCell >{row.description}</TableCell>
+              <TableCell >{this.exampleHelper(row.example)}</TableCell>
             </TableRow>
           ))}
         </TableBody>
