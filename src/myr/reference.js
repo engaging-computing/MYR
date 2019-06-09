@@ -86,11 +86,11 @@ let geometry = [
     description: <span>Renders a triangle using current internal cursor properties. Returns an <span className="string element">element id</span>.</span>,
     example: 'triangle'
   },
-  {
-    name: <span>tube()</span>,
-    description: <span>Renders a tube using current internal cursor properties. Returns an <span className="string element">element id</span>.</span>,
-    example: 'tube'
-  },
+  //{
+  //  name: <span>tube()</span>,
+  //  description: <span>Renders a tube using current internal cursor properties. Returns an <span className="string element">element id</span>.</span>,
+  //  example: 'tube'
+  //},
   //should this be documented?
   // {
   //   name: 'light()',
