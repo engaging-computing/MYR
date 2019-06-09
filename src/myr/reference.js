@@ -111,6 +111,11 @@ let transformations = [
     example: 'setColor'
   },
   {
+    name: <span>getRandomColor()</span>,
+    description: <span>Changes the color of the cursor to a random color, and returns the color. Default: 'red'</span>,
+    example: 'getRandomColor'
+  },
+  {
     name: <span>setPosition(<span className="number">x</span>,<span className="number">y</span>,<span className="number">z</span>)</span>,
     description: <span>Sets the position of the cursor to the given coordinates. Default: (0,0,0)</span>,
     example: 'setPosition'
