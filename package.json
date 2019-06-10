@@ -1,6 +1,6 @@
 {
   "name": "myrproject",
-  "version": "0.1.0",
+  "version": "1.1.0",
   "private": false,
   "engines": {
     "node": "10.13.0"
