@@ -7,7 +7,7 @@ MYR can be found online at [LearnMYR.org](https://learnmyr.org). For more inform
 The Engaging Computing Group develops new technologies to enable learners—youth, teachers, undergraduates, and others— in order for them to be creative in science, engineering, and computing, and studies how these technologies improve learning. For more information about the Engaging Computing Group, please visit the [ECG website](https://sites.uml.edu/engaging-computing).
 
 ## Change Log - 1.1.0 -> 1.2.0
--Update component file structure (No visible changes to LearnMYR.org)
+-Update component file structure (No visible changes to LearnMYR.org)  
 -Dependency updates (No visible changes to LearnMYR.org)
 
 ## Acknowledgments
