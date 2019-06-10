@@ -10,15 +10,6 @@ The Engaging Computing Group develops new technologies to enable learners—yout
 -Update component file structure (No visible changes to LearnMYR.org)  
 -Dependency updates (No visible changes to LearnMYR.org)
 
-## Change Log - 1.0.0 -> 1.1.0
-- Reference menu open in new tab and close tab options are now colored.  
-- Reference now has example links to mini-scenes that use that function.
-- New view created to hold reference example scenes.
-- Fixed bug where editor text was not stored when going into view only mode.
-- Fixed bug where users were unable to save in view only mode.
-- Scene settings and course menu buttons have context on hover.
-- Added cursor getter options (such as getXPos(), getYPos(), getColor(), etc...).
-
 ## Acknowledgments
 MYR uses [Aframe](https://aframe.io), a fantastic open source project, to render objects and effects in the three dimensional space.  
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).  
