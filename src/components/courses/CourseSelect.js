@@ -12,7 +12,7 @@ import {
 
 import { withStyles } from "@material-ui/core/styles";
 
-import "../css/CourseSelect.css";
+import "../../css/CourseSelect.css";
 
 // FUNC to position modal in the middle of the screen
 function getModalStyle() {
