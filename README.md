@@ -4,7 +4,7 @@ MYR is an online editor for editing and viewing virtual worlds and effects. The 
 MYR can be found online at [LearnMYR.org](https://learnmyr.org). For more information about the project or the team behind it, please visit [LearnMYR.org/about](https://learnmyr.org/about).
 
 ## ECG
-The Engaging Computing Group develops new technologies to enable learners—youth, teachers, undergraduates, and others—be creative in science, engineering, and computing,and studies how these technologies improve learning. For more information about the Engaging Computing Group, please visit the [ECG website](https://sites.uml.edu/engaging-computing).
+The Engaging Computing Group develops new technologies to enable learners—youth, teachers, undergraduates, and others— in order for them to be creative in science, engineering, and computing, and studies how these technologies improve learning. For more information about the Engaging Computing Group, please visit the [ECG website](https://sites.uml.edu/engaging-computing).
 
 ## Acknowledgments
 MYR uses [Aframe](https://aframe.io), a fantastic open source project, to render objects and effects in the three dimensional space.  
