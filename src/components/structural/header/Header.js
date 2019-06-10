@@ -1,14 +1,14 @@
 import React, { Component, Fragment } from 'react';
-import { auth, provider, scenes, classes, storageRef } from '../firebase.js';
-import Reference from './Reference.js';
-import Classroom from './Classroom.js';
+import { auth, provider, scenes, classes, storageRef } from '../../../firebase.js';
+import Reference from '../../reference/Reference.js';
+import Classroom from '../../classroom/Classroom.js';
 import SceneConfigMenu from './SceneConfigMenu.js';
 import Sidebar from './Sidebar.js';
-import MyrTour from './MyrTour';
+import MyrTour from './MyrTour.js';
 import ProjectView from './ProjectView.js';
-import CourseSelect from './CourseSelect.js';
+import CourseSelect from '../../courses/CourseSelect.js';
 
-import * as layoutTypes from '../constants/LayoutTypes.js';
+import * as layoutTypes from '../../../constants/LayoutTypes.js';
 
 import {
   Button,
@@ -59,6 +59,9 @@ class Header extends Component {
     this.props.courseActions.fetchCourses();
     if (this.props.courseName) {
       this.props.courseActions.fetchCourse(this.props.courseName);
+    }
+    else if (this.props.refExName) {
+      this.props.referenceExampleActions.fetchReferenceExample(this.props.refExName);
     }
     else if (this.props.classroom) {
       let userClasses = [];
@@ -306,6 +309,7 @@ class Header extends Component {
   handleRender = () => {
     try {
       let editor = window.ace.edit("ace-editor");
+      this.props.actions.refresh(editor.getSession().getValue());
       this.props.actions.render(editor.getSession().getValue(), this.props.user ? this.props.user.uid : 'anon');
     } catch (error) {
       this.props.actions.render(this.props.text, this.props.user ? this.props.user.uid : 'anon');
@@ -344,8 +348,17 @@ class Header extends Component {
   * @summary - When the user clicks save it will upload the information to Firebase
   */
   handleSave = () => {
-    let editor = window.ace.edit("ace-editor");
-    let text = editor.getSession().getValue();
+    let editor, text;
+    if (!this.props.viewOnly) {
+      //If in editor mode, gets text directly from editor
+      editor = window.ace.edit("ace-editor");
+      text = editor.getSession().getValue();
+      this.props.actions.refresh(text, this.props.user ? this.props.user.uid : 'anon');
+    } else {
+      //Otherwise, gets text from state (should be up to date since it is refreshed on editor unmount) 
+      text = this.props.text;
+    }
+
     if (this.props.user && this.props.user.uid && text) {
       this.setState({ spinnerOpen: true });
       let ts = Date.now();
@@ -355,6 +368,7 @@ class Header extends Component {
       let img = scene.components.screenshot.getCanvas('perspective').toDataURL('image/jpeg', 0.1);
       let path = "images/perspective/" + projectId;
       let imgRef = storageRef.child(path);
+
       imgRef.putString(img, 'data_url').then((snapshot) => {
         // Put the new document into the scenes collection
         scenes.doc(projectId).set({
@@ -368,7 +382,7 @@ class Header extends Component {
           // If we have a new projectId reload page with it
           if (this.props.courseName) {
             this.setState({ spinnerOpen: false });
-            window.open(window.origin + '/' + projectId);
+            //window.open(window.origin + '/' + projectId);
           } else if (projectId !== this.props.projectId) {
             window.location.href = window.origin + '/' + projectId;
           } else {
@@ -658,16 +672,15 @@ class Header extends Component {
               <Icon className="material-icons">perm_media</Icon>
             </IconButton>
           </Tooltip>
-          <MyrTour 
+          <MyrTour
             viewOnly={this.props.scene.settings.viewOnly}
             changeView={this.props.sceneActions.changeView}
             layoutType={this.props.layoutType}
             referenceOpen={this.state.referenceOpen}
-            handleReferenceToggle={this.handleReferenceToggle}/>
+            handleReferenceToggle={this.handleReferenceToggle} />
         </div>
         <div className="col-3 d-flex justify-content-end">
-          {/* <Classroom classrooms={this.props.classrooms} classroomActions={this.props.classroomActions} user={this.props.user} /> */}
-          <Reference 
+          <Reference
             layoutType={this.props.layoutType}
             referenceOpen={this.state.referenceOpen}
             handleReferenceToggle={this.handleReferenceToggle} />

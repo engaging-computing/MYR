@@ -3,11 +3,13 @@ import Editor from '../editor/Editor';
 import Header from '../structural/header/Header';
 import Footer from '../structural/Footer';
 import View from '../structural/View';
-import SelectProject from '../classroom/SelectProject.js';
+import RefExInfo from '../reference/RefExInfo';
 
 import * as layoutTypes from '../../constants/LayoutTypes.js';
 
-export const Classroom = ({ editor, editorActions, user, authActions, scene, sceneActions, projectActions, courseActions, projects, courses, match, classroomActions, classrooms }) => (
+import '../../css/ReferencePage.css';
+
+export const ReferenceExample = ({ editor, user, scene, referenceExample, referenceExampleActions, editorActions, authActions, projectActions, projects, courseActions, courses, match, sceneActions, classroomActions, classrooms }) => (
     <div className="App">
         <Header
             logging={authActions}
@@ -25,19 +27,14 @@ export const Classroom = ({ editor, editorActions, user, authActions, scene, sce
             courses={courses}
             classroomActions={classroomActions}
             classrooms={classrooms}
-            classroom={match.params.classroom}
-            layoutType={layoutTypes.CLASSROOM}
+            refExName={match.params.function}
+            referenceExampleActions={referenceExampleActions}
+            layoutType={layoutTypes.REF_EXAMPLE}
         />
         <div className="row no-gutters">
             <div id="interface" className="col-12 col-md-4">
-                <SelectProject
-                    selectedClassroom={match.params.classroom}
-                    classroom={classrooms.classroom}
-                    editorActions={editorActions}
-                    user={user}
-                    scene={scene}
-                />
-                <div className='classroom'>
+                <RefExInfo referenceExample={referenceExample} />
+                <div className='ref-ex-edit'>
                     <Editor text={editor.text} user={user} />
                 </div>
             </div>
@@ -49,4 +46,4 @@ export const Classroom = ({ editor, editorActions, user, authActions, scene, sce
     </div>
 );
 
-export default Classroom;
+export default ReferenceExample;

@@ -1,14 +1,15 @@
 import React from 'react';
-import Editor from '../Editor';
-import Footer from '../Footer';
-import Header from '../Header';
-import View from '../View';
+import Editor from '../editor/Editor';
+import Header from '../structural/header/Header';
+import Footer from '../structural/Footer';
+import View from '../structural/View';
 
 import * as layoutTypes from '../../constants/LayoutTypes.js';
 
 export const Ide = ({ editor, editorActions, user, authActions, scene, sceneActions, projectActions, courseActions, projects, courses, match, classroomActions, classrooms }) => (
     <div className="App">
         <Header
+            viewOnly={scene.settings.viewOnly}
             logging={authActions}
             sceneActions={sceneActions}
             actions={editorActions}
@@ -36,7 +37,7 @@ export const Ide = ({ editor, editorActions, user, authActions, scene, sceneActi
                     :
                     <>
                         <div id="interface" className="col-12 col-md-4" >
-                            <Editor text={editor.text} user={user} />
+                            <Editor refresh={editorActions.refresh} render={editorActions.render} text={editor.text} user={user} />
                         </div>
                         <div id="scene" className="col-12 col-md-8" >
                             <View objects={editor.objects} sceneConfig={scene} assets={editor.assets} />
