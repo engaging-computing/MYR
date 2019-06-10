@@ -42,7 +42,7 @@ export default class Reference extends React.Component {
       return (
         <IconButton 
         href={link}
-        target="_blank" 
+        target="_blank"
         className="material-icons">
         link
       </IconButton>
