@@ -14,7 +14,7 @@ import {
 } from '@material-ui/core';
 
 import { withStyles } from "@material-ui/core/styles";
-import "../css/ProjectView.css";
+import "../../../css/ProjectView.css";
 
 function getModalStyle() {
   const top = 50;

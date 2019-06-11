@@ -1,5 +1,5 @@
 import React from 'react';
-import myrReference from '../myr/reference';
+import myrReference from '../../myr/reference';
 
 import {
   Tabs,
@@ -13,7 +13,7 @@ import {
   TableCell,
 } from '@material-ui/core';
 
-import '../css/ReferencePage.css';
+import '../../css/ReferencePage.css';
 
 export default class Reference extends React.Component {
 

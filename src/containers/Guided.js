@@ -23,7 +23,8 @@ const mapStateToProps = state => ({
   lesson: state.courses.currentLesson,
   projects: state.project,
   courses: state.courses,
-  course: state.courses.course
+  course: state.courses.course,
+  classrooms: state.classrooms
 });
 
 // This maps dispatch actions to props
@@ -32,7 +33,8 @@ const mapDispatchToProps = dispatch => ({
   authActions: bindActionCreators(Actions.AuthActions, dispatch),
   sceneActions: bindActionCreators(Actions.SceneActions, dispatch),
   projectActions: bindActionCreators(Actions.ProjectActions, dispatch),
-  courseActions: bindActionCreators(Actions.CourseActions, dispatch)
+  courseActions: bindActionCreators(Actions.CourseActions, dispatch),
+  classroomActions: bindActionCreators(Actions.ClassroomActions, dispatch)
 });
 
 // This does the binding to the redux store
