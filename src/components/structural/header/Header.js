@@ -581,23 +581,26 @@ class Header extends Component {
               <Icon className="material-icons">add</Icon>
               Start New
             </Button>
-            <Button
-              variant="raised"
-              onClick={this.props.actions.recover}
-              color="primary"
-              className="sidebar-btn">
-              <Icon className="material-icons">replay</Icon>
-              Recover
-            </Button>
-            <Button
-              variant="raised"
-              onClick={this.handleSaveToggle}
-              color="primary"
-              className="sidebar-btn"
-              disabled={this.props.layoutType === layoutTypes.REFERENCE}>
-              <Icon className="material-icons">save</Icon>
-              Save Project
-            </Button>
+            {this.props.layoutType !== layoutTypes.REFERENCE ?
+              <Fragment>
+                <Button
+                  variant="raised"
+                  onClick={this.props.actions.recover}
+                  color="primary"
+                  className="sidebar-btn">
+                  <Icon className="material-icons">replay</Icon>
+                  Recover
+                </Button>
+                <Button
+                  variant="raised"
+                  onClick={this.handleSaveToggle}
+                  color="primary"
+                  className="sidebar-btn">
+                  <Icon className="material-icons">save</Icon>
+                  Save Project
+                </Button>
+              </Fragment> : null
+            }
             <Button
               variant="raised"
               onClick={this.handleLoadToggle}
@@ -616,28 +619,32 @@ class Header extends Component {
             </Button>
           </Sidebar>
           <h1 className="mr-2 d-none d-sm-block" >MYR</h1>
-          <Tooltip title="Render" placement="bottom-start">
-            <Button
-              id="play-btn"
-              variant="raised"
-              size="small"
-              onClick={this.handleRender}
-              className="header-btn"
-              style={style.play}>
-              <Icon className="material-icons">play_arrow</Icon>
-            </Button>
-          </Tooltip>
-          <Tooltip title="Stop" placement="bottom-start">
-            <Button
-              id="stop-btn"
-              variant="raised"
-              size="small"
-              onClick={this.clear}
-              className="header-btn"
-              style={style.clear}>
-              <Icon className="material-icons">stop</Icon>
-            </Button>
-          </Tooltip>
+          {this.props.layoutType !== layoutTypes.REFERENCE ? 
+            <Fragment>
+              <Tooltip title="Render" placement="bottom-start">
+                <Button
+                  id="play-btn"
+                  variant="raised"
+                  size="small"
+                  onClick={this.handleRender}
+                  className="header-btn"
+                  style={style.play}>
+                  <Icon className="material-icons">play_arrow</Icon>
+                </Button>
+              </Tooltip>
+              <Tooltip title="Stop" placement="bottom-start">
+                <Button
+                  id="stop-btn"
+                  variant="raised"
+                  size="small"
+                  onClick={this.clear}
+                  className="header-btn"
+                  style={style.clear}>
+                  <Icon className="material-icons">stop</Icon>
+                </Button>
+              </Tooltip> 
+            </Fragment>: null
+          }
           <Tooltip title="New Scene" placement="bottom-start">
             <IconButton
               id="new-btn"
@@ -651,16 +658,17 @@ class Header extends Component {
               <Icon className="material-icons">add_circle_outline</Icon>
             </IconButton>
           </Tooltip>
-          <Tooltip title="Save" placement="bottom-start">
-            <IconButton
-              id="save-btn"
-              onClick={this.handleSaveToggle}
-              className="header-btn d-none d-sm-block"
-              style={this.props.layoutType === layoutTypes.REFERENCE ? style.disabled : style.default}
-              disabled={this.props.layoutType === layoutTypes.REFERENCE} >
-              <Icon className="material-icons">save</Icon>
-            </IconButton>
-          </Tooltip>
+          {this.props.layoutType !== layoutTypes.REFERENCE ?
+            <Tooltip title="Save" placement="bottom-start">
+              <IconButton
+                id="save-btn"
+                onClick={this.handleSaveToggle}
+                className="header-btn d-none d-sm-block"
+                style={style.default}>
+                <Icon className="material-icons">save</Icon>
+              </IconButton>
+            </Tooltip> : null
+          }
           <Tooltip title="Open" placement="bottom-start">
             <IconButton
               id="open-btn"
