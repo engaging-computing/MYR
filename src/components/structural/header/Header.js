@@ -581,26 +581,24 @@ class Header extends Component {
               <Icon className="material-icons">add</Icon>
               Start New
             </Button>
-            {this.props.layoutType !== layoutTypes.REFERENCE ?
-              <Fragment>
-                <Button
-                  variant="raised"
-                  onClick={this.props.actions.recover}
-                  color="primary"
-                  className="sidebar-btn">
-                  <Icon className="material-icons">replay</Icon>
-                  Recover
-                </Button>
-                <Button
-                  variant="raised"
-                  onClick={this.handleSaveToggle}
-                  color="primary"
-                  className="sidebar-btn">
-                  <Icon className="material-icons">save</Icon>
-                  Save Project
-                </Button>
-              </Fragment> : null
-            }
+            <Button
+              variant="raised"
+              onClick={this.props.actions.recover}
+              color="primary"
+              className="sidebar-btn"
+              disabled={this.props.layoutType === layoutTypes.REFERENCE}>
+              <Icon className="material-icons">replay</Icon>
+              Recover
+            </Button>
+            <Button
+              variant="raised"
+              onClick={this.handleSaveToggle}
+              color="primary"
+              className="sidebar-btn"
+              disabled={this.props.layoutType === layoutTypes.REFERENCE}>
+              <Icon className="material-icons">save</Icon>
+              Save Project
+            </Button>
             <Button
               variant="raised"
               onClick={this.handleLoadToggle}
