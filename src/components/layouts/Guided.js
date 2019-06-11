@@ -1,13 +1,13 @@
 import React from 'react';
-import Editor from '../Editor';
-import Header from '../Header';
-import Footer from '../Footer';
-import Course from '../Course';
-import View from '../View';
+import Editor from '../editor/Editor';
+import Header from '../structural/header/Header';
+import Footer from '../structural/Footer';
+import Course from '../courses/Course';
+import View from '../structural/View';
 
 import * as layoutTypes from '../../constants/LayoutTypes.js';
 
-export const Guided = ({ editor, user, scene, lesson, editorActions, authActions, projectActions, projects, courseActions, courses, course, match, sceneActions }) => (
+export const Guided = ({ editor, user, scene, editorActions, authActions, projectActions, projects, courseActions, courses, course, match, sceneActions, classroomActions, classrooms }) => (
     <div className="App">
         <Header
             logging={authActions}
@@ -26,7 +26,9 @@ export const Guided = ({ editor, user, scene, lesson, editorActions, authActions
             course={course}
             courseName={match.params.shortname}
             layoutType={layoutTypes.GUIDED}
-            />
+            classroomActions={classroomActions}
+            classrooms={classrooms}
+        />
         <div className="row no-gutters">
             <div id="interface" className="col-12 col-md-4">
                 <Course lesson={courses.currentLesson} courses={courses} course={course} courseName={match.params.shortname} actions={editorActions} courseActions={courseActions} />

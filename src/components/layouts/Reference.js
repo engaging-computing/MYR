@@ -1,7 +1,7 @@
 import React from 'react';
-import Header from '../Header';
-import Footer from '../Footer';
-import ReferencePage from '../ReferencePage';
+import Header from '../structural/header/Header';
+import Footer from '../structural/Footer';
+import ReferencePage from '../reference/ReferencePage';
 
 import * as layoutTypes from '../../constants/LayoutTypes.js';
 

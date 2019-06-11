@@ -48,7 +48,6 @@ export const customCompleter = {
             "torus()",
             "torusknot()",
             "triangle()",
-            "circle()",
             "setColor()",
             "setPosition()",
             "setXPos()",
@@ -89,7 +88,25 @@ export const customCompleter = {
             "setLoop()",
             "setDuration()",
             "setMagnitude()",
-            "colorShift()"
+            "colorShift()",
+            "makeDroppable()",
+            "makePushable()",
+            "getColor()",
+            "getXPos()",
+            "getYPos()",
+            "getZPos()",
+            "getXScale()",
+            "getYScale()",
+            "getZScale()",
+            "getXRotation()",
+            "getYRotation()",
+            "getZRotation()",
+            "getRadius()",
+            "getPhiLength()",
+            "getLoop()",
+            "getDuration()",
+            "getMagnitude()",
+
         ];
 
         let Colors = [

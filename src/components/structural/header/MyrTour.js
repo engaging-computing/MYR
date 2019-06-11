@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Tour from 'reactour';
 import { Button } from '@material-ui/core';
-import * as layoutTypes from '../constants/LayoutTypes';
+import * as layoutTypes from '../../../constants/LayoutTypes';
 
 class MyrTour extends Component {
   constructor(props) {

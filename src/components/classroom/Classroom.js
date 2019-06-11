@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import Select from 'react-select';
-import { classes } from '../firebase.js';
+import { classes } from '../../firebase.js';
 
 import {
     Button,
@@ -12,7 +12,7 @@ import {
 
 import { withStyles } from "@material-ui/core/styles";
 
-import '../css/Classroom.css';
+import '../../css/Classroom.css';
 
 // FUNC to position modal in the middle of the screen
 function getModalStyle() {

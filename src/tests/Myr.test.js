@@ -1,5 +1,5 @@
 import Myr from '../myr/Myr';
-import MyrTour from '../components/MyrTour';
+import MyrTour from '../components/structural/header/MyrTour';
 
 const myr = new Myr();
 
