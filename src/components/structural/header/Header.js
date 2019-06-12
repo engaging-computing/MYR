@@ -158,10 +158,7 @@ class Header extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if(nextProps.course){
-      let text = nextProps.courses.currentLesson.name;
-      this.setState({ sceneName: text});
-    }
+    
     if (nextProps.scene && nextProps.scene.name) {
       this.setState({ sceneName: nextProps.scene.name });
     }
