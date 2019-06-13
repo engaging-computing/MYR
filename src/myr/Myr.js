@@ -4,6 +4,7 @@ import Group from "./Group";
 import CANNON from "cannon";
 
 class Myr {
+<<<<<<< HEAD
     constructor(baseEls) {
         this.counter = 0;
         this.baseEls = baseEls;
@@ -705,6 +706,613 @@ class Myr {
         duration = duration != null ? duration : this.duration;
         let el = this.getEl(outerElId);
         let anim = `
+=======
+  constructor(baseEls) {
+    this.counter = 0;
+    this.baseEls = baseEls;
+    this.els = [];
+    this.assets = [];
+    this.res = { els: this.els, assets: this.assets };
+    this.color = 'red';
+    this.sceneEl = document.querySelector('a-scene');
+    this.position = {
+      x: 0,
+      y: 0,
+      z: 0
+    };
+    this.scale = {
+      x: 1,
+      y: 1,
+      z: 1
+    };
+    this.rotation = {
+      x: 0,
+      y: 0,
+      z: 0
+    };
+    this.radius = "1";
+    this.phiLength = 360;
+    this.loop = true;
+    this.duration = 1000;
+    this.magnitude = {
+      spin: 360,
+      fadeOut: 0,
+      general: 1
+    };
+    if (baseEls) {
+      Object.keys(this.baseEls).forEach(it => {
+        this.els[it] = this.baseEls[it];
+      });
+    }
+
+  }
+
+  /**
+  * @summary - init creates and binds the myr object to the window
+  *
+  * @param [{}] objs - these are the base objects for this object
+  *
+  */
+  init = () => {
+
+    // Get all the function names of the Myr(this) class
+    let funs = Object.keys(this).filter((p) => {
+      return typeof this[p] === 'function';
+    });
+
+    // For each function bind it to the window
+    funs.forEach(element => {
+      // If a collision is detected then do not override and warn
+      if (window.hasOwnProperty(element)) {
+        console.warn(`The ${element} of Myr is being overridden.\n` +
+          `If this was not intentional consider renaming the function.`);
+      } else {
+        // Collision free so we can bind to window
+        window[element] = this[element];
+      }
+    });
+  }
+
+  /**
+  * @summary - Reset this.els to the base elements supplied to the constructor
+  */
+  reset = () => {
+    // Reset base params, we might be able to merge two objects later
+    this.id = 0;
+    this.color = 'red';
+    this.counter = 0;
+    this.position = { x: 0, y: 0, z: 0 };
+    this.scale = { x: 1, y: 1, z: 1 };
+    this.rotation = { x: 0, y: 0, z: 0 };
+    this.radius = 1;
+    this.phiLength = 360;
+    this.loop = true;
+    this.duration = 1000;
+    this.magnitude = { spin: 360, fadeOut: 0, general: 1 };
+
+    // restore the base objects of the scene
+    this.els = [];
+    if (this.baseEls) {
+      Object.keys(this.baseEls).forEach(it => {
+        this.els[it] = this.baseEls[it];
+      });
+    }
+  }
+
+  /**
+  * @summary - Reset the cursor to the default
+  */
+  resetCursor = () => {
+    this.color = 'red';
+    this.position = { x: 0, y: 0, z: 0 };
+    this.scale = { x: 1, y: 1, z: 1 };
+    this.rotation = { x: 0, y: 0, z: 0 };
+    this.radius = "1";
+    this.phiLength = 360;
+    this.loop = true;
+    this.duration = 1000;
+    this.magnitude = { spin: 360, fadeOut: 0, general: 1 };
+  }
+
+  genNewId = () => {
+    return this.counter++;
+  };
+
+  setPosition = (x = 0, y = 1, z = 0) => {
+    if (typeof x === 'number' && typeof y === 'number' && typeof z === 'number') {
+      this.position = {
+        x: x,
+        y: y,
+        z: z
+      };
+    } else {
+      console.error("setPosition() must be all numeric values");
+    }
+  };
+
+  setXPos = (x = 0) => {
+    if (typeof x === 'number') {
+      this.position = { ...this.position, x };
+    } else {
+      console.error("must pass a numeric for setXPos");
+    }
+  };
+
+  setYPos = (y = 0) => {
+    if (typeof y === 'number') {
+      this.position = { ...this.position, y };
+    } else {
+      console.error("must pass a numeric for setYPos");
+    }
+  };
+
+  setZPos = (z = 0) => {
+    if (typeof z === 'number') {
+      this.position = { ...this.position, z };
+    } else {
+      console.error("must pass a numeric for setZPos");
+    }
+  };
+
+  setScale = (x = 1, y = 1, z = 1) => {
+    if (typeof x === 'number' && typeof y === 'number' && typeof z === 'number') {
+      this.scale = {
+        x: x,
+        y: y,
+        z: z
+      };
+    } else {
+      console.error("setScale() must be all numeric values");
+    }
+  };
+
+  setXScale = (x) => {
+    if (typeof x === 'number') {
+      this.scale = { ...this.scale, x };
+    } else {
+      console.error("must pass a numeric for setXScale");
+    }
+  };
+
+  setYScale = (y) => {
+    if (typeof y === 'number') {
+      this.scale = { ...this.scale, y };
+    } else {
+      console.error("must pass a numeric for setYScale");
+    }
+  };
+
+  setZScale = (z) => {
+    if (typeof z === 'number') {
+      this.scale = { ...this.scale, z };
+    } else {
+      console.error("must pass a numeric for setZScale");
+    }
+  };
+
+  setRotation = (x, y = 0, z = 0) => {
+    if (typeof x === 'number' && typeof y === 'number' && typeof z === 'number') {
+      this.rotation = {
+        x: x,
+        y: y,
+        z: z
+      };
+    } else {
+      console.error("setRotation() must be all numeric values");
+    }
+  }
+
+  pitchX = (x) => {
+    if (typeof x === 'number') {
+      this.rotation = { ...this.rotation, x };
+    } else {
+      console.error("must pass a numeric for pitchX");
+    }
+  };
+
+  yawY = (y) => {
+    if (typeof y === 'number') {
+      this.rotation = { ...this.rotation, y };
+    } else {
+      console.error("must pass a numeric for yawY");
+    }
+  };
+
+  rollZ = (z) => {
+    if (typeof z === 'number') {
+      this.rotation = { ...this.rotation, z };
+    } else {
+      console.error("must pass a numeric for rollZ");
+    }
+  };
+
+  setRadius = (i) => {
+    if (typeof i === 'number') {
+      this.radius = String(i);
+    } else {
+      console.error("must pass a numeric for setRadius");
+    }
+  };
+
+  setPhiLength = (i) => {
+    if (typeof i === 'number') {
+      this.phiLength = String(i);
+    } else {
+      console.error("must pass a numeric for setPhiLength");
+    }
+  };
+
+  setLoop = (i) => {
+    this.loop = Boolean(i);
+  };
+
+  setMagnitude = (i) => {
+    if (typeof i === 'number') {
+      this.magnitude = {
+        spin: i,
+        fadeOut: i,
+        general: i
+      };
+    } else {
+      console.error("must pass a numeric for setMagnitude");
+    }
+  };
+
+  setDuration = (i) => {
+    if (typeof i === 'number') {
+      this.duration = i;
+    } else {
+      console.error("must pass a numeric for setDuration");
+    }
+  };
+
+  setColor = (color) => {
+    this.color = color;
+  }
+
+  getRandomColor = () => {
+    let color, i, letters;
+    letters = '0123456789ABCDEF';
+    color = '#';
+    i = 0;
+    while (i < 6) {
+      color += letters[Math.floor(Math.random() * 16)];
+      i++;
+    }
+    this.color = color;
+    return color;
+  }
+
+  drop = (outerElId) => {
+    this.getEl(outerElId)['dynamic-body'] = "shape: box; mass: 5";
+    return outerElId;
+  }
+
+  // Allows the entity to be dropped
+  makeDroppable = (outerElId, mass = 2) => {
+    let el = this.getEl(outerElId);
+    let dynamicBody = `shape: auto; mass: ${mass}; angularDamping: 0.5; linearDamping: 0.5;`;
+    el["dynamic-body"] = dynamicBody;   
+    return outerElId;
+  }
+
+  // Disallows the entity to be dropped
+  makeUnDroppable = (outerElId, mass = 2) => {
+    let el = this.getEl(outerElId);
+    //Only makes an item undroppable if it is droppable but is not pushable
+    if(el["dynamic-body"] && (!el["force-pushable"] || el["force-pushable"] === "false")) {
+      el["dynamic-body"] = null;
+    }
+    return outerElId;
+  }
+
+  // Allows the entity to be pushed
+  makePushable = (outerElId, mass = 2) => {
+    let el = this.getEl(outerElId);
+    let dynamicBody = `shape: auto; mass: ${mass}; angularDamping: 0.5; linearDamping: 0.5;`;
+    el["dynamic-body"] = dynamicBody;
+    el["force-pushable"] = "true";
+    return outerElId;
+  }
+
+  // Disallows the entity to be pushed
+  makeUnPushable = (outerElId) => {
+    let el = this.getEl(outerElId);
+    if(el["force-pushable"]){
+      el["dynamic-body"] = null;
+      el["force-pushable"] = "false";
+    }
+    return outerElId;
+  }
+  
+  push = (outerElId, x, y, z) => {
+    // Add an event listener
+    document.addEventListener('myr-view-rendered', (e) => {
+      let el = document.querySelector('#' + outerElId);
+      if (!el) {
+        return;
+      }
+      el.addEventListener('body-loaded', () => {
+        el.body.applyImpulse(
+          /* impulse */        new CANNON.Vec3(x, y, z),
+          /* world position */ new CANNON.Vec3().copy(el.object3D.position)
+        );
+      });
+    });
+    return outerElId;
+  }
+
+  // Render an Aframe Box Primitive with current Myr settings
+  box = (params) => {
+    let base = {
+      geometry: `primitive: box;`,
+      id: 'box' + this.genNewId(),
+      material: `color: ${this.color};`,
+      position: { ...this.position },
+      rotation: this.rotation,
+      scale: this.scale,
+    };
+    return this.mergeProps(base, params);
+  }
+
+  // Render an Aframe circle Primitive with current Myr settings
+  circle = (params) => {
+    let base = {
+      geometry: `primitive: circle; radius: ${this.radius}; theta-length: ${this.phiLength};`,
+      id: 'circ' + this.genNewId(),
+      position: this.position,
+      scale: this.scale,
+      rotation: this.rotation,
+      material: `color: ${this.color}; side: double;`,
+    };
+    return this.mergeProps(base, params);
+  }
+
+  // Render an Aframe circle Primitive with current Myr settings
+  cone = (params) => {
+    let base = {
+      id: 'cone' + this.genNewId(),
+      geometry: `primitive: cone; radiusBottom: ${this.radius}; radiusTop: 0.1;`,
+      position: this.position,
+      scale: this.scale,
+      rotation: this.rotation,
+      material: `color: ${this.color}; side: double;`,
+    };
+    return this.mergeProps(base, params);
+  }
+
+  // Render an Aframe Text Primitive with current Myr settings
+  cylinder = (params) => {
+    let base = {
+      id: 'cyl' + this.genNewId(),
+      geometry: `primitive: cylinder; radius: ${this.radius}; theta-length: ${this.phiLength};`,
+      position: this.position,
+      scale: this.scale,
+      rotation: this.rotation,
+      material: `color: ${this.color};  side: double;`,
+    };
+    return this.mergeProps(base, params);
+  }
+
+
+  // Render an Aframe dodecahedron with current Myr settings
+  dodecahedron = (params) => {
+    let base = {
+      id: 'dod' + this.genNewId(),
+      geometry: `primitive: dodecahedron; radius: ${this.radius};`,
+      position: this.position,
+      scale: this.scale,
+      rotation: this.rotation,
+      material: `color: ${this.color}; side: double;`,
+    };
+    return this.mergeProps(base, params);
+  }
+
+  // Render an Aframe icosahedron with current Myr settings
+  icosahedron = (params) => {
+    let base = {
+      id: 'iso' + this.genNewId(),
+      geometry: `primitive: icosahedron;`,
+      position: this.position,
+      scale: this.scale,
+      rotation: this.rotation,
+      material: `color: ${this.color};  side: double;`,
+    };
+    return this.mergeProps(base, params);
+  }
+
+  // Render an Aframe octahedron with current Myr settings
+  octahedron = (params) => {
+    let base = {
+      id: 'oct' + this.genNewId(),
+      geometry: `primitive: octahedron;`,
+      position: this.position,
+      scale: this.scale,
+      rotation: this.rotation,
+      material: `color: ${this.color};  side: double;`,
+    };
+    return this.mergeProps(base, params);
+  }
+
+  line = (path, params) => {
+    let base = {
+      id: 'line' + this.genNewId(),
+      tube: true,
+      radius: ".01",
+      path: path,
+      position: this.position,
+      scale: this.scale,
+      rotation: this.rotation,
+      material: `color: ${this.color};  side: double;`,
+    };
+    return this.mergeProps(base, params);
+  }
+
+  plane = (params) => {
+    let base = {
+      id: 'plane' + this.genNewId(),
+      geometry: `primitive: plane; height: 1; width: 1; phi-length: ${this.phiLength};`,
+      position: this.position,
+      scale: this.scale,
+      rotation: this.rotation,
+      material: `color: ${this.color}; side: double;`,
+    };
+    return this.mergeProps(base, params);
+  }
+
+  // Render an Aframe Polyhedron with current Myr settings
+  polyhedron = (params) => {
+    let base = {
+      id: 'poly' + this.genNewId(),
+      geometry: `primitive: sphere; segmentsWidth: 2; segmentsHeight: 8; phi-length: ${this.phiLength};`,
+      position: this.position,
+      scale: this.scale,
+      rotation: this.rotation,
+      material: `color: ${this.color}; side: double;`,
+    };
+    return this.mergeProps(base, params);
+  }
+
+  ring = (params) => {
+    let base = {
+      id: 'ring' + this.genNewId(),
+      geometry: `primitive: ring; radiusInner: 0.5; radiusOuter: 1; theta-length: ${this.phiLength};`,
+      position: this.position,
+      scale: this.scale,
+      rotation: this.rotation,
+      material: `color: ${this.color}; side: double;`,
+    };
+    return this.mergeProps(base, params);
+  }
+
+  // Render an Aframe Sphere Primitive with current Myr settings
+  sphere = (params) => {
+    let base = {
+      id: 'sphere' + this.genNewId(),
+      geometry: `primitive: sphere; phi-length: ${this.phiLength}`,
+      position: this.position,
+      scale: this.scale,
+      rotation: this.rotation,
+      material: `color: ${this.color}; side: double;`,
+    };
+    return this.mergeProps(base, params);
+  }
+
+  tetrahedron = (params) => {
+    let base = {
+      id: 'tetra' + this.genNewId(),
+      geometry: `primitive: tetrahedron;`,
+      position: this.position,
+      scale: this.scale,
+      rotation: this.rotation,
+      material: `color: ${this.color}; side: double;`,
+    };
+    return this.mergeProps(base, params);
+  }
+
+  /*
+  * This is a bit tricky. We need to pass text so we can decide how to render it.
+  * This throws a warning since text is not part of the entity system.
+  * Instead we pass it and then pull it off again if we see it.
+  */
+  text = (text, params) => {
+    let base = {
+      text: true,
+      value: text || "Default",
+      id: 'txt' + this.genNewId(),
+      side: 'double',
+      color: this.color,
+      position: this.position,
+      scale: this.scale,
+      rotation: this.rotation,
+    };
+    if (!params || typeof params === 'string') {
+      this.els[base.id] = { ...base };
+    } else {
+      this.els[base.id] = { ...base, ...params };
+    }
+    return base.id;
+  }
+
+  torus = (params) => {
+    let base = {
+      id: 'torus' + this.genNewId(),
+      geometry: `primitive: torus; radius: ${this.radius}; radiusTubular: 0.5; arc: 360; arc: ${this.phiLength};`,
+      position: this.position,
+      scale: this.scale,
+      rotation: this.rotation,
+      material: `color: ${this.color};  side: double;`,
+    };
+    return this.mergeProps(base, params);
+  }
+
+  torusknot = (params) => {
+    let base = {
+      id: 'torKn' + this.genNewId(),
+      geometry: `primitive: torusKnot;`,
+      position: this.position,
+      scale: this.scale,
+      rotation: this.rotation,
+      material: `color: ${this.color};`,
+      p: 2,
+      q: 3,
+    };
+    return this.mergeProps(base, params);
+  }
+
+  triangle = (params) => {
+    let base = {
+      id: 'tri' + this.genNewId(),
+      geometry: `primitive: triangle;`,
+      position: this.position,
+      scale: this.scale,
+      rotation: this.rotation,
+      material: `color: ${this.color};  side: double;`,
+    };
+    return this.mergeProps(base, params);
+  }
+
+  tube = (path, params) => {
+    let base = {
+      id: 'tube' + this.genNewId(),
+      tube: true,
+      radius: this.radius,
+      path: path,
+      position: this.position,
+      scale: this.scale,
+      rotation: this.rotation,
+      material: `color: ${this.color};  side: double;`,
+    };
+    return this.mergeProps(base, params);
+  }
+
+  // Render a new Aframe light with current Myr settings
+  light = (obj) => {
+    let el = {
+      color: 'lgt' + this.getRandomColor(),
+      position: this.position,
+      geometry: {
+        primitive: 'light'
+      },
+    };
+    this.els.push(el);
+    return el;
+  }
+
+  // Prism is an alias for Polyhedron
+  prism = this.polyhedron
+
+  // Cube is an alias for Box
+  cube = this.box
+
+  // Animate the Aframe element which is passed as arg
+  animate = (outerElId, magnitude = null, loop = null, duration = null) => {
+    magnitude = magnitude != null ? magnitude : this.magnitude.spin;
+    loop = loop != null ? loop : this.loop;
+    duration = duration != null ? duration : this.duration;
+    let el = this.getEl(outerElId);
+    let anim = `
+>>>>>>> Fixed makeUnPushable/unDroppable bug, fixed animation bugs on render, and added a loading screen/overlay while waiting for view to mount
       property: rotation;
       dir: alternate;
       to: ${el.rotation.x} ${el.rotation.y + magnitude} ${el.rotation.z};
