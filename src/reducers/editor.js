@@ -3,24 +3,24 @@ import * as types from "../constants/ActionTypes";
 import Myr from "../myr/Myr";
 
 const initial_state = {
-  text: "",
-  objects: [],
-  assets: [],
-  message: {
     text: "",
-    time: 0
-  }
+    objects: [],
+    assets: [],
+    message: {
+        text: "",
+        time: 0
+    }
 };
 
 /**
 * @summary - Snapshots is an array of objects that record each time the user tries to render
 */
 let snapshots = [
-  {
-    timestamp: Date.now(),
-    text: `${initial_state.text}`,
-    error: false
-  }
+    {
+        timestamp: Date.now(),
+        text: `${initial_state.text}`,
+        error: false
+    }
 ];
 
 
@@ -30,11 +30,11 @@ m.init();
 
 // ESLint doesn't like this but it is better than eval
 function noEvalEvaluation(text) {
-  // eslint-disable-next-line
-  // let func = Function(`'use strict'; ${m.infiniteLoopDetector.wrap(text)}`);
-  // eslint-disable-next-line
-  let func = Function(`'use strict'; ${text}`);
-  return func;
+    // eslint-disable-next-line
+    // let func = Function(`'use strict'; ${m.infiniteLoopDetector.wrap(text)}`);
+    // eslint-disable-next-line
+    let func = Function(`'use strict'; ${text}`);
+    return func;
 }
 
 export default function editor(state = initial_state, action) {
