@@ -13,15 +13,8 @@ import * as THREE from 'three';
  * components.
  */
 
- let isLoading = true;
-
 class View extends Component {
-  componentWillUnmount() {
-    isLoading = true;
-  }
-
   componentDidMount() {
-    isLoading = false;
     window.addEventListener("keydown", function (e) {
       //KEYS: left and right: 37, 39; up and down: 38, 40; space: 32
       if ([38, 40].indexOf(e.keyCode) > -1) {
@@ -29,7 +22,6 @@ class View extends Component {
       }
     }, false);
   }
-  
   // This fires off an event when the system is fully rendered.
   componentDidUpdate() {
     // Create the event
@@ -178,7 +170,7 @@ class View extends Component {
   }
 
   render = () => {
-    const aScene = (
+    return (
       <a-scene physics="debug: false; friction: 3; restitution: .3;" embedded debug="false">
         <a-assets>
           <a-mixin id="checkpoint"></a-mixin>
@@ -208,21 +200,6 @@ class View extends Component {
         }
       </a-scene>
     );
-  
-    const spinner = 
-      <span className='spinner'>
-        <div className='cube1'></div>
-        <div className='cube2'></div>
-      </span>
-
-    let ret = null;
-
-    isLoading ? 
-      ret = spinner :
-      ret = aScene;
-
-    return ret;
-  
   }
 }
 

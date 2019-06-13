@@ -30,8 +30,6 @@ const exitBtnStyle = {
   right: 0,
 };
 
-let shouldRender = false;
-
 class Header extends Component {
   constructor(props) {
     super(props);
@@ -49,7 +47,8 @@ class Header extends Component {
       navAwayModal: false,
       needsNewId: false, // this explicitly tells us to make a new id
       spinnerOpen: false,
-      referenceOpen: false
+      referenceOpen: false,
+      shouldRender: false
     };
   }
 
@@ -182,8 +181,10 @@ class Header extends Component {
     if (this.state.lastMsgTime !== this.props.message.time && this.props.message.text !== "") {
       this.setState({ snackOpen: true, lastMsgTime: this.props.message.time });
     }
-    if(shouldRender) {
-      shouldRender = false;
+    if (this.state.shouldRender) {
+      this.setState({
+        shouldRender: false
+      });
       this.handleRender();
     }
   }
@@ -352,7 +353,7 @@ class Header extends Component {
   */
   handleSave = () => {
     let editor, text;
-    if(!this.props.viewOnly) {
+    if (!this.props.viewOnly) {
       //If in editor mode, gets text directly from editor
       editor = window.ace.edit("ace-editor");
       text = editor.getSession().getValue();
@@ -626,9 +627,11 @@ class Header extends Component {
               size="small"
               onClick={() => {
                 this.clear();
-                shouldRender = true;
+                this.setState({
+                  shouldRender: true
+                });
               }}
-                className="header-btn"
+              className="header-btn"
               style={style.play}>
               <Icon className="material-icons">play_arrow</Icon>
             </Button>
@@ -678,16 +681,16 @@ class Header extends Component {
               <Icon className="material-icons">perm_media</Icon>
             </IconButton>
           </Tooltip>
-          <MyrTour 
+          <MyrTour
             viewOnly={this.props.scene.settings.viewOnly}
             changeView={this.props.sceneActions.changeView}
             layoutType={this.props.layoutType}
             referenceOpen={this.state.referenceOpen}
-            handleReferenceToggle={this.handleReferenceToggle}/>
+            handleReferenceToggle={this.handleReferenceToggle} />
         </div>
         <div className="col-3 d-flex justify-content-end">
           {/* <Classroom classrooms={this.props.classrooms} classroomActions={this.props.classroomActions} user={this.props.user} /> */}
-          <Reference 
+          <Reference
             layoutType={this.props.layoutType}
             referenceOpen={this.state.referenceOpen}
             handleReferenceToggle={this.handleReferenceToggle} />
