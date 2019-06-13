@@ -12,8 +12,16 @@ import * as THREE from 'three';
  * system utilizes the entity compoent system(ECS) to build objects in the scene from different
  * components.
  */
+
+ let isLoading = true;
+
 class View extends Component {
+  componentWillUnmount() {
+    isLoading = true;
+  }
+
   componentDidMount() {
+    isLoading = false;
     window.addEventListener("keydown", function (e) {
       //KEYS: left and right: 37, 39; up and down: 38, 40; space: 32
       if ([38, 40].indexOf(e.keyCode) > -1) {
@@ -21,6 +29,7 @@ class View extends Component {
       }
     }, false);
   }
+  
   // This fires off an event when the system is fully rendered.
   componentDidUpdate() {
     // Create the event
@@ -169,7 +178,7 @@ class View extends Component {
   }
 
   render = () => {
-    return (
+    const aScene = (
       <a-scene physics="debug: false; friction: 3; restitution: .3;" embedded debug="false">
         <a-assets>
           <a-mixin id="checkpoint"></a-mixin>
@@ -187,7 +196,6 @@ class View extends Component {
           })
         }
 
-
         {this.props.sceneConfig.settings.camConfig === 1 ?
           <a-entity position="0 0 0">
             <a-cylinder checkpoint radius="1" height="0.3" position="-25 1 -25" color="#39BB82"></a-cylinder>
@@ -200,6 +208,21 @@ class View extends Component {
         }
       </a-scene>
     );
+  
+    const spinner = 
+      <span className='spinner'>
+        <div className='cube1'></div>
+        <div className='cube2'></div>
+      </span>
+
+    let ret = null;
+
+    isLoading ? 
+      ret = spinner :
+      ret = aScene;
+
+    return ret;
+  
   }
 }
 

@@ -31,9 +31,9 @@ export const Ide = ({ editor, editorActions, user, authActions, scene, sceneActi
             {
                 scene.settings.viewOnly
                     ?
-                    <div id="scene" className="col-12" >
-                        <View objects={editor.objects} sceneConfig={scene} assets={editor.assets} />
-                    </div>
+                        <div id="scene" className="col-12" >
+                            <View objects={editor.objects} sceneConfig={scene} assets={editor.assets} />
+                        </div>
                     :
                     <>
                         <div id="interface" className="col-12 col-md-4" >

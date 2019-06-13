@@ -30,6 +30,8 @@ const exitBtnStyle = {
   right: 0,
 };
 
+let shouldRender = false;
+
 class Header extends Component {
   constructor(props) {
     super(props);
@@ -179,6 +181,10 @@ class Header extends Component {
   componentDidUpdate() {
     if (this.state.lastMsgTime !== this.props.message.time && this.props.message.text !== "") {
       this.setState({ snackOpen: true, lastMsgTime: this.props.message.time });
+    }
+    if(shouldRender) {
+      shouldRender = false;
+      this.handleRender();
     }
   }
 
@@ -618,8 +624,11 @@ class Header extends Component {
               id="play-btn"
               variant="raised"
               size="small"
-              onClick={this.handleRender}
-              className="header-btn"
+              onClick={() => {
+                this.clear();
+                shouldRender = true;
+              }}
+                className="header-btn"
               style={style.play}>
               <Icon className="material-icons">play_arrow</Icon>
             </Button>

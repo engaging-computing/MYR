@@ -74,7 +74,6 @@ class Myr {
   * @summary - Reset this.els to the base elements supplied to the constructor
   */
   reset = () => {
-
     // Reset base params, we might be able to merge two objects later
     this.id = 0;
     this.color = 'red';
@@ -87,6 +86,7 @@ class Myr {
     this.loop = true;
     this.duration = 1000;
     this.magnitude = { spin: 360, fadeOut: 0, general: 1 };
+
     // restore the base objects of the scene
     this.els = [];
     if (this.baseEls) {
@@ -289,31 +289,17 @@ class Myr {
   makeDroppable = (outerElId, mass = 2) => {
     let el = this.getEl(outerElId);
     let dynamicBody = `shape: auto; mass: ${mass}; angularDamping: 0.5; linearDamping: 0.5;`;
-    el["dynamic-body"] = dynamicBody;
+    el["dynamic-body"] = dynamicBody;   
     return outerElId;
   }
 
   // Disallows the entity to be dropped
   makeUnDroppable = (outerElId, mass = 2) => {
     let el = this.getEl(outerElId);
-    el["dynamic-body"] = "";
-    return outerElId;
-  }
-
-  push = (outerElId, x, y, z) => {
-    // Add an event listener
-    document.addEventListener('myr-view-rendered', (e) => {
-      let el = document.querySelector('#' + outerElId);
-      if (!el) {
-        return;
-      }
-      el.addEventListener('body-loaded', () => {
-        el.body.applyImpulse(
-          /* impulse */        new CANNON.Vec3(x, y, z),
-          /* world position */ new CANNON.Vec3().copy(el.object3D.position)
-        );
-      });
-    });
+    //Only makes an item undroppable if it is droppable but is not pushable
+    if(el["dynamic-body"] && (!el["force-pushable"] || el["force-pushable"] === "false")) {
+      el["dynamic-body"] = null;
+    }
     return outerElId;
   }
 
@@ -329,8 +315,27 @@ class Myr {
   // Disallows the entity to be pushed
   makeUnPushable = (outerElId) => {
     let el = this.getEl(outerElId);
-    el["dynamic-body"] = "";
-    el["force-pushable"] = null;
+    if(el["force-pushable"]){
+      el["dynamic-body"] = null;
+      el["force-pushable"] = "false";
+    }
+    return outerElId;
+  }
+  
+  push = (outerElId, x, y, z) => {
+    // Add an event listener
+    document.addEventListener('myr-view-rendered', (e) => {
+      let el = document.querySelector('#' + outerElId);
+      if (!el) {
+        return;
+      }
+      el.addEventListener('body-loaded', () => {
+        el.body.applyImpulse(
+          /* impulse */        new CANNON.Vec3(x, y, z),
+          /* world position */ new CANNON.Vec3().copy(el.object3D.position)
+        );
+      });
+    });
     return outerElId;
   }
 
