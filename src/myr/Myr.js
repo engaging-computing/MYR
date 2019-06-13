@@ -869,7 +869,6 @@ class Myr {
     this.loop = true;
     this.duration = 1000;
     this.magnitude = { spin: 360, fadeOut: 0, general: 1 };
-
     // restore the base objects of the scene
     this.els = [];
     if (this.baseEls) {
@@ -1072,7 +1071,7 @@ class Myr {
   makeDroppable = (outerElId, mass = 2) => {
     let el = this.getEl(outerElId);
     let dynamicBody = `shape: auto; mass: ${mass}; angularDamping: 0.5; linearDamping: 0.5;`;
-    el["dynamic-body"] = dynamicBody;   
+    el["dynamic-body"] = dynamicBody;
     return outerElId;
   }
 
