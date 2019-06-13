@@ -1,5 +1,6 @@
 import 'aframe';
 import 'aframe-physics-system';
+import 'aframe-csg-meshs';
 import Group from './Group';
 import CANNON from 'cannon';
 
@@ -265,7 +266,6 @@ class Myr {
       console.error("must pass a numeric for setDuration");
     }
   };
-
   setColor = (color) => {
     this.color = color;
   }
@@ -329,6 +329,24 @@ class Myr {
     return outerElId;
   }
 
+  // Makes the entity subtract from entities it overlaps with
+  makeSubtractive = (outerElId) => {
+    let el = this.getEl(outerElId);
+    if (String(el.id).includes('grp')) {
+      for (let i in el.els) {
+        let innerEl = el.els[i];
+        innerEl["mixin"] = "subtractive-entity";
+        innerEl["class"] = "negative";
+      }
+      return outerElId;
+    }
+    else {
+      el["mixin"] = "subtractive-entity";
+      el["class"] = "negative";
+      return outerElId;
+    }
+  }
+
   // Disallows the entity to be pushed
   makeUnPushable = (outerElId) => {
     let el = this.getEl(outerElId);
@@ -337,6 +355,27 @@ class Myr {
     return outerElId;
   }
 
+  // Gives the entity normal additive geometry properties based on current cursor state
+  makeUnSubtractive = (outerElId) => {
+    let el = this.getEl(outerElId);
+    if (String(el.id).includes('grp')) {
+      for (let i in el.els) {
+        let innerEl = el.els[i];
+        if(innerEl["class"]) {
+          delete innerEl["class"];
+          innerEl["mixin"] = "additive-entity";
+        }
+      }
+      return outerElId;
+    }
+    else {
+      if(el["class"]) {
+        delete el["class"];
+        el["mixin"] = "additive-entity";
+      }
+      return outerElId;
+    }
+  }
 
   /********************* GEOMETRY *********************/
 
@@ -349,6 +388,7 @@ class Myr {
       position: { ...this.position },
       rotation: this.rotation,
       scale: this.scale,
+      mixin: "additive-entity",
     };
     return this.mergeProps(base, params);
   }
@@ -362,6 +402,7 @@ class Myr {
       scale: this.scale,
       rotation: this.rotation,
       material: `color: ${this.color}; side: double;`,
+      mixin: "additive-entity",
     };
     return this.mergeProps(base, params);
   }
@@ -375,6 +416,7 @@ class Myr {
       scale: this.scale,
       rotation: this.rotation,
       material: `color: ${this.color}; side: double;`,
+      mixin: "additive-entity",
     };
     return this.mergeProps(base, params);
   }
@@ -388,6 +430,7 @@ class Myr {
       scale: this.scale,
       rotation: this.rotation,
       material: `color: ${this.color};  side: double;`,
+      mixin: "additive-entity",
     };
     return this.mergeProps(base, params);
   }
@@ -402,6 +445,7 @@ class Myr {
       scale: this.scale,
       rotation: this.rotation,
       material: `color: ${this.color}; side: double;`,
+      mixin: "additive-entity",
     };
     return this.mergeProps(base, params);
   }
@@ -415,6 +459,7 @@ class Myr {
       scale: this.scale,
       rotation: this.rotation,
       material: `color: ${this.color};  side: double;`,
+      mixin: "additive-entity",
     };
     return this.mergeProps(base, params);
   }
@@ -428,6 +473,7 @@ class Myr {
       scale: this.scale,
       rotation: this.rotation,
       material: `color: ${this.color};  side: double;`,
+      mixin: "additive-entity",
     };
     return this.mergeProps(base, params);
   }
@@ -441,7 +487,8 @@ class Myr {
       position: this.position,
       scale: this.scale,
       rotation: this.rotation,
-      material: `color: ${this.color};  side: double;`,
+      material: `color:${this.color};  side: double;`,
+      mixin: "additive-entity",
     };
     return this.mergeProps(base, params);
   }
@@ -454,6 +501,7 @@ class Myr {
       scale: this.scale,
       rotation: this.rotation,
       material: `color: ${this.color}; side: double;`,
+      mixin: "additive-entity",
     };
     return this.mergeProps(base, params);
   }
@@ -467,6 +515,7 @@ class Myr {
       scale: this.scale,
       rotation: this.rotation,
       material: `color: ${this.color}; side: double;`,
+      mixin: "additive-entity",
     };
     return this.mergeProps(base, params);
   }
@@ -479,6 +528,7 @@ class Myr {
       scale: this.scale,
       rotation: this.rotation,
       material: `color: ${this.color}; side: double;`,
+      mixin: "additive-entity",
     };
     return this.mergeProps(base, params);
   }
@@ -492,6 +542,7 @@ class Myr {
       scale: this.scale,
       rotation: this.rotation,
       material: `color: ${this.color}; side: double;`,
+      mixin: "additive-entity",
     };
     return this.mergeProps(base, params);
   }
@@ -504,6 +555,7 @@ class Myr {
       scale: this.scale,
       rotation: this.rotation,
       material: `color: ${this.color}; side: double;`,
+      mixin: "additive-entity",
     };
     return this.mergeProps(base, params);
   }
@@ -523,6 +575,7 @@ class Myr {
       position: this.position,
       scale: this.scale,
       rotation: this.rotation,
+      mixin: "additive-entity",
     };
     if (!params || typeof params === 'string') {
       this.els[base.id] = { ...base };
@@ -539,7 +592,8 @@ class Myr {
       position: this.position,
       scale: this.scale,
       rotation: this.rotation,
-      material: `color: ${this.color};  side: double;`,
+      material: `color:${this.color}; side: double;`,
+      mixin: "additive-entity",
     };
     return this.mergeProps(base, params);
   }
@@ -551,7 +605,8 @@ class Myr {
       position: this.position,
       scale: this.scale,
       rotation: this.rotation,
-      material: `color: ${this.color};`,
+      material: `color:${this.color};`,
+      mixin: "additive-entity",
       p: 2,
       q: 3,
     };
@@ -566,6 +621,7 @@ class Myr {
       scale: this.scale,
       rotation: this.rotation,
       material: `color: ${this.color};  side: double;`,
+      mixin: "additive-entity",
     };
     return this.mergeProps(base, params);
   }
@@ -579,7 +635,8 @@ class Myr {
       position: this.position,
       scale: this.scale,
       rotation: this.rotation,
-      material: `color: ${this.color};  side: double;`,
+      material: `color:${this.color};  side: double;`,
+      mixin: "additive-entity",
     };
     return this.mergeProps(base, params);
   }
