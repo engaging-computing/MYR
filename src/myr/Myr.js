@@ -1006,19 +1006,19 @@ class Myr {
       from: 0;
       to: ${magnitude};
     `;
-        el.material = el.material + "; transparent: true;";
-        el.animation__fadein = anim;
-        return outerElId;
-    }
+      el.material = el.material + "; transparent: true;";
+      el.animation__fadein = anim;
+      return outerElId;
+  }
 
-    colorShift = (outerElId, color) => {
-        let el = this.getEl(outerElId);
-        if (String(el.id).includes("grp")) {
-            for (let i in el.els) {
-                let innerEl = el.els[i];
-                //innerEl.material.split(/\s|;/) returns an array of strings separated by " " and ";",
-                //color is always its first attribute (after "color: ")
-                let anim = `
+  colorShift = (outerElId, color) => {
+      let el = this.getEl(outerElId);
+      if (String(el.id).includes("grp")) {
+          for (let i in el.els) {
+              let innerEl = el.els[i];
+              //innerEl.material.split(/\s|;/) returns an array of strings separated by " " and ";",
+              //color is always its first attribute (after "color: ")
+              let anim = `
           property: components.material.material.color;
           from: ${(innerEl.material.split(/\s|;/))[1]};
           to: ${color};
@@ -1028,12 +1028,12 @@ class Myr {
           isRawProperty: true;
           type: color;
         `;
-                innerEl.animation__color = anim;
+              innerEl.animation__color = anim;
 
-            }
-            return outerElId;
-        }
-        let anim = `
+          }
+          return outerElId;
+      }
+      let anim = `
       property: components.material.material.color;
       from: ${(el.material.split(/\s|;/))[1]};
       to: ${color};
