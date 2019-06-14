@@ -47,8 +47,7 @@ class Header extends Component {
       navAwayModal: false,
       needsNewId: false, // this explicitly tells us to make a new id
       spinnerOpen: false,
-      referenceOpen: false,
-      shouldRender: false
+      referenceOpen: false
     };
   }
 
@@ -181,12 +180,6 @@ class Header extends Component {
     if (this.state.lastMsgTime !== this.props.message.time && this.props.message.text !== "") {
       this.setState({ snackOpen: true, lastMsgTime: this.props.message.time });
     }
-    if (this.state.shouldRender) {
-      this.setState({
-        shouldRender: false
-      });
-      this.handleRender();
-    }
   }
 
   /**
@@ -313,7 +306,7 @@ class Header extends Component {
   handleRender = () => {
     try {
       let editor = window.ace.edit("ace-editor");
-      this.props.actions.refresh(editor.getSession().getValue());
+      this.clear();
       this.props.actions.render(editor.getSession().getValue(), this.props.user ? this.props.user.uid : 'anon');
     } catch (error) {
       this.props.actions.render(this.props.text, this.props.user ? this.props.user.uid : 'anon');
@@ -626,10 +619,7 @@ class Header extends Component {
               variant="raised"
               size="small"
               onClick={() => {
-                this.clear();
-                this.setState({
-                  shouldRender: true
-                });
+                this.handleRender();
               }}
               className="header-btn"
               style={style.play}>
