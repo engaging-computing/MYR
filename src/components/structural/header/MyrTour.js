@@ -94,8 +94,7 @@ const steps = [
   },
   {
     selector: '#configure-scene',
-    content: 'Modify and share your scene including setting the background color, ' +
-      'enabling the grid, and enabling flying.',
+    content: 'Modify and share your scene including setting the background color, enabling the grid, and enabling flying.',
   },
   {
     selector: '#select-course',
