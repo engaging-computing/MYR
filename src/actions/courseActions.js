@@ -47,6 +47,8 @@ export function fetchCourse(courseId) {
             dispatch(loadCourse(json));
             dispatch(loadLesson(json.firstLesson));
             dispatch(render(json.firstLesson.code || ""));
+            dispatch(setLessonDesc(json));
+            dispatch(setLessonName(json.firstLesson));
           })
           .catch(err => {
             console.error(err);
@@ -76,6 +78,7 @@ export function fetchLesson(lvlId) {
           .then(json => {
             dispatch(loadLesson(json));
             dispatch(render(json.code || ""));
+            dispatch(setLessonName(json));
           })
           .catch(err => {
             dispatch(loadLesson(problem));
@@ -119,6 +122,20 @@ export function loadLesson(lesson) {
   };
 }
 
+export function setLessonDesc(course) {
+  return {
+    type: types.SET_DESC,
+    payload: "This scene was saved from the course: " + course.name
+  };
+}
+
+export function setLessonName(lesson) {
+  return {
+    type: types.NAME_SCENE,
+    name: lesson.name
+  };
+}
+
 export default {
   fetchCourses,
   syncCourses,
@@ -128,5 +145,7 @@ export default {
   setCurrentIndex,
   loadLesson,
   fetchLesson,
-  loadCourse
+  loadCourse,
+  setLessonDesc,
+  setLessonName
 };
