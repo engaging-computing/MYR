@@ -74,7 +74,6 @@ class Myr {
   * @summary - Reset this.els to the base elements supplied to the constructor
   */
   reset = () => {
-
     // Reset base params, we might be able to merge two objects later
     this.id = 0;
     this.color = 'red';
@@ -299,7 +298,29 @@ class Myr {
   // Disallows the entity to be dropped
   makeUnDroppable = (outerElId, mass = 2) => {
     let el = this.getEl(outerElId);
-    el["dynamic-body"] = "";
+    //Only makes an item undroppable if it is droppable but is not pushable
+    if (el["dynamic-body"] && (!el["force-pushable"] || el["force-pushable"] === "false")) {
+      el["dynamic-body"] = null;
+    }
+    return outerElId;
+  }
+
+  // Allows the entity to be pushed
+  makePushable = (outerElId, mass = 2) => {
+    let el = this.getEl(outerElId);
+    let dynamicBody = `shape: auto; mass: ${mass}; angularDamping: 0.5; linearDamping: 0.5;`;
+    el["dynamic-body"] = dynamicBody;
+    el["force-pushable"] = "true";
+    return outerElId;
+  }
+
+  // Disallows the entity to be pushed
+  makeUnPushable = (outerElId) => {
+    let el = this.getEl(outerElId);
+    if (el["force-pushable"]) {
+      el["dynamic-body"] = null;
+      el["force-pushable"] = "false";
+    }
     return outerElId;
   }
 
@@ -319,26 +340,6 @@ class Myr {
     });
     return outerElId;
   }
-
-  // Allows the entity to be pushed
-  makePushable = (outerElId, mass = 2) => {
-    let el = this.getEl(outerElId);
-    let dynamicBody = `shape: auto; mass: ${mass}; angularDamping: 0.5; linearDamping: 0.5;`;
-    el["dynamic-body"] = dynamicBody;
-    el["force-pushable"] = "true";
-    return outerElId;
-  }
-
-  // Disallows the entity to be pushed
-  makeUnPushable = (outerElId) => {
-    let el = this.getEl(outerElId);
-    el["dynamic-body"] = "";
-    el["force-pushable"] = null;
-    return outerElId;
-  }
-
-
-  /********************* GEOMETRY *********************/
 
   // Render an Aframe Box Primitive with current Myr settings
   box = (params) => {
@@ -873,163 +874,163 @@ class Myr {
     `;
     el.animation__color = anim;
     return outerElId;
-}
-
-/********************* GETTERS *********************/
-
-getColor = () => {
-  return this.color;
-};
-getXPos = () => {
-  return this.position.x;
-};
-getYPos = () => {
-  return this.position.y;
-};
-getZPos = () => {
-  return this.position.z;
-};
-getXScale = () => {
-  return this.scale.x;
-};
-getYScale = () => {
-  return this.scale.y;
-};
-getZScale = () => {
-  return this.scale.z;
-};
-getXRotation = () => {
-  return this.rotation.x;
-};
-getYRotation = () => {
-  return this.rotation.y;
-};
-getZRotation = () => {
-  return this.rotation.z;
-};
-getRadius = () => {
-  return this.radius;
-};
-getPhiLength = () => {
-  return this.phiLength;
-};
-getLoop = () => {
-  return this.loop;
-};
-getDuration = () => {
-  return this.duration;
-};
-getMagnitude = () => {
-  return this.magnitude.general;
-};
-
-
-
-// MODELS
-addCModel = () => {
-  let asset = {
-    id: 'c-obj',
-    src: '/img/c.obj'
-  };
-  let el = {
-    'obj-model': 'obj: #c-obj',
-    mtl: 'c-mtl',
-    position: this.position,
-    scale: this.scale,
-    rotation: this.rotation
-  };
-  this.els.push(el);
-  this.assets.push(asset);
-  return el;
-}
-
-getEl = (outerElId) => {
-  if (outerElId.entity) {
-    outerElId = outerElId.id;
   }
-  return this.els[outerElId];
-}
 
-/**
-* @summary - Interface for setting an object's parameters in the DOM
-* the idea is the setup an event listener as an almost DOM ready listener.
-*
-* @param {string} outerElId - target
-* @param {string} type - what param to change
-* @param {obj} newParam - changes
-*
-*/
-change = (outerElId, type, newParam) => {
-  document.addEventListener('myr-view-rendered', (e) => {
+  /********************* GETTERS *********************/
+
+  getColor = () => {
+    return this.color;
+  };
+  getXPos = () => {
+    return this.position.x;
+  };
+  getYPos = () => {
+    return this.position.y;
+  };
+  getZPos = () => {
+    return this.position.z;
+  };
+  getXScale = () => {
+    return this.scale.x;
+  };
+  getYScale = () => {
+    return this.scale.y;
+  };
+  getZScale = () => {
+    return this.scale.z;
+  };
+  getXRotation = () => {
+    return this.rotation.x;
+  };
+  getYRotation = () => {
+    return this.rotation.y;
+  };
+  getZRotation = () => {
+    return this.rotation.z;
+  };
+  getRadius = () => {
+    return this.radius;
+  };
+  getPhiLength = () => {
+    return this.phiLength;
+  };
+  getLoop = () => {
+    return this.loop;
+  };
+  getDuration = () => {
+    return this.duration;
+  };
+  getMagnitude = () => {
+    return this.magnitude.general;
+  };
+
+
+
+  // MODELS
+  addCModel = () => {
+    let asset = {
+      id: 'c-obj',
+      src: '/img/c.obj'
+    };
+    let el = {
+      'obj-model': 'obj: #c-obj',
+      mtl: 'c-mtl',
+      position: this.position,
+      scale: this.scale,
+      rotation: this.rotation
+    };
+    this.els.push(el);
+    this.assets.push(asset);
+    return el;
+  }
+
+  getEl = (outerElId) => {
+    if (outerElId.entity) {
+      outerElId = outerElId.id;
+    }
+    return this.els[outerElId];
+  }
+
+  /**
+  * @summary - Interface for setting an object's parameters in the DOM
+  * the idea is the setup an event listener as an almost DOM ready listener.
+  *
+  * @param {string} outerElId - target
+  * @param {string} type - what param to change
+  * @param {obj} newParam - changes
+  *
+  */
+  change = (outerElId, type, newParam) => {
+    document.addEventListener('myr-view-rendered', (e) => {
+      try {
+        let el = document.querySelector('#' + outerElId);
+        el.setAttribute(type, newParam);
+      } catch (error) {
+        return Error('change() failed execution' +
+          'Ensure you are passing the proper id to the method' +
+          `Error msg: ${error}`);
+      }
+    });
+  }
+
+  syncChange = (outerElId, type, newParam) => {
     try {
       let el = document.querySelector('#' + outerElId);
       el.setAttribute(type, newParam);
     } catch (error) {
-      return Error('change() failed execution' +
+      let err = Error('syncChange() failed execution\n' +
         'Ensure you are passing the proper id to the method' +
         `Error msg: ${error}`);
+      console.error(err);
+      return err;
     }
-  });
-}
-
-syncChange = (outerElId, type, newParam) => {
-  try {
-    let el = document.querySelector('#' + outerElId);
-    el.setAttribute(type, newParam);
-  } catch (error) {
-    let err = Error('syncChange() failed execution\n' +
-      'Ensure you are passing the proper id to the method' +
-      `Error msg: ${error}`);
-    console.error(err);
-    return err;
   }
-}
 
-/**
-* @summary - This creates an entity w shape of object and merges with supplied params
-*
-* @param {string} shape - one of the allowed arguments to this.core()
-* @param {obj} params - arguments to be merged, not guarenteed to be successful
-*
-*/
-mergeProps = (entity, params) => {
-  let id = params && params.id ? params.id : entity.id;
-  if (!params || typeof params === 'string') {
-    this.els[id] = entity;
-  } else {
-    this.els[id] = { ...entity, ...params };
+  /**
+  * @summary - This creates an entity w shape of object and merges with supplied params
+  *
+  * @param {string} shape - one of the allowed arguments to this.core()
+  * @param {obj} params - arguments to be merged, not guarenteed to be successful
+  *
+  */
+  mergeProps = (entity, params) => {
+    let id = params && params.id ? params.id : entity.id;
+    if (!params || typeof params === 'string') {
+      this.els[id] = entity;
+    } else {
+      this.els[id] = { ...entity, ...params };
+    }
+    return id;
   }
-  return id;
-}
 
-sleep = (ms) => {
-  return new Promise(resolve => setTimeout(resolve, ms));
-}
+  sleep = (ms) => {
+    return new Promise(resolve => setTimeout(resolve, ms));
+  }
 
-// Return a Entity that can be used to group elements together
-group = () => {
-  let base = {
-    id: 'grp' + this.genNewId(),
-    position: { ...this.position },
-    rotation: this.rotation,
-    scale: this.scale,
-  };
-  let entity = new Group(this, base.id);
-  this.els[base.id] = { ...base, ...entity.entObj() };
-  return entity;
-}
+  // Return a Entity that can be used to group elements together
+  group = () => {
+    let base = {
+      id: 'grp' + this.genNewId(),
+      position: { ...this.position },
+      rotation: this.rotation,
+      scale: this.scale,
+    };
+    let entity = new Group(this, base.id);
+    this.els[base.id] = { ...base, ...entity.entObj() };
+    return entity;
+  }
 
-// Transfer the object from MYR to the Entity
-transfer = (id) => {
-  let retVal = this.els[id];
-  delete this.els[id];
-  return retVal;
-}
+  // Transfer the object from MYR to the Entity
+  transfer = (id) => {
+    let retVal = this.els[id];
+    delete this.els[id];
+    return retVal;
+  }
 
-HALT = () => {
-  console.log(this);
-  console.log('Halted');
-}
+  HALT = () => {
+    console.log(this);
+    console.log('Halted');
+  }
 }
 
 export default Myr;
