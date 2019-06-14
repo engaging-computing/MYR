@@ -1,5 +1,4 @@
 {
-<<<<<<< HEAD
     "name": "myr",
     "version": "1.5.3",
     "private": false,
@@ -62,65 +61,4 @@
         "not ie <= 11",
         "not op_mini all"
     ]
-=======
-  "name": "myrproject",
-  "version": "0.1.0",
-  "private": false,
-  "engines": {
-    "node": "10.13.0"
-  },
-  "devDependencies": {
-    "babel-eslint": "^9.0.0",
-    "enzyme": "^3.3.0",
-    "enzyme-adapter-react-16": "^1.1.1",
-    "react-scripts": "2.1.1",
-    "redux-devtools": "^3.4.1"
-  },
-  "dependencies": {
-    "@material-ui/core": "^1.5.1",
-    "aframe": "^0.8.2",
-    "aframe-animation-component": "^5.0.0",
-    "aframe-environment-component": "^1.0.0",
-    "aframe-extras": "^4.1.2",
-    "aframe-physics-system": "^3.2.0",
-    "aframe-react": "^4.4.0",
-    "bootstrap": "^4.0.0",
-    "cannon": "^0.6.2",
-    "create-react-app": "^3.0.1",
-    "firebase": "^5.5.7",
-    "jquery": "^3.3.1",
-    "qrcode": "^1.2.0",
-    "qrcode.react": "^0.8.0",
-    "react": "^16.8.4",
-    "react-ace": "^5.9.0",
-    "react-color": "^2.17.0",
-    "react-dom": "^16.2.0",
-    "react-progressive-image": "^0.3.0",
-    "react-redux": "^5.0.7",
-    "react-router-dom": "^4.2.2",
-    "react-select": "^2.4.2",
-    "reactour": "^1.9.1",
-    "redux": "^3.7.2",
-    "redux-thunk": "^2.3.0",
-    "source-map-explorer": "^1.6.0",
-    "styled-components": "^4.0.3",
-    "three": "^0.98.0"
-  },
-  "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "prod": "react-scripts build && mv build ../MYR-backend && rm -r ../MYR-backend/public/myr && mv ../MYR-backend/build ../MYR-backend/public/myr",
-    "coverage": "react-scripts test --env=jsdom --coverage --collectCoverageFrom=src/**/*.{js,jsx} --browser --silent",
-    "test": "react-scripts test --env=jsdom --browser --silent",
-    "eject": "react-scripts eject",
-    "analyze": "source-map-explorer build/static/js/main.*"
-  },
-  "proxy": "http://localhost:1337/",
-  "browserslist": [
-    ">0.2%",
-    "not dead",
-    "not ie <= 11",
-    "not op_mini all"
-  ]
->>>>>>> Fixed makeUnPushable/unDroppable bug, fixed animation bugs on render, and added a loading screen/overlay while waiting for view to mount
 }
