@@ -304,7 +304,7 @@ class Header extends Component {
   }
 
   /**
-  * @summary - handeRender gets the information from Ace Editor and calls the action: render()
+  * @summary - handleRender gets the information from Ace Editor and calls the action: render()
   */
   handleRender = () => {
     try {
