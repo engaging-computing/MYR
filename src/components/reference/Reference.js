@@ -41,7 +41,8 @@ export default class Reference extends React.Component {
       let link = '/reference/' + example;
       return (
         <IconButton 
-        href={link} 
+        href={link}
+        target="_blank"
         className="material-icons">
         link
       </IconButton>
