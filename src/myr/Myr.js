@@ -324,6 +324,16 @@ class Myr {
     return outerElId;
   }
 
+  // Disallows the entity to be pushed
+  makeUnPushable = (outerElId) => {
+    let el = this.getEl(outerElId);
+    if (el["force-pushable"]) {
+      el["dynamic-body"] = null;
+      el["force-pushable"] = "false";
+    }
+    return outerElId;
+  }
+
   push = (outerElId, x, y, z) => {
     // Add an event listener
     document.addEventListener('myr-view-rendered', (e) => {
