@@ -2,6 +2,8 @@ import { render } from './editorActions';
 
 import * as types from '../constants/ActionTypes';
 
+import * as sceneActions from "./sceneActions";
+
 const courseRef = '/apiv1/courses/';
 const lessonRef = '/apiv1/lessons/id/';
 const getFirst = '?getLesson=true';
@@ -47,6 +49,11 @@ export function fetchCourse(courseId) {
             dispatch(loadCourse(json));
             dispatch(loadLesson(json.firstLesson));
             dispatch(render(json.firstLesson.code || ""));
+            dispatch(sceneActions.setNameDesc(
+              {
+                name: json.firstLesson.name,
+                desc: "This scene was saved from the course: " + json.name
+              }));
           })
           .catch(err => {
             console.error(err);
@@ -76,6 +83,7 @@ export function fetchLesson(lvlId) {
           .then(json => {
             dispatch(loadLesson(json));
             dispatch(render(json.code || ""));
+            dispatch(sceneActions.nameScene(json.name));
           })
           .catch(err => {
             dispatch(loadLesson(problem));
