@@ -2,6 +2,8 @@ import { render } from './editorActions';
 
 import * as types from '../constants/ActionTypes';
 
+import * as sceneActions from "./sceneActions";
+
 const courseRef = '/apiv1/courses/';
 const lessonRef = '/apiv1/lessons/id/';
 const getFirst = '?getLesson=true';
@@ -47,8 +49,11 @@ export function fetchCourse(courseId) {
             dispatch(loadCourse(json));
             dispatch(loadLesson(json.firstLesson));
             dispatch(render(json.firstLesson.code || ""));
-            dispatch(setLessonDesc(json));
-            dispatch(setLessonName(json.firstLesson));
+            dispatch(sceneActions.setNameDesc(
+              {
+                name: json.firstLesson.name,
+                desc: "This scene was saved from the course: " + json.name
+              }));
           })
           .catch(err => {
             console.error(err);
@@ -78,7 +83,7 @@ export function fetchLesson(lvlId) {
           .then(json => {
             dispatch(loadLesson(json));
             dispatch(render(json.code || ""));
-            dispatch(setLessonName(json));
+            dispatch(sceneActions.nameScene(json.name));
           })
           .catch(err => {
             dispatch(loadLesson(problem));
@@ -122,20 +127,6 @@ export function loadLesson(lesson) {
   };
 }
 
-export function setLessonDesc(course) {
-  return {
-    type: types.SET_DESC,
-    payload: "This scene was saved from the course: " + course.name
-  };
-}
-
-export function setLessonName(lesson) {
-  return {
-    type: types.NAME_SCENE,
-    name: lesson.name
-  };
-}
-
 export default {
   fetchCourses,
   syncCourses,
@@ -145,7 +136,5 @@ export default {
   setCurrentIndex,
   loadLesson,
   fetchLesson,
-  loadCourse,
-  setLessonDesc,
-  setLessonName
+  loadCourse
 };
