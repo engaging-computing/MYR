@@ -710,19 +710,4 @@ describe(`Other Myr functionality`, () => {
     expect(myr.phiLength).toBe("45");
   });
 
-  it('should give the entity subtractive properties', () => {
-    myr.reset();
-    let id = myr.box();
-    myr.makeSubtractive(id);
-    let el = myr.getEl(id);
-    expect(el.mixin).toEqual("subtractive-entity");
-    expect(el.class).toEqual("negative");
-  });
-
-  it('should give entities additive properties by default', () => {
-    myr.reset();
-    let id = myr.box();
-    let el = myr.getEl(id);
-    expect(el.mixin).toEqual("additive-entity");
-  });
 });

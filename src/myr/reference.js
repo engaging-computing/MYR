@@ -107,7 +107,7 @@ let transformations = [
   },
   {
     name: <span>setColor(<span className="string">color</span>)</span>,
-    description: <span>Changes the color of the cursor <a href='https://htmlcolorcodes.com/color-names/' target="_blank" rel="noopener noreferrer">using these color codes</a>, RGB, or HEX values. Default: 'red'</span>,
+    description: <span>Changes the color of the cursor <a href='https://htmlcolorcodes.com/color-names/' target="_blank" rel="noopener noreferrer">using these color codes</a>, or HEX values. Default: 'red'</span>,
     example: 'setColor'
   },
   {
@@ -205,14 +205,6 @@ let transformations = [
   //  description: <span>Prevents the <span className="string">element</span> from being pushed by the cursor, but allows the element to be affected by physics.</span>
   //},
   //Not quite sure about the inner workings of this one yet
-  {
-    name: <span>makeSubtractive(<span className="string">element</span>)</span>,
-    description: <span>Makes the <span className="string">element</span> erase other shapes that it overlaps with, instead of being drawn as a new shape.</span>
-  },
-  {
-    name: <span>makeUnSubtractive(<span className="string">element</span>)</span>,
-    description: <span>Allows the <span className="string">element</span> to be drawn as a normal geometric shape.</span>
-  },
 ];
 
 let animations = [
