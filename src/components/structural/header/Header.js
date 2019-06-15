@@ -21,7 +21,7 @@ import {
   TextField,
   Snackbar,
   Popover,
-  Avatar
+  Avatar,
 } from '@material-ui/core';
 
 const exitBtnStyle = {
@@ -473,27 +473,16 @@ class Header extends Component {
     this.setState({ referenceOpen: !this.state.referenceOpen });
   };
 
-  loadDrawer = () => {
-    return (
-      <Drawer
-        id="projectDrawer"
-        className="side-drawer"
-        // variant="persistent"
-        open={this.state.loadOpen}
-        onClose={this.handleLoadToggle} >
-        <IconButton
-          color="default"
-          style={exitBtnStyle}
-          onClick={this.handleLoadToggle}>
-          <Icon className="material-icons">close</Icon>
-        </IconButton>
-        <ProjectView
-          deleteFunc={this.props.projectActions.deleteProj}
-          userProjs={this.props.projects.userProjs}
-          examplProjs={this.props.projects.examplProjs} />
-      </Drawer>
-    );
-  }
+
+
+  //loadDrawer = () => {
+  //  return (
+  //    <ProjectView
+  //      deleteFunc={this.props.projectActions.deleteProj}
+  //      userProjs={this.props.projects.userProjs}
+  //      examplProjs={this.props.projects.examplProjs} />
+  //  );
+  //}
 
   loadClassroom = () => {
     return (
@@ -661,17 +650,10 @@ class Header extends Component {
               <Icon className="material-icons">save</Icon>
             </IconButton>
           </Tooltip>
-          <Tooltip title="Open" placement="bottom-start">
-            <IconButton
-              id="open-btn"
-              referenceOpen={this.state.referenceOpen}
-              handleReferenceToggle={this.handleReferenceToggle}
-              onClick={this.handleLoadToggle}
-              className="header-btn"
-              style={style.default}>
-              <Icon className="material-icons">perm_media</Icon>
-            </IconButton>
-          </Tooltip>
+          <ProjectView
+            deleteFunc={this.props.projectActions.deleteProj}
+            userProjs={this.props.projects.userProjs}
+            examplProjs={this.props.projects.examplProjs} />
           <MyrTour
             viewOnly={this.props.scene.settings.viewOnly}
             changeView={this.props.sceneActions.changeView}
@@ -695,7 +677,6 @@ class Header extends Component {
           <this.loginBtn />
         </div>
         <this.saveDrawer />
-        <this.loadDrawer />
         <this.renderSnackBar />
         <this.spinner />
         <this.loadClassroom />
