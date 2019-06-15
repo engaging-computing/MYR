@@ -473,17 +473,6 @@ class Header extends Component {
     this.setState({ referenceOpen: !this.state.referenceOpen });
   };
 
-
-
-  //loadDrawer = () => {
-  //  return (
-  //    <ProjectView
-  //      deleteFunc={this.props.projectActions.deleteProj}
-  //      userProjs={this.props.projects.userProjs}
-  //      examplProjs={this.props.projects.examplProjs} />
-  //  );
-  //}
-
   loadClassroom = () => {
     return (
       <Classroom
