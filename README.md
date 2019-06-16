@@ -6,9 +6,8 @@ MYR can be found online at [LearnMYR.org](https://learnmyr.org). For more inform
 ## ECG
 The Engaging Computing Group develops new technologies to enable learners—youth, teachers, undergraduates, and others— in order for them to be creative in science, engineering, and computing, and studies how these technologies improve learning. For more information about the Engaging Computing Group, please visit the [ECG website](https://sites.uml.edu/engaging-computing).
 
-## Change Log - 1.2.1 -> 1.2.2
-- Reference includes RGB color
-- Course cards are taller to limit need for scrolling
+## Change Log - 1.2.2 -> 1.2.3
+- makeUnDroppable and makeUnPushable now do not have unintended side effects.
 
 ## Acknowledgments
 MYR uses [Aframe](https://aframe.io), a fantastic open source project, to render objects and effects in the three dimensional space.  
