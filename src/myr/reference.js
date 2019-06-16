@@ -363,8 +363,7 @@ let transformations = [
         name: "makeUnPushable",
         parameters: [{ type: "string", name: "elementID" }],
         description: <span>The makeUnPushable function prevents the given element from being affected by physics or being pushed by the cursor.</span>
-    },
-    //Not quite sure about the inner workings of this one yet
+    }
 ];
 
 let animations = [
