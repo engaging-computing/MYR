@@ -457,20 +457,20 @@ let transformations = [
     description: <span>Allows the <span className="string">element</span> to be affected by physics, and sets the mass of the object to <span className="number">mass</span>.</span>,
     example: 'makeDroppable'
   },
-  //{
-  //  name: <span>makeUnDroppable(<span className="string">element</span>)</span>,
-  //  description: <span>Prevents the <span className="string">element</span> from being affected by physics.</span>
-  //},
+  {
+    name: <span>makeUnDroppable(<span className="string">element</span>)</span>,
+    description: <span>Prevents the <span className="string">element</span> from being affected by physics.</span>
+  },
   {
     name: <span>makePushable(<span className="string">element</span>, <span className="number">mass</span>)</span>,
     description: <span>Allows the <span className="string">element</span> to be pushed using the cursor and with the given <span className="number">mass</span>(default = 2). Also makes the object droppable (see above).</span>,
     example: 'makePushable'
   },
   //This function doesn't quite make sense.
-  //{
-  //  name: <span>makeUnPushable(<span className="string">element</span>)</span>,
-  //  description: <span>Prevents the <span className="string">element</span> from being pushed by the cursor, but allows the element to be affected by physics.</span>
-  //},
+  {
+    name: <span>makeUnPushable(<span className="string">element</span>)</span>,
+    description: <span>Prevents the <span className="string">element</span> from being pushed by the cursor.</span>
+  },
   //Not quite sure about the inner workings of this one yet
   {
     name: <span>makeSubtractive(<span className="string">element</span>)</span>,
