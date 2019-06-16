@@ -8,6 +8,7 @@ The Engaging Computing Group develops new technologies to enable learners—yout
 
 ## Change Log - 1.2.2 -> 1.2.3
 - makeUnDroppable and makeUnPushable now do not have unintended side effects.
+- Courses autopopulate the scene name and description before saving.
 
 ## Acknowledgments
 MYR uses [Aframe](https://aframe.io), a fantastic open source project, to render objects and effects in the three dimensional space.  
