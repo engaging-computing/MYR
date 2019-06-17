@@ -21,7 +21,9 @@ import {
   TextField,
   Snackbar,
   Popover,
-  Avatar
+  Avatar,
+  createMuiTheme,
+  MuiThemeProvider
 } from '@material-ui/core';
 
 const exitBtnStyle = {
@@ -139,21 +141,23 @@ class Header extends Component {
   */
   handleKeyDown(e) {
     //metaKey is cmd and windows key in some browsers
-    if ((e.ctrlKey || e.metaKey) && (e.key === "Enter" || e.key === "Return")) {
-      //ctrl/cmd + enter renders the scene
-      e.preventDefault();
-      this.clear();
-      this.handleRender();
-    } else if ((e.ctrlKey || e.metaKey) && e.shiftKey && (e.key === "s" || e.key === "S")) {
-      //ctrl/cmd + shift + s saves the scene with a new ID
-      e.preventDefault();
-      this.setState({ needsNewId: true });
-      this.handleSave();
-    } else if ((e.ctrlKey || e.metaKey) && (e.key === "s" || e.key === "S")) {
-      //ctrl/cmd + s saves the scene
-      e.preventDefault();
-      this.handleSave();
-      this.handleSaveClose();
+    if (this.props.layoutType !== layoutTypes.REFERENCE) {
+      if ((e.ctrlKey || e.metaKey) && (e.key === "Enter" || e.key === "Return")) {
+        //ctrl/cmd + enter renders the scene
+        e.preventDefault();
+        this.clear();
+        this.handleRender();
+      } else if ((e.ctrlKey || e.metaKey) && e.shiftKey && (e.key === "s" || e.key === "S")) {
+        //ctrl/cmd + shift + s saves the scene with a new ID
+        e.preventDefault();
+        this.setState({ needsNewId: true });
+        this.handleSave();
+      } else if ((e.ctrlKey || e.metaKey) && (e.key === "s" || e.key === "S")) {
+        //ctrl/cmd + s saves the scene
+        e.preventDefault();
+        this.handleSave();
+        this.handleSaveClose();
+      }
     }
   }
 
@@ -548,11 +552,22 @@ class Header extends Component {
         padding: 0,
         background: 'linear-gradient(45deg, #38e438 30%, #58e458 90%)',
       },
+      play_disabled: {
+        margin: 5,
+        padding: 0,
+        background: '#222',
+      },
       clear: {
         margin: 5,
         marginRight: 10,
         padding: 0,
         background: 'linear-gradient(45deg, #FE3B3B 30%, #FF3B3B 90%)',
+      },
+      clear_disabled: {
+        margin: 5,
+        marginRight: 10,
+        padding: 0,
+        background: '#222',
       },
       default: {
         margin: 2,
@@ -563,8 +578,16 @@ class Header extends Component {
         margin: 2,
         padding: 0,
         color: '#777',
-      }
+      },
     };
+    const theme = createMuiTheme({
+      palette: {
+        primary: {
+          main: "#777",
+        }
+      }
+    });
+    let referenceMode = this.props.layoutType === layoutTypes.REFERENCE;
     return (
       <header className="App-header align-items-center ">
         <div className="col-9 d-flex justify-content-start" style={{ paddingLeft: 0 }}>
@@ -586,7 +609,7 @@ class Header extends Component {
               onClick={this.props.actions.recover}
               color="primary"
               className="sidebar-btn"
-              disabled={this.props.layoutType === layoutTypes.REFERENCE}>
+              disabled={referenceMode}>
               <Icon className="material-icons">replay</Icon>
               Recover
             </Button>
@@ -595,7 +618,7 @@ class Header extends Component {
               onClick={this.handleSaveToggle}
               color="primary"
               className="sidebar-btn"
-              disabled={this.props.layoutType === layoutTypes.REFERENCE}>
+              disabled={referenceMode}>
               <Icon className="material-icons">save</Icon>
               Save Project
             </Button>
@@ -617,32 +640,34 @@ class Header extends Component {
             </Button>
           </Sidebar>
           <h1 className="mr-2 d-none d-sm-block" >MYR</h1>
-          {this.props.layoutType !== layoutTypes.REFERENCE ? 
-            <Fragment>
-              <Tooltip title="Render" placement="bottom-start">
-                <Button
-                  id="play-btn"
-                  variant="raised"
-                  size="small"
-                  onClick={this.handleRender}
-                  className="header-btn"
-                  style={style.play}>
-                  <Icon className="material-icons">play_arrow</Icon>
-                </Button>
-              </Tooltip>
-              <Tooltip title="Stop" placement="bottom-start">
-                <Button
-                  id="stop-btn"
-                  variant="raised"
-                  size="small"
-                  onClick={this.clear}
-                  className="header-btn"
-                  style={style.clear}>
-                  <Icon className="material-icons">stop</Icon>
-                </Button>
-              </Tooltip> 
-            </Fragment>: null
-          }
+          <MuiThemeProvider theme={theme}>
+            <Tooltip title="Render" placement="bottom-start">
+              <Button
+                id="play-btn"
+                variant={referenceMode ? "outlined" : "contained"}
+                size="small"
+                onClick={this.handleRender}
+                color="primary"
+                className="header-btn"
+                style={referenceMode ? style.play_disabled : style.play}
+                disabled={referenceMode}>
+                <Icon className="material-icons" style={referenceMode ? { color: '#777' } : { color: '#222' }}>play_arrow</Icon>
+              </Button>
+            </Tooltip>
+            <Tooltip title="Stop" placement="bottom-start">
+              <Button
+                id="stop-btn"
+                variant={referenceMode ? "outlined" : "contained"}
+                size="small"
+                onClick={this.clear}
+                color="primary"
+                className="header-btn"
+                style={referenceMode ? style.clear_disabled : style.clear}
+                disabled={referenceMode}>
+                <Icon className="material-icons" style={referenceMode ? { color: '#777' } : { color: '#222' }}>stop</Icon>
+              </Button>
+            </Tooltip>
+          </MuiThemeProvider>
           <Tooltip title="New Scene" placement="bottom-start">
             <IconButton
               id="new-btn"
@@ -656,22 +681,19 @@ class Header extends Component {
               <Icon className="material-icons">add_circle_outline</Icon>
             </IconButton>
           </Tooltip>
-          {this.props.layoutType !== layoutTypes.REFERENCE ?
-            <Tooltip title="Save" placement="bottom-start">
-              <IconButton
-                id="save-btn"
-                onClick={this.handleSaveToggle}
-                className="header-btn d-none d-sm-block"
-                style={style.default}>
-                <Icon className="material-icons">save</Icon>
-              </IconButton>
-            </Tooltip> : null
-          }
+          <Tooltip title="Save" placement="bottom-start">
+            <IconButton
+              id="save-btn"
+              onClick={this.handleSaveToggle}
+              className="header-btn d-none d-sm-block"
+              style={referenceMode ? style.disabled : style.default}
+              disabled={referenceMode}>
+              <Icon className="material-icons">save</Icon>
+            </IconButton>
+          </Tooltip>
           <Tooltip title="Open" placement="bottom-start">
             <IconButton
               id="open-btn"
-              referenceOpen={this.state.referenceOpen}
-              handleReferenceToggle={this.handleReferenceToggle}
               onClick={this.handleLoadToggle}
               className="header-btn"
               style={style.default}>
