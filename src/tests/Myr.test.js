@@ -710,4 +710,83 @@ describe(`Other Myr functionality`, () => {
     expect(myr.phiLength).toBe("45");
   });
 
+  it('shoud move the position relative to cursor position in MYR', () =>{
+    myr.reset();
+    myr.movePosition(1);
+    expect(myr.position).toEqual({ x: 1, y: 0, z: 0 });
+    myr.movePosition(1,1);
+    expect(myr.position).toEqual({x: 2, y: 1, z: 0});
+    myr.movePosition(1,1,1);
+    expect(myr.position).toEqual({x: 3, y: 2, z: 1});
+    myr.movePosition(-3, -2, -1);
+    expect(myr.position).toEqual({x: 0, y: 0, z: 0});
+
+    // Check for stable model with bad values
+    myr.movePosition('a', 2, 3);
+    expect(myr.position).toEqual({ x: 0, y: 0, z: 0 });
+    myr.movePosition({}, 2, 3);
+    expect(myr.position).toEqual({ x: 0, y: 0, z: 0 });
+    myr.movePosition([], 2, 3);
+    expect(myr.position).toEqual({ x: 0, y: 0, z: 0 });
+    
+  });
+
+  it('should move the X-position relative to the cursor position', ()=>{
+    myr.reset();
+    myr.moveXPos(5);
+    expect(myr.position.x).toEqual(5);
+    myr.moveXPos();
+    expect(myr.position.x).toEqual(6);
+    myr.moveXPos(-6);
+    expect(myr.position.x).toEqual(0);
+
+    //check for stable model with bad values
+    myr.moveXPos('a');
+    expect(myr.position.x).toEqual(0);
+    myr.moveXPos({});
+    expect(myr.position.x).toEqual(0);
+    myr.moveXPos([]);
+    expect(myr.position.x).toEqual(0);
+    expect(myr.position).toEqual({ x: 0, y: 0, z: 0 });
+  
+  });
+  it('should move the Y-position relative to the cursor position', ()=>{
+    myr.reset();
+    myr.moveYPos(5);
+    expect(myr.position.y).toEqual(5);
+    myr.moveYPos();
+    expect(myr.position.y).toEqual(6);
+    myr.moveYPos(-6);
+    expect(myr.position.y).toEqual(0);
+
+    //check for stable model with bad values
+    myr.moveYPos('a');
+    expect(myr.position.y).toEqual(0);
+    myr.moveYPos({});
+    expect(myr.position.y).toEqual(0);
+    myr.moveYPos([]);
+    expect(myr.position.y).toEqual(0);
+    expect(myr.position).toEqual({ x: 0, y: 0, z: 0 });
+  
+  });
+  it('should move the Z-position relative to the cursor position', ()=>{
+    myr.reset();
+    myr.moveZPos(5);
+    expect(myr.position.z).toEqual(5);
+    myr.moveZPos();
+    expect(myr.position.z).toEqual(6);
+    myr.moveZPos(-6);
+    expect(myr.position.z).toEqual(0);
+
+    //check for stable model with bad values
+    myr.moveZPos('a');
+    expect(myr.position.z).toEqual(0);
+    myr.moveZPos({});
+    expect(myr.position.z).toEqual(0);
+    myr.moveZPos([]);
+    expect(myr.position.z).toEqual(0);
+    expect(myr.position).toEqual({ x: 0, y: 0, z: 0 });
+  
+  });
+
 });

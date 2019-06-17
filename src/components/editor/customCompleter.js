@@ -102,7 +102,10 @@ export const customCompleter = {
             "getLoop()",
             "getDuration()",
             "getMagnitude()",
-
+            "movePosition()",
+            "moveXPos()",
+            "moveYPos()",
+            "moveZPos()",
         ];
 
         let Colors = [
