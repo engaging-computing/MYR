@@ -76,6 +76,7 @@ export const boolText = (text) => {
             </span>
         </HtmlTooltip>);
 };
+
 export const arrayText = (text) => {
     return (
         <HtmlTooltip
@@ -99,6 +100,26 @@ export const arrayText = (text) => {
             <span
                 className="array"
                 style={{ borderBottom: "1px dotted black" }}>
+                {text}
+            </span>
+        </HtmlTooltip>);
+};
+
+export const dataText = (text) => {
+    return (
+        <HtmlTooltip
+            title={
+                <React.Fragment>
+                    <Typography color="inherit">Data</Typography>
+                    <p>
+                        Data can be of any valid JS datatype. This includes a strings, numbers, booleans, and objects among other datatypes. <br />
+                    </p>
+                </React.Fragment>
+            }
+        >
+            <span
+                className="data"
+                style={{ borderBottom: "1px dotted orange" }}>
                 {text}
             </span>
         </HtmlTooltip>);
@@ -363,6 +384,16 @@ let transformations = [
         name: "makeUnPushable",
         parameters: [{ type: "string", name: "elementID" }],
         description: <span>The makeUnPushable function prevents the given element from being affected by physics or being pushed by the cursor.</span>
+    },
+    {
+        name: "setCursorAttribute",
+        parameters: [{ type: "string", name: "key" }, { type: "data", name: "value" }],
+        description: <span>The setCursorAttribute function allows the user to set a custom attribute and add it to the cursor.</span>
+    },
+    {
+        name: "getCursorAttribute",
+        parameters: [{ type: "string", name: "key" }],
+        description: <span>The getCursorAttribute function allows the user to get a cursor attributes set by the setCursorAttribute function or by any other cursor setter.</span>
     }
 ];
 
