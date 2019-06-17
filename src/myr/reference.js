@@ -374,7 +374,7 @@ let transformations = [
   },
   {
     name: <span>setColor(<span className="string">color</span>)</span>,
-    description: <span>Changes the color of the cursor <a href='https://htmlcolorcodes.com/color-names/' target="_blank" rel="noopener noreferrer">using these color codes</a>, or HEX values. Default: 'red'</span>,
+    description: <span>Changes the color of the cursor <a href='https://htmlcolorcodes.com/color-names/' target="_blank" rel="noopener noreferrer">using these color codes</a>, RGB, or HEX values. Default: 'red'</span>,
     example: 'setColor'
   },
   {
