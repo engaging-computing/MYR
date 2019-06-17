@@ -591,7 +591,7 @@ class Header extends Component {
         }
       }
     });
-    let referenceMode = this.props.layoutType === layoutTypes.REFERENCE;
+    const referenceMode = this.props.layoutType === layoutTypes.REFERENCE;
     return (
       <header className="App-header align-items-center ">
         <div className="col-9 d-flex justify-content-start" style={{ paddingLeft: 0 }}>
