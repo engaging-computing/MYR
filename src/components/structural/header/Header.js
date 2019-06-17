@@ -556,6 +556,8 @@ class Header extends Component {
         margin: 5,
         padding: 0,
         background: '#222',
+        border: '2px solid',
+        borderColor: '#777',
       },
       clear: {
         margin: 5,
@@ -568,6 +570,8 @@ class Header extends Component {
         marginRight: 10,
         padding: 0,
         background: '#222',
+        border: '2px solid',
+        borderColor: '#777',
       },
       default: {
         margin: 2,
