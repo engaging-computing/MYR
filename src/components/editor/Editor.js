@@ -17,6 +17,8 @@ class Editor extends Component {
     //Updates state in reducer before closing editor
     const text = window.ace.edit("ace-editor").getSession().getValue();
     this.props.refresh(text, this.props.user ? this.props.user.uid : 'anon');
+
+    //Forces render cycle so user sees up to date view when viewonly loads
     this.props.render(text);
   }
 

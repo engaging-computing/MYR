@@ -12,6 +12,7 @@ import * as THREE from 'three';
  * system utilizes the entity compoent system(ECS) to build objects in the scene from different
  * components.
  */
+
 class View extends Component {
   componentDidMount() {
     window.addEventListener("keydown", function (e) {
@@ -186,7 +187,6 @@ class View extends Component {
             return this.helper(this.props.objects[it]);
           })
         }
-
 
         {this.props.sceneConfig.settings.camConfig === 1 ?
           <a-entity position="0 0 0">

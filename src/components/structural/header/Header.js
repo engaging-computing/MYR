@@ -313,7 +313,7 @@ class Header extends Component {
   handleRender = () => {
     try {
       let editor = window.ace.edit("ace-editor");
-      this.props.actions.refresh(editor.getSession().getValue());
+      this.clear();
       this.props.actions.render(editor.getSession().getValue(), this.props.user ? this.props.user.uid : 'anon');
     } catch (error) {
       this.props.actions.render(this.props.text, this.props.user ? this.props.user.uid : 'anon');
@@ -712,6 +712,7 @@ class Header extends Component {
             handleReferenceToggle={this.handleReferenceToggle} />
         </div>
         <div className="col-3 d-flex justify-content-end">
+          {/* <Classroom classrooms={this.props.classrooms} classroomActions={this.props.classroomActions} user={this.props.user} /> */}
           <Reference
             layoutType={this.props.layoutType}
             referenceOpen={this.state.referenceOpen}
@@ -731,7 +732,7 @@ class Header extends Component {
         <this.renderSnackBar />
         <this.spinner />
         <this.loadClassroom />
-      </header>
+      </header >
     );
   }
 }
