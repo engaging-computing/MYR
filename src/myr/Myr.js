@@ -78,7 +78,6 @@ class Myr {
     reset = () => {
         // Reset base params, we might be able to merge two objects later
         this.id = 0;
-<<<<<<< HEAD
         this.cursor = {
             color: "red",
             position: {
@@ -106,18 +105,6 @@ class Myr {
                 general: 1
             }
         };
-=======
-        this.color = "red";
-        this.counter = 0;
-        this.position = { x: 0, y: 0, z: 0 };
-        this.scale = { x: 1, y: 1, z: 1 };
-        this.rotation = { x: 0, y: 0, z: 0 };
-        this.radius = 1;
-        this.phiLength = 360;
-        this.loop = true;
-        this.duration = 1000;
-        this.magnitude = { spin: 360, fadeOut: 0, general: 1 };
->>>>>>> Resolved merge conflicts
         // restore the base objects of the scene
         this.els = [];
         if (this.baseEls) {
@@ -134,7 +121,6 @@ class Myr {
     * @summary - Reset the cursor to the default
     */
     resetCursor = () => {
-<<<<<<< HEAD
         this.cursor = {
             color: "red",
             position: {
@@ -162,17 +148,6 @@ class Myr {
                 general: 1
             }
         };
-=======
-        this.color = "red";
-        this.position = { x: 0, y: 0, z: 0 };
-        this.scale = { x: 1, y: 1, z: 1 };
-        this.rotation = { x: 0, y: 0, z: 0 };
-        this.radius = "1";
-        this.phiLength = 360;
-        this.loop = true;
-        this.duration = 1000;
-        this.magnitude = { spin: 360, fadeOut: 0, general: 1 };
->>>>>>> Resolved merge conflicts
     }
 
     genNewId = () => {
@@ -181,11 +156,7 @@ class Myr {
 
     setPosition = (x = 0, y = 1, z = 0) => {
         if (typeof x === "number" && typeof y === "number" && typeof z === "number") {
-<<<<<<< HEAD
             this.cursor.position = {
-=======
-            this.position = {
->>>>>>> Resolved merge conflicts
                 x: x,
                 y: y,
                 z: z
@@ -193,167 +164,93 @@ class Myr {
         } else {
             console.error("setPosition() must be all numeric values");
         }
-<<<<<<< HEAD
         return { x: this.cursor.position.x, y: this.cursor.position.y, z: this.cursor.position.z };
-=======
-        return { x: this.position.x, y: this.position.y, z: this.position.z };
->>>>>>> Resolved merge conflicts
     };
 
     setXPos = (x = 0) => {
         if (typeof x === "number") {
-<<<<<<< HEAD
             this.cursor.position = { ...this.cursor.position, x };
         } else {
             console.error("must pass a numeric for setXPos");
         }
         return this.cursor.position.x;
-=======
-            this.position = { ...this.position, x };
-        } else {
-            console.error("must pass a numeric for setXPos");
-        }
-        return this.position.x;
->>>>>>> Resolved merge conflicts
     };
 
     setYPos = (y = 0) => {
         if (typeof y === "number") {
-<<<<<<< HEAD
             this.cursor.position = { ...this.cursor.position, y };
         } else {
             console.error("must pass a numeric for setYPos");
         }
         return this.cursor.position.y;
-=======
-            this.position = { ...this.position, y };
-        } else {
-            console.error("must pass a numeric for setYPos");
-        }
-        return this.position.y;
->>>>>>> Resolved merge conflicts
     };
 
     setZPos = (z = 0) => {
         if (typeof z === "number") {
-<<<<<<< HEAD
             this.cursor.position = { ...this.cursor.position, z };
         } else {
             console.error("must pass a numeric for setZPos");
         }
         return this.cursor.position.z;
-=======
-            this.position = { ...this.position, z };
-        } else {
-            console.error("must pass a numeric for setZPos");
-        }
-        return this.position.z;
->>>>>>> Resolved merge conflicts
     };
 
     increasePosition = (x = 0, y = 0, z = 0) => {
 
         if (typeof x === "number" && typeof y === "number" && typeof z === "number") {
-<<<<<<< HEAD
             this.cursor.position = {
                 ...this.cursor.position,
                 x: this.cursor.position.x + x,
                 y: this.cursor.position.y + y,
                 z: this.cursor.position.z + z
-=======
-            this.position = {
-                ...this.position,
-                x: this.position.x + x,
-                y: this.position.y + y,
-                z: this.position.z + z
->>>>>>> Resolved merge conflicts
             };
         } else {
             console.error("increasePosition() must be all numeric values");
         }
-<<<<<<< HEAD
         return { x: this.cursor.position.x, y: this.cursor.position.y, z: this.cursor.position.z };
-=======
-        return { x: this.position.x, y: this.position.y, z: this.position.z };
->>>>>>> Resolved merge conflicts
     }
 
     increaseXPos = (x = 1) => {
         if (typeof x === "number") {
-<<<<<<< HEAD
             this.cursor.position = {
                 ...this.cursor.position,
                 x: this.cursor.position.x + x,
-=======
-            this.position = {
-                ...this.position,
-                x: this.position.x + x,
->>>>>>> Resolved merge conflicts
             };
         } else {
             console.error("must pass a numeric value for increaseXPos");
         }
 
-<<<<<<< HEAD
         return this.cursor.position.x;
-=======
-        return this.position.x;
->>>>>>> Resolved merge conflicts
     }
 
     increaseYPos = (y = 1) => {
         if (typeof y === "number") {
-<<<<<<< HEAD
             this.cursor.position = {
                 ...this.cursor.position,
                 y: this.cursor.position.y + y,
-=======
-            this.position = {
-                ...this.position,
-                y: this.position.y + y,
->>>>>>> Resolved merge conflicts
             };
         } else {
             console.error("must pass a numeric value for increaseYPos");
         }
 
-<<<<<<< HEAD
         return this.cursor.position.y;
-=======
-        return this.position.y;
->>>>>>> Resolved merge conflicts
     }
 
     increaseZPos = (z = 1) => {
         if (typeof z === "number") {
-<<<<<<< HEAD
             this.cursor.position = {
                 ...this.cursor.position,
                 z: this.cursor.position.z + z,
-=======
-            this.position = {
-                ...this.position,
-                z: this.position.z + z,
->>>>>>> Resolved merge conflicts
             };
         } else {
             console.error("must pass a numeric value for increaseZPos");
         }
 
-<<<<<<< HEAD
         return this.cursor.position.z;
-=======
-        return this.position.z;
->>>>>>> Resolved merge conflicts
     }
 
     setScale = (x = 1, y = 1, z = 1) => {
         if (typeof x === "number" && typeof y === "number" && typeof z === "number") {
-<<<<<<< HEAD
             this.cursor.scale = {
-=======
-            this.scale = {
->>>>>>> Resolved merge conflicts
                 x: x,
                 y: y,
                 z: z
@@ -361,71 +258,39 @@ class Myr {
         } else {
             console.error("setScale() must be all numeric values");
         }
-<<<<<<< HEAD
         return { x: this.cursor.scale.x, y: this.cursor.scale.y, z: this.cursor.scale.z };
-=======
-        return { x: this.scale.x, y: this.scale.y, z: this.scale.z };
->>>>>>> Resolved merge conflicts
     };
 
     setXScale = (x) => {
         if (typeof x === "number") {
-<<<<<<< HEAD
             this.cursor.scale = { ...this.cursor.scale, x };
         } else {
             console.error("must pass a numeric for setXScale");
         }
         return this.cursor.scale.x;
-=======
-            this.scale = { ...this.scale, x };
-        } else {
-            console.error("must pass a numeric for setXScale");
-        }
-        return this.scale.x;
->>>>>>> Resolved merge conflicts
     };
 
     setYScale = (y) => {
         if (typeof y === "number") {
-<<<<<<< HEAD
             this.cursor.scale = { ...this.cursor.scale, y };
         } else {
             console.error("must pass a numeric for setYScale");
         }
         return this.cursor.scale.y;
-=======
-            this.scale = { ...this.scale, y };
-        } else {
-            console.error("must pass a numeric for setYScale");
-        }
-        return this.scale.y;
->>>>>>> Resolved merge conflicts
     };
 
     setZScale = (z) => {
         if (typeof z === "number") {
-<<<<<<< HEAD
             this.cursor.scale = { ...this.cursor.scale, z };
         } else {
             console.error("must pass a numeric for setZScale");
         }
         return this.cursor.scale.z;
-=======
-            this.scale = { ...this.scale, z };
-        } else {
-            console.error("must pass a numeric for setZScale");
-        }
-        return this.scale.z;
->>>>>>> Resolved merge conflicts
     };
 
     setRotation = (x, y = 0, z = 0) => {
         if (typeof x === "number" && typeof y === "number" && typeof z === "number") {
-<<<<<<< HEAD
             this.cursor.rotation = {
-=======
-            this.rotation = {
->>>>>>> Resolved merge conflicts
                 x: x,
                 y: y,
                 z: z
@@ -433,7 +298,6 @@ class Myr {
         } else {
             console.error("setRotation() must be all numeric values");
         }
-<<<<<<< HEAD
         return { x: this.cursor.rotation.x, y: this.cursor.rotation.y, z: this.cursor.rotation.z };
     }
 
@@ -478,82 +342,46 @@ class Myr {
 
     getCursorAttribute = (key = "") => {
         return this.cursor[key];
-=======
-        return { x: this.rotation.x, y: this.rotation.y, z: this.rotation.z };
->>>>>>> Resolved merge conflicts
     }
 
     pitchX = (x) => {
         if (typeof x === "number") {
-<<<<<<< HEAD
             this.cursor.rotation = { ...this.cursor.rotation, x };
         } else {
             console.error("must pass a numeric for pitchX");
         }
         return this.cursor.rotation.x;
-=======
-            this.rotation = { ...this.rotation, x };
-        } else {
-            console.error("must pass a numeric for pitchX");
-        }
-        return this.rotation.x;
->>>>>>> Resolved merge conflicts
     };
 
     yawY = (y) => {
         if (typeof y === "number") {
-<<<<<<< HEAD
             this.cursor.rotation = { ...this.cursor.rotation, y };
         } else {
             console.error("must pass a numeric for yawY");
         }
         return this.cursor.rotation.y;
-=======
-            this.rotation = { ...this.rotation, y };
-        } else {
-            console.error("must pass a numeric for yawY");
-        }
-        return this.rotation.y;
->>>>>>> Resolved merge conflicts
     };
 
     rollZ = (z) => {
         if (typeof z === "number") {
-<<<<<<< HEAD
             this.cursor.rotation = { ...this.cursor.rotation, z };
         } else {
             console.error("must pass a numeric for rollZ");
         }
         return this.cursor.rotation.z;
-=======
-            this.rotation = { ...this.rotation, z };
-        } else {
-            console.error("must pass a numeric for rollZ");
-        }
-        return this.rotation.z;
->>>>>>> Resolved merge conflicts
     };
 
     setRadius = (i) => {
         if (typeof i === "number") {
-<<<<<<< HEAD
             this.cursor.radius = String(i);
         } else {
             console.error("must pass a numeric for setRadius");
         }
         return this.cursor.radius;
-=======
-            this.radius = String(i);
-        } else {
-            console.error("must pass a numeric for setRadius");
-        }
-        return this.radius;
->>>>>>> Resolved merge conflicts
     };
 
     setPhiLength = (i) => {
         if (typeof i === "number") {
-<<<<<<< HEAD
             this.cursor.phiLength = String(i);
         } else {
             console.error("must pass a numeric for setPhiLength");
@@ -564,27 +392,11 @@ class Myr {
     setLoop = (i) => {
         this.cursor.loop = Boolean(i);
         return this.cursor.loop;
-=======
-            this.phiLength = String(i);
-        } else {
-            console.error("must pass a numeric for setPhiLength");
-        }
-        return this.phiLength;
-    };
-
-    setLoop = (i) => {
-        this.loop = Boolean(i);
-        return this.loop;
->>>>>>> Resolved merge conflicts
     };
 
     setMagnitude = (i) => {
         if (typeof i === "number") {
-<<<<<<< HEAD
             this.cursor.magnitude = {
-=======
-            this.magnitude = {
->>>>>>> Resolved merge conflicts
                 spin: i,
                 fadeOut: i,
                 general: i
@@ -592,16 +404,11 @@ class Myr {
         } else {
             console.error("must pass a numeric for setMagnitude");
         }
-<<<<<<< HEAD
         return this.cursor.magnitude.general;
-=======
-        return this.magnitude.general;
->>>>>>> Resolved merge conflicts
     };
 
     setDuration = (i) => {
         if (typeof i === "number") {
-<<<<<<< HEAD
             this.cursor.duration = i;
         } else {
             console.error("must pass a numeric for setDuration");
@@ -612,18 +419,6 @@ class Myr {
     setColor = (color) => {
         this.cursor.color = color;
         return this.cursor.color;
-=======
-            this.duration = i;
-        } else {
-            console.error("must pass a numeric for setDuration");
-        }
-        return this.duration;
-    };
-
-    setColor = (color) => {
-        this.color = color;
-        return this.color;
->>>>>>> Resolved merge conflicts
     }
 
     getRandomColor = (colors = null) => {
@@ -641,11 +436,7 @@ class Myr {
                 i++;
             }
         }
-<<<<<<< HEAD
         this.cursor.color = color;
-=======
-        this.color = color;
->>>>>>> Resolved merge conflicts
         return color;
     }
 
@@ -710,13 +501,8 @@ class Myr {
             }
             el.addEventListener("body-loaded", () => {
                 el.body.applyImpulse(
-<<<<<<< HEAD
                     /* impulse */        new CANNON.Vec3(x, y, z),
                     /* world position */ new CANNON.Vec3().copy(el.object3D.position)
-=======
-                  /* impulse */        new CANNON.Vec3(x, y, z),
-                  /* world position */ new CANNON.Vec3().copy(el.object3D.position)
->>>>>>> Resolved merge conflicts
                 );
             });
         });
@@ -728,17 +514,10 @@ class Myr {
         let base = {
             geometry: "primitive: box;",
             id: "box" + this.genNewId(),
-<<<<<<< HEAD
             material: `color: ${this.cursor.color};`,
             position: { ...this.cursor.position },
             rotation: this.cursor.rotation,
             scale: this.cursor.scale,
-=======
-            material: `color: ${this.color};`,
-            position: { ...this.position },
-            rotation: this.rotation,
-            scale: this.scale,
->>>>>>> Resolved merge conflicts
         };
         return this.mergeProps(base, params);
     }
@@ -746,21 +525,12 @@ class Myr {
     // Render an Aframe circle Primitive with current Myr settings
     circle = (params) => {
         let base = {
-<<<<<<< HEAD
             geometry: `primitive: circle; radius: ${this.cursor.radius}; theta-length: ${this.cursor.phiLength};`,
             id: "circ" + this.genNewId(),
             position: this.cursor.position,
             scale: this.cursor.scale,
             rotation: this.cursor.rotation,
             material: `color: ${this.cursor.color}; side: double;`,
-=======
-            geometry: `primitive: circle; radius: ${this.radius}; theta-length: ${this.phiLength};`,
-            id: "circ" + this.genNewId(),
-            position: this.position,
-            scale: this.scale,
-            rotation: this.rotation,
-            material: `color: ${this.color}; side: double;`,
->>>>>>> Resolved merge conflicts
         };
         return this.mergeProps(base, params);
     }
@@ -769,19 +539,11 @@ class Myr {
     cone = (params) => {
         let base = {
             id: "cone" + this.genNewId(),
-<<<<<<< HEAD
             geometry: `primitive: cone; radiusBottom: ${this.cursor.radius}; radiusTop: 0.1;`,
             position: this.cursor.position,
             scale: this.cursor.scale,
             rotation: this.cursor.rotation,
             material: `color: ${this.cursor.color}; side: double;`,
-=======
-            geometry: `primitive: cone; radiusBottom: ${this.radius}; radiusTop: 0.1;`,
-            position: this.position,
-            scale: this.scale,
-            rotation: this.rotation,
-            material: `color: ${this.color}; side: double;`,
->>>>>>> Resolved merge conflicts
         };
         return this.mergeProps(base, params);
     }
@@ -790,19 +552,11 @@ class Myr {
     cylinder = (params) => {
         let base = {
             id: "cyl" + this.genNewId(),
-<<<<<<< HEAD
             geometry: `primitive: cylinder; radius: ${this.cursor.radius}; theta-length: ${this.cursor.phiLength};`,
             position: this.cursor.position,
             scale: this.cursor.scale,
             rotation: this.cursor.rotation,
             material: `color: ${this.cursor.color};  side: double;`,
-=======
-            geometry: `primitive: cylinder; radius: ${this.radius}; theta-length: ${this.phiLength};`,
-            position: this.position,
-            scale: this.scale,
-            rotation: this.rotation,
-            material: `color: ${this.color};  side: double;`,
->>>>>>> Resolved merge conflicts
         };
         return this.mergeProps(base, params);
     }
@@ -812,19 +566,11 @@ class Myr {
     dodecahedron = (params) => {
         let base = {
             id: "dod" + this.genNewId(),
-<<<<<<< HEAD
             geometry: `primitive: dodecahedron; radius: ${this.cursor.radius};`,
             position: this.cursor.position,
             scale: this.cursor.scale,
             rotation: this.cursor.rotation,
             material: `color: ${this.cursor.color}; side: double;`,
-=======
-            geometry: `primitive: dodecahedron; radius: ${this.radius};`,
-            position: this.position,
-            scale: this.scale,
-            rotation: this.rotation,
-            material: `color: ${this.color}; side: double;`,
->>>>>>> Resolved merge conflicts
         };
         return this.mergeProps(base, params);
     }
@@ -834,17 +580,10 @@ class Myr {
         let base = {
             id: "iso" + this.genNewId(),
             geometry: "primitive: icosahedron;",
-<<<<<<< HEAD
             position: this.cursor.position,
             scale: this.cursor.scale,
             rotation: this.cursor.rotation,
             material: `color: ${this.cursor.color};  side: double;`,
-=======
-            position: this.position,
-            scale: this.scale,
-            rotation: this.rotation,
-            material: `color: ${this.color};  side: double;`,
->>>>>>> Resolved merge conflicts
         };
         return this.mergeProps(base, params);
     }
@@ -854,17 +593,10 @@ class Myr {
         let base = {
             id: "oct" + this.genNewId(),
             geometry: "primitive: octahedron;",
-<<<<<<< HEAD
             position: this.cursor.position,
             scale: this.cursor.scale,
             rotation: this.cursor.rotation,
             material: `color: ${this.cursor.color};  side: double;`,
-=======
-            position: this.position,
-            scale: this.scale,
-            rotation: this.rotation,
-            material: `color: ${this.color};  side: double;`,
->>>>>>> Resolved merge conflicts
         };
         return this.mergeProps(base, params);
     }
@@ -875,17 +607,10 @@ class Myr {
             tube: true,
             radius: ".01",
             path: path,
-<<<<<<< HEAD
             position: this.cursor.position,
             scale: this.cursor.scale,
             rotation: this.cursor.rotation,
             material: `color: ${this.cursor.color};  side: double;`,
-=======
-            position: this.position,
-            scale: this.scale,
-            rotation: this.rotation,
-            material: `color: ${this.color};  side: double;`,
->>>>>>> Resolved merge conflicts
         };
         return this.mergeProps(base, params);
     }
@@ -893,19 +618,11 @@ class Myr {
     plane = (params) => {
         let base = {
             id: "plane" + this.genNewId(),
-<<<<<<< HEAD
             geometry: `primitive: plane; height: 1; width: 1; phi-length: ${this.cursor.phiLength};`,
             position: this.cursor.position,
             scale: this.cursor.scale,
             rotation: this.cursor.rotation,
             material: `color: ${this.cursor.color}; side: double;`,
-=======
-            geometry: `primitive: plane; height: 1; width: 1; phi-length: ${this.phiLength};`,
-            position: this.position,
-            scale: this.scale,
-            rotation: this.rotation,
-            material: `color: ${this.color}; side: double;`,
->>>>>>> Resolved merge conflicts
         };
         return this.mergeProps(base, params);
     }
@@ -914,19 +631,11 @@ class Myr {
     polyhedron = (params) => {
         let base = {
             id: "poly" + this.genNewId(),
-<<<<<<< HEAD
             geometry: `primitive: sphere; segmentsWidth: 2; segmentsHeight: 8; phi-length: ${this.cursor.phiLength};`,
             position: this.cursor.position,
             scale: this.cursor.scale,
             rotation: this.cursor.rotation,
             material: `color: ${this.cursor.color}; side: double;`,
-=======
-            geometry: `primitive: sphere; segmentsWidth: 2; segmentsHeight: 8; phi-length: ${this.phiLength};`,
-            position: this.position,
-            scale: this.scale,
-            rotation: this.rotation,
-            material: `color: ${this.color}; side: double;`,
->>>>>>> Resolved merge conflicts
         };
         return this.mergeProps(base, params);
     }
@@ -934,19 +643,11 @@ class Myr {
     ring = (params) => {
         let base = {
             id: "ring" + this.genNewId(),
-<<<<<<< HEAD
             geometry: `primitive: ring; radiusInner: 0.5; radiusOuter: 1; theta-length: ${this.cursor.phiLength};`,
             position: this.cursor.position,
             scale: this.cursor.scale,
             rotation: this.cursor.rotation,
             material: `color: ${this.cursor.color}; side: double;`,
-=======
-            geometry: `primitive: ring; radiusInner: 0.5; radiusOuter: 1; theta-length: ${this.phiLength};`,
-            position: this.position,
-            scale: this.scale,
-            rotation: this.rotation,
-            material: `color: ${this.color}; side: double;`,
->>>>>>> Resolved merge conflicts
         };
         return this.mergeProps(base, params);
     }
@@ -955,19 +656,11 @@ class Myr {
     sphere = (params) => {
         let base = {
             id: "sphere" + this.genNewId(),
-<<<<<<< HEAD
             geometry: `primitive: sphere; phi-length: ${this.cursor.phiLength}`,
             position: this.cursor.position,
             scale: this.cursor.scale,
             rotation: this.cursor.rotation,
             material: `color: ${this.cursor.color}; side: double;`,
-=======
-            geometry: `primitive: sphere; phi-length: ${this.phiLength}`,
-            position: this.position,
-            scale: this.scale,
-            rotation: this.rotation,
-            material: `color: ${this.color}; side: double;`,
->>>>>>> Resolved merge conflicts
         };
         return this.mergeProps(base, params);
     }
@@ -976,17 +669,10 @@ class Myr {
         let base = {
             id: "tetra" + this.genNewId(),
             geometry: "primitive: tetrahedron;",
-<<<<<<< HEAD
             position: this.cursor.position,
             scale: this.cursor.scale,
             rotation: this.cursor.rotation,
             material: `color: ${this.cursor.color}; side: double;`,
-=======
-            position: this.position,
-            scale: this.scale,
-            rotation: this.rotation,
-            material: `color: ${this.color}; side: double;`,
->>>>>>> Resolved merge conflicts
         };
         return this.mergeProps(base, params);
     }
@@ -1005,17 +691,10 @@ class Myr {
             value: text,
             id: "txt" + this.genNewId(),
             side: "double",
-<<<<<<< HEAD
             color: this.cursor.color,
             position: this.cursor.position,
             scale: this.cursor.scale,
             rotation: this.cursor.rotation,
-=======
-            color: this.color,
-            position: this.position,
-            scale: this.scale,
-            rotation: this.rotation,
->>>>>>> Resolved merge conflicts
         };
         if (!params || typeof params === "string") {
             this.els[base.id] = { ...base };
@@ -1028,19 +707,11 @@ class Myr {
     torus = (params) => {
         let base = {
             id: "torus" + this.genNewId(),
-<<<<<<< HEAD
             geometry: `primitive: torus; radius: ${this.cursor.radius}; radiusTubular: 0.5; arc: 360; arc: ${this.cursor.phiLength};`,
             position: this.cursor.position,
             scale: this.cursor.scale,
             rotation: this.cursor.rotation,
             material: `color: ${this.cursor.color};  side: double;`,
-=======
-            geometry: `primitive: torus; radius: ${this.radius}; radiusTubular: 0.5; arc: 360; arc: ${this.phiLength};`,
-            position: this.position,
-            scale: this.scale,
-            rotation: this.rotation,
-            material: `color: ${this.color};  side: double;`,
->>>>>>> Resolved merge conflicts
         };
         return this.mergeProps(base, params);
     }
@@ -1049,17 +720,10 @@ class Myr {
         let base = {
             id: "torKn" + this.genNewId(),
             geometry: "primitive: torusKnot;",
-<<<<<<< HEAD
             position: this.cursor.position,
             scale: this.cursor.scale,
             rotation: this.cursor.rotation,
             material: `color: ${this.cursor.color};`,
-=======
-            position: this.position,
-            scale: this.scale,
-            rotation: this.rotation,
-            material: `color: ${this.color};`,
->>>>>>> Resolved merge conflicts
             p: 2,
             q: 3,
         };
@@ -1070,17 +734,10 @@ class Myr {
         let base = {
             id: "tri" + this.genNewId(),
             geometry: "primitive: triangle;",
-<<<<<<< HEAD
             position: this.cursor.position,
             scale: this.cursor.scale,
             rotation: this.cursor.rotation,
             material: `color: ${this.cursor.color};  side: double;`,
-=======
-            position: this.position,
-            scale: this.scale,
-            rotation: this.rotation,
-            material: `color: ${this.color};  side: double;`,
->>>>>>> Resolved merge conflicts
         };
         return this.mergeProps(base, params);
     }
@@ -1089,21 +746,12 @@ class Myr {
         let base = {
             id: "tube" + this.genNewId(),
             tube: true,
-<<<<<<< HEAD
             radius: this.cursor.radius,
             path: path,
             position: this.cursor.position,
             scale: this.cursor.scale,
             rotation: this.cursor.rotation,
             material: `color: ${this.cursor.color};  side: double;`,
-=======
-            radius: this.radius,
-            path: path,
-            position: this.position,
-            scale: this.scale,
-            rotation: this.rotation,
-            material: `color: ${this.color};  side: double;`,
->>>>>>> Resolved merge conflicts
         };
         return this.mergeProps(base, params);
     }
@@ -1112,11 +760,7 @@ class Myr {
     light = () => {
         let el = {
             color: "lgt" + this.getRandomColor(),
-<<<<<<< HEAD
             position: this.cursor.position,
-=======
-            position: this.position,
->>>>>>> Resolved merge conflicts
             geometry: {
                 primitive: "light"
             },
@@ -1136,15 +780,9 @@ class Myr {
 
     // Animate the Aframe element which is passed as arg
     animate = (outerElId, magnitude = null, loop = null, duration = null) => {
-<<<<<<< HEAD
         magnitude = magnitude !== null ? magnitude : this.cursor.magnitude.spin;
         loop = loop !== null ? loop : this.cursor.loop;
         duration = duration !== null ? duration : this.cursor.duration;
-=======
-        magnitude = magnitude != null ? magnitude : this.magnitude.spin;
-        loop = loop != null ? loop : this.loop;
-        duration = duration != null ? duration : this.duration;
->>>>>>> Resolved merge conflicts
         let el = this.getEl(outerElId);
         let anim = `
       property: rotation;
@@ -1158,15 +796,9 @@ class Myr {
     };
 
     spin = (outerElId, magnitude = null, loop = null, duration = null) => {
-<<<<<<< HEAD
         magnitude = magnitude !== null ? magnitude : this.cursor.magnitude.spin;
         loop = loop !== null ? loop : this.cursor.loop;
         duration = duration !== null ? duration : this.cursor.duration;
-=======
-        magnitude = magnitude != null ? magnitude : this.magnitude.spin;
-        loop = loop != null ? loop : this.loop;
-        duration = duration != null ? duration : this.duration;
->>>>>>> Resolved merge conflicts
         let el = this.getEl(outerElId);
         let anim = `
       property: rotation;
@@ -1181,15 +813,9 @@ class Myr {
     };
 
     yoyo = (outerElId, magnitude = null, loop = null, duration = null) => {
-<<<<<<< HEAD
         magnitude = magnitude !== null ? magnitude : this.cursor.magnitude.general;
         loop = loop !== null ? loop : this.cursor.loop;
         duration = duration !== null ? duration : this.cursor.duration;
-=======
-        magnitude = magnitude != null ? magnitude : this.magnitude.general;
-        loop = loop != null ? loop : this.loop;
-        duration = duration != null ? duration : this.duration;
->>>>>>> Resolved merge conflicts
         let el = this.getEl(outerElId);
         let anim = `
       property: position;
@@ -1203,15 +829,9 @@ class Myr {
     };
 
     sideToSide = (outerElId, magnitude = null, loop = null, duration = null) => {
-<<<<<<< HEAD
         magnitude = magnitude !== null ? magnitude : this.cursor.magnitude.general;
         loop = loop !== null ? loop : this.cursor.loop;
         duration = duration !== null ? duration : this.cursor.duration;
-=======
-        magnitude = magnitude != null ? magnitude : this.magnitude.general;
-        loop = loop != null ? loop : this.loop;
-        duration = duration != null ? duration : this.duration;
->>>>>>> Resolved merge conflicts
         let el = this.getEl(outerElId);
         let anim = `
       dir: alternate;
@@ -1226,15 +846,9 @@ class Myr {
     };
 
     goUp = (outerElId, magnitude = null, loop = null, duration = null) => {
-<<<<<<< HEAD
         magnitude = magnitude !== null ? magnitude : this.cursor.magnitude.general;
         loop = loop !== null ? loop : this.cursor.loop;
         duration = duration !== null ? duration : this.cursor.duration;
-=======
-        magnitude = magnitude != null ? magnitude : this.magnitude.general;
-        loop = loop != null ? loop : this.loop;
-        duration = duration != null ? duration : this.duration;
->>>>>>> Resolved merge conflicts
         let el = this.getEl(outerElId);
         let anim = `
       property: position;
@@ -1248,15 +862,9 @@ class Myr {
     };
 
     goDown = (outerElId, magnitude = null, loop = null, duration = null) => {
-<<<<<<< HEAD
         magnitude = magnitude !== null ? magnitude : this.cursor.magnitude.general;
         loop = loop !== null ? loop : this.cursor.loop;
         duration = duration !== null ? duration : this.cursor.duration;
-=======
-        magnitude = magnitude != null ? magnitude : this.magnitude.general;
-        loop = loop != null ? loop : this.loop;
-        duration = duration != null ? duration : this.duration;
->>>>>>> Resolved merge conflicts
         let el = this.getEl(outerElId);
         let anim = `
       property: position;
@@ -1270,15 +878,9 @@ class Myr {
     };
 
     goLeft = (outerElId, magnitude = null, loop = null, duration = null) => {
-<<<<<<< HEAD
         magnitude = magnitude !== null ? magnitude : this.cursor.magnitude.general;
         loop = loop !== null ? loop : this.cursor.loop;
         duration = duration !== null ? duration : this.cursor.duration;
-=======
-        magnitude = magnitude != null ? magnitude : this.magnitude.general;
-        loop = loop != null ? loop : this.loop;
-        duration = duration != null ? duration : this.duration;
->>>>>>> Resolved merge conflicts
         let el = this.getEl(outerElId);
         let anim = `
       property: position;
@@ -1292,15 +894,9 @@ class Myr {
     };
 
     goRight = (outerElId, magnitude = null, loop = null, duration = null) => {
-<<<<<<< HEAD
         magnitude = magnitude !== null ? magnitude : this.cursor.magnitude.general;
         loop = loop !== null ? loop : this.cursor.loop;
         duration = duration !== null ? duration : this.cursor.duration;
-=======
-        magnitude = magnitude != null ? magnitude : this.magnitude.general;
-        loop = loop != null ? loop : this.loop;
-        duration = duration != null ? duration : this.duration;
->>>>>>> Resolved merge conflicts
         let el = this.getEl(outerElId);
         let anim = `
       property: position;
@@ -1314,15 +910,9 @@ class Myr {
     };
 
     goTowards = (outerElId, magnitude = null, loop = null, duration = null) => {
-<<<<<<< HEAD
         magnitude = magnitude !== null ? magnitude : this.cursor.magnitude.general;
         loop = loop !== null ? loop : this.cursor.loop;
         duration = duration !== null ? duration : this.cursor.duration;
-=======
-        magnitude = magnitude != null ? magnitude : this.magnitude.general;
-        loop = loop != null ? loop : this.loop;
-        duration = duration != null ? duration : this.duration;
->>>>>>> Resolved merge conflicts
         let el = this.getEl(outerElId);
         let anim = `
       property: position;
@@ -1336,15 +926,9 @@ class Myr {
     };
 
     goAway = (outerElId, magnitude = null, loop = null, duration = null) => {
-<<<<<<< HEAD
         magnitude = magnitude !== null ? magnitude : this.cursor.magnitude.general;
         loop = loop !== null ? loop : this.cursor.loop;
         duration = duration !== null ? duration : this.cursor.duration;
-=======
-        magnitude = magnitude != null ? magnitude : this.magnitude.general;
-        loop = loop != null ? loop : this.loop;
-        duration = duration != null ? duration : this.duration;
->>>>>>> Resolved merge conflicts
         let el = this.getEl(outerElId);
         let anim = `
       property: position;
@@ -1358,15 +942,9 @@ class Myr {
     };
 
     grow = (outerElId, magnitude = null, loop = null, duration = null) => {
-<<<<<<< HEAD
         magnitude = magnitude !== null ? magnitude : this.cursor.magnitude.general;
         loop = loop !== null ? loop : this.cursor.loop;
         duration = duration !== null ? duration : this.cursor.duration;
-=======
-        magnitude = magnitude != null ? magnitude : this.magnitude.general;
-        loop = loop != null ? loop : this.loop;
-        duration = duration != null ? duration : this.duration;
->>>>>>> Resolved merge conflicts
         let el = this.getEl(outerElId);
         let anim = `
       property: scale;
@@ -1380,15 +958,9 @@ class Myr {
     };
 
     shrink = (outerElId, magnitude = null, loop = null, duration = null) => {
-<<<<<<< HEAD
         magnitude = magnitude !== null ? magnitude : this.cursor.magnitude.general;
         loop = loop !== null ? loop : this.cursor.loop;
         duration = duration !== null ? duration : this.cursor.duration;
-=======
-        magnitude = magnitude != null ? magnitude : this.magnitude.general;
-        loop = loop != null ? loop : this.loop;
-        duration = duration != null ? duration : this.duration;
->>>>>>> Resolved merge conflicts
         let el = this.getEl(outerElId);
         let anim = `
       property: scale;
@@ -1402,15 +974,9 @@ class Myr {
     };
 
     fadeOut = (outerElId, magnitude = null, loop = null, duration = null) => {
-<<<<<<< HEAD
         magnitude = magnitude !== null ? magnitude : this.cursor.magnitude.fadeOut;
         loop = loop !== null ? loop : this.cursor.loop;
         duration = duration !== null ? duration : this.cursor.duration;
-=======
-        magnitude = magnitude != null ? magnitude : this.magnitude.fadeOut;
-        loop = loop != null ? loop : this.loop;
-        duration = duration != null ? duration : this.duration;
->>>>>>> Resolved merge conflicts
         let el = this.getEl(outerElId);
         let anim = `
       property: components.material.material.opacity;
@@ -1427,15 +993,9 @@ class Myr {
     }
 
     fadeIn = (outerElId, magnitude = null, loop = null, duration = null) => {
-<<<<<<< HEAD
         magnitude = magnitude !== null ? magnitude : this.cursor.magnitude.general;
         loop = loop !== null ? loop : this.cursor.loop;
         duration = duration !== null ? duration : this.cursor.duration;
-=======
-        magnitude = magnitude != null ? magnitude : this.magnitude.general;
-        loop = loop != null ? loop : this.loop;
-        duration = duration != null ? duration : this.duration;
->>>>>>> Resolved merge conflicts
         let el = this.getEl(outerElId);
         let anim = `
       property: components.material.material.opacity;
@@ -1490,7 +1050,6 @@ class Myr {
     /********************* GETTERS *********************/
 
     getColor = () => {
-<<<<<<< HEAD
         return this.cursor.color;
     };
     getXPos = () => {
@@ -1534,51 +1093,6 @@ class Myr {
     };
     getMagnitude = () => {
         return this.cursor.magnitude.general;
-=======
-        return this.color;
-    };
-    getXPos = () => {
-        return this.position.x;
-    };
-    getYPos = () => {
-        return this.position.y;
-    };
-    getZPos = () => {
-        return this.position.z;
-    };
-    getXScale = () => {
-        return this.scale.x;
-    };
-    getYScale = () => {
-        return this.scale.y;
-    };
-    getZScale = () => {
-        return this.scale.z;
-    };
-    getXRotation = () => {
-        return this.rotation.x;
-    };
-    getYRotation = () => {
-        return this.rotation.y;
-    };
-    getZRotation = () => {
-        return this.rotation.z;
-    };
-    getRadius = () => {
-        return this.radius;
-    };
-    getPhiLength = () => {
-        return this.phiLength;
-    };
-    getLoop = () => {
-        return this.loop;
-    };
-    getDuration = () => {
-        return this.duration;
-    };
-    getMagnitude = () => {
-        return this.magnitude.general;
->>>>>>> Resolved merge conflicts
     };
 
 
@@ -1592,15 +1106,9 @@ class Myr {
         let el = {
             "obj-model": "obj: #c-obj",
             mtl: "c-mtl",
-<<<<<<< HEAD
             position: this.cursor.position,
             scale: this.cursor.scale,
             rotation: this.cursor.rotation
-=======
-            position: this.position,
-            scale: this.scale,
-            rotation: this.rotation
->>>>>>> Resolved merge conflicts
         };
         this.els.push(el);
         this.assets.push(asset);
@@ -1674,15 +1182,9 @@ class Myr {
     group = () => {
         let base = {
             id: "grp" + this.genNewId(),
-<<<<<<< HEAD
             position: { ...this.cursor.position },
             rotation: this.cursor.rotation,
             scale: this.cursor.scale,
-=======
-            position: { ...this.position },
-            rotation: this.rotation,
-            scale: this.scale,
->>>>>>> Resolved merge conflicts
         };
         let entity = new Group(this, base.id);
         this.els[base.id] = { ...base, ...entity.entObj() };
@@ -1700,7 +1202,6 @@ class Myr {
         // console.log(this);
         // console.log("Halted");
     }
-<<<<<<< HEAD
 
     infiniteLoopDetector = (function () {
         let map = {};
@@ -1739,8 +1240,6 @@ class Myr {
 
         return infiniteLoopDetector;
     }());
-=======
->>>>>>> Resolved merge conflicts
 }
 
 export default Myr;
