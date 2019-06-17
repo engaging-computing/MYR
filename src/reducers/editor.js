@@ -4,12 +4,17 @@ import Myr from "../myr/Myr";
 
 const initial_state = {
     text: "",
-    savedText: "",
     objects: [],
     assets: [],
     message: {
         text: "",
-        time: 0
+        savedText: "",
+        objects: [],
+        assets: [],
+        message: {
+            text: "",
+            time: 0
+        }
     }
 };
 
@@ -110,4 +115,4 @@ export default function editor(state = initial_state, action) {
         default:
             return state;
     }
-} 
+}
