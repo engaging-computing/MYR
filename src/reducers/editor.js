@@ -3,24 +3,24 @@ import * as types from "../constants/ActionTypes";
 import Myr from "../myr/Myr";
 
 const initial_state = {
+  text: "",
+  objects: [],
+  assets: [],
+  message: {
     text: "",
-    objects: [],
-    assets: [],
-    message: {
-        text: "",
-        time: 0
-    }
+    time: 0
+  }
 };
 
 /**
 * @summary - Snapshots is an array of objects that record each time the user tries to render
 */
 let snapshots = [
-    {
-        timestamp: Date.now(),
-        text: `${initial_state.text}`,
-        error: false
-    }
+  {
+    timestamp: Date.now(),
+    text: `${initial_state.text}`,
+    error: false
+  }
 ];
 
 
