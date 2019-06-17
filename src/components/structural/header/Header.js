@@ -313,7 +313,6 @@ class Header extends Component {
   handleRender = () => {
     try {
       let editor = window.ace.edit("ace-editor");
-      this.clear();
       this.props.actions.render(editor.getSession().getValue(), this.props.user ? this.props.user.uid : 'anon');
     } catch (error) {
       this.props.actions.render(this.props.text, this.props.user ? this.props.user.uid : 'anon');
@@ -650,7 +649,10 @@ class Header extends Component {
                 id="play-btn"
                 variant={referenceMode ? "outlined" : "contained"}
                 size="small"
-                onClick={this.handleRender}
+                onClick={() => {
+                  this.clear();
+                  this.postpone(this.handleRender);
+                }}
                 color="primary"
                 className="header-btn"
                 style={referenceMode ? style.play_disabled : style.play}
@@ -734,6 +736,13 @@ class Header extends Component {
         <this.loadClassroom />
       </header >
     );
+  }
+
+  //You can pass functions into this in order to have 
+  //multiple setState/state actions dispatched within an event handler
+  //Currently only used for render button
+  postpone(f) {
+    window.setTimeout(f, 0);
   }
 }
 
