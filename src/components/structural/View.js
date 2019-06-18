@@ -14,7 +14,31 @@ import * as THREE from 'three';
  */
 
 class View extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      loading: true,
+    }
+  }
+
+  postpone(f) {
+    window.setTimeout(f, 0);
+  }
+
+  componentWillUnmount() {
+    this.postpone(() => {
+      this.setState({
+        loading: true
+      });
+    });
+  }
+
   componentDidMount() {
+    this.postpone(() => {
+      this.setState({
+        loading: false
+      });
+    });
     window.addEventListener("keydown", function (e) {
       //KEYS: left and right: 37, 39; up and down: 38, 40; space: 32
       if ([38, 40].indexOf(e.keyCode) > -1) {
@@ -170,6 +194,14 @@ class View extends Component {
   }
 
   render = () => {
+    if (this.state.loading) {
+      return (
+        <span className='spinner'>
+          <div className='cube1'></div>
+          <div className='cube2'></div>
+        </span>
+      );
+    }
     return (
       <a-scene physics="debug: false; friction: 3; restitution: .3;" embedded debug="false">
         <a-assets>
