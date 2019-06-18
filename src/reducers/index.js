@@ -11,20 +11,20 @@ import referenceExample from './referenceExample';
 import thunk from 'redux-thunk';
 
 const reducer = combineReducers({
-  editor,
-  user,
-  scene,
-  project,
-  courses,
-  classrooms,
-  referenceExample
+    editor,
+    user,
+    scene,
+    project,
+    courses,
+    classrooms,
+    referenceExample
 });
 
 const composeEnhancers = (window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({ trace: true, traceLimit: 25 })) || compose;
 
 const store = createStore(
-  reducer,
-  composeEnhancers(applyMiddleware(thunk))
+    reducer,
+    composeEnhancers(applyMiddleware(thunk))
 );
 
 export default store;

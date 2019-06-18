@@ -7,18 +7,18 @@ import Reference from './containers/Reference';
 import ReferenceExample from './containers/ReferenceExample';
 
 export default () => {
-  return (
-    <BrowserRouter>
-      <Switch>
-        <Route exact path='/' component={Ide} />
-        <Route exact path='/reference' component={Reference} />
-        <Route path='/course/:shortname' component={Guided} />
-        <Route path='/class/:classroom' component={Classroom} />
-        <Route path='/reference/:function' component={ReferenceExample} />
-        <Route path='/:id' component={Ide} />
-        <Redirect from="/lesson" exact to="/" />
-        <Redirect from="/course" exact to="/" />
-      </Switch>
-    </BrowserRouter>
-  );
+    return (
+        <BrowserRouter>
+            <Switch>
+                <Route exact path='/' component={Ide} />
+                <Route exact path='/reference' component={Reference} />
+                <Route path='/course/:shortname' component={Guided} />
+                <Route path='/class/:classroom' component={Classroom} />
+                <Route path='/reference/:function' component={ReferenceExample} />
+                <Route path='/:id' component={Ide} />
+                <Redirect from="/lesson" exact to="/" />
+                <Redirect from="/course" exact to="/" />
+            </Switch>
+        </BrowserRouter>
+    );
 };

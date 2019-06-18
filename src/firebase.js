@@ -3,19 +3,19 @@ import '@firebase/firestore';
 import firebaseKey from './keys/firebase.js';
 
 let config = {
-  apiKey: firebaseKey,
-  authDomain: "myrjsecg.firebaseapp.com",
-  databaseURL: "https://myrjsecg.firebaseio.com",
-  projectId: "myrjsecg",
-  storageBucket: "gs://myrjsecg.appspot.com",
-  messagingSenderId: "967963389163"
+    apiKey: firebaseKey,
+    authDomain: "myrjsecg.firebaseapp.com",
+    databaseURL: "https://myrjsecg.firebaseio.com",
+    projectId: "myrjsecg",
+    storageBucket: "gs://myrjsecg.appspot.com",
+    messagingSenderId: "967963389163"
 };
 
 firebase.initializeApp(config);
 export default firebase;
 export const provider = new firebase.auth.GoogleAuthProvider();
 provider.setCustomParameters({
-  prompt: 'select_account'
+    prompt: 'select_account'
 });
 export const auth = firebase.auth();
 export const db = firebase.firestore();

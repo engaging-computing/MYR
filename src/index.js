@@ -10,7 +10,7 @@ import store from './reducers/index';
 import AppRoutes from './routes';
 
 ReactDOM.render(
-  <Provider store={store}>
-    <AppRoutes />
-  </Provider>,
-  document.getElementById('root'));
+    <Provider store={store}>
+        <AppRoutes />
+    </Provider>,
+    document.getElementById('root'));
