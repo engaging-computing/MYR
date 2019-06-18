@@ -161,7 +161,7 @@ class Header extends Component {
     }
   }
 
-  componentWillReceiveProps(nextProps) {
+    componentWillReceiveProps(nextProps) {
     if (nextProps.scene && nextProps.scene.name) {
       this.setState({ sceneName: nextProps.scene.name });
     }

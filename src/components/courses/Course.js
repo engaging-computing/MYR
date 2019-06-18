@@ -7,7 +7,6 @@ import {
 } from '@material-ui/core';
 
 class Lesson extends Component {
-
   nextLesson = () => {
     const currentIndex = this.props.courses.currentIndex;
     const lessons = this.props.course.lessons;
