@@ -148,7 +148,7 @@ class Header extends Component {
       //ctrl/cmd + shift + s saves the scene with a new ID
       e.preventDefault();
       this.setState({ needsNewId: true });
-      this.handleSave();
+      this.handleSaveOpen();
     } else if ((e.ctrlKey || e.metaKey) && (e.key === "s" || e.key === "S")) {
       //ctrl/cmd + s saves the scene
       e.preventDefault();
@@ -424,6 +424,11 @@ class Header extends Component {
   * @summary - forces save drawer closed
   */
   handleSaveClose = () => this.setState({ saveOpen: false });
+
+  /**
+  * @summary - forces save drawer closed
+  */
+  handleSaveOpen = () => this.setState({ saveOpen: true });
 
   /**
   * @summary - creates the save drawer
