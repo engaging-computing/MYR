@@ -32,15 +32,25 @@ export const ReferenceExample = ({ editor, user, scene, referenceExample, refere
             layoutType={layoutTypes.REF_EXAMPLE}
         />
         <div className="row no-gutters">
-            <div id="interface" className="col-12 col-md-4">
-                <RefExInfo referenceExample={referenceExample} />
-                <div className='ref-ex-edit'>
-                    <Editor text={editor.text} user={user} />
-                </div>
-            </div>
-            <div id="scene" className="col-12 col-md-8">
-                <View objects={editor.objects} sceneConfig={scene} assets={editor.assets} />
-            </div>
+            {
+                scene.settings.viewOnly
+                    ?
+                    <div id="scene" className="col-12" >
+                        <View objects={editor.objects} sceneConfig={scene} assets={editor.assets} />
+                    </div>
+                    :
+                    <>
+                        <div id="interface" className="col-12 col-md-4">
+                            <RefExInfo referenceExample={referenceExample} />
+                            <div className='ref-ex-edit'>
+                                <Editor refresh={editorActions.refresh} render={editorActions.render} text={editor.text} user={user} />
+                            </div>
+                        </div>
+                        <div id="scene" className="col-12 col-md-8" >
+                            <View objects={editor.objects} sceneConfig={scene} assets={editor.assets} />
+                        </div>
+                    </>
+            }
         </div>
         <Footer />
     </div>
