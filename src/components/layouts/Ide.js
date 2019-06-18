@@ -27,8 +27,6 @@ export const Ide = ({ editor, editorActions, user, authActions, scene, sceneActi
             collectionActions={collectionActions}
             collections={collections}
             layoutType={layoutTypes.IDE}
-            obj={editor.objects}
-            editor={editor}
         />
         <div className="row no-gutters">
             {
