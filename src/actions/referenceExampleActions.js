@@ -7,7 +7,7 @@ const header = { headers: { 'content-type': 'application/json' } };
 const problem = {
     name: "Error",
     type: "Unknown",
-    info: "An unknown error occured. Please try refreshing the page",
+    info: "An unknown error occurred. Please try refreshing the page",
     suggestedCourse: null,
     code: ""
 };
