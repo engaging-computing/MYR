@@ -37,7 +37,7 @@
         "eqeqeq": "warn",
         "curly": "warn",
         "no-lonely-if": "warn",
-            "no-console": [
+        "no-console": [
             "error",
             {
                 "allow": [
