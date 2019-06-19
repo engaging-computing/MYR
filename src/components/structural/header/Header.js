@@ -140,8 +140,8 @@ class Header extends Component {
     * @param {event} e - event from the keystroke.
     */
     handleKeyDown(e) {
-    //metaKey is cmd and windows key in some browsers
         if (this.props.layoutType !== layoutTypes.REFERENCE) {
+            //metaKey is cmd and windows key in some browsers
             if ((e.ctrlKey || e.metaKey) && (e.key === "Enter" || e.key === "Return")) {
                 //ctrl/cmd + enter renders the scene
                 e.preventDefault();
@@ -190,8 +190,8 @@ class Header extends Component {
     }
 
     /**
-     * @summary - The logout function runs when the user click to logout of the application.
-     */
+    * @summary - The logout function runs when the user click to logout of the application.
+    */
     logout = () => {
         auth.signOut().then(() => {
         // sync with application state
@@ -201,8 +201,8 @@ class Header extends Component {
     }
 
     /**
-     * @summary - The login function runs when the user click to login of the application.
-     */
+    * @summary - The login function runs when the user click to login of the application.
+    */
     login = () => {
         auth.signInWithPopup(provider).then((result) => {
             const account = result.account;
@@ -213,8 +213,8 @@ class Header extends Component {
     }
 
     /**
-     * @summary - This function produces the DOM elements to display logging functionality
-     */
+    * @summary - This function produces the DOM elements to display logging functionality
+    */
     loginBtn = () => {
         return (
             <div id="user" >
@@ -256,8 +256,8 @@ class Header extends Component {
     }
 
     /**
-     * @summary - This function handles when the user wants to toggle the logging menu
-     */
+    * @summary - This function handles when the user wants to toggle the logging menu
+    */
     handleLogClick = (event) => {
         event.preventDefault();
         this.setState({
@@ -266,22 +266,22 @@ class Header extends Component {
     };
 
     /**
-     * @summary - This sets the components current state to the input from the scene name form
-     */
+    * @summary - This sets the components current state to the input from the scene name form
+    */
     handleNameChange = (event) => {
         this.setState({ sceneName: event.target.value });
     }
 
     /**
-     * @summary - This sets the components current state to the input from the scene description form
-     */
+    * @summary - This sets the components current state to the input from the scene description form
+    */
     handleDescChange = (event) => {
         this.setState({ sceneDesc: event.target.value });
     }
 
     /**
-     * @summary - This function produces the form for inputting the scene's name and description
-     */
+    * @summary - This function produces the form for inputting the scene's name and description
+    */
     sceneName = () => {
         let text = "";
         if (this.state.sceneName === null) {
@@ -308,8 +308,8 @@ class Header extends Component {
     }
 
     /**
-     * @summary - handeRender gets the information from Ace Editor and calls the action: render()
-     */
+    * @summary - handeRender gets the information from Ace Editor and calls the action: render()
+    */
     handleRender = () => {
         try {
             let editor = window.ace.edit("ace-editor");
@@ -320,10 +320,10 @@ class Header extends Component {
     }
 
     /**
-     * @summary - This function will determine which projectId to use when saving.
-     *
-     * @returns - projectId
-     */
+    * @summary - This function will determine which projectId to use when saving.
+    *
+    * @returns - projectId
+    */
     getProjectId = () => {
         const { match } = this.props;
         let projectId = (match && match.params && match.params.id) || null;
@@ -348,8 +348,8 @@ class Header extends Component {
     }
 
     /**
-     * @summary - When the user clicks save it will upload the information to Firebase
-     */
+    * @summary - When the user clicks save it will upload the information to Firebase
+    */
     handleSave = () => {
         let editor, text;
         if (!this.props.viewOnly) {
@@ -407,8 +407,8 @@ class Header extends Component {
     }
 
     /**
-     * @summary - resets the current scene
-     */
+    * @summary - resets the current scene
+    */
     clear = () => {
         try {
             let editor = window.ace.edit("ace-editor");
@@ -419,23 +419,23 @@ class Header extends Component {
     }
 
     /**
-     * @summary - toggles the save drawer
-     */
+    * @summary - toggles the save drawer
+    */
     handleSaveToggle = () => this.setState({ saveOpen: !this.state.saveOpen });
 
     /**
-     * @summary - forces save drawer closed
-     */
+    * @summary - forces save drawer closed
+    */
     handleSaveClose = () => this.setState({ saveOpen: false });
 
     /**
-     * @summary - forces save drawer closed
-     */
+    * @summary - forces save drawer closed
+    */
     handleSaveOpen = () => this.setState({ saveOpen: true });
 
     /**
-     * @summary - creates the save drawer
-     */
+    * @summary - creates the save drawer
+    */
     saveDrawer = () => {
         return (
             <Drawer
@@ -463,8 +463,8 @@ class Header extends Component {
     }
 
     /**
-     * @summary - toggles the load project drawer
-     */
+    * @summary - toggles the load project drawer
+    */
     handleLoadToggle = () => {
         this.setState({ loadOpen: !this.state.loadOpen });
     };
@@ -516,8 +516,8 @@ class Header extends Component {
     }
 
     /**
-     * @summary - closes the snackbar that displays the message from render
-     */
+    * @summary - closes the snackbar that displays the message from render
+    */
 
     closeSnackBar = () => {
         this.setState({ snackOpen: false });
@@ -547,8 +547,8 @@ class Header extends Component {
     }
 
     /**
-     * @summary - render() creates the header and links the buttons
-     */
+    * @summary - render() creates the header and links the buttons
+    */
     render() {
         const style = {
             play: {
