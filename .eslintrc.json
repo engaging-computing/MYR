@@ -22,10 +22,6 @@
         "plugin:react/recommended"
     ],
     "rules": {
-        "indent": [
-            "error",
-            4
-        ],
         "quotes": [
             "error",
             "double"
@@ -34,6 +30,7 @@
             "error",
             "always"
         ],
+        "indent": "error,
         "no-var": "error",
         "prefer-const": "warn",
         "default-case": "warn",
