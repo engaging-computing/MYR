@@ -51,7 +51,7 @@ export default function scene(state = initial_state, action) {
             }
         };
     case types.SET_CAMERA:
-        const camPos = `${action.x || 0} ${action.y + (Math.random() / 10) || 1.6} ${action.z || 0}`;
+        let camPos = `${action.x || 0} ${action.y + (Math.random() / 10) || 1.6} ${action.z || 0}`;
         return {
             ...state,
             settings: {

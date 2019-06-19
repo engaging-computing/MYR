@@ -230,39 +230,39 @@ describe("IDE Component", () => {
 
 describe("Editor Actions", () => {
     it("should return a REFRESH action", () => {
-        const x = Actions.EditorActions.refresh("");
+        let x = Actions.EditorActions.refresh("");
         expect(x.type).toEqual(types.EDITOR_REFRESH);
     });
     it("should return a RENDER action", () => {
-        const x = Actions.EditorActions.render("test");
+        let x = Actions.EditorActions.render("test");
         expect(x.type).toEqual(types.EDITOR_RENDER);
     });
 
     it("should return a RECOVER action", () => {
-        const x = Actions.EditorActions.recover();
+        let x = Actions.EditorActions.recover();
         expect(x.type).toEqual(types.EDITOR_RECOVER);
     });
 });
 
 describe("Auth Actions", () => {
     it("should return a LOGIN action", () => {
-        const user = { name: "test", uid: "1" };
-        const x = Actions.AuthActions.login(user);
+        let user = { name: "test", uid: "1" };
+        let x = Actions.AuthActions.login(user);
         expect(x.type).toEqual(types.LOGIN);
     });
     it("should return a LOGOUT action", () => {
-        const x = Actions.AuthActions.logout();
+        let x = Actions.AuthActions.logout();
         expect(x.type).toEqual(types.LOGOUT);
     });
 });
 
 describe("Scene Actions", () => {
     it("should return a Refresh action", () => {
-        const x = Actions.SceneActions.nameScene("test");
+        let x = Actions.SceneActions.nameScene("test");
         expect(x.type).toEqual(types.NAME_SCENE);
     });
     it("should return a Refresh action", () => {
-        const x = Actions.SceneActions.loadScene("test");
+        let x = Actions.SceneActions.loadScene("test");
         expect(x.type).toEqual(types.LOAD_SCENE);
     });
 });
@@ -277,7 +277,7 @@ describe("User Reducer", () => {
     });
 
     it("should handle LOGIN", () => {
-        const testUser = { name: "user" };
+        let testUser = { name: "user" };
         expect(
             user(undefined, {
                 type: types.LOGIN,
@@ -336,7 +336,7 @@ describe("Scene Reducer", () => {
     });
 
     it("should LOAD_SCENE", () => {
-        const testObj = creatDefaultScene();
+        let testObj = creatDefaultScene();
         testObj.id = 1;
         expect(
             scene(undefined, { type: types.LOAD_SCENE, data: testObj }))

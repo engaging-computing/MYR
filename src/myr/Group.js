@@ -11,8 +11,8 @@ class Group {
     }
 
     remove = (id) => {
-        const index = this.getIndex(id);
-        const el = this.els[index];
+        let index = this.getIndex(id);
+        let el = this.els[index];
         delete this.els[index];
         this.myr.els.push(el);
     }
@@ -22,7 +22,7 @@ class Group {
     }
 
     getIndex = (outerElId) => {
-        for (const i in this.els) {
+        for (let i in this.els) {
             if (this.els[i].id === outerElId) {
                 return i;
             }
@@ -31,7 +31,7 @@ class Group {
     }
 
     setPosition = (x = 0, y = 1, z = 0) => {
-        const ent = this.myr.getEl(this.id);
+        let ent = this.myr.getEl(this.id);
         ent.position = {
             x, y, z
         };
@@ -39,7 +39,7 @@ class Group {
     }
 
     setScale = (x = 1, y = 1, z = 1) => {
-        const ent = this.myr.getEl(this.id);
+        let ent = this.myr.getEl(this.id);
         ent.scale = {
             x, y, z
         };
@@ -47,7 +47,7 @@ class Group {
     }
 
     setRotation = (x = 0, y = 0, z = 0) => {
-        const ent = this.myr.getEl(this.id);
+        let ent = this.myr.getEl(this.id);
         ent.rotation = {
             x, y, z
         };

@@ -5,7 +5,7 @@ import "@firebase/storage";
 import "@firebase/firestore";
 import firebaseKey from "./keys/firebase.js";
 
-const config = {
+let config = {
     apiKey: firebaseKey,
     authDomain: "myrjsecg.firebaseapp.com",
     databaseURL: "https://myrjsecg.firebaseio.com",

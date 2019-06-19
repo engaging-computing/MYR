@@ -5,12 +5,12 @@ export function asyncUserProj(id) {
     // fetch user's project
     return (dispatch) => {
         if (id) {
-            const userVals = [];
+            let userVals = [];
             scenes.where("uid", "==", id).get().then(snap => {
                 snap.forEach(doc => {
                     storageRef.child(`/images/perspective/${doc.id}`)
                         .getDownloadURL().then((img) => {
-                            const dat = doc.data();
+                            let dat = doc.data();
                             userVals.push({
                                 name: dat.name,
                                 id: doc.id,
@@ -32,12 +32,12 @@ export function syncUserProj(payload) {
 export const asyncExampleProj = () => {
     // fetch example projects
     return (dispatch) => {
-        const exampleVals = [];
+        let exampleVals = [];
         scenes.where("uid", "==", "1").get().then(snap => {
             snap.forEach(doc => {
                 storageRef.child(`/images/perspective/${doc.id}`)
                     .getDownloadURL().then((img) => {
-                        const dat = doc.data();
+                        let dat = doc.data();
                         exampleVals.push({
                             name: dat.name,
                             id: doc.id,
@@ -58,8 +58,8 @@ export function syncExampleProj(payload) {
 export function deleteProj(id, name) {
     if (window.confirm(`Are you sure you want to delete ${name}?`)) {
         // Delete Image
-        const path = "images/perspective/" + id;
-        const imgRef = storageRef.child(path);
+        let path = "images/perspective/" + id;
+        let imgRef = storageRef.child(path);
 
         imgRef.delete().then(() => {
         }).catch((error) => {

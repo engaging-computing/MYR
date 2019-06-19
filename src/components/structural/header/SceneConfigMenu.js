@@ -112,7 +112,7 @@ class ConfigModal extends Component {
     };
 
     handleAddEmail = () => {
-        const arr = [].concat(this.state.sendTo);
+        let arr = [].concat(this.state.sendTo);
         arr.push(this.state.email);
         this.emailRef.current.value = "";
         this.setState({ sendTo: arr, email: "" });
@@ -399,7 +399,7 @@ class ConfigModal extends Component {
     // Render all of the elements
     render() {
         const { classes } = this.props;
-        const isDisabled = this.props.layoutType === layoutTypes.REFERENCE;
+        let isDisabled = this.props.layoutType === layoutTypes.REFERENCE;
         return (
             <div>
                 {!isDisabled ?

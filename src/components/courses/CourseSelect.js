@@ -79,11 +79,11 @@ class CourseSelectModal extends Component {
 
     helper = (course) => {
         if (course) {
-            const id = course._id;
-            const shortname = course.shortname;
-            const name = course.name;
-            const description = course.description;
-            const link = "/course/" + shortname;
+            let id = course._id;
+            let shortname = course.shortname;
+            let name = course.name;
+            let description = course.description;
+            let link = "/course/" + shortname;
             return (
                 <div key={id} id={id} title={name}
                     className="course-listing col-xs-12 col-md-6">

@@ -2,7 +2,7 @@ import Myr from "../myr/Myr";
 
 const myr = new Myr();
 
-const colorRegEx = new RegExp("#([0-9]|[A-F]|[a-f]){6}");
+let colorRegEx = new RegExp("#([0-9]|[A-F]|[a-f]){6}");
 
 describe("Updates to Myr's Model", () => {
 
@@ -36,7 +36,7 @@ describe("Updates to Myr's Model", () => {
     });
 
     it("to makes Random Color", () => {
-        const color = myr.getRandomColor();
+        let color = myr.getRandomColor();
         expect(color).not.toBeUndefined();
         expect(colorRegEx.test(color)).toBeTruthy();
     });
@@ -44,8 +44,8 @@ describe("Updates to Myr's Model", () => {
 
 describe("Component Renders", () => {
     it("Box", () => {
-        const id = myr.box({ material: "color: blue;", position: { x: 1, y: 1, z: 1 } });
-        const box = myr.els[id];
+        let id = myr.box({ material: "color: blue;", position: { x: 1, y: 1, z: 1 } });
+        let box = myr.els[id];
         expect(box).toBeDefined();
         expect(box.geometry).toMatch(/box/);
         expect(box.material).toMatch(/color: blue;/);
@@ -54,8 +54,8 @@ describe("Component Renders", () => {
 
     it("Sphere", () => {
         myr.els = [];
-        const id = myr.sphere({ material: "color: blue;", position: { x: 1, y: 1, z: 1 } });
-        const sphere = myr.els[id];
+        let id = myr.sphere({ material: "color: blue;", position: { x: 1, y: 1, z: 1 } });
+        let sphere = myr.els[id];
         expect(sphere).toBeDefined();
         expect(sphere.geometry).toMatch(/sphere/);
         expect(sphere.material).toMatch(/color: blue;/);
@@ -64,8 +64,8 @@ describe("Component Renders", () => {
 
     it("Circle", () => {
         myr.els = [];
-        const id = myr.circle({ material: "color: blue;", position: { x: 1, y: 1, z: 1 } });
-        const circle = myr.els[id];
+        let id = myr.circle({ material: "color: blue;", position: { x: 1, y: 1, z: 1 } });
+        let circle = myr.els[id];
         expect(circle).toBeDefined();
         expect(circle.geometry).toMatch(/circle/);
         expect(circle.material).toMatch(/color: blue;/);
@@ -75,8 +75,8 @@ describe("Component Renders", () => {
 
     it("Cone", () => {
         myr.els = [];
-        const id = myr.cone({ material: "color: blue;", position: { x: 1, y: 1, z: 1 } });
-        const cone = myr.els[id];
+        let id = myr.cone({ material: "color: blue;", position: { x: 1, y: 1, z: 1 } });
+        let cone = myr.els[id];
         expect(cone).toBeDefined();
         expect(cone.geometry).toMatch(/cone/);
         expect(cone.material).toMatch(/color: blue;/);
@@ -85,8 +85,8 @@ describe("Component Renders", () => {
 
     it("Cylinder", () => {
         myr.els = [];
-        const id = myr.cylinder({ material: "color: blue;", position: { x: 1, y: 1, z: 1 } });
-        const cylinder = myr.els[id];
+        let id = myr.cylinder({ material: "color: blue;", position: { x: 1, y: 1, z: 1 } });
+        let cylinder = myr.els[id];
         expect(cylinder).toBeDefined();
         expect(cylinder.geometry).toMatch(/cylinder/);
         expect(cylinder.material).toMatch(/color: blue;/);
@@ -95,8 +95,8 @@ describe("Component Renders", () => {
 
     it("Ring", () => {
         myr.reset();
-        const id = myr.ring();
-        const ring = myr.els[id];
+        let id = myr.ring();
+        let ring = myr.els[id];
         expect(ring).toBeDefined();
         expect(ring.geometry).toMatch(/ring/);
         expect(ring.material).toMatch(/color: red;/);
@@ -107,8 +107,8 @@ describe("Component Renders", () => {
     it("Plane", () => {
         myr.reset();
         myr.els = [];
-        const id = myr.plane();
-        const plane = myr.els[id];
+        let id = myr.plane();
+        let plane = myr.els[id];
         expect(plane).toBeDefined();
         expect(plane.geometry).toMatch(/plane/);
         expect(plane.material).toMatch(/color: red;/);
@@ -118,8 +118,8 @@ describe("Component Renders", () => {
 
     it("Tetrahedron", () => {
         myr.reset();
-        const id = myr.tetrahedron();
-        const tetrahedron = myr.els[id];
+        let id = myr.tetrahedron();
+        let tetrahedron = myr.els[id];
         expect(tetrahedron).toBeDefined();
         expect(tetrahedron.geometry).toMatch(/tetrahedron/);
         expect(tetrahedron.material).toMatch(/color: red;/);
@@ -129,8 +129,8 @@ describe("Component Renders", () => {
 
     it("Triangle", () => {
         myr.els = [];
-        const id = myr.triangle({ material: "color: blue;", position: { x: 1, y: 1, z: 1 } });
-        const triangle = myr.els[id];
+        let id = myr.triangle({ material: "color: blue;", position: { x: 1, y: 1, z: 1 } });
+        let triangle = myr.els[id];
         expect(triangle).toBeDefined();
         expect(triangle.geometry).toMatch(/triangle/);
         expect(triangle.material).toMatch(/color: blue;/);
@@ -141,8 +141,8 @@ describe("Component Renders", () => {
     it("Text", () => {
         myr.els = [];
         myr.setPosition(0, 0, 0);
-        const id = myr.text("Hello World!");
-        const text = myr.els[id];
+        let id = myr.text("Hello World!");
+        let text = myr.els[id];
         expect(text).toBeDefined();
         expect(text.position).toEqual({ x: 0, y: 0, z: 0 });
         expect(text.value).toEqual("Hello World!");
@@ -152,8 +152,8 @@ describe("Component Renders", () => {
     it("Tube", () => {
         myr.els = [];
         myr.setColor("blue");
-        const id = myr.tube({ position: { x: 1, y: 1, z: 1 } });
-        const tube = myr.els[id];
+        let id = myr.tube({ position: { x: 1, y: 1, z: 1 } });
+        let tube = myr.els[id];
         expect(tube).toBeDefined();
         expect(tube.material).toMatch(/color: blue;/);
         expect(tube).toHaveProperty("tube");
@@ -162,8 +162,8 @@ describe("Component Renders", () => {
     it("Line", () => {
         myr.els = [];
         myr.setColor("blue");
-        const id = myr.line("1 0 0, 2 0 0", { position: { x: 1, y: 1, z: 1 } });
-        const line = myr.els[id];
+        let id = myr.line("1 0 0, 2 0 0", { position: { x: 1, y: 1, z: 1 } });
+        let line = myr.els[id];
         expect(line).toBeDefined();
         expect(line.material).toMatch(/color: blue;/);
         expect(line.path).toEqual("1 0 0, 2 0 0");
@@ -173,8 +173,8 @@ describe("Component Renders", () => {
     it("Torus", () => {
         myr.els = [];
         myr.setColor("blue");
-        const id = myr.torus({ position: { x: 1, y: 1, z: 1 } });
-        const torus = myr.els[id];
+        let id = myr.torus({ position: { x: 1, y: 1, z: 1 } });
+        let torus = myr.els[id];
         expect(torus).toBeDefined();
         expect(torus.geometry).toMatch(/torus/);
         expect(torus.material).toMatch(/color: blue;/);
@@ -184,8 +184,8 @@ describe("Component Renders", () => {
     it("torusknot", () => {
         myr.els = [];
         myr.setColor("blue");
-        const id = myr.torusknot({ position: { x: 1, y: 1, z: 1 } });
-        const torusknot = myr.els[id];
+        let id = myr.torusknot({ position: { x: 1, y: 1, z: 1 } });
+        let torusknot = myr.els[id];
         expect(torusknot).toBeDefined();
         expect(torusknot.geometry).toMatch(/torus/);
         expect(torusknot.material).toMatch(/color: blue;/);
@@ -194,12 +194,12 @@ describe("Component Renders", () => {
 
     it("polyhedron", () => {
         myr.els = [];
-        const id = myr.polyhedron({
+        let id = myr.polyhedron({
             position: { x: 1, y: 1, z: 1 },
             rotation: { x: 1, y: 1, z: 1 },
             scale: { x: 1, y: 1, z: 1 }
         });
-        const polyhedron = myr.els[id];
+        let polyhedron = myr.els[id];
         expect(polyhedron).toBeDefined();
         expect(polyhedron.position).toEqual({ x: 1, y: 1, z: 1 });
         expect(polyhedron.rotation).toEqual({ x: 1, y: 1, z: 1 });
@@ -208,8 +208,8 @@ describe("Component Renders", () => {
 
     it("dodecahedron", () => {
         myr.els = [];
-        const id = myr.dodecahedron({ material: "color: blue;", position: { x: 1, y: 1, z: 1 } });
-        const dodecahedron = myr.els[id];
+        let id = myr.dodecahedron({ material: "color: blue;", position: { x: 1, y: 1, z: 1 } });
+        let dodecahedron = myr.els[id];
         expect(dodecahedron).toBeDefined();
         expect(dodecahedron.geometry).toMatch(/dodecahedron/);
         expect(dodecahedron.material).toMatch(/color: blue;/);
@@ -218,8 +218,8 @@ describe("Component Renders", () => {
 
     it("icosahedron", () => {
         myr.els = [];
-        const id = myr.icosahedron({ material: "color: blue;", position: { x: 1, y: 1, z: 1 } });
-        const icosahedron = myr.els[id];
+        let id = myr.icosahedron({ material: "color: blue;", position: { x: 1, y: 1, z: 1 } });
+        let icosahedron = myr.els[id];
         expect(icosahedron).toBeDefined();
         expect(icosahedron.geometry).toMatch(/icosahedron/);
         expect(icosahedron.material).toMatch(/color: blue;/);
@@ -228,8 +228,8 @@ describe("Component Renders", () => {
 
     it("octahedron", () => {
         myr.els = [];
-        const id = myr.octahedron({ material: "color: blue;", position: { x: 1, y: 1, z: 1 } });
-        const octahedron = myr.els[id];
+        let id = myr.octahedron({ material: "color: blue;", position: { x: 1, y: 1, z: 1 } });
+        let octahedron = myr.els[id];
         expect(octahedron).toBeDefined();
         expect(octahedron.geometry).toMatch(/octahedron/);
         expect(octahedron.material).toMatch(/color: blue;/);
@@ -240,9 +240,9 @@ describe("Component Renders", () => {
 describe("Component Animations", () => {
     it("Should add the animate animation", () => {
         myr.reset();
-        const bId = myr.box();
+        let bId = myr.box();
         myr.animate(bId);
-        const el = myr.getEl(bId);
+        let el = myr.getEl(bId);
         expect(el.animation).toEqual(`
       property: rotation;
       dir: alternate;
@@ -262,9 +262,9 @@ describe("Component Animations", () => {
 
     it("Should add the spin animation", () => {
         myr.reset();
-        const bId = myr.box();
+        let bId = myr.box();
         myr.spin(bId);
-        const el = myr.getEl(bId);
+        let el = myr.getEl(bId);
         expect(el.animation__spin).toEqual(`
       property: rotation;
       dir: alternate;
@@ -286,133 +286,133 @@ describe("Component Animations", () => {
 
     it("should add the yoyo animiation", () => {
         myr.reset();
-        const id = myr.box();
+        let id = myr.box();
         myr.yoyo(id);
-        const el = myr.getEl(id);
+        let el = myr.getEl(id);
         expect(el).toHaveProperty("animation__yoyo");
     });
 
     it("should add the sideToSide animiation", () => {
         myr.reset();
-        const id = myr.box();
+        let id = myr.box();
         myr.sideToSide(id);
-        const el = myr.getEl(id);
+        let el = myr.getEl(id);
         expect(el).toHaveProperty("animation__sidetoside");
     });
 
     it("should add the goUp animiation", () => {
         myr.reset();
-        const id = myr.box();
+        let id = myr.box();
         myr.goUp(id);
-        const el = myr.getEl(id);
+        let el = myr.getEl(id);
         expect(el).toHaveProperty("animation__goup");
     });
 
     it("should add the goDown animiation", () => {
         myr.reset();
-        const id = myr.box();
+        let id = myr.box();
         myr.goDown(id);
-        const el = myr.getEl(id);
+        let el = myr.getEl(id);
         expect(el).toHaveProperty("animation__godown");
     });
 
     it("should add the goLeft animiation", () => {
         myr.reset();
-        const id = myr.box();
+        let id = myr.box();
         myr.goLeft(id);
-        const el = myr.getEl(id);
+        let el = myr.getEl(id);
         expect(el).toHaveProperty("animation__goleft");
     });
 
     it("should add the goRight animiation", () => {
         myr.reset();
-        const id = myr.box();
+        let id = myr.box();
         myr.goRight(id);
-        const el = myr.getEl(id);
+        let el = myr.getEl(id);
         expect(el).toHaveProperty("animation__goright");
     });
 
     it("should add the goTowards animiation", () => {
         myr.reset();
-        const id = myr.box();
+        let id = myr.box();
         myr.goTowards(id);
-        const el = myr.getEl(id);
+        let el = myr.getEl(id);
         expect(el).toHaveProperty("animation__goleft");
     });
 
     it("should add the goAway animiation", () => {
         myr.reset();
-        const id = myr.box();
+        let id = myr.box();
         myr.goAway(id);
-        const el = myr.getEl(id);
+        let el = myr.getEl(id);
         expect(el).toHaveProperty("animation__goaway");
     });
 
 
     it("should add the grow animiation", () => {
         myr.reset();
-        const id = myr.box();
+        let id = myr.box();
         myr.grow(id);
-        const el = myr.getEl(id);
+        let el = myr.getEl(id);
         expect(el).toHaveProperty("animation__grow");
     });
 
 
     it("should add the shrink animiation", () => {
         myr.reset();
-        const id = myr.box();
+        let id = myr.box();
         myr.shrink(id);
-        const el = myr.getEl(id);
+        let el = myr.getEl(id);
         expect(el).toHaveProperty("animation__shrink");
     });
 
     it("should add the fadeOut animiation", () => {
         myr.reset();
-        const id = myr.box();
+        let id = myr.box();
         myr.fadeOut(id);
-        const el = myr.getEl(id);
+        let el = myr.getEl(id);
         expect(el).toHaveProperty("animation__fadeout");
         expect(el.material).toMatch(/transparent: true;/);
     });
 
     it("should add the fadeIn animiation", () => {
         myr.reset();
-        const id = myr.box();
+        let id = myr.box();
         myr.fadeIn(id);
-        const el = myr.getEl(id);
+        let el = myr.getEl(id);
         expect(el).toHaveProperty("animation__fadein");
         expect(el.material).toMatch(/transparent: true;/);
     });
 
     it("should add the shrink animiation", () => {
         myr.reset();
-        const id = myr.box();
+        let id = myr.box();
         myr.shrink(id);
-        const el = myr.getEl(id);
+        let el = myr.getEl(id);
         expect(el).toHaveProperty("animation__shrink");
     });
 
     it("should add the shrink animiation", () => {
         myr.reset();
-        const id = myr.box();
+        let id = myr.box();
         myr.shrink(id);
-        const el = myr.getEl(id);
+        let el = myr.getEl(id);
         expect(el).toHaveProperty("animation__shrink");
     });
 
     it("should add the shrink animiation", () => {
         myr.reset();
-        const id = myr.box();
+        let id = myr.box();
         myr.shrink(id);
-        const el = myr.getEl(id);
+        let el = myr.getEl(id);
         expect(el).toHaveProperty("animation__shrink");
     });
 
     it("should add the shrink animiation", () => {
         myr.reset();
-        const id = myr.box();
+        let id = myr.box();
         myr.shrink(id);
-        const el = myr.getEl(id);
+        let el = myr.getEl(id);
         expect(el).toHaveProperty("animation__shrink");
     });
 
@@ -429,15 +429,15 @@ describe("Other Myr functionality", () => {
 
     it("Should drop", () => {
         myr.reset();
-        const el = myr.box({ material: "color: blue;", position: { x: 1, y: 1, z: 1 } });
+        let el = myr.box({ material: "color: blue;", position: { x: 1, y: 1, z: 1 } });
         myr.drop(el);
-        const thisEl = myr.els[el];
+        let thisEl = myr.els[el];
         expect(thisEl).toHaveProperty("dynamic-body");
     });
 
     it("Should return a light", () => {
         myr.reset();
-        const light = myr.light();
+        let light = myr.light();
         expect(light).toBeTruthy();
         expect(light.color).toMatch(colorRegEx);
 
@@ -445,20 +445,20 @@ describe("Other Myr functionality", () => {
 
     it("should get the right element", () => {
         myr.reset();
-        const id = myr.box();
+        let id = myr.box();
         expect(myr.getEl(id)).toBeDefined();
         expect(myr.getEl(id).geometry).toEqual("primitive: box;");
     });
 
     it("should get the right index", () => {
         myr.reset();
-        const id = myr.box();
+        let id = myr.box();
         expect(myr.els[id]).toBeDefined();
     });
 
     it("should initialize Myr", () => {
-        const obj = [{ name: "test" }];
-        const m = new Myr(obj);
+        let obj = [{ name: "test" }];
+        let m = new Myr(obj);
         expect(m.els.length).toEqual(1);
         expect(m.baseEls.length).toEqual(1);
     });
@@ -711,17 +711,17 @@ describe("Other Myr functionality", () => {
 
     it("should give the entity subtractive properties", () => {
         myr.reset();
-        const id = myr.box();
+        let id = myr.box();
         myr.makeSubtractive(id);
-        const el = myr.getEl(id);
+        let el = myr.getEl(id);
         expect(el.mixin).toEqual("subtractive-entity");
         expect(el.class).toEqual("negative");
     });
 
     it("should give entities additive properties by default", () => {
         myr.reset();
-        const id = myr.box();
-        const el = myr.getEl(id);
+        let id = myr.box();
+        let el = myr.getEl(id);
         expect(el.mixin).toEqual("additive-entity");
     });
 });

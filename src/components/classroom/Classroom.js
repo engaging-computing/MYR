@@ -117,7 +117,7 @@ class ClassroomModal extends Component {
 
     selectClassroom = () => {
         const userClassrooms = this.props.classrooms.classrooms;
-        const optionItems = [];
+        let optionItems = [];
         const placeholder = "Select a classroom";
 
         userClassrooms.map((classroom) =>
@@ -137,7 +137,7 @@ class ClassroomModal extends Component {
 
     deleteClassroom = () => {
         const userClassrooms = this.props.classrooms.classrooms;
-        const optionItems = [];
+        let optionItems = [];
         const placeholder = "Select a classroom";
 
         userClassrooms.map((classroom) =>
@@ -156,13 +156,13 @@ class ClassroomModal extends Component {
     }
 
     handleSubmit = () => {
-        const existingClasses = [];
+        let existingClasses = [];
         if (!this.props.user) {
             window.alert("You must be signed in to create a class.");
             this.handleAddClassToggle();
         }
         else {
-            const newClassroomID = this.state.newClassroomID.toLowerCase();
+            let newClassroomID = this.state.newClassroomID.toLowerCase();
             classes.where("classroomID", "==", newClassroomID).get().then(snap => {
                 snap.forEach(doc => {
                     existingClasses.push({
@@ -174,7 +174,7 @@ class ClassroomModal extends Component {
                     window.alert("Error: A class already exists with that class code.");
                 }
                 else {
-                    const newID = classes.doc().id;
+                    let newID = classes.doc().id;
                     classes.doc(newID).set({
                         classroomID: newClassroomID,
                         timestamp: Date.now(),
