@@ -42,9 +42,9 @@ export function recover() {
 export function fetchScene(id, uid = "anon") {
     return (dispatch) => {  // Return a func that dispatches events after async
         scenes.doc(id).get().then((scene) => {
-            let data = scene.data();
+            const data = scene.data();
             if (data && data.pw) {
-                let pw = prompt("Please enter the PW");
+                const pw = prompt("Please enter the PW");
                 if (pw !== data.pw) { return; }
             }
             if (data && data.code) { // If it worked

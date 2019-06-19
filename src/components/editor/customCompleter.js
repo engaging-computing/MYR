@@ -1,6 +1,6 @@
 export const customCompleter = {
     getCompletions: function (editor, session, pos, prefix, callback) {
-        let BasicAutocompleteKeyWords = [
+        const BasicAutocompleteKeyWords = [
             "const",
             "yield",
             "import",
@@ -32,7 +32,7 @@ export const customCompleter = {
             "static"
         ];
 
-        let keyWords = [
+        const keyWords = [
             "box()",
             "sphere()",
             "circle()",
@@ -111,7 +111,7 @@ export const customCompleter = {
 
         ];
 
-        let Colors = [
+        const Colors = [
             "aliceblue",
             "antiquewhite",
             "aqua",

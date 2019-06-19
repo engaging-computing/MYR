@@ -6,10 +6,10 @@ export function asyncClasses(id) {
     // fetch user's classes
     return (dispatch) => {
         if (id) {
-            let userClasses = [];
+            const userClasses = [];
             classes.where("uid", "==", id).get().then(snap => {
                 snap.forEach(doc => {
-                    let dat = doc.data();
+                    const dat = doc.data();
                     userClasses.push({
                         id: doc.id,
                         classroomID: dat.classroomID,
@@ -30,11 +30,11 @@ export function asyncClass(classroomID) {
     // fetch projects in class
     return (dispatch) => {
         if (classroomID) {
-            let classProjects = [];
-            let projectOptions = [];
+            const classProjects = [];
+            const projectOptions = [];
             scenes.where("settings.classroomID", "==", classroomID).get().then(snap => {
                 snap.forEach(doc => {
-                    let dat = doc.data();
+                    const dat = doc.data();
                     classProjects.push({
                         id: doc.id,
                         name: dat.name,

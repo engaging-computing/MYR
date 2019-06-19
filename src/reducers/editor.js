@@ -17,7 +17,7 @@ const initial_state = {
 /**
 * @summary - Snapshots is an array of objects that record each time the user tries to render
 */
-let snapshots = [
+const snapshots = [
     {
         timestamp: Date.now(),
         text: `${initial_state.text}`,
@@ -26,7 +26,7 @@ let snapshots = [
 ];
 
 
-let m = new Myr();
+const m = new Myr();
 m.init();
 // window.m = m; // Use this to attach it to the window for debugging
 

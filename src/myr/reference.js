@@ -1,6 +1,6 @@
 import React from "react";
 
-let geometry = [
+const geometry = [
     {
         name: <span>box()</span>,
         description: <span>Renders a box using current internal cursor properties. Returns an <span className="string element">element id</span>.</span>,
@@ -99,7 +99,7 @@ let geometry = [
 
 ];
 
-let transformations = [
+const transformations = [
     {
         name: <span>resetCursor()</span>,
         description: <span>Resets the properties of the cursor to their default settings.</span>,
@@ -215,7 +215,7 @@ let transformations = [
     },
 ];
 
-let animations = [
+const animations = [
     {
         name: <span>setLoop(<span className="bool">loop</span>)</span>,
         description: <span>Updates the loop attribute in the cursor. Default: true</span>,
@@ -356,7 +356,7 @@ let animations = [
     // },
 ];
 
-let groups = [
+const groups = [
     {
         name: <span>let <span className="group">myGroup</span> = group();</span>,
         description: <span>Creates a new empty group and stores it in the variable <span className="group">myGroup</span>.</span>,

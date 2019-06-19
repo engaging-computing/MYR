@@ -26,19 +26,19 @@ class View extends Component {
     // This fires off an event when the system is fully rendered.
     componentDidUpdate() {
         // Create the event
-        let event = new CustomEvent("myr-view-rendered");
+        const event = new CustomEvent("myr-view-rendered");
 
         // Dispatch/Trigger/Fire the event
         document.dispatchEvent(event);
 
-        let el = document.getElementById("rig");
+        const el = document.getElementById("rig");
         el.components["movement-controls"].velocity = new THREE.Vector3(0, 0, 0);
     }
 
     // This renders json to aframe entities
     helper = (ent) => {
         if (ent) {
-            let flattened = {
+            const flattened = {
                 ...ent,
                 position: `${ent.position.x || 0} ${ent.position.y || 0} ${ent.position.z || 0}`,
                 scale: `${ent.scale.x || 1} ${ent.scale.y || 1} ${ent.scale.z || 1}`,

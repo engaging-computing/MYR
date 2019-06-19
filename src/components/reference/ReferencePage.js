@@ -33,7 +33,7 @@ export default class Reference extends React.Component {
 
     exampleHelper = (example) => {
         if (example) {
-            let link = "/reference/" + example;
+            const link = "/reference/" + example;
             return (
                 <IconButton
                     href={link}

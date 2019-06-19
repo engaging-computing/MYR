@@ -54,7 +54,7 @@ class Myr {
   init = () => {
 
       // Get all the function names of the Myr(this) class
-      let funs = Object.keys(this).filter((p) => {
+      const funs = Object.keys(this).filter((p) => {
           return typeof this[p] === "function";
       });
 
@@ -290,15 +290,15 @@ class Myr {
 
   // Allows the entity to be dropped
   makeDroppable = (outerElId, mass = 2) => {
-      let el = this.getEl(outerElId);
-      let dynamicBody = `shape: auto; mass: ${mass}; angularDamping: 0.5; linearDamping: 0.5;`;
+      const el = this.getEl(outerElId);
+      const dynamicBody = `shape: auto; mass: ${mass}; angularDamping: 0.5; linearDamping: 0.5;`;
       el["dynamic-body"] = dynamicBody;
       return outerElId;
   }
 
   // Disallows the entity to be dropped
   makeUnDroppable = (outerElId) => {
-      let el = this.getEl(outerElId);
+      const el = this.getEl(outerElId);
       //Only makes an item undroppable if it is droppable but is not pushable
       if (el["dynamic-body"] && (!el["force-pushable"] || el["force-pushable"] === "false")) {
           el["dynamic-body"] = null;
@@ -308,8 +308,8 @@ class Myr {
 
   // Allows the entity to be pushed
   makePushable = (outerElId, mass = 2) => {
-      let el = this.getEl(outerElId);
-      let dynamicBody = `shape: auto; mass: ${mass}; angularDamping: 0.5; linearDamping: 0.5;`;
+      const el = this.getEl(outerElId);
+      const dynamicBody = `shape: auto; mass: ${mass}; angularDamping: 0.5; linearDamping: 0.5;`;
       el["dynamic-body"] = dynamicBody;
       el["force-pushable"] = "true";
       return outerElId;
@@ -317,7 +317,7 @@ class Myr {
 
   // Disallows the entity to be pushed
   makeUnPushable = (outerElId) => {
-      let el = this.getEl(outerElId);
+      const el = this.getEl(outerElId);
       if (el["force-pushable"]) {
           el["dynamic-body"] = null;
           el["force-pushable"] = "false";
@@ -327,7 +327,7 @@ class Myr {
 
   // Disallows the entity to be pushed
   makeUnPushable = (outerElId) => {
-      let el = this.getEl(outerElId);
+      const el = this.getEl(outerElId);
       if (el["force-pushable"]) {
           el["dynamic-body"] = null;
           el["force-pushable"] = "false";
@@ -338,7 +338,7 @@ class Myr {
   push = (outerElId, x, y, z) => {
       // Add an event listener
       document.addEventListener("myr-view-rendered", () => {
-          let el = document.querySelector("#" + outerElId);
+          const el = document.querySelector("#" + outerElId);
           if (!el) {
               return;
           }
@@ -354,7 +354,7 @@ class Myr {
 
   // Render an Aframe Box Primitive with current Myr settings
   box = (params) => {
-      let base = {
+      const base = {
           geometry: "primitive: box;",
           id: "box" + this.genNewId(),
           material: `color: ${this.color};`,
@@ -367,7 +367,7 @@ class Myr {
 
   // Render an Aframe circle Primitive with current Myr settings
   circle = (params) => {
-      let base = {
+      const base = {
           geometry: `primitive: circle; radius: ${this.radius}; theta-length: ${this.phiLength};`,
           id: "circ" + this.genNewId(),
           position: this.position,
@@ -380,7 +380,7 @@ class Myr {
 
   // Render an Aframe circle Primitive with current Myr settings
   cone = (params) => {
-      let base = {
+      const base = {
           id: "cone" + this.genNewId(),
           geometry: `primitive: cone; radiusBottom: ${this.radius}; radiusTop: 0.1;`,
           position: this.position,
@@ -393,7 +393,7 @@ class Myr {
 
   // Render an Aframe Text Primitive with current Myr settings
   cylinder = (params) => {
-      let base = {
+      const base = {
           id: "cyl" + this.genNewId(),
           geometry: `primitive: cylinder; radius: ${this.radius}; theta-length: ${this.phiLength};`,
           position: this.position,
@@ -407,7 +407,7 @@ class Myr {
 
   // Render an Aframe dodecahedron with current Myr settings
   dodecahedron = (params) => {
-      let base = {
+      const base = {
           id: "dod" + this.genNewId(),
           geometry: `primitive: dodecahedron; radius: ${this.radius};`,
           position: this.position,
@@ -420,7 +420,7 @@ class Myr {
 
   // Render an Aframe icosahedron with current Myr settings
   icosahedron = (params) => {
-      let base = {
+      const base = {
           id: "iso" + this.genNewId(),
           geometry: "primitive: icosahedron;",
           position: this.position,
@@ -433,7 +433,7 @@ class Myr {
 
   // Render an Aframe octahedron with current Myr settings
   octahedron = (params) => {
-      let base = {
+      const base = {
           id: "oct" + this.genNewId(),
           geometry: "primitive: octahedron;",
           position: this.position,
@@ -445,7 +445,7 @@ class Myr {
   }
 
   line = (path, params) => {
-      let base = {
+      const base = {
           id: "line" + this.genNewId(),
           tube: true,
           radius: ".01",
@@ -459,7 +459,7 @@ class Myr {
   }
 
   plane = (params) => {
-      let base = {
+      const base = {
           id: "plane" + this.genNewId(),
           geometry: `primitive: plane; height: 1; width: 1; phi-length: ${this.phiLength};`,
           position: this.position,
@@ -488,7 +488,7 @@ class Myr {
 
   // Render an Aframe Polyhedron with current Myr settings
   polyhedron = (params) => {
-      let base = {
+      const base = {
           id: "poly" + this.genNewId(),
           geometry: `primitive: sphere; segmentsWidth: 2; segmentsHeight: 8; phi-length: ${this.phiLength};`,
           position: this.position,
@@ -500,7 +500,7 @@ class Myr {
   }
 
   ring = (params) => {
-      let base = {
+      const base = {
           id: "ring" + this.genNewId(),
           geometry: `primitive: ring; radiusInner: 0.5; radiusOuter: 1; theta-length: ${this.phiLength};`,
           position: this.position,
@@ -513,8 +513,8 @@ class Myr {
 
   // Allows the entity to be pushed
   makePushable = (outerElId, mass = 2) => {
-      let el = this.getEl(outerElId);
-      let dynamicBody = `shape: auto; mass: ${mass}; angularDamping: 0.5; linearDamping: 0.5;`;
+      const el = this.getEl(outerElId);
+      const dynamicBody = `shape: auto; mass: ${mass}; angularDamping: 0.5; linearDamping: 0.5;`;
       el["dynamic-body"] = dynamicBody;
       el["force-pushable"] = "true";
       return outerElId;
@@ -522,10 +522,10 @@ class Myr {
 
   // Makes the entity subtract from entities it overlaps with
   makeSubtractive = (outerElId) => {
-      let el = this.getEl(outerElId);
+      const el = this.getEl(outerElId);
       if (String(el.id).includes("grp")) {
-          for (let i in el.els) {
-              let innerEl = el.els[i];
+          for (const i in el.els) {
+              const innerEl = el.els[i];
               innerEl["mixin"] = "subtractive-entity";
               innerEl["class"] = "negative";
           }
@@ -540,7 +540,7 @@ class Myr {
 
   // Disallows the entity to be pushed
   makeUnPushable = (outerElId) => {
-      let el = this.getEl(outerElId);
+      const el = this.getEl(outerElId);
       if (el["force-pushable"]) {
           el["dynamic-body"] = null;
           el["force-pushable"] = "false";
@@ -550,10 +550,10 @@ class Myr {
 
   // Gives the entity normal additive geometry properties based on current cursor state
   makeUnSubtractive = (outerElId) => {
-      let el = this.getEl(outerElId);
+      const el = this.getEl(outerElId);
       if (String(el.id).includes("grp")) {
-          for (let i in el.els) {
-              let innerEl = el.els[i];
+          for (const i in el.els) {
+              const innerEl = el.els[i];
               if (innerEl["class"]) {
                   delete innerEl["class"];
                   innerEl["mixin"] = "additive-entity";
@@ -573,7 +573,7 @@ class Myr {
   push = (outerElId, x, y, z) => {
       // Add an event listener
       document.addEventListener("myr-view-rendered", () => {
-          let el = document.querySelector("#" + outerElId);
+          const el = document.querySelector("#" + outerElId);
           if (!el) {
               return;
           }
@@ -589,7 +589,7 @@ class Myr {
 
   // Render an Aframe Box Primitive with current Myr settings
   box = (params) => {
-      let base = {
+      const base = {
           geometry: "primitive: box;",
           id: "box" + this.genNewId(),
           material: `color: ${this.color};`,
@@ -603,7 +603,7 @@ class Myr {
 
   // Render an Aframe circle Primitive with current Myr settings
   circle = (params) => {
-      let base = {
+      const base = {
           geometry: `primitive: circle; radius: ${this.radius}; theta-length: ${this.phiLength};`,
           id: "circ" + this.genNewId(),
           position: this.position,
@@ -617,7 +617,7 @@ class Myr {
 
   // Render an Aframe circle Primitive with current Myr settings
   cone = (params) => {
-      let base = {
+      const base = {
           id: "cone" + this.genNewId(),
           geometry: `primitive: cone; radiusBottom: ${this.radius}; radiusTop: 0.1;`,
           position: this.position,
@@ -631,7 +631,7 @@ class Myr {
 
   // Render an Aframe Text Primitive with current Myr settings
   cylinder = (params) => {
-      let base = {
+      const base = {
           id: "cyl" + this.genNewId(),
           geometry: `primitive: cylinder; radius: ${this.radius}; theta-length: ${this.phiLength};`,
           position: this.position,
@@ -646,7 +646,7 @@ class Myr {
 
   // Render an Aframe dodecahedron with current Myr settings
   dodecahedron = (params) => {
-      let base = {
+      const base = {
           id: "dod" + this.genNewId(),
           geometry: `primitive: dodecahedron; radius: ${this.radius};`,
           position: this.position,
@@ -660,7 +660,7 @@ class Myr {
 
   // Render an Aframe icosahedron with current Myr settings
   icosahedron = (params) => {
-      let base = {
+      const base = {
           id: "iso" + this.genNewId(),
           geometry: "primitive: icosahedron;",
           position: this.position,
@@ -674,7 +674,7 @@ class Myr {
 
   // Render an Aframe octahedron with current Myr settings
   octahedron = (params) => {
-      let base = {
+      const base = {
           id: "oct" + this.genNewId(),
           geometry: "primitive: octahedron;",
           position: this.position,
@@ -687,7 +687,7 @@ class Myr {
   }
 
   line = (path, params) => {
-      let base = {
+      const base = {
           id: "line" + this.genNewId(),
           tube: true,
           radius: ".01",
@@ -702,7 +702,7 @@ class Myr {
   }
 
   plane = (params) => {
-      let base = {
+      const base = {
           id: "plane" + this.genNewId(),
           geometry: `primitive: plane; height: 1; width: 1; phi-length: ${this.phiLength};`,
           position: this.position,
@@ -716,7 +716,7 @@ class Myr {
 
   // Render an Aframe Polyhedron with current Myr settings
   polyhedron = (params) => {
-      let base = {
+      const base = {
           id: "poly" + this.genNewId(),
           geometry: `primitive: sphere; segmentsWidth: 2; segmentsHeight: 8; phi-length: ${this.phiLength};`,
           position: this.position,
@@ -729,7 +729,7 @@ class Myr {
   }
 
   ring = (params) => {
-      let base = {
+      const base = {
           id: "ring" + this.genNewId(),
           geometry: `primitive: ring; radiusInner: 0.5; radiusOuter: 1; theta-length: ${this.phiLength};`,
           position: this.position,
@@ -743,7 +743,7 @@ class Myr {
 
   // Render an Aframe Sphere Primitive with current Myr settings
   sphere = (params) => {
-      let base = {
+      const base = {
           id: "sphere" + this.genNewId(),
           geometry: `primitive: sphere; phi-length: ${this.phiLength}`,
           position: this.position,
@@ -756,7 +756,7 @@ class Myr {
   }
 
   tetrahedron = (params) => {
-      let base = {
+      const base = {
           id: "tetra" + this.genNewId(),
           geometry: "primitive: tetrahedron;",
           position: this.position,
@@ -774,7 +774,7 @@ class Myr {
   * Instead we pass it and then pull it off again if we see it.
   */
   text = (text, params) => {
-      let base = {
+      const base = {
           text: true,
           value: text || "Default",
           id: "txt" + this.genNewId(),
@@ -794,7 +794,7 @@ class Myr {
   }
 
   torus = (params) => {
-      let base = {
+      const base = {
           id: "torus" + this.genNewId(),
           geometry: `primitive: torus; radius: ${this.radius}; radiusTubular: 0.5; arc: 360; arc: ${this.phiLength};`,
           position: this.position,
@@ -807,7 +807,7 @@ class Myr {
   }
 
   torusknot = (params) => {
-      let base = {
+      const base = {
           id: "torKn" + this.genNewId(),
           geometry: "primitive: torusKnot;",
           position: this.position,
@@ -822,7 +822,7 @@ class Myr {
   }
 
   triangle = (params) => {
-      let base = {
+      const base = {
           id: "tri" + this.genNewId(),
           geometry: "primitive: triangle;",
           position: this.position,
@@ -835,7 +835,7 @@ class Myr {
   }
 
   tube = (path, params) => {
-      let base = {
+      const base = {
           id: "tube" + this.genNewId(),
           tube: true,
           radius: this.radius,
@@ -851,7 +851,7 @@ class Myr {
 
   // Render a new Aframe light with current Myr settings
   light = () => {
-      let el = {
+      const el = {
           color: "lgt" + this.getRandomColor(),
           position: this.position,
           geometry: {
@@ -876,8 +876,8 @@ class Myr {
       magnitude = magnitude != null ? magnitude : this.magnitude.spin;
       loop = loop != null ? loop : this.loop;
       duration = duration != null ? duration : this.duration;
-      let el = this.getEl(outerElId);
-      let anim = `
+      const el = this.getEl(outerElId);
+      const anim = `
       property: rotation;
       dir: alternate;
       to: ${el.rotation.x} ${el.rotation.y + magnitude} ${el.rotation.z};
@@ -892,8 +892,8 @@ class Myr {
       magnitude = magnitude != null ? magnitude : this.magnitude.spin;
       loop = loop != null ? loop : this.loop;
       duration = duration != null ? duration : this.duration;
-      let el = this.getEl(outerElId);
-      let anim = `
+      const el = this.getEl(outerElId);
+      const anim = `
       property: rotation;
       dir: alternate;
       dur: ${duration};
@@ -909,8 +909,8 @@ class Myr {
       magnitude = magnitude != null ? magnitude : this.magnitude.general;
       loop = loop != null ? loop : this.loop;
       duration = duration != null ? duration : this.duration;
-      let el = this.getEl(outerElId);
-      let anim = `
+      const el = this.getEl(outerElId);
+      const anim = `
       property: position;
       dir: alternate;
       dur: ${duration};
@@ -925,8 +925,8 @@ class Myr {
       magnitude = magnitude != null ? magnitude : this.magnitude.general;
       loop = loop != null ? loop : this.loop;
       duration = duration != null ? duration : this.duration;
-      let el = this.getEl(outerElId);
-      let anim = `
+      const el = this.getEl(outerElId);
+      const anim = `
       dir: alternate;
       dur: ${duration};
       loop: ${Boolean(loop)};
@@ -942,8 +942,8 @@ class Myr {
       magnitude = magnitude != null ? magnitude : this.magnitude.general;
       loop = loop != null ? loop : this.loop;
       duration = duration != null ? duration : this.duration;
-      let el = this.getEl(outerElId);
-      let anim = `
+      const el = this.getEl(outerElId);
+      const anim = `
       property: position;
       dir: alternate;
       dur: ${duration};
@@ -958,8 +958,8 @@ class Myr {
       magnitude = magnitude != null ? magnitude : this.magnitude.general;
       loop = loop != null ? loop : this.loop;
       duration = duration != null ? duration : this.duration;
-      let el = this.getEl(outerElId);
-      let anim = `
+      const el = this.getEl(outerElId);
+      const anim = `
       property: position;
       dir: alternate;
       dur: ${duration};
@@ -974,8 +974,8 @@ class Myr {
       magnitude = magnitude != null ? magnitude : this.magnitude.general;
       loop = loop != null ? loop : this.loop;
       duration = duration != null ? duration : this.duration;
-      let el = this.getEl(outerElId);
-      let anim = `
+      const el = this.getEl(outerElId);
+      const anim = `
       property: position;
       dir: alternate;
       dur: ${duration};
@@ -990,8 +990,8 @@ class Myr {
       magnitude = magnitude != null ? magnitude : this.magnitude.general;
       loop = loop != null ? loop : this.loop;
       duration = duration != null ? duration : this.duration;
-      let el = this.getEl(outerElId);
-      let anim = `
+      const el = this.getEl(outerElId);
+      const anim = `
       property: position;
       dir: alternate;
       dur: ${duration};
@@ -1006,8 +1006,8 @@ class Myr {
       magnitude = magnitude != null ? magnitude : this.magnitude.general;
       loop = loop != null ? loop : this.loop;
       duration = duration != null ? duration : this.duration;
-      let el = this.getEl(outerElId);
-      let anim = `
+      const el = this.getEl(outerElId);
+      const anim = `
       property: position;
       dir: alternate;
       dur: ${duration};
@@ -1022,8 +1022,8 @@ class Myr {
       magnitude = magnitude != null ? magnitude : this.magnitude.general;
       loop = loop != null ? loop : this.loop;
       duration = duration != null ? duration : this.duration;
-      let el = this.getEl(outerElId);
-      let anim = `
+      const el = this.getEl(outerElId);
+      const anim = `
       property: position;
       dir: alternate;
       dur: ${duration};
@@ -1038,8 +1038,8 @@ class Myr {
       magnitude = magnitude != null ? magnitude : this.magnitude.general;
       loop = loop != null ? loop : this.loop;
       duration = duration != null ? duration : this.duration;
-      let el = this.getEl(outerElId);
-      let anim = `
+      const el = this.getEl(outerElId);
+      const anim = `
       property: scale;
       dir: alternate;
       dur: ${duration};
@@ -1054,8 +1054,8 @@ class Myr {
       magnitude = magnitude != null ? magnitude : this.magnitude.general;
       loop = loop != null ? loop : this.loop;
       duration = duration != null ? duration : this.duration;
-      let el = this.getEl(outerElId);
-      let anim = `
+      const el = this.getEl(outerElId);
+      const anim = `
       property: scale;
       dir: alternate;
       dur: ${duration};
@@ -1070,8 +1070,8 @@ class Myr {
       magnitude = magnitude != null ? magnitude : this.magnitude.fadeOut;
       loop = loop != null ? loop : this.loop;
       duration = duration != null ? duration : this.duration;
-      let el = this.getEl(outerElId);
-      let anim = `
+      const el = this.getEl(outerElId);
+      const anim = `
       property: components.material.material.opacity;
       dir: alternate;
       dur: ${duration};
@@ -1089,8 +1089,8 @@ class Myr {
       magnitude = magnitude != null ? magnitude : this.magnitude.general;
       loop = loop != null ? loop : this.loop;
       duration = duration != null ? duration : this.duration;
-      let el = this.getEl(outerElId);
-      let anim = `
+      const el = this.getEl(outerElId);
+      const anim = `
       property: components.material.material.opacity;
       dir: alternate;
       dur: ${duration};
@@ -1105,13 +1105,13 @@ class Myr {
   }
 
   colorShift = (outerElId, color) => {
-      let el = this.getEl(outerElId);
+      const el = this.getEl(outerElId);
       if (String(el.id).includes("grp")) {
-          for (let i in el.els) {
-              let innerEl = el.els[i];
+          for (const i in el.els) {
+              const innerEl = el.els[i];
               //innerEl.material.split(/\s|;/) returns an array of strings separated by " " and ";",
               //color is always its first attribute (after "color: ")
-              let anim = `
+              const anim = `
           property: components.material.material.color;
           from: ${(innerEl.material.split(/\s|;/))[1]};
           to: ${color};
@@ -1126,7 +1126,7 @@ class Myr {
           }
           return outerElId;
       }
-      let anim = `
+      const anim = `
       property: components.material.material.color;
       from: ${(el.material.split(/\s|;/))[1]};
       to: ${color};
@@ -1192,11 +1192,11 @@ class Myr {
 
   // MODELS
   addCModel = () => {
-      let asset = {
+      const asset = {
           id: "c-obj",
           src: "/img/c.obj"
       };
-      let el = {
+      const el = {
           "obj-model": "obj: #c-obj",
           mtl: "c-mtl",
           position: this.position,
@@ -1227,7 +1227,7 @@ class Myr {
   change = (outerElId, type, newParam) => {
       document.addEventListener("myr-view-rendered", () => {
           try {
-              let el = document.querySelector("#" + outerElId);
+              const el = document.querySelector("#" + outerElId);
               el.setAttribute(type, newParam);
           } catch (error) {
               return Error("change() failed execution" +
@@ -1239,10 +1239,10 @@ class Myr {
 
   syncChange = (outerElId, type, newParam) => {
       try {
-          let el = document.querySelector("#" + outerElId);
+          const el = document.querySelector("#" + outerElId);
           el.setAttribute(type, newParam);
       } catch (error) {
-          let err = Error("syncChange() failed execution\n" +
+          const err = Error("syncChange() failed execution\n" +
         "Ensure you are passing the proper id to the method" +
         `Error msg: ${error}`);
           console.error(err);
@@ -1258,7 +1258,7 @@ class Myr {
   *
   */
   mergeProps = (entity, params) => {
-      let id = params && params.id ? params.id : entity.id;
+      const id = params && params.id ? params.id : entity.id;
       if (!params || typeof params === "string") {
           this.els[id] = entity;
       } else {
@@ -1273,20 +1273,20 @@ class Myr {
 
   // Return a Entity that can be used to group elements together
   group = () => {
-      let base = {
+      const base = {
           id: "grp" + this.genNewId(),
           position: { ...this.position },
           rotation: this.rotation,
           scale: this.scale,
       };
-      let entity = new Group(this, base.id);
+      const entity = new Group(this, base.id);
       this.els[base.id] = { ...base, ...entity.entObj() };
       return entity;
   }
 
   // Transfer the object from MYR to the Entity
   transfer = (id) => {
-      let retVal = this.els[id];
+      const retVal = this.els[id];
       delete this.els[id];
       return retVal;
   }

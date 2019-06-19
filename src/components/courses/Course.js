@@ -25,8 +25,8 @@ class Lesson extends Component {
 
     renderBtns = () => {
         const { course, courses } = this.props;
-        let nextValid = courses && courses.currentIndex != null && course && course.lessons;
-        let prevValid = courses && courses.currentIndex != null;
+        const nextValid = courses && courses.currentIndex != null && course && course.lessons;
+        const prevValid = courses && courses.currentIndex != null;
         return (
             <Grid container spacing={48} id="lesson-btns">
                 <Grid item xs={2}>

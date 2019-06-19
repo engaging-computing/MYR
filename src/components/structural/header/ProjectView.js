@@ -101,7 +101,7 @@ class Project extends React.Component {
     };
 
     handleAddEmail = () => {
-        let arr = [].concat(this.state.sendTo);
+        const arr = [].concat(this.state.sendTo);
         arr.push(this.state.email);
         this.emailRef.current.value = "";
         this.setState({ sendTo: arr, email: "" });
@@ -176,7 +176,7 @@ class Project extends React.Component {
     );
 
     infoOpen = () => {
-        let projectId = this.state.projectId;
+        const projectId = this.state.projectId;
         let project;
         if (this.state.isUserProj) {
             project = this.props.userProjs.find(function (project) {
@@ -196,7 +196,7 @@ class Project extends React.Component {
                 </div>
             );
         }
-        let lastMod = new Date(project.data.ts);
+        const lastMod = new Date(project.data.ts);
         return (
             <div>
                 <h3>{project.name}</h3>
@@ -217,8 +217,8 @@ class Project extends React.Component {
 
     helper = (proj, canDelete) => {
         if (proj) {
-            let id = proj.id;
-            let name = proj.data.name;
+            const id = proj.id;
+            const name = proj.data.name;
             return (
                 <div key={id} id={id} title={name}
                     className="proj col-xs-12 col-md-6 col-lg-4 pt-2 pl-0" >
@@ -307,7 +307,7 @@ class Project extends React.Component {
 
     render() {
         const { classes } = this.props;
-        let previewToggle = {
+        const previewToggle = {
             position: "fixed ",
             top: 0,
             right: "46%"

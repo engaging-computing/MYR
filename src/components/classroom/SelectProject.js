@@ -62,7 +62,7 @@ class SelectProject extends Component {
     }
 
     renderSelect = () => {
-        let classroom = this.props.classroom;
+        const classroom = this.props.classroom;
         const placeholder = "Select a project";
 
         return (

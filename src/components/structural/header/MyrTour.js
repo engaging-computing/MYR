@@ -20,7 +20,7 @@ class MyrTour extends Component {
     }
 
     render() {
-        let isDisabled = this.props.layoutType === layoutTypes.REFERENCE;
+        const isDisabled = this.props.layoutType === layoutTypes.REFERENCE;
         return (
             <React.Fragment>
                 {!isDisabled ?

@@ -66,10 +66,10 @@ class Header extends Component {
             this.props.referenceExampleActions.fetchReferenceExample(this.props.refExName);
         }
         else if (this.props.classroom) {
-            let userClasses = [];
+            const userClasses = [];
             classes.where("classroomID", "==", this.props.classroom).get().then(snap => {
                 snap.forEach(doc => {
-                    let dat = doc.data();
+                    const dat = doc.data();
                     userClasses.push({
                         classroomID: dat.classroomID,
                         uid: dat.uid
@@ -175,7 +175,7 @@ class Header extends Component {
   * @summary - Removes listener for real time sync process
   */
     componentWillUnmount() {
-        let unsubscribe = scenes.onSnapshot(function () { });
+        const unsubscribe = scenes.onSnapshot(function () { });
         unsubscribe();
     }
 
@@ -312,7 +312,7 @@ class Header extends Component {
   */
   handleRender = () => {
       try {
-          let editor = window.ace.edit("ace-editor");
+          const editor = window.ace.edit("ace-editor");
           this.props.actions.render(editor.getSession().getValue(), this.props.user ? this.props.user.uid : "anon");
       } catch (error) {
           this.props.actions.render(this.props.text, this.props.user ? this.props.user.uid : "anon");
@@ -364,13 +364,13 @@ class Header extends Component {
 
       if (this.props.user && this.props.user.uid && text) {
           this.setState({ spinnerOpen: true });
-          let ts = Date.now();
-          let projectId = this.getProjectId();
-          let scene = document.querySelector("a-scene");
+          const ts = Date.now();
+          const projectId = this.getProjectId();
+          const scene = document.querySelector("a-scene");
           // Access the scene and screen shot, with perspective view in a lossy jpeg format
-          let img = scene.components.screenshot.getCanvas("perspective").toDataURL("image/jpeg", 0.1);
-          let path = "images/perspective/" + projectId;
-          let imgRef = storageRef.child(path);
+          const img = scene.components.screenshot.getCanvas("perspective").toDataURL("image/jpeg", 0.1);
+          const path = "images/perspective/" + projectId;
+          const imgRef = storageRef.child(path);
 
           imgRef.putString(img, "data_url").then(() => {
               // Put the new document into the scenes collection
@@ -411,7 +411,7 @@ class Header extends Component {
   */
   clear = () => {
       try {
-          let editor = window.ace.edit("ace-editor");
+          const editor = window.ace.edit("ace-editor");
           this.props.actions.refresh(editor.getSession().getValue(), this.props.user ? this.props.user.uid : "anon");
       } catch (error) {
           this.props.actions.refresh(this.props.text, this.props.user ? this.props.user.uid : "anon");
