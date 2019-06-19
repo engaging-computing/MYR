@@ -35,6 +35,7 @@
             "always"
         ],
         "no-var": "error",
+        "prefer-const": "warn",
         "no-case-declarations": "off",
         "react/no-unescaped-entities": "off",
         "react/prop-types": "off",
