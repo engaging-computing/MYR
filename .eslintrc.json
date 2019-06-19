@@ -34,6 +34,7 @@
             "error",
             "always"
         ],
+        "no-var": "error",
         "no-case-declarations": "off",
         "react/no-unescaped-entities": "off",
         "react/prop-types": "off",
