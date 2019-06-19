@@ -46,11 +46,11 @@ class Myr {
     }
 
     /**
-     * @summary - init creates and binds the myr object to the window
-     *
-     * @param [{}] objs - these are the base objects for this object
-     *
-     */
+    * @summary - init creates and binds the myr object to the window
+    *
+    * @param [{}] objs - these are the base objects for this object
+    *
+    */
     init = () => {
 
         // Get all the function names of the Myr(this) class
@@ -72,8 +72,8 @@ class Myr {
     }
 
     /**
-     * @summary - Reset this.els to the base elements supplied to the constructor
-     */
+    * @summary - Reset this.els to the base elements supplied to the constructor
+    */
     reset = () => {
         // Reset base params, we might be able to merge two objects later
         this.id = 0;
@@ -100,8 +100,8 @@ class Myr {
     /********************* TRANSFORMATIONS *********************/
 
     /**
-     * @summary - Reset the cursor to the default
-     */
+    * @summary - Reset the cursor to the default
+    */
     resetCursor = () => {
         this.color = "red";
         this.position = { x: 0, y: 0, z: 0 };
@@ -325,16 +325,6 @@ class Myr {
         return outerElId;
     }
 
-    // Disallows the entity to be pushed
-    makeUnPushable = (outerElId) => {
-        let el = this.getEl(outerElId);
-        if (el["force-pushable"]) {
-            el["dynamic-body"] = null;
-            el["force-pushable"] = "false";
-        }
-        return outerElId;
-    }
-
     push = (outerElId, x, y, z) => {
         // Add an event listener
         document.addEventListener("myr-view-rendered", () => {
@@ -349,56 +339,6 @@ class Myr {
                 );
             });
         });
-        return outerElId;
-    }
-
-    setColor = (color) => {
-        this.color = color;
-    }
-
-    getRandomColor = () => {
-        let color, i, letters;
-        letters = "0123456789ABCDEF";
-        color = "#";
-        i = 0;
-        while (i < 6) {
-            color += letters[Math.floor(Math.random() * 16)];
-            i++;
-        }
-        return color;
-    }
-
-    // Render an Aframe Polyhedron with current Myr settings
-    polyhedron = (params) => {
-        let base = {
-            id: "poly" + this.genNewId(),
-            geometry: `primitive: sphere; segmentsWidth: 2; segmentsHeight: 8; phi-length: ${this.phiLength};`,
-            position: this.position,
-            scale: this.scale,
-            rotation: this.rotation,
-            material: `color: ${this.color}; side: double;`,
-        };
-        return this.mergeProps(base, params);
-    }
-
-    ring = (params) => {
-        let base = {
-            id: "ring" + this.genNewId(),
-            geometry: `primitive: ring; radiusInner: 0.5; radiusOuter: 1; theta-length: ${this.phiLength};`,
-            position: this.position,
-            scale: this.scale,
-            rotation: this.rotation,
-            material: `color: ${this.color}; side: double;`,
-        };
-        return this.mergeProps(base, params);
-    }
-
-    // Allows the entity to be pushed
-    makePushable = (outerElId, mass = 2) => {
-        let el = this.getEl(outerElId);
-        let dynamicBody = `shape: auto; mass: ${mass}; angularDamping: 0.5; linearDamping: 0.5;`;
-        el["dynamic-body"] = dynamicBody;
-        el["force-pushable"] = "true";
         return outerElId;
     }
 
@@ -418,16 +358,6 @@ class Myr {
             el["class"] = "negative";
             return outerElId;
         }
-    }
-
-    // Disallows the entity to be pushed
-    makeUnPushable = (outerElId) => {
-        let el = this.getEl(outerElId);
-        if (el["force-pushable"]) {
-            el["dynamic-body"] = null;
-            el["force-pushable"] = "false";
-        }
-        return outerElId;
     }
 
     // Gives the entity normal additive geometry properties based on current cursor state
@@ -450,23 +380,6 @@ class Myr {
             }
             return outerElId;
         }
-    }
-
-    push = (outerElId, x, y, z) => {
-        // Add an event listener
-        document.addEventListener("myr-view-rendered", () => {
-            let el = document.querySelector("#" + outerElId);
-            if (!el) {
-                return;
-            }
-            el.addEventListener("body-loaded", () => {
-                el.body.applyImpulse(
-                    /* impulse */        new CANNON.Vec3(x, y, z),
-                    /* world position */ new CANNON.Vec3().copy(el.object3D.position)
-                );
-            });
-        });
-        return outerElId;
     }
 
     // Render an Aframe Box Primitive with current Myr settings
@@ -1098,14 +1011,14 @@ class Myr {
     }
 
     /**
-     * @summary - Interface for setting an object's parameters in the DOM
-     * the idea is the setup an event listener as an almost DOM ready listener.
-     *
-     * @param {string} outerElId - target
-     * @param {string} type - what param to change
-     * @param {obj} newParam - changes
-     *
-     */
+    * @summary - Interface for setting an object's parameters in the DOM
+    * the idea is the setup an event listener as an almost DOM ready listener.
+    *
+    * @param {string} outerElId - target
+    * @param {string} type - what param to change
+    * @param {obj} newParam - changes
+    *
+    */
     change = (outerElId, type, newParam) => {
         document.addEventListener("myr-view-rendered", () => {
             try {
@@ -1133,12 +1046,12 @@ class Myr {
     }
 
     /**
-     * @summary - This creates an entity w shape of object and merges with supplied params
-     *
-     * @param {string} shape - one of the allowed arguments to this.core()
-     * @param {obj} params - arguments to be merged, not guarenteed to be successful
-     *
-     */
+    * @summary - This creates an entity w shape of object and merges with supplied params
+    *
+    * @param {string} shape - one of the allowed arguments to this.core()
+    * @param {obj} params - arguments to be merged, not guarenteed to be successful
+    *
+    */
     mergeProps = (entity, params) => {
         let id = params && params.id ? params.id : entity.id;
         if (!params || typeof params === "string") {
