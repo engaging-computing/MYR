@@ -82,7 +82,7 @@ export default class Reference extends React.Component {
             padding: 0,
             color: "#fff",
         };
-        let isDisabled = this.props.layoutType === layoutTypes.REFERENCE;
+        const isDisabled = this.props.layoutType === layoutTypes.REFERENCE;
         return (
             <div>
                 {!isDisabled ?
