@@ -9,6 +9,7 @@ The Engaging Computing Group develops new technologies to enable learners—yout
 ## Change Log - 1.2.4 -> 1.2.5
 - ctrl+shift+s allows for the option to rename the scene by opening the save menu.
 - View only works on reference examples and courses.
+- Reference examples have error messages now.
 - All files are formatted properly.
 - Eslint is configured and runs with CircleCI.
 
