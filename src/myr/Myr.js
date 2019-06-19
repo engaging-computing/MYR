@@ -352,127 +352,6 @@ class Myr {
       return outerElId;
   }
 
-<<<<<<< HEAD
-=======
-  // Render an Aframe Box Primitive with current Myr settings
-  box = (params) => {
-      let base = {
-          geometry: "primitive: box;",
-          id: "box" + this.genNewId(),
-          material: `color: ${this.color};`,
-          position: { ...this.position },
-          rotation: this.rotation,
-          scale: this.scale,
-      };
-      return this.mergeProps(base, params);
-  }
-
-  // Render an Aframe circle Primitive with current Myr settings
-  circle = (params) => {
-      let base = {
-          geometry: `primitive: circle; radius: ${this.radius}; theta-length: ${this.phiLength};`,
-          id: "circ" + this.genNewId(),
-          position: this.position,
-          scale: this.scale,
-          rotation: this.rotation,
-          material: `color: ${this.color}; side: double;`,
-      };
-      return this.mergeProps(base, params);
-  }
-
-  // Render an Aframe circle Primitive with current Myr settings
-  cone = (params) => {
-      let base = {
-          id: "cone" + this.genNewId(),
-          geometry: `primitive: cone; radiusBottom: ${this.radius}; radiusTop: 0.1;`,
-          position: this.position,
-          scale: this.scale,
-          rotation: this.rotation,
-          material: `color: ${this.color}; side: double;`,
-      };
-      return this.mergeProps(base, params);
-  }
-
-  // Render an Aframe Text Primitive with current Myr settings
-  cylinder = (params) => {
-      let base = {
-          id: "cyl" + this.genNewId(),
-          geometry: `primitive: cylinder; radius: ${this.radius}; theta-length: ${this.phiLength};`,
-          position: this.position,
-          scale: this.scale,
-          rotation: this.rotation,
-          material: `color: ${this.color};  side: double;`,
-      };
-      return this.mergeProps(base, params);
-  }
-
-
-  // Render an Aframe dodecahedron with current Myr settings
-  dodecahedron = (params) => {
-      let base = {
-          id: "dod" + this.genNewId(),
-          geometry: `primitive: dodecahedron; radius: ${this.radius};`,
-          position: this.position,
-          scale: this.scale,
-          rotation: this.rotation,
-          material: `color: ${this.color}; side: double;`,
-      };
-      return this.mergeProps(base, params);
-  }
-
-  // Render an Aframe icosahedron with current Myr settings
-  icosahedron = (params) => {
-      let base = {
-          id: "iso" + this.genNewId(),
-          geometry: "primitive: icosahedron;",
-          position: this.position,
-          scale: this.scale,
-          rotation: this.rotation,
-          material: `color: ${this.color};  side: double;`,
-      };
-      return this.mergeProps(base, params);
-  }
-
-  // Render an Aframe octahedron with current Myr settings
-  octahedron = (params) => {
-      let base = {
-          id: "oct" + this.genNewId(),
-          geometry: "primitive: octahedron;",
-          position: this.position,
-          scale: this.scale,
-          rotation: this.rotation,
-          material: `color: ${this.color};  side: double;`,
-      };
-      return this.mergeProps(base, params);
-  }
-
-  line = (path, params) => {
-      let base = {
-          id: "line" + this.genNewId(),
-          tube: true,
-          radius: ".01",
-          path: path,
-          position: this.position,
-          scale: this.scale,
-          rotation: this.rotation,
-          material: `color: ${this.color};  side: double;`,
-      };
-      return this.mergeProps(base, params);
-  }
-
-  plane = (params) => {
-      let base = {
-          id: "plane" + this.genNewId(),
-          geometry: `primitive: plane; height: 1; width: 1; phi-length: ${this.phiLength};`,
-          position: this.position,
-          scale: this.scale,
-          rotation: this.rotation,
-          material: `color: ${this.color}; side: double;`,
-      };
-      return this.mergeProps(base, params);
-  }
-
->>>>>>> parent of 9a90a5d... formatting changes from eslint
   setColor = (color) => {
       this.color = color;
   }
@@ -489,8 +368,6 @@ class Myr {
       return color;
   }
 
-<<<<<<< HEAD
-=======
   // Render an Aframe Polyhedron with current Myr settings
   polyhedron = (params) => {
       let base = {
@@ -516,7 +393,6 @@ class Myr {
       return this.mergeProps(base, params);
   }
 
->>>>>>> parent of 9a90a5d... formatting changes from eslint
   // Allows the entity to be pushed
   makePushable = (outerElId, mass = 2) => {
       let el = this.getEl(outerElId);
