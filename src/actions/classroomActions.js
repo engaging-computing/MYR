@@ -1,13 +1,13 @@
-import { classes, scenes } from '../firebase.js';
+import { classes, scenes } from "../firebase.js";
 
-import * as types from '../constants/ActionTypes';
+import * as types from "../constants/ActionTypes";
 
 export function asyncClasses(id) {
     // fetch user's classes
     return (dispatch) => {
         if (id) {
             let userClasses = [];
-            classes.where('uid', '==', id).get().then(snap => {
+            classes.where("uid", "==", id).get().then(snap => {
                 snap.forEach(doc => {
                     let dat = doc.data();
                     userClasses.push({
@@ -32,7 +32,7 @@ export function asyncClass(classroomID) {
         if (classroomID) {
             let classProjects = [];
             let projectOptions = [];
-            scenes.where('settings.classroomID', '==', classroomID).get().then(snap => {
+            scenes.where("settings.classroomID", "==", classroomID).get().then(snap => {
                 snap.forEach(doc => {
                     let dat = doc.data();
                     classProjects.push({

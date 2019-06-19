@@ -1,9 +1,9 @@
-import PropTypes from 'prop-types';
-import ReferencePage from '../components/layouts/Reference.js';
-import * as Actions from '../actions';
+import PropTypes from "prop-types";
+import ReferencePage from "../components/layouts/Reference.js";
+import * as Actions from "../actions";
 
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
+import { bindActionCreators } from "redux";
+import { connect } from "react-redux";
 
 // This makes sure we are getting what we think we should
 ReferencePage.propTypes = {

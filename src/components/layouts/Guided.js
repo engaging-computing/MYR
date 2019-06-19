@@ -1,11 +1,11 @@
-import React from 'react';
-import Editor from '../editor/Editor';
-import Header from '../structural/header/Header';
-import Footer from '../structural/Footer';
-import Course from '../courses/Course';
-import View from '../structural/View';
+import React from "react";
+import Editor from "../editor/Editor";
+import Header from "../structural/header/Header";
+import Footer from "../structural/Footer";
+import Course from "../courses/Course";
+import View from "../structural/View";
 
-import * as layoutTypes from '../../constants/LayoutTypes.js';
+import * as layoutTypes from "../../constants/LayoutTypes.js";
 
 export const Guided = ({ editor, user, scene, editorActions, authActions, projectActions, projects, courseActions, courses, course, match, sceneActions, classroomActions, classrooms }) => (
     <div className="App">

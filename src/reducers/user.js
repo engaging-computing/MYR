@@ -1,20 +1,20 @@
-import * as types from '../constants/ActionTypes';
+import * as types from "../constants/ActionTypes";
 
 const initial_state = {
-  user: null,
+    user: null,
 };
 
 export default function user(state = initial_state, action) {
-  switch (action.type) {
+    switch (action.type) {
     case types.LOGIN:
-      return {
-        user: action.user
-      };
+        return {
+            user: action.user
+        };
     case types.LOGOUT:
-      return {
-        user: null
-      };
+        return {
+            user: null
+        };
     default:
-      return state;
-  }
+        return state;
+    }
 }
