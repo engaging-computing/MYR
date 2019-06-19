@@ -18,4 +18,4 @@ The Engaging Computing Group develops new technologies to enable learners—yout
 ## Acknowledgments
 MYR uses [Aframe](https://aframe.io), a fantastic open source project, to render objects and effects in the three dimensional space.  
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).  
-This material is based upon work supported by the National Science Foundation under Grant No. 1433592.
+This material is based upon work supported by the National Science Foundation under Grant No. 1433592.  
