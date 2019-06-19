@@ -1,11 +1,11 @@
-import React from 'react';
-import Editor from '../editor/Editor';
-import Header from '../structural/header/Header';
-import Footer from '../structural/Footer';
-import View from '../structural/View';
-import SelectProject from '../classroom/SelectProject.js';
+import React from "react";
+import Editor from "../editor/Editor";
+import Header from "../structural/header/Header";
+import Footer from "../structural/Footer";
+import View from "../structural/View";
+import SelectProject from "../classroom/SelectProject.js";
 
-import * as layoutTypes from '../../constants/LayoutTypes.js';
+import * as layoutTypes from "../../constants/LayoutTypes.js";
 
 export const Classroom = ({ editor, editorActions, user, authActions, scene, sceneActions, projectActions, courseActions, projects, courses, match, classroomActions, classrooms }) => (
     <div className="App">

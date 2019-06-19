@@ -1,8 +1,57 @@
 {
-    "extends": "react-app",
+    "parser": "babel-eslint",
+    "env": {
+        "browser": true,
+        "es6": true,
+        "jest": true
+    },
+    "parserOptions": {
+        "ecmaVersion": 6,
+        "sourceType": "module",
+        "ecmaFeatures": {
+            "jsx": true,
+            "modules": true,
+            "experimentalObjectRestSpread": true
+        }
+    },
+    "plugins": [
+        "react"
+    ],
+    "extends": [
+        "eslint:recommended",
+        "plugin:react/recommended"
+    ],
     "rules": {
-        "semi": 1,
-        "curly": 1,
-        "no-lonely-if": 1
+        "indent": [
+            "error",
+            4
+        ],
+        "quotes": [
+            "error",
+            "double"
+        ],
+        "semi": [
+            "error",
+            "always"
+        ],
+        "no-case-declarations": "off",
+        "react/no-unescaped-entities": "off",
+        "react/prop-types": "off",
+        "react/jsx-key": "off",
+        "no-console": [
+            "error",
+            {
+                "allow": [
+                    "warn",
+                    "error"
+                ]
+            }
+        ]
+    },
+    "settings": {
+        "react": {
+            "pragma": "React",
+            "version": "16.8.4"
+        }
     }
 }

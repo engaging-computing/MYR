@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
-import Select from 'react-select';
+import React, { Component } from "react";
+import Select from "react-select";
 
-import '../../css/Classroom.css';
+import "../../css/Classroom.css";
 
 const selectStyle = {
     control: base => ({
@@ -16,8 +16,8 @@ const selectStyle = {
     }),
     option: (base, state) => ({
         ...base,
-        background: '#FFF',
-        color: state.isSelected ? '#4169E1' : '#222'
+        background: "#FFF",
+        color: state.isSelected ? "#4169E1" : "#222"
     }),
     container: base => ({
         ...base,
@@ -43,7 +43,7 @@ class SelectProject extends Component {
     }
 
 
-    componentWillReceiveProps(nextProps) {
+    UNSAFE_componentWillReceiveProps(nextProps) {
         if (nextProps.classroom && nextProps.classroom.length !== 0) {
             this.setState({ isDisabled: false });
         }

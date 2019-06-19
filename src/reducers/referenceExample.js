@@ -1,4 +1,4 @@
-import * as types from '../constants/ActionTypes';
+import * as types from "../constants/ActionTypes";
 
 const initial_state = {
     functionName: "",
@@ -12,12 +12,12 @@ const initial_state = {
 
 export default function referenceExample(state = initial_state, action) {
     switch (action.type) {
-        case types.LOAD_REF_EX:
-            return {
-                ...state,
-                ...action.payload
-            };
-        default:
-            return state;
+    case types.LOAD_REF_EX:
+        return {
+            ...state,
+            ...action.payload
+        };
+    default:
+        return state;
     }
 }
