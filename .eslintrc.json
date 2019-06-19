@@ -30,14 +30,14 @@
             "error",
             "always"
         ],
-        "indent": "error,
+        "indent": "error",
         "no-var": "error",
         "prefer-const": "warn",
         "default-case": "warn",
         "eqeqeq": "warn",
         "curly": "warn",
         "no-lonely-if": "warn",
-        "no-console": [
+            "no-console": [
             "error",
             {
                 "allow": [
