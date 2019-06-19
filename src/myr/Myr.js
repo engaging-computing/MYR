@@ -352,124 +352,6 @@ class Myr {
       return outerElId;
   }
 
-  // Render an Aframe Box Primitive with current Myr settings
-  box = (params) => {
-      const base = {
-          geometry: "primitive: box;",
-          id: "box" + this.genNewId(),
-          material: `color: ${this.color};`,
-          position: { ...this.position },
-          rotation: this.rotation,
-          scale: this.scale,
-      };
-      return this.mergeProps(base, params);
-  }
-
-  // Render an Aframe circle Primitive with current Myr settings
-  circle = (params) => {
-      const base = {
-          geometry: `primitive: circle; radius: ${this.radius}; theta-length: ${this.phiLength};`,
-          id: "circ" + this.genNewId(),
-          position: this.position,
-          scale: this.scale,
-          rotation: this.rotation,
-          material: `color: ${this.color}; side: double;`,
-      };
-      return this.mergeProps(base, params);
-  }
-
-  // Render an Aframe circle Primitive with current Myr settings
-  cone = (params) => {
-      const base = {
-          id: "cone" + this.genNewId(),
-          geometry: `primitive: cone; radiusBottom: ${this.radius}; radiusTop: 0.1;`,
-          position: this.position,
-          scale: this.scale,
-          rotation: this.rotation,
-          material: `color: ${this.color}; side: double;`,
-      };
-      return this.mergeProps(base, params);
-  }
-
-  // Render an Aframe Text Primitive with current Myr settings
-  cylinder = (params) => {
-      const base = {
-          id: "cyl" + this.genNewId(),
-          geometry: `primitive: cylinder; radius: ${this.radius}; theta-length: ${this.phiLength};`,
-          position: this.position,
-          scale: this.scale,
-          rotation: this.rotation,
-          material: `color: ${this.color};  side: double;`,
-      };
-      return this.mergeProps(base, params);
-  }
-
-
-  // Render an Aframe dodecahedron with current Myr settings
-  dodecahedron = (params) => {
-      const base = {
-          id: "dod" + this.genNewId(),
-          geometry: `primitive: dodecahedron; radius: ${this.radius};`,
-          position: this.position,
-          scale: this.scale,
-          rotation: this.rotation,
-          material: `color: ${this.color}; side: double;`,
-      };
-      return this.mergeProps(base, params);
-  }
-
-  // Render an Aframe icosahedron with current Myr settings
-  icosahedron = (params) => {
-      const base = {
-          id: "iso" + this.genNewId(),
-          geometry: "primitive: icosahedron;",
-          position: this.position,
-          scale: this.scale,
-          rotation: this.rotation,
-          material: `color: ${this.color};  side: double;`,
-      };
-      return this.mergeProps(base, params);
-  }
-
-  // Render an Aframe octahedron with current Myr settings
-  octahedron = (params) => {
-      const base = {
-          id: "oct" + this.genNewId(),
-          geometry: "primitive: octahedron;",
-          position: this.position,
-          scale: this.scale,
-          rotation: this.rotation,
-          material: `color: ${this.color};  side: double;`,
-      };
-      return this.mergeProps(base, params);
-  }
-
-  line = (path, params) => {
-      const base = {
-          id: "line" + this.genNewId(),
-          tube: true,
-          radius: ".01",
-          path: path,
-          position: this.position,
-          scale: this.scale,
-          rotation: this.rotation,
-          material: `color: ${this.color};  side: double;`,
-      };
-      return this.mergeProps(base, params);
-  }
-
-  plane = (params) => {
-      const base = {
-          id: "plane" + this.genNewId(),
-          geometry: `primitive: plane; height: 1; width: 1; phi-length: ${this.phiLength};`,
-          position: this.position,
-          scale: this.scale,
-          rotation: this.rotation,
-          material: `color: ${this.color}; side: double;`,
-      };
-      return this.mergeProps(base, params);
-  }
-
   setColor = (color) => {
       this.color = color;
   }
@@ -484,31 +366,6 @@ class Myr {
           i++;
       }
       return color;
-  }
-
-  // Render an Aframe Polyhedron with current Myr settings
-  polyhedron = (params) => {
-      const base = {
-          id: "poly" + this.genNewId(),
-          geometry: `primitive: sphere; segmentsWidth: 2; segmentsHeight: 8; phi-length: ${this.phiLength};`,
-          position: this.position,
-          scale: this.scale,
-          rotation: this.rotation,
-          material: `color: ${this.color}; side: double;`,
-      };
-      return this.mergeProps(base, params);
-  }
-
-  ring = (params) => {
-      const base = {
-          id: "ring" + this.genNewId(),
-          geometry: `primitive: ring; radiusInner: 0.5; radiusOuter: 1; theta-length: ${this.phiLength};`,
-          position: this.position,
-          scale: this.scale,
-          rotation: this.rotation,
-          material: `color: ${this.color}; side: double;`,
-      };
-      return this.mergeProps(base, params);
   }
 
   // Allows the entity to be pushed
@@ -592,7 +449,7 @@ class Myr {
       const base = {
           geometry: "primitive: box;",
           id: "box" + this.genNewId(),
-          material: `color: ${this.color};`,
+          material: `color: ${this.color}; side: double;`,
           position: { ...this.position },
           rotation: this.rotation,
           scale: this.scale,
@@ -695,7 +552,7 @@ class Myr {
           position: this.position,
           scale: this.scale,
           rotation: this.rotation,
-          material: `color: ${this.color};`,
+          material: `color: ${this.color}; side: double;`,
           mixin: "additive-entity",
       };
       return this.mergeProps(base, params);
@@ -800,7 +657,7 @@ class Myr {
           position: this.position,
           scale: this.scale,
           rotation: this.rotation,
-          material: `color: ${this.color};`,
+          material: `color: ${this.color}; side: double;`,
           mixin: "additive-entity",
       };
       return this.mergeProps(base, params);
@@ -813,7 +670,7 @@ class Myr {
           position: this.position,
           scale: this.scale,
           rotation: this.rotation,
-          material: `color: ${this.color};`,
+          material: `color: ${this.color}; side: double;`,
           mixin: "additive-entity",
           p: 2,
           q: 3,
@@ -828,7 +685,7 @@ class Myr {
           position: this.position,
           scale: this.scale,
           rotation: this.rotation,
-          material: `color: ${this.color};  side: double;`,
+          material: `color: ${this.color}; side: double;`,
           mixin: "additive-entity",
       };
       return this.mergeProps(base, params);
