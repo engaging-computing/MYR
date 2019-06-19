@@ -32,7 +32,6 @@
         ],
         "indent": "error",
         "no-var": "error",
-        "prefer-const": "warn",
         "default-case": "warn",
         "eqeqeq": "warn",
         "curly": "warn",
