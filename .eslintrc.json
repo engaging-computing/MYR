@@ -35,9 +35,9 @@
             "always"
         ],
         "no-var": "error",
-//         "prefer-const": "warn",
+        "prefer-const": "warn",
         "default-case": "warn",
-        "eqeqeq": "error",
+        "eqeqeq": "warn",
         "curly": "warn",
         "no-case-declarations": "off",
         "react/no-unescaped-entities": "off",
