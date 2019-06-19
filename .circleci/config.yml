@@ -16,7 +16,7 @@ jobs:
       - checkout
       - run: 
           name: Create firebase key file
-          command: mkdir ~/MYR/src/keys && touch ~/MYR/src/keys/firebase.js && echo -e "export const firebaseKey = \"$FIREBASE_KEY\";\n export default firebaseKey;" > src/keys/firebase.js
+          command: mkdir ~/MYR/src/keys && touch ~/MYR/src/keys/firebase.js && echo -e "export const firebaseKey = \"$FIREBASE_KEY\";\nexport default firebaseKey;" > src/keys/firebase.js
       # Download and cache dependencies
       - restore_cache:
           keys:
