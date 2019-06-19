@@ -220,7 +220,6 @@ let geometry = [
 ];
 
 let transformations = [
-<<<<<<< HEAD
     {
         name: "resetCursor",
         parameters: [],
@@ -366,121 +365,6 @@ let transformations = [
         description: <span>The makeUnPushable function prevents the given element from being affected by physics or being pushed by the cursor.</span>
     },
     //Not quite sure about the inner workings of this one yet
-=======
-  {
-    name: <span>resetCursor()</span>,
-    description: <span>Resets the properties of the cursor to their default settings.</span>,
-    example: 'resetCursor'
-  },
-  {
-    name: <span>setColor(<span className="string">color</span>)</span>,
-    description: <span>Changes the color of the cursor <a href='https://htmlcolorcodes.com/color-names/' target="_blank" rel="noopener noreferrer">using these color codes</a>, RGB, or HEX values. Default: 'red'</span>,
-    example: 'setColor'
-  },
-  {
-    name: <span>getRandomColor()</span>,
-    description: <span>Changes the color of the cursor to a random color, and returns the color. Default: 'red'</span>,
-    example: 'getRandomColor'
-  },
-  {
-    name: <span>setPosition(<span className="number">x</span>,<span className="number">y</span>,<span className="number">z</span>)</span>,
-    description: <span>Sets the position of the cursor to the given coordinates. Default: (0,0,0)</span>,
-    example: 'setPosition'
-  },
-  {
-    name: <span>setXPos(<span className="number">x</span>)</span>,
-    description: <span>Changes the position of the cursor along the X axis to the given value.</span>,
-    example: 'setXPos'
-  },
-  {
-    name: <span>setYPos(<span className="number">y</span>)</span>,
-    description: <span>Changes the position of the cursor along the Y axis to the given value.</span>,
-    example: 'setYPos'
-  },
-  {
-    name: <span>setZPos(<span className="number">z</span>)</span>,
-    description: <span>Changes the position of the cursor along the Z axis to the given value.</span>,
-    example: 'setZPos'
-  },
-  {
-    name: <span>setScale(<span className="number">x</span>,<span className="number">y</span>,<span className="number">z</span>)</span>,
-    description: <span>Sets the scale of the cursor to the given ratios. Default: (1,1,1)</span>,
-    example: 'setScale'
-  },
-  {
-    name: <span>setXScale(<span className="number">x</span>)</span>,
-    description: <span>Changes the scale of the cursor in the X dimension to the given ratio.</span>,
-    example: 'setXScale'
-  },
-  {
-    name: <span>setYScale(<span className="number">y</span>)</span>,
-    description: <span>Changes the scale of the cursor in the Y dimension to the given ratio.</span>,
-    example: 'setYScale'
-  },
-  {
-    name: <span>setZScale(<span className="number">z</span>)</span>,
-    description: <span>Changes the scale of the cursor in the Z dimension to the given ratio.</span>,
-    example: 'setZScale'
-  },
-  {
-    name: <span>setRotation(<span className="number">x</span>, <span className="number">y</span>, <span className="number">z</span>)</span>,
-    description: <span>Changes the rotation of the cursor to the given angles in degrees. Default: (0,0,0)</span>,
-    example: 'setRotation'
-  },
-  {
-    name: <span>pitchX(<span className="number">x</span>)</span>,
-    description: <span>Changes the pitch (rotation about the x axis) to the given angle in degrees.</span>,
-    example: 'pitchX'
-  },
-  {
-    name: <span>yawY(<span className="number">y</span>)</span>,
-    description: <span>Changes the yaw (rotation about the y axis) to the given angle in degrees.</span>,
-    example: 'yawY'
-  },
-  {
-    name: <span>rollZ(<span className="number">z</span>)</span>,
-    description: <span>Changes the roll (rotation about the z axis) to the given angle in degrees.</span>,
-    example: 'rollZ'
-  },
-  {
-    name: <span>setRadius(<span className="number">radius</span>)</span>,
-    description: <span>Sets the radius of the cursor to the given <span className="number">radius</span>. Default: 1</span>,
-    example: 'setRadius'
-  },
-  {
-    name: <span>setPhiLength(<span className="number">phiLength</span>)</span>,
-    description: <span>Sets the phi length of the cursor to the given <span className="number">phiLength</span> in degrees. This changes the fraction of the circumference shown on certain shapes to be <span className="number">phiLength</span>/360. Default: 360</span>,
-    example: 'setPhiLength'
-  },
-  {
-    name: <span>makeDroppable(<span className="string">element</span>, <span className="number">mass</span>)</span>,
-    description: <span>Allows the <span className="string">element</span> to be affected by physics, and sets the mass of the object to <span className="number">mass</span>.</span>,
-    example: 'makeDroppable'
-  },
-  {
-    name: <span>makeUnDroppable(<span className="string">element</span>)</span>,
-    description: <span>Prevents the <span className="string">element</span> from being affected by physics.</span>
-  },
-  {
-    name: <span>makePushable(<span className="string">element</span>, <span className="number">mass</span>)</span>,
-    description: <span>Allows the <span className="string">element</span> to be pushed using the cursor and with the given <span className="number">mass</span>(default = 2). Also makes the object droppable (see above).</span>,
-    example: 'makePushable'
-  },
-  //This function doesn't quite make sense.
-  {
-    name: <span>makeUnPushable(<span className="string">element</span>)</span>,
-    description: <span>Prevents the <span className="string">element</span> from being pushed by the cursor.</span>
-  },
-  //Not quite sure about the inner workings of this one yet
-  {
-    name: <span>makeSubtractive(<span className="string">element</span>)</span>,
-    description: <span>Makes the <span className="string">element</span> erase other shapes that it overlaps with, instead of being drawn as a new shape.</span>
-  },
-  {
-    name: <span>makeUnSubtractive(<span className="string">element</span>)</span>,
-    description: <span>Allows the <span className="string">element</span> to be drawn as a normal geometric shape.</span>
-  },
->>>>>>> Revert "Merge branch 'dev' of https://github.com/engaging-computing/MYR into dev"
 ];
 
 let animations = [
