@@ -57,7 +57,7 @@ class SelectProject extends PureComponent {
         return (
             <div id="select-project">
                 <h3>{(this.props.selectedClassroom) ? "Classroom: " + this.props.selectedClassroom : "Loading classroom..."}</h3>
-                <p>{this.props.classroom ? <this.renderSelect isDisabled={isDisabled}/> : "Loading..."} </p>
+                <p>{this.props.classroom ? <this.renderSelect isDisabled={isDisabled} /> : "Loading..."} </p>
             </div>
         );
     }
