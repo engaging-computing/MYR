@@ -1,14 +1,14 @@
-import React, { Component, Fragment } from 'react';
-import { auth, provider, scenes, classes, storageRef } from '../../../firebase.js';
-import Reference from '../../reference/Reference.js';
-import Classroom from '../../classroom/Classroom.js';
-import SceneConfigMenu from './SceneConfigMenu.js';
-import Sidebar from './Sidebar.js';
-import MyrTour from './MyrTour.js';
-import ProjectView from './ProjectView.js';
-import CourseSelect from '../../courses/CourseSelect.js';
+import React, { Component, Fragment } from "react";
+import { auth, provider, scenes, classes, storageRef } from "../../../firebase.js";
+import Reference from "../../reference/Reference.js";
+import Classroom from "../../classroom/Classroom.js";
+import SceneConfigMenu from "./SceneConfigMenu.js";
+import Sidebar from "./Sidebar.js";
+import MyrTour from "./MyrTour.js";
+import ProjectView from "./ProjectView.js";
+import CourseSelect from "../../courses/CourseSelect.js";
 
-import * as layoutTypes from '../../../constants/LayoutTypes.js';
+import * as layoutTypes from "../../../constants/LayoutTypes.js";
 
 import {
     Button,
@@ -24,7 +24,7 @@ import {
     Avatar,
     createMuiTheme,
     MuiThemeProvider
-} from '@material-ui/core';
+} from "@material-ui/core";
 
 const exitBtnStyle = {
     position: "fixed",
@@ -67,7 +67,7 @@ class Header extends Component {
         }
         else if (this.props.classroom) {
             let userClasses = [];
-            classes.where('classroomID', '==', this.props.classroom).get().then(snap => {
+            classes.where("classroomID", "==", this.props.classroom).get().then(snap => {
                 snap.forEach(doc => {
                     let dat = doc.data();
                     userClasses.push({
@@ -114,7 +114,7 @@ class Header extends Component {
             // When the data's metedata changes, ie update
             scenes.doc(projectId).onSnapshot({
                 includeMetadataChanges: true,
-            }, (doc) => {
+            }, () => {
                 if (this.props.user && this.props.user.uid) {
                     this.props.actions.fetchScene(projectId, this.props.user.uid);
                 } else {
@@ -125,7 +125,7 @@ class Header extends Component {
         }
 
         // Bind to keyboard to listen for shortcuts
-        document.addEventListener('keydown', this.handleKeyDown.bind(this));
+        document.addEventListener("keydown", this.handleKeyDown.bind(this));
 
         // Warn the issue before refreshing the page
         // TODO: Only do so if unsaved changes
@@ -229,8 +229,8 @@ class Header extends Component {
                             style={{ marginTop: 5 }} />
                         <Popover
                             open={this.state.logMenuOpen}
-                            anchorEl={document.getElementById('user')}
-                            anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
+                            anchorEl={document.getElementById("user")}
+                            anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
                             onClose={this.handleLogClick} >
                             <MenuItem primarytext="Log Out" onClick={this.logout} >Log Out</MenuItem>
                         </Popover>
@@ -249,7 +249,7 @@ class Header extends Component {
                             border: "1px solid #fff"
                         }}>
                         Log In
-          </Button>
+                    </Button>
                 }
             </div>
         );
@@ -313,9 +313,9 @@ class Header extends Component {
     handleRender = () => {
         try {
             let editor = window.ace.edit("ace-editor");
-            this.props.actions.render(editor.getSession().getValue(), this.props.user ? this.props.user.uid : 'anon');
+            this.props.actions.render(editor.getSession().getValue(), this.props.user ? this.props.user.uid : "anon");
         } catch (error) {
-            this.props.actions.render(this.props.text, this.props.user ? this.props.user.uid : 'anon');
+            this.props.actions.render(this.props.text, this.props.user ? this.props.user.uid : "anon");
         }
     }
 
@@ -356,7 +356,7 @@ class Header extends Component {
             //If in editor mode, gets text directly from editor
             editor = window.ace.edit("ace-editor");
             text = editor.getSession().getValue();
-            this.props.actions.refresh(text, this.props.user ? this.props.user.uid : 'anon');
+            this.props.actions.refresh(text, this.props.user ? this.props.user.uid : "anon");
         } else {
             //Otherwise, gets text from state (should be up to date since it is refreshed on editor unmount) 
             text = this.props.text;
@@ -366,13 +366,13 @@ class Header extends Component {
             this.setState({ spinnerOpen: true });
             let ts = Date.now();
             let projectId = this.getProjectId();
-            let scene = document.querySelector('a-scene');
+            let scene = document.querySelector("a-scene");
             // Access the scene and screen shot, with perspective view in a lossy jpeg format
-            let img = scene.components.screenshot.getCanvas('perspective').toDataURL('image/jpeg', 0.1);
+            let img = scene.components.screenshot.getCanvas("perspective").toDataURL("image/jpeg", 0.1);
             let path = "images/perspective/" + projectId;
             let imgRef = storageRef.child(path);
 
-            imgRef.putString(img, 'data_url').then((snapshot) => {
+            imgRef.putString(img, "data_url").then(() => {
                 // Put the new document into the scenes collection
                 scenes.doc(projectId).set({
                     name: this.state.sceneName,
@@ -387,7 +387,7 @@ class Header extends Component {
                         this.setState({ spinnerOpen: false });
                         //window.open(window.origin + '/' + projectId);
                     } else if (projectId !== this.props.projectId) {
-                        window.location.href = window.origin + '/' + projectId;
+                        window.location.href = window.origin + "/" + projectId;
                     } else {
                         this.props.projectActions.asyncUserProj(this.props.user.uid);
                     }
@@ -401,7 +401,7 @@ class Header extends Component {
             });
         } else {
             // TODO: Don't use alert
-            alert('We were unable to save your project. Are you currently logged in?');
+            alert("We were unable to save your project. Are you currently logged in?");
         }
         this.handleSaveToggle();
     }
@@ -412,9 +412,9 @@ class Header extends Component {
     clear = () => {
         try {
             let editor = window.ace.edit("ace-editor");
-            this.props.actions.refresh(editor.getSession().getValue(), this.props.user ? this.props.user.uid : 'anon');
+            this.props.actions.refresh(editor.getSession().getValue(), this.props.user ? this.props.user.uid : "anon");
         } catch (error) {
-            this.props.actions.refresh(this.props.text, this.props.user ? this.props.user.uid : 'anon');
+            this.props.actions.refresh(this.props.text, this.props.user ? this.props.user.uid : "anon");
         }
     }
 
@@ -457,7 +457,7 @@ class Header extends Component {
                     onClick={() => this.handleSave(false)}
                     className="">
                     <Icon className="material-icons">save</Icon> Save
-          </Button>
+                </Button>
             </Drawer>
         );
     }
@@ -527,20 +527,20 @@ class Header extends Component {
         return (
             <Snackbar
                 anchorOrigin={{
-                    vertical: 'bottom',
-                    horizontal: 'left',
+                    vertical: "bottom",
+                    horizontal: "left",
                 }}
                 open={this.state.snackOpen}
                 autoHideDuration={6000}
                 onClose={this.closeSnackBar}
                 ContentProps={{
-                    'aria-describedby': 'message-id',
+                    "aria-describedby": "message-id",
                 }}
                 message={<span id="message-id">{this.props.message.text}</span>}
                 action={[
                     <Button key="undo" color="secondary" size="small" onClick={this.closeSnackBar}>
                         Dismiss
-        </Button>
+                    </Button>
                 ]}
             />
         );
@@ -554,38 +554,38 @@ class Header extends Component {
             play: {
                 margin: 5,
                 padding: 0,
-                background: 'linear-gradient(45deg, #38e438 30%, #58e458 90%)',
+                background: "linear-gradient(45deg, #38e438 30%, #58e458 90%)",
             },
             play_disabled: {
                 margin: 5,
                 padding: 0,
-                background: '#222',
-                border: '2px solid',
-                borderColor: '#777',
+                background: "#222",
+                border: "2px solid",
+                borderColor: "#777",
             },
             clear: {
                 margin: 5,
                 marginRight: 10,
                 padding: 0,
-                background: 'linear-gradient(45deg, #FE3B3B 30%, #FF3B3B 90%)',
+                background: "linear-gradient(45deg, #FE3B3B 30%, #FF3B3B 90%)",
             },
             clear_disabled: {
                 margin: 5,
                 marginRight: 10,
                 padding: 0,
-                background: '#222',
-                border: '2px solid',
-                borderColor: '#777',
+                background: "#222",
+                border: "2px solid",
+                borderColor: "#777",
             },
             default: {
                 margin: 2,
                 padding: 0,
-                color: '#fff',
+                color: "#fff",
             },
             disabled: {
                 margin: 2,
                 padding: 0,
-                color: '#777',
+                color: "#777",
             },
         };
         const theme = createMuiTheme({
@@ -603,7 +603,7 @@ class Header extends Component {
                         <Button
                             variant="raised"
                             onClick={() => {
-                                if (window.confirm('Are you sure you start a new scene?\nYou will lose any unsaved work!')) {
+                                if (window.confirm("Are you sure you start a new scene?\nYou will lose any unsaved work!")) {
                                     window.location.href = window.origin;
                                 }
                             }}
@@ -611,7 +611,7 @@ class Header extends Component {
                             className="sidebar-btn">
                             <Icon className="material-icons">add</Icon>
                             Start New
-            </Button>
+                        </Button>
                         <Button
                             variant="raised"
                             onClick={this.props.actions.recover}
@@ -620,7 +620,7 @@ class Header extends Component {
                             disabled={referenceMode}>
                             <Icon className="material-icons">replay</Icon>
                             Recover
-            </Button>
+                        </Button>
                         <Button
                             variant="raised"
                             onClick={this.handleSaveToggle}
@@ -629,7 +629,7 @@ class Header extends Component {
                             disabled={referenceMode}>
                             <Icon className="material-icons">save</Icon>
                             Save Project
-            </Button>
+                        </Button>
                         <Button
                             variant="raised"
                             onClick={this.handleLoadToggle}
@@ -637,7 +637,7 @@ class Header extends Component {
                             className="sidebar-btn">
                             <Icon className="material-icons">perm_media</Icon>
                             Open Project
-            </Button>
+                        </Button>
                         <Button
                             variant="raised"
                             onClick={this.handleClassroomToggle}
@@ -645,7 +645,7 @@ class Header extends Component {
                             className="sidebar-btn">
                             <Icon className="material-icons">assignment</Icon>
                             Classrooms
-            </Button>
+                        </Button>
                     </Sidebar>
                     <h1 className="mr-2 d-none d-sm-block" >MYR</h1>
                     <MuiThemeProvider theme={theme}>
@@ -662,7 +662,7 @@ class Header extends Component {
                                 className="header-btn"
                                 style={referenceMode ? style.play_disabled : style.play}
                                 disabled={referenceMode}>
-                                <Icon className="material-icons" style={referenceMode ? { color: '#777' } : { color: '#222' }}>play_arrow</Icon>
+                                <Icon className="material-icons" style={referenceMode ? { color: "#777" } : { color: "#222" }}>play_arrow</Icon>
                             </Button>
                         </Tooltip>
                         <Tooltip title="Stop" placement="bottom-start">
@@ -675,7 +675,7 @@ class Header extends Component {
                                 className="header-btn"
                                 style={referenceMode ? style.clear_disabled : style.clear}
                                 disabled={referenceMode}>
-                                <Icon className="material-icons" style={referenceMode ? { color: '#777' } : { color: '#222' }}>stop</Icon>
+                                <Icon className="material-icons" style={referenceMode ? { color: "#777" } : { color: "#222" }}>stop</Icon>
                             </Button>
                         </Tooltip>
                     </MuiThemeProvider>
@@ -683,7 +683,7 @@ class Header extends Component {
                         <IconButton
                             id="new-btn"
                             onClick={() => {
-                                if (window.confirm('Are you sure you start a new scene?\nYou will lose any unsaved work!')) {
+                                if (window.confirm("Are you sure you start a new scene?\nYou will lose any unsaved work!")) {
                                     window.location.href = window.origin;
                                 }
                             }}

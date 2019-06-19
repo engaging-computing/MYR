@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import { Drawer, Button, Icon, IconButton } from '@material-ui/core';
+import React, { Component } from "react";
+import { Drawer, Button, Icon, IconButton } from "@material-ui/core";
 
 /**
 * @summary - The side bar provides a drawer with options to make changes to the scene.

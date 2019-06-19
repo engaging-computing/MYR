@@ -1,12 +1,12 @@
-import * as types from '../constants/ActionTypes';
-import { scenes, storageRef } from '../firebase.js';
+import * as types from "../constants/ActionTypes";
+import { scenes, storageRef } from "../firebase.js";
 
 export function asyncUserProj(id) {
     // fetch user's project
     return (dispatch) => {
         if (id) {
             let userVals = [];
-            scenes.where('uid', '==', id).get().then(snap => {
+            scenes.where("uid", "==", id).get().then(snap => {
                 snap.forEach(doc => {
                     storageRef.child(`/images/perspective/${doc.id}`)
                         .getDownloadURL().then((img) => {
@@ -33,7 +33,7 @@ export const asyncExampleProj = () => {
     // fetch example projects
     return (dispatch) => {
         let exampleVals = [];
-        scenes.where('uid', '==', '1').get().then(snap => {
+        scenes.where("uid", "==", "1").get().then(snap => {
             snap.forEach(doc => {
                 storageRef.child(`/images/perspective/${doc.id}`)
                     .getDownloadURL().then((img) => {
@@ -49,7 +49,7 @@ export const asyncExampleProj = () => {
             dispatch(syncExampleProj(exampleVals));
         });
     };
-}
+};
 
 export function syncExampleProj(payload) {
     return { type: types.SYNC_EXAMP_PROJ, payload: payload };
@@ -70,7 +70,7 @@ export function deleteProj(id, name) {
         scenes.doc(id).delete().then(() => {
 
             // If deleting current project, redirect to home
-            if (window.location.href === window.origin + '/' + id || window.location.href === window.origin + '/' + id + '/') {
+            if (window.location.href === window.origin + "/" + id || window.location.href === window.origin + "/" + id + "/") {
                 window.location.href = window.origin;
             }
         }).catch((error) => {

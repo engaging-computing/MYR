@@ -1,11 +1,11 @@
-import React, { Component, Fragment } from 'react';
-import 'aframe';
-import 'aframe-animation-component';
-import 'three-pathfinding/dist/three-pathfinding';
-import 'aframe-extras/dist/aframe-extras.min.js';
-import 'aframe-physics-system';
-import 'aframe-environment-component';
-import * as THREE from 'three';
+import React, { Component, Fragment } from "react";
+import "aframe";
+import "aframe-animation-component";
+import "three-pathfinding/dist/three-pathfinding";
+import "aframe-extras/dist/aframe-extras.min.js";
+import "aframe-physics-system";
+import "aframe-environment-component";
+import * as THREE from "three";
 
 /**
  * @summary - The View component return the aframe representation of the scene. This
@@ -30,7 +30,7 @@ class View extends Component {
         // Dispatch/Trigger/Fire the event
         document.dispatchEvent(event);
 
-        let el = document.getElementById('rig');
+        let el = document.getElementById("rig");
         el.components["movement-controls"].velocity = new THREE.Vector3(0, 0, 0);
     }
 
@@ -62,7 +62,7 @@ class View extends Component {
         }
     }
 
-    assetsHelper = (asset, i) => {
+    assetsHelper = (asset) => {
         return (
             <a-asset-item key={asset.id} id={asset.id} src={asset.src}></a-asset-item>
         );
@@ -70,12 +70,12 @@ class View extends Component {
 
     createCam = () => {
         switch (this.props.sceneConfig.settings.camConfig) {
-            case 0:
-                return this.basicMoveCam();
-            case 1:
-                return this.checkpointCam();
-            default:
-                return this.basicMoveCam();
+        case 0:
+            return this.basicMoveCam();
+        case 1:
+            return this.checkpointCam();
+        default:
+            return this.basicMoveCam();
         }
     }
 
@@ -170,13 +170,14 @@ class View extends Component {
     }
 
     render = () => {
+        /* eslint-disable */
         return (
             <a-scene physics="debug: false; friction: 3; restitution: .3;" embedded debug="false">
                 <a-assets>
                     <a-mixin id="checkpoint"></a-mixin>
                     <a-mixin id="checkpoint-hovered" color="#6CEEB5"></a-mixin>
                     <a-img id="reference" src={`${process.env.PUBLIC_URL}/img/coordHelper.jpg`} />
-                    {this.props.assets ? this.props.assets.map((x, index) => this.assetsHelper(x, index)) : null}
+                    {this.props.assets ? this.props.assets.map((x) => this.assetsHelper(x)) : null}
                 </a-assets>
                 <this.createCam />
                 <a-sky color={this.props.sceneConfig.settings.skyColor} />
@@ -200,6 +201,7 @@ class View extends Component {
                 }
             </a-scene>
         );
+        /* eslint-enable */
     }
 }
 

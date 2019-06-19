@@ -83,7 +83,7 @@ class CourseSelectModal extends Component {
             let shortname = course.shortname;
             let name = course.name;
             let description = course.description;
-            let link = '/course/' + shortname;
+            let link = "/course/" + shortname;
             return (
                 <div key={id} id={id} title={name}
                     className="course-listing col-xs-12 col-md-6">
@@ -163,7 +163,7 @@ class CourseSelectModal extends Component {
                                 style={btnStyle.save}
                                 onClick={() => this.handleClose()} >
                                 Close
-                </ButtonBase >
+                            </ButtonBase >
                         </div>
                     </div>
                 </Modal >

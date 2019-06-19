@@ -1,13 +1,13 @@
-import { render } from './editorActions';
+import { render } from "./editorActions";
 
-import * as types from '../constants/ActionTypes';
+import * as types from "../constants/ActionTypes";
 
 import * as sceneActions from "./sceneActions";
 
-const courseRef = '/apiv1/courses/';
-const lessonRef = '/apiv1/lessons/id/';
-const getFirst = '?getLesson=true';
-const header = { headers: { 'content-type': 'application/json' } };
+const courseRef = "/apiv1/courses/";
+const lessonRef = "/apiv1/lessons/id/";
+const getFirst = "?getLesson=true";
+const header = { headers: { "content-type": "application/json" } };
 const problem = {
     name: "Error",
     id: -1,
@@ -34,7 +34,7 @@ export function fetchCourses() {
                 console.error(err);
             });
     };
-};
+}
 
 export function syncCourses(payload) {
     return { type: types.SYNC_COURSES, payload: payload };

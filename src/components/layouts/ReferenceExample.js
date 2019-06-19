@@ -1,13 +1,13 @@
-import React from 'react';
-import Editor from '../editor/Editor';
-import Header from '../structural/header/Header';
-import Footer from '../structural/Footer';
-import View from '../structural/View';
-import RefExInfo from '../reference/RefExInfo';
+import React from "react";
+import Editor from "../editor/Editor";
+import Header from "../structural/header/Header";
+import Footer from "../structural/Footer";
+import View from "../structural/View";
+import RefExInfo from "../reference/RefExInfo";
 
-import * as layoutTypes from '../../constants/LayoutTypes.js';
+import * as layoutTypes from "../../constants/LayoutTypes.js";
 
-import '../../css/ReferencePage.css';
+import "../../css/ReferencePage.css";
 
 export const ReferenceExample = ({ editor, user, scene, referenceExample, referenceExampleActions, editorActions, authActions, projectActions, projects, courseActions, courses, match, sceneActions, classroomActions, classrooms }) => (
     <div className="App">

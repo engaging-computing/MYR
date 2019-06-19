@@ -1,5 +1,5 @@
-import React from 'react';
-import QRCode from 'qrcode.react';
+import React from "react";
+import QRCode from "qrcode.react";
 import {
     Button,
     ButtonBase,
@@ -11,7 +11,7 @@ import {
     MenuItem,
     Modal,
     TextField
-} from '@material-ui/core';
+} from "@material-ui/core";
 
 import { withStyles } from "@material-ui/core/styles";
 import "../../../css/ProjectView.css";
@@ -157,7 +157,7 @@ class Project extends React.Component {
                 label="Email"
                 value={this.state.email}
                 inputRef={this.emailRef}
-                onChange={this.handleTextChange('email')}
+                onChange={this.handleTextChange("email")}
                 margin="normal"
             />
             <IconButton
@@ -169,9 +169,9 @@ class Project extends React.Component {
             <Button
                 color="primary"
                 onClick={this.handleAddEmail}
-                href={`mailto:${this.state.sendTo.join("; ")}?subject=Check out my VR Scene in MYR&body=You can find my scene at ${window.origin + '/' + this.state.projectId}`}>
+                href={`mailto:${this.state.sendTo.join("; ")}?subject=Check out my VR Scene in MYR&body=You can find my scene at ${window.origin + "/" + this.state.projectId}`}>
                 Send
-      </Button>
+            </Button>
         </div>
     );
 
@@ -210,7 +210,7 @@ class Project extends React.Component {
         return (
             <div>
                 <h5>QR Code to Your Project</h5>
-                <QRCode size={330} value={window.origin + '/' + this.state.projectId} />
+                <QRCode size={330} value={window.origin + "/" + this.state.projectId} />
             </div>
         );
     };
@@ -308,7 +308,7 @@ class Project extends React.Component {
     render() {
         const { classes } = this.props;
         let previewToggle = {
-            position: 'fixed ',
+            position: "fixed ",
             top: 0,
             right: "46%"
         };
@@ -329,7 +329,7 @@ class Project extends React.Component {
                                 <Icon className="material-icons">visibility</Icon>
                         }
                         <span>&nbsp;</span>Preview
-        </Button>
+                    </Button>
                     <hr />
                     { // Sort the users projects in alphabetical order
                         userProjs.sort(function (a, b) {

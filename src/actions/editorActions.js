@@ -1,7 +1,7 @@
-import { scenes } from '../firebase.js';
-import { loadScene } from './sceneActions';
-import { DEF_SETTINGS } from '../reducers/scene';
-import * as types from '../constants/ActionTypes';
+import { scenes } from "../firebase.js";
+import { loadScene } from "./sceneActions";
+import { DEF_SETTINGS } from "../reducers/scene";
+import * as types from "../constants/ActionTypes";
 
 /**
  * @function - Sends a signal to the reducer to render the scene
@@ -36,7 +36,7 @@ export function recover() {
 
 /**
 * @summary - This does an async fetch to Firebase to grab the scene, then
-* dispatches the neccessary functions to update the state.
+* dispatches the necessary functions to update the state.
 *
 */
 export function fetchScene(id, uid = "anon") {
@@ -46,10 +46,10 @@ export function fetchScene(id, uid = "anon") {
             if (data && data.pw) {
                 let pw = prompt("Please enter the PW");
                 if (pw !== data.pw) { return; }
-            };
+            }
             if (data && data.code) { // If it worked
                 // render the editor
-                dispatch(render(data.code, uid || 'anon'));
+                dispatch(render(data.code, uid || "anon"));
 
                 // Use default for eventual consistency in db
                 let settings = DEF_SETTINGS;
@@ -71,8 +71,8 @@ export function fetchScene(id, uid = "anon") {
                 // dispatch(loadSettings(settings));
 
             } else { // If no scene is found and we are not looking for 404 return 404
-                if (id !== 'error-404') {
-                    window.location.href = window.origin + '/error-404';
+                if (id !== "error-404") {
+                    window.location.href = window.origin + "/error-404";
                 }
                 console.error("Unable to fetch scene:" + id);
             }

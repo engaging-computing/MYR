@@ -1,4 +1,4 @@
-import * as types from '../constants/ActionTypes';
+import * as types from "../constants/ActionTypes";
 
 /**
  * @function - Sends a signal to the reducer to login with the given user

@@ -26,7 +26,7 @@ class Group {
             if (this.els[i].id === outerElId) {
                 return i;
             }
-        };
+        }
         return null;
     }
 

@@ -1,14 +1,14 @@
-import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
+import { createStore, combineReducers, applyMiddleware, compose } from "redux";
 
-import editor from './editor';
-import project from './project';
-import scene from './scene';
-import user from './user';
-import courses from './course';
-import classrooms from './classes';
-import referenceExample from './referenceExample';
+import editor from "./editor";
+import project from "./project";
+import scene from "./scene";
+import user from "./user";
+import courses from "./course";
+import classrooms from "./classes";
+import referenceExample from "./referenceExample";
 
-import thunk from 'redux-thunk';
+import thunk from "redux-thunk";
 
 const reducer = combineReducers({
     editor,

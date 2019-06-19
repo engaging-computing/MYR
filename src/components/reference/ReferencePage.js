@@ -1,5 +1,5 @@
-import React from 'react';
-import myrReference from '../../myr/reference';
+import React from "react";
+import myrReference from "../../myr/reference";
 
 import {
     Tabs,
@@ -11,21 +11,21 @@ import {
     TableHead,
     TableRow,
     TableCell,
-} from '@material-ui/core';
+} from "@material-ui/core";
 
-import '../../css/ReferencePage.css';
+import "../../css/ReferencePage.css";
 
 export default class Reference extends React.Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            value: 'a',
+            value: "a",
         };
         this.tableData = myrReference();
     }
 
-    handleToggle = () => this.setState({ open: !this.state.open, value: 'a' });
+    handleToggle = () => this.setState({ open: !this.state.open, value: "a" });
 
     handleChange = (event, value) => {
         this.setState({ value });
@@ -33,13 +33,13 @@ export default class Reference extends React.Component {
 
     exampleHelper = (example) => {
         if (example) {
-            let link = '/reference/' + example;
+            let link = "/reference/" + example;
             return (
                 <IconButton
                     href={link}
                     className="material-icons">
                     link
-      </IconButton>
+                </IconButton>
             );
         } else {
             return null;
@@ -102,19 +102,19 @@ export default class Reference extends React.Component {
                         <span className="string">string </span>
                         <span className="group">group </span></p>
                 </div>}
-                {this.state.value === 'a' &&
+                {this.state.value === "a" &&
                     <div style={{ marginTop: 0 }}>
                         {this.TableEx("geometry")}
                     </div>}
-                {this.state.value === 'b' &&
+                {this.state.value === "b" &&
                     <div style={{ marginTop: 0 }}>
                         {this.TableEx("transformations")}
                     </div>}
-                {this.state.value === 'c' &&
+                {this.state.value === "c" &&
                     <div style={{ marginTop: 0 }}>
                         {this.TableEx("animations")}
                     </div>}
-                {this.state.value === 'd' &&
+                {this.state.value === "d" &&
                     <div style={{ marginTop: 0 }}>
                         {this.TableEx("groups")}
                     </div>}

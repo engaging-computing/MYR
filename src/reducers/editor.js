@@ -1,8 +1,8 @@
-import * as types from '../constants/ActionTypes';
+import * as types from "../constants/ActionTypes";
 
-import Myr from '../myr/Myr';
+import Myr from "../myr/Myr";
 
-const welcomeText = `//Getting Started? - https://learnmyr.org/first-time\n`;
+const welcomeText = "//Getting Started? - https://learnmyr.org/first-time\n";
 
 const initial_state = {
     text: welcomeText,
@@ -39,66 +39,66 @@ function noEvalEvaluation(text) {
 export default function editor(state = initial_state, action) {
 
     switch (action.type) {
-        case types.EDITOR_RENDER:
-            m.reset();
+    case types.EDITOR_RENDER:
+        m.reset();
 
-            // build an object to save the snap
-            let snap = {
-                user: action.uid ? action.uid : 'unknown',
-                timestamp: Date.now(),
-                text: action.text,
-                error: false
-            };
+        // build an object to save the snap
+        let snap = {
+            user: action.uid ? action.uid : "unknown",
+            timestamp: Date.now(),
+            text: action.text,
+            error: false
+        };
 
-            let message = {
-                text: "",
-                time: Date.now()
-            };
+        let message = {
+            text: "",
+            time: Date.now()
+        };
 
-            try {
-                noEvalEvaluation(action.text);
-            }
-            catch (err) {
-                // Notify that eval failed
-                console.error("Eval failed: " + err);
-                message = { ...message, text: "Eval failed: " + err };
-                snap = { ...snap, error: true };
-            }
+        try {
+            noEvalEvaluation(action.text);
+        }
+        catch (err) {
+            // Notify that eval failed
+            console.error("Eval failed: " + err);
+            message = { ...message, text: "Eval failed: " + err };
+            snap = { ...snap, error: true };
+        }
 
-            snapshots.push(snap);
+        snapshots.push(snap);
 
-            fetch('/apiv1/snapshots/', {
-                headers: new Headers({ 'Content-Type': 'application/json' }),
-                method: 'post',
-                body: JSON.stringify(snap)
-            });
+        fetch("/apiv1/snapshots/", {
+            headers: new Headers({ "Content-Type": "application/json" }),
+            method: "post",
+            body: JSON.stringify(snap)
+        });
 
-            return {
-                ...state,
-                text: action.text,
-                objects: m.els || [],
-                assets: m.assets || [],
-                message
-            };
+        return {
+            ...state,
+            text: action.text,
+            objects: m.els || [],
+            assets: m.assets || [],
+            message
+        };
 
-        case types.EDITOR_REFRESH:
-            m.reset();
-            return {
-                ...initial_state,
-                text: action.text
-            };
+    case types.EDITOR_REFRESH:
+        m.reset();
+        return {
+            ...initial_state,
+            text: action.text
+        };
 
-        case types.EDITOR_RECOVER:
-            // Start at last snap
-            let stableIndex = snapshots.length - 1;
-            // Work backwards until we find a non-error snap
-            while (snapshots[stableIndex].error === true) {
-                stableIndex--;
-            }
+    case types.EDITOR_RECOVER:
+        // Start at last snap
+        let stableIndex = snapshots.length - 1;
+        // Work backwards until we find a non-error snap
+        while (snapshots[stableIndex].error === true) {
+            stableIndex--;
+        }
 
-            // Call editor function again with new params
-            return editor({ ...state }, { type: types.EDITOR_RENDER, text: snapshots[stableIndex].text });
-        default:
-            return state;
+        // Call editor function again with new params
+        return editor({ ...state }, { type: types.EDITOR_RENDER, text: snapshots[stableIndex].text });
+    default:
+        return state;
     }
 }

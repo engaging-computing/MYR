@@ -1,4 +1,4 @@
-import * as types from '../constants/ActionTypes';
+import * as types from "../constants/ActionTypes";
 
 /**
 * @summary - This function registers the scene"s name with Redux

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { ChromePicker } from 'react-color';
+import { ChromePicker } from "react-color";
 import {
     Button,
     ButtonBase,
@@ -14,9 +14,9 @@ import QRCode from "qrcode.react";
 
 import { withStyles } from "@material-ui/core/styles";
 
-import * as layoutTypes from '../../../constants/LayoutTypes.js';
+import * as layoutTypes from "../../../constants/LayoutTypes.js";
 
-import '../../../css/SceneConfig.css';
+import "../../../css/SceneConfig.css";
 
 // FUNC to position modal in the middle of the screen
 function getModalStyle() {
@@ -136,7 +136,7 @@ class ConfigModal extends Component {
             <TextField
                 id="standard-name"
                 type="password"
-                onChange={this.handleTextChange('pw')}
+                onChange={this.handleTextChange("pw")}
             />
             <Button
                 color="primary"
@@ -145,10 +145,10 @@ class ConfigModal extends Component {
                     this.props.sceneActions.addPassword(this.state.pw);
                 }} >
                 Save
-      </Button>
+            </Button>
             <p style={{ fontSize: "80%", marginTop: 10 }}>
                 <b>Legal disclaimer:</b> This will only slow down people from accessing your work. MYR is not sutiable for sensitive information.
-      </p>
+            </p>
         </div>
     );
 
@@ -164,7 +164,7 @@ class ConfigModal extends Component {
                 id="standard-name"
                 label="Email"
                 inputRef={this.emailRef}
-                onChange={this.handleTextChange('email')}
+                onChange={this.handleTextChange("email")}
             />
             <IconButton
                 variant="raised"
@@ -177,7 +177,7 @@ class ConfigModal extends Component {
                 onClick={this.handleAddEmail}
                 href={`mailto:${this.state.sendTo.join("; ")}?subject=Check out my VR Scene in MYR&body=You can find my scene at ${window.location.href}`}>
                 Send
-      </Button>
+            </Button>
         </div>
     );
 
@@ -230,7 +230,7 @@ class ConfigModal extends Component {
             <ButtonBase
                 style={style}
                 onClick={() => {
-                    return this.props.sceneActions.changeView()
+                    return this.props.sceneActions.changeView();
                 }
                 }
             >
@@ -240,7 +240,7 @@ class ConfigModal extends Component {
                         : <Icon className="material-icons">toggle_off</Icon>
                 }
                 Show Editor
-      </ButtonBase >
+            </ButtonBase >
         );
     }
 
@@ -258,7 +258,7 @@ class ConfigModal extends Component {
                         : <Icon className="material-icons">toggle_off</Icon>
                 }
                 Flying
-      </ButtonBase >
+            </ButtonBase >
         );
     }
 
@@ -279,7 +279,7 @@ class ConfigModal extends Component {
                         : <Icon className="material-icons">toggle_off</Icon>
                 }
                 Show Grid
-      </ButtonBase >
+            </ButtonBase >
         );
     }
 
@@ -300,7 +300,7 @@ class ConfigModal extends Component {
                         : <Icon className="material-icons">toggle_off</Icon>
                 }
                 Show Floor
-      </ButtonBase >
+            </ButtonBase >
         );
     }
 
@@ -312,7 +312,7 @@ class ConfigModal extends Component {
             >
                 <Icon className="material-icons">library_add</Icon>
                 Add to Class
-      </ButtonBase >
+            </ButtonBase >
         );
     }
 
@@ -324,10 +324,10 @@ class ConfigModal extends Component {
         return (
             <ButtonBase
                 style={btnStyle.base}
-                onClick={() => window.open(window.origin + '/about/classrooms')} >
+                onClick={() => window.open(window.origin + "/about/classrooms")} >
                 <Icon className="material-icons">info</Icon>
                 About
-      </ButtonBase >
+            </ButtonBase >
         );
     }
 
@@ -338,7 +338,7 @@ class ConfigModal extends Component {
             <TextField
                 id="standard-name"
                 type="text"
-                onChange={this.handleTextChange('classroomID')}
+                onChange={this.handleTextChange("classroomID")}
             />
             <Button
                 color="primary"
@@ -349,7 +349,7 @@ class ConfigModal extends Component {
                     this.props.handleSaveClose();
                 }} >
                 Save
-      </Button>
+            </Button>
         </div>
     );
 
@@ -364,7 +364,7 @@ class ConfigModal extends Component {
                 onClick={() => this.props.sceneActions.setCamera(0, 1.6, 3)} >
                 <Icon className="material-icons">settings_backup_restore</Icon>
                 Reset Position
-      </ButtonBase >
+            </ButtonBase >
         );
     }
 
@@ -378,7 +378,7 @@ class ConfigModal extends Component {
                 }}>
                 <Icon className="material-icons">color_lens</Icon>
                 Edit Sky Color
-      </ButtonBase>
+            </ButtonBase>
         );
     }
 
@@ -392,7 +392,7 @@ class ConfigModal extends Component {
                 }}>
                 <Icon className="material-icons">color_lens</Icon>
                 Edit Floor Color
-      </ButtonBase>
+            </ButtonBase>
         );
     }
 
@@ -452,7 +452,7 @@ class ConfigModal extends Component {
                                             onClick={() => { this.handleQrToggle(); }} >
                                             <Icon className="material-icons">gradient</Icon>
                                             QR Code
-                    </ButtonBase>
+                                        </ButtonBase>
                                     </div>
                                     <div className="col-6">
                                         <ButtonBase
@@ -460,7 +460,7 @@ class ConfigModal extends Component {
                                             onClick={() => { this.handleShrToggle(); }} >
                                             <Icon className="material-icons">send</Icon>
                                             Send To
-                    </ButtonBase>
+                                        </ButtonBase>
                                         {/* <ButtonBase
                     style={btnStyle.base}
                     onClick={() => { this.handlePwToggle(); }} >
@@ -481,7 +481,7 @@ class ConfigModal extends Component {
                                             style={btnStyle.save}
                                             onClick={() => this.handleClose()} >
                                             Close
-                  </ButtonBase >
+                                        </ButtonBase >
                                     </div>
                                     {/* This is for the dual button config
                 <div className="col-6">

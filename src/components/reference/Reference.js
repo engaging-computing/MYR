@@ -1,7 +1,7 @@
-import React from 'react';
-import myrReference from '../../myr/reference';
+import React from "react";
+import myrReference from "../../myr/reference";
 
-import * as layoutTypes from '../../constants/LayoutTypes';
+import * as layoutTypes from "../../constants/LayoutTypes";
 
 import {
     Tabs,
@@ -15,14 +15,14 @@ import {
     TableRow,
     TableCell,
     Tooltip
-} from '@material-ui/core';
+} from "@material-ui/core";
 
 export default class Reference extends React.Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            value: 'a',
+            value: "a",
         };
         this.tableData = myrReference();
     }
@@ -32,20 +32,20 @@ export default class Reference extends React.Component {
     };
 
     handleOpen = () => {
-        window.open(window.origin + '/reference');
-        this.setState({ value: 'a' });
+        window.open(window.origin + "/reference");
+        this.setState({ value: "a" });
     };
 
     exampleHelper = (example) => {
         if (example) {
-            let link = '/reference/' + example;
+            let link = "/reference/" + example;
             return (
                 <IconButton
                     href={link}
                     target="_blank"
                     className="material-icons">
                     link
-      </IconButton>
+                </IconButton>
             );
         } else {
             return null;
@@ -80,7 +80,7 @@ export default class Reference extends React.Component {
         const style = {
             margin: 2,
             padding: 0,
-            color: '#fff',
+            color: "#fff",
         };
         let isDisabled = this.props.layoutType === layoutTypes.REFERENCE;
         return (
@@ -94,14 +94,14 @@ export default class Reference extends React.Component {
                                 aria-haspopup="true"
                                 onClick={this.props.handleReferenceToggle}
                                 style={style}>
-                                <Icon style={{ color: '#fff' }} className="material-icons">help</Icon>
+                                <Icon style={{ color: "#fff" }} className="material-icons">help</Icon>
                             </IconButton>
                         </Tooltip>
                         <Drawer
                             anchor="right"
                             id="reference-drawer"
                             variant="persistent"
-                            className={!this.props.referenceOpen ? 'd-none' : ""}
+                            className={!this.props.referenceOpen ? "d-none" : ""}
                             open={this.props.referenceOpen}>
                             <Tabs
                                 id="reference-tabs"
@@ -137,31 +137,31 @@ export default class Reference extends React.Component {
                                     value='x'
                                     onClick={() => {
                                         this.props.handleReferenceToggle();
-                                        this.setState({ value: 'a' });
+                                        this.setState({ value: "a" });
                                     }} />
                             </Tabs>
 
-                            {<div style={{ margin: 5, overflow: 'hidden' }}>
+                            {<div style={{ margin: 5, overflow: "hidden" }}>
                                 <p style={{ fontSize: "80%" }}> Key: <span className="array">array </span>
                                     <span className="bool">bool </span>
                                     <span className="number">number </span>
                                     <span className="string">string </span>
                                     <span className="group">group </span></p>
                             </div>}
-                            {this.state.value === 'a' &&
-                                <div style={{ marginTop: 0, overflow: 'scroll' }}>
+                            {this.state.value === "a" &&
+                                <div style={{ marginTop: 0, overflow: "scroll" }}>
                                     {this.TableEx("geometry")}
                                 </div>}
-                            {this.state.value === 'b' &&
-                                <div style={{ marginTop: 0, overflow: 'scroll' }}>
+                            {this.state.value === "b" &&
+                                <div style={{ marginTop: 0, overflow: "scroll" }}>
                                     {this.TableEx("transformations")}
                                 </div>}
-                            {this.state.value === 'c' &&
-                                <div style={{ marginTop: 0, overflow: 'scroll' }}>
+                            {this.state.value === "c" &&
+                                <div style={{ marginTop: 0, overflow: "scroll" }}>
                                     {this.TableEx("animations")}
                                 </div>}
-                            {this.state.value === 'd' &&
-                                <div style={{ marginTop: 0, overflow: 'scroll' }}>
+                            {this.state.value === "d" &&
+                                <div style={{ marginTop: 0, overflow: "scroll" }}>
                                     {this.TableEx("groups")}
                                 </div>}
                         </Drawer>
