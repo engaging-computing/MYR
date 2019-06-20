@@ -2,6 +2,8 @@ import { render } from "./editorActions";
 
 import * as types from "../constants/ActionTypes";
 
+import * as sceneActions from "./sceneActions";
+
 const refExRef = "/apiv1/referenceExamples/";
 const header = { headers: { "content-type": "application/json" } };
 const problem = {
@@ -31,6 +33,11 @@ export function fetchReferenceExample(funcName) {
                     .then(json => {
                         dispatch(loadReferenceExample(response.status === 200 ? json : notFound));
                         dispatch(render(json.code || ""));
+                        dispatch(sceneActions.setNameDesc(
+                            {
+                                name: json.functionName,
+                                desc: "This scene was saved from the reference example: " + json.functionName,
+                            }));
                     })
                     .catch(err => {
                         dispatch(loadReferenceExample(problem));
