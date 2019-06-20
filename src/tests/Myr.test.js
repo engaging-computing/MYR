@@ -244,20 +244,20 @@ describe("Component Animations", () => {
         myr.animate(bId);
         let el = myr.getEl(bId);
         expect(el.animation).toEqual(`
-      property: rotation;
-      dir: alternate;
-      to: 0 360 0;
-      dur: 1000;
-      loop: true;
-    `);
+        property: rotation;
+        dir: alternate;
+        to: 0 360 0;
+        dur: 1000;
+        loop: true;
+        `);
         myr.animate(bId, 720, false, 2000);
         expect(el.animation).toEqual(`
-      property: rotation;
-      dir: alternate;
-      to: 0 720 0;
-      dur: 2000;
-      loop: false;
-    `);
+        property: rotation;
+        dir: alternate;
+        to: 0 720 0;
+        dur: 2000;
+        loop: false;
+        `);
     });
 
     it("Should add the spin animation", () => {
@@ -266,22 +266,22 @@ describe("Component Animations", () => {
         myr.spin(bId);
         let el = myr.getEl(bId);
         expect(el.animation__spin).toEqual(`
-      property: rotation;
-      dir: alternate;
-      dur: 1000;
-      loop: true;
-      easing: linear;
-      to: 0 360 0;
-    `);
+        property: rotation;
+        dir: alternate;
+        dur: 1000;
+        loop: true;
+        easing: linear;
+        to: 0 360 0;
+        `);
         myr.spin(bId, 720, false, 2000);
         expect(el.animation__spin).toEqual(`
-      property: rotation;
-      dir: alternate;
-      dur: 2000;
-      loop: false;
-      easing: linear;
-      to: 0 720 0;
-    `);
+        property: rotation;
+        dir: alternate;
+        dur: 2000;
+        loop: false;
+        easing: linear;
+        to: 0 720 0;
+        `);
     });
 
     it("should add the yoyo animiation", () => {
