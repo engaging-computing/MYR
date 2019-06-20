@@ -8,6 +8,7 @@ The Engaging Computing Group develops new technologies to enable learners—yout
 
 ## Change Log - 1.2.5 -> 1.2.6
 - Saving a reference example autopopulates a name.
+- You will be prompted to save changes before leaving a scene.
 
 ## Acknowledgments
 MYR uses [Aframe](https://aframe.io), a fantastic open source project, to render objects and effects in the three dimensional space.  
