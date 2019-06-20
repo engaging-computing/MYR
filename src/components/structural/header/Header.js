@@ -49,7 +49,8 @@ class Header extends Component {
             navAwayModal: false,
             needsNewId: false, // this explicitly tells us to make a new id
             spinnerOpen: false,
-            referenceOpen: false
+            referenceOpen: false,
+            editorChange: false,
         };
     }
 
@@ -127,11 +128,26 @@ class Header extends Component {
         // Bind to keyboard to listen for shortcuts
         document.addEventListener("keydown", this.handleKeyDown.bind(this));
 
-    // Warn the issue before refreshing the page
-    // TODO: Only do so if unsaved changes
-    // window.addEventListener('beforeunload', (event) => {
-    //     event.returnValue = 'You have may have unsaved changes!';
-    // });
+        // Warn the issue before refreshing the page
+        try {
+            let editor = window.ace.edit("ace-editor");
+            editor.getSession().on("change", () => {
+                let text = editor.getSession().getValue();
+                if (this.props.text !== text) {
+                    this.setState({ editorChange: true });
+                } else {
+                    this.setState({ editorChange: false });
+                }
+
+            });
+        } catch (err) {
+            console.error(err);
+        }
+        window.addEventListener("beforeunload", (event) => {
+            if (this.state.editorChange) {
+                event.returnValue = "";
+            }
+        });
     }
 
     /**
@@ -382,6 +398,7 @@ class Header extends Component {
                     settings: this.props.scene.settings,
                     ts: ts,
                 }).then(() => {
+                    this.setState({editorChange: false});
                     // If we have a new projectId reload page with it
                     if (this.props.courseName) {
                         this.setState({ spinnerOpen: false });
@@ -602,11 +619,7 @@ class Header extends Component {
                     <Sidebar scene={this.props.scene} nameScene={this.props.sceneActions.nameScene} >
                         <Button
                             variant="raised"
-                            onClick={() => {
-                                if (window.confirm("Are you sure you start a new scene?\nYou will lose any unsaved work!")) {
-                                    window.location.href = window.origin;
-                                }
-                            }}
+                            onClick={() => { window.location.href = window.origin; }}
                             color="primary"
                             className="sidebar-btn">
                             <Icon className="material-icons">add</Icon>
@@ -682,11 +695,7 @@ class Header extends Component {
                     <Tooltip title="New Scene" placement="bottom-start">
                         <IconButton
                             id="new-btn"
-                            onClick={() => {
-                                if (window.confirm("Are you sure you start a new scene?\nYou will lose any unsaved work!")) {
-                                    window.location.href = window.origin;
-                                }
-                            }}
+                            onClick={() => { window.location.href = window.origin; }}
                             style={style.default}
                             className="header-btn d-none d-md-block" >
                             <Icon className="material-icons">add_circle_outline</Icon>
