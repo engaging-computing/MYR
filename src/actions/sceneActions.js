@@ -1,4 +1,4 @@
-import * as types from '../constants/ActionTypes';
+import * as types from "../constants/ActionTypes";
 
 /**
 * @summary - This function registers the scene"s name with Redux
@@ -8,7 +8,7 @@ import * as types from '../constants/ActionTypes';
 * @returns - a reducer action with type:NAME_SCENE
 */
 export function nameScene(name) {
-  return { type: types.NAME_SCENE, name };
+    return { type: types.NAME_SCENE, name };
 }
 
 /**
@@ -19,80 +19,80 @@ export function nameScene(name) {
 * @returns - a reducer action with type:LOAD_SCENE
 */
 export function loadScene(data) {
-  return { type: types.LOAD_SCENE, data };
+    return { type: types.LOAD_SCENE, data };
 }
 
 export function toggleCoordSky() {
-  return { type: types.TOGGLE_COORD_SKY };
+    return { type: types.TOGGLE_COORD_SKY };
 }
 
 export function changeSkyColor(color) {
-  return { type: types.CHANGE_SKY_COLOR, color };
+    return { type: types.CHANGE_SKY_COLOR, color };
 }
 
 export function changeFloorColor(color) {
-  return { type: types.CHANGE_FLOOR_COLOR, color };
+    return { type: types.CHANGE_FLOOR_COLOR, color };
 }
 
 export function changeCamMode(config) {
-  return { type: types.CHANGE_CAM_MODE, config };
+    return { type: types.CHANGE_CAM_MODE, config };
 }
 
 export function setCamera(x, y, z) {
-  return { type: types.SET_CAMERA, x, y, z };
+    return { type: types.SET_CAMERA, x, y, z };
 }
 
 export function changePerspective() {
-  return { type: types.CHANGE_PERSPECTIVE };
+    return { type: types.CHANGE_PERSPECTIVE };
 }
 
 export function changeView() {
-  return { type: types.CHANGE_VIEW };
+    return { type: types.CHANGE_VIEW };
 }
 
 export function toggleFly() {
-  return { type: types.TOGGLE_FLY };
+    return { type: types.TOGGLE_FLY };
 }
 
 export function toggleFloor() {
-  return { type: types.TOGGLE_FLOOR };
+    return { type: types.TOGGLE_FLOOR };
 }
 
 export function loadSettings(payload) {
-  return { type: types.LOAD_SETTINGS, payload };
+    return { type: types.LOAD_SETTINGS, payload };
 }
 
 export function changeSetting(payload) {
-  return { type: types.LOAD_SETTINGS, payload };
+    return { type: types.LOAD_SETTINGS, payload };
 }
 
 export function addClassroomID(payload) {
-  return { type: types.ADD_CLASSROOM, payload };
+    return { type: types.ADD_CLASSROOM, payload };
 }
 
 export function setDesc(payload) {
-  return { type: types.SET_DESC, payload };
+    return { type: types.SET_DESC, payload };
 }
 
 export function setNameDesc(payload) {
-  return { type: types.SET_NAME_DESC, payload };
+    return { type: types.SET_NAME_DESC, payload };
 }
 
 export default {
-  nameScene,
-  loadScene,
-  toggleCoordSky,
-  changeSkyColor,
-  changeFloorColor,
-  changeCamMode,
-  setCamera,
-  changePerspective,
-  changeView,
-  toggleFly,
-  toggleFloor,
-  loadSettings,
-  changeSetting,
-  addClassroomID,
-  setDesc,
-  setNameDesc
+    nameScene,
+    loadScene,
+    toggleCoordSky,
+    changeSkyColor,
+    changeFloorColor,
+    changeCamMode,
+    setCamera,
+    changePerspective,
+    changeView,
+    toggleFly,
+    toggleFloor,
+    loadSettings,
+    changeSetting,
+    addClassroomID,
+    setDesc,
+    setNameDesc
 };

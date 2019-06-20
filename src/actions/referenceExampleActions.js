@@ -1,13 +1,23 @@
-import { render } from './editorActions';
+import { render } from "./editorActions";
 
-import * as types from '../constants/ActionTypes';
+import * as types from "../constants/ActionTypes";
 
-const refExRef = '/apiv1/referenceExamples/';
-const header = { headers: { 'content-type': 'application/json' } };
+const refExRef = "/apiv1/referenceExamples/";
+const header = { headers: { "content-type": "application/json" } };
 const problem = {
-    name: "Error",
-    type: "Unknown",
-    info: "An unknown error occured. Please try refreshing the page",
+    functionName: "Error",
+    functionParams: [],
+    type: "Error",
+    info: "An unknown error occurred. Please try refreshing the page.",
+    suggestedCourse: null,
+    code: ""
+};
+
+const notFound = {
+    functionName: "Not Found",
+    functionParams: [],
+    type: "Error 404",
+    info: "The function example you are trying to view is not currently defined.",
     suggestedCourse: null,
     code: ""
 };
@@ -19,7 +29,7 @@ export function fetchReferenceExample(funcName) {
             .then(response => {
                 response.json()
                     .then(json => {
-                        dispatch(loadReferenceExample(json));
+                        dispatch(loadReferenceExample(response.status === 200 ? json : notFound));
                         dispatch(render(json.code || ""));
                     })
                     .catch(err => {

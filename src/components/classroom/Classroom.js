@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import Select from 'react-select';
-import { classes } from '../../firebase.js';
+import Select from "react-select";
+import { classes } from "../../firebase.js";
 
 import {
     Button,
@@ -12,7 +12,7 @@ import {
 
 import { withStyles } from "@material-ui/core/styles";
 
-import '../../css/Classroom.css';
+import "../../css/Classroom.css";
 
 // FUNC to position modal in the middle of the screen
 function getModalStyle() {
@@ -84,7 +84,7 @@ class ClassroomModal extends Component {
     }
 
     handleChange = (selectedClassroom) => {
-        window.location.href = window.origin + '/class/' + selectedClassroom.value;
+        window.location.href = window.origin + "/class/" + selectedClassroom.value;
     }
 
     handleDelete = (selectedClassroom) => {
@@ -163,7 +163,7 @@ class ClassroomModal extends Component {
         }
         else {
             let newClassroomID = this.state.newClassroomID.toLowerCase();
-            classes.where('classroomID', '==', newClassroomID).get().then(snap => {
+            classes.where("classroomID", "==", newClassroomID).get().then(snap => {
                 snap.forEach(doc => {
                     existingClasses.push({
                         id: doc.id
@@ -195,7 +195,7 @@ class ClassroomModal extends Component {
             <TextField
                 id="standard-name"
                 type="text"
-                onChange={this.handleTextChange('newClassroomID')}
+                onChange={this.handleTextChange("newClassroomID")}
             />
             <Button
                 color="primary"
@@ -203,7 +203,7 @@ class ClassroomModal extends Component {
                     this.handleSubmit();
                 }} >
                 Submit
-      </Button>
+            </Button>
         </div>
     );
 
@@ -231,13 +231,13 @@ class ClassroomModal extends Component {
                                     onClick={() => { this.handleOpenClassToggle(); }} >
                                     <Icon className="material-icons">storage</Icon>
                                     Open a Class
-                        </ButtonBase>
+                                </ButtonBase>
                                 <ButtonBase
                                     style={btnStyle.base}
                                     onClick={() => { this.handleDeleteClassToggle(); }} >
                                     <Icon className="material-icons">delete</Icon>
                                     Delete a Class
-                        </ButtonBase>
+                                </ButtonBase>
                             </div>
                             <div className="col-6">
                                 <ButtonBase
@@ -245,13 +245,13 @@ class ClassroomModal extends Component {
                                     onClick={() => { this.handleAddClassToggle(); }} >
                                     <Icon className="material-icons">add_circle</Icon>
                                     Create a Class
-                            </ButtonBase>
+                                </ButtonBase>
                                 <ButtonBase
                                     style={btnStyle.base}
-                                    onClick={() => window.open(window.origin + '/about/classrooms')} >
+                                    onClick={() => window.open(window.origin + "/about/classrooms")} >
                                     <Icon className="material-icons">info</Icon>
                                     About Classes
-                            </ButtonBase>
+                                </ButtonBase>
                             </div>
                         </div>
                     </div>
