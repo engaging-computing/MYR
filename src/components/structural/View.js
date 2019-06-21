@@ -18,7 +18,7 @@ class View extends Component {
         super(props);
         this.state = {
             loading: true
-        }
+        };
     }
 
     postpone(f) {
@@ -29,16 +29,16 @@ class View extends Component {
         this.postpone(() => {
             this.setState({
                 loading: true
-            })
-        })
+            });
+        });
     }
 
     componentDidMount() {
         this.postpone(() => {
             this.setState({
                 loading: false
-            })
-        })
+            });
+        });
 
         window.addEventListener("keydown", function (e) {
             //KEYS: left and right: 37, 39; up and down: 38, 40; space: 32
@@ -97,12 +97,12 @@ class View extends Component {
 
     createCam = () => {
         switch (this.props.sceneConfig.settings.camConfig) {
-            case 0:
-                return this.basicMoveCam();
-            case 1:
-                return this.checkpointCam();
-            default:
-                return this.basicMoveCam();
+        case 0:
+            return this.basicMoveCam();
+        case 1:
+            return this.checkpointCam();
+        default:
+            return this.basicMoveCam();
         }
     }
 
