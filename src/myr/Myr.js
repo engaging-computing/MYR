@@ -153,6 +153,53 @@ class Myr {
         }
     };
 
+    increasePosition = (x = 0, y = 0, z = 0) => {
+
+        if (typeof x === "number" && typeof y === "number" && typeof z === "number") {
+            this.position = {
+                ...this.position,
+                x: this.position.x + x,
+                y: this.position.y + y,
+                z: this.position.z + z
+            };
+        } else {
+            console.error("increasePosition() must be all numeric values");
+        }
+    }
+
+    increaseXPos = (x = 1) => {
+        if (typeof x === "number") {
+            this.position = {
+                ...this.position,
+                x: this.position.x + x,
+            };
+        } else {
+            console.error("must pass a numeric value for increaseXPos");
+        }
+    }
+
+    increaseYPos = (y = 1) => {
+        if (typeof y === "number") {
+            this.position = {
+                ...this.position,
+                y: this.position.y + y,
+            };
+        } else {
+            console.error("must pass a numeric value for increaseYPos");
+        }
+    }
+
+    increaseZPos = (z = 1) => {
+        if (typeof z === "number") {
+            this.position = {
+                ...this.position,
+                z: this.position.z + z,
+            };
+        } else {
+            console.error("must pass a numeric value for increaseZPos");
+        }
+    }
+
     setScale = (x = 1, y = 1, z = 1) => {
         if (typeof x === "number" && typeof y === "number" && typeof z === "number") {
             this.scale = {
