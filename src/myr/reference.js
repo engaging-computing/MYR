@@ -137,25 +137,19 @@ let transformations = [
     },
     {
         name: <span> increasePosition(<span className="number">x</span>,<span className="number">y</span>,<span className="number">z</span>)</span>,
-        description: <span>Changes the position of the cursor relative to the current position. This function takes both positive and negative values. </span>,
-        example: "increasePosition"
+        description: <span>Changes the position of the cursor relative to the current position. This function takes both positive and negative values and returns the object of the current position of the cursor. </span>,
     },
     {
         name: <span> increaseXPos(<span className="number">x</span>)</span>,
-        description: <span>Changes the position of the cursor along the X-axis relative to the current coordinate. This function takes both positive and negative value. Default: 1</span>,
-        example: "increaseXPos"
-
+        description: <span>Changes the position of the cursor along the X-axis relative to the current coordinate. This function takes both positive and negative value and returns the current X-position of the cursor. Default: 1</span>,
     },
     {
         name: <span> increaseYPos(<span className="number">y</span>)</span>,
-        description: <span>Changes the position of the cursor along the Y-axis relative to the current coordinate. This function takes both positive and negative value. Default: 1</span>,
-        example: "increaseYPos"
-
+        description: <span>Changes the position of the cursor along the Y-axis relative to the current coordinate. This function takes both positive and negative value and returns the current Y-position of the cursor. Default: 1</span>,
     },
     {
         name: <span> increaseZPos(<span className="number">z</span>)</span>,
-        description: <span>Changes the position of the cursor along the Z-axis relative to the current coordinate. This function takes both positive and negative value. Default: 1</span>,
-        example: "increaseZPos"
+        description: <span>Changes the position of the cursor along the Z-axis relative to the current coordinate. This function takes both positive and negative value and returns the current Z-position of the cursor. Default: 1</span>,
     },
     {
         name: <span>setScale(<span className="number">x</span>,<span className="number">y</span>,<span className="number">z</span>)</span>,

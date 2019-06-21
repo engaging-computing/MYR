@@ -165,6 +165,7 @@ class Myr {
         } else {
             console.error("increasePosition() must be all numeric values");
         }
+        return { x: this.position.x, y: this.position.y, z: this.position.z };
     }
 
     increaseXPos = (x = 1) => {
@@ -176,6 +177,8 @@ class Myr {
         } else {
             console.error("must pass a numeric value for increaseXPos");
         }
+
+        return this.position.x;
     }
 
     increaseYPos = (y = 1) => {
@@ -187,6 +190,8 @@ class Myr {
         } else {
             console.error("must pass a numeric value for increaseYPos");
         }
+
+        return this.position.y;
     }
 
     increaseZPos = (z = 1) => {
@@ -198,6 +203,8 @@ class Myr {
         } else {
             console.error("must pass a numeric value for increaseZPos");
         }
+
+        return this.position.z;
     }
 
     setScale = (x = 1, y = 1, z = 1) => {
