@@ -102,8 +102,7 @@ class Project extends React.Component {
       email: "",
       pw: "",
       sendTo: [],
-      loadOpen: false,
-      value: 'a',
+      value: this.props.tab,
     };
     this.emailRef = React.createRef();
   }
@@ -155,10 +154,10 @@ class Project extends React.Component {
     this.setState({ shareOpen: !this.state.shareOpen, sendTo: [] });
   }
 
-  handleLoadToggle = () => {
-    this.setState({ loadOpen: !this.state.loadOpen });
-    this.setState({ value: 'a' });
-  };
+  //handleLoadToggle = () => {
+  //  this.setState({ loadOpen: !this.state.loadOpen });
+  //  this.setState({ value: 'a' });
+  //};
 
   // pwProtect = () => (
   //   <div>
@@ -369,7 +368,7 @@ class Project extends React.Component {
           <Tooltip title="Open" placement="bottom-start">
             <IconButton
               id="open-btn"
-              onClick={this.handleLoadToggle}
+              onClick={this.props.handleLoadToggle}
               className="header-btn"
               aria-haspopup="true"
               style={style.default}>
@@ -379,13 +378,13 @@ class Project extends React.Component {
           <Modal
             aria-labelledby="simple-modal-title"
             aria-describedby="simple-modal-description"
-            open={this.state.loadOpen}
-            onClose={this.handleLoadToggle}>
+            open={this.props.loadOpen}
+            onClose={this.props.handleLoadToggle}>
             <div style={getOuterModalStyle()} className={classes.outer}>
               <IconButton
                 color="default"
                 style={exitBtnStyle}
-                onClick={this.handleLoadToggle}>
+                onClick={this.props.handleLoadToggle}>
                 <Icon className="material-icons">close</Icon>
               </IconButton>
               <div>
