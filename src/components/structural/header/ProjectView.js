@@ -119,9 +119,7 @@ class Project extends React.Component {
         this.setState({ projectId: event.currentTarget.id, isUserProj: true });
         this.handleInfoToggle();
     };
-    handleShrToggle = () => {
-        this.setState({ shareOpen: !this.state.shareOpen, sendTo: [] });
-    }
+
     handleInfoExampleClick = event => {
         this.setState({ projectId: event.currentTarget.id, isUserProj: false });
         this.handleInfoToggle();
@@ -156,6 +154,9 @@ class Project extends React.Component {
         this.setState({ pwProtectOpen: !this.state.pwProtectOpen });
     }
 
+    handleShrToggle = () => {
+        this.setState({ shareOpen: !this.state.shareOpen, sendTo: [] });
+    }
     //handleLoadToggle = () => {
     //  this.setState({ loadOpen: !this.state.loadOpen });
     //  this.setState({ value: 'a' });
