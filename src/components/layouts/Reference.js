@@ -1,9 +1,9 @@
-import React from 'react';
-import Header from '../structural/header/Header';
-import Footer from '../structural/Footer';
-import ReferencePage from '../reference/ReferencePage';
+import React from "react";
+import Header from "../structural/header/Header";
+import Footer from "../structural/Footer";
+import ReferencePage from "../reference/ReferencePage";
 
-import * as layoutTypes from '../../constants/LayoutTypes.js';
+import * as layoutTypes from "../../constants/LayoutTypes.js";
 
 export const Reference = ({ editor, editorActions, user, authActions, scene, sceneActions, projectActions, courseActions, projects, courses, match, classroomActions, classrooms }) => (
     <div className="App">
