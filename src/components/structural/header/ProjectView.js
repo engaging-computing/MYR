@@ -119,7 +119,9 @@ class Project extends React.Component {
         this.setState({ projectId: event.currentTarget.id, isUserProj: true });
         this.handleInfoToggle();
     };
-
+    handleShrToggle = () => {
+        this.setState({ shareOpen: !this.state.shareOpen, sendTo: [] });
+    }
     handleInfoExampleClick = event => {
         this.setState({ projectId: event.currentTarget.id, isUserProj: false });
         this.handleInfoToggle();
