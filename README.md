@@ -6,11 +6,11 @@ MYR can be found online at [LearnMYR.org](https://learnmyr.org). For more inform
 ## ECG
 The Engaging Computing Group develops new technologies to enable learners—youth, teachers, undergraduates, and others— in order for them to be creative in science, engineering, and computing, and studies how these technologies improve learning. For more information about the Engaging Computing Group, please visit the [ECG website](https://sites.uml.edu/engaging-computing).
 
-## Change Log - 1.2.4 -> 1.2.5
-- ctrl+shift+s allows for the option to rename the scene by opening the save menu.
-- View only works on reference examples.
-- All files are formatted properly.
-- Eslint is configured and runs with CircleCI.
+## Status
+[![CircleCI](https://circleci.com/gh/engaging-computing/MYR.svg?style=shield)](https://circleci.com/gh/engaging-computing/MYR)
+
+## Change Log - 1.2.6 -> 1.2.7
+- Implemented relative cursor modification functions (increasePosition, increaseXPos, increaseYPos, increaseZPos).
 
 ## Acknowledgments
 MYR uses [Aframe](https://aframe.io), a fantastic open source project, to render objects and effects in the three dimensional space.  
