@@ -10,11 +10,27 @@ import {
     Menu,
     MenuItem,
     Modal,
-    TextField
+    TextField,
+    Tooltip,
+    Tabs,
+    Tab
 } from "@material-ui/core";
 
 import { withStyles } from "@material-ui/core/styles";
 import "../../../css/ProjectView.css";
+
+function getOuterModalStyle() {
+    const top = 50;
+    const left = 50;
+
+    return {
+        top: `${top}%`,
+        left: `${left}%`,
+        transform: `translate(-${top}%, -${left}%)`,
+        maxWidth: "90%",
+        maxHeight: "90%"
+    };
+}
 
 function getModalStyle() {
     const top = 50;
@@ -40,6 +56,14 @@ function getInfoModalStyle() {
 
 // CSS for modal
 const modelStyles = theme => ({
+    outer: {
+        position: "absolute",
+        width: theme.spacing.unit * 150,
+        backgroundColor: theme.palette.background.paper,
+        boxShadow: theme.shadows[5],
+        padding: theme.spacing.unit * 4,
+        overflow: "scroll"
+    },
     paper: {
         position: "absolute",
         width: theme.spacing.unit * 50,
@@ -58,6 +82,12 @@ const modelStyles = theme => ({
         margin: theme.spacing.unit,
     }
 });
+
+const exitBtnStyle = {
+    position: "fixed",
+    top: 0,
+    right: 0,
+};
 class Project extends React.Component {
     constructor(props) {
         super(props);
@@ -71,10 +101,15 @@ class Project extends React.Component {
             infoOpen: false,
             email: "",
             pw: "",
-            sendTo: []
+            sendTo: [],
+            value: this.props.tab,
         };
         this.emailRef = React.createRef();
     }
+
+    handleClick = event => {
+        this.setState({ anchorEl: event.currentTarget, projectId: event.currentTarget.id });
+    };
 
     handleClick = event => {
         this.setState({ anchorEl: event.currentTarget, projectId: event.currentTarget.id });
@@ -122,6 +157,31 @@ class Project extends React.Component {
     handleShrToggle = () => {
         this.setState({ shareOpen: !this.state.shareOpen, sendTo: [] });
     }
+    //handleLoadToggle = () => {
+    //  this.setState({ loadOpen: !this.state.loadOpen });
+    //  this.setState({ value: 'a' });
+    //};
+
+    // pwProtect = () => (
+    //   <div>
+    //     <h5>Please enter a PW.</h5>
+    //     <TextField
+    //       type="password"
+    //       label="Password"
+    //       value={this.state.pw}
+    //       onChange={this.handleTextChange('pw')}
+    //       margin="normal"
+    //     />
+    //     <Button
+    //       color="primary"
+    //       onClick={this.handlePwToggle} >
+    //       Save
+    //     </Button>
+    //     <p style={{ fontSize: "80%", marginTop: 10 }}>
+    //       <b>Legal disclaimer:</b> This will only slow down people from accessing your work. MYR is not sutiable for sensitive information.
+    //     </p>
+    //   </div>
+    // );
 
     // pwProtect = () => (
     //   <div>
@@ -305,108 +365,162 @@ class Project extends React.Component {
         </Menu>
     );
 
+    handleChange = (event, value) => {
+        this.setState({ value });
+    };
+
     render() {
         const { classes } = this.props;
         let previewToggle = {
-            position: "fixed ",
-            top: 0,
-            right: "46%"
+            //paddingtop: 10,
+            position: "fixed",
+            top: 10,
+            right: "46%",
+        };
+        const style = {
+            default: {
+                margin: 2,
+                padding: 0,
+                color: "#fff",
+            }
         };
         const userProjs = [].concat(this.props.userProjs);
         const examplProjs = [].concat(this.props.examplProjs);
         return (
-            <div id="project-list" >
-                <div className="row" id="user-proj" style={{ width: "100%" }}>
-                    <h3 className="col-12 p-0 mb-3 border-bottom"> Your Projects </h3>
-                    <Button
-                        style={previewToggle}
-                        onClick={() => this.setState({ showImg: !this.state.showImg })}>
-                        { // If we are showing the img, show the proper icon
-                            this.state.showImg
-                                ?
-                                <Icon className="material-icons">visibility_off</Icon>
-                                :
-                                <Icon className="material-icons">visibility</Icon>
-                        }
-                        <span>&nbsp;</span>Preview
-                    </Button>
-                    <hr />
-                    { // Sort the users projects in alphabetical order
-                        userProjs.sort(function (a, b) {
-                            return a.name < b.name ? -1 : a.name > b.name ? 1 : 0;
-                        }).map(proj => {
-                            return this.helper(proj, true);
-                        })
-                    }
-                </div>
-                <div className="row" id="sample-proj" style={{ width: "100%" }}>
-                    <h3 className="col-12 p-2 mb-3 border-bottom">Sample Projects</h3>
-                    <hr />
-                    { // Sort the examples projects in alphabetical order
-                        examplProjs.sort(function (a, b) {
-                            return a.name < b.name ? -1 : a.name > b.name ? 1 : 0;
-                        }).map(proj => {
-                            return this.helper(proj, false);
-                        })
-                    }
-                </div>
-                <this.sceneMenu />
-                <Modal
-                    aria-labelledby="simple-modal-title"
-                    aria-describedby="simple-modal-description"
-                    open={this.state.infoOpen}
-                    onClose={this.handleInfoToggle} >
-                    <div style={getInfoModalStyle()} className={classes.info}>
-                        <ButtonBase
-                            style={{ position: "absolute", right: 15, top: 15 }}
-                            onClick={() => this.handleInfoToggle()} >
-                            <Icon className="material-icons">clear</Icon>
-                        </ButtonBase >
-                        <this.infoOpen />
-                    </div>
-                </Modal>
-                <Modal
-                    aria-labelledby="simple-modal-title"
-                    aria-describedby="simple-modal-description"
-                    open={this.state.qrCodeOpen}
-                    onClose={this.handleQrToggle} >
-                    <div style={getModalStyle()} className={classes.paper}>
-                        <ButtonBase
-                            style={{ position: "absolute", right: 15, top: 15 }}
-                            onClick={() => this.handleQrToggle()} >
-                            <Icon className="material-icons">clear</Icon>
-                        </ButtonBase >
-                        <this.qrCodeOpen />
-                    </div>
-                </Modal>
-                <Modal
-                    aria-labelledby="simple-modal-title"
-                    aria-describedby="simple-modal-description"
-                    open={this.state.shareOpen}
-                    onClose={this.handleShrToggle} >
-                    <div style={getModalStyle()} className={classes.paper}>
-                        <ButtonBase
-                            style={{ position: "absolute", right: 15, top: 15 }}
-                            onClick={() => this.handleShrToggle()} >
-                            <Icon className="material-icons">clear</Icon>
-                        </ButtonBase >
-                        <this.shareOptions />
-                    </div>
-                </Modal>
-                <Modal
-                    aria-labelledby="simple-modal-title"
-                    aria-describedby="simple-modal-description"
-                    open={this.state.pwProtectOpen}
-                    onClose={this.handlePwToggle} >
-                    <div style={getModalStyle()} className={classes.paper}>
-                        <ButtonBase
-                            style={{ position: "absolute", right: 15, top: 15 }}
-                            onClick={() => this.handlePwToggle()} >
-                            <Icon className="material-icons">clear</Icon>
-                        </ButtonBase >
-                        <this.pwProtect />
-                    </div>
-                </Modal>
+            <div>
+                <React.Fragment>
+                    <Tooltip title="Open" placement="bottom-start">
+                        <IconButton
+                            id="open-btn"
+                            onClick={this.props.handleLoadToggle}
+                            className="header-btn"
+                            aria-haspopup="true"
+                            style={style.default}>
+                            <Icon className="material-icons">perm_media</Icon>
+                        </IconButton>
+                    </Tooltip>
+                    <Modal
+                        aria-labelledby="simple-modal-title"
+                        aria-describedby="simple-modal-description"
+                        open={this.props.loadOpen}
+                        onClose={this.props.handleLoadToggle}>
+                        <div style={getOuterModalStyle()} className={classes.outer}>
+                            <IconButton
+                                color="default"
+                                style={exitBtnStyle}
+                                onClick={this.props.handleLoadToggle}>
+                                <Icon className="material-icons">close</Icon>
+                            </IconButton>
+                            <div>
+                                <Button
+                                    style={previewToggle}
+                                    onClick={() => this.setState({ showImg: !this.state.showImg })}>
+                                    { // If we are showing the img, show the proper icon
+                                        this.state.showImg
+                                            ?
+                                            <Icon className="material-icons">visibility_off</Icon>
+                                            :
+                                            <Icon className="material-icons">visibility</Icon>
+                                    }
+                                    <span>&nbsp;</span>Preview
+                                </Button>
+                                <hr />
+                            </div>
+                            <Tabs
+                                value={this.state.value}
+                                onChange={this.handleChange} >
+                                <Tab
+                                    label="Your Projects"
+                                    value='a' />
+                                <Tab
+                                    label="Example Scenes"
+                                    value='b' />
+                            </Tabs>
+                            {this.state.value === "a" &&
+                                <div id="project-list" style={{ marginTop: 0, overflow: "scroll" }}>
+                                    <div className="row" id="user-proj" style={{ width: "100%" }}>
+                                        { // Sort the users projects in alphabetical order
+                                            userProjs.sort(function (a, b) {
+                                                return a.name < b.name ? -1 : a.name > b.name ? 1 : 0;
+                                            }).map(proj => {
+                                                return this.helper(proj, true);
+                                            })
+                                        }
+                                    </div>
+                                </div>}
+                            {this.state.value === "b" &&
+                                <div id="project-list" style={{ marginTop: 0, overflow: "scroll" }}>
+                                    <div className="row" id="sample-proj" style={{ width: "100%" }}>
+                                        {
+                                            examplProjs.sort(function (a, b) {
+                                                return a.name < b.name ? -1 : a.name > b.name ? 1 : 0;
+                                            }).map(proj => {
+                                                return this.helper(proj, false);
+                                            })
+                                        }
+                                    </div>
+                                </div>}
+                            <this.sceneMenu />
+
+                            <Modal
+                                aria-labelledby="simple-modal-title"
+                                aria-describedby="simple-modal-description"
+                                open={this.state.infoOpen}
+                                onClose={this.handleInfoToggle} >
+                                <div style={getInfoModalStyle()} className={classes.info}>
+                                    <ButtonBase
+                                        style={{ position: "absolute", right: 15, top: 15 }}
+                                        onClick={() => this.handleInfoToggle()} >
+                                        <Icon className="material-icons">clear</Icon>
+                                    </ButtonBase >
+                                    <this.infoOpen />
+                                </div>
+                            </Modal>
+                            <Modal
+                                aria-labelledby="simple-modal-title"
+                                aria-describedby="simple-modal-description"
+                                open={this.state.qrCodeOpen}
+                                onClose={this.handleQrToggle} >
+                                <div style={getModalStyle()} className={classes.paper}>
+                                    <ButtonBase
+                                        style={{ position: "absolute", right: 15, top: 15 }}
+                                        onClick={() => this.handleQrToggle()} >
+                                        <Icon className="material-icons">clear</Icon>
+                                    </ButtonBase >
+                                    <this.qrCodeOpen />
+                                </div>
+                            </Modal>
+                            <Modal
+                                aria-labelledby="simple-modal-title"
+                                aria-describedby="simple-modal-description"
+                                open={this.state.shareOpen}
+                                onClose={this.handleShrToggle} >
+                                <div style={getModalStyle()} className={classes.paper}>
+                                    <ButtonBase
+                                        style={{ position: "absolute", right: 15, top: 15 }}
+                                        onClick={() => this.handleShrToggle()} >
+                                        <Icon className="material-icons">clear</Icon>
+                                    </ButtonBase >
+                                    <this.shareOptions />
+                                </div>
+                            </Modal>
+                            <Modal
+                                aria-labelledby="simple-modal-title"
+                                aria-describedby="simple-modal-description"
+                                open={this.state.pwProtectOpen}
+                                onClose={this.handlePwToggle} >
+                                <div style={getModalStyle()} className={classes.paper}>
+                                    <ButtonBase
+                                        style={{ position: "absolute", right: 15, top: 15 }}
+                                        onClick={() => this.handlePwToggle()} >
+                                        <Icon className="material-icons">clear</Icon>
+                                    </ButtonBase >
+                                    <this.pwProtect />
+                                </div>
+                            </Modal>
+                        </div>
+                    </Modal>
+                </React.Fragment>
             </div>
         );
     }

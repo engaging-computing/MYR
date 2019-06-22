@@ -136,6 +136,22 @@ let transformations = [
         example: "setZPos"
     },
     {
+        name: <span> increasePosition(<span className="number">x</span>,<span className="number">y</span>,<span className="number">z</span>)</span>,
+        description: <span>Changes the position of the cursor relative to the current position. This function takes both positive and negative values and returns the object of the current position of the cursor. </span>,
+    },
+    {
+        name: <span> increaseXPos(<span className="number">x</span>)</span>,
+        description: <span>Changes the position of the cursor along the X-axis relative to the current coordinate. This function takes both positive and negative value and returns the current X-position of the cursor. Default: 1</span>,
+    },
+    {
+        name: <span> increaseYPos(<span className="number">y</span>)</span>,
+        description: <span>Changes the position of the cursor along the Y-axis relative to the current coordinate. This function takes both positive and negative value and returns the current Y-position of the cursor. Default: 1</span>,
+    },
+    {
+        name: <span> increaseZPos(<span className="number">z</span>)</span>,
+        description: <span>Changes the position of the cursor along the Z-axis relative to the current coordinate. This function takes both positive and negative value and returns the current Z-position of the cursor. Default: 1</span>,
+    },
+    {
         name: <span>setScale(<span className="number">x</span>,<span className="number">y</span>,<span className="number">z</span>)</span>,
         description: <span>Sets the scale of the cursor to the given ratios. Default: (1,1,1)</span>,
         example: "setScale"

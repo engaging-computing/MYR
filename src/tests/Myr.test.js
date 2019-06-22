@@ -561,6 +561,87 @@ describe("Other Myr functionality", () => {
         expect(myr.position).toEqual({ x: 0, y: 0, z: -5 });
     });
 
+    it("shoud increase the position relative to cursor position in MYR", () => {
+        myr.reset();
+        myr.increasePosition(1);
+        expect(myr.position).toEqual({ x: 1, y: 0, z: 0 });
+        myr.increasePosition(1, 1);
+        expect(myr.position).toEqual({ x: 2, y: 1, z: 0 });
+        myr.increasePosition(1, 1, 1);
+        expect(myr.position).toEqual({ x: 3, y: 2, z: 1 });
+        myr.increasePosition(-3, -2, -1);
+        expect(myr.position).toEqual({ x: 0, y: 0, z: 0 });
+
+        // Check for stable model with bad values
+        myr.increasePosition("a", 2, 3);
+        expect(myr.position).toEqual({ x: 0, y: 0, z: 0 });
+        myr.increasePosition({}, 2, 3);
+        expect(myr.position).toEqual({ x: 0, y: 0, z: 0 });
+        myr.increasePosition([], 2, 3);
+        expect(myr.position).toEqual({ x: 0, y: 0, z: 0 });
+
+    });
+
+    it("should increase the X-position relative to the cursor position", () => {
+        myr.reset();
+        myr.increaseXPos(5);
+        expect(myr.position.x).toEqual(5);
+        myr.increaseXPos();
+        expect(myr.position.x).toEqual(6);
+        myr.increaseXPos(-6);
+        expect(myr.position.x).toEqual(0);
+
+        //check for stable model with bad values
+        myr.increaseXPos("a");
+        expect(myr.position.x).toEqual(0);
+        myr.increaseXPos({});
+        expect(myr.position.x).toEqual(0);
+        myr.increaseXPos([]);
+        expect(myr.position.x).toEqual(0);
+        expect(myr.position).toEqual({ x: 0, y: 0, z: 0 });
+
+    });
+
+    it("should increase the Y-position relative to the cursor position", () => {
+        myr.reset();
+        myr.increaseYPos(5);
+        expect(myr.position.y).toEqual(5);
+        myr.increaseYPos();
+        expect(myr.position.y).toEqual(6);
+        myr.increaseYPos(-6);
+        expect(myr.position.y).toEqual(0);
+
+        //check for stable model with bad values
+        myr.increaseYPos("a");
+        expect(myr.position.y).toEqual(0);
+        myr.increaseYPos({});
+        expect(myr.position.y).toEqual(0);
+        myr.increaseYPos([]);
+        expect(myr.position.y).toEqual(0);
+        expect(myr.position).toEqual({ x: 0, y: 0, z: 0 });
+
+    });
+
+    it("should increase the Z-position relative to the cursor position", () => {
+        myr.reset();
+        myr.increaseZPos(5);
+        expect(myr.position.z).toEqual(5);
+        myr.increaseZPos();
+        expect(myr.position.z).toEqual(6);
+        myr.increaseZPos(-6);
+        expect(myr.position.z).toEqual(0);
+
+        //check for stable model with bad values
+        myr.increaseZPos("a");
+        expect(myr.position.z).toEqual(0);
+        myr.increaseZPos({});
+        expect(myr.position.z).toEqual(0);
+        myr.increaseZPos([]);
+        expect(myr.position.z).toEqual(0);
+        expect(myr.position).toEqual({ x: 0, y: 0, z: 0 });
+
+    });
+
     it("should set the scale in Myr", () => {
         myr.reset();
         myr.setScale(4);
