@@ -111,6 +111,10 @@ class Project extends React.Component {
         this.setState({ anchorEl: event.currentTarget, projectId: event.currentTarget.id });
     };
 
+    handleClick = event => {
+        this.setState({ anchorEl: event.currentTarget, projectId: event.currentTarget.id });
+    };
+
     handleInfoUserClick = event => {
         this.setState({ projectId: event.currentTarget.id, isUserProj: true });
         this.handleInfoToggle();
