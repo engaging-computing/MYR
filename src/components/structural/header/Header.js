@@ -7,6 +7,7 @@ import Sidebar from "./Sidebar.js";
 import MyrTour from "./MyrTour.js";
 import ProjectView from "./ProjectView.js";
 import CourseSelect from "../../courses/CourseSelect.js";
+import WelcomeScreen from "../WelcomeScreen.js";
 
 import * as layoutTypes from "../../../constants/LayoutTypes.js";
 
@@ -670,6 +671,7 @@ class Header extends Component {
                                 <Icon className="material-icons" style={referenceMode ? { color: "#777" } : { color: "#222" }}>play_arrow</Icon>
                             </Button>
                         </Tooltip>
+                        <WelcomeScreen />
                         <Tooltip title="Stop" placement="bottom-start">
                             <Button
                                 id="stop-btn"

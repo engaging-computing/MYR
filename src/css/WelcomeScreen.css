@@ -1,0 +1,23 @@
+@media (min-width: 450px) {
+    .welcome-btn {
+        margin-bottom: 10px !important;
+        justify-content: left !important;
+        padding-left: 3em !important;
+        min-width: 10em !important;
+    }
+}
+
+.welcome-btn {
+    background-color: #3f51b5 !important;
+    color: #fff !important;
+    margin-bottom: 10px !important;
+    justify-content: left !important;
+}
+
+.welcome-btn .material-icons {
+    margin: 0 .7em;
+}
+
+a.welcome-btn:hover {
+    color: #fff;
+}
