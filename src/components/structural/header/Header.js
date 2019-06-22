@@ -43,6 +43,7 @@ class Header extends Component {
             sampleProj: [],
             classroomOpen: false,
             loadOpen: false,
+            projectTab: "a",
             snackOpen: false,
             lastMsgTime: 0,
             anchorEl: null,
@@ -177,7 +178,7 @@ class Header extends Component {
         }
     }
 
-    componentWillReceiveProps(nextProps) {
+    UNSAFE_componentWillReceiveProps(nextProps) {
         if (nextProps.scene && nextProps.scene.name) {
             this.setState({ sceneName: nextProps.scene.name });
         }
@@ -398,7 +399,7 @@ class Header extends Component {
                     settings: this.props.scene.settings,
                     ts: ts,
                 }).then(() => {
-                    this.setState({editorChange: false});
+                    this.setState({ editorChange: false });
                     // If we have a new projectId reload page with it
                     if (this.props.courseName) {
                         this.setState({ spinnerOpen: false });
@@ -484,6 +485,7 @@ class Header extends Component {
     */
     handleLoadToggle = () => {
         this.setState({ loadOpen: !this.state.loadOpen });
+        this.setState({ projectTab: "a" });
     };
 
     handleClassroomToggle = () => {
@@ -498,25 +500,15 @@ class Header extends Component {
         this.setState({ referenceOpen: !this.state.referenceOpen });
     };
 
-    loadDrawer = () => {
+    loadProjects = () => {
         return (
-            <Drawer
-                id="projectDrawer"
-                className="side-drawer"
-                // variant="persistent"
-                open={this.state.loadOpen}
-                onClose={this.handleLoadToggle} >
-                <IconButton
-                    color="default"
-                    style={exitBtnStyle}
-                    onClick={this.handleLoadToggle}>
-                    <Icon className="material-icons">close</Icon>
-                </IconButton>
-                <ProjectView
-                    deleteFunc={this.props.projectActions.deleteProj}
-                    userProjs={this.props.projects.userProjs}
-                    examplProjs={this.props.projects.examplProjs} />
-            </Drawer>
+            <ProjectView
+                deleteFunc={this.props.projectActions.deleteProj}
+                userProjs={this.props.projects.userProjs}
+                examplProjs={this.props.projects.examplProjs}
+                loadOpen={this.state.loadOpen}
+                handleLoadToggle={this.handleLoadToggle}
+                tab={this.state.projectTab} />
         );
     }
 
@@ -711,15 +703,13 @@ class Header extends Component {
                             <Icon className="material-icons">save</Icon>
                         </IconButton>
                     </Tooltip>
-                    <Tooltip title="Open" placement="bottom-start">
-                        <IconButton
-                            id="open-btn"
-                            onClick={this.handleLoadToggle}
-                            className="header-btn"
-                            style={style.default}>
-                            <Icon className="material-icons">perm_media</Icon>
-                        </IconButton>
-                    </Tooltip>
+                    <ProjectView
+                        deleteFunc={this.props.projectActions.deleteProj}
+                        userProjs={this.props.projects.userProjs}
+                        examplProjs={this.props.projects.examplProjs}
+                        loadOpen={this.state.loadOpen}
+                        handleLoadToggle={this.handleLoadToggle}
+                        tab={this.state.projectTab} />
                     <MyrTour
                         viewOnly={this.props.scene.settings.viewOnly}
                         changeView={this.props.sceneActions.changeView}
@@ -744,7 +734,6 @@ class Header extends Component {
                     <this.loginBtn />
                 </div>
                 <this.saveDrawer />
-                <this.loadDrawer />
                 <this.renderSnackBar />
                 <this.spinner />
                 <this.loadClassroom />
@@ -752,7 +741,7 @@ class Header extends Component {
         );
     }
 
-    //You can pass functions into this in order to have 
+    //You can pass functions into this in order to have
     //multiple setState/state actions dispatched within an event handler
     //Currently only used for render button
     postpone(f) {
