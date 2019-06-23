@@ -51,7 +51,7 @@
                 ]
             }
         ],
-        // Disabled from reccommended rules
+        // Disabled from recommended rules
         "no-case-declarations": "off",
         "react/no-unescaped-entities": "off",
         "react/prop-types": "off",
