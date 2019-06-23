@@ -2,7 +2,7 @@ import * as types from "../constants/ActionTypes";
 
 const initial_state = {
     userProjs: [],
-    examplProjs: []
+    exampleProjs: []
 };
 
 export default function project(state = initial_state, action) {
@@ -15,7 +15,7 @@ export default function project(state = initial_state, action) {
     case types.SYNC_EXAMP_PROJ:
         return {
             ...state,
-            examplProjs: action.payload
+            exampleProjs: action.payload
         };
     case types.DELETE_PROJ:
         let projs = [];
