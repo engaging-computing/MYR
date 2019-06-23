@@ -28,7 +28,6 @@ class WelcomeScene extends Component {
                     scale="80 .01 80"
                     position="0 -0.5 0"
                 />
-                <a-entity geometry="primitive: box" id="box0" material="color: green" position="" rotation="" scale="" velocity="" dynamic-body=""></a-entity>
                 <a-entity geometry="primitive= box;" id="box0" material="color: green;" position="25 -25 -10" rotation="0 0 0" scale="1 1 1" dynamic-body="shape= box; mass= 5" ></a-entity>
                 <a-entity geometry="primitive= box;" id="box1" material="color: yellow;" position="25 0 -10" rotation="0 0 0" scale="1 1 1" dynamic-body="shape= box; mass= 5" ></a-entity>
                 <a-entity geometry="primitive= box;" id="box2" material="color: red;" position="25 25 -10" rotation="0 0 0" scale="1 1 1" dynamic-body="shape= box; mass= 5" ></a-entity>

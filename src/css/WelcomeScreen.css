@@ -12,14 +12,11 @@
     color: #fff !important;
     margin-bottom: 10px !important;
     justify-content: left !important;
+    width: 100%;
 }
 
 .welcome-btn .material-icons {
     margin: 0 .7em;
-}
-
-a.welcome-btn:hover {
-    color: #fff;
 }
 
 #welcome-viewer {
@@ -30,6 +27,11 @@ a.welcome-btn:hover {
     min-height: 12em;
 }
 
-/* a-scene {
-    height: 100% !important;
-} */
+.neverAgain-btn {
+    font-size: 10pt !important;
+    width: 100%;
+}
+
+#modals {
+    height: 0em !important;
+}

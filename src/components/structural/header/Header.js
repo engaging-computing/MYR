@@ -43,7 +43,7 @@ class Header extends Component {
             availProj: [],
             sampleProj: [],
             classroomOpen: false,
-            loadOpen: false,
+            projectsOpen: false,
             projectTab: "a",
             snackOpen: false,
             lastMsgTime: 0,
@@ -53,6 +53,8 @@ class Header extends Component {
             spinnerOpen: false,
             referenceOpen: false,
             editorChange: false,
+            coursesOpen: false,
+            tourOpen: false
         };
     }
 
@@ -484,9 +486,17 @@ class Header extends Component {
     /**
     * @summary - toggles the load project drawer
     */
-    handleLoadToggle = () => {
-        this.setState({ loadOpen: !this.state.loadOpen });
-        this.setState({ projectTab: "a" });
+    handleProjectToggle = (tab) => {
+        this.setState({ projectsOpen: !this.state.projectsOpen });
+        this.setState({ projectTab: tab ? tab : "a" });
+    };
+
+    handleCoursesToggle = () => {
+        this.setState({ coursesOpen: !this.state.coursesOpen });
+    };
+
+    handleTourToggle = () => {
+        this.setState({ tourOpen: !this.state.tourOpen });
     };
 
     handleClassroomToggle = () => {
@@ -500,18 +510,6 @@ class Header extends Component {
     handleReferenceToggle = () => {
         this.setState({ referenceOpen: !this.state.referenceOpen });
     };
-
-    loadProjects = () => {
-        return (
-            <ProjectView
-                deleteFunc={this.props.projectActions.deleteProj}
-                userProjs={this.props.projects.userProjs}
-                examplProjs={this.props.projects.examplProjs}
-                loadOpen={this.state.loadOpen}
-                handleLoadToggle={this.handleLoadToggle}
-                tab={this.state.projectTab} />
-        );
-    }
 
     loadClassroom = () => {
         return (
@@ -638,7 +636,7 @@ class Header extends Component {
                         </Button>
                         <Button
                             variant="raised"
-                            onClick={this.handleLoadToggle}
+                            onClick={this.handleProjectToggle}
                             color="primary"
                             className="sidebar-btn">
                             <Icon className="material-icons">perm_media</Icon>
@@ -671,7 +669,12 @@ class Header extends Component {
                                 <Icon className="material-icons" style={referenceMode ? { color: "#777" } : { color: "#222" }}>play_arrow</Icon>
                             </Button>
                         </Tooltip>
-                        <WelcomeScreen />
+                        <WelcomeScreen
+                            deleteFunc={this.props.projectActions.deleteProj}
+                            userProjs={this.props.projects.userProjs}
+                            exampleProjs={this.props.projects.exampleProjs}
+                            courses={this.props.courses.courses}
+                            handleTourToggle={this.handleTourToggle} />
                         <Tooltip title="Stop" placement="bottom-start">
                             <Button
                                 id="stop-btn"
@@ -708,11 +711,13 @@ class Header extends Component {
                     <ProjectView
                         deleteFunc={this.props.projectActions.deleteProj}
                         userProjs={this.props.projects.userProjs}
-                        examplProjs={this.props.projects.examplProjs}
-                        loadOpen={this.state.loadOpen}
-                        handleLoadToggle={this.handleLoadToggle}
+                        exampleProjs={this.props.projects.exampleProjs}
+                        projectsOpen={this.state.projectsOpen}
+                        handleProjectToggle={this.handleProjectToggle}
                         tab={this.state.projectTab} />
                     <MyrTour
+                        tourOpen={this.state.tourOpen}
+                        handleTourToggle={this.handleTourToggle}
                         viewOnly={this.props.scene.settings.viewOnly}
                         changeView={this.props.sceneActions.changeView}
                         layoutType={this.props.layoutType}
@@ -720,7 +725,6 @@ class Header extends Component {
                         handleReferenceToggle={this.handleReferenceToggle} />
                 </div>
                 <div className="col-3 d-flex justify-content-end">
-                    {/* <Classroom classrooms={this.props.classrooms} classroomActions={this.props.classroomActions} user={this.props.user} /> */}
                     <Reference
                         layoutType={this.props.layoutType}
                         referenceOpen={this.state.referenceOpen}
@@ -732,7 +736,10 @@ class Header extends Component {
                         handleSave={this.handleSave}
                         handleSaveClose={this.handleSaveClose}
                         layoutType={this.props.layoutType} />
-                    <CourseSelect courses={this.props.courses.courses} />
+                    <CourseSelect
+                        coursesOpen={this.state.coursesOpen}
+                        handleCoursesToggle={this.handleCoursesToggle}
+                        courses={this.props.courses.courses} />
                     <this.loginBtn />
                 </div>
                 <this.saveDrawer />
