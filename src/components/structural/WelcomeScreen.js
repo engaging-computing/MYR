@@ -106,11 +106,14 @@ class Welcome extends React.Component {
 
     neverAgainCookie = () => {
         document.cookie = "firstTime=true; expires=Thu, 31 Dec 2099 12:00:00 UTC;";
+        this.handleClose();
     }
 
     neverAgain = () => {
         return (
-            <Button className="neverAgain-btn">
+            <Button
+                onClick={this.neverAgainCookie}
+                className="neverAgain-btn">
                 Never show this screen again
             </Button >
         );
