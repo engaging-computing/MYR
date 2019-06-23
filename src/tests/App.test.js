@@ -92,7 +92,7 @@ const generateMockProps = () => {
         },
         projects: {
             userProjs: [],
-            examplProjs: [],
+            exampleProjs: [],
         },
         courses: {
             courses: [],
