@@ -161,7 +161,7 @@ class Welcome extends React.Component {
                         Open the Reference
                     </Button >
                 </div >
-                <div className="col-xs-12 col-md-6 col-lg-4" >
+                <div className="col-xs-12 col-md-6 col-lg-4 d-none d-md-block" >
                     <Button
                         variant="raised"
                         onClick={() => {
