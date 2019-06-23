@@ -9,8 +9,11 @@ The Engaging Computing Group develops new technologies to enable learners—yout
 ## Status
 [![CircleCI](https://circleci.com/gh/engaging-computing/MYR.svg?style=shield)](https://circleci.com/gh/engaging-computing/MYR)
 
-## Change Log - 1.2.6 -> 1.2.7
+## Change Log - 1.2.6 -> 1.3.0
 - Implemented relative cursor modification functions (increasePosition, increaseXPos, increaseYPos, increaseZPos).
+- Project view has been updated to be a tabbed modal.
+- There is now a loading animation when rendering a large scene.
+- Projects with the same name are now sorted by timestamp.
 
 ## Acknowledgments
 MYR uses [Aframe](https://aframe.io), a fantastic open source project, to render objects and effects in the three dimensional space.  
