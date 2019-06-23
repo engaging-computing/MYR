@@ -42,25 +42,29 @@
         "eqeqeq": "warn",
         "curly": "warn",
         "no-lonely-if": "warn",
+<<<<<<< HEAD
         "no-console": [
+=======
+            "no-console": [
+>>>>>>> 3bc6f5b5d8ca85561b7a096acedfdbaffd7083cf
             "error",
-            {
-                "allow": [
-                    "warn",
-                    "error"
-                ]
+                {
+                    "allow": [
+                        "warn",
+                        "error"
+                    ]
+                }
+            ],
+            // Disabled from reccommended rules
+            "no-case-declarations": "off",
+            "react/no-unescaped-entities": "off",
+            "react/prop-types": "off",
+            "react/jsx-key": "off"
+        },
+        "settings": {
+            "react": {
+                "pragma": "React",
+                "version": "16.8.4"
             }
-        ],
-        // Disabled from reccommended rules
-        "no-case-declarations": "off",
-        "react/no-unescaped-entities": "off",
-        "react/prop-types": "off",
-        "react/jsx-key": "off"
-    },
-    "settings": {
-        "react": {
-            "pragma": "React",
-            "version": "16.8.4"
         }
     }
-}
