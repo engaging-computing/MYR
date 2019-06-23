@@ -24,7 +24,7 @@
 }
 
 #welcome-description {
-    min-height: 12em;
+    padding-right: .5em;
 }
 
 .neverAgain-btn {
