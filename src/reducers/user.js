@@ -6,15 +6,15 @@ const initial_state = {
 
 export default function user(state = initial_state, action) {
     switch (action.type) {
-    case types.LOGIN:
-        return {
-            user: action.user
-        };
-    case types.LOGOUT:
-        return {
-            user: null
-        };
-    default:
-        return state;
+        case types.LOGIN:
+            return {
+                user: action.user
+            };
+        case types.LOGOUT:
+            return {
+                user: null
+            };
+        default:
+            return state;
     }
 }
