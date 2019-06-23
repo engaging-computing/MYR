@@ -21,3 +21,15 @@
 a.welcome-btn:hover {
     color: #fff;
 }
+
+#welcome-viewer {
+    min-height: 11em;
+}
+
+#welcome-description {
+    min-height: 12em;
+}
+
+/* a-scene {
+    height: 100% !important;
+} */

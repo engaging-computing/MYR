@@ -16,6 +16,8 @@ import {
     Tab
 } from "@material-ui/core";
 
+import WelcomeScene from "./WelcomeScene.js";
+
 import { withStyles } from "@material-ui/core/styles";
 import "../../css/WelcomeScreen.css";
 
@@ -155,14 +157,15 @@ class Welcome extends React.Component {
                             </IconButton>
                             <h3 className="text-center">Welcome to MYR!</h3>
                             <hr />
-                            <div className="row no-gutters">
+                            <div id="welcome-description" className="row no-gutters">
                                 <div className="col-12 col-md-8">
                                     <p >MYR is an educational tool that strikes a balance with the ease of use and challenge. We drew inspiration from Logo Turtle and Processing to provide a beginner friendly experience for teaching and learning with MYR. If you want to learn more about MYR itself, visit out <a href="/about">about page</a>.</p>
                                     <p>Within the editor you can create 3D scenes using JavaScript and a special set of instructions or functions to MYR. You can then view your scene in the viewer using a computer, tablet, smartphone, or a VR headset.</p>
                                     <p>MYR is being developed by the <a href="https://sites.uml.edu/engaging-computing">Engaging Computing Group at UMass Lowell</a>. If you ever need support with MYR for any reason, please reach out via our <a href="/about/support/">support page</a>.</p>
+                                    <p>The scene "Dropsies" is an interactive scene built in MYR. Click on it to move around!</p>
                                 </div>
-                                <div className="col-12 col-md-4">
-
+                                <div id="welcome-viewer" className="col-12 col-md-4">
+                                    <WelcomeScene />
                                 </div>
                             </div>
                             <hr />
