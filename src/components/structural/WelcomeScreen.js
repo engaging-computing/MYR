@@ -1,19 +1,10 @@
 import React from "react";
-import QRCode from "qrcode.react";
+
 import {
     Button,
-    ButtonBase,
     Icon,
     IconButton,
-    ListItemIcon,
-    ListItemText,
-    Menu,
-    MenuItem,
-    Modal,
-    TextField,
-    Tooltip,
-    Tabs,
-    Tab
+    Modal
 } from "@material-ui/core";
 
 import WelcomeScene from "./WelcomeScene.js";
@@ -34,16 +25,16 @@ function getOuterModalStyle() {
     };
 }
 
-function getModalStyle() {
-    const top = 50;
-    const left = 50;
+// function getModalStyle() {
+//     const top = 50;
+//     const left = 50;
 
-    return {
-        top: `${top}%`,
-        left: `${left}%`,
-        transform: `translate(-${top}%, -${left}%)`,
-    };
-}
+//     return {
+//         top: `${top}%`,
+//         left: `${left}%`,
+//         transform: `translate(-${top}%, -${left}%)`,
+//     };
+// }
 
 // CSS for modal
 const modelStyles = theme => ({
@@ -89,15 +80,16 @@ class Welcome extends React.Component {
     }
 
     componentDidMount() {
-        if (!this.getCookie("firstTime")) {
-            let date = new Date();
-            date.setTime(date.getTime() + (1000 * 60 * 60 * 24));
-            let expiration = "; expires=" + date.toGMTString();
-            let cookie = "firstTime=true" + expiration;
-            // let cookie = "firstTime=true; expires=Thu, 31 Dec 2099 12:00:00 UTC;"
-            document.cookie = cookie;
-            this.setState({ welcomeOpen: true });
-        }
+        // if (!this.getCookie("firstTime")) {
+        //     let date = new Date();
+        //     date.setTime(date.getTime() + (1000 * 60 * 60 * 24));
+        //     let expiration = "; expires=" + date.toGMTString();
+        //     let cookie = "firstTime=true" + expiration;
+        //     // let cookie = "firstTime=true; expires=Thu, 31 Dec 2099 12:00:00 UTC;"
+        //     document.cookie = cookie;
+        //     this.setState({ welcomeOpen: true });
+        // }
+        this.setState({ welcomeOpen: true });
     }
 
     getCookie = (cname) => {
