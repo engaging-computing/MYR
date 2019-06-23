@@ -157,9 +157,9 @@ class Project extends React.Component {
     handleShrToggle = () => {
         this.setState({ shareOpen: !this.state.shareOpen, sendTo: [] });
     }
-    //handleLoadToggle = () => {
-    //  this.setState({ loadOpen: !this.state.loadOpen });
-    //  this.setState({ value: 'a' });
+    //handleProjectToggle = () => {
+    //  this.setState({ projectsOpen: !this.state.projectsOpen });
+    //  this.setState({ value: "a" });
     //};
 
     // pwProtect = () => (
@@ -169,7 +169,7 @@ class Project extends React.Component {
     //       type="password"
     //       label="Password"
     //       value={this.state.pw}
-    //       onChange={this.handleTextChange('pw')}
+    //       onChange={this.handleTextChange("pw")}
     //       margin="normal"
     //     />
     //     <Button
@@ -190,7 +190,7 @@ class Project extends React.Component {
     //       type="password"
     //       label="Password"
     //       value={this.state.pw}
-    //       onChange={this.handleTextChange('pw')}
+    //       onChange={this.handleTextChange("pw")}
     //       margin="normal"
     //     />
     //     <Button
@@ -244,7 +244,7 @@ class Project extends React.Component {
             });
         }
         else {
-            project = this.props.examplProjs.find(function (project) {
+            project = this.props.exampleProjs.find(function (project) {
                 return project.id === projectId;
             });
         }
@@ -385,30 +385,34 @@ class Project extends React.Component {
             }
         };
         const userProjs = [].concat(this.props.userProjs);
-        const examplProjs = [].concat(this.props.examplProjs);
+        const exampleProjs = [].concat(this.props.exampleProjs);
         return (
             <div>
                 <React.Fragment>
-                    <Tooltip title="Open" placement="bottom-start">
-                        <IconButton
-                            id="open-btn"
-                            onClick={this.props.handleLoadToggle}
-                            className="header-btn"
-                            aria-haspopup="true"
-                            style={style.default}>
-                            <Icon className="material-icons">perm_media</Icon>
-                        </IconButton>
-                    </Tooltip>
+                    {
+                        !this.props.hideTooltip ?
+                            <Tooltip title="Open" placement="bottom-start">
+                                <IconButton
+                                    id="open-btn"
+                                    onClick={this.props.handleProjectToggle}
+                                    className="header-btn"
+                                    aria-haspopup="true"
+                                    style={style.default}>
+                                    <Icon className="material-icons">perm_media</Icon>
+                                </IconButton>
+                            </Tooltip>
+                            : null
+                    }
                     <Modal
                         aria-labelledby="simple-modal-title"
                         aria-describedby="simple-modal-description"
-                        open={this.props.loadOpen}
-                        onClose={this.props.handleLoadToggle}>
+                        open={this.props.projectsOpen}
+                        onClose={this.props.handleProjectToggle}>
                         <div style={getOuterModalStyle()} className={classes.outer}>
                             <IconButton
                                 color="default"
                                 style={exitBtnStyle}
-                                onClick={this.props.handleLoadToggle}>
+                                onClick={this.props.handleProjectToggle}>
                                 <Icon className="material-icons">close</Icon>
                             </IconButton>
                             <div>
@@ -431,10 +435,10 @@ class Project extends React.Component {
                                 onChange={this.handleChange} >
                                 <Tab
                                     label="Your Projects"
-                                    value='a' />
+                                    value="a" />
                                 <Tab
                                     label="Example Scenes"
-                                    value='b' />
+                                    value="b" />
                             </Tabs>
                             {this.state.value === "a" &&
                                 <div id="project-list" style={{ marginTop: 0, overflow: "scroll" }}>
@@ -452,7 +456,7 @@ class Project extends React.Component {
                                 <div id="project-list" style={{ marginTop: 0, overflow: "scroll" }}>
                                     <div className="row" id="sample-proj" style={{ width: "100%" }}>
                                         {
-                                            examplProjs.sort(function (a, b) {
+                                            exampleProjs.sort(function (a, b) {
                                                 return a.name < b.name ? -1 : a.name > b.name ? 1 : a.data.ts > b.data.ts ? -1 : a.data.ts < b.data.ts ? 1 : 0;
                                             }).map(proj => {
                                                 return this.helper(proj, false);
