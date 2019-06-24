@@ -110,11 +110,7 @@ class Welcome extends React.Component {
     };
 
     neverAgainCookie = () => {
-<<<<<<< HEAD
         document.cookie = "hasVisited=true; expires=Thu, 31 Dec 2099 12:00:00 UTC;";
-=======
-        document.cookie = "firstTime=true; expires=Thu, 31 Dec 2099 12:00:00 UTC;";
->>>>>>> Welcome screen never again button closes modal (#269)
         this.handleClose();
     }
 
@@ -123,11 +119,7 @@ class Welcome extends React.Component {
             <Button
                 onClick={this.neverAgainCookie}
                 className="neverAgain-btn">
-<<<<<<< HEAD
                 Don't show again
-=======
-                Never show this screen again
->>>>>>> Welcome screen never again button closes modal (#269)
             </Button >
         );
     }
