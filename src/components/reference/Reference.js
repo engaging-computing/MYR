@@ -109,6 +109,7 @@ export default class Reference extends React.Component {
                             </IconButton>
                         </Tooltip>
                         <Drawer
+                            style={{position: "relative", zIndex: 99999}}
                             anchor="right"
                             id="reference-drawer"
                             variant="persistent"
