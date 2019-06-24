@@ -14,7 +14,8 @@ import {
     TableHead,
     TableRow,
     TableCell,
-    Tooltip
+    Tooltip,
+    Hidden
 } from "@material-ui/core";
 
 const exitBtnStyle = {
@@ -143,19 +144,35 @@ export default class Reference extends React.Component {
                                     variant="scrollable">
                                     <Tab
                                         icon={<Icon className="material-icons geometry">category</Icon>}
-                                        label="GEOMETRY"
+                                        label={
+                                            <Hidden xsDown>
+                                                <div>GEOMETRY</div>
+                                            </Hidden>
+                                        }
                                         value='a' />
                                     <Tab
                                         icon={<Icon className="material-icons color-change">bubble_chart</Icon>}
-                                        label="TRANSFORMATIONS"
+                                        label={
+                                            <Hidden xsDown>
+                                                <div>TRANSFORMATIONS</div>
+                                            </Hidden>
+                                        }
                                         value='b' />
                                     <Tab
                                         icon={<Icon className="material-icons animation-ref">zoom_out_map</Icon>} //swap_horiz control_camera category
-                                        label="ANIMATIONS"
+                                        label={
+                                            <Hidden xsDown>
+                                                <div>ANIMATIONS</div>
+                                            </Hidden>
+                                        }
                                         value='c' />
                                     <Tab
                                         icon={<Icon className="material-icons geometry">widgets</Icon>}
-                                        label="GROUPS"
+                                        label={
+                                            <Hidden xsDown>
+                                                <div>GROUPS</div>
+                                            </Hidden>
+                                        }
                                         value='d' />
                                     {/*<Tab
                                     style={{ background: "green", color: "white" }}
