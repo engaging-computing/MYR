@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 import {
     Button,
     Icon
-} from '@material-ui/core';
+} from "@material-ui/core";
 
 class ReferenceExampleBox extends Component {
 
@@ -12,7 +12,7 @@ class ReferenceExampleBox extends Component {
             this.props.referenceExample && suggestedCourseName ?
                 <Button
                     variant="raised"
-                    onClick={() => window.location.href = window.origin + '/course/' + suggestedCourse}
+                    onClick={() => window.location.href = window.origin + "/course/" + suggestedCourse}
                     color="primary"
                     className="ref-ex-btn">
                     <Icon className="material-icons">school</Icon>

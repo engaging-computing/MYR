@@ -1,15 +1,16 @@
-import React from 'react';
-import Editor from '../editor/Editor';
-import Header from '../structural/header/Header';
-import Footer from '../structural/Footer';
-import Course from '../courses/Course';
-import View from '../structural/View';
+import React from "react";
+import Editor from "../editor/Editor";
+import Header from "../structural/header/Header";
+import Footer from "../structural/Footer";
+import Course from "../courses/Course";
+import View from "../structural/View";
 
-import * as layoutTypes from '../../constants/LayoutTypes.js';
+import * as layoutTypes from "../../constants/LayoutTypes.js";
 
 export const Guided = ({ editor, user, scene, editorActions, authActions, projectActions, projects, courseActions, courses, course, match, sceneActions, classroomActions, classrooms }) => (
     <div className="App">
         <Header
+            viewOnly={scene.settings.viewOnly}
             logging={authActions}
             sceneActions={sceneActions}
             actions={editorActions}
@@ -30,15 +31,25 @@ export const Guided = ({ editor, user, scene, editorActions, authActions, projec
             classrooms={classrooms}
         />
         <div className="row no-gutters">
-            <div id="interface" className="col-12 col-md-4">
-                <Course lesson={courses.currentLesson} courses={courses} course={course} courseName={match.params.shortname} actions={editorActions} courseActions={courseActions} />
-                <div className='guided'>
-                    <Editor text={editor.text} user={user} />
-                </div>
-            </div>
-            <div id="scene" className="col-12 col-md-8">
-                <View objects={editor.objects} sceneConfig={scene} assets={editor.assets} />
-            </div>
+            {
+                scene.settings.viewOnly
+                    ?
+                    <div id="scene" className="col-12">
+                        <View objects={editor.objects} sceneConfig={scene} assets={editor.assets} />
+                    </div>
+                    :
+                    <>
+                        <div id="interface" className="col-12 col-md-4">
+                            <Course lesson={courses.currentLesson} courses={courses} course={course} courseName={match.params.shortname} actions={editorActions} courseActions={courseActions} />
+                            <div className='guided'>
+                                <Editor refresh={editorActions.refresh} render={editorActions.render} text={editor.text} user={user} />
+                            </div>
+                        </div>
+                        <div id="scene" className="col-12 col-md-8">
+                            <View objects={editor.objects} sceneConfig={scene} assets={editor.assets} />
+                        </div>
+                    </>
+            }
         </div>
         <Footer />
     </div>
