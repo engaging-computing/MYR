@@ -1,6 +1,11 @@
 {
+<<<<<<< HEAD
     "name": "myr",
     "version": "1.3.0",
+=======
+    "name": "myrproject",
+    "version": "1.2.7",
+>>>>>>> 28c192387ede968465cd08919c6266a186df2c32
     "private": false,
     "engines": {
         "node": "10.13.0"

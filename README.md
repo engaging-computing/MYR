@@ -11,11 +11,14 @@ The Engaging Computing Group develops new technologies to enable learners—yout
 
 ## Change Log - 1.2.6 -> 1.3.0
 - Implemented relative cursor modification functions (increasePosition, increaseXPos, increaseYPos, increaseZPos).
+<<<<<<< HEAD
 - Implemented a welcome screen to give new users information during their first visit.
 - Project view has been updated to be a tabbed modal.
 - There is now a loading animation when rendering a large scene.
 - Projects with the same name are now sorted by timestamp.
 - Reference drawer tabs updated to not include new tab and close. Added new buttons in corner.
+=======
+>>>>>>> 28c192387ede968465cd08919c6266a186df2c32
 
 ## Acknowledgments
 MYR uses [Aframe](https://aframe.io), a fantastic open source project, to render objects and effects in the three dimensional space.  
