@@ -22,7 +22,7 @@ class View extends Component {
     }
 
     postpone(f) {
-        window.setInterval(f, 0);
+        window.setTimeout(f, 0);
     }
 
     componentWillUnmount() {
