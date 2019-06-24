@@ -106,11 +106,14 @@ class Welcome extends React.Component {
 
     neverAgainCookie = () => {
         document.cookie = "firstTime=true; expires=Thu, 31 Dec 2099 12:00:00 UTC;";
+        this.handleClose();
     }
 
     neverAgain = () => {
         return (
-            <Button className="neverAgain-btn">
+            <Button
+                onClick={this.neverAgainCookie}
+                className="neverAgain-btn">
                 Never show this screen again
             </Button >
         );
@@ -161,7 +164,7 @@ class Welcome extends React.Component {
                         Open the Reference
                     </Button >
                 </div >
-                <div className="col-xs-12 col-md-6 col-lg-4" >
+                <div className="col-xs-12 col-md-6 col-lg-4 d-none d-md-block" >
                     <Button
                         variant="raised"
                         onClick={() => {
@@ -239,8 +242,8 @@ class Welcome extends React.Component {
                             </IconButton>
                             <h3 className="text-center">Welcome to MYR!</h3>
                             <hr />
-                            <div id="welcome-description" className="row no-gutters">
-                                <div className="col-12 col-md-6 col-lg-8">
+                            <div className="row no-gutters">
+                                <div id="welcome-description" className="col-12 col-md-6 col-lg-8">
                                     <p>MYR is an educational tool that strikes a balance with the ease of use and challenge. We drew inspiration from Logo Turtle and Processing to provide a beginner friendly experience for teaching and learning with MYR. If you want to learn more about MYR itself, visit our <a href="/about" target="_blank" rel="noopener noreferrer">about page</a>.</p>
                                     <p>Within the editor you can create 3D scenes using JavaScript and the MYR API. You can then view your scene in the viewer using a computer, tablet, smartphone, or a VR headset.</p>
                                     <p>MYR is being developed by the <a href="https://sites.uml.edu/engaging-computing" target="_blank" rel="noopener noreferrer">Engaging Computing Group at UMass Lowell</a>. If you ever need support with MYR for any reason, please reach out via our <a href="/about/support/" target="_blank" rel="noopener noreferrer">support page</a>.</p>

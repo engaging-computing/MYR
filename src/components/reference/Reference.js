@@ -132,7 +132,6 @@ export default class Reference extends React.Component {
                                     onClick={this.handleOpen}>
                                     <Icon className="material-icons">open_in_new</Icon>
                                 </IconButton>
-
                             </div>
 
                             <div>
