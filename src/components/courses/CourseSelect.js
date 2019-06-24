@@ -42,38 +42,11 @@ const modelStyles = theme => ({
     }
 });
 
-// CSS for buttons
-const btnStyle = {
-    base: {
-        marginTop: 20,
-        justifyContent: "right",
-        width: "100%"
-    },
-    on: {
-        color: "#3f51b5",
-    },
-    off: {
-        color: "#333",
-    },
-    save: {
-        padding: 5,
-        margin: 5,
-        color: "#333",
-        width: "100%"
-    },
-    cancel: {
-        padding: 5,
-        margin: 5,
-        color: "red",
-        width: "100%"
-    }
-};
-
 class CourseSelectModal extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            open: false
+            // open: false
         };
     }
 
@@ -107,44 +80,38 @@ class CourseSelectModal extends Component {
         }
     }
 
-    // Opens the modal
-    handleOpen = () => {
-        this.setState({ open: true });
-    };
-
-    // Closes the modal
-    handleClose = () => {
-        this.setState({ open: false });
-    };
-
     // Render all of the elements
     render() {
         const { classes } = this.props;
         const courses = [].concat(this.props.courses);
         return (
             <div>
-                <Tooltip title="Courses">
-                    <IconButton
-                        onClick={this.handleOpen}
-                        id="select-course"
-                        className="header-btn d-none d-md-block"
-                        style={{
-                            color: "#fff",
-                            margin: 2,
-                            padding: 0,
-                        }}>
-                        <Icon className="material-icons">school</Icon>
-                    </IconButton >
-                </Tooltip>
+                {
+                    !this.props.hideTooltip ?
+                        <Tooltip title="Courses">
+                            <IconButton
+                                onClick={this.props.handleCoursesToggle}
+                                id="select-course"
+                                className="header-btn d-none d-md-block"
+                                style={{
+                                    color: "#fff",
+                                    margin: 2,
+                                    padding: 0,
+                                }}>
+                                <Icon className="material-icons">school</Icon>
+                            </IconButton >
+                        </Tooltip>
+                        : null
+                }
                 <Modal
                     aria-labelledby="simple-modal-title"
                     aria-describedby="simple-modal-description"
-                    open={this.state.open}
-                    onClose={this.handleClose} >
+                    open={this.props.coursesOpen}
+                    onClose={this.props.handleCoursesToggle} >
                     <div style={getModalStyle()} className={classes.paper}>
                         <ButtonBase
                             style={{ position: "absolute", right: 15, top: 15 }}
-                            onClick={() => this.handleClose()} >
+                            onClick={this.props.handleCoursesToggle} >
                             <Icon className="material-icons">clear</Icon>
                         </ButtonBase >
                         <h3 className="col-12 p-0 mb-3 border-bottom">Available Courses</h3>
@@ -156,14 +123,6 @@ class CourseSelectModal extends Component {
                                     return this.helper(course);
                                 })
                             }
-                        </div>
-                        <hr />
-                        <div className="offset-4 col-4">
-                            <ButtonBase
-                                style={btnStyle.save}
-                                onClick={() => this.handleClose()} >
-                                Close
-                            </ButtonBase >
                         </div>
                     </div>
                 </Modal >

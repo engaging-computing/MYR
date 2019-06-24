@@ -7,6 +7,7 @@ import Sidebar from "./Sidebar.js";
 import MyrTour from "./MyrTour.js";
 import ProjectView from "./ProjectView.js";
 import CourseSelect from "../../courses/CourseSelect.js";
+import WelcomeScreen from "../WelcomeScreen.js";
 
 import * as layoutTypes from "../../../constants/LayoutTypes.js";
 
@@ -42,14 +43,18 @@ class Header extends Component {
             availProj: [],
             sampleProj: [],
             classroomOpen: false,
-            loadOpen: false,
+            projectsOpen: false,
+            projectTab: "a",
             snackOpen: false,
             lastMsgTime: 0,
             anchorEl: null,
             navAwayModal: false,
             needsNewId: false, // this explicitly tells us to make a new id
             spinnerOpen: false,
-            referenceOpen: false
+            referenceOpen: false,
+            editorChange: false,
+            coursesOpen: false,
+            tourOpen: false
         };
     }
 
@@ -127,11 +132,26 @@ class Header extends Component {
         // Bind to keyboard to listen for shortcuts
         document.addEventListener("keydown", this.handleKeyDown.bind(this));
 
-    // Warn the issue before refreshing the page
-    // TODO: Only do so if unsaved changes
-    // window.addEventListener('beforeunload', (event) => {
-    //     event.returnValue = 'You have may have unsaved changes!';
-    // });
+        // Warn the issue before refreshing the page
+        try {
+            let editor = window.ace.edit("ace-editor");
+            editor.getSession().on("change", () => {
+                let text = editor.getSession().getValue();
+                if (this.props.text !== text) {
+                    this.setState({ editorChange: true });
+                } else {
+                    this.setState({ editorChange: false });
+                }
+
+            });
+        } catch (err) {
+            console.error(err);
+        }
+        window.addEventListener("beforeunload", (event) => {
+            if (this.state.editorChange) {
+                event.returnValue = "";
+            }
+        });
     }
 
     /**
@@ -382,6 +402,7 @@ class Header extends Component {
                     settings: this.props.scene.settings,
                     ts: ts,
                 }).then(() => {
+                    this.setState({ editorChange: false });
                     // If we have a new projectId reload page with it
                     if (this.props.courseName) {
                         this.setState({ spinnerOpen: false });
@@ -465,8 +486,17 @@ class Header extends Component {
     /**
     * @summary - toggles the load project drawer
     */
-    handleLoadToggle = () => {
-        this.setState({ loadOpen: !this.state.loadOpen });
+    handleProjectToggle = (tab) => {
+        this.setState({ projectsOpen: !this.state.projectsOpen });
+        this.setState({ projectTab: tab ? tab : "a" });
+    };
+
+    handleCoursesToggle = () => {
+        this.setState({ coursesOpen: !this.state.coursesOpen });
+    };
+
+    handleTourToggle = () => {
+        this.setState({ tourOpen: !this.state.tourOpen });
     };
 
     handleClassroomToggle = () => {
@@ -480,28 +510,6 @@ class Header extends Component {
     handleReferenceToggle = () => {
         this.setState({ referenceOpen: !this.state.referenceOpen });
     };
-
-    loadDrawer = () => {
-        return (
-            <Drawer
-                id="projectDrawer"
-                className="side-drawer"
-                // variant="persistent"
-                open={this.state.loadOpen}
-                onClose={this.handleLoadToggle} >
-                <IconButton
-                    color="default"
-                    style={exitBtnStyle}
-                    onClick={this.handleLoadToggle}>
-                    <Icon className="material-icons">close</Icon>
-                </IconButton>
-                <ProjectView
-                    deleteFunc={this.props.projectActions.deleteProj}
-                    userProjs={this.props.projects.userProjs}
-                    examplProjs={this.props.projects.examplProjs} />
-            </Drawer>
-        );
-    }
 
     loadClassroom = () => {
         return (
@@ -602,11 +610,7 @@ class Header extends Component {
                     <Sidebar scene={this.props.scene} nameScene={this.props.sceneActions.nameScene} >
                         <Button
                             variant="raised"
-                            onClick={() => {
-                                if (window.confirm("Are you sure you start a new scene?\nYou will lose any unsaved work!")) {
-                                    window.location.href = window.origin;
-                                }
-                            }}
+                            onClick={() => { window.location.href = window.origin; }}
                             color="primary"
                             className="sidebar-btn">
                             <Icon className="material-icons">add</Icon>
@@ -632,7 +636,7 @@ class Header extends Component {
                         </Button>
                         <Button
                             variant="raised"
-                            onClick={this.handleLoadToggle}
+                            onClick={this.handleProjectToggle}
                             color="primary"
                             className="sidebar-btn">
                             <Icon className="material-icons">perm_media</Icon>
@@ -665,6 +669,12 @@ class Header extends Component {
                                 <Icon className="material-icons" style={referenceMode ? { color: "#777" } : { color: "#222" }}>play_arrow</Icon>
                             </Button>
                         </Tooltip>
+                        <WelcomeScreen
+                            deleteFunc={this.props.projectActions.deleteProj}
+                            userProjs={this.props.projects.userProjs}
+                            exampleProjs={this.props.projects.exampleProjs}
+                            courses={this.props.courses.courses}
+                            handleTourToggle={this.handleTourToggle} />
                         <Tooltip title="Stop" placement="bottom-start">
                             <Button
                                 id="stop-btn"
@@ -682,11 +692,7 @@ class Header extends Component {
                     <Tooltip title="New Scene" placement="bottom-start">
                         <IconButton
                             id="new-btn"
-                            onClick={() => {
-                                if (window.confirm("Are you sure you start a new scene?\nYou will lose any unsaved work!")) {
-                                    window.location.href = window.origin;
-                                }
-                            }}
+                            onClick={() => { window.location.href = window.origin; }}
                             style={style.default}
                             className="header-btn d-none d-md-block" >
                             <Icon className="material-icons">add_circle_outline</Icon>
@@ -702,16 +708,16 @@ class Header extends Component {
                             <Icon className="material-icons">save</Icon>
                         </IconButton>
                     </Tooltip>
-                    <Tooltip title="Open" placement="bottom-start">
-                        <IconButton
-                            id="open-btn"
-                            onClick={this.handleLoadToggle}
-                            className="header-btn"
-                            style={style.default}>
-                            <Icon className="material-icons">perm_media</Icon>
-                        </IconButton>
-                    </Tooltip>
+                    <ProjectView
+                        deleteFunc={this.props.projectActions.deleteProj}
+                        userProjs={this.props.projects.userProjs}
+                        exampleProjs={this.props.projects.exampleProjs}
+                        projectsOpen={this.state.projectsOpen}
+                        handleProjectToggle={this.handleProjectToggle}
+                        tab={this.state.projectTab} />
                     <MyrTour
+                        tourOpen={this.state.tourOpen}
+                        handleTourToggle={this.handleTourToggle}
                         viewOnly={this.props.scene.settings.viewOnly}
                         changeView={this.props.sceneActions.changeView}
                         layoutType={this.props.layoutType}
@@ -719,7 +725,6 @@ class Header extends Component {
                         handleReferenceToggle={this.handleReferenceToggle} />
                 </div>
                 <div className="col-3 d-flex justify-content-end">
-                    {/* <Classroom classrooms={this.props.classrooms} classroomActions={this.props.classroomActions} user={this.props.user} /> */}
                     <Reference
                         layoutType={this.props.layoutType}
                         referenceOpen={this.state.referenceOpen}
@@ -731,11 +736,13 @@ class Header extends Component {
                         handleSave={this.handleSave}
                         handleSaveClose={this.handleSaveClose}
                         layoutType={this.props.layoutType} />
-                    <CourseSelect courses={this.props.courses.courses} />
+                    <CourseSelect
+                        coursesOpen={this.state.coursesOpen}
+                        handleCoursesToggle={this.handleCoursesToggle}
+                        courses={this.props.courses.courses} />
                     <this.loginBtn />
                 </div>
                 <this.saveDrawer />
-                <this.loadDrawer />
                 <this.renderSnackBar />
                 <this.spinner />
                 <this.loadClassroom />
@@ -743,7 +750,7 @@ class Header extends Component {
         );
     }
 
-    //You can pass functions into this in order to have 
+    //You can pass functions into this in order to have
     //multiple setState/state actions dispatched within an event handler
     //Currently only used for render button
     postpone(f) {

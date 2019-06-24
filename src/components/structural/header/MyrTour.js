@@ -7,16 +7,15 @@ class MyrTour extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            isTourOpen: false,
             viewOnlyOnOpen: this.props.viewOnly
         };
     }
 
     closeTour = () => {
-        this.setState({ isTourOpen: false });
         if (this.state.viewOnlyOnOpen) {
             this.props.changeView();
         }
+        this.props.handleTourToggle();
     }
 
     render() {
@@ -28,7 +27,7 @@ class MyrTour extends Component {
                         <Tour
                             steps={steps}
                             maskClassName="mask"
-                            isOpen={this.state.isTourOpen}
+                            isOpen={this.props.tourOpen}
                             onAfterOpen={() => {
                                 this.setState({ viewOnlyOnOpen: this.props.viewOnly });
                                 if (this.props.viewOnly) {
@@ -41,7 +40,7 @@ class MyrTour extends Component {
                             size="small"
                             className="d-none d-md-block"
                             onClick={() => {
-                                this.setState({ isTourOpen: true });
+                                this.props.handleTourToggle();
                                 if (this.props.referenceOpen) {
                                     this.props.handleReferenceToggle();
                                 }

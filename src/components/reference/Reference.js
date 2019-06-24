@@ -17,6 +17,17 @@ import {
     Tooltip
 } from "@material-ui/core";
 
+const exitBtnStyle = {
+    //paddingbottom: 100,
+    position: "fixed",
+    top: 0,
+    right: 10,
+};
+const newTabStyle = {
+    position: "fixed",
+    top: 0,
+    right: 60,
+};
 export default class Reference extends React.Component {
 
     constructor(props) {
@@ -103,28 +114,50 @@ export default class Reference extends React.Component {
                             variant="persistent"
                             className={!this.props.referenceOpen ? "d-none" : ""}
                             open={this.props.referenceOpen}>
-                            <Tabs
-                                id="reference-tabs"
-                                fullWidth={true}
-                                value={this.state.value}
-                                onChange={this.handleChange} >
-                                <Tab
-                                    icon={<Icon className="material-icons geometry">category</Icon>}
-                                    label="GEOMETRY"
-                                    value='a' />
-                                <Tab
-                                    icon={<Icon className="material-icons color-change">bubble_chart</Icon>}
-                                    label="TRANSFORMATIONS"
-                                    value='b' />
-                                <Tab
-                                    icon={<Icon className="material-icons animation-ref">zoom_out_map</Icon>} //swap_horiz control_camera category
-                                    label="ANIMATIONS"
-                                    value='c' />
-                                <Tab
-                                    icon={<Icon className="material-icons geometry">widgets</Icon>}
-                                    label="GROUPS"
-                                    value='d' />
-                                <Tab
+
+                            <div>
+                                <IconButton
+                                    color="default"
+                                    style={exitBtnStyle}
+                                    onClick={() => {
+                                        this.props.handleReferenceToggle();
+                                        this.setState({ value: "a" });
+                                    }}>
+                                    <Icon className="material-icons">close</Icon>
+                                </IconButton>
+                                <IconButton
+                                    color="default"
+                                    style={newTabStyle}
+                                    onClick={this.handleOpen}>
+                                    <Icon className="material-icons">open_in_new</Icon>
+                                </IconButton>
+                                <hr style={{ visibility: "hidden", padding: ".5em" }} />
+                            </div>
+
+                            <div>
+                                <Tabs
+                                    id="reference-tabs"
+                                    fullWidth={true}
+                                    value={this.state.value}
+                                    onChange={this.handleChange}
+                                    variant="scrollable">
+                                    <Tab
+                                        icon={<Icon className="material-icons geometry">category</Icon>}
+                                        label="GEOMETRY"
+                                        value='a' />
+                                    <Tab
+                                        icon={<Icon className="material-icons color-change">bubble_chart</Icon>}
+                                        label="TRANSFORMATIONS"
+                                        value='b' />
+                                    <Tab
+                                        icon={<Icon className="material-icons animation-ref">zoom_out_map</Icon>} //swap_horiz control_camera category
+                                        label="ANIMATIONS"
+                                        value='c' />
+                                    <Tab
+                                        icon={<Icon className="material-icons geometry">widgets</Icon>}
+                                        label="GROUPS"
+                                        value='d' />
+                                    {/*<Tab
                                     style={{ background: "green", color: "white" }}
                                     icon={<Icon className="material-icons">open_in_new</Icon>}
                                     label="OPEN IN NEW TAB"
@@ -138,8 +171,9 @@ export default class Reference extends React.Component {
                                     onClick={() => {
                                         this.props.handleReferenceToggle();
                                         this.setState({ value: "a" });
-                                    }} />
-                            </Tabs>
+                                    }} />*/}
+                                </Tabs>
+                            </div>
 
                             {<div style={{ margin: 5, overflow: "hidden" }}>
                                 <p style={{ fontSize: "80%" }}> Key: <span className="array">array </span>

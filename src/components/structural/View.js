@@ -71,12 +71,12 @@ class View extends Component {
 
     createCam = () => {
         switch (this.props.sceneConfig.settings.camConfig) {
-        case 0:
-            return this.basicMoveCam();
-        case 1:
-            return this.checkpointCam();
-        default:
-            return this.basicMoveCam();
+            case 0:
+                return this.basicMoveCam();
+            case 1:
+                return this.checkpointCam();
+            default:
+                return this.basicMoveCam();
         }
     }
 
