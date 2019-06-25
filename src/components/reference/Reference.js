@@ -26,7 +26,7 @@ const exitBtnStyle = {
 const newTabStyle = {
     position: "fixed",
     top: 0,
-    right: 60,
+    right: 50,
 };
 export default class Reference extends React.Component {
 
@@ -109,6 +109,7 @@ export default class Reference extends React.Component {
                             </IconButton>
                         </Tooltip>
                         <Drawer
+                            style={{position: "relative", zIndex: 99999}}
                             anchor="right"
                             id="reference-drawer"
                             variant="persistent"
@@ -116,6 +117,7 @@ export default class Reference extends React.Component {
                             open={this.props.referenceOpen}>
 
                             <div>
+                                <h3 className="border-bottom" style={{ padding: 10, fontWeight: 400 }}>MYR API - Reference</h3>
                                 <IconButton
                                     color="default"
                                     style={exitBtnStyle}
@@ -131,7 +133,6 @@ export default class Reference extends React.Component {
                                     onClick={this.handleOpen}>
                                     <Icon className="material-icons">open_in_new</Icon>
                                 </IconButton>
-                                <hr style={{ visibility: "hidden", padding: ".5em" }} />
                             </div>
 
                             <div>
@@ -175,7 +176,7 @@ export default class Reference extends React.Component {
                                 </Tabs>
                             </div>
 
-                            {<div style={{ margin: 5, overflow: "hidden" }}>
+                            {<div style={{ margin: 7, overflow: "hidden" }}>
                                 <p style={{ fontSize: "80%" }}> Key: <span className="array">array </span>
                                     <span className="bool">bool </span>
                                     <span className="number">number </span>
