@@ -653,7 +653,9 @@ class Header extends Component {
                     </Sidebar>
                     <h1 className="mr-2 d-none d-sm-block"
                         style={{ cursor: "pointer" }}
-                        onClick={() => { window.location.href = window.origin; }} >MYR</h1>
+                        onClick={() => { window.location.href = window.origin; }} >
+                        MYR
+                    </h1>
                     <MuiThemeProvider theme={theme}>
                         <Tooltip title="Render" placement="bottom-start">
                             <Button
