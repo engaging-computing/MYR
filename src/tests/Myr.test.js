@@ -40,6 +40,13 @@ describe("Updates to Myr's Model", () => {
         expect(color).not.toBeUndefined();
         expect(colorRegEx.test(color)).toBeTruthy();
     });
+
+    it("pick Random Color out of a list of colors", () => {
+        let colors = ["blue","green","red","hotpink","FF00FF","rgb(100,33,93)"];
+        let color = myr.getRandomColor(colors);
+        expect(color).not.toBeUndefined();
+        expect(colorRegEx.test(color)).toBeTruthy();
+    });
 });
 
 describe("Component Renders", () => {
