@@ -323,17 +323,24 @@ class Myr {
         this.color = color;
     }
 
-    getRandomColor = () => {
-        let color, i, letters;
-        letters = "0123456789ABCDEF";
-        color = "#";
-        i = 0;
-        while (i < 6) {
-            color += letters[Math.floor(Math.random() * 16)];
-            i++;
+    getRandomColor = (colors) => {
+        if (colors.isArray) {
+            let color = colors[Math.random() % colors.length];
+            this.color = color;
+            return color;
         }
-        this.color = color;
-        return color;
+        else {
+            let color, i, letters;
+            letters = "0123456789ABCDEF";
+            color = "#";
+            i = 0;
+            while (i < 6) {
+                color += letters[Math.floor(Math.random() * 16)];
+                i++;
+            }
+            this.color = color;
+            return color;
+        }
     }
 
     drop = (outerElId) => {
