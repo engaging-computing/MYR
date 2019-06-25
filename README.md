@@ -13,7 +13,6 @@ The Engaging Computing Group develops new technologies to enable learners—yout
 - Implemented relative cursor modification functions (increasePosition, increaseXPos, increaseYPos, increaseZPos).
 - Implemented a welcome screen to give new users information during their first visit.
 - Project view has been updated to be a tabbed modal.
-- There is now a loading animation when rendering a large scene.
 - Projects with the same name are now sorted by timestamp.
 - Reference drawer tabs updated to not include new tab and close. Added new buttons in corner.
 
