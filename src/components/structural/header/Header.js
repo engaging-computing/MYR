@@ -134,20 +134,21 @@ class Header extends Component {
         document.addEventListener("keydown", this.handleKeyDown.bind(this));
 
         // Warn the issue before refreshing the page
-        try {
-            let editor = window.ace.edit("ace-editor");
-            editor.getSession().on("change", () => {
-                let text = editor.getSession().getValue();
-                if (this.props.text !== text) {
-                    this.setState({ editorChange: true });
-                } else {
-                    this.setState({ editorChange: false });
-                }
+        if (window.location.href !== window.origin + "/reference")
+            try {
+                let editor = window.ace.edit("ace-editor");
+                editor.getSession().on("change", () => {
+                    let text = editor.getSession().getValue();
+                    if (this.props.text !== text) {
+                        this.setState({ editorChange: true });
+                    } else {
+                        this.setState({ editorChange: false });
+                    }
 
-            });
-        } catch (err) {
-            console.error(err);
-        }
+                });
+            } catch (err) {
+                console.error(err);
+            }
         window.addEventListener("beforeunload", (event) => {
             if (this.state.editorChange) {
                 event.returnValue = "";
