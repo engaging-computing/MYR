@@ -660,7 +660,7 @@ class Header extends Component {
                             onClick={this.handleWelcomeToggle}
                             color="primary"
                             className="sidebar-btn">
-                            <Icon className="material-icons">info</Icon>
+                            <Icon className="material-icons">wb_iridescent</Icon>
                             Show Welcome Screen
                         </Button>
                     </Sidebar>
