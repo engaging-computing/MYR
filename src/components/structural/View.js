@@ -14,6 +14,10 @@ import * as THREE from "three";
  */
 
 class View extends Component {
+<<<<<<< HEAD
+
+    componentDidMount() {
+=======
     constructor(props) {
         super(props);
         this.state = {
@@ -39,6 +43,7 @@ class View extends Component {
                 loading: false
             });
         });
+>>>>>>> 58808e62e64d21fd75e9fcf03f5baedb8d7da8a8
 
         window.addEventListener("keydown", function (e) {
             //KEYS: left and right: 37, 39; up and down: 38, 40; space: 32
