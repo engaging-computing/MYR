@@ -54,7 +54,8 @@ class Header extends Component {
             referenceOpen: false,
             editorChange: false,
             coursesOpen: false,
-            tourOpen: false
+            tourOpen: false,
+            welcomeOpen: false
         };
     }
 
@@ -486,9 +487,13 @@ class Header extends Component {
     /**
     * @summary - toggles the load project drawer
     */
-    handleProjectToggle = (tab) => {
+    handleProjectToggle = () => {
         this.setState({ projectsOpen: !this.state.projectsOpen });
-        this.setState({ projectTab: tab ? tab : "a" });
+        this.setState({ projectTab: "a" });
+    };
+
+    handleWelcomeToggle = () => {
+        this.setState({ welcomeOpen: !this.state.welcomeOpen });
     };
 
     handleCoursesToggle = () => {
@@ -650,8 +655,20 @@ class Header extends Component {
                             <Icon className="material-icons">assignment</Icon>
                 Classrooms
                         </Button>
+                        <Button
+                            variant="raised"
+                            onClick={this.handleWelcomeToggle}
+                            color="primary"
+                            className="sidebar-btn">
+                            <Icon className="material-icons">wb_iridescent</Icon>
+                            Show Welcome Screen
+                        </Button>
                     </Sidebar>
-                    <h1 className="mr-2 d-none d-sm-block" >MYR</h1>
+                    <h1 className="mr-2 d-none d-sm-block"
+                        style={{ cursor: "pointer" }}
+                        onClick={() => { window.location.href = window.origin; }} >
+                        MYR
+                    </h1>
                     <MuiThemeProvider theme={theme}>
                         <Tooltip title="Render" placement="bottom-start">
                             <Button
@@ -670,6 +687,8 @@ class Header extends Component {
                             </Button>
                         </Tooltip>
                         <WelcomeScreen
+                            handleWelcomeToggle={this.handleWelcomeToggle}
+                            welcomeOpen={this.state.welcomeOpen}
                             deleteFunc={this.props.projectActions.deleteProj}
                             userProjs={this.props.projects.userProjs}
                             exampleProjs={this.props.projects.exampleProjs}
