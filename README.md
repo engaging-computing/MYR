@@ -16,6 +16,8 @@ The Engaging Computing Group develops new technologies to enable learners—yout
 - Projects with the same name are now sorted by timestamp.
 - Reference drawer new tab and close buttons moved to corner.
 - Reference drawer has a title added.
+- There are no labels on the reference on a small screen to make it easier to read.
+- Added loading animation in the viewer while rendering.
 - The MYR brand will direct to create a new scene.
 
 ## Acknowledgments
