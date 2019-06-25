@@ -16,6 +16,7 @@ The Engaging Computing Group develops new technologies to enable learners—yout
 - Projects with the same name are now sorted by timestamp.
 - Reference drawer new tab and close buttons moved to corner.
 - Reference drawer has a title added.
+- The MYR brand will direct to create a new scene.
 
 ## Acknowledgments
 MYR uses [Aframe](https://aframe.io), a fantastic open source project, to render objects and effects in the three dimensional space.  
