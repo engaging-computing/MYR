@@ -65,7 +65,6 @@ class Welcome extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            welcomeOpen: false,
             projectsOpen: false,
             projectsTab: "b",
             coursesOpen: false
@@ -74,7 +73,7 @@ class Welcome extends React.Component {
 
     componentDidMount() {
         if (!this.getCookie("hasVisited")) {
-            this.setState({ welcomeOpen: true });
+            this.props.handleWelcomeToggle();
         }
     }
 
@@ -106,7 +105,7 @@ class Welcome extends React.Component {
 
     handleClose = () => {
         this.setCookie();
-        this.setState({ welcomeOpen: false });
+        this.props.handleWelcomeToggle();
     };
 
     neverAgainCookie = () => {
@@ -178,7 +177,7 @@ class Welcome extends React.Component {
                         variant="raised"
                         onClick={() => {
                             this.props.handleTourToggle();
-                            this.setState({ welcomeOpen: false });
+                            this.props.handleWelcomeToggle();
                         }}
                         className="welcome-btn">
                         <Icon className="material-icons">map</Icon>
@@ -242,7 +241,7 @@ class Welcome extends React.Component {
                     <Modal
                         aria-labelledby="simple-modal-title"
                         aria-describedby="simple-modal-description"
-                        open={this.state.welcomeOpen}
+                        open={this.props.welcomeOpen}
                         onClose={this.handleClose}>
                         <div style={getOuterModalStyle()} className={classes.outer}>
                             <IconButton
