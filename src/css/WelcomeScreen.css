@@ -32,6 +32,11 @@
     width: 100%;
 }
 
+#cookie-consent {
+    font-size: 10pt !important;
+    margin-bottom: -0.5rem;
+}
+
 #modals {
     height: 0em !important;
 }
