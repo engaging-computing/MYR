@@ -15,6 +15,16 @@ import * as THREE from "three";
  */
 
 class View extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            loading: true
+        };
+    }
+
+    postpone(f) {
+        window.setTimeout(f, 0);
+    }
 
     componentDidMount() {
         this.postpone(() => {
