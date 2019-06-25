@@ -65,22 +65,15 @@ class Welcome extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            welcomeOpen: false,
             projectsOpen: false,
             projectsTab: "b",
             coursesOpen: false
         };
-        this.emailRef = React.createRef();
     }
 
     componentDidMount() {
-        if (!this.getCookie("firstTime")) {
-            let date = new Date();
-            date.setTime(date.getTime() + (1000 * 60 * 60 * 24));
-            let expiration = "; expires=" + date.toGMTString();
-            let cookie = "firstTime=true" + expiration;
-            document.cookie = cookie;
-            this.setState({ welcomeOpen: true });
+        if (!this.getCookie("hasVisited")) {
+            this.props.handleWelcomeToggle();
         }
     }
 
@@ -100,12 +93,23 @@ class Welcome extends React.Component {
         return "";
     }
 
+    setCookie = () => {
+        if (!this.getCookie("hasVisited")) {
+            let date = new Date();
+            date.setTime(date.getTime() + (1000 * 60 * 60 * 24));
+            let expiration = "; expires=" + date.toGMTString();
+            let cookie = "hasVisited=true" + expiration;
+            document.cookie = cookie;
+        }
+    }
+
     handleClose = () => {
-        this.setState({ welcomeOpen: false });
+        this.setCookie();
+        this.props.handleWelcomeToggle();
     };
 
     neverAgainCookie = () => {
-        document.cookie = "firstTime=true; expires=Thu, 31 Dec 2099 12:00:00 UTC;";
+        document.cookie = "hasVisited=true; expires=Thu, 31 Dec 2099 12:00:00 UTC;";
         this.handleClose();
     }
 
@@ -114,21 +118,24 @@ class Welcome extends React.Component {
             <Button
                 onClick={this.neverAgainCookie}
                 className="neverAgain-btn">
-                Never show this screen again
+                Don't show again
             </Button >
         );
     }
 
     handleProjectToggle = () => {
+        this.setCookie();
         this.setState({ projectsOpen: !this.state.projectsOpen });
         this.setState({ projectTab: "b" });
     };
 
     handleCoursesToggle = () => {
+        this.setCookie();
         this.setState({ coursesOpen: !this.state.coursesOpen });
     };
 
     handleTourToggle = () => {
+        this.setCookie();
         this.setState({ tourOpen: !this.state.tourOpen });
     };
 
@@ -159,6 +166,7 @@ class Welcome extends React.Component {
                         href="/reference"
                         target="_blank"
                         rel="noopener noreferrer"
+                        onClick={this.setCookie}
                         className="welcome-btn">
                         <Icon className="material-icons">help</Icon>
                         Open the Reference
@@ -169,7 +177,7 @@ class Welcome extends React.Component {
                         variant="raised"
                         onClick={() => {
                             this.props.handleTourToggle();
-                            this.setState({ welcomeOpen: false });
+                            this.props.handleWelcomeToggle();
                         }}
                         className="welcome-btn">
                         <Icon className="material-icons">map</Icon>
@@ -182,6 +190,7 @@ class Welcome extends React.Component {
                         href="/about/support"
                         target="_blank"
                         rel="noopener noreferrer"
+                        onClick={this.setCookie}
                         className="welcome-btn">
                         <Icon className="material-icons">alternate_email</Icon>
                         Get Support
@@ -193,6 +202,7 @@ class Welcome extends React.Component {
                         href="https://github.com/engaging-computing/MYR"
                         target="_blank"
                         rel="noopener noreferrer"
+                        onClick={this.setCookie}
                         className="welcome-btn">
                         <Icon className="material-icons">code</Icon>
                         Visit our GitHub
@@ -231,7 +241,7 @@ class Welcome extends React.Component {
                     <Modal
                         aria-labelledby="simple-modal-title"
                         aria-describedby="simple-modal-description"
-                        open={this.state.welcomeOpen}
+                        open={this.props.welcomeOpen}
                         onClose={this.handleClose}>
                         <div style={getOuterModalStyle()} className={classes.outer}>
                             <IconButton
@@ -258,6 +268,8 @@ class Welcome extends React.Component {
                             <this.handleModals />
                             <hr />
                             <this.neverAgain />
+                            <hr />
+                            <p id="cookie-consent" className="text-center">MYR uses cookies which are necessary for its functioning. You accept the use of cookies by continuing to use MYR per the <a href="/about/privacy" target="_blank" rel="noopener noreferrer">privacy policy</a>.</p>
                         </div>
                     </Modal>
                 </React.Fragment>
