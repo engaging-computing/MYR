@@ -111,8 +111,8 @@ let transformations = [
         example: "setColor"
     },
     {
-        name: <span>getRandomColor(<span className="array">array</span>)</span>,
-        description: <span>Changes the color of the cursor to either a completely random color or a random color from an array of colors if an array is provided, then returns that color. Default: 'red'</span>,
+        name: <span>getRandomColor()</span>,
+        description: <span>Changes the color of the cursor to a random color, and returns the color. Default: 'red'</span>,
         example: "getRandomColor"
     },
     {
