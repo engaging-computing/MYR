@@ -129,19 +129,21 @@ class Header extends Component {
         document.addEventListener("keydown", this.handleKeyDown.bind(this));
 
         // Warn the issue before refreshing the page
-        try {
-            let editor = window.ace.edit("ace-editor");
-            editor.getSession().on("change", () => {
-                let text = editor.getSession().getValue();
-                if (this.props.text !== text) {
-                    this.setState({ editorChange: true });
-                } else {
-                    this.setState({ editorChange: false });
-                }
+        if (this.props.layoutType !== layoutTypes.REFERENCE) {
+            try {
+                let editor = window.ace.edit("ace-editor");
+                editor.getSession().on("change", () => {
+                    let text = editor.getSession().getValue();
+                    if (this.props.text !== text) {
+                        this.setState({ editorChange: true });
+                    } else {
+                        this.setState({ editorChange: false });
+                    }
 
-            });
-        } catch (err) {
-            console.error(err);
+                });
+            } catch (err) {
+                console.error(err);
+            }
         }
         window.addEventListener("beforeunload", (event) => {
             if (this.state.editorChange) {
@@ -398,7 +400,7 @@ class Header extends Component {
                     settings: this.props.scene.settings,
                     ts: ts,
                 }).then(() => {
-                    this.setState({editorChange: false});
+                    this.setState({ editorChange: false });
                     // If we have a new projectId reload page with it
                     if (this.props.courseName) {
                         this.setState({ spinnerOpen: false });
