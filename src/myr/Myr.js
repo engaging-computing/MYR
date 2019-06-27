@@ -325,8 +325,8 @@ class Myr {
 
     getRandomColor = (colors) => {
         let color;
-        if (colors && colors.isArray && colors.length !== 0) {        
-            color = colors[Math.random() % colors.length];
+        if (colors && Array.isArray(colors) && colors.length !== 0) {
+            color = colors[Math.floor(Math.random() * colors.length)];
         }
         else {
             let i, letters;

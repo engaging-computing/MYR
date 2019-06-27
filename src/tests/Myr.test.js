@@ -45,7 +45,7 @@ describe("Updates to Myr's Model", () => {
         let colors = ["blue","green","red","hotpink","FF00FF","rgb(100,33,93)"];
         let color = myr.getRandomColor(colors);
         expect(color).not.toBeUndefined();
-        expect(colorRegEx.test(color)).toBeTruthy();
+        expect(colors.includes(color)).toBeTruthy();
     });
 });
 
