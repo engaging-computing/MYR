@@ -323,9 +323,9 @@ class Myr {
         this.color = color;
     }
 
-    getRandomColor = (colors) => {
+    getRandomColor = (colors = null) => {
         let color;
-        if (colors && Array.isArray(colors) && colors.length !== 0) {
+        if (Array.isArray(colors) && colors.length !== 0) {
             color = colors[Math.floor(Math.random() * colors.length)];
         }
         else {
