@@ -17,8 +17,9 @@ The Engaging Computing Group develops new technologies to enable learners—yout
 - Reference drawer new tab and close buttons moved to corner.
 - Reference drawer has a title added.
 - There are no labels on the reference on a small screen to make it easier to read.
-- Added loading animation in the viewer while rendering.
 - The MYR brand will direct to create a new scene.
+- "Too many errors" won't appear in the editor for long scenes.
+- Settings modal is a tabbed modal.
 
 ## Acknowledgments
 MYR uses [Aframe](https://aframe.io), a fantastic open source project, to render objects and effects in the three dimensional space.  

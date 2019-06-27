@@ -31,6 +31,13 @@ class Editor extends Component {
         }
     }
 
+    onLoad() {
+        window.ace.edit("ace-editor").session.$worker.send("setOptions", [{
+            "maxerr": 1000,
+            "esversion": 6
+        }]);
+    }
+
     /**
     * @summary -render(), creates the editor in the DOM
     */
@@ -51,6 +58,7 @@ class Editor extends Component {
                 wrapEnabled={true}
                 enableBasicAutocompletion={false}
                 enableLiveAutocompletion={true}
+                onLoad={this.onLoad}
             />
         );
     }
