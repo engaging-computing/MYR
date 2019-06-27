@@ -82,15 +82,15 @@ class View extends Component {
     checkpointCam = () => {
         return (
             <a-entity id="rig" movement-controls="controls: checkpoint" checkpoint-controls="mode: animate">
-                <a-camera
+                <a-entity camera
                     position={this.props.sceneConfig.settings.cameraPosition}
                     look-controls="pointerLockEnabled: true"
                 >
-                    <a-cursor
+                    <a-entity cursor
                         position="0 0 -1"
                         geometry="primitive: ring; radiusInner: 0.02; radiusOuter: 0.03;"
                         material="color: #CCC; shader: flat;" />
-                </a-camera>
+                </a-entity>
             </a-entity>
         );
     }
@@ -99,15 +99,15 @@ class View extends Component {
         return (
             <a-entity id="rig"
                 debug={true}
-                movement-controls={this.props.sceneConfig.settings.canFly ? "fly:true" : "fly:false"} >
-                <a-camera
-                    position={this.props.sceneConfig.settings.cameraPosition}
+                movement-controls={this.props.sceneConfig.settings.canFly ? "fly:true" : "fly:false"}
+                position={this.props.sceneConfig.settings.cameraPosition} >
+                <a-entity camera
                     look-controls="pointerLockEnabled: true">
-                    <a-cursor
+                    <a-entity cursor
                         position="0 0 -1"
                         geometry="primitive: ring; radiusInner: 0.02; radiusOuter: 0.03;"
                         material="color: #CCC; shader: flat;" />
-                </a-camera>
+                </a-entity>
             </a-entity>
         );
     }
