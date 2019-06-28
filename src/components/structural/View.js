@@ -9,10 +9,9 @@ import * as THREE from "three";
 
 /**
  * @summary - The View component return the aframe representation of the scene. This
- * system utilizes the entity compoent system(ECS) to build objects in the scene from different
+ * system utilizes the entity component system(ECS) to build objects in the scene from different
  * components.
  */
-
 class View extends Component {
     constructor(props) {
         super(props);
@@ -23,6 +22,7 @@ class View extends Component {
     intervalID = 0;
 
     componentDidMount() {
+        // Don't show editor if welcome screen is open
         if (!this.getCookie("hasVisited")) {
             this.intervalID = setInterval(this.checkForWelcomeScreen, 1000);
         }
