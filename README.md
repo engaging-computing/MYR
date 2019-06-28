@@ -19,6 +19,7 @@ The Engaging Computing Group develops new technologies to enable learners—yout
 - There are no labels on the reference on a small screen to make it easier to read.
 - The MYR brand will direct to create a new scene.
 - "Too many errors" won't appear in the editor for long scenes.
+- Settings modal is a tabbed modal.
 
 ## Acknowledgments
 MYR uses [Aframe](https://aframe.io), a fantastic open source project, to render objects and effects in the three dimensional space.  

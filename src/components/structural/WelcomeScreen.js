@@ -77,8 +77,8 @@ class Welcome extends React.Component {
         }
     }
 
-    getCookie = (cname) => {
-        let name = cname + "=";
+    getCookie = (cookieName) => {
+        let name = cookieName + "=";
         let decodedCookie = decodeURIComponent(document.cookie);
         let ca = decodedCookie.split(";");
         for (let i = 0; i < ca.length; i++) {
