@@ -30,13 +30,19 @@
             "error",
             "always"
         ],
-        "indent": "error",
+        "indent": [
+            "error",
+            4,
+            {
+                "SwitchCase": 1
+            }
+        ],
         "no-var": "error",
         "default-case": "warn",
         "eqeqeq": "warn",
         "curly": "warn",
         "no-lonely-if": "warn",
-            "no-console": [
+        "no-console": [
             "error",
             {
                 "allow": [
@@ -45,7 +51,7 @@
                 ]
             }
         ],
-        // Disabled from reccommended rules
+        // Disabled from recommended rules
         "no-case-declarations": "off",
         "react/no-unescaped-entities": "off",
         "react/prop-types": "off",
