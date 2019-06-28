@@ -9,8 +9,9 @@ The Engaging Computing Group develops new technologies to enable learners—yout
 ## Status
 [![CircleCI](https://circleci.com/gh/engaging-computing/MYR.svg?style=shield)](https://circleci.com/gh/engaging-computing/MYR)
 
-## Change Log - 1.3.0 -> 1.?.?
+## Change Log - 1.3.0 -> 1.4.0
 - Update viewer camera to not give errors in console
+- `getRandomColor()` can take an array and choose a random color from the array.
 
 ## Acknowledgments
 MYR uses [Aframe](https://aframe.io), a fantastic open source project, to render objects and effects in the three dimensional space.  
