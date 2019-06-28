@@ -1,0 +1,42 @@
+@media (min-width: 450px) {
+    .welcome-btn {
+        margin-bottom: 10px !important;
+        justify-content: left !important;
+        padding-left: 3em !important;
+        min-width: 10em !important;
+    }
+}
+
+.welcome-btn {
+    background-color: #3f51b5 !important;
+    color: #fff !important;
+    margin-bottom: 10px !important;
+    justify-content: left !important;
+    width: 100%;
+}
+
+.welcome-btn .material-icons {
+    margin: 0 .7em;
+}
+
+#welcome-viewer {
+    min-height: 11em;
+}
+
+#welcome-description {
+    padding-right: .5em;
+}
+
+.neverAgain-btn {
+    font-size: 10pt !important;
+    width: 100%;
+}
+
+#cookie-consent {
+    font-size: 10pt !important;
+    margin-bottom: -0.5rem;
+}
+
+#modals {
+    height: 0em !important;
+}
