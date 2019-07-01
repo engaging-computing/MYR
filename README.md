@@ -14,6 +14,7 @@ The Engaging Computing Group develops new technologies to enable learners—yout
 - `getRandomColor()` can take an array and choose a random color from the array.
 - Reference page doesn't have uncaught error from no editor.
 - Reference page tab titles hide on small screens.
+- Nested groups are supported.
 
 ## Acknowledgments
 MYR uses [Aframe](https://aframe.io), a fantastic open source project, to render objects and effects in the three dimensional space.  
