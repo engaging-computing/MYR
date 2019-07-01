@@ -1,3 +1,5 @@
+import myrReference from "../../myr/reference.js";
+
 export const customCompleter = {
     getCompletions: function (editor, session, pos, prefix, callback) {
         let BasicAutocompleteKeyWords = [
@@ -32,82 +34,15 @@ export const customCompleter = {
             "static"
         ];
 
-        let keyWords = [
-            "box()",
-            "sphere()",
-            "circle()",
-            "cone()",
-            "cylinder()",
-            "dodecahedron()",
-            "icosahedron()",
-            "octahedron()",
-            "prism()",
-            "ring()",
-            "tetrahedron()",
-            "text()",
-            "torus()",
-            "torusknot()",
-            "triangle()",
-            "setColor()",
-            "setPosition()",
-            "setXPos()",
-            "setYPos()",
-            "setZPos()",
-            "increasePosition()",
-            "increaseXPos()",
-            "increaseYPos()",
-            "increaseZPos()",
-            "setScale()",
-            "setXScale()",
-            "setYScale()",
-            "setZScale()",
-            "setRotation()",
-            "pitchX()",
-            "yawY()",
-            "rollZ()",
-            "setRadius()",
-            "resetCursor()",
-            "spin()",
-            "yoyo()",
-            "sideToSide()",
-            "goUp()",
-            "goDown()",
-            "goRight()",
-            "goLeft()",
-            "goTowards()",
-            "goAway()",
-            "grow()",
-            "shrink()",
-            "fadeOut()",
-            "fadeIn()",
-            "group()",
-            "getRandomColor()",
-            "setPhiLength()",
-            "setLoop()",
-            "setDuration()",
-            "setMagnitude()",
-            "colorShift()",
-            "makeDroppable()",
-            "makeUnDroppable",
-            "makePushable()",
-            "makeUnPushable()",
-            "getColor()",
-            "getXPos()",
-            "getYPos()",
-            "getZPos()",
-            "getXScale()",
-            "getYScale()",
-            "getZScale()",
-            "getXRotation()",
-            "getYRotation()",
-            "getZRotation()",
-            "getRadius()",
-            "getPhiLength()",
-            "getLoop()",
-            "getDuration()",
-            "getMagnitude()",
 
+        let reference = myrReference();
+
+        let keyWords = [...reference.geometry.map(obj => obj.example + "()"),
+            ...reference.transformations.map(obj => obj.example + "()"),
+            ...reference.animations.map(obj => obj.example + "()"),
+            "group()"
         ];
+
 
         let Colors = [
             "aliceblue",
