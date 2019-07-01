@@ -134,19 +134,21 @@ class Header extends Component {
         document.addEventListener("keydown", this.handleKeyDown.bind(this));
 
         // Warn the issue before refreshing the page
-        try {
-            let editor = window.ace.edit("ace-editor");
-            editor.getSession().on("change", () => {
-                let text = editor.getSession().getValue();
-                if (this.props.text !== text) {
-                    this.setState({ editorChange: true });
-                } else {
-                    this.setState({ editorChange: false });
-                }
+        if (this.props.layoutType !== layoutTypes.REFERENCE) {
+            try {
+                let editor = window.ace.edit("ace-editor");
+                editor.getSession().on("change", () => {
+                    let text = editor.getSession().getValue();
+                    if (this.props.text !== text) {
+                        this.setState({ editorChange: true });
+                    } else {
+                        this.setState({ editorChange: false });
+                    }
 
-            });
-        } catch (err) {
-            console.error(err);
+                });
+            } catch (err) {
+                console.error(err);
+            }
         }
         window.addEventListener("beforeunload", (event) => {
             if (this.state.editorChange) {
@@ -664,7 +666,11 @@ class Header extends Component {
                             Show Welcome Screen
                         </Button>
                     </Sidebar>
-                    <h1 className="mr-2 d-none d-sm-block" >MYR</h1>
+                    <h1 className="mr-2 d-none d-sm-block"
+                        style={{ cursor: "pointer" }}
+                        onClick={() => { window.location.href = window.origin; }} >
+                        MYR
+                    </h1>
                     <MuiThemeProvider theme={theme}>
                         <Tooltip title="Render" placement="bottom-start">
                             <Button

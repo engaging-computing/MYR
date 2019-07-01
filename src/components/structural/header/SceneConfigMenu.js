@@ -7,7 +7,9 @@ import {
     Icon,
     Modal,
     TextField,
-    Tooltip
+    Tooltip,
+    Tabs,
+    Tab
 } from "@material-ui/core";
 
 import QRCode from "qrcode.react";
@@ -26,7 +28,8 @@ function getModalStyle() {
         top: `${top}%`,
         left: `${left}%`,
         transform: `translate(-${top}%, -${left}%)`,
-        maxWidth: "90%"
+        maxWidth: "90%",
+        minHeight: 400
     };
 }
 
@@ -86,7 +89,8 @@ class ConfigModal extends Component {
             addClassOpen: false,
             email: "",
             sendTo: [],
-            classroomID: ""
+            classroomID: "",
+            value: "a"
         };
         this.emailRef = React.createRef();
     }
@@ -116,19 +120,19 @@ class ConfigModal extends Component {
         arr.push(this.state.email);
         this.emailRef.current.value = "";
         this.setState({ sendTo: arr, email: "" });
-    }
+    };
 
     handleQrToggle = () => {
         this.setState({ qrCodeOpen: !this.state.qrCodeOpen });
-    }
+    };
 
     handlePwToggle = () => {
         this.setState({ pwProtectOpen: !this.state.pwProtectOpen });
-    }
+    };
 
     handleShrToggle = () => {
         this.setState({ shareOpen: !this.state.shareOpen, sendTo: [] });
-    }
+    };
 
     pwProtect = () => (
         <div>
@@ -193,7 +197,7 @@ class ConfigModal extends Component {
     // Toggles the grid on and off
     toggleGrid = () => {
         this.props.sceneActions.toggleCoordSky();
-    }
+    };
 
     handleSkyChangeComplete = (color) => {
         this.setState({ skyColor: color.hex });
@@ -242,7 +246,7 @@ class ConfigModal extends Component {
                 Show Editor
             </ButtonBase >
         );
-    }
+    };
 
     // Toggles the ability to fly in the scene
     flyToggle = () => {
@@ -260,7 +264,7 @@ class ConfigModal extends Component {
                 Flying
             </ButtonBase >
         );
-    }
+    };
 
     // Toggles the grid on and off
     gridToggle = () => {
@@ -281,7 +285,7 @@ class ConfigModal extends Component {
                 Show Grid
             </ButtonBase >
         );
-    }
+    };
 
     // Toggles the floor on and off
     floorToggle = () => {
@@ -302,7 +306,7 @@ class ConfigModal extends Component {
                 Show Floor
             </ButtonBase >
         );
-    }
+    };
 
     addClassroomToggle = () => {
         return (
@@ -314,11 +318,11 @@ class ConfigModal extends Component {
                 Add to Class
             </ButtonBase >
         );
-    }
+    };
 
     handleAddClassToggle = () => {
         this.setState({ addClassOpen: !this.state.addClassOpen });
-    }
+    };
 
     classInfoToggle = () => {
         return (
@@ -329,7 +333,7 @@ class ConfigModal extends Component {
                 About
             </ButtonBase >
         );
-    }
+    };
 
     addClass = () => (
         <div>
@@ -366,7 +370,7 @@ class ConfigModal extends Component {
                 Reset Position
             </ButtonBase >
         );
-    }
+    };
 
     changeSkyColor = () => {
         return (
@@ -380,7 +384,7 @@ class ConfigModal extends Component {
                 Edit Sky Color
             </ButtonBase>
         );
-    }
+    };
 
     changeFloorColor = () => {
         return (
@@ -394,9 +398,12 @@ class ConfigModal extends Component {
                 Edit Floor Color
             </ButtonBase>
         );
-    }
+    };
 
-    // Render all of the elements
+    handleChange = (event, value) => {
+        this.setState({ value });
+    };
+
     render() {
         const { classes } = this.props;
         let isDisabled = this.props.layoutType === layoutTypes.REFERENCE;
@@ -427,99 +434,111 @@ class ConfigModal extends Component {
                                     onClick={() => this.handleClose()} >
                                     <Icon className="material-icons">clear</Icon>
                                 </ButtonBase >
-                                <div className="row d-flex">
-                                    <div className="col-12 border-bottom">View Control</div>
-                                    <div className="col-6">
-                                        <this.viewToggle />
-                                        <this.floorToggle />
-                                        <this.gridToggle />
-                                    </div>
-                                    <div className="col-6">
-                                        <this.changeSkyColor />
-                                        <this.changeFloorColor />
-                                    </div>
-                                    <div className="col-12 border-bottom pt-4">Camera Control</div>
-                                    <div className="col-6">
-                                        <this.flyToggle />
-                                    </div>
-                                    <div className="col-6">
-                                        <this.resetPosition />
-                                    </div>
-                                    <div className="col-12 border-bottom pt-4">Privacy Control</div>
-                                    <div className="col-6">
-                                        <ButtonBase
-                                            style={btnStyle.base}
-                                            onClick={() => { this.handleQrToggle(); }} >
-                                            <Icon className="material-icons">gradient</Icon>
-                                            QR Code
-                                        </ButtonBase>
-                                    </div>
-                                    <div className="col-6">
-                                        <ButtonBase
-                                            style={btnStyle.base}
-                                            onClick={() => { this.handleShrToggle(); }} >
-                                            <Icon className="material-icons">send</Icon>
-                                            Send To
-                                        </ButtonBase>
-                                        {/* <ButtonBase
-                    style={btnStyle.base}
-                    onClick={() => { this.handlePwToggle(); }} >
-                    <Icon className="material-icons">lock</Icon>
-                    Add PW
-                    </ButtonBase> */}
-                                    </div>
-                                    <div className="col-12 border-bottom pt-4">Classroom Control</div>
-                                    <div className="col-6">
-                                        <this.addClassroomToggle />
-                                    </div>
-                                    <div className="col-6">
-                                        <this.classInfoToggle />
-                                    </div>
-                                    <div className="col-12 border-bottom mt-3"></div>
-                                    <div className="offset-4 col-4">
-                                        <ButtonBase
-                                            style={btnStyle.save}
-                                            onClick={() => this.handleClose()} >
-                                            Close
-                                        </ButtonBase >
-                                    </div>
-                                    {/* This is for the dual button config
-                <div className="col-6">
-                  <ButtonBase
-                    style={btnStyle.cancel}
-                    onClick={() => this.handleClose()} >
-                    Cancel
-                  </ButtonBase >
-                </div> */}
-                                    {this.state.displaySkyColorPicker
-                                        ?
-                                        <div id="color-popover">
-                                            <ButtonBase
-                                                onClick={this.handleSkyColorClose}
-                                                style={{ position: "absolute", right: -25, top: -17, zIndex: 100 }}>
-                                                <Icon className="material-icons">clear</Icon>
-                                            </ButtonBase >
-                                            <div id="color-cover" onClick={this.handleSkyColorClose} />
-                                            <ChromePicker disableAlpha={true} color={this.state.skyColor} onChangeComplete={this.handleSkyChangeComplete} />
+                                <Tabs
+                                    fullWidth={false}
+                                    value={this.state.value}
+                                    onChange={this.handleChange}>
+                                    <Tab
+                                        label="Scene"
+                                        value="a" />
+                                    <Tab
+                                        label="Sharing"
+                                        value="b" />
+                                </Tabs>
+                                {this.state.value === "a" &&
+                                    <div style={{ marginTop: 0 }}>
+                                        <div className="row d-flex">
+                                            <div className="col-12 border-bottom pt-4">View Control</div>
+                                            <div className="col-6">
+                                                <this.viewToggle />
+                                                <this.floorToggle />
+                                                <this.gridToggle />
+                                            </div>
+                                            <div className="col-6">
+                                                <this.changeSkyColor />
+                                                <this.changeFloorColor />
+                                            </div>
+                                            <div className="col-12 border-bottom pt-4">Camera Control</div>
+                                            <div className="col-6">
+                                                <this.flyToggle />
+                                            </div>
+                                            <div className="col-6">
+                                                <this.resetPosition />
+                                            </div>
+                                            {this.state.displaySkyColorPicker
+                                                ?
+                                                <div id="color-popover">
+                                                    <ButtonBase
+                                                        onClick={this.handleSkyColorClose}
+                                                        style={{ position: "absolute", right: -25, top: -17, zIndex: 100 }}>
+                                                        <Icon className="material-icons">clear</Icon>
+                                                    </ButtonBase >
+                                                    <div id="color-cover" onClick={this.handleSkyColorClose} />
+                                                    <ChromePicker disableAlpha={true} color={this.state.skyColor} onChangeComplete={this.handleSkyChangeComplete} />
+                                                </div>
+                                                :
+                                                null
+                                            }
+                                            {this.state.displayFloorColorPicker
+                                                ?
+                                                <div id="color-popover">
+                                                    <ButtonBase
+                                                        onClick={this.handleFloorColorClose}
+                                                        style={{ position: "absolute", right: -25, top: -17, zIndex: 100 }}>
+                                                        <Icon className="material-icons">clear</Icon>
+                                                    </ButtonBase >
+                                                    <div id="color-cover" onClick={this.handleFloorColorClose} />
+                                                    <ChromePicker disableAlpha={true} color={this.state.floorColor} onChangeComplete={this.handleFloorChangeComplete} />
+                                                </div>
+                                                :
+                                                null
+                                            }
                                         </div>
-                                        :
-                                        null
-                                    }
-                                    {this.state.displayFloorColorPicker
-                                        ?
-                                        <div id="color-popover">
-                                            <ButtonBase
-                                                onClick={this.handleFloorColorClose}
-                                                style={{ position: "absolute", right: -25, top: -17, zIndex: 100 }}>
-                                                <Icon className="material-icons">clear</Icon>
-                                            </ButtonBase >
-                                            <div id="color-cover" onClick={this.handleFloorColorClose} />
-                                            <ChromePicker disableAlpha={true} color={this.state.floorColor} onChangeComplete={this.handleFloorChangeComplete} />
+                                    </div>}
+                                {this.state.value === "b" &&
+                                    <div style={{ marginTop: 0 }}>
+                                        <div className="row d-flex">
+                                            <div className="col-12 border-bottom pt-4">Privacy Control</div>
+                                            <div className="col-6">
+                                                <ButtonBase
+                                                    style={btnStyle.base}
+                                                    onClick={() => { this.handleQrToggle(); }} >
+                                                    <Icon className="material-icons">gradient</Icon>
+                                                    QR Code
+                                                </ButtonBase>
+                                            </div>
+                                            <div className="col-6">
+                                                <ButtonBase
+                                                    style={btnStyle.base}
+                                                    onClick={() => { this.handleShrToggle(); }} >
+                                                    <Icon className="material-icons">send</Icon>
+                                                    Send To
+                                                </ButtonBase>
+                                                {/* <ButtonBase
+                                                    style={btnStyle.base}
+                                                    onClick={() => { this.handlePwToggle(); }} >
+                                                    <Icon className="material-icons">lock</Icon>
+                                                    Add PW
+                                                </ButtonBase> */}
+                                            </div>
+                                            <div className="col-12 border-bottom pt-4">Classroom Control</div>
+                                            <div className="col-6">
+                                                <this.addClassroomToggle />
+                                            </div>
+                                            <div className="col-6">
+                                                <this.classInfoToggle />
+                                            </div>
                                         </div>
-                                        :
-                                        null
-                                    }
-                                </div>
+                                    </div>}
+
+                                {/* This is for the dual button config
+                                            <div className="col-6">
+                                                <ButtonBase
+                                                    style={btnStyle.cancel}
+                                                    onClick={() => this.handleClose()} >
+                                                    Cancel
+                                                </ButtonBase >
+                                        </div> */}
                             </div>
                         </Modal >
                         <Modal
