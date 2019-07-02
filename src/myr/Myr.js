@@ -584,23 +584,27 @@ class Myr {
     * This throws a warning since text is not part of the entity system.
     * Instead we pass it and then pull it off again if we see it.
     */
-    text = (text, params) => {
-        let base = {
-            text: true,
-            value: text || "Default",
-            id: "txt" + this.genNewId(),
-            side: "double",
-            color: this.color,
-            position: this.position,
-            scale: this.scale,
-            rotation: this.rotation,
-        };
-        if (!params || typeof params === "string") {
-            this.els[base.id] = { ...base };
+    text = (text = "Default", params) => {
+        if (typeof text === "string") {
+            let base = {
+                text: true,
+                value: text,
+                id: "txt" + this.genNewId(),
+                side: "double",
+                color: this.color,
+                position: this.position,
+                scale: this.scale,
+                rotation: this.rotation,
+            };
+            if (!params || typeof params === "string") {
+                this.els[base.id] = { ...base };
+            } else {
+                this.els[base.id] = { ...base, ...params };
+            }
+            return base.id;
         } else {
-            this.els[base.id] = { ...base, ...params };
+            console.error("must pass string for text()");
         }
-        return base.id;
     }
 
     torus = (params) => {
