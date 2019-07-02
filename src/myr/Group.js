@@ -7,10 +7,17 @@ class Group {
     }
 
     add = (id) => {
+        if (id instanceof Group) {
+            this.els.push(this.myr.transfer(id.id));
+        }
         this.els.push(this.myr.transfer(id));
+
     }
 
     remove = (id) => {
+        if (id instanceof Group) {
+            id = id.id;
+        }
         let index = this.getIndex(id);
         let el = this.els[index];
         delete this.els[index];

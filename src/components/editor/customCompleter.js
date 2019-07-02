@@ -3,14 +3,16 @@ import myrReference from "../../myr/reference.js";
 function convertReferenceList() {
     let reference = myrReference();
     return [...reference.geometry.map(obj => { return { name: obj.example + "()", desc: obj.description }; }),
-        ...reference.transformations.map(obj => { return { name: obj.example + "()", desc: obj.description }; }),
-        ...reference.animations.map(obj => { return { name: obj.example + "()", desc: obj.description }; }),
-        { name: "group()", desc: reference.groups[0].description }
+    ...reference.transformations.map(obj => { return { name: obj.example + "()", desc: obj.description }; }),
+    ...reference.animations.map(obj => { return { name: obj.example + "()", desc: obj.description }; }),
+    { name: "group()", desc: reference.groups[0].description }
     ];
 }
 
 export const customCompleter = {
+
     referenceList: convertReferenceList(),
+
     getCompletions: function (editor, session, pos, prefix, callback) {
         let BasicAutocompleteKeyWords = [
             "const",
