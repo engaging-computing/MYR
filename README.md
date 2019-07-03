@@ -9,8 +9,13 @@ The Engaging Computing Group develops new technologies to enable learners—yout
 ## Status
 [![CircleCI](https://circleci.com/gh/engaging-computing/MYR.svg?style=shield)](https://circleci.com/gh/engaging-computing/MYR)
 
+<<<<<<< HEAD
 ## Change Log - 1.4.0 -> 1.4.1
 - Editor won't overlay VR mode on iPhones
+=======
+## Change Log - 1.3.0 -> 1.?.?
+- Update viewer camera to not give errors in console
+>>>>>>> 84ec8e855e426a736075f17175d1b6d346e9d4ff
 
 ## Acknowledgments
 MYR uses [Aframe](https://aframe.io), a fantastic open source project, to render objects and effects in the three dimensional space.  
