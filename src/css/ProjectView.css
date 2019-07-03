@@ -7,5 +7,5 @@ p#info-description {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
-    overflow: scroll;
+    overflow: auto !important;
 }
