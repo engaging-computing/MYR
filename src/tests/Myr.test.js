@@ -166,11 +166,15 @@ describe("Component Renders", () => {
         expect(text.text).toBeTruthy();
 
 
-        //should reject the value and give undefined
+        //should reject the value and give default value
         myr.els = [];
+        myr.setPosition(0, 0, 0);
         id = myr.text(1);
         text = myr.els[id];
-        expect(text).toBeUndefined();
+        expect(text).toBeDefined();
+        expect(text.position).toEqual({ x: 0, y: 0, z: 0 });
+        expect(text.value).toEqual("Default");
+        expect(text.text).toBeTruthy();
     });
 
     it("Tube", () => {
