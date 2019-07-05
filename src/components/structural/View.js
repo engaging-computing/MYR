@@ -35,6 +35,14 @@ class View extends Component {
                 e.preventDefault();
             }
         }, false);
+
+        window.addEventListener("enter-vr", () => {
+            document.getElementById("interface").style.visibility = "hidden";
+        });
+
+        window.addEventListener("exit-vr", () => {
+            document.getElementById("interface").style.visibility = "visible";
+        });
     }
     // This fires off an event when the system is fully rendered.
     componentDidUpdate() {
