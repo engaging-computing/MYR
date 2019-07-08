@@ -286,17 +286,17 @@ class Header extends Component {
     * @summary - This function produces the form for inputting the scene's name and description
     */
     sceneName = () => {
-        let nameText = this.props.scene.name;
-        let descText = this.props.scene.desc;
+        let sceneName = this.props.scene.name;
+        let sceneDesc = this.props.scene.desc;
         return (
             <FormControl className="mt-2" aria-describedby="name-helper-text">
                 <TextField id="name-helper"
-                    value={nameText ? nameText : ""}
+                    value={sceneName ? sceneName : ""}
                     label="Scene Name"
                     onBlur={this.handleNameChange}
                     onChange={this.handleNameChange} />
                 <TextField
-                    value={descText ? descText : ""}
+                    value={sceneDesc ? sceneDesc : ""}
                     onChange={this.handleDescChange}
                     onBlur={this.handleDescChange}
                     label="Description"
