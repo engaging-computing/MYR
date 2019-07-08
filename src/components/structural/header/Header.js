@@ -375,7 +375,7 @@ class Header extends Component {
                 // Put the new document into the scenes collection
                 scenes.doc(projectId).set({
                     name: this.props.scene.name,
-                    desc: this.state.scene.desc,
+                    desc: this.props.scene.desc,
                     code: text,
                     uid: this.props.user.uid,
                     settings: this.props.scene.settings,
