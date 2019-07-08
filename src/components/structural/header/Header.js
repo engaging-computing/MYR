@@ -286,30 +286,17 @@ class Header extends Component {
     * @summary - This function produces the form for inputting the scene's name and description
     */
     sceneName = () => {
-<<<<<<< HEAD
         let sceneName = this.props.scene.name;
         let sceneDesc = this.props.scene.desc;
         return (
             <FormControl className="mt-2" aria-describedby="name-helper-text">
                 <TextField id="name-helper"
                     value={sceneName ? sceneName : ""}
-=======
-        let nameText = this.props.scene.name;
-        let descText = this.props.scene.desc;
-        return (
-            <FormControl className="mt-2" aria-describedby="name-helper-text">
-                <TextField id="name-helper"
-                    value={nameText ? nameText : ""}
->>>>>>> refactored components that used componentWillRecieveProps() lifecycle handler
                     label="Scene Name"
                     onBlur={this.handleNameChange}
                     onChange={this.handleNameChange} />
                 <TextField
-<<<<<<< HEAD
                     value={sceneDesc ? sceneDesc : ""}
-=======
-                    value={descText ? descText : ""}
->>>>>>> refactored components that used componentWillRecieveProps() lifecycle handler
                     onChange={this.handleDescChange}
                     onBlur={this.handleDescChange}
                     label="Description"
@@ -388,11 +375,7 @@ class Header extends Component {
                 // Put the new document into the scenes collection
                 scenes.doc(projectId).set({
                     name: this.props.scene.name,
-<<<<<<< HEAD
                     desc: this.props.scene.desc,
-=======
-                    desc: this.state.scene.desc,
->>>>>>> refactored components that used componentWillRecieveProps() lifecycle handler
                     code: text,
                     uid: this.props.user.uid,
                     settings: this.props.scene.settings,
