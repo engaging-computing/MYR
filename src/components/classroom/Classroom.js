@@ -77,12 +77,6 @@ class ClassroomModal extends Component {
         };
     }
 
-    UNSAFE_componentWillReceiveProps(nextProps) {
-        if (nextProps.open !== this.state.open) {
-            this.setState({ open: nextProps.open });
-        }
-    }
-
     handleChange = (selectedClassroom) => {
         window.location.href = window.origin + "/class/" + selectedClassroom.value;
     }
