@@ -585,9 +585,12 @@ class Myr {
     * Instead we pass it and then pull it off again if we see it.
     */
     text = (text, params) => {
+        if (typeof text !== "string") {
+            text = "Default";
+        }
         let base = {
             text: true,
-            value: text || "Default",
+            value: text,
             id: "txt" + this.genNewId(),
             side: "double",
             color: this.color,
