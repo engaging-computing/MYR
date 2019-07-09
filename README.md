@@ -10,6 +10,7 @@ The Engaging Computing Group develops new technologies to enable learners—yout
 [![CircleCI](https://circleci.com/gh/engaging-computing/MYR.svg?style=shield)](https://circleci.com/gh/engaging-computing/MYR)
 
 ## Change Log - 1.4.1 -> 1.4.2
+- Reference reformatting including information about arguments on hover.
 - `text()` will only take a string argument.
 
 ## Acknowledgments
