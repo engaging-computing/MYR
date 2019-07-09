@@ -10,9 +10,8 @@ The Engaging Computing Group develops new technologies to enable learners—yout
 [![CircleCI](https://circleci.com/gh/engaging-computing/MYR.svg?style=shield)](https://circleci.com/gh/engaging-computing/MYR)
 
 ## Change Log - 1.4.1 -> 1.5.0
+- Reference reformatting including information about arguments on hover.
 - `text()` will only take a string argument.
-- Refactored reference
-- Reference now has info tooltips
 
 ## Acknowledgments
 MYR uses [Aframe](https://aframe.io), a fantastic open source project, to render objects and effects in the three dimensional space.  
