@@ -323,14 +323,20 @@ class Myr {
         this.color = color;
     }
 
-    getRandomColor = () => {
-        let color, i, letters;
-        letters = "0123456789ABCDEF";
-        color = "#";
-        i = 0;
-        while (i < 6) {
-            color += letters[Math.floor(Math.random() * 16)];
-            i++;
+    getRandomColor = (colors = null) => {
+        let color;
+        if (Array.isArray(colors) && colors.length !== 0) {
+            color = colors[Math.floor(Math.random() * colors.length)];
+        }
+        else {
+            let i, letters;
+            letters = "0123456789ABCDEF";
+            color = "#";
+            i = 0;
+            while (i < 6) {
+                color += letters[Math.floor(Math.random() * 16)];
+                i++;
+            }
         }
         this.color = color;
         return color;
@@ -579,9 +585,12 @@ class Myr {
     * Instead we pass it and then pull it off again if we see it.
     */
     text = (text, params) => {
+        if (typeof text !== "string") {
+            text = "Default";
+        }
         let base = {
             text: true,
-            value: text || "Default",
+            value: text,
             id: "txt" + this.genNewId(),
             side: "double",
             color: this.color,

@@ -40,6 +40,13 @@ describe("Updates to Myr's Model", () => {
         expect(color).not.toBeUndefined();
         expect(colorRegEx.test(color)).toBeTruthy();
     });
+
+    it("pick Random Color out of a list of colors", () => {
+        let colors = ["blue", "green", "red", "hotpink", "FF00FF", "rgb(100,33,93)"];
+        let color = myr.getRandomColor(colors);
+        expect(color).not.toBeUndefined();
+        expect(colors.includes(color)).toBeTruthy();
+    });
 });
 
 describe("Component Renders", () => {
@@ -146,6 +153,27 @@ describe("Component Renders", () => {
         expect(text).toBeDefined();
         expect(text.position).toEqual({ x: 0, y: 0, z: 0 });
         expect(text.value).toEqual("Hello World!");
+        expect(text.text).toBeTruthy();
+
+        //passing no argument should give default value
+        myr.els = [];
+        myr.setPosition(0, 0, 0);
+        id = myr.text();
+        text = myr.els[id];
+        expect(text).toBeDefined();
+        expect(text.position).toEqual({ x: 0, y: 0, z: 0 });
+        expect(text.value).toEqual("Default");
+        expect(text.text).toBeTruthy();
+
+
+        //should reject the value and give default value
+        myr.els = [];
+        myr.setPosition(0, 0, 0);
+        id = myr.text(1);
+        text = myr.els[id];
+        expect(text).toBeDefined();
+        expect(text.position).toEqual({ x: 0, y: 0, z: 0 });
+        expect(text.value).toEqual("Default");
         expect(text.text).toBeTruthy();
     });
 
