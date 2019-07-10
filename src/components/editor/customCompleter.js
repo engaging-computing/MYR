@@ -2,9 +2,9 @@ import myrReference from "../../myr/reference.js";
 
 function convertReferenceList() {
     let reference = myrReference();
-    return [...reference.geometry.map(obj => { return { name: obj.example + "()", desc: obj.description }; }),
-        ...reference.transformations.map(obj => { return { name: obj.example + "()", desc: obj.description }; }),
-        ...reference.animations.map(obj => { return { name: obj.example + "()", desc: obj.description }; }),
+    return [...reference.geometry.map(obj => { return { name: obj.name + "()", desc: obj.description }; }),
+        ...reference.transformations.map(obj => { return { name: obj.name + "()", desc: obj.description }; }),
+        ...reference.animations.map(obj => { return { name: obj.name + "()", desc: obj.description }; }),
         { name: "group()", desc: reference.groups[0].description }
     ];
 }
@@ -47,7 +47,7 @@ export const customCompleter = {
         ];
 
 
-        let keyWords = this.referenceList.map(obj => { return obj.name; });
+        let keyWords = this.referenceList.map(obj => obj.name);
 
 
         let Colors = [
@@ -232,10 +232,8 @@ export const customCompleter = {
     getDocTooltip: function (item) {
 
         if (item.meta === "MYR" && !item.docHTML) {
-            let desc = "";//this.referenceList.filter(val => val === item.caption).map(val => val.desc);
-            item.docHTML = [
-                "<b>", item.caption, "</b>", "<hr></hr>", desc
-            ].join("");
+            let desc = this.referenceList.filter(val => val.name === item.caption)[0].desc;
+            item.docHTML = ["<b>", item.caption, "</b>", "<hr></hr>", desc].join("");
         }
     }
 };
