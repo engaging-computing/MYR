@@ -1,5 +1,4 @@
 {
-<<<<<<< HEAD
     "name": "myr",
     "version": "1.5.6",
     "private": false,
@@ -62,23 +61,24 @@
         "not ie <= 11",
         "not op_mini all"
     ]
+<<<<<<< HEAD
 }
 =======
   "name": "myr",
-  "version": "1.5.3",
-  "private": false,
-  "engines": {
+"version": "1.5.3",
+"private": false,
+"engines": {
     "node": "10.13.0"
-  },
-  "devDependencies": {
+},
+"devDependencies": {
     "babel-eslint": "^9.0.0",
     "enzyme": "^3.3.0",
     "enzyme-adapter-react-16": "^1.1.1",
     "eslint-plugin-react": "^7.13.0",
     "react-scripts": "2.1.1",
     "redux-devtools": "^3.4.1"
-  },
-  "dependencies": {
+},
+"dependencies": {
     "@material-ui/core": "^1.5.1",
     "aframe": "^0.8.2",
     "aframe-animation-component": "^5.0.0",
@@ -108,8 +108,8 @@
     "source-map-explorer": "^1.6.0",
     "styled-components": "^4.0.3",
     "three": "^0.98.0"
-  },
-  "scripts": {
+},
+"scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "lint": "./node_modules/.bin/eslint \"src/**/*.js\"",
@@ -118,13 +118,16 @@
     "test": "react-scripts test --env=jsdom --browser --silent",
     "eject": "react-scripts eject",
     "analyze": "source-map-explorer build/static/js/main.*"
-  },
-  "proxy": "http://localhost:1337/",
-  "browserslist": [
+},
+"proxy": "http://localhost:1337/",
+"browserslist": [
     ">0.2%",
     "not dead",
     "not ie <= 11",
     "not op_mini all"
-  ]
+]
 }
 >>>>>>> Fixed makeUnPushable/unDroppable bug, fixed animation bugs on render, and added a loading screen/overlay while waiting for view to mount
+=======
+}
+>>>>>>> fix indentation
