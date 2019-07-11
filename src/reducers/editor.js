@@ -31,7 +31,7 @@ m.init();
 // ESLint doesn't like this but it is better than eval
 function noEvalEvaluation(text) {
     // eslint-disable-next-line
-  return Function(`'use strict'; ${text}`)();
+    return Function(`'use strict'; ${text}`)();
 }
 
 export default function editor(state = initial_state, action) {
