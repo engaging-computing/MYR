@@ -356,6 +356,7 @@ class Myr {
                 i++;
             }
         }
+        this.color = color;
         return color;
     }
 
