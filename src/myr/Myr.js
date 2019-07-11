@@ -127,6 +127,7 @@ class Myr {
         } else {
             console.error("setPosition() must be all numeric values");
         }
+        return { x: this.position.x, y: this.position.y, z: this.position.z };
     };
 
     setXPos = (x = 0) => {
@@ -135,6 +136,7 @@ class Myr {
         } else {
             console.error("must pass a numeric for setXPos");
         }
+        return this.position.x;
     };
 
     setYPos = (y = 0) => {
@@ -143,6 +145,7 @@ class Myr {
         } else {
             console.error("must pass a numeric for setYPos");
         }
+        return this.position.y;
     };
 
     setZPos = (z = 0) => {
@@ -151,6 +154,7 @@ class Myr {
         } else {
             console.error("must pass a numeric for setZPos");
         }
+        return this.position.z;
     };
 
     increasePosition = (x = 0, y = 0, z = 0) => {
@@ -217,6 +221,7 @@ class Myr {
         } else {
             console.error("setScale() must be all numeric values");
         }
+        return { x: this.scale.x, y: this.scale.y, z: this.scale.z };
     };
 
     setXScale = (x) => {
@@ -225,6 +230,7 @@ class Myr {
         } else {
             console.error("must pass a numeric for setXScale");
         }
+        return this.scale.x;
     };
 
     setYScale = (y) => {
@@ -233,6 +239,7 @@ class Myr {
         } else {
             console.error("must pass a numeric for setYScale");
         }
+        return this.scale.y;
     };
 
     setZScale = (z) => {
@@ -241,6 +248,7 @@ class Myr {
         } else {
             console.error("must pass a numeric for setZScale");
         }
+        return this.scale.z;
     };
 
     setRotation = (x, y = 0, z = 0) => {
@@ -253,6 +261,7 @@ class Myr {
         } else {
             console.error("setRotation() must be all numeric values");
         }
+        return { x: this.rotation.x, y: this.rotation.y, z: this.rotation.z };
     }
 
     pitchX = (x) => {
@@ -261,6 +270,7 @@ class Myr {
         } else {
             console.error("must pass a numeric for pitchX");
         }
+        return this.rotation.x;
     };
 
     yawY = (y) => {
@@ -269,6 +279,7 @@ class Myr {
         } else {
             console.error("must pass a numeric for yawY");
         }
+        return this.rotation.y;
     };
 
     rollZ = (z) => {
@@ -277,6 +288,7 @@ class Myr {
         } else {
             console.error("must pass a numeric for rollZ");
         }
+        return this.rotation.z;
     };
 
     setRadius = (i) => {
@@ -285,6 +297,7 @@ class Myr {
         } else {
             console.error("must pass a numeric for setRadius");
         }
+        return this.radius;
     };
 
     setPhiLength = (i) => {
@@ -293,10 +306,12 @@ class Myr {
         } else {
             console.error("must pass a numeric for setPhiLength");
         }
+        return this.phiLength;
     };
 
     setLoop = (i) => {
         this.loop = Boolean(i);
+        return this.loop;
     };
 
     setMagnitude = (i) => {
@@ -309,6 +324,7 @@ class Myr {
         } else {
             console.error("must pass a numeric for setMagnitude");
         }
+        return this.magnitude.general;
     };
 
     setDuration = (i) => {
@@ -317,10 +333,12 @@ class Myr {
         } else {
             console.error("must pass a numeric for setDuration");
         }
+        return this.duration;
     };
 
     setColor = (color) => {
         this.color = color;
+        return this.color;
     }
 
     getRandomColor = (colors = null) => {
