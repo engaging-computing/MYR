@@ -704,12 +704,12 @@ class Myr {
         duration = duration !== null ? duration : this.duration;
         let el = this.getEl(outerElId);
         let anim = `
-            property: rotation;
-            dir: alternate;
-            to: ${el.rotation.x} ${el.rotation.y + magnitude} ${el.rotation.z};
-            dur: ${duration};
-            loop: ${Boolean(loop)};
-          `;
+      property: rotation;
+      dir: alternate;
+      to: ${el.rotation.x} ${el.rotation.y + magnitude} ${el.rotation.z};
+      dur: ${duration};
+      loop: ${Boolean(loop)};
+    `;
         el.animation = anim;
         return outerElId;
     };
