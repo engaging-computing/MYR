@@ -421,8 +421,8 @@ class Myr {
             }
             el.addEventListener("body-loaded", () => {
                 el.body.applyImpulse(
-                  /* impulse */        new CANNON.Vec3(x, y, z),
-                  /* world position */ new CANNON.Vec3().copy(el.object3D.position)
+                    /* impulse */        new CANNON.Vec3(x, y, z),
+                    /* world position */ new CANNON.Vec3().copy(el.object3D.position)
                 );
             });
         });
