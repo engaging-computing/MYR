@@ -1,18 +1,7 @@
-import myrReference from "../../myr/reference.js";
-
-function convertReferenceList() {
-    let reference = myrReference();
-    return [...reference.geometry.map(obj => { return { name: obj.name + "()", desc: obj.description }; }),
-        ...reference.transformations.map(obj => { return { name: obj.name + "()", desc: obj.description }; }),
-        ...reference.animations.map(obj => { return { name: obj.name + "()", desc: obj.description }; }),
-        { name: "group()", desc: reference.groups[0].description }
-    ];
-}
+import myrReference from "../../myr/reference.js"; 
 
 export const customCompleter = {
-
-    referenceList: convertReferenceList(),
-
+    
     getCompletions: function (editor, session, pos, prefix, callback) {
         let BasicAutocompleteKeyWords = [
             "const",
@@ -46,8 +35,12 @@ export const customCompleter = {
             "static"
         ];
 
-
-        let keyWords = this.referenceList.map(obj => obj.name);
+        let reference = myrReference();
+        let keyWords = [...reference.geometry.map(obj => obj.name + "()"),
+            ...reference.transformations.map(obj => obj.name + "()"),
+            ...reference.animations.map(obj => obj.name + "()"),
+            "group()"
+        ];
 
 
         let Colors = [
@@ -228,14 +221,7 @@ export const customCompleter = {
             };
         }));
     },
-
-    getDocTooltip: function (item) {
-
-        if (item.meta === "MYR" && !item.docHTML) {
-            let desc = this.referenceList.filter(val => val.name === item.caption)[0].desc;
-            item.docHTML = ["<b>", item.caption, "</b>", "<hr></hr>", desc].join("");
-        }
-    }
-};
+        
+}; 
 
 export default customCompleter;
