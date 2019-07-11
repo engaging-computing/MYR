@@ -103,4 +103,8 @@ export default function editor(state = initial_state, action) {
         default:
             return state;
     }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> conflict
