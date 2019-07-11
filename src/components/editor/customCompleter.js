@@ -1,4 +1,18 @@
+import myrReference from "../../myr/reference.js";
+
+function convertReferenceList() {
+    let reference = myrReference();
+    return [...reference.geometry.map(obj => { return { name: obj.name + "()", desc: obj.description }; }),
+        ...reference.transformations.map(obj => { return { name: obj.name + "()", desc: obj.description }; }),
+        ...reference.animations.map(obj => { return { name: obj.name + "()", desc: obj.description }; }),
+        { name: "group()", desc: reference.groups[0].description }
+    ];
+}
+
 export const customCompleter = {
+
+    referenceList: convertReferenceList(),
+
     getCompletions: function (editor, session, pos, prefix, callback) {
         let BasicAutocompleteKeyWords = [
             "const",
@@ -32,82 +46,9 @@ export const customCompleter = {
             "static"
         ];
 
-        let keyWords = [
-            "box()",
-            "sphere()",
-            "circle()",
-            "cone()",
-            "cylinder()",
-            "dodecahedron()",
-            "icosahedron()",
-            "octahedron()",
-            "prism()",
-            "ring()",
-            "tetrahedron()",
-            "text()",
-            "torus()",
-            "torusknot()",
-            "triangle()",
-            "setColor()",
-            "setPosition()",
-            "setXPos()",
-            "setYPos()",
-            "setZPos()",
-            "increasePosition()",
-            "increaseXPos()",
-            "increaseYPos()",
-            "increaseZPos()",
-            "setScale()",
-            "setXScale()",
-            "setYScale()",
-            "setZScale()",
-            "setRotation()",
-            "pitchX()",
-            "yawY()",
-            "rollZ()",
-            "setRadius()",
-            "resetCursor()",
-            "spin()",
-            "yoyo()",
-            "sideToSide()",
-            "goUp()",
-            "goDown()",
-            "goRight()",
-            "goLeft()",
-            "goTowards()",
-            "goAway()",
-            "grow()",
-            "shrink()",
-            "fadeOut()",
-            "fadeIn()",
-            "group()",
-            "getRandomColor()",
-            "setPhiLength()",
-            "setLoop()",
-            "setDuration()",
-            "setMagnitude()",
-            "colorShift()",
-            "makeDroppable()",
-            "makeUnDroppable",
-            "makePushable()",
-            "makeUnPushable()",
-            "getColor()",
-            "getXPos()",
-            "getYPos()",
-            "getZPos()",
-            "getXScale()",
-            "getYScale()",
-            "getZScale()",
-            "getXRotation()",
-            "getYRotation()",
-            "getZRotation()",
-            "getRadius()",
-            "getPhiLength()",
-            "getLoop()",
-            "getDuration()",
-            "getMagnitude()",
 
-        ];
+        let keyWords = this.referenceList.map(obj => obj.name);
+
 
         let Colors = [
             "aliceblue",
@@ -286,6 +227,14 @@ export const customCompleter = {
                 score: 0
             };
         }));
+    },
+
+    getDocTooltip: function (item) {
+
+        if (item.meta === "MYR" && !item.docHTML) {
+            let desc = this.referenceList.filter(val => val.name === item.caption)[0].desc;
+            item.docHTML = ["<b>", item.caption, "</b>", "<hr></hr>", desc].join("");
+        }
     }
 };
 
