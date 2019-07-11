@@ -11,7 +11,6 @@ The Engaging Computing Group develops new technologies to enable learners—yout
 
 ## Change Log - 1.5.2 -> 1.5.3
 - Reference tooltips are no longer covered by the drawer
-- MaterialUI update
 
 ## Acknowledgments
 MYR uses [Aframe](https://aframe.io), a fantastic open source project, to render objects and effects in the three dimensional space.  
