@@ -1122,6 +1122,44 @@ class Myr {
         // console.log(this);
         // console.log("Halted");
     }
+
+    infiniteLoopDetector = (function () {
+        let map = {};
+
+        // define an InfiniteLoopError class
+        function InfiniteLoopError(msg) {
+            Error.call(this, msg);
+            this.type = "InfiniteLoopError";
+        }
+
+        function infiniteLoopDetector(id) {
+            if (id in map) {
+                if (Date.now() - map[id] > 200) {
+                    delete map[id];
+                    throw new Error("Loop runing too long!", InfiniteLoopError);
+                }
+            } else {
+                map[id] = Date.now();
+            }
+        }
+
+        infiniteLoopDetector.wrap = function (codeStr) {
+            if (typeof codeStr !== "string") {
+                throw new Error("Input type must be a string");
+            }
+            // this is not a strong regex, but enough to use at the time
+            return codeStr.replace(/for *\(.*\{|while *\(.*\{|do *\{/g, function (loopHead) {
+                let id = parseInt(Math.random() * Number.MAX_SAFE_INTEGER);
+                return `infiniteLoopDetector(${id});${loopHead}infiniteLoopDetector(${id});`;
+            });
+        };
+
+        infiniteLoopDetector.unwrap = function (codeStr) {
+            return codeStr.replace(/infiniteLoopDetector\([0-9]*?\);/g, "");
+        };
+
+        return infiniteLoopDetector;
+    }());
 }
 
 export default Myr;
