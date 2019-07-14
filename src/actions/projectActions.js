@@ -9,13 +9,17 @@ export function asyncUserProj(id) {
             scenes.where("uid", "==", id).get().then(snap => {
                 snap.forEach(doc => {
                     storageRef.child(`/images/perspective/${doc.id}`)
-                        .getDownloadURL().then((img) => {
+                        .getDownloadURL()
+                        .catch(() => {
+                            console.error("Error: Missing preview image");
+                        })
+                        .then((img) => {
                             let dat = doc.data();
                             userVals.push({
                                 name: dat.name,
                                 id: doc.id,
                                 data: dat,
-                                url: img
+                                url: img ? img : "/img/no_preview.jpg"
                             });
                         });
                 });
@@ -36,13 +40,17 @@ export const asyncExampleProj = () => {
         scenes.where("uid", "==", "1").get().then(snap => {
             snap.forEach(doc => {
                 storageRef.child(`/images/perspective/${doc.id}`)
-                    .getDownloadURL().then((img) => {
+                    .getDownloadURL()
+                    .catch(() => {
+                        console.error("Error: Missing preview image");
+                    })
+                    .then((img) => {
                         let dat = doc.data();
                         exampleVals.push({
                             name: dat.name,
                             id: doc.id,
                             data: dat,
-                            url: img
+                            url: img ? img : "/img/no_preview.jpg"
                         });
                     });
             });
