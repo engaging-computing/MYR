@@ -24,6 +24,12 @@ const initial_state = {
 
 
 export default function scene(state = initial_state, action) {
+    if (state.settings.name) {
+        delete state.settings.name;
+    }
+    if (state.settings.id) {
+        delete state.settings.id;
+    }
     switch (action.type) {
         case types.NAME_SCENE:
             return {
