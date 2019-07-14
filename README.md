@@ -11,6 +11,7 @@ The Engaging Computing Group develops new technologies to enable learners—yout
 
 ## Change Log - 1.5.3 -> 1.5.4
 - Updated deprecated code
+- Autocomplete updates from reference
 
 ## Acknowledgments
 MYR uses [Aframe](https://aframe.io), a fantastic open source project, to render objects and effects in the three dimensional space.  
