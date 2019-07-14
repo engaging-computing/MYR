@@ -62,7 +62,7 @@ export function syncClass(payload) {
 }
 
 export function deleteClass(id, name = null) {
-    if (window.confirm(`Are you sure you want to delete class "${name != null ? name : id}"?`)) {
+    if (window.confirm(`Are you sure you want to delete class "${name !== null ? name : id}"?`)) {
 
         // Delete Document
         classes.doc(id).delete()
