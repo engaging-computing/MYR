@@ -2,6 +2,7 @@ import React, { Component } from "react";
 
 import {
     ButtonBase,
+    Button,
     Card,
     CardContent,
     IconButton,
@@ -45,9 +46,14 @@ const modelStyles = theme => ({
 class CourseSelectModal extends Component {
     constructor(props) {
         super(props);
-        this.state = {
-            // open: false
-        };
+        this.difficulties = ["beginner", "intermediate", "advanced", "expert"];
+        this.categories = ["geometry", "transformations", "animations", "groups", "firstTimer", "teachers"];
+        for(let i in this.difficulties) {
+            this.state.difficultyFilter[i] = true;
+        }
+        for(let i in this.categories) {
+            this.state.categoryFilter[i] = true;
+        }
     }
 
     helper = (course) => {
@@ -80,7 +86,39 @@ class CourseSelectModal extends Component {
         }
     }
 
-    // Render all of the elements
+    filterHelper = (key, type) => {
+        if (key) {
+            //converts camelCase difficulty/category filters keys into Mixed Case button labels
+            let buttonText = key.replace(/([A-Z]){1}/g, " " + "$1");
+            buttonText = buttonText.charAt(0).toUppercase() + buttonText.slice(1);
+            let filter;
+            if (type === "difficulty") {
+                filter = this.state.difficultyFilter;
+            }
+            else if (type === "category") {
+                filter = this.state.categoryFilter;
+            }
+            return(
+                <Button
+                    variant={filter[key] ? "contained" : "outlined"}
+                    onClick={() => {
+                        let newState = !filter[key];
+                        if (type === "difficulty") {
+                            this.setState({ difficultyFilter : { ...this.tate.difficultyFilter, key : newState } });
+                        }
+                        else if (type === "categories") {
+                            this.setState({ categoryFilter : { ...this.state.categoryFilter, key : newState } });
+                        }
+                    }}>
+                    {buttonText}
+                </Button>
+            );
+        }
+        else {
+            return null;
+        }
+    }
+        
     render() {
         const { classes } = this.props;
         const courses = [].concat(this.props.courses);
@@ -115,6 +153,14 @@ class CourseSelectModal extends Component {
                             <Icon className="material-icons">clear</Icon>
                         </ButtonBase >
                         <h3 className="col-12 p-0 mb-3 border-bottom">Available Courses</h3>
+                        <div id="filters">
+                            <h4>Difficulty: </h4>
+                            <div className="row">
+                                {
+
+                                }
+                            </div>
+                        </div>
                         <div className="row" id="courses">
                             { // Sort the users projects in alphabetical order
                                 courses.sort(function (a, b) {

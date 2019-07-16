@@ -1,5 +1,6 @@
 import React from "react";
 import myrReference from "../../myr/reference";
+import * as refFunctions from "../../myr/reference";
 
 import {
     Tabs,
@@ -45,7 +46,27 @@ export default class Reference extends React.Component {
         } else {
             return null;
         }
-    }
+    };
+
+    nameHelper = (name, parameters) => {
+        return (
+            <span>{name}({(parameters.map((element, i, params) => {
+                let comma = i < params.length - 1 ? ", " : "";
+                switch (element.type) {
+                    case "number":
+                        return <span>{refFunctions.numberText(element.name)}{comma}</span>;
+                    case "string":
+                        return <span>{refFunctions.stringText(element.name)}{comma}</span>;
+                    case "bool":
+                        return <span>{refFunctions.boolText(element.name)}{comma}</span>;
+                    case "array":
+                        return <span>{refFunctions.arrayText(element.name)}{comma}</span>;
+                    default:
+                        return null;
+                }
+            }))});</span>
+        );
+    };
 
     TableEx = (category) => {
 
@@ -61,7 +82,7 @@ export default class Reference extends React.Component {
                 <TableBody  >
                     {this.tableData[category].map((row, index) => (
                         <TableRow key={index}>
-                            <TableCell >{row.name}</TableCell>
+                            <TableCell >{this.nameHelper(row.name, row.parameters)}</TableCell>
                             <TableCell >{row.description}</TableCell>
                             <TableCell >{this.exampleHelper(row.example)}</TableCell>
                         </TableRow>

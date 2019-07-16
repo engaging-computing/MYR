@@ -320,6 +320,14 @@ div#reference-drawer>div {
     margin-right: 10px;
 }
 
+/************************************
+********THIS IS THE VR BUTTON********
+************************************/
+.a-enter-vr {
+    position: "relative";
+    z-index: 1 !important;
+}
+
 .geometry {
     transform: scale(1.2);
 }
@@ -380,6 +388,7 @@ span.group{
 }
 
 span.array {
+    color: black;
     font-weight: bolder;
 }
 
