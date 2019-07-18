@@ -277,6 +277,8 @@ describe("Component Animations", () => {
       to: 0 360 0;
       dur: 1000;
       loop: true;
+      startEvents: ;
+      delay: 0;
     `);
         myr.animate(bId, 720, false, 2000);
         expect(el.animation).toEqual(`
@@ -285,6 +287,8 @@ describe("Component Animations", () => {
       to: 0 720 0;
       dur: 2000;
       loop: false;
+      startEvents: ;
+      delay: 0;
     `);
     });
 
@@ -300,6 +304,8 @@ describe("Component Animations", () => {
       loop: true;
       easing: linear;
       to: 0 360 0;
+      startEvents: ;
+      delay: 0;
     `);
         myr.spin(bId, 720, false, 2000);
         expect(el.animation__spin).toEqual(`
@@ -309,6 +315,8 @@ describe("Component Animations", () => {
       loop: false;
       easing: linear;
       to: 0 720 0;
+      startEvents: ;
+      delay: 0;
     `);
     });
 
@@ -444,6 +452,54 @@ describe("Component Animations", () => {
         expect(el).toHaveProperty("animation__shrink");
     });
 
+    it("it should add startEvent to the cursor", () => {
+        myr.reset();
+        myr.setAnimationTrigger("none");
+        expect(myr.startEvent).toEqual("");
+        myr.setAnimationTrigger("click");
+        expect(myr.startEvent).toEqual("click");
+        myr.setAnimationTrigger();
+        expect(myr.startEvent).toEqual("");
+        myr.setAnimationTrigger("mouseEnter");
+        expect(myr.startEvent).toEqual("mouseenter");
+        myr.setAnimationTrigger("mouseLeave");
+        expect(myr.startEvent).toEqual("mouseleave");
+
+        //check for stable model with bad values
+        myr.setAnimationTrigger("wrongArgument");
+        expect(myr.startEvent).toEqual("mouseleave");
+        myr.setAnimationTrigger(0);
+        expect(myr.startEvent).toEqual("mouseleave");
+        myr.setAnimationTrigger({});
+        expect(myr.startEvent).toEqual("mouseleave");
+    });
+
+    it("it should add delay to the cursor", () => {
+        myr.reset();
+        myr.setDelay(1000);
+        expect(myr.delay).toEqual(1000);
+        myr.setDelay("a");
+        expect(myr.delay).toEqual(1000);
+        myr.setDelay({});
+        expect(myr.delay).toEqual(1000);
+    });
+
+    it("should only reset the animation cursor property", () => {
+        const defaultCursor = {
+            loop: true,
+            duration: 1000,
+            magnitude: { spin: 360, fadeOut: 0, general: 1 },
+            startEvent: "",
+            delay: 0
+        };
+        myr.resetAnimationCursor();
+        expect(myr.loop).toEqual(defaultCursor.loop);
+        expect(myr.duration).toEqual(defaultCursor.duration);
+        expect(myr.magnitude).toEqual(defaultCursor.magnitude);
+        expect(myr.startEvent).toEqual(defaultCursor.startEvent);
+        expect(myr.delay).toEqual(defaultCursor.delay);
+    });
+
 
 });
 
@@ -535,6 +591,24 @@ describe("Other Myr functionality", () => {
         expect(myr.position).toEqual({ x: -1, y: -2, z: -3 });
         myr.setPosition([], -2, -3);
         expect(myr.position).toEqual({ x: -1, y: -2, z: -3 });
+    });
+
+    it("should only reset the transformation property of cursor", () => {
+        const defaultCursor = {
+            color: "red",
+            position: { x: 0, y: 0, z: 0 },
+            scale: { x: 1, y: 1, z: 1 },
+            rotation: { x: 0, y: 0, z: 0 },
+            radius: "1",
+            phiLength: 360,
+        };
+        myr.resetTransformationCursor();
+        expect(myr.color).toEqual(defaultCursor.color);
+        expect(myr.position).toEqual(defaultCursor.position);
+        expect(myr.scale).toEqual(defaultCursor.scale);
+        expect(myr.rotation).toEqual(defaultCursor.rotation);
+        expect(myr.radius).toEqual(defaultCursor.radius);
+        expect(myr.phiLength).toEqual(defaultCursor.phiLength);
     });
 
     it("should set the X-position in Myr", () => {
