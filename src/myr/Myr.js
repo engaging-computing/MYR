@@ -1035,10 +1035,10 @@ class Myr {
         if (typeof event === "string") {
             event = event.toLowerCase();
             if (this.events.includes(event)) {
-                if (event !== "none") {
-                    this.startEvent = event;
-                } else {
+                if (event === "none") {
                     this.startEvent = "";
+                } else {
+                    this.startEvent = event;
                 }
             } else {
                 console.error("must pass specific string event for setAnimationTrigger.");
