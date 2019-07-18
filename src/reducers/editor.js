@@ -31,12 +31,12 @@ m.init();
 // ESLint doesn't like this but it is better than eval
 function noEvalEvaluation(text) {
     // eslint-disable-next-line
-  let func = Function(`'use strict'; ${m.infiniteLoopDetector.wrap(text)}`);
+    let func = Function(`'use strict'; ${m.infiniteLoopDetector.wrap(text)}`);
     return func;
 }
-  
+
 export default function editor(state = initial_state, action) {
-  
+
     switch (action.type) {
         case types.EDITOR_RENDER:
             m.reset();

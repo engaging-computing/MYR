@@ -36,13 +36,13 @@ class Myr {
             fadeOut: 0,
             general: 1
         };
+        this.startEvent = "";
+        this.delay = 0;
         if (baseEls) {
             Object.keys(this.baseEls).forEach(it => {
                 this.els[it] = this.baseEls[it];
             });
         }
-        this.startEvent = "";
-        this.delay = 0;
     }
 
     /**
@@ -87,6 +87,8 @@ class Myr {
         this.loop = true;
         this.duration = 1000;
         this.magnitude = { spin: 360, fadeOut: 0, general: 1 };
+        this.startEvent = "";
+        this.delay = 0;
         // restore the base objects of the scene
         this.els = [];
         if (this.baseEls) {
@@ -94,8 +96,7 @@ class Myr {
                 this.els[it] = this.baseEls[it];
             });
         }
-        this.startEvent = "";
-        this.delay = 0;
+
     }
 
 

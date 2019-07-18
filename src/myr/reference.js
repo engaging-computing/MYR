@@ -230,8 +230,6 @@ let transformations = [
         name: "resetTransformationCursor",
         parameters: [],
         description: <span>The resetTransformationCursor function resets the transformation properties of the cursor to their defaults.</span>,
-        example: "resetTransformationCursor"
-
     },
     {
         name: "setColor",
@@ -397,19 +395,16 @@ let animations = [
         name: "setAnimationTrigger",
         parameters: [{ type: "string", name: "startEvent" }],
         description: <span>The setAnimationTrigger function sets the startEvent attribute of the cursor in string. Lists are click, mouseEnter, mouseLeave, and none. The default is none</span>,
-        example: "setAnimationTrigger"
     },
     {
         name: "setDelay",
         parameters: [{ type: "number", name: "time" }],
         description: <span>	The setDelay function sets the delay attribute of the cursor in milliseconds. The default value is 0.</span>,
-        example: "setDelay"
     },
     {
         name: "resetAnimationCursor",
         parameters: [],
         description: <span>The resetAnimationCursor function resets the properties of the cursor that contains animation properties to their defaults.</span>,
-        example: "resetAnimationCursor"
     },
     {
         name: "spin",

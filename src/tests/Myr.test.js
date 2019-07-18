@@ -492,12 +492,34 @@ describe("Component Animations", () => {
             startEvent: "",
             delay: 0
         };
+
+        myr.setLoop(false);
+        myr.setMagnitude(2000);
+        myr.setDuration(500);
+        myr.setAnimationTrigger("click");
+        myr.setDelay(1000);
+
+        myr.setColor("blue");
+        myr.setPosition(5, 5, 5);
+        myr.setScale(2, 2, 2);
+        myr.setRotation(90, 90, 90);
+        myr.setRadius(10);
+        myr.setPhiLength(180);
+
         myr.resetAnimationCursor();
+
         expect(myr.loop).toEqual(defaultCursor.loop);
         expect(myr.duration).toEqual(defaultCursor.duration);
         expect(myr.magnitude).toEqual(defaultCursor.magnitude);
         expect(myr.startEvent).toEqual(defaultCursor.startEvent);
         expect(myr.delay).toEqual(defaultCursor.delay);
+        //transoformation property should remain unchange
+        expect(myr.color).toEqual("blue");
+        expect(myr.position).toEqual({ x: 5, y: 5, z: 5 });
+        expect(myr.scale).toEqual({ x: 2, y: 2, z: 2 });
+        expect(myr.rotation).toEqual({ x: 90, y: 90, z: 90 });
+        expect(myr.radius).toEqual("10");
+        expect(myr.phiLength).toEqual("180");
     });
 
 
@@ -602,13 +624,33 @@ describe("Other Myr functionality", () => {
             radius: "1",
             phiLength: 360,
         };
+        myr.setColor("blue");
+        myr.setPosition(5, 5, 5);
+        myr.setScale(2, 2, 2);
+        myr.setRotation(90, 90, 90);
+        myr.setRadius(10);
+        myr.setPhiLength(180);
+
+        myr.setLoop(false);
+        myr.setMagnitude(2000);
+        myr.setDuration(500);
+        myr.setAnimationTrigger("click");
+        myr.setDelay(100);
+
         myr.resetTransformationCursor();
+
         expect(myr.color).toEqual(defaultCursor.color);
         expect(myr.position).toEqual(defaultCursor.position);
         expect(myr.scale).toEqual(defaultCursor.scale);
         expect(myr.rotation).toEqual(defaultCursor.rotation);
         expect(myr.radius).toEqual(defaultCursor.radius);
         expect(myr.phiLength).toEqual(defaultCursor.phiLength);
+        //animation property should remain unchanged
+        expect(myr.loop).toEqual(false);
+        expect(myr.magnitude).toEqual({ spin: 2000, fadeOut: 2000, general: 2000 });
+        expect(myr.duration).toEqual(500);
+        expect(myr.startEvent).toEqual("click");
+        expect(myr.delay).toEqual(100);
     });
 
     it("should set the X-position in Myr", () => {
