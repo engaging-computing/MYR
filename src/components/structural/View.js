@@ -57,6 +57,7 @@ class View extends Component {
             el.components["movement-controls"].velocity = new THREE.Vector3(0, 0, 0);
         }
     }
+
     componentWillUnmount() {
         if (this.intervalID !== 0) { clearInterval(this.intervalID); }
     }
