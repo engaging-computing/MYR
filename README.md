@@ -9,8 +9,7 @@ The Engaging Computing Group develops new technologies to enable learners—yout
 ## Status
 [![CircleCI](https://circleci.com/gh/engaging-computing/MYR.svg?style=shield)](https://circleci.com/gh/engaging-computing/MYR)
 
-## Change Log - 1.5.4 -> 1.6.0
-- Added infinite loop detector
+## Change Log - 1.5.4 -> 1.5.5
 - Scenes without a preview image now appear
 - Firebase scenes with old names and IDs in settings are removed.
 - ESLint now doesn't allow != and code is updated to reflect that.
