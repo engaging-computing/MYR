@@ -31,19 +31,10 @@ m.init();
 // ESLint doesn't like this but it is better than eval
 function noEvalEvaluation(text) {
     // eslint-disable-next-line
-<<<<<<< HEAD
-<<<<<<< HEAD
     // let func = Function(`'use strict'; ${m.infiniteLoopDetector.wrap(text)}`);
     // eslint-disable-next-line
     let func = Function(`'use strict'; ${text}`);
     return func;
-=======
-    return Function(`'use strict'; ${text}`)();
->>>>>>> fix indentation
-=======
-    let func = Function(`'use strict'; ${m.infiniteLoopDetector.wrap(text)}`);
-    return func;
->>>>>>> Infinite loop detector
 }
 
 export default function editor(state = initial_state, action) {
@@ -112,8 +103,4 @@ export default function editor(state = initial_state, action) {
         default:
             return state;
     }
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> conflict
