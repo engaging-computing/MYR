@@ -13,6 +13,7 @@ The Engaging Computing Group develops new technologies to enable learners—yout
 - Scenes without a preview image now appear
 - Firebase scenes with old names and IDs in settings are removed.
 - ESLint now doesn't allow != and code is updated to reflect that.
+- Infinite loop detector proof of concept
 
 ## Acknowledgments
 MYR uses [Aframe](https://aframe.io), a fantastic open source project, to render objects and effects in the three dimensional space.  
