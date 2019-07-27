@@ -8,31 +8,31 @@ describe("Updates to Myr's Model", () => {
 
     it("should set the color", () => {
         myr.setColor("red");
-        expect(myr.color).toEqual("red");
+        expect(myr.cursor.color).toEqual("red");
     });
 
     it("to SetPosition", () => {
         myr.setPosition(1, 2, 3);
-        expect(myr.position).toEqual({ x: 1, y: 2, z: 3 });
+        expect(myr.cursor.position).toEqual({ x: 1, y: 2, z: 3 });
     });
 
     it("to SetScale", () => {
         myr.setScale(1, 2, 3);
-        expect(myr.scale).toEqual({ x: 1, y: 2, z: 3 });
+        expect(myr.cursor.scale).toEqual({ x: 1, y: 2, z: 3 });
     });
 
     it("to SetRotation", () => {
         myr.setRotation(1, 2, 3);
-        expect(myr.rotation).toEqual({ x: 1, y: 2, z: 3 });
+        expect(myr.cursor.rotation).toEqual({ x: 1, y: 2, z: 3 });
     });
 
     it("to SetRadius", () => {
         myr.setRadius(10);
-        expect(myr.radius).toEqual("10");
+        expect(myr.cursor.radius).toEqual("10");
         myr.setRadius("a");
-        expect(myr.radius).toEqual("10");
+        expect(myr.cursor.radius).toEqual("10");
         myr.setRadius({});
-        expect(myr.radius).toEqual("10");
+        expect(myr.cursor.radius).toEqual("10");
     });
 
     it("to makes Random Color", () => {
@@ -502,320 +502,334 @@ describe("Other Myr functionality", () => {
     it("should reset cursor", () => {
         const defaultCursor = {
             color: "red",
-            position: { x: 0, y: 0, z: 0 },
-            scale: { x: 1, y: 1, z: 1 },
-            rotation: { x: 0, y: 0, z: 0 },
+            position: {
+                x: 0,
+                y: 0,
+                z: 0
+            },
+            scale: {
+                x: 1,
+                y: 1,
+                z: 1
+            },
+            rotation: {
+                x: 0,
+                y: 0,
+                z: 0
+            },
             radius: "1",
             phiLength: 360,
+            loop: true,
+            duration: 1000,
+            magnitude: {
+                spin: 360,
+                fadeOut: 0,
+                general: 1
+            }
         };
         myr.resetCursor();
-        expect(myr.color).toEqual(defaultCursor.color);
-        expect(myr.position).toEqual(defaultCursor.position);
-        expect(myr.scale).toEqual(defaultCursor.scale);
-        expect(myr.rotation).toEqual(defaultCursor.rotation);
-        expect(myr.radius).toEqual(defaultCursor.radius);
-        expect(myr.phiLength).toEqual(defaultCursor.phiLength);
+        expect(myr.cursor).toEqual(defaultCursor);
     });
 
     it("should set the position in Myr", () => {
         myr.reset();
         myr.setPosition(1);
-        expect(myr.position).toEqual({ x: 1, y: 1, z: 0 });
+        expect(myr.cursor.position).toEqual({ x: 1, y: 1, z: 0 });
         myr.setPosition(1, 2);
-        expect(myr.position).toEqual({ x: 1, y: 2, z: 0 });
+        expect(myr.cursor.position).toEqual({ x: 1, y: 2, z: 0 });
         myr.setPosition(1, 2, 3);
-        expect(myr.position).toEqual({ x: 1, y: 2, z: 3 });
+        expect(myr.cursor.position).toEqual({ x: 1, y: 2, z: 3 });
         myr.setPosition(-1, -2, -3);
-        expect(myr.position).toEqual({ x: -1, y: -2, z: -3 });
+        expect(myr.cursor.position).toEqual({ x: -1, y: -2, z: -3 });
 
         // Should reject these values
         myr.setPosition("a", -2, -3);
-        expect(myr.position).toEqual({ x: -1, y: -2, z: -3 });
+        expect(myr.cursor.position).toEqual({ x: -1, y: -2, z: -3 });
         myr.setPosition({}, -2, -3);
-        expect(myr.position).toEqual({ x: -1, y: -2, z: -3 });
+        expect(myr.cursor.position).toEqual({ x: -1, y: -2, z: -3 });
         myr.setPosition([], -2, -3);
-        expect(myr.position).toEqual({ x: -1, y: -2, z: -3 });
+        expect(myr.cursor.position).toEqual({ x: -1, y: -2, z: -3 });
     });
 
     it("should set the X-position in Myr", () => {
         myr.reset();
         myr.setXPos(5);
-        expect(myr.position.x).toEqual(5);
+        expect(myr.cursor.position.x).toEqual(5);
         myr.setXPos(-5);
-        expect(myr.position.x).toEqual(-5);
+        expect(myr.cursor.position.x).toEqual(-5);
 
         // Check for stable model with bad values
         myr.setXPos({});
-        expect(myr.position.x).toEqual(-5);
+        expect(myr.cursor.position.x).toEqual(-5);
         myr.setXPos("a");
-        expect(myr.position.x).toEqual(-5);
+        expect(myr.cursor.position.x).toEqual(-5);
         myr.setXPos(() => { });
-        expect(myr.position.x).toEqual(-5);
-        expect(myr.position).toEqual({ x: -5, y: 0, z: 0 });
+        expect(myr.cursor.position.x).toEqual(-5);
+        expect(myr.cursor.position).toEqual({ x: -5, y: 0, z: 0 });
     });
 
     it("should set the Y-position in Myr", () => {
         myr.reset();
         myr.setYPos(5);
-        expect(myr.position.y).toEqual(5);
+        expect(myr.cursor.position.y).toEqual(5);
         myr.setYPos(-5);
-        expect(myr.position.y).toEqual(-5);
+        expect(myr.cursor.position.y).toEqual(-5);
 
         // Check for stable model with bad values
         myr.setYPos({});
-        expect(myr.position.y).toEqual(-5);
+        expect(myr.cursor.position.y).toEqual(-5);
         myr.setYPos("a");
-        expect(myr.position.y).toEqual(-5);
+        expect(myr.cursor.position.y).toEqual(-5);
         myr.setYPos(() => { });
-        expect(myr.position.y).toEqual(-5);
-        expect(myr.position).toEqual({ x: 0, y: -5, z: 0 });
+        expect(myr.cursor.position.y).toEqual(-5);
+        expect(myr.cursor.position).toEqual({ x: 0, y: -5, z: 0 });
 
     });
 
     it("should set the Z-position in Myr", () => {
         myr.reset();
         myr.setZPos(5);
-        expect(myr.position.z).toEqual(5);
+        expect(myr.cursor.position.z).toEqual(5);
         myr.setZPos(-5);
-        expect(myr.position.z).toEqual(-5);
+        expect(myr.cursor.position.z).toEqual(-5);
 
         // Check for stable model with bad values
         myr.setZPos({});
-        expect(myr.position.z).toEqual(-5);
+        expect(myr.cursor.position.z).toEqual(-5);
         myr.setZPos("a");
-        expect(myr.position.z).toEqual(-5);
+        expect(myr.cursor.position.z).toEqual(-5);
         myr.setZPos(() => { });
-        expect(myr.position.z).toEqual(-5);
-        expect(myr.position).toEqual({ x: 0, y: 0, z: -5 });
+        expect(myr.cursor.position.z).toEqual(-5);
+        expect(myr.cursor.position).toEqual({ x: 0, y: 0, z: -5 });
     });
 
     it("shoud increase the position relative to cursor position in MYR", () => {
         myr.reset();
         myr.increasePosition(1);
-        expect(myr.position).toEqual({ x: 1, y: 0, z: 0 });
+        expect(myr.cursor.position).toEqual({ x: 1, y: 0, z: 0 });
         myr.increasePosition(1, 1);
-        expect(myr.position).toEqual({ x: 2, y: 1, z: 0 });
+        expect(myr.cursor.position).toEqual({ x: 2, y: 1, z: 0 });
         myr.increasePosition(1, 1, 1);
-        expect(myr.position).toEqual({ x: 3, y: 2, z: 1 });
+        expect(myr.cursor.position).toEqual({ x: 3, y: 2, z: 1 });
         myr.increasePosition(-3, -2, -1);
-        expect(myr.position).toEqual({ x: 0, y: 0, z: 0 });
+        expect(myr.cursor.position).toEqual({ x: 0, y: 0, z: 0 });
 
         // Check for stable model with bad values
         myr.increasePosition("a", 2, 3);
-        expect(myr.position).toEqual({ x: 0, y: 0, z: 0 });
+        expect(myr.cursor.position).toEqual({ x: 0, y: 0, z: 0 });
         myr.increasePosition({}, 2, 3);
-        expect(myr.position).toEqual({ x: 0, y: 0, z: 0 });
+        expect(myr.cursor.position).toEqual({ x: 0, y: 0, z: 0 });
         myr.increasePosition([], 2, 3);
-        expect(myr.position).toEqual({ x: 0, y: 0, z: 0 });
+        expect(myr.cursor.position).toEqual({ x: 0, y: 0, z: 0 });
 
     });
 
     it("should increase the X-position relative to the cursor position", () => {
         myr.reset();
         myr.increaseXPos(5);
-        expect(myr.position.x).toEqual(5);
+        expect(myr.cursor.position.x).toEqual(5);
         myr.increaseXPos();
-        expect(myr.position.x).toEqual(6);
+        expect(myr.cursor.position.x).toEqual(6);
         myr.increaseXPos(-6);
-        expect(myr.position.x).toEqual(0);
+        expect(myr.cursor.position.x).toEqual(0);
 
         //check for stable model with bad values
         myr.increaseXPos("a");
-        expect(myr.position.x).toEqual(0);
+        expect(myr.cursor.position.x).toEqual(0);
         myr.increaseXPos({});
-        expect(myr.position.x).toEqual(0);
+        expect(myr.cursor.position.x).toEqual(0);
         myr.increaseXPos([]);
-        expect(myr.position.x).toEqual(0);
-        expect(myr.position).toEqual({ x: 0, y: 0, z: 0 });
+        expect(myr.cursor.position.x).toEqual(0);
+        expect(myr.cursor.position).toEqual({ x: 0, y: 0, z: 0 });
 
     });
 
     it("should increase the Y-position relative to the cursor position", () => {
         myr.reset();
         myr.increaseYPos(5);
-        expect(myr.position.y).toEqual(5);
+        expect(myr.cursor.position.y).toEqual(5);
         myr.increaseYPos();
-        expect(myr.position.y).toEqual(6);
+        expect(myr.cursor.position.y).toEqual(6);
         myr.increaseYPos(-6);
-        expect(myr.position.y).toEqual(0);
+        expect(myr.cursor.position.y).toEqual(0);
 
         //check for stable model with bad values
         myr.increaseYPos("a");
-        expect(myr.position.y).toEqual(0);
+        expect(myr.cursor.position.y).toEqual(0);
         myr.increaseYPos({});
-        expect(myr.position.y).toEqual(0);
+        expect(myr.cursor.position.y).toEqual(0);
         myr.increaseYPos([]);
-        expect(myr.position.y).toEqual(0);
-        expect(myr.position).toEqual({ x: 0, y: 0, z: 0 });
+        expect(myr.cursor.position.y).toEqual(0);
+        expect(myr.cursor.position).toEqual({ x: 0, y: 0, z: 0 });
 
     });
 
     it("should increase the Z-position relative to the cursor position", () => {
         myr.reset();
         myr.increaseZPos(5);
-        expect(myr.position.z).toEqual(5);
+        expect(myr.cursor.position.z).toEqual(5);
         myr.increaseZPos();
-        expect(myr.position.z).toEqual(6);
+        expect(myr.cursor.position.z).toEqual(6);
         myr.increaseZPos(-6);
-        expect(myr.position.z).toEqual(0);
+        expect(myr.cursor.position.z).toEqual(0);
 
         //check for stable model with bad values
         myr.increaseZPos("a");
-        expect(myr.position.z).toEqual(0);
+        expect(myr.cursor.position.z).toEqual(0);
         myr.increaseZPos({});
-        expect(myr.position.z).toEqual(0);
+        expect(myr.cursor.position.z).toEqual(0);
         myr.increaseZPos([]);
-        expect(myr.position.z).toEqual(0);
-        expect(myr.position).toEqual({ x: 0, y: 0, z: 0 });
+        expect(myr.cursor.position.z).toEqual(0);
+        expect(myr.cursor.position).toEqual({ x: 0, y: 0, z: 0 });
 
     });
 
     it("should set the scale in Myr", () => {
         myr.reset();
         myr.setScale(4);
-        expect(myr.scale).toEqual({ x: 4, y: 1, z: 1 });
+        expect(myr.cursor.scale).toEqual({ x: 4, y: 1, z: 1 });
         myr.setScale(4, 5);
-        expect(myr.scale).toEqual({ x: 4, y: 5, z: 1 });
+        expect(myr.cursor.scale).toEqual({ x: 4, y: 5, z: 1 });
         myr.setScale(1, 2, 3);
-        expect(myr.scale).toEqual({ x: 1, y: 2, z: 3 });
+        expect(myr.cursor.scale).toEqual({ x: 1, y: 2, z: 3 });
         myr.setScale(-1, -2, -3);
-        expect(myr.scale).toEqual({ x: -1, y: -2, z: -3 });
+        expect(myr.cursor.scale).toEqual({ x: -1, y: -2, z: -3 });
 
         // Should reject these values
         myr.setScale("a", -2, -3);
-        expect(myr.scale).toEqual({ x: -1, y: -2, z: -3 });
+        expect(myr.cursor.scale).toEqual({ x: -1, y: -2, z: -3 });
         myr.setScale({}, -2, -3);
-        expect(myr.scale).toEqual({ x: -1, y: -2, z: -3 });
+        expect(myr.cursor.scale).toEqual({ x: -1, y: -2, z: -3 });
         myr.setScale([], -2, -3);
-        expect(myr.scale).toEqual({ x: -1, y: -2, z: -3 });
+        expect(myr.cursor.scale).toEqual({ x: -1, y: -2, z: -3 });
     });
 
     it("should set the X-scale in Myr", () => {
         myr.reset();
         myr.setXScale(5);
-        expect(myr.scale.x).toEqual(5);
+        expect(myr.cursor.scale.x).toEqual(5);
         myr.setXScale(-5);
-        expect(myr.scale.x).toEqual(-5);
+        expect(myr.cursor.scale.x).toEqual(-5);
 
         // Check for stable model with bad values
         myr.setXScale({});
-        expect(myr.scale.x).toEqual(-5);
+        expect(myr.cursor.scale.x).toEqual(-5);
         myr.setXScale("a");
-        expect(myr.scale.x).toEqual(-5);
+        expect(myr.cursor.scale.x).toEqual(-5);
         myr.setXScale(() => { });
-        expect(myr.scale.x).toEqual(-5);
-        expect(myr.scale).toEqual({ x: -5, y: 1, z: 1 });
+        expect(myr.cursor.scale.x).toEqual(-5);
+        expect(myr.cursor.scale).toEqual({ x: -5, y: 1, z: 1 });
     });
 
     it("should set the Y-scale in Myr", () => {
         myr.reset();
         myr.setYScale(5);
-        expect(myr.scale.y).toEqual(5);
+        expect(myr.cursor.scale.y).toEqual(5);
         myr.setYScale(-5);
-        expect(myr.scale.y).toEqual(-5);
+        expect(myr.cursor.scale.y).toEqual(-5);
 
         // Check for stable model with bad values
         myr.setYScale({});
-        expect(myr.scale.y).toEqual(-5);
+        expect(myr.cursor.scale.y).toEqual(-5);
         myr.setYScale("a");
-        expect(myr.scale.y).toEqual(-5);
+        expect(myr.cursor.scale.y).toEqual(-5);
         myr.setYScale(() => { });
-        expect(myr.scale.y).toEqual(-5);
-        expect(myr.scale).toEqual({ x: 1, y: -5, z: 1 });
+        expect(myr.cursor.scale.y).toEqual(-5);
+        expect(myr.cursor.scale).toEqual({ x: 1, y: -5, z: 1 });
     });
 
     it("should set the Z-scale in Myr", () => {
         myr.reset();
         myr.setZScale(5);
-        expect(myr.scale.z).toEqual(5);
+        expect(myr.cursor.scale.z).toEqual(5);
         myr.setZScale(-5);
-        expect(myr.scale.z).toEqual(-5);
+        expect(myr.cursor.scale.z).toEqual(-5);
 
         // Check for stable model with bad values
         myr.setZScale({});
-        expect(myr.scale.z).toEqual(-5);
+        expect(myr.cursor.scale.z).toEqual(-5);
         myr.setZScale("a");
-        expect(myr.scale.z).toEqual(-5);
+        expect(myr.cursor.scale.z).toEqual(-5);
         myr.setZScale(() => { });
-        expect(myr.scale.z).toEqual(-5);
-        expect(myr.scale).toEqual({ x: 1, y: 1, z: -5 });
+        expect(myr.cursor.scale.z).toEqual(-5);
+        expect(myr.cursor.scale).toEqual({ x: 1, y: 1, z: -5 });
     });
 
     it("should set the rotation in Myr", () => {
         myr.reset();
         myr.setRotation(1);
-        expect(myr.rotation).toEqual({ x: 1, y: 0, z: 0 });
+        expect(myr.cursor.rotation).toEqual({ x: 1, y: 0, z: 0 });
         myr.setRotation(1, 2);
-        expect(myr.rotation).toEqual({ x: 1, y: 2, z: 0 });
+        expect(myr.cursor.rotation).toEqual({ x: 1, y: 2, z: 0 });
         myr.setRotation(1, 2, 3);
-        expect(myr.rotation).toEqual({ x: 1, y: 2, z: 3 });
+        expect(myr.cursor.rotation).toEqual({ x: 1, y: 2, z: 3 });
         myr.setRotation(-1, -2, -3);
-        expect(myr.rotation).toEqual({ x: -1, y: -2, z: -3 });
+        expect(myr.cursor.rotation).toEqual({ x: -1, y: -2, z: -3 });
 
         // Should reject these values
         myr.setRotation("a", -2, -3);
-        expect(myr.rotation).toEqual({ x: -1, y: -2, z: -3 });
+        expect(myr.cursor.rotation).toEqual({ x: -1, y: -2, z: -3 });
         myr.setRotation({}, -2, -3);
-        expect(myr.rotation).toEqual({ x: -1, y: -2, z: -3 });
+        expect(myr.cursor.rotation).toEqual({ x: -1, y: -2, z: -3 });
         myr.setRotation([], -2, -3);
-        expect(myr.rotation).toEqual({ x: -1, y: -2, z: -3 });
+        expect(myr.cursor.rotation).toEqual({ x: -1, y: -2, z: -3 });
     });
 
     it("should set the Pitch/X-rotation in Myr", () => {
         myr.reset();
         myr.pitchX(5);
-        expect(myr.rotation.x).toEqual(5);
+        expect(myr.cursor.rotation.x).toEqual(5);
         myr.pitchX(-5);
-        expect(myr.rotation.x).toEqual(-5);
+        expect(myr.cursor.rotation.x).toEqual(-5);
 
         // Check for stable model with bad values
         myr.pitchX({});
-        expect(myr.rotation.x).toEqual(-5);
+        expect(myr.cursor.rotation.x).toEqual(-5);
         myr.pitchX("a");
-        expect(myr.rotation.x).toEqual(-5);
+        expect(myr.cursor.rotation.x).toEqual(-5);
         myr.pitchX(() => { });
-        expect(myr.rotation.x).toEqual(-5);
-        expect(myr.rotation).toEqual({ x: -5, y: 0, z: 0 });
+        expect(myr.cursor.rotation.x).toEqual(-5);
+        expect(myr.cursor.rotation).toEqual({ x: -5, y: 0, z: 0 });
     });
 
     it("should set the Yaw/Y-rotation in Myr", () => {
         myr.reset();
         myr.yawY(5);
-        expect(myr.rotation.y).toEqual(5);
+        expect(myr.cursor.rotation.y).toEqual(5);
         myr.yawY(-5);
-        expect(myr.rotation.y).toEqual(-5);
+        expect(myr.cursor.rotation.y).toEqual(-5);
 
         // Check for stable model with bad values
         myr.yawY({});
-        expect(myr.rotation.y).toEqual(-5);
+        expect(myr.cursor.rotation.y).toEqual(-5);
         myr.yawY("a");
-        expect(myr.rotation.y).toEqual(-5);
+        expect(myr.cursor.rotation.y).toEqual(-5);
         myr.yawY(() => { });
-        expect(myr.rotation.y).toEqual(-5);
-        expect(myr.rotation).toEqual({ x: 0, y: -5, z: 0 });
+        expect(myr.cursor.rotation.y).toEqual(-5);
+        expect(myr.cursor.rotation).toEqual({ x: 0, y: -5, z: 0 });
     });
 
     it("should set the Roll/Z-rotation in Myr", () => {
         myr.reset();
         myr.rollZ(5);
-        expect(myr.rotation.z).toEqual(5);
+        expect(myr.cursor.rotation.z).toEqual(5);
         myr.rollZ(-5);
-        expect(myr.rotation.z).toEqual(-5);
+        expect(myr.cursor.rotation.z).toEqual(-5);
 
         // Check for stable model with bad values
         myr.rollZ({});
-        expect(myr.rotation.z).toEqual(-5);
+        expect(myr.cursor.rotation.z).toEqual(-5);
         myr.rollZ("a");
-        expect(myr.rotation.z).toEqual(-5);
+        expect(myr.cursor.rotation.z).toEqual(-5);
         myr.rollZ(() => { });
-        expect(myr.rotation.z).toEqual(-5);
-        expect(myr.rotation).toEqual({ x: 0, y: 0, z: -5 });
+        expect(myr.cursor.rotation.z).toEqual(-5);
+        expect(myr.cursor.rotation).toEqual({ x: 0, y: 0, z: -5 });
     });
 
     it("should set phi-length", () => {
         myr.reset();
         myr.setPhiLength(45);
-        expect(myr.phiLength).toBe("45");
+        expect(myr.cursor.phiLength).toBe("45");
     });
 
 });
