@@ -219,7 +219,8 @@ export default class Reference extends React.Component {
                                     <span className="bool">bool </span>
                                     <span className="number">number </span>
                                     <span className="string">string </span>
-                                    <span className="group">group </span></p>
+                                    <span className="group">group </span>
+                                    <span className="data">data</span></p>
                             </div>}
                             {this.state.value === "a" &&
                                 <div style={{ marginTop: 0, overflow: "scroll" }}>
