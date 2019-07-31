@@ -4,6 +4,34 @@ const myr = new Myr();
 
 let colorRegEx = new RegExp("#([0-9]|[A-F]|[a-f]){6}");
 
+const defaultCursor = {
+    color: "red",
+    position: {
+        x: 0,
+        y: 0,
+        z: 0
+    },
+    scale: {
+        x: 1,
+        y: 1,
+        z: 1
+    },
+    rotation: {
+        x: 0,
+        y: 0,
+        z: 0
+    },
+    radius: "1",
+    phiLength: 360,
+    loop: true,
+    duration: 1000,
+    magnitude: {
+        spin: 360,
+        fadeOut: 0,
+        general: 1
+    }
+};
+
 describe("Updates to Myr's Model", () => {
 
     it("should set the color", () => {
@@ -500,33 +528,6 @@ describe("Other Myr functionality", () => {
     // });
 
     it("should reset cursor", () => {
-        const defaultCursor = {
-            color: "red",
-            position: {
-                x: 0,
-                y: 0,
-                z: 0
-            },
-            scale: {
-                x: 1,
-                y: 1,
-                z: 1
-            },
-            rotation: {
-                x: 0,
-                y: 0,
-                z: 0
-            },
-            radius: "1",
-            phiLength: 360,
-            loop: true,
-            duration: 1000,
-            magnitude: {
-                spin: 360,
-                fadeOut: 0,
-                general: 1
-            }
-        };
         myr.resetCursor();
         expect(myr.cursor).toEqual(defaultCursor);
     });
