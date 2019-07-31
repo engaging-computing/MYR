@@ -833,4 +833,24 @@ describe("Other Myr functionality", () => {
         expect(myr.cursor.phiLength).toBe("45");
     });
 
+    it("should set custom cursor attributes", () => {
+        myr.reset();
+        myr.setCursorAttribute("size", "large");
+        let response = myr.getCursorAttribute("size");
+        expect(response).toBe("large");
+        response = myr.getCursorAttribute("");
+        expect(response).toBe(undefined);
+        myr.setCursorAttribute(7, 8);
+        response = myr.getCursorAttribute(7);
+        expect(response).toBe(undefined);
+        myr.setCursorAttribute("position", { x: 1, y: 2, z: 3 });
+        expect(myr.cursor).toEqual({ ...defaultCursor, ...{ "position": { x: 1, y: 2, z: 3 }, "size": "large" } });
+        myr.setCursorAttribute("test", 8);
+        response = myr.getCursorAttribute("test");
+        expect(response).toBe(8);
+        myr.setCursorAttribute("test", { "test1": 1, "test2": 3 });
+        response = myr.getCursorAttribute("test");
+        expect(response).toEqual({ "test1": 1, "test2": 3 });
+    });
+
 });
