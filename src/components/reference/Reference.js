@@ -62,6 +62,8 @@ export default class Reference extends React.Component {
                         return <span>{refFunctions.boolText(element.name)}{comma}</span>;
                     case "array":
                         return <span>{refFunctions.arrayText(element.name)}{comma}</span>;
+                    case "data":
+                        return <span>{refFunctions.dataText(element.name)}{comma}</span>;
                     default:
                         return null;
                 }
