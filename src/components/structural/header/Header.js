@@ -142,6 +142,7 @@ class Header extends Component {
         }
         window.addEventListener("beforeunload", (event) => {
             if (this.state.editorChange) {
+                event.preventDefault();
                 event.returnValue = "";
             }
         });
