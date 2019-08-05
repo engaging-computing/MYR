@@ -48,6 +48,10 @@ class CourseSelectModal extends Component {
         super(props);
         this.difficulties = ["beginner", "intermediate", "advanced", "expert"];
         this.categories = ["geometry", "transformations", "animations", "groups", "firstTimer", "teachers"];
+        this.state = {
+            difficultyFilter : {},
+            categoryFilter : {},
+        };
         for(let i in this.difficulties) {
             this.state.difficultyFilter[i] = true;
         }
@@ -90,7 +94,7 @@ class CourseSelectModal extends Component {
         if (key) {
             //converts camelCase difficulty/category filters keys into Mixed Case button labels
             let buttonText = key.replace(/([A-Z]){1}/g, " " + "$1");
-            buttonText = buttonText.charAt(0).toUppercase() + buttonText.slice(1);
+            buttonText = buttonText.charAt(0).toUpperCase() + buttonText.slice(1);
             let filter;
             if (type === "difficulty") {
                 filter = this.state.difficultyFilter;
@@ -104,7 +108,7 @@ class CourseSelectModal extends Component {
                     onClick={() => {
                         let newState = !filter[key];
                         if (type === "difficulty") {
-                            this.setState({ difficultyFilter : { ...this.tate.difficultyFilter, key : newState } });
+                            this.setState({ difficultyFilter : { ...this.state.difficultyFilter, key : newState } });
                         }
                         else if (type === "categories") {
                             this.setState({ categoryFilter : { ...this.state.categoryFilter, key : newState } });
@@ -157,7 +161,7 @@ class CourseSelectModal extends Component {
                             <h4>Difficulty: </h4>
                             <div className="row">
                                 {
-
+                                    this.difficulties.map(i => { return this.filterHelper(i, "difficulty"); })
                                 }
                             </div>
                         </div>

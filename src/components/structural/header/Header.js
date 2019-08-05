@@ -142,7 +142,8 @@ class Header extends Component {
         }
         window.addEventListener("beforeunload", (event) => {
             if (this.state.editorChange) {
-                event.returnValue = "";
+                event.preventDefault();
+                event.returnValue = "You may have unsaved scene changes!";
             }
         });
     }
