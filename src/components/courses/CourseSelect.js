@@ -53,10 +53,10 @@ class CourseSelectModal extends Component {
             categoryFilter : {},
         };
         for(let i in this.difficulties) {
-            this.state.difficultyFilter[i] = true;
+            this.state.difficultyFilter[this.difficulties[i]] = true;
         }
         for(let i in this.categories) {
-            this.state.categoryFilter[i] = true;
+            this.state.categoryFilter[this.categories[i]] = true;
         }
     }
 
@@ -106,12 +106,15 @@ class CourseSelectModal extends Component {
                 <Button
                     variant={filter[key] ? "contained" : "outlined"}
                     onClick={() => {
-                        let newState = !filter[key];
                         if (type === "difficulty") {
-                            this.setState({ difficultyFilter : { ...this.state.difficultyFilter, key : newState } });
+                            let newState = this.state;
+                            newState.difficultyFilter[key] = !filter[key];
+                            this.setState(newState);
                         }
-                        else if (type === "categories") {
-                            this.setState({ categoryFilter : { ...this.state.categoryFilter, key : newState } });
+                        else if (type === "category") {
+                            let newState = this.state;
+                            newState.categoryFilter[key] = !filter[key];
+                            this.setState(newState);
                         }
                     }}>
                     {buttonText}
@@ -162,6 +165,13 @@ class CourseSelectModal extends Component {
                             <div className="row">
                                 {
                                     this.difficulties.map(i => { return this.filterHelper(i, "difficulty"); })
+                                }
+                            </div>
+                            <br></br>
+                            <h4>Categories: </h4>
+                            <div className="row">
+                                {
+                                    this.categories.map(i => { return this.filterHelper(i, "category"); })
                                 }
                             </div>
                         </div>
