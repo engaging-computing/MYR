@@ -116,7 +116,8 @@ class CourseSelectModal extends Component {
                             newState.categoryFilter[key] = !filter[key];
                             this.setState(newState);
                         }
-                    }}>
+                    }}
+                    size="small">
                     {buttonText}
                 </Button>
             );
@@ -160,16 +161,16 @@ class CourseSelectModal extends Component {
                             <Icon className="material-icons">clear</Icon>
                         </ButtonBase >
                         <h3 className="col-12 p-0 mb-3 border-bottom">Available Courses</h3>
-                        <div id="filters">
-                            <h4>Difficulty: </h4>
-                            <div className="row">
+                        <div id="filters" className="border-bottom">
+                            <h5>Difficulty: </h5>
+                            <div>
                                 {
                                     this.difficulties.map(i => { return this.filterHelper(i, "difficulty"); })
                                 }
                             </div>
                             <br></br>
-                            <h4>Categories: </h4>
-                            <div className="row">
+                            <h5>Categories: </h5>
+                            <div>
                                 {
                                     this.categories.map(i => { return this.filterHelper(i, "category"); })
                                 }
