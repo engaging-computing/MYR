@@ -93,7 +93,7 @@ class CourseSelectModal extends Component {
     filterHelper = (key, type) => {
         if (key) {
             //converts camelCase difficulty/category filters keys into Mixed Case button labels
-            let buttonText = key.replace(/([A-Z]){1}/g, " " + "$1");
+            let buttonText = key.replace(/([A-Z]){1}/g, " $1");
             buttonText = buttonText.charAt(0).toUpperCase() + buttonText.slice(1);
             let filter;
             if (type === "difficulty") {
