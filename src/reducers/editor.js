@@ -38,7 +38,6 @@ function noEvalEvaluation(text) {
 }
 
 export default function editor(state = initial_state, action) {
-
     switch (action.type) {
         case types.EDITOR_RENDER:
             m.reset();
