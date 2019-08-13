@@ -16,6 +16,7 @@ export const Collection = ({ editor, editorActions, user, authActions, scene, sc
             user={user}
             scene={scene}
             text={editor.text}
+            savedText={editor.savedText}
             message={editor.message}
             projectId={match.params.id}
             match={match}
@@ -27,6 +28,7 @@ export const Collection = ({ editor, editorActions, user, authActions, scene, sc
             collections={collections}
             collection={match.params.collection}
             layoutType={layoutTypes.CLASSROOM}
+            editorChange={editor.editorChange}
         />
         <div className="row no-gutters">
             <div id="interface" className="col-12 col-md-4">
