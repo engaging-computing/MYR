@@ -129,10 +129,10 @@ class Header extends Component {
                 let editor = window.ace.edit("ace-editor");
                 editor.getSession().on("change", () => {
                     let text = editor.getSession().getValue();
-                    if (this.props.text !== text) {
-                        this.setState({ editorChange: true });
-                    } else {
-                        this.setState({ editorChange: false });
+                    if (this.props.savedText !== text && !this.props.editorChange) {
+                        this.props.actions.isEditorChange(true, text);
+                    } else if(this.props.savedText === text && this.props.editorChange){
+                        this.props.actions.isEditorChange(false, text);
                     }
 
                 });
@@ -141,7 +141,7 @@ class Header extends Component {
             }
         }
         window.addEventListener("beforeunload", (event) => {
-            if (this.state.editorChange) {
+            if (this.props.editorChange) {
                 event.preventDefault();
                 event.returnValue = "You may have unsaved scene changes!";
             }
@@ -381,7 +381,8 @@ class Header extends Component {
                     settings: this.props.scene.settings,
                     ts: ts,
                 }).then(() => {
-                    this.setState({ editorChange: false });
+                    this.props.actions.isEditorChange(false,this.props.text);
+                    this.props.actions.updateSavedText(this.props.text);
                     // If we have a new projectId reload page with it
                     if (this.props.courseName) {
                         this.setState({ spinnerOpen: false });
