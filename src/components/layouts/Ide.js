@@ -16,6 +16,7 @@ export const Ide = ({ editor, editorActions, user, authActions, scene, sceneActi
             user={user}
             scene={scene}
             text={editor.text}
+            savedText={editor.savedText}
             message={editor.message}
             projectId={match.params.id}
             match={match}
@@ -26,6 +27,7 @@ export const Ide = ({ editor, editorActions, user, authActions, scene, sceneActi
             classroomActions={classroomActions}
             classrooms={classrooms}
             layoutType={layoutTypes.IDE}
+            editorChange={editor.editorChange}
         />
         <div className="row no-gutters">
             {

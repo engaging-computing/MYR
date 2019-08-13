@@ -9,6 +9,8 @@ export const SET_INDEX = "SET_INDEX";
 export const EDITOR_RENDER = "EDITOR_RENDER";
 export const EDITOR_REFRESH = "EDITOR_REFRESH";
 export const EDITOR_RECOVER = "EDITOR_RECOVER";
+export const EDITOR_CHANGE = "EDITOR_CHANGE";
+export const EDITOR_UPDATE_SAVEDTEXT = "EDITOR_UPDATE_SAVEDTEXT";
 export const ADD_PW = "ADD_PW";
 export const SAVE_START = "SAVE_START";
 export const SAVE_FIN = "SAVE_FIN";
@@ -42,4 +44,4 @@ export const SYNC_CLASSES = "SYNC_CLASSES";
 export const SYNC_CLASS = "SYNC_CLASS";
 export const DELETE_CLASS = "DELETE_CLASS";
 
-export const LOAD_REF_EX = "LOAD_REF_EX";
+export const LOAD_REF_EX = "LOAD_REF_EX"; 
