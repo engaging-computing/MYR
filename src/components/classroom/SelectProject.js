@@ -35,29 +35,25 @@ class SelectProject extends PureComponent {
         }
     }
 
-    renderSelect = (isDisabled) => {
+    renderSelect = () => {
         let classroom = this.props.classroom;
         const placeholder = "Select a project";
 
         return (
-            <div>
-                <Select
-                    key={classroom}
-                    placeholder={placeholder}
-                    options={classroom}
-                    onChange={this.handleChange}
-                    styles={selectStyle}
-                    isDisabled={isDisabled} />
-            </div >
+            <Select
+                key={classroom}
+                placeholder={placeholder}
+                options={classroom}
+                onChange={this.handleChange}
+                styles={selectStyle} />
         );
     }
 
     render() {
-        let isDisabled = this.props.classroom && this.props.classroom.length !== 0 ? false : true;
         return (
             <div id="select-project">
                 <h3>{(this.props.selectedClassroom) ? "Classroom: " + this.props.selectedClassroom : "Loading classroom..."}</h3>
-                <p>{this.props.classroom ? <this.renderSelect isDisabled={isDisabled} /> : "Loading..."} </p>
+                <p>{this.props.classroom ? <this.renderSelect /> : "Loading..."} </p>
             </div>
         );
     }
