@@ -136,6 +136,13 @@ class Header extends Component {
                     }
 
                 });
+
+                editor.on("mouseup", ()=> {
+                    console.log(editor.getSession());
+                    let selectionRange = editor.getSelectionRange().end.row;
+                    let doc = editor.getSession().doc.$lines.slice(0,selectionRange).join("\n");
+                    this.props.actions.getCursorState(doc,selectionRange+1);
+                });
             } catch (err) {
                 console.error(err);
             }
