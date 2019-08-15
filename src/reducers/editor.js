@@ -31,11 +31,13 @@ m.init();
 // ESLint doesn't like this but it is better than eval
 function noEvalEvaluation(text) {
     // eslint-disable-next-line
-    return Function(`'use strict'; ${text}`)();
+    // let func = Function(`'use strict'; ${m.infiniteLoopDetector.wrap(text)}`);
+    // eslint-disable-next-line
+    let func = Function(`'use strict'; ${text}`);
+    return func;
 }
 
 export default function editor(state = initial_state, action) {
-
     switch (action.type) {
         case types.EDITOR_RENDER:
             m.reset();
@@ -54,7 +56,8 @@ export default function editor(state = initial_state, action) {
             };
 
             try {
-                noEvalEvaluation(action.text);
+                let func = noEvalEvaluation(action.text);
+                func();
             }
             catch (err) {
                 // Notify that eval failed
@@ -96,6 +99,28 @@ export default function editor(state = initial_state, action) {
 
             // Call editor function again with new params
             return editor({ ...state }, { type: types.EDITOR_RENDER, text: snapshots[stableIndex].text });
+
+        case types.EDTIOR_GET_CURSOR_STATE:
+            m.reset();
+
+            message = state.message;
+
+            try {
+                let func = noEvalEvaluation(action.text + "return getCursor();");
+                let cusor = func();  
+                console.log(cusor);
+            }
+            catch (err) {
+                // Notify that eval failed
+                console.error("Eval failed: " + err);
+                message = { ...message, text: "Eval failed: Unable to get cursor state from line " + action.line};
+            }
+
+            return {
+                ...state,
+                message: message,
+
+            };
         default:
             return state;
     }

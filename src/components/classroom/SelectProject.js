@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { PureComponent } from "react";
 import Select from "react-select";
 
 import "../../css/Classroom.css";
@@ -25,33 +25,7 @@ const selectStyle = {
     })
 };
 
-class SelectProject extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            isDisabled: true
-        };
-    }
-
-    componentDidMount() {
-        if (this.props.classroom && this.props.classroom.length !== 0) {
-            this.setState({ isDisabled: false });
-        }
-        else {
-            this.setState({ isDisabled: true });
-        }
-    }
-
-
-    componentWillReceiveProps(nextProps) {
-        if (nextProps.classroom && nextProps.classroom.length !== 0) {
-            this.setState({ isDisabled: false });
-        }
-        else {
-            this.setState({ isDisabled: true });
-        }
-    }
-
+class SelectProject extends PureComponent {
     handleChange = (projectID) => {
         if (this.props.user && this.props.user.uid) {
             this.props.editorActions.fetchScene(projectID.value, this.props.uid);
@@ -61,7 +35,7 @@ class SelectProject extends Component {
         }
     }
 
-    renderSelect = () => {
+    renderSelect = (isDisabled) => {
         let classroom = this.props.classroom;
         const placeholder = "Select a project";
 
@@ -73,20 +47,20 @@ class SelectProject extends Component {
                     options={classroom}
                     onChange={this.handleChange}
                     styles={selectStyle}
-                    isDisabled={this.state.isDisabled} />
+                    isDisabled={isDisabled} />
             </div >
         );
     }
 
     render() {
+        let isDisabled = this.props.classroom && this.props.classroom.length !== 0 ? false : true;
         return (
             <div id="select-project">
                 <h3>{(this.props.selectedClassroom) ? "Classroom: " + this.props.selectedClassroom : "Loading classroom..."}</h3>
-                <p>{this.props.classroom ? <this.renderSelect /> : "Loading..."} </p>
+                <p>{this.props.classroom ? <this.renderSelect isDisabled={isDisabled} /> : "Loading..."} </p>
             </div>
         );
     }
 }
-
 
 export default SelectProject;
