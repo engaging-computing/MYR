@@ -16,7 +16,7 @@ export const Ide = ({ editor, editorActions, user, authActions, scene, sceneActi
             user={user}
             scene={scene}
             text={editor.text}
-            savedText={editor.savedText}
+
             message={editor.message}
             projectId={match.params.id}
             match={match}
@@ -27,7 +27,6 @@ export const Ide = ({ editor, editorActions, user, authActions, scene, sceneActi
             collectionActions={collectionActions}
             collections={collections}
             layoutType={layoutTypes.IDE}
-            editorChange={editor.editorChange}
         />
         <div className="row no-gutters">
             {
@@ -39,7 +38,7 @@ export const Ide = ({ editor, editorActions, user, authActions, scene, sceneActi
                     :
                     <>
                         <div id="interface" className="col-12 col-md-4" >
-                            <Editor refresh={editorActions.refresh} render={editorActions.render} text={editor.text} user={user} />
+                            <Editor refresh={editorActions.refresh} render={editorActions.render} text={editor.text} user={user} savedText={editor.savedText}/>
                         </div>
                         <div id="scene" className="col-12 col-md-8" >
                             <View objects={editor.objects} sceneConfig={scene} assets={editor.assets} />

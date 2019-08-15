@@ -50,7 +50,6 @@ class Header extends Component {
             needsNewId: false, // this explicitly tells us to make a new id
             spinnerOpen: false,
             referenceOpen: false,
-            editorChange: false,
             coursesOpen: false,
             tourOpen: false,
             welcomeOpen: false
@@ -122,30 +121,6 @@ class Header extends Component {
 
         // Bind to keyboard to listen for shortcuts
         document.addEventListener("keydown", this.handleKeyDown.bind(this));
-
-        // Warn the issue before refreshing the page
-        if (this.props.layoutType !== layoutTypes.REFERENCE) {
-            try {
-                let editor = window.ace.edit("ace-editor");
-                editor.getSession().on("change", () => {
-                    let text = editor.getSession().getValue();
-                    if (this.props.savedText !== text && !this.props.editorChange) {
-                        this.props.actions.isEditorChange(true, text);
-                    } else if(this.props.savedText === text && this.props.editorChange){
-                        this.props.actions.isEditorChange(false, text);
-                    }
-
-                });
-            } catch (err) {
-                console.error(err);
-            }
-        }
-        window.addEventListener("beforeunload", (event) => {
-            if (this.props.editorChange) {
-                event.preventDefault();
-                event.returnValue = "You may have unsaved scene changes!";
-            }
-        });
     }
 
     /**
@@ -381,7 +356,6 @@ class Header extends Component {
                     settings: this.props.scene.settings,
                     ts: ts,
                 }).then(() => {
-                    this.props.actions.isEditorChange(false,this.props.text);
                     this.props.actions.updateSavedText(this.props.text);
                     // If we have a new projectId reload page with it
                     if (this.props.courseName) {

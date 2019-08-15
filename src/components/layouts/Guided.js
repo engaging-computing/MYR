@@ -17,7 +17,6 @@ export const Guided = ({ editor, user, scene, editorActions, authActions, projec
             user={user}
             scene={scene}
             text={editor.text}
-            savedText={editor.savedText}
             message={editor.message}
             match={match}
             projectId={match.params.id}
@@ -41,9 +40,9 @@ export const Guided = ({ editor, user, scene, editorActions, authActions, projec
                     :
                     <>
                         <div id="interface" className="col-12 col-md-4">
-                            <Course lesson={courses.currentLesson} courses={courses} course={course} courseName={match.params.shortname} actions={editorActions} courseActions={courseActions} editorChange={editor.editorChange}/>
+                            <Course lesson={courses.currentLesson} courses={courses} course={course} courseName={match.params.shortname} actions={editorActions} courseActions={courseActions} savedText={editor.savedText}/>
                             <div className='guided'>
-                                <Editor refresh={editorActions.refresh} render={editorActions.render} text={editor.text} user={user} />
+                                <Editor refresh={editorActions.refresh} render={editorActions.render} text={editor.text} user={user} savedText={editor.savedText}/>
                             </div>
                         </div>
                         <div id="scene" className="col-12 col-md-8">
