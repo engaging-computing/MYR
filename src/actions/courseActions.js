@@ -1,4 +1,4 @@
-import { render, updateSavedText } from "./editorActions";
+import { render } from "./editorActions";
 
 import * as types from "../constants/ActionTypes";
 
@@ -49,7 +49,6 @@ export function fetchCourse(courseId) {
                         dispatch(loadCourse(json));
                         dispatch(loadLesson(json.firstLesson));
                         dispatch(render(json.firstLesson.code || ""));
-                        dispatch(updateSavedText(json.firstLesson.code || ""));
                         dispatch(sceneActions.setNameDesc(
                             {
                                 name: json.firstLesson.name,
@@ -84,7 +83,6 @@ export function fetchLesson(lvlId) {
                     .then(json => {
                         dispatch(loadLesson(json));
                         dispatch(render(json.code || ""));
-                        dispatch(updateSavedText(json.code || ""));
                         dispatch(sceneActions.nameScene(json.name));
                     })
                     .catch(err => {
@@ -139,4 +137,4 @@ export default {
     loadLesson,
     fetchLesson,
     loadCourse
-}; 
+};

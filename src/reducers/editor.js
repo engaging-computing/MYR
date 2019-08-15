@@ -4,14 +4,12 @@ import Myr from "../myr/Myr";
 
 const initial_state = {
     text: "",
-    savedText: "",
     objects: [],
     assets: [],
     message: {
         text: "",
         time: 0
-    },
-    editorChange: false,
+    }
 };
 
 /**
@@ -88,9 +86,7 @@ export default function editor(state = initial_state, action) {
             m.reset();
             return {
                 ...initial_state,
-                text: action.text,
-                savedText: state.savedText,
-                editorChange: state.editorChange
+                text: action.text
             };
 
         case types.EDITOR_RECOVER:
@@ -125,21 +121,7 @@ export default function editor(state = initial_state, action) {
                 message: message,
 
             };
-        case types.EDITOR_CHANGE:
-            return{
-                ...state,
-                text: action.text,
-                editorChange: action.editorChange,
-            };
-
-        case types.EDITOR_UPDATE_SAVEDTEXT:
-            return {
-                ...state,
-                savedText: action.savedText,
-                editorChange: false,
-            };
-
         default:
             return state;
     }
-} 
+}
