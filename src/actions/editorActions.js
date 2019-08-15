@@ -50,6 +50,7 @@ export function fetchScene(id, uid = "anon") {
             if (data && data.code) { // If it worked
                 // render the editor
                 dispatch(render(data.code, uid || "anon"));
+                dispatch(updateSavedText(data.code));
 
                 // Use default for eventual consistency in db
                 let settings = DEF_SETTINGS;
@@ -80,6 +81,26 @@ export function fetchScene(id, uid = "anon") {
     };
 }
 
+/**
+ * @function - Sends a signal to the reducer to change the state of editorChange and update the text
+ *
+ * @returns - reducer action obj with action type
+ */
+
+export function isEditorChange(editorChange, text){
+    return {type: types.EDITOR_CHANGE, editorChange, text};
+}
+
+/**
+* @function - Sends a signal to the reducer to update the savedText when user try to save or open scene/course
+*
+* @returns - reducer action obj with action type
+*/
+
+export function updateSavedText(savedText){
+    return {type: types.EDITOR_UPDATE_SAVEDTEXT,savedText};
+}
+
 export function addPassword(payload) {
     return { type: types.ADD_PW, payload };
 }
@@ -96,4 +117,6 @@ export default {
     fetchScene,
     addPassword,
     getCursorState,
-};
+    isEditorChange,
+    updateSavedText,
+}; 
