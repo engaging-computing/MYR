@@ -62,6 +62,16 @@ class CourseSelectModal extends Component {
         }
     }
 
+    convertCamelCase = (text) => {
+        //converts camelCase difficulty/category filters keys into Mixed Case button labels
+        if (typeof(text) === "string") {
+            return text.charAt(0).toUpperCase() + text.replace(/([A-Z]){1}/g, " $1").slice(1);
+        }
+        else {
+            return text;
+        }
+    }  
+
     helper = (course) => {
         let anyCategorySelected = (arr) => {
             let hasBeenSelected = false;
@@ -90,9 +100,7 @@ class CourseSelectModal extends Component {
                         href={link}>
                         <Card>
                             <CardContent>
-                                <h5>
-                                    {name}
-                                </h5>
+                                <h4>{name}</h4>
                                 <Typography variant="caption" display="block" gutterBottom>
                                     Difficulty : {difficulty}
                                 </Typography>
@@ -113,16 +121,6 @@ class CourseSelectModal extends Component {
         }
     }
 
-    convertCamelCase = (text) => {
-        //converts camelCase difficulty/category filters keys into Mixed Case button labels
-        if (typeof(text) === "string") {
-            return text.charAt(0).toUpperCase() + text.replace(/([A-Z]){1}/g, " $1").slice(1);
-        }
-        else {
-            return text;
-        }
-    }    
-    
     setFilterValue = (val, key, type) => {
         //console.log(val + key + type);
         if (type === "difficulty") {
@@ -146,7 +144,7 @@ class CourseSelectModal extends Component {
                 break;
             case "category":
                 for(let i in this.categories) {
-                    this.setFilterValue(value , this.categories[i], "difficulty");
+                    this.setFilterValue(value , this.categories[i], "category");
                 }    
                 break;
             default:
@@ -167,7 +165,7 @@ class CourseSelectModal extends Component {
             return(
                 <Button
                     variant={filter[key] ? "contained" : "outlined"}
-                    onClick={this.setFilterValue(!filter[key], key, type)}
+                    onClick={() => { this.setFilterValue(!filter[key], key, type); }}
                     size="small">
                     {buttonText}
                 </Button>
@@ -176,7 +174,7 @@ class CourseSelectModal extends Component {
         else {
             return null;
         }
-    }
+    }  
         
     render() {
         const { classes } = this.props;
@@ -224,12 +222,12 @@ class CourseSelectModal extends Component {
                                 </Grid>
                                 <Grid item xs={4}>
                                     <Button
-                                        onClick={() => {this.setAllFilters(true, "difficulty");}}
+                                        onClick={() => { this.setAllFilters(true, "difficulty"); }}
                                         size="small">
                                         Select All
                                     </Button>
                                     <Button
-                                        onClick={() => {this.setAllFilters(false, "difficulty");}}
+                                        onClick={() => { this.setAllFilters(false, "difficulty"); }}
 
                                         size="small">
                                         Deselect All
@@ -252,18 +250,17 @@ class CourseSelectModal extends Component {
                                 </Grid>
                                 <Grid item xs={4}>
                                     <Button
-                                        onClick={() => {this.setAllFilters(true, "category");}}
+                                        onClick={() => { this.setAllFilters(true, "category"); }}
                                         size="small">
                                         Select All
                                     </Button>
                                     <Button
-                                        onClick={() => {this.setAllFilters(false, "category");}}
+                                        onClick={() => { this.setAllFilters(false, "category"); }}
                                         size="small">
                                         Deselect All
                                     </Button>
                                 </Grid>
                             </Grid>
-                            
                             <br></br>
                         </div>
                         <br></br>
