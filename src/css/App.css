@@ -387,6 +387,10 @@ span.group{
     color: purple;
 }
 
+span.data{
+    color: orange;
+}
+
 span.array {
     color: black;
     font-weight: bolder;
