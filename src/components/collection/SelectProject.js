@@ -52,7 +52,6 @@ class SelectProject extends PureComponent {
     }
 
     render() {
-        let isDisabled = this.props.classroom && this.props.classroom.length !== 0 ? false : true;
         return (
             <div id="select-project">
                 <h3>{(this.props.selectedCollection) ? "Collection: " + this.props.selectedCollection : "Loading collection..."}</h3>
