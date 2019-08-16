@@ -6,6 +6,7 @@ import "brace/ext/language_tools";
 import customCompleter from "./customCompleter.js";
 
 import "brace/ext/searchbox";
+import "../../css/Editor.css";
 
 /**
 * @summary - Editor is a React Component that creat the Ace Editor in the DOM.
@@ -21,7 +22,7 @@ class Editor extends Component {
         //Forces render cycle so user sees up to date view when viewonly loads
         this.props.render(text);
     }
-
+ 
     componentDidMount() {
         try {
             // eslint-disable-next-line
@@ -43,23 +44,23 @@ class Editor extends Component {
     */
     render() {
         return (
-            <AceEditor
-                editorProps={{
-                    $blockScrolling: Infinity,
-                }}
-                height="94vh"
-                mode="javascript"
-                name="ace-editor"
-                // eslint-disable-next-line
-                ref="aceEditor"
-                theme="github"
-                value={this.props.text}
-                width="100%"
-                wrapEnabled={true}
-                enableBasicAutocompletion={false}
-                enableLiveAutocompletion={true}
-                onLoad={this.onLoad}
-            />
+                <AceEditor
+                    editorProps={{
+                        $blockScrolling: Infinity,
+                    }}
+                    height="94vh"
+                    mode="javascript"
+                    name="ace-editor"
+                    // eslint-disable-next-line
+                    ref="aceEditor"
+                    theme="github"
+                    value={this.props.text}
+                    width="100%"
+                    wrapEnabled={true}
+                    enableBasicAutocompletion={false}
+                    enableLiveAutocompletion={true}
+                    onLoad={this.onLoad}
+                />
         );
     }
 }

@@ -100,27 +100,6 @@ export default function editor(state = initial_state, action) {
             // Call editor function again with new params
             return editor({ ...state }, { type: types.EDITOR_RENDER, text: snapshots[stableIndex].text });
 
-        case types.EDTIOR_GET_CURSOR_STATE:
-            m.reset();
-
-            message = state.message;
-
-            try {
-                let func = noEvalEvaluation(action.text + "return getCursor();");
-                let cusor = func();  
-                console.log(cusor);
-            }
-            catch (err) {
-                // Notify that eval failed
-                console.error("Eval failed: " + err);
-                message = { ...message, text: "Eval failed: Unable to get cursor state from line " + action.line};
-            }
-
-            return {
-                ...state,
-                message: message,
-
-            };
         default:
             return state;
     }

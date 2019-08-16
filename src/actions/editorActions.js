@@ -84,16 +84,10 @@ export function addPassword(payload) {
     return { type: types.ADD_PW, payload };
 }
 
-
-export function getCursorState(text,line){
-    return {type: types.EDTIOR_GET_CURSOR_STATE, text, line};
-}
-
 export default {
     render,
     refresh,
     recover,
     fetchScene,
     addPassword,
-    getCursorState,
 };
