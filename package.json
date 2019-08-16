@@ -54,7 +54,7 @@
         "eject": "react-scripts eject",
         "analyze": "source-map-explorer build/static/js/main.*"
     },
-    "proxy": "http://localhost:1337",
+    "proxy": "http://localhost:1337/",
     "browserslist": [
         ">0.2%",
         "not dead",
