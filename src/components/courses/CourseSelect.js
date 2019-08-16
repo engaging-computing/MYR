@@ -8,7 +8,9 @@ import {
     IconButton,
     Icon,
     Modal,
-    Tooltip
+    Tooltip,
+    Typography,
+    Grid,
 } from "@material-ui/core";
 
 import { withStyles } from "@material-ui/core/styles";
@@ -47,7 +49,7 @@ class CourseSelectModal extends Component {
     constructor(props) {
         super(props);
         this.difficulties = ["beginner", "intermediate", "advanced", "expert"];
-        this.categories = ["geometry", "transformations", "animations", "groups", "firstTimer", "teachers"];
+        this.categories = ["geometry", "transformations", "animations", "groups", "firstTimer", "teachers", "misc"];
         this.state = {
             difficultyFilter : {},
             categoryFilter : {},
@@ -61,11 +63,22 @@ class CourseSelectModal extends Component {
     }
 
     helper = (course) => {
-        if (course) {
+        let anyCategorySelected = (arr) => {
+            let hasBeenSelected = false;
+            for(let i = 0; i < arr.length; i++) {
+                if (this.state.categoryFilter[arr[i]]) {
+                    hasBeenSelected = true;
+                }
+            }
+            return hasBeenSelected;
+        };
+        if (course && this.state.difficultyFilter[this.difficulties[course.difficulty]] && anyCategorySelected(course.categories)) {
             let id = course._id;
             let shortname = course.shortname;
             let name = course.name;
             let description = course.description;
+            let difficulty = this.convertCamelCase(this.difficulties[course.difficulty]);
+            let categories = course.categories.length > 0 ? course.categories.map(this.convertCamelCase).join(", ") : "None";
             let link = "/course/" + shortname;
             return (
                 <div key={id} id={id} title={name}
@@ -77,8 +90,18 @@ class CourseSelectModal extends Component {
                         href={link}>
                         <Card>
                             <CardContent>
-                                <h4>{name}</h4>
-                                <p>{description}</p>
+                                <h5>
+                                    {name}
+                                </h5>
+                                <Typography variant="caption" display="block" gutterBottom>
+                                    Difficulty : {difficulty}
+                                </Typography>
+                                <Typography variant="caption" display="block" gutterBottom>
+                                    Categories : {categories}
+                                </Typography>
+                                <Typography variant="body1" gutterBottom>
+                                    {description}
+                                </Typography>
                             </CardContent>
                         </Card>
                     </a>
@@ -90,11 +113,50 @@ class CourseSelectModal extends Component {
         }
     }
 
+    convertCamelCase = (text) => {
+        //converts camelCase difficulty/category filters keys into Mixed Case button labels
+        if (typeof(text) === "string") {
+            return text.charAt(0).toUpperCase() + text.replace(/([A-Z]){1}/g, " $1").slice(1);
+        }
+        else {
+            return text;
+        }
+    }    
+    
+    setFilterValue = (val, key, type) => {
+        //console.log(val + key + type);
+        if (type === "difficulty") {
+            let newState = this.state;
+            newState.difficultyFilter[key] = val;
+            this.setState(newState);
+        }
+        else if (type === "category") {
+            let newState = this.state;
+            newState.categoryFilter[key] = val;
+            this.setState(newState);
+        }
+    }
+
+    setAllFilters = (value, type) => {
+        switch(type){
+            case "difficulty":
+                for(let i in this.difficulties) {
+                    this.setFilterValue(value , this.difficulties[i], "difficulty");
+                }    
+                break;
+            case "category":
+                for(let i in this.categories) {
+                    this.setFilterValue(value , this.categories[i], "difficulty");
+                }    
+                break;
+            default:
+        }   
+    }
+
     filterHelper = (key, type) => {
         if (key) {
             //converts camelCase difficulty/category filters keys into Mixed Case button labels
-            let buttonText = key.replace(/([A-Z]){1}/g, " $1");
-            buttonText = buttonText.charAt(0).toUpperCase() + buttonText.slice(1);
+            let buttonText = this.convertCamelCase(key);
             let filter;
             if (type === "difficulty") {
                 filter = this.state.difficultyFilter;
@@ -105,18 +167,7 @@ class CourseSelectModal extends Component {
             return(
                 <Button
                     variant={filter[key] ? "contained" : "outlined"}
-                    onClick={() => {
-                        if (type === "difficulty") {
-                            let newState = this.state;
-                            newState.difficultyFilter[key] = !filter[key];
-                            this.setState(newState);
-                        }
-                        else if (type === "category") {
-                            let newState = this.state;
-                            newState.categoryFilter[key] = !filter[key];
-                            this.setState(newState);
-                        }
-                    }}
+                    onClick={this.setFilterValue(!filter[key], key, type)}
                     size="small">
                     {buttonText}
                 </Button>
@@ -163,19 +214,59 @@ class CourseSelectModal extends Component {
                         <h3 className="col-12 p-0 mb-3 border-bottom">Available Courses</h3>
                         <div id="filters" className="border-bottom">
                             <h5>Difficulty: </h5>
-                            <div>
-                                {
-                                    this.difficulties.map(i => { return this.filterHelper(i, "difficulty"); })
-                                }
-                            </div>
+                            <Grid container spacing={3}>
+                                <Grid item xs={8}>
+                                    <div>
+                                        {
+                                            this.difficulties.map(i => { return this.filterHelper(i, "difficulty"); })
+                                        }
+                                    </div>
+                                </Grid>
+                                <Grid item xs={4}>
+                                    <Button
+                                        onClick={() => {this.setAllFilters(true, "difficulty");}}
+                                        size="small">
+                                        Select All
+                                    </Button>
+                                    <Button
+                                        onClick={() => {this.setAllFilters(false, "difficulty");}}
+
+                                        size="small">
+                                        Deselect All
+                                    </Button>                            
+                                </Grid>
+                            </Grid>
                             <br></br>
-                            <h5>Categories: </h5>
-                            <div>
-                                {
-                                    this.categories.map(i => { return this.filterHelper(i, "category"); })
-                                }
-                            </div>
+                            <Grid container spacing={3}>
+                                <Grid item xs={8}>
+                                    <h5>Categories: </h5>
+                                </Grid>
+                            </Grid>
+                            <Grid container spacing={3}>
+                                <Grid item xs={8}>
+                                    <div>
+                                        {
+                                            this.categories.map(i => { return this.filterHelper(i, "category"); })
+                                        }
+                                    </div>
+                                </Grid>
+                                <Grid item xs={4}>
+                                    <Button
+                                        onClick={() => {this.setAllFilters(true, "category");}}
+                                        size="small">
+                                        Select All
+                                    </Button>
+                                    <Button
+                                        onClick={() => {this.setAllFilters(false, "category");}}
+                                        size="small">
+                                        Deselect All
+                                    </Button>
+                                </Grid>
+                            </Grid>
+                            
+                            <br></br>
                         </div>
+                        <br></br>
                         <div className="row" id="courses">
                             { // Sort the users projects in alphabetical order
                                 courses.sort(function (a, b) {
