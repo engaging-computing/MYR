@@ -31,11 +31,13 @@ m.init();
 // ESLint doesn't like this but it is better than eval
 function noEvalEvaluation(text) {
     // eslint-disable-next-line
-    return Function(`'use strict'; ${text}`)();
+    // let func = Function(`'use strict'; ${m.infiniteLoopDetector.wrap(text)}`);
+    // eslint-disable-next-line
+    let func = Function(`'use strict'; ${text}`);
+    return func;
 }
 
 export default function editor(state = initial_state, action) {
-
     switch (action.type) {
         case types.EDITOR_RENDER:
             m.reset();
@@ -54,7 +56,8 @@ export default function editor(state = initial_state, action) {
             };
 
             try {
-                noEvalEvaluation(action.text);
+                let func = noEvalEvaluation(action.text);
+                func();
             }
             catch (err) {
                 // Notify that eval failed

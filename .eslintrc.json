@@ -39,7 +39,7 @@
         ],
         "no-var": "error",
         "default-case": "warn",
-        "eqeqeq": "warn",
+        "eqeqeq": "error",
         "curly": "warn",
         "no-lonely-if": "warn",
         "no-console": [

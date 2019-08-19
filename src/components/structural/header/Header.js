@@ -38,8 +38,6 @@ class Header extends Component {
         super(props);
         this.state = {
             logMenuOpen: false,
-            sceneName: null,
-            sceneDesc: "",
             availProj: [],
             sampleProj: [],
             classroomOpen: false,
@@ -90,14 +88,6 @@ class Header extends Component {
                 }
             });
 
-        }
-
-        if (this.props.scene && this.props.scene.name) {
-            this.setState({ sceneName: this.props.scene.name });
-        }
-
-        if (this.props.scene && this.props.scene.desc) {
-            this.setState({ sceneDesc: this.props.scene.desc });
         }
 
         // Sync authentication
@@ -152,7 +142,8 @@ class Header extends Component {
         }
         window.addEventListener("beforeunload", (event) => {
             if (this.state.editorChange) {
-                event.returnValue = "";
+                event.preventDefault();
+                event.returnValue = "You may have unsaved scene changes!";
             }
         });
     }
@@ -181,16 +172,6 @@ class Header extends Component {
                 this.handleSave();
                 this.handleSaveClose();
             }
-        }
-    }
-
-    UNSAFE_componentWillReceiveProps(nextProps) {
-        if (nextProps.scene && nextProps.scene.name) {
-            this.setState({ sceneName: nextProps.scene.name });
-        }
-
-        if (nextProps.scene && nextProps.scene.desc) {
-            this.setState({ sceneDesc: nextProps.scene.desc });
         }
     }
 
@@ -292,35 +273,31 @@ class Header extends Component {
     * @summary - This sets the components current state to the input from the scene name form
     */
     handleNameChange = (event) => {
-        this.setState({ sceneName: event.target.value });
+        this.props.sceneActions.nameScene(event.target.value);
     }
 
     /**
     * @summary - This sets the components current state to the input from the scene description form
     */
     handleDescChange = (event) => {
-        this.setState({ sceneDesc: event.target.value });
+        this.props.sceneActions.setDesc(event.target.value);
     }
 
     /**
     * @summary - This function produces the form for inputting the scene's name and description
     */
     sceneName = () => {
-        let text = "";
-        if (this.state.sceneName === null) {
-            text = this.props.scene.name;
-        } else {
-            text = this.state.sceneName;
-        }
+        let sceneName = this.props.scene.name;
+        let sceneDesc = this.props.scene.desc;
         return (
             <FormControl className="mt-2" aria-describedby="name-helper-text">
                 <TextField id="name-helper"
-                    value={text ? text : ""}
+                    value={sceneName ? sceneName : ""}
                     label="Scene Name"
                     onBlur={this.handleNameChange}
                     onChange={this.handleNameChange} />
                 <TextField
-                    value={this.state.sceneDesc}
+                    value={sceneDesc ? sceneDesc : ""}
                     onChange={this.handleDescChange}
                     onBlur={this.handleDescChange}
                     label="Description"
@@ -397,8 +374,8 @@ class Header extends Component {
             imgRef.putString(img, "data_url").then(() => {
                 // Put the new document into the scenes collection
                 scenes.doc(projectId).set({
-                    name: this.state.sceneName,
-                    desc: this.state.sceneDesc,
+                    name: this.props.scene.name,
+                    desc: this.props.scene.desc,
                     code: text,
                     uid: this.props.user.uid,
                     settings: this.props.scene.settings,
