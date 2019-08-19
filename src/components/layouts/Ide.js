@@ -16,7 +16,6 @@ export const Ide = ({ editor, editorActions, user, authActions, scene, sceneActi
             user={user}
             scene={scene}
             text={editor.text}
-
             message={editor.message}
             projectId={match.params.id}
             match={match}

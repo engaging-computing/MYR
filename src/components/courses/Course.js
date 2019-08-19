@@ -31,7 +31,7 @@ class Lesson extends Component {
         }
     }
 
-    isEditorChange = () => {
+    hasEditorChange = () => {
         let text;
         try {
             let editor = window.ace.edit("ace-editor");
