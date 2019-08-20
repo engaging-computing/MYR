@@ -11,6 +11,7 @@ The Engaging Computing Group develops new technologies to enable learners—yout
 
 ## Change Log - 1.6.0 -> 1.6.1
 - Fixed classroom selection bug
+- Previews now appear on saved scenes again
 
 ## Acknowledgments
 MYR uses [Aframe](https://aframe.io), a fantastic open source project, to render objects and effects in the three dimensional space.  
