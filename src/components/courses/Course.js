@@ -10,7 +10,7 @@ class Lesson extends Component {
     nextLesson = () => {
         const currentIndex = this.props.courses.currentIndex;
         const lessons = this.props.course.lessons;
-        if(this.hasEditorChange()){
+        if(this.hasEditorChanged()){
             if (window.confirm("Are you sure you want to continue?\nYou will lose any unsaved work!")) {
                 this.props.courseActions.nextLesson(currentIndex, lessons[currentIndex + 1]);
             }
@@ -22,7 +22,7 @@ class Lesson extends Component {
     lastLesson = () => {
         const currentIndex = this.props.courses.currentIndex;
         const lessons = this.props.course.lessons;
-        if(this.hasEditorChange()){
+        if(this.hasEditorChanged()){
             if (window.confirm("Are you sure you want to continue?\nYou will lose any unsaved work!")) {
                 this.props.courseActions.previousLesson(currentIndex, lessons[currentIndex - 1]);
             }
@@ -31,7 +31,7 @@ class Lesson extends Component {
         }
     }
 
-    hasEditorChange = () => {
+    hasEditorChanged = () => {
         let text;
         try {
             let editor = window.ace.edit("ace-editor");

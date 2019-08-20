@@ -88,7 +88,7 @@ export function fetchScene(id, uid = "anon") {
 */
 
 export function updateSavedText(savedText){
-    return {type: types.EDITOR_UPDATE_SAVEDTEXT,savedText};
+    return {type: types.EDITOR_UPDATE_SAVEDTEXT, savedText};
 }
 
 export function addPassword(payload) {
