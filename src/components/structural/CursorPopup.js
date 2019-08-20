@@ -46,17 +46,26 @@ class CursorPopup extends Component {
 
     helper = (key, value) => {
         const style = {
-            "padding-left": "10px" 
+            "padding" : "0px",
+            "padding-left": "15px",
+            "margin": "0px"
         }
         if(typeof value === 'object' && value !== null) {
-            //Map the object out
-            //console.log(value);
             let str = Object.keys(value).map(k => {
                 return this.helper(k, value[k]);
             })
-            return <div style={style}>{str}</div>;
+            return (
+                <div style={style}>
+                    <h6>{key}</h6>
+                    <p>{str}</p>
+                </div>
+            );
         } else {
-            return (<p>{key + ": " + value}</p>);
+            return (
+                <div >
+                    <p> {key + ": " + value} </p>
+                </div>        
+            );
         }
     }
 
@@ -67,22 +76,25 @@ class CursorPopup extends Component {
     }
 
     render() {
+        const editorWidth = window.ace.edit("ace-editor").container.offsetWidth / 2;
+        console.log(editorWidth);  
         return (
             <div>
                 <Popover
-                    id={this.state.open ? "simple-popover" : undefined}
+                    id={this.state.open ? "cursor_popover" : undefined}
                     open={Boolean(this.state.anchorEl)}
-                    anchorEl={this.stateanchorEl}
+                    anchorEl={document.getElementById("scene")}
                     onClose={this.handleClose.bind(this)}
                     anchorOrigin={{
-                    vertical: "top",
-                    horizontal: "center"
+                        vertical: "top",
+                        horizontal: "left"
                     }}
                     transformOrigin={{
-                    vertical: "top",
-                    horizontal: "center"
+                        vertical: "top",
+                        horizontal: "left"
                     }} >
                     <div>
+                        <h3>Cursor Properties</h3>
                         {
                             Object.keys(this.state.obj).map(key => {
                                 return this.helper(key, this.state.obj[key]);
@@ -90,7 +102,6 @@ class CursorPopup extends Component {
                         }
                     </div>
                 </Popover>
-              
             </div>
           );
     }
