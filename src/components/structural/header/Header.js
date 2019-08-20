@@ -134,12 +134,12 @@ class Header extends Component {
                     } else {
                         this.setState({ editorChange: false });
                     }
-
                 });
             } catch (err) {
                 console.error(err);
             }
         }
+        
         window.addEventListener("beforeunload", (event) => {
             if (this.state.editorChange) {
                 event.preventDefault();
@@ -356,6 +356,7 @@ class Header extends Component {
             //If in editor mode, gets text directly from editor
             editor = window.ace.edit("ace-editor");
             text = editor.getSession().getValue();
+            this.props.actions.refresh(text, this.props.user ? this.props.user.uid : "anon");
         } else {
             //Otherwise, gets text from state (should be up to date since it is refreshed on editor unmount) 
             text = this.props.text;
@@ -402,10 +403,6 @@ class Header extends Component {
         } else {
             // TODO: Don't use alert
             alert("We were unable to save your project. Are you currently logged in?");
-        }
-
-        if(!this.state.viewOnly) {
-            this.props.actions.refresh(text, this.props.user ? this.props.user.uid : "anon");
         }
         this.handleSaveToggle();
     }

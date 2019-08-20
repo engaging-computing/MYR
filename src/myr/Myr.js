@@ -1048,6 +1048,9 @@ class Myr {
     }
 
     /********************* GETTERS *********************/
+    getCursor = () => {
+        return this.cursor;
+    }
 
     getColor = () => {
         return this.cursor.color;

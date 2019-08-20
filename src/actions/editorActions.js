@@ -89,5 +89,5 @@ export default {
     refresh,
     recover,
     fetchScene,
-    addPassword
+    addPassword,
 };

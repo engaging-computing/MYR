@@ -9,6 +9,7 @@ export const SET_INDEX = "SET_INDEX";
 export const EDITOR_RENDER = "EDITOR_RENDER";
 export const EDITOR_REFRESH = "EDITOR_REFRESH";
 export const EDITOR_RECOVER = "EDITOR_RECOVER";
+export const EDTIOR_GET_CURSOR_STATE = "EDITOR_GET_CURSOR_STATE";
 export const ADD_PW = "ADD_PW";
 export const SAVE_START = "SAVE_START";
 export const SAVE_FIN = "SAVE_FIN";
