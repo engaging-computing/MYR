@@ -1,13 +1,14 @@
-import React, { Component } from "react";
-import Popover from "@material-ui/core/Popover";
+import React, {Component} from 'react';
+import Popover from '@material-ui/core/Popover';
+
 
 class CursorPopup extends Component {
     constructor() {
         super();
 
-        this.state = {      
-            text: null,  
+        this.state = {   
             anchorEl: null,
+            obj: {},
         }
     }
 
@@ -31,24 +32,32 @@ class CursorPopup extends Component {
                 // eslint-disable-next-line
                 let func = Function(`'use strict'; ${text + "return getCursor();"}`);
                 let cursorState = func();   
-                let str = "";
-
-                const props = Object.keys(cursorState);
-                for(const prop of props) {
-                    if(prop){
-                        str += (prop + ": " + cursorState[prop] + ", ");
-                    }
-                }
-
-                console.log(str);
+                
+                console.table(cursorState);
 
                 self.setState({
                     anchorEl: e,
-                    text: str
+                    obj: cursorState
                 });
             }
         }
 
+    }
+
+    helper = (key, value) => {
+        const style = {
+            "padding-left": "10px" 
+        }
+        if(typeof value === 'object' && value !== null) {
+            //Map the object out
+            //console.log(value);
+            let str = Object.keys(value).map(k => {
+                return this.helper(k, value[k]);
+            })
+            return <div style={style}>{str}</div>;
+        } else {
+            return (<p>{key + ": " + value}</p>);
+        }
     }
 
     handleClose() {
@@ -73,9 +82,13 @@ class CursorPopup extends Component {
                     vertical: "top",
                     horizontal: "center"
                     }} >
-                    <p>
-                        {JSON.stringify(this.state.text)}
-                    </p>
+                    <div>
+                        {
+                            Object.keys(this.state.obj).map(key => {
+                                return this.helper(key, this.state.obj[key]);
+                            })
+                        }
+                    </div>
                 </Popover>
               
             </div>
