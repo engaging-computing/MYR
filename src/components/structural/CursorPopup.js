@@ -4,7 +4,7 @@ import {
         IconButton,
         Popover,
     } from '@material-ui/core/';
-
+import "../../css/CursorState.css"
 
 class CursorPopup extends Component {
     constructor() {
@@ -53,7 +53,6 @@ class CursorPopup extends Component {
     }
 
     handleButtonClick = key => {
-        console.log("clicked")
         switch (key) {
             case "position":
                 this.setState({
@@ -95,61 +94,46 @@ class CursorPopup extends Component {
         }
     }
 
-    helper = (key, value, firstPass) => {
-        const style = {
-            "padding" : "0px",
-            "paddingLeft": "15px",
-            "margin": "0px",
-            "display": "inline-block"
-        }
+    getIconType = key => {
+        switch (key) {
+            case "position": return "my_location";
+            case "scale": return "zoom_out_map";
+            case "rotation": return "sync";
+            case "magnitude": return "transform";
 
+            default: return "help";
+        }
+    }
+
+
+    helper = (key, value, firstPass) => {
         if(typeof value === 'object' && value !== null && !firstPass) {
+            //This maps out all of the key/value pairs in an object
             let str = Object.keys(value).map(k => {
                 return this.helper(k, value[k], (Boolean(typeof value[k] !== "object")));
             })
 
-  
-            let iconType = "";
+            const iconType = this.getIconType(key);
 
-            switch (key) {
-                case "position":
-                    iconType = "my_location";
-                    break;
-                case "scale":
-                    iconType = "zoom_out_map";
-                    break;
-                case "rotation":
-                    iconType = "sync";
-                    break;
-                case "magnitude":
-                    iconType = "transform";
-                    break;
-                default:
-                    iconType = "help";
-                    break;
-            }
-
-            const shouldDisplayStyle = {
-                "display": this.getOpen(key)
-            }
-
-            console.log(shouldDisplayStyle)
+            const shouldDisplayStyle = { "display": this.getOpen(key) }
 
             return (
-                <div id = "objectContainer" style={style}>
-                    <IconButton
-                        onClick={() => {
-                                this.handleButtonClick(key)
-                            }
-                        }
-                        variant="raised"
-                        color="primary">
-                        <Icon className="material-icons">{iconType}</Icon>
-                    </IconButton>
-                    
-                    <div style = {shouldDisplayStyle}>
-                        <h6>{key}</h6>
-                        <p>{str}</p>
+                <div  className = "col-sm">
+                    <div>
+                        <IconButton
+                            onClick={ () => this.handleButtonClick(key) }
+                            variant="raised"
+                            color="primary">
+                            <Icon className="material-icons">{iconType}</Icon>
+                        </IconButton>
+                    </div>
+                    <div id = "objectContainer">
+                        
+                        
+                        <div style = {shouldDisplayStyle}>
+                            <h6>{key}</h6>
+                            <p>{str}</p>
+                        </div>
                     </div>
                 </div>
             );
@@ -197,9 +181,13 @@ class CursorPopup extends Component {
                         }
                         {
                             //Renders objects in a second sweep
-                            Object.keys(this.state.obj).map(key => {
-                                return this.helper(key, this.state.obj[key], false);
-                            })
+                            <div className = "row">
+                                {
+                                    Object.keys(this.state.obj).map(key => {
+                                        return this.helper(key, this.state.obj[key], false);
+                                    })
+                                }
+                            </div>
                         }
                     </div>
                 </Popover>
