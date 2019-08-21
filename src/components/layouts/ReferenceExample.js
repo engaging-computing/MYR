@@ -9,7 +9,7 @@ import * as layoutTypes from "../../constants/LayoutTypes.js";
 
 import "../../css/ReferencePage.css";
 
-export const ReferenceExample = ({ editor, user, scene, referenceExample, referenceExampleActions, editorActions, authActions, projectActions, projects, courseActions, courses, match, sceneActions, classroomActions, classrooms }) => (
+export const ReferenceExample = ({ editor, user, scene, referenceExample, referenceExampleActions, editorActions, authActions, projectActions, projects, courseActions, courses, match, sceneActions, collectionActions, collections }) => (
     <div className="App">
         <Header
             logging={authActions}
@@ -25,8 +25,8 @@ export const ReferenceExample = ({ editor, user, scene, referenceExample, refere
             courseActions={courseActions}
             projects={projects}
             courses={courses}
-            classroomActions={classroomActions}
-            classrooms={classrooms}
+            collectionActions={collectionActions}
+            collections={collections}
             refExName={match.params.function}
             referenceExampleActions={referenceExampleActions}
             layoutType={layoutTypes.REF_EXAMPLE}

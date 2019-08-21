@@ -5,7 +5,7 @@ import ReferencePage from "../reference/ReferencePage";
 
 import * as layoutTypes from "../../constants/LayoutTypes.js";
 
-export const Reference = ({ editor, editorActions, user, authActions, scene, sceneActions, projectActions, courseActions, projects, courses, match, classroomActions, classrooms }) => (
+export const Reference = ({ editor, editorActions, user, authActions, scene, sceneActions, projectActions, courseActions, projects, courses, match, collectionActions, collections }) => (
     <div className="App">
         <Header
             logging={authActions}
@@ -21,8 +21,8 @@ export const Reference = ({ editor, editorActions, user, authActions, scene, sce
             courseActions={courseActions}
             projects={projects}
             courses={courses}
-            classroomActions={classroomActions}
-            classrooms={classrooms}
+            collectionActions={collectionActions}
+            collections={collections}
             layoutType={layoutTypes.REFERENCE}
         />
         <div className="row no-gutters">
