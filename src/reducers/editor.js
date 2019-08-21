@@ -4,17 +4,12 @@ import Myr from "../myr/Myr";
 
 const initial_state = {
     text: "",
+    savedText: "",
     objects: [],
     assets: [],
     message: {
         text: "",
-        savedText: "",
-        objects: [],
-        assets: [],
-        message: {
-            text: "",
-            time: 0
-        }
+        time: 0,
     }
 };
 
