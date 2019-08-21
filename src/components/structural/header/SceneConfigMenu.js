@@ -89,7 +89,7 @@ class ConfigModal extends Component {
             addClassOpen: false,
             email: "",
             sendTo: [],
-            classroomID: "",
+            collectionID: "",
             value: "a"
         };
         this.emailRef = React.createRef();
@@ -308,14 +308,14 @@ class ConfigModal extends Component {
         );
     };
 
-    addClassroomToggle = () => {
+    addCollectionToggle = () => {
         return (
             <ButtonBase
                 style={btnStyle.base}
                 onClick={this.handleAddClassToggle}
             >
                 <Icon className="material-icons">library_add</Icon>
-                Add to Class
+                Add to Collection
             </ButtonBase >
         );
     };
@@ -328,27 +328,27 @@ class ConfigModal extends Component {
         return (
             <ButtonBase
                 style={btnStyle.base}
-                onClick={() => window.open(window.origin + "/about/classrooms")} >
+                onClick={() => window.open(window.origin + "/about/collections")} >
                 <Icon className="material-icons">info</Icon>
-                About
+                About Collections
             </ButtonBase >
         );
     };
 
     addClass = () => (
         <div>
-            <h5>Please enter your class code</h5>
-            {this.props.scene && this.props.scene.settings.classroomID ? <p>{"Current classroom: " + this.props.scene.settings.classroomID}</p> : null}
+            <h5>Please enter your collection name.</h5>
+            {this.props.scene && this.props.scene.settings.collectionID ? <p>{"Current collection: " + this.props.scene.settings.collectionID}</p> : null}
             <TextField
                 id="standard-name"
                 type="text"
-                onChange={this.handleTextChange("classroomID")}
+                onChange={this.handleTextChange("collectionID")}
             />
             <Button
                 color="primary"
                 onClick={() => {
                     this.handleAddClassToggle();
-                    this.props.sceneActions.addClassroomID(this.state.classroomID.toLowerCase());
+                    this.props.sceneActions.addcollectionID(this.state.collectionID.toLowerCase());
                     this.props.handleSave();
                     this.props.handleSaveClose();
                 }} >
@@ -521,9 +521,9 @@ class ConfigModal extends Component {
                                                     Add PW
                                                 </ButtonBase> */}
                                             </div>
-                                            <div className="col-12 border-bottom pt-4">Classroom Control</div>
+                                            <div className="col-12 border-bottom pt-4">Collection Control</div>
                                             <div className="col-6">
-                                                <this.addClassroomToggle />
+                                                <this.addCollectionToggle />
                                             </div>
                                             <div className="col-6">
                                                 <this.classInfoToggle />
