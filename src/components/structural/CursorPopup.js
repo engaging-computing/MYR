@@ -3,6 +3,7 @@ import {
         Icon, 
         IconButton,
         Popover,
+        Divider
     } from '@material-ui/core/';
 import "../../css/CursorState.css"
 
@@ -107,7 +108,9 @@ class CursorPopup extends Component {
 
 
     helper = (key, value, firstPass) => {
-        if(typeof value === 'object' && value !== null && !firstPass) {
+        const shouldRenderObjects = typeof value === 'object' && value !== null && !firstPass; 
+        const shouldRenderOther = (typeof value !== 'object' && firstPass) || (typeof value === 'object' && !firstPass);
+        if(shouldRenderObjects) {
             //This maps out all of the key/value pairs in an object
             let str = Object.keys(value).map(k => {
                 return this.helper(k, value[k], (Boolean(typeof value[k] !== "object")));
@@ -119,7 +122,7 @@ class CursorPopup extends Component {
 
             return (
                 <div  className = "col-sm">
-                    <div>
+                    <div className = "iconContainer">
                         <IconButton
                             onClick={ () => this.handleButtonClick(key) }
                             variant="raised"
@@ -127,21 +130,25 @@ class CursorPopup extends Component {
                             <Icon className="material-icons">{iconType}</Icon>
                         </IconButton>
                     </div>
+
                     <div id = "objectContainer">
-                        
-                        
                         <div style = {shouldDisplayStyle}>
-                            <h6>{key}</h6>
+                            <h6>{this.capitalize(key)}</h6>
                             <p>{str}</p>
                         </div>
                     </div>
                 </div>
             );
         } else {
-            if((typeof value !== 'object' && firstPass) || (typeof value === 'object' && !firstPass))
+            if(shouldRenderOther)
                 return (
-                    <div >
-                        <p> {key + ": " + value} </p>
+                    <div className = "row">
+                        <div className = "col-6">
+                            <p className = "keyPara"> {this.capitalize(key)}</p>
+                        </div> 
+                        <div className = "col-6">
+                            <p className = "valuePara"> {this.capitalize(value) + ""}</p>
+                        </div> 
                     </div>        
                 );
         }
@@ -153,9 +160,19 @@ class CursorPopup extends Component {
         });
     }
 
+    capitalize = word => {
+        try {
+            if(typeof word === "boolean") {
+                return word ? "True" : "False"
+            }
+            return word.toString().charAt(0).toUpperCase() + word.slice(1);
+        }
+        catch(e) {
+            return word;
+        }
+    }
+
     render() {
-        const editorWidth = window.ace.edit("ace-editor").container.offsetWidth / 2;
-        console.log(editorWidth);  
         return (
             <div>
                 <Popover
@@ -171,6 +188,7 @@ class CursorPopup extends Component {
                         vertical: "top",
                         horizontal: "left"
                     }} >
+                        
                     <div>
                         <h3>Cursor Properties</h3>
                         {
@@ -181,15 +199,19 @@ class CursorPopup extends Component {
                         }
                         {
                             //Renders objects in a second sweep
-                            <div className = "row">
-                                {
-                                    Object.keys(this.state.obj).map(key => {
-                                        return this.helper(key, this.state.obj[key], false);
-                                    })
-                                }
-                            </div>
+                            <>
+                                <Divider variant="middle" />
+                                <div className = "row">
+                                    {
+                                        Object.keys(this.state.obj).map(key => {
+                                            return this.helper(key, this.state.obj[key], false);
+                                        })
+                                    }
+                                </div>
+                            </>
                         }
                     </div>
+
                 </Popover>
             </div>
           );

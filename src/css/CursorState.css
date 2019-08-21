@@ -2,7 +2,23 @@
     position: relative;
     top: 0px;
     padding: 0px;
-    padding-left: 15px;
     margin: 0px;
     display: inline-block;
+}
+
+h6, p {
+    margin: 6px;
+}
+
+h3 {
+    text-align: center
+}
+
+#cursor_popover {
+    margin: 10px !important;
+    padding: 10px !important;
+}
+
+.valuePara {
+    float:right
 }
