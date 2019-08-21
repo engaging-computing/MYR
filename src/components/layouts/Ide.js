@@ -6,7 +6,7 @@ import View from "../structural/View";
 
 import * as layoutTypes from "../../constants/LayoutTypes.js";
 
-export const Ide = ({ editor, editorActions, user, authActions, scene, sceneActions, projectActions, courseActions, projects, courses, match, classroomActions, classrooms }) => (
+export const Ide = ({ editor, editorActions, user, authActions, scene, sceneActions, projectActions, courseActions, projects, courses, match, collectionActions, collections }) => (
     <div className="App">
         <Header
             viewOnly={scene.settings.viewOnly}
@@ -23,8 +23,8 @@ export const Ide = ({ editor, editorActions, user, authActions, scene, sceneActi
             courseActions={courseActions}
             projects={projects}
             courses={courses}
-            classroomActions={classroomActions}
-            classrooms={classrooms}
+            collectionActions={collectionActions}
+            collections={collections}
             layoutType={layoutTypes.IDE}
         />
         <div className="row no-gutters">
