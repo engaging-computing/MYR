@@ -9,7 +9,7 @@ export const DEF_SETTINGS = {
     showFloor: true,
     cameraPosition: "0 1.6 3",
     viewOnly: false,
-    classroomID: ""
+    collectionID: ""
 };
 
 const initial_state = {
@@ -102,7 +102,7 @@ export default function scene(state = initial_state, action) {
                 ...state,
                 settings: {
                     ...state.settings,
-                    classroomID: action.payload
+                    collectionID: action.payload
                 }
             };
         case types.LOAD_SETTINGS:

@@ -5,7 +5,7 @@ import project from "./project";
 import scene from "./scene";
 import user from "./user";
 import courses from "./course";
-import classrooms from "./classes";
+import collections from "./collections";
 import referenceExample from "./referenceExample";
 
 import thunk from "redux-thunk";
@@ -16,7 +16,7 @@ const reducer = combineReducers({
     scene,
     project,
     courses,
-    classrooms,
+    collections,
     referenceExample
 });
 
