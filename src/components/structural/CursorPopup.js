@@ -21,6 +21,13 @@ class CursorPopup extends Component {
         }
     }
 
+    /*
+     * 1. If texts contains a function but no call, remove that text from what will be processed
+     * 2. If the text contains a function call but no definition, scan the rest of the text for the body
+     * 3. Implement stepper for loops
+     * 4. Should display state at beginning and end of functions / loops
+    */
+
     componentDidMount() {
         const self = this;
 
