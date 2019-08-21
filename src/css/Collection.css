@@ -1,4 +1,4 @@
-#classroom-list {
+#collection-list {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
@@ -8,4 +8,8 @@
 #select-project {
     padding: 10px;
     background: #fff !important;
+}
+
+.collection-icon {
+    margin-right: 3px;
 }
