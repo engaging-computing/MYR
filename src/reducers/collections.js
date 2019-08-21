@@ -1,8 +1,8 @@
 import * as types from "../constants/ActionTypes";
 
 const initial_state = {
-    classrooms: [],
-    classroom: []
+    collections: [],
+    collection: []
 };
 
 export default function classes(state = initial_state, action) {
@@ -10,21 +10,21 @@ export default function classes(state = initial_state, action) {
         case types.SYNC_CLASSES:
             return {
                 ...state,
-                classrooms: action.payload
+                collections: action.payload
             };
         case types.SYNC_CLASS:
             return {
                 ...state,
-                classroom: action.payload
+                collection: action.payload
             };
         case types.DELETE_CLASS:
             let userClasses = [];
-            userClasses = state.classrooms.filter(x => {
+            userClasses = state.collections.filter(x => {
                 return x.id !== action.id;
             });
             return {
                 ...state,
-                classrooms: userClasses
+                collections: userClasses
             };
         default:
             return state;
