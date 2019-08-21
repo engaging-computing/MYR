@@ -19,7 +19,7 @@ const mapStateToProps = state => ({
     scene: state.scene,
     projects: state.project,
     courses: state.courses,
-    classrooms: state.classrooms,
+    collections: state.collections,
     referenceExample: state.referenceExample
 });
 
@@ -30,7 +30,7 @@ const mapDispatchToProps = dispatch => ({
     sceneActions: bindActionCreators(Actions.SceneActions, dispatch),
     projectActions: bindActionCreators(Actions.ProjectActions, dispatch),
     courseActions: bindActionCreators(Actions.CourseActions, dispatch),
-    classroomActions: bindActionCreators(Actions.ClassroomActions, dispatch),
+    collectionActions: bindActionCreators(Actions.CollectionActions, dispatch),
     referenceExampleActions: bindActionCreators(Actions.ReferenceExampleActions, dispatch)
 });
 
