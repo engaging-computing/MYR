@@ -24,5 +24,5 @@ export const auth = firebase.auth();
 export const db = firebase.firestore();
 export const scenes = db.collection("scenes");
 export const snaps = db.collection("snaps");
-export const classes = db.collection("classes");
+export const collections = db.collection("collections");
 export const storageRef = firebase.storage().ref();
