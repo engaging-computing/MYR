@@ -5,13 +5,7 @@ import {
         Popover,
         Divider
     } from '@material-ui/core/';
-import Myr from "../../myr/Myr.js";
-
 import "../../css/CursorState.css"
-
-let m = new Myr();
-m.init();
-
 
 class CursorPopup extends Component {
     constructor() {
@@ -45,7 +39,8 @@ class CursorPopup extends Component {
     componentDidMount() {
         const self = this;
 
-        document.body.onclick = function(e) {   //when the document body is clicked
+
+        const getGutterClick = (e) => {   //when the document body is clicked
             if (window.event) {
                 e = window.event.srcElement;           //assign the element clicked to e (IE 6-8)
             }
@@ -58,8 +53,7 @@ class CursorPopup extends Component {
 
                 let selectionRange = editor.getSelectionRange().end.row;
                 let text = "resetCursor();\n" + (editor.getSession().doc.$lines.slice(0,selectionRange).join("\n"));
-                console.log(text);
-                m.reset();
+                console.log(text);;
                 // eslint-disable-next-line
                 let func = Function(`'use strict'; ${text + "return getCursor();"}`);
                 let cursorState = func();
@@ -73,6 +67,7 @@ class CursorPopup extends Component {
             }
         }
 
+        window.addEventListener("click", getGutterClick);
     }
 
     handleButtonClick = key => {
@@ -143,7 +138,7 @@ class CursorPopup extends Component {
             const shouldDisplayStyle = { "display": this.getOpen(key) }
 
             return (
-                <div  className = "col-sm">
+                <div  className = "col-sm-auto">
                     <div className = "iconContainer">
                         <IconButton
                             onClick={ () => this.handleButtonClick(key) }
