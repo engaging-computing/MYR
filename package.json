@@ -45,7 +45,7 @@
         "three": "^0.98.0"
     },
     "scripts": {
-        "start": "react-scripts start",
+        "start": "PORT=8000 react-scripts start",
         "build": "react-scripts build",
         "lint": "./node_modules/.bin/eslint \"src/**/*.js\"",
         "prod": "react-scripts build && mv build ../MYR-backend && rm -r ../MYR-backend/public/myr && mv ../MYR-backend/build ../MYR-backend/public/myr",

@@ -5,7 +5,13 @@ import {
         Popover,
         Divider
     } from '@material-ui/core/';
+import Myr from "../../myr/Myr.js";
+
 import "../../css/CursorState.css"
+
+let m = new Myr();
+m.init();
+
 
 class CursorPopup extends Component {
     constructor() {
@@ -28,6 +34,14 @@ class CursorPopup extends Component {
      * 4. Should display state at beginning and end of functions / loops
     */
 
+    parseOutFunc(fullText) {
+        let newText;
+
+
+
+        return newText;
+    }
+
     componentDidMount() {
         const self = this;
 
@@ -43,12 +57,13 @@ class CursorPopup extends Component {
                 const editor = window.ace.edit("ace-editor");
 
                 let selectionRange = editor.getSelectionRange().end.row;
-                let text = editor.getSession().doc.$lines.slice(0,selectionRange).join("\n");
-            
+                let text = "resetCursor();\n" + (editor.getSession().doc.$lines.slice(0,selectionRange).join("\n"));
+                console.log(text);
+                m.reset();
                 // eslint-disable-next-line
                 let func = Function(`'use strict'; ${text + "return getCursor();"}`);
-                let cursorState = func();   
-                
+                let cursorState = func();
+
                 console.table(cursorState);
 
                 self.setState({
