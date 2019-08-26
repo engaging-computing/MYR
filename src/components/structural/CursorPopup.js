@@ -6,7 +6,6 @@ import {
         Divider
     } from '@material-ui/core/';
 import "../../css/CursorState.css"
-
 class CursorPopup extends Component {
     constructor() {
         super();
@@ -28,7 +27,7 @@ class CursorPopup extends Component {
      * 4. Should display state at beginning and end of functions / loops
     */
 
-    parseOutFunc(fullText) {
+    getCursorState(userClickPoint, editorText) {
         let newText;
 
 
@@ -36,34 +35,59 @@ class CursorPopup extends Component {
         return newText;
     }
 
+    removeComments(textArr) {
+        for(let i = 0; i < textArr.length; i ++) {
+            let index = textArr[i].indexOf("/")
+            if(index !== -1) {
+                textArr[i] = textArr[i].slice(0, index);
+            }
+        }
+        return textArr;
+    }
+
+    parseFullTextIntoArray(breakpoint) {
+        let editorDoc = window.ace.edit("ace-editor").getSession().doc;
+        
+        let firstArr = editorDoc.$lines.slice(0, breakpoint);
+        firstArr = this.removeComments(firstArr);
+
+        firstArr.unshift("resetCursor();"); //Resets cursor before running code
+        firstArr.push("return getCursor();"); //Now will return the cursor value after the breakpoint
+
+        let secondArr = editorDoc.$lines.slice(breakpoint, editorDoc.$lines.length);
+        secondArr = this.removeComments(secondArr);
+
+        const modifiedTextArr = firstArr.concat(secondArr);
+        //Modified array will now store all code since there was a function
+
+        return modifiedTextArr.join("\n");
+    }
+
     componentDidMount() {
         const self = this;
 
+        const getGutterClick = (e) => {  
+            if (window.event) e = window.event.srcElement// (IE 6-8)
+            else e = e.target;     
+            
+            if (e.className && e.className.indexOf('ace_gutter-cell') !== -1) { 
+                let text, cursorState;               
 
-        const getGutterClick = (e) => {   //when the document body is clicked
-            if (window.event) {
-                e = window.event.srcElement;           //assign the element clicked to e (IE 6-8)
-            }
-            else {
-                e = e.target;                   //assign the element clicked to e
-            }
-        
-            if (e.className && e.className.indexOf('ace_gutter-cell') !== -1) {   
-                const editor = window.ace.edit("ace-editor");
+                try {
+                    let selectionRange = window.ace.edit("ace-editor").getSelectionRange().start.row + 1;
+                    text = this.parseFullTextIntoArray(selectionRange);
 
-                let selectionRange = editor.getSelectionRange().end.row;
-                let text = "resetCursor();\n" + (editor.getSession().doc.$lines.slice(0,selectionRange).join("\n"));
-                console.log(text);;
-                // eslint-disable-next-line
-                let func = Function(`'use strict'; ${text + "return getCursor();"}`);
-                let cursorState = func();
+                    // eslint-disable-next-line
+                    let func = Function(`'use strict'; ${text}`);
+                    cursorState = func();
 
-                console.table(cursorState);
-
-                self.setState({
-                    anchorEl: e,
-                    obj: cursorState
-                });
+                    self.setState({
+                        anchorEl: e,
+                        obj: cursorState
+                    });
+                } catch (e) {
+                    console.error(e);
+                }
             }
         }
 
@@ -151,7 +175,7 @@ class CursorPopup extends Component {
                     <div id = "objectContainer">
                         <div style = {shouldDisplayStyle}>
                             <h6>{this.capitalize(key)}</h6>
-                            <p>{str}</p>
+                            {str}
                         </div>
                     </div>
                 </div>
@@ -207,7 +231,7 @@ class CursorPopup extends Component {
                     }} >
                         
                     <div>
-                        <h3>Cursor Properties</h3>
+                        <h3>Cursor State</h3>
                         {
                             //Renders all non objects first
                             Object.keys(this.state.obj).map(key => {
