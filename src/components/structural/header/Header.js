@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from "react";
-import { auth, provider, scenes, classes, storageRef } from "../../../firebase.js";
+import { auth, provider, scenes, collections, storageRef } from "../../../firebase.js";
 import Reference from "../../reference/Reference.js";
-import Classroom from "../../classroom/Classroom.js";
+import Collection from "../../collection/Collection.js";
 import SceneConfigMenu from "./SceneConfigMenu.js";
 import Sidebar from "./Sidebar.js";
 import MyrTour from "./MyrTour.js";
@@ -40,7 +40,7 @@ class Header extends Component {
             logMenuOpen: false,
             availProj: [],
             sampleProj: [],
-            classroomOpen: false,
+            collectionOpen: false,
             projectsOpen: false,
             projectTab: "a",
             snackOpen: false,
@@ -69,22 +69,22 @@ class Header extends Component {
         else if (this.props.refExName) {
             this.props.referenceExampleActions.fetchReferenceExample(this.props.refExName);
         }
-        else if (this.props.classroom) {
-            let userClasses = [];
-            classes.where("classroomID", "==", this.props.classroom).get().then(snap => {
+        else if (this.props.collection) {
+            let userCollections = [];
+            collections.where("collectionID", "==", this.props.collection).get().then(snap => {
                 snap.forEach(doc => {
                     let dat = doc.data();
-                    userClasses.push({
-                        classroomID: dat.classroomID,
+                    userCollections.push({
+                        collectionID: dat.collectionID,
                         uid: dat.uid
                     });
                 });
             }).then(() => {
-                if (this.props.user && this.props.user.uid && userClasses.length === 1 && userClasses[0].uid === this.props.user.uid) {
-                    this.props.classroomActions.asyncClass(this.props.classroom);
+                if (this.props.user && this.props.user.uid && userCollections.length === 1 && userCollections[0].uid === this.props.user.uid) {
+                    this.props.collectionActions.asyncCollection(this.props.collection);
                 }
                 else {
-                    window.alert("Error: You are not logged in as the owner of this class");
+                    window.alert("Error: You are not logged in as the owner of this collection");
                 }
             });
 
@@ -96,7 +96,7 @@ class Header extends Component {
                 this.props.logging.login(account);
                 // 2. If we have a user, load their projects
                 this.props.projectActions.asyncUserProj(this.props.user.uid);
-                this.props.classroomActions.asyncClasses(this.props.user.uid);
+                this.props.collectionActions.asyncCollections(this.props.user.uid);
             } else {
                 this.props.logging.logout();
             }
@@ -486,27 +486,27 @@ class Header extends Component {
         this.setState({ tourOpen: !this.state.tourOpen });
     };
 
-    handleClassroomToggle = () => {
-        this.setState({ classroomOpen: !this.state.classroomOpen });
+    handleCollectionToggle = () => {
+        this.setState({ collectionOpen: !this.state.collectionOpen });
     };
 
-    handleClassroomClose = () => {
-        this.setState({ classroomOpen: false });
+    handleCollectionClose = () => {
+        this.setState({ collectionOpen: false });
     };
 
     handleReferenceToggle = () => {
         this.setState({ referenceOpen: !this.state.referenceOpen });
     };
 
-    loadClassroom = () => {
+    loadCollection = () => {
         return (
-            <Classroom
-                classrooms={this.props.classrooms}
-                classroomActions={this.props.classroomActions}
+            <Collection
+                collections={this.props.collections}
+                collectionActions={this.props.collectionActions}
                 user={this.props.user}
-                open={this.state.classroomOpen}
-                handleClassroomToggle={this.handleClassroomToggle}
-                handleClassroomClose={this.handleClassroomClose} />
+                open={this.state.collectionOpen}
+                handleCollectionToggle={this.handleCollectionToggle}
+                handleCollectionClose={this.handleCollectionClose} />
         );
     }
 
@@ -631,11 +631,11 @@ class Header extends Component {
                         </Button>
                         <Button
                             variant="raised"
-                            onClick={this.handleClassroomToggle}
+                            onClick={this.handleCollectionToggle}
                             color="primary"
                             className="sidebar-btn">
                             <Icon className="material-icons">assignment</Icon>
-                            Classrooms
+                            Collections
                         </Button>
                         <Button
                             variant="raised"
@@ -746,7 +746,7 @@ class Header extends Component {
                 <this.saveDrawer />
                 <this.renderSnackBar />
                 <this.spinner />
-                <this.loadClassroom />
+                <this.loadCollection />
             </header >
         );
     }

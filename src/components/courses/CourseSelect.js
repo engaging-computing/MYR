@@ -265,12 +265,16 @@ class CourseSelectModal extends Component {
                         </div>
                         <br></br>
                         <div className="row" id="courses">
-                            { // Sort the users projects in alphabetical order
-                                courses.sort(function (a, b) {
-                                    return a.name < b.name ? -1 : a.name > b.name ? 1 : 0;
-                                }).map(course => {
-                                    return this.helper(course);
-                                })
+                            { // Sort the users projects in alphabetical order 
+                                courses.length !== 0 ?
+                                    () => {
+                                        return courses.sort(function (a, b) {
+                                            return a.name < b.name ? -1 : a.name > b.name ? 1 : 0;
+                                        }).map(course => {
+                                            return this.helper(course);
+                                        });
+                                    } : 
+                                    () => { return (<Typography variant="caption" display="block" gutterBottom>No Courses Found</Typography>); }
                             }
                         </div>
                     </div>

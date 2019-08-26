@@ -3,11 +3,11 @@ import Editor from "../editor/Editor";
 import Header from "../structural/header/Header";
 import Footer from "../structural/Footer";
 import View from "../structural/View";
-import SelectProject from "../classroom/SelectProject.js";
+import SelectProject from "../collection/SelectProject.js";
 
 import * as layoutTypes from "../../constants/LayoutTypes.js";
 
-export const Classroom = ({ editor, editorActions, user, authActions, scene, sceneActions, projectActions, courseActions, projects, courses, match, classroomActions, classrooms }) => (
+export const Collection = ({ editor, editorActions, user, authActions, scene, sceneActions, projectActions, courseActions, projects, courses, match, collectionActions, collections }) => (
     <div className="App">
         <Header
             logging={authActions}
@@ -23,21 +23,21 @@ export const Classroom = ({ editor, editorActions, user, authActions, scene, sce
             courseActions={courseActions}
             projects={projects}
             courses={courses}
-            classroomActions={classroomActions}
-            classrooms={classrooms}
-            classroom={match.params.classroom}
+            collectionActions={collectionActions}
+            collections={collections}
+            collection={match.params.collection}
             layoutType={layoutTypes.CLASSROOM}
         />
         <div className="row no-gutters">
             <div id="interface" className="col-12 col-md-4">
                 <SelectProject
-                    selectedClassroom={match.params.classroom}
-                    classroom={classrooms.classroom}
+                    selectedCollection={match.params.collection}
+                    collection={collections.collection}
                     editorActions={editorActions}
                     user={user}
                     scene={scene}
                 />
-                <div className='classroom'>
+                <div className='collection'>
                     <Editor text={editor.text} user={user} />
                 </div>
             </div>
@@ -49,4 +49,4 @@ export const Classroom = ({ editor, editorActions, user, authActions, scene, sce
     </div>
 );
 
-export default Classroom;
+export default Collection;
