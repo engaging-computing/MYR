@@ -20,21 +20,6 @@ class CursorPopup extends Component {
         }
     }
 
-    /*
-     * 1. If texts contains a function but no call, remove that text from what will be processed
-     * 2. If the text contains a function call but no definition, scan the rest of the text for the body
-     * 3. Implement stepper for loops
-     * 4. Should display state at beginning and end of functions / loops
-    */
-
-    getCursorState(userClickPoint, editorText) {
-        let newText;
-
-
-
-        return newText;
-    }
-
     removeComments(textArr) {
         for(let i = 0; i < textArr.length; i ++) {
             let index = textArr[i].indexOf("/")
@@ -45,11 +30,60 @@ class CursorPopup extends Component {
         return textArr;
     }
 
+    detectLoops(textArr, breakpoint, i = 0) {
+        const arrName = "anOverlyComplicatedVariableName";
+        let start, end;
+        for(; i < textArr.length; i ++) {
+            if(textArr[i].indexOf("while(") !== -1 || textArr[i].indexOf("for(") !== -1 || textArr[i].indexOf("do {") !== -1) {
+                for(let j = i; j < textArr.length; j ++) {
+                    if(textArr[j].indexOf("}") !== -1 ) {
+                        if(i + 1 <= breakpoint && breakpoint <= j + 1){
+                            start = i;
+                            end = j;
+                            let loopBody = [];
+                            console.log(textArr[i]);
+                            for(let x = i + 1; x < j; x ++) {
+                                loopBody.push(textArr[x]);
+                            }
+                            let loopStr = loopBody.join("\n");
+                            let test = eval(textArr[i] + "\n" + loopBody.push(textArr[i]) + loopBody.push(textArr[(i+1)]) + " }");
+                            console.log(test);
+                            console.table(start, breakpoint-1, end);
+                            console.log(textArr);
+                            let temp = textArr;
+                            
+                            temp.unshift("resetCursor();");
+                            start++;
+                            end++;
+
+                            temp.splice(start, 0, `let ${arrName} = [];`);  //Creates array
+                            temp.splice(start+2, 0, `${arrName}.push(getCursor());`)    //Stores value at beginning of each loop iteration in it
+                            temp.splice(end+3, 0, `return ${arrName};`);  //All values get returned at end
+                            
+                            console.log(temp);
+                            return temp;
+                        }   
+                    }
+                }
+            }
+        }
+
+        console.log("no loopo foundo");
+        return null;
+    }
+
     parseFullTextIntoArray(breakpoint) {
         let editorDoc = window.ace.edit("ace-editor").getSession().doc;
-        
+
         let firstArr = editorDoc.$lines.slice(0, breakpoint);
         firstArr = this.removeComments(firstArr);
+
+        let hasLoop = this.detectLoops(this.removeComments(editorDoc.$lines.slice(0, editorDoc.$lines.length)), breakpoint);
+        
+        if(hasLoop) {
+            console.log("loooop");
+            return hasLoop.join("\n");
+        }
 
         firstArr.unshift("resetCursor();"); //Resets cursor before running code
         firstArr.push("return getCursor();"); //Now will return the cursor value after the breakpoint
@@ -71,27 +105,29 @@ class CursorPopup extends Component {
             else e = e.target;     
             
             if (e.className && e.className.indexOf('ace_gutter-cell') !== -1) { 
-                let text, cursorState;               
+                let cursorState;               
+                let selectionRange = window.ace.edit("ace-editor").getSelectionRange().start.row + 1;
+                let text = this.parseFullTextIntoArray(selectionRange);
+                console.log(text);
+                // eslint-disable-next-line
+                let func = Function(`'use strict'; ${text}`);
+                cursorState = func();
 
-                try {
-                    let selectionRange = window.ace.edit("ace-editor").getSelectionRange().start.row + 1;
-                    text = this.parseFullTextIntoArray(selectionRange);
-
-                    // eslint-disable-next-line
-                    let func = Function(`'use strict'; ${text}`);
-                    cursorState = func();
-
-                    self.setState({
-                        anchorEl: e,
-                        obj: cursorState
-                    });
-                } catch (e) {
-                    console.error(e);
-                }
+                console.log(cursorState);
+                /*self.setState({
+                    anchorEl: e,
+                    obj: cursorState
+                });*/
             }
         }
 
-        window.addEventListener("click", getGutterClick);
+        window.addEventListener("click", () => {
+            try {
+                getGutterClick();
+            } catch (e) {
+                console.error(e);
+            }
+        });
     }
 
     handleButtonClick = key => {
