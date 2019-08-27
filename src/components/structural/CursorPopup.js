@@ -256,7 +256,7 @@ class CursorPopup extends Component {
             const shouldDisplayStyle = { "display": this.getOpen(key) }
 
             return (
-                <div  className = "col-sm-auto">
+                <div  className = "col-auto">
                     <div className = "iconContainer">
                         <IconButton
                             onClick={ () => this.handleButtonClick(key) }
@@ -278,10 +278,10 @@ class CursorPopup extends Component {
             if(shouldRenderOther)
                 return (
                     <div className = "row">
-                        <div className = "col-6">
+                        <div className = "col-8">
                             <p className = "keyPara"> {this.capitalize(key)}</p>
                         </div> 
-                        <div className = "col-6">
+                        <div className = "col-4">
                             <p className = "valuePara"> {this.capitalize(value) + ""}</p>
                         </div> 
                     </div>        
@@ -328,7 +328,7 @@ class CursorPopup extends Component {
                         {
                             this.state.isArr ?
                                 <div className = "row">                                
-                                    <div className = "col-2">
+                                    <div className = "col-3">
                                     <IconButton
                                         onClick={ () => this.handleButtonClick("left") }
                                         variant="raised"
@@ -336,8 +336,8 @@ class CursorPopup extends Component {
                                         <Icon className="material-icons">chevron_left</Icon>
                                     </IconButton>    
                                     </div>
-                                        <div className = "col-sm-auto"><h3>Cursor State</h3></div>
-                                    <div className = "col-2">
+                                        <div className = "col-6"><h3>Cursor State</h3></div>
+                                    <div className = "col-3">
                                         <IconButton
                                             onClick={ () => this.handleButtonClick("right") }
                                             variant="raised"
