@@ -18,6 +18,8 @@ class CursorPopup extends Component {
             rotOpen: false,
             magOpen: false
         }
+
+        this.handleButtonClick = this.handleButtonClick.bind(this);
     }
 
     removeComments(textArr) {
@@ -30,10 +32,10 @@ class CursorPopup extends Component {
         return textArr;
     }
 
-    detectLoops(textArr, breakpoint, i = 0) {
-        const arrName = "anOverlyComplicatedVariableName";
+    detectLoops(textArr, breakpoint) {
+        const counter = "anOverlyComplicatedVariableName";
         let start, end;
-        for(; i < textArr.length; i ++) {
+        for(let i = 0; i < textArr.length; i ++) {
             if(textArr[i].indexOf("while(") !== -1 || textArr[i].indexOf("for(") !== -1 || textArr[i].indexOf("do {") !== -1) {
                 for(let j = i; j < textArr.length; j ++) {
                     if(textArr[j].indexOf("}") !== -1 ) {
@@ -45,23 +47,37 @@ class CursorPopup extends Component {
                             for(let x = i + 1; x < j; x ++) {
                                 loopBody.push(textArr[x]);
                             }
-                            let loopStr = loopBody.join("\n");
-                            let test = eval(textArr[i] + "\n" + loopBody.push(textArr[i]) + loopBody.push(textArr[(i+1)]) + " }");
-                            console.log(test);
+                            
                             console.table(start, breakpoint-1, end);
                             console.log(textArr);
-                            let temp = textArr;
                             
-                            temp.unshift("resetCursor();");
+                            textArr.unshift("resetCursor();");
                             start++;
                             end++;
 
-                            temp.splice(start, 0, `let ${arrName} = [];`);  //Creates array
-                            temp.splice(start+2, 0, `${arrName}.push(getCursor());`)    //Stores value at beginning of each loop iteration in it
-                            temp.splice(end+3, 0, `return ${arrName};`);  //All values get returned at end
+                            let temp = [...textArr];
+
+                            temp.splice(start, 0, `let ${counter} = 0;`);  //Creates array
+                            temp.splice(start+2, 0, `${counter}++;`)    //Stores value at beginning of each loop iteration in it
+                            temp.splice(end+3, 0, `return ${counter};`);  //All values get returned at end
                             
-                            console.log(temp);
-                            return temp;
+                            let text = temp.join("\n")
+                            let func = Function(`'use strict'; ${text}`);
+                            let numberOfIterations = func();
+
+                            
+                            textArr.splice(start, end-start + 1); //Loop header removed
+                            //textArr.splice(end-1, 1); //Closing bracket removed
+
+                            console.log(textArr);
+
+                            //This is the number of times the loop body executes
+                            console.log(numberOfIterations);
+
+                            //If the user clicked in a loop, we have no parsed out the loop body and deteremined how
+                            //many iterations we go through. This data will get passed to a stepper function that 
+                            //Will run one iteration of the loop, appended to the previous code at a time
+                            return this.stepper(numberOfIterations, loopBody, textArr);
                         }   
                     }
                 }
@@ -70,6 +86,27 @@ class CursorPopup extends Component {
 
         console.log("no loopo foundo");
         return null;
+    }
+
+    stepper(maxI, body, fullArr) {
+        let stateArr = [];
+        let i = 0;
+        while(i < maxI) {
+            for(let j = 0; j < body.length; j ++) {
+                fullArr.push(body[j]);
+            }
+            fullArr.push("return getCursor();");
+            let text = fullArr.join("\n")
+            fullArr.pop();
+
+            let func = Function(`'use strict'; ${text}`);
+            stateArr.push(func());
+
+            i ++;
+        }
+
+        console.log(stateArr);
+        return stateArr;
     }
 
     parseFullTextIntoArray(breakpoint) {
@@ -82,7 +119,7 @@ class CursorPopup extends Component {
         
         if(hasLoop) {
             console.log("loooop");
-            return hasLoop.join("\n");
+            return hasLoop;
         }
 
         firstArr.unshift("resetCursor();"); //Resets cursor before running code
@@ -110,14 +147,31 @@ class CursorPopup extends Component {
                 let text = this.parseFullTextIntoArray(selectionRange);
                 console.log(text);
                 // eslint-disable-next-line
-                let func = Function(`'use strict'; ${text}`);
-                cursorState = func();
+                
+                if(!Array.isArray(text)) {
+                    let func = Function(`'use strict'; ${text}`);
+                    cursorState = func();
 
-                console.log(cursorState);
-                /*self.setState({
-                    anchorEl: e,
-                    obj: cursorState
-                });*/
+                    console.log(cursorState);
+                    self.setState({
+                        anchorEl: e,
+                        obj: cursorState,
+                        arr: null,
+                        isArr: false,
+                        index: 0,
+                        maxIndex: 0
+                    });
+                } else {
+                    self.setState({
+                        anchorEl: e,
+                        obj: text[0],
+                        arr: text,
+                        isArr: true,
+                        index: 0,
+                        maxIndex: text.length - 1
+                    });
+                }
+                
             }
         }
 
@@ -151,6 +205,24 @@ class CursorPopup extends Component {
                 this.setState({
                     magOpen: !this.state.magOpen
                 })
+                break;
+            case "left" :
+                console.log("left");
+                console.log(this.state.arr[this.state.index + 1])
+                if(this.state.index !== 0)
+                    this.setState({
+                        obj: this.state.arr[this.state.index - 1],
+                        index: this.state.index - 1
+                    });
+                break;
+            case "right" :
+                console.log("right");
+                if(this.state.index !== this.state.maxIndex)
+                    this.setState({
+                        obj: this.state.arr[this.state.index + 1],
+                        index: this.state.index + 1
+                    });
+                console.log(this.state);
                 break;
             default:
                 break;
@@ -267,7 +339,30 @@ class CursorPopup extends Component {
                     }} >
                         
                     <div>
-                        <h3>Cursor State</h3>
+                        {
+                            this.state.isArr ?
+                                <div className = "row">                                
+                                    <div className = "col-2">
+                                    <IconButton
+                                        onClick={ () => this.handleButtonClick("left") }
+                                        variant="raised"
+                                        color="primary">
+                                        <Icon className="material-icons">chevron_left</Icon>
+                                    </IconButton>    
+                                    </div>
+                                        <div className = "col-sm-auto"><h3>Cursor State</h3></div>
+                                    <div className = "col-2">
+                                        <IconButton
+                                            onClick={ () => this.handleButtonClick("right") }
+                                            variant="raised"
+                                            color="primary">
+                                            <Icon className="material-icons">chevron_right</Icon>
+                                        </IconButton>
+                                    </div>
+                                </div> 
+                            : <h3>Cursor State</h3>
+                        
+                        }
                         {
                             //Renders all non objects first
                             Object.keys(this.state.obj).map(key => {
