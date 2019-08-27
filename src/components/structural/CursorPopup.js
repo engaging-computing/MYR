@@ -43,13 +43,9 @@ class CursorPopup extends Component {
                             start = i;
                             end = j;
                             let loopBody = [];
-                            console.log(textArr[i]);
                             for(let x = i + 1; x < j; x ++) {
                                 loopBody.push(textArr[x]);
                             }
-                            
-                            console.table(start, breakpoint-1, end);
-                            console.log(textArr);
                             
                             textArr.unshift("resetCursor();");
                             start++;
@@ -61,7 +57,10 @@ class CursorPopup extends Component {
                             temp.splice(start+2, 0, `${counter}++;`)    //Stores value at beginning of each loop iteration in it
                             temp.splice(end+3, 0, `return ${counter};`);  //All values get returned at end
                             
+
                             let text = temp.join("\n")
+                            
+                            // eslint-disable-next-line
                             let func = Function(`'use strict'; ${text}`);
                             let numberOfIterations = func();
 
@@ -69,22 +68,15 @@ class CursorPopup extends Component {
                             textArr.splice(start, end-start + 1); //Loop header removed
                             //textArr.splice(end-1, 1); //Closing bracket removed
 
-                            console.log(textArr);
-
-                            //This is the number of times the loop body executes
-                            console.log(numberOfIterations);
-
                             //If the user clicked in a loop, we have no parsed out the loop body and deteremined how
                             //many iterations we go through. This data will get passed to a stepper function that 
                             //Will run one iteration of the loop, appended to the previous code at a time
                             return this.stepper(numberOfIterations, loopBody, textArr);
-                        }   
+                        } else break;
                     }
                 }
             }
         }
-
-        console.log("no loopo foundo");
         return null;
     }
 
@@ -104,8 +96,6 @@ class CursorPopup extends Component {
 
             i ++;
         }
-
-        console.log(stateArr);
         return stateArr;
     }
 
@@ -118,7 +108,6 @@ class CursorPopup extends Component {
         let hasLoop = this.detectLoops(this.removeComments(editorDoc.$lines.slice(0, editorDoc.$lines.length)), breakpoint);
         
         if(hasLoop) {
-            console.log("loooop");
             return hasLoop;
         }
 
@@ -145,14 +134,12 @@ class CursorPopup extends Component {
                 let cursorState;               
                 let selectionRange = window.ace.edit("ace-editor").getSelectionRange().start.row + 1;
                 let text = this.parseFullTextIntoArray(selectionRange);
-                console.log(text);
-                // eslint-disable-next-line
                 
                 if(!Array.isArray(text)) {
+                    // eslint-disable-next-line
                     let func = Function(`'use strict'; ${text}`);
                     cursorState = func();
 
-                    console.log(cursorState);
                     self.setState({
                         anchorEl: e,
                         obj: cursorState,
@@ -207,8 +194,6 @@ class CursorPopup extends Component {
                 })
                 break;
             case "left" :
-                console.log("left");
-                console.log(this.state.arr[this.state.index + 1])
                 if(this.state.index !== 0)
                     this.setState({
                         obj: this.state.arr[this.state.index - 1],
@@ -216,13 +201,11 @@ class CursorPopup extends Component {
                     });
                 break;
             case "right" :
-                console.log("right");
                 if(this.state.index !== this.state.maxIndex)
                     this.setState({
                         obj: this.state.arr[this.state.index + 1],
                         index: this.state.index + 1
                     });
-                console.log(this.state);
                 break;
             default:
                 break;
