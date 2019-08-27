@@ -336,7 +336,10 @@ class CursorPopup extends Component {
                                         <Icon className="material-icons">chevron_left</Icon>
                                     </IconButton>    
                                     </div>
-                                        <div className = "col-6"><h3>Cursor State</h3></div>
+                                        <div className = "col-6">
+                                            <h3>Cursor State</h3>
+                                            <h6> Iteration {this.state.index + 1} of {this.state.maxIndex + 1}</h6>
+                                        </div>
                                     <div className = "col-3">
                                         <IconButton
                                             onClick={ () => this.handleButtonClick("right") }
