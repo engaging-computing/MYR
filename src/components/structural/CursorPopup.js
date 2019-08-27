@@ -5,7 +5,8 @@ import {
         Popover,
         Divider
     } from '@material-ui/core/';
-import "../../css/CursorState.css"
+import "../../css/CursorState.css";
+
 class CursorPopup extends Component {
     constructor() {
         super();
@@ -20,107 +21,6 @@ class CursorPopup extends Component {
         }
 
         this.handleButtonClick = this.handleButtonClick.bind(this);
-    }
-
-    removeComments(textArr) {
-        for(let i = 0; i < textArr.length; i ++) {
-            let index = textArr[i].indexOf("/")
-            if(index !== -1) {
-                textArr[i] = textArr[i].slice(0, index);
-            }
-        }
-        return textArr;
-    }
-
-    detectLoops(textArr, breakpoint) {
-        const counter = "anOverlyComplicatedVariableName";
-        let start, end;
-        for(let i = 0; i < textArr.length; i ++) {
-            if(textArr[i].indexOf("while(") !== -1 || textArr[i].indexOf("for(") !== -1 || textArr[i].indexOf("do {") !== -1) {
-                for(let j = i; j < textArr.length; j ++) {
-                    if(textArr[j].indexOf("}") !== -1 ) {
-                        if(i + 1 <= breakpoint && breakpoint <= j + 1){
-                            start = i;
-                            end = j;
-                            let loopBody = [];
-                            for(let x = i + 1; x < j; x ++) {
-                                loopBody.push(textArr[x]);
-                            }
-                            
-                            textArr.unshift("resetCursor();");
-                            start++;
-                            end++;
-
-                            let temp = [...textArr];
-
-                            temp.splice(start, 0, `let ${counter} = 0;`);  //Creates array
-                            temp.splice(start+2, 0, `${counter}++;`)    //Stores value at beginning of each loop iteration in it
-                            temp.splice(end+3, 0, `return ${counter};`);  //All values get returned at end
-                            
-
-                            let text = temp.join("\n")
-                            
-                            // eslint-disable-next-line
-                            let func = Function(`'use strict'; ${text}`);
-                            let numberOfIterations = func();
-
-                            
-                            textArr.splice(start, end-start + 1); //Loop header removed
-                            //textArr.splice(end-1, 1); //Closing bracket removed
-
-                            //If the user clicked in a loop, we have no parsed out the loop body and deteremined how
-                            //many iterations we go through. This data will get passed to a stepper function that 
-                            //Will run one iteration of the loop, appended to the previous code at a time
-                            return this.stepper(numberOfIterations, loopBody, textArr);
-                        } else break;
-                    }
-                }
-            }
-        }
-        return null;
-    }
-
-    stepper(maxI, body, fullArr) {
-        let stateArr = [];
-        let i = 0;
-        while(i < maxI) {
-            for(let j = 0; j < body.length; j ++) {
-                fullArr.push(body[j]);
-            }
-            fullArr.push("return getCursor();");
-            let text = fullArr.join("\n")
-            fullArr.pop();
-
-            let func = Function(`'use strict'; ${text}`);
-            stateArr.push(func());
-
-            i ++;
-        }
-        return stateArr;
-    }
-
-    parseFullTextIntoArray(breakpoint) {
-        let editorDoc = window.ace.edit("ace-editor").getSession().doc;
-
-        let firstArr = editorDoc.$lines.slice(0, breakpoint);
-        firstArr = this.removeComments(firstArr);
-
-        let hasLoop = this.detectLoops(this.removeComments(editorDoc.$lines.slice(0, editorDoc.$lines.length)), breakpoint);
-        
-        if(hasLoop) {
-            return hasLoop;
-        }
-
-        firstArr.unshift("resetCursor();"); //Resets cursor before running code
-        firstArr.push("return getCursor();"); //Now will return the cursor value after the breakpoint
-
-        let secondArr = editorDoc.$lines.slice(breakpoint, editorDoc.$lines.length);
-        secondArr = this.removeComments(secondArr);
-
-        const modifiedTextArr = firstArr.concat(secondArr);
-        //Modified array will now store all code since there was a function
-
-        return modifiedTextArr.join("\n");
     }
 
     componentDidMount() {
@@ -169,6 +69,109 @@ class CursorPopup extends Component {
                 console.error(e);
             }
         });
+    }
+
+    parseFullTextIntoArray(breakpoint) {
+        let editorDoc = window.ace.edit("ace-editor").getSession().doc;
+
+        let firstArr = editorDoc.$lines.slice(0, breakpoint);
+        firstArr = this.removeComments(firstArr);
+
+        let hasLoop = this.detectLoops(this.removeComments(editorDoc.$lines.slice(0, editorDoc.$lines.length)), breakpoint);
+        
+        if(hasLoop) {
+            return hasLoop;
+        }
+
+        firstArr.unshift("resetCursor();"); //Resets cursor before running code
+        firstArr.push("return getCursor();"); //Now will return the cursor value after the breakpoint
+
+        let secondArr = editorDoc.$lines.slice(breakpoint, editorDoc.$lines.length);
+        secondArr = this.removeComments(secondArr);
+
+        const modifiedTextArr = firstArr.concat(secondArr);
+        //Modified array will now store all code since there was a function
+
+        return modifiedTextArr.join("\n");
+    }
+
+    detectLoops(textArr, breakpoint) {
+        const counter = "anOverlyComplicatedVariableName";
+        let start, end;
+        for(let i = 0; i < textArr.length && i <= breakpoint; i ++) {
+            if(textArr[i].indexOf("while(") !== -1 || textArr[i].indexOf("for(") !== -1 || textArr[i].indexOf("do {") !== -1) {
+
+                for(let j = i; j < textArr.length; j ++) {
+                    if(textArr[j].indexOf("}") !== -1 ) {
+                        if(i + 1 <= breakpoint && breakpoint <= j + 1){
+                            console.log("ending bracket found at" + (j + 1));
+                            start = i;
+                            end = j;
+                            let loopBody = [];
+                            for(let x = i + 1; x < j; x ++) {
+                                loopBody.push(textArr[x]);
+                            }
+                            
+                            textArr.unshift("resetCursor();");
+                            start++;
+                            end++;
+
+                            let temp = [...textArr];
+
+                            temp.splice(start, 0, `let ${counter} = 0;`);  //Creates array
+                            temp.splice(start+2, 0, `${counter}++;`)    //Stores value at beginning of each loop iteration in it
+                            temp.splice(end+3, 0, `return ${counter};`);  //All values get returned at end
+
+                            let text = temp.join("\n")
+                            
+                            // eslint-disable-next-line
+                            let func = Function(`'use strict'; ${text}`);
+                            let numberOfIterations = func();
+                            console.log("a")
+                            textArr.splice(start);  //Loop body removed, along with any extra lines of text that were passed in 
+                                                    // (which is necessary since the end of loop may be passed the breakpoint)
+
+                            //If the user clicked in a loop, we have no parsed out the loop body and deteremined how
+                            //many iterations we go through. This data will get passed to a stepper function that 
+                            //Will run one iteration of the loop, appended to the previous code at a time
+                            return this.stepper(numberOfIterations, loopBody, textArr);
+                        } else break;
+                    }
+                }
+            }
+        }
+        return null;
+    }
+
+    stepper(maxI, body, fullArr) {
+        let stateArr = [];
+        let i = 0;
+        console.log(fullArr);
+        while(i < maxI) {
+            for(let j = 0; j < body.length; j ++) {
+                fullArr.push(body[j]);
+            }
+            fullArr.push("return getCursor();");
+            let text = fullArr.join("\n")
+            fullArr.pop();
+
+            // eslint-disable-next-line
+            let func = Function(`'use strict'; ${text}`);
+            stateArr.push(func());
+
+            i ++;
+        }
+        return stateArr;
+    }
+    
+    removeComments(textArr) {
+        for(let i = 0; i < textArr.length; i ++) {
+            let index = textArr[i].indexOf("/")
+            if(index !== -1) {
+                textArr[i] = textArr[i].slice(0, index);
+            }
+        }
+        return textArr;
     }
 
     handleButtonClick = key => {
