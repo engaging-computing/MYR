@@ -7,6 +7,14 @@ import {
     } from '@material-ui/core/';
 import "../../css/CursorState.css";
 
+
+/** TODO
+ * 1. Before & after for when you click on a function body
+ * 2. Nested loop stepper
+ * 3. 
+ * 3. Debugger?
+ */
+
 class CursorPopup extends Component {
     constructor() {
         super();
@@ -83,6 +91,12 @@ class CursorPopup extends Component {
             return hasLoop;
         }
 
+        /*let isInFunctionBody = this.detectFunctionBody(this.removeComments(editorDoc.$lines.slice(0, editorDoc.$lines.length)), breakpoint);
+
+        if(isInFunctionBody) {
+            return isInFunctionBody;
+        }*/
+
         firstArr.unshift("resetCursor();"); //Resets cursor before running code
         firstArr.push("return getCursor();"); //Now will return the cursor value after the breakpoint
 
@@ -95,14 +109,36 @@ class CursorPopup extends Component {
         return modifiedTextArr.join("\n");
     }
 
+    testLoop() {
+        /* Loop all lines of code
+         *  If you find a loop
+         *
+         * 
+        */ 
+    }
+
+    findLoop() {
+        //Find initial loop
+    }
+
+    getLoopBody() {
+        //Passed array of code and line where loop starts
+        //Returns loop body
+    }
+
     detectLoops(textArr, breakpoint) {
         const counter = "anOverlyComplicatedVariableName";
         let start, end;
         for(let i = 0; i < textArr.length && i <= breakpoint; i ++) {
             if(textArr[i].indexOf("while(") !== -1 || textArr[i].indexOf("for(") !== -1 || textArr[i].indexOf("do {") !== -1) {
-
+                let extraCurlyCounter = 0;
                 for(let j = i; j < textArr.length; j ++) {
-                    if(textArr[j].indexOf("}") !== -1 ) {
+                    console.log(extraCurlyCounter + ": " + textArr[j]);
+                    if(j !== i && textArr[j].indexOf("{") !== -1) {
+                        extraCurlyCounter ++;
+                    } else if(textArr[j].indexOf("}") !== -1  && extraCurlyCounter !== 0) {
+                        extraCurlyCounter --;
+                    } else if(textArr[j].indexOf("}") !== -1 && extraCurlyCounter === 0) {
                         if(i + 1 <= breakpoint && breakpoint <= j + 1){
                             console.log("ending bracket found at" + (j + 1));
                             start = i;
@@ -161,6 +197,7 @@ class CursorPopup extends Component {
 
             i ++;
         }
+        console.log(stateArr);
         return stateArr;
     }
     
