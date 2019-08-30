@@ -25,7 +25,8 @@ class CursorPopup extends Component {
             posOpen: false,
             scaleOpen: false,
             rotOpen: false,
-            magOpen: false
+            magOpen: false,
+            isFunc: false
         }
 
         this.handleButtonClick = this.handleButtonClick.bind(this);
@@ -54,7 +55,18 @@ class CursorPopup extends Component {
                         arr: null,
                         isArr: false,
                         index: 0,
-                        maxIndex: 0
+                        maxIndex: 0,
+                        isFunc: false
+                    });
+                } else if(this.state.isFunc){
+                    self.setState({
+                        anchorEl: e,
+                        obj: text[0],
+                        arr: text,
+                        isArr: true,
+                        index: 0,
+                        maxIndex: text.length - 1,
+                        isFunc: true
                     });
                 } else {
                     self.setState({
@@ -63,7 +75,8 @@ class CursorPopup extends Component {
                         arr: text,
                         isArr: true,
                         index: 0,
-                        maxIndex: text.length - 1
+                        maxIndex: text.length - 1,
+                        isFunc: false
                     });
                 }
                 
@@ -91,11 +104,14 @@ class CursorPopup extends Component {
             return hasLoop;
         }
 
-        /*let isInFunctionBody = this.detectFunctionBody(this.removeComments(editorDoc.$lines.slice(0, editorDoc.$lines.length)), breakpoint);
+        let isInFunctionBody = this.detectFunctionBody(this.removeComments(editorDoc.$lines.slice(0, editorDoc.$lines.length)), breakpoint);
 
         if(isInFunctionBody) {
+            this.setState({
+                isFunc: true
+            });
             return isInFunctionBody;
-        }*/
+        }
 
         firstArr.unshift("resetCursor();"); //Resets cursor before running code
         firstArr.push("return getCursor();"); //Now will return the cursor value after the breakpoint
@@ -107,6 +123,49 @@ class CursorPopup extends Component {
         //Modified array will now store all code since there was a function
 
         return modifiedTextArr.join("\n");
+    }
+
+    detectFunctionBody(textArr, breakpoint) {
+        const arr = "anOverlyComplicatedVariableName";
+        let start, end;
+        for(let i = 0; i < textArr.length && i <= breakpoint; i ++) {
+            if(textArr[i].indexOf("function") !== -1 || textArr[i].indexOf("=>{") !== -1) {
+                let extraCurlyCounter = 0;
+                for(let j = i; j < textArr.length; j ++) {
+                    if(j !== i && textArr[j].indexOf("{") !== -1) {
+                        extraCurlyCounter ++;
+                    } else if(textArr[j].indexOf("}") !== -1  && extraCurlyCounter !== 0) {
+                        extraCurlyCounter --;
+                    } else if(textArr[j].indexOf("}") !== -1 && extraCurlyCounter === 0) {
+                        if(i + 1 <= breakpoint && breakpoint <= j + 1){
+                            console.log("youre in a function")
+                            start = i;
+                            end = j;
+
+                            textArr.splice(start, 0, "resetCursor();"); //Resets cursor before function body
+                            textArr.splice(start, 0, `let ${arr} = [];`);  //Creates array
+                            textArr.splice(start + 2, 1);
+                            textArr.splice(start+2, 0, `${arr}.push(JSON.parse(JSON.stringify(getCursor())));`)    //Stores value at beginning of function body
+                            textArr.splice(end+3, 0, `return ${arr};`);  //All values get returned at end
+                            textArr.splice(end+3, 0, `${arr}.push(JSON.parse(JSON.stringify(getCursor())));`)    //Stores value at beginning of each loop iteration in it
+                            textArr.splice(end + 2, 1);
+
+                            console.log(textArr);
+
+                            let text = textArr.join("\n")
+                            
+                            // eslint-disable-next-line
+                            let func = Function(`'use strict'; ${text}`);
+
+                            
+                            console.log(func());
+                            return func(); //Returns an array of cursor state objects
+                        } else break;
+                    }
+                }
+            }
+        }
+        return null;
     }
 
     detectLoops(textArr, breakpoint) {
@@ -322,11 +381,19 @@ class CursorPopup extends Component {
                                         <div className = "col-6">
                                             <h4>Cursor State</h4>
                                             {
-                                                this.state.index === 0 
-                                                ? 
-                                                <h7> Pre-loop cursor</h7>
+                                                this.state.isFunc && this.state.index === 0
+                                                ?
+                                                    <h7>Before function</h7>
                                                 :
-                                                <h7> Iteration {this.state.index} of {this.state.maxIndex}</h7>
+                                                    this.state.isFunc && this.state.index === 1
+                                                    ?
+                                                    <h7>After function</h7>
+                                                    :
+                                                        this.state.index === 0 
+                                                        ? 
+                                                        <h7> Pre-loop cursor</h7>
+                                                        :
+                                                        <h7> Iteration {this.state.index} of {this.state.maxIndex}</h7>
 
                                             }
                                         </div>
