@@ -85,7 +85,7 @@ class CursorPopup extends Component {
         let firstArr = editorDoc.$lines.slice(0, breakpoint);
         firstArr = this.removeComments(firstArr);
 
-        let hasLoop = this.detectLoops2(this.removeComments(editorDoc.$lines.slice(0, editorDoc.$lines.length)), breakpoint);
+        let hasLoop = this.detectLoops(this.removeComments(editorDoc.$lines.slice(0, editorDoc.$lines.length)), breakpoint);
         
         if(hasLoop) {
             return hasLoop;
@@ -109,24 +109,7 @@ class CursorPopup extends Component {
         return modifiedTextArr.join("\n");
     }
 
-    testLoop() {
-        /* Loop all lines of code
-         *  If you find a loop
-         *
-         * 
-        */ 
-    }
-
-    findLoop() {
-        //Find initial loop
-    }
-
-    getLoopBody() {
-        //Passed array of code and line where loop starts
-        //Returns loop body
-    }
-
-    detectLoops2(textArr, breakpoint) {
+    detectLoops(textArr, breakpoint) {
         const counter = "anOverlyComplicatedVariableName";
         let start, end;
         for(let i = 0; i < textArr.length && i <= breakpoint; i ++) {
@@ -147,20 +130,15 @@ class CursorPopup extends Component {
                             textArr.splice(start, 0, `let ${counter} = [];`);  //Creates array
                             textArr.splice(start+2, 0, `${counter}.push(JSON.parse(JSON.stringify(getCursor())));`)    //Stores value at beginning of each loop iteration in it
                             textArr.splice(end+3, 0, `return ${counter};`);  //All values get returned at end
-
-                            //console.log(textArr);
+                            textArr.splice(end+3, 0, `${counter}.push(JSON.parse(JSON.stringify(getCursor())));`)    //Stores value at beginning of each loop iteration in it
+                            
+                            console.log(textArr);
 
                             let text = textArr.join("\n")
                             
                             // eslint-disable-next-line
                             let func = Function(`'use strict'; ${text}`);
-
-
-                            return func();
-                            //If the user clicked in a loop, we have no parsed out the loop body and deteremined how
-                            //many iterations we go through. This data will get passed to a stepper function that 
-                            //Will run one iteration of the loop, appended to the previous code at a time
-                            
+                            return func(); //Returns an array of cursor state objects
                         } else break;
                     }
                 }
@@ -314,7 +292,7 @@ class CursorPopup extends Component {
 
     render() {
         return (
-            <div>
+            <div id = "popover_inside">
                 <Popover
                     id={this.state.open ? "cursor_popover" : undefined}
                     open={Boolean(this.state.anchorEl)}
@@ -329,21 +307,28 @@ class CursorPopup extends Component {
                         horizontal: "left"
                     }} >
                         
-                    <div>
+                    <div >
                         {
                             this.state.isArr ?
                                 <div className = "row">                                
                                     <div className = "col-3">
-                                    <IconButton
-                                        onClick={ () => this.handleButtonClick("left") }
-                                        variant="raised"
-                                        color="primary">
-                                        <Icon className="material-icons">chevron_left</Icon>
-                                    </IconButton>    
+                                        <IconButton
+                                            onClick={ () => this.handleButtonClick("left") }
+                                            variant="raised"
+                                            color="primary">
+                                            <Icon className="material-icons">chevron_left</Icon>
+                                        </IconButton>    
                                     </div>
                                         <div className = "col-6">
-                                            <h3>Cursor State</h3>
-                                            <h6> Iteration {this.state.index + 1} of {this.state.maxIndex + 1}</h6>
+                                            <h4>Cursor State</h4>
+                                            {
+                                                this.state.index === 0 
+                                                ? 
+                                                <h7> Pre-loop cursor</h7>
+                                                :
+                                                <h7> Iteration {this.state.index} of {this.state.maxIndex}</h7>
+
+                                            }
                                         </div>
                                     <div className = "col-3">
                                         <IconButton
@@ -354,7 +339,7 @@ class CursorPopup extends Component {
                                         </IconButton>
                                     </div>
                                 </div> 
-                            : <h3>Cursor State</h3>
+                            : <h4 id = "title">Cursor State</h4>
                         
                         }
                         {
@@ -377,7 +362,6 @@ class CursorPopup extends Component {
                             </>
                         }
                     </div>
-
                 </Popover>
             </div>
           );
