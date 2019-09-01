@@ -170,38 +170,52 @@ class CursorPopup extends Component {
 
     detectLoops(textArr, breakpoint) {
         const counter = "anOverlyComplicatedVariableName";
-        let start, end;
+        let start, end, text = null, alreadyInit = false;
+
+        const hasLoop = i => {
+            if(textArr[i].indexOf("while(") !== -1 || textArr[i].indexOf("for(") !== -1 || textArr[i].indexOf("do {") !== -1)
+                return true;
+            return false;
+        }
+
+        textArr.unshift("resetCursor();");
+
         for(let i = 0; i < textArr.length && i <= breakpoint; i ++) {
-            if(textArr[i].indexOf("while(") !== -1 || textArr[i].indexOf("for(") !== -1 || textArr[i].indexOf("do {") !== -1) {
+            if(hasLoop(i)) {
                 let extraCurlyCounter = 0;
                 for(let j = i; j < textArr.length; j ++) {
                     console.log(extraCurlyCounter + ": " + textArr[j]);
-                    if(j !== i && textArr[j].indexOf("{") !== -1) {
+                    if((j !== i && textArr[j].indexOf("{") !== -1) && !hasLoop(j)) {
                         extraCurlyCounter ++;
                     } else if(textArr[j].indexOf("}") !== -1  && extraCurlyCounter !== 0) {
                         extraCurlyCounter --;
-                    } else if(textArr[j].indexOf("}") !== -1 && extraCurlyCounter === 0) {
-                        if(i + 1 <= breakpoint && breakpoint <= j + 1){
-                            textArr.unshift("resetCursor();");
-                            start = i + 1;
-                            end = j +1;
+                    } else if((textArr[j].indexOf("}") !== -1 && extraCurlyCounter === 0) && (i + 1 <= breakpoint && breakpoint <= j + 1)){
+                            start = i;
+                            end = j;
 
-                            textArr.splice(start, 0, `let ${counter} = [];`);  //Creates array
+                            if(!alreadyInit)
+                                textArr.splice(start, 0, `let ${counter} = [];`);  //Creates array
+                            
                             textArr.splice(start+2, 0, `${counter}.push(JSON.parse(JSON.stringify(getCursor())));`)    //Stores value at beginning of each loop iteration in it
-                            textArr.splice(end+3, 0, `return ${counter};`);  //All values get returned at end
-                            textArr.splice(end+3, 0, `${counter}.push(JSON.parse(JSON.stringify(getCursor())));`)    //Stores value at beginning of each loop iteration in it
-                            
-                            console.log(textArr);
-
-                            let text = textArr.join("\n")
-                            
-                            // eslint-disable-next-line
-                            let func = Function(`'use strict'; ${text}`);
-                            return func(); //Returns an array of cursor state objects
-                        } else break;
+                            if(!alreadyInit)
+                                textArr.splice(end+4, 0, `${counter}.push(JSON.parse(JSON.stringify(getCursor())));`)    //Stores value at beginning of each loop iteration in it
+                            i += 3;
+                            breakpoint += 3;
+                            alreadyInit = true;
+                            break;
                     }
                 }
             }
+        }
+        if(alreadyInit) {
+            console.log("loop was found");
+            textArr.splice(end+5, 0, `return ${counter};`);  //All values get returned at end
+            console.log(textArr);
+            text = textArr.join("\n");
+            // eslint-disable-next-line
+            let func = Function(`'use strict'; ${text}`);
+            console.log(func());
+            return func();
         }
         return null;
     }
