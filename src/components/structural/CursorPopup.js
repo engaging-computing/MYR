@@ -7,14 +7,6 @@ import {
     } from '@material-ui/core/';
 import "../../css/CursorState.css";
 
-
-/** TODO
- * 1. Before & after for when you click on a function body
- * 2. Nested loop stepper
- * 3. 
- * 3. Debugger?
- */
-
 class CursorPopup extends Component {
     constructor() {
         super();
@@ -44,6 +36,7 @@ class CursorPopup extends Component {
                 let selectionRange = window.ace.edit("ace-editor").getSelectionRange().start.row + 1;
                 let text = this.parseFullTextIntoArray(selectionRange);
                 
+                //If we clicked on text not in a function or a loop
                 if(!Array.isArray(text)) {
                     // eslint-disable-next-line
                     let func = Function(`'use strict'; ${text}`);
@@ -58,6 +51,7 @@ class CursorPopup extends Component {
                         maxIndex: 0,
                         isFunc: false
                     });
+                //If we clicked on text in a function
                 } else if(this.state.isFunc){
                     self.setState({
                         anchorEl: e,
@@ -68,6 +62,7 @@ class CursorPopup extends Component {
                         maxIndex: text.length - 1,
                         isFunc: true
                     });
+                //If we clicked on text in a loop
                 } else {
                     self.setState({
                         anchorEl: e,
@@ -193,12 +188,14 @@ class CursorPopup extends Component {
                             start = i;
                             end = j;
 
-                            if(!alreadyInit)
+                            if(!alreadyInit) {
                                 textArr.splice(start, 0, `let ${counter} = [];`);  //Creates array
-                            
-                            textArr.splice(start+2, 0, `${counter}.push(JSON.parse(JSON.stringify(getCursor())));`)    //Stores value at beginning of each loop iteration in it
-                            if(!alreadyInit)
+                                textArr.splice(start+2, 0, `${counter}.push(JSON.parse(JSON.stringify(getCursor())));`)    //Stores value at beginning of each loop iteration in it
                                 textArr.splice(end+4, 0, `${counter}.push(JSON.parse(JSON.stringify(getCursor())));`)    //Stores value at beginning of each loop iteration in it
+                            } else {
+                                textArr.splice(start+1, 0, `${counter}.push(JSON.parse(JSON.stringify(getCursor())));`)    //Stores value at beginning of each loop iteration in it
+                            }
+                            
                             i += 3;
                             breakpoint += 3;
                             alreadyInit = true;
@@ -208,13 +205,13 @@ class CursorPopup extends Component {
             }
         }
         if(alreadyInit) {
-            console.log("loop was found");
             textArr.splice(end+5, 0, `return ${counter};`);  //All values get returned at end
-            console.log(textArr);
             text = textArr.join("\n");
+            
+            console.log(textArr);
+
             // eslint-disable-next-line
             let func = Function(`'use strict'; ${text}`);
-            console.log(func());
             return func();
         }
         return null;
