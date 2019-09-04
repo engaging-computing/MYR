@@ -10,7 +10,11 @@ class Lesson extends Component {
     nextLesson = () => {
         const currentIndex = this.props.courses.currentIndex;
         const lessons = this.props.course.lessons;
-        if (window.confirm("Are you sure you want to continue?\nYou will lose any unsaved work!")) {
+        if(this.hasEditorChanged()){
+            if (window.confirm("Are you sure you want to continue?\nYou will lose any unsaved work!")) {
+                this.props.courseActions.nextLesson(currentIndex, lessons[currentIndex + 1]);
+            }
+        }else{
             this.props.courseActions.nextLesson(currentIndex, lessons[currentIndex + 1]);
         }
     }
@@ -18,9 +22,29 @@ class Lesson extends Component {
     lastLesson = () => {
         const currentIndex = this.props.courses.currentIndex;
         const lessons = this.props.course.lessons;
-        if (window.confirm("Are you sure you want to continue?\nYou will lose any unsaved work!")) {
+        if(this.hasEditorChanged()){
+            if (window.confirm("Are you sure you want to continue?\nYou will lose any unsaved work!")) {
+                this.props.courseActions.previousLesson(currentIndex, lessons[currentIndex - 1]);
+            }
+        }else{
             this.props.courseActions.previousLesson(currentIndex, lessons[currentIndex - 1]);
         }
+    }
+
+    hasEditorChanged = () => {
+        let text;
+        try {
+            let editor = window.ace.edit("ace-editor");
+            text = editor.getSession().getValue();
+
+        } catch (err) {
+            console.error(err);
+        }
+
+        if (this.props.savedText === text) {
+            return false;
+        }
+        return true;
     }
 
     renderBtns = () => {
