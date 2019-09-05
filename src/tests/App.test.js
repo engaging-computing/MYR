@@ -42,7 +42,7 @@ const generateMockProps = () => {
             toggleFloor: jest.fn(),
             loadSettings: jest.fn(),
             changeSetting: jest.fn(),
-            addClassroomID: jest.fn(),
+            addcollectionID: jest.fn(),
             setDesc: jest.fn(),
             setNameDes: jest.fn(),
         },
@@ -69,7 +69,7 @@ const generateMockProps = () => {
                 showFloor: true,
                 cameraPosition: "0 1.6 3",
                 viewOnly: false,
-                classroomID: ""
+                collectionID: ""
             },
         },
         projectActions: {
@@ -105,16 +105,16 @@ const generateMockProps = () => {
                 code: "// Loading"
             }
         },
-        classroomActions: {
-            asyncClass: jest.fn(),
-            asyncClasses: jest.fn(),
-            deleteClass: jest.fn(),
+        collectionActions: {
+            asyncCollection: jest.fn(),
+            asyncCollections: jest.fn(),
+            deleteCollection: jest.fn(),
             syncClass: jest.fn(),
             syncClasse: jest.fn(),
         },
-        classrooms: {
-            classrooms: [],
-            classroom: []
+        collections: {
+            collections: [],
+            collection: []
         },
         layoutType: layoutTypes.IDE,
     };
@@ -319,7 +319,7 @@ describe("Scene Reducer", () => {
                 showFloor: true,
                 cameraPosition: "0 1.6 3",
                 viewOnly: false,
-                classroomID: ""
+                collectionID: ""
             }
         };
     };

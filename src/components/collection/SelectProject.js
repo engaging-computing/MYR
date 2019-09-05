@@ -1,7 +1,7 @@
 import React, { PureComponent } from "react";
 import Select from "react-select";
 
-import "../../css/Classroom.css";
+import "../../css/Collection.css";
 
 const selectStyle = {
     control: base => ({
@@ -35,29 +35,27 @@ class SelectProject extends PureComponent {
         }
     }
 
-    renderSelect = (isDisabled) => {
-        let classroom = this.props.classroom;
+    renderSelect = () => {
+        let collection = this.props.collection;
         const placeholder = "Select a project";
 
         return (
             <div>
                 <Select
-                    key={classroom}
+                    key={collection}
                     placeholder={placeholder}
-                    options={classroom}
+                    options={collection}
                     onChange={this.handleChange}
-                    styles={selectStyle}
-                    isDisabled={isDisabled} />
+                    styles={selectStyle} />
             </div >
         );
     }
 
     render() {
-        let isDisabled = this.props.classroom && this.props.classroom.length !== 0 ? false : true;
         return (
             <div id="select-project">
-                <h3>{(this.props.selectedClassroom) ? "Classroom: " + this.props.selectedClassroom : "Loading classroom..."}</h3>
-                <p>{this.props.classroom ? <this.renderSelect isDisabled={isDisabled} /> : "Loading..."} </p>
+                <h3>{(this.props.selectedCollection) ? "Collection: " + this.props.selectedCollection : "Loading collection..."}</h3>
+                <p>{this.props.collection ? <this.renderSelect /> : "Loading..."} </p>
             </div>
         );
     }
