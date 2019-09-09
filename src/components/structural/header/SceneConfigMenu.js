@@ -93,6 +93,11 @@ class ConfigModal extends Component {
             value: "a"
         };
         this.emailRef = React.createRef();
+
+        window.addEventListener("beforeunload", (event) => {
+            event.preventDefault();
+            event.returnValue = "You may have unsaved changes!";
+        });
     }
 
     // Opens the modal
