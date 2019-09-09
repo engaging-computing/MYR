@@ -6,6 +6,7 @@ import {
         Divider
     } from '@material-ui/core/';
 import "../../css/CursorState.css";
+import { throws } from 'assert';
 
 
 /** TODO
@@ -44,7 +45,7 @@ class CursorPopup extends Component {
                 let text = this.parseFullTextIntoArray(selectionRange);
                 
                 //If we clicked on text not in a function or a loop
-                if(!Array.isArray(text)) {
+                if(!Array.isArray(text) && !this.state.isFunc) {
                     // eslint-disable-next-line
                     let func = Function(`'use strict'; ${text}`);
                     cursorState = func();
@@ -62,11 +63,11 @@ class CursorPopup extends Component {
                 } else if(this.state.isFunc){
                     self.setState({
                         anchorEl: e,
-                        obj: text[0],
-                        arr: text,
-                        isArr: true,
+                        obj: text,
+                        arr: null,
+                        isArr: false,
                         index: 0,
-                        maxIndex: text.length - 1,
+                        maxIndex: 0,
                         isFunc: true
                     });
                 //If we clicked on text in a loop
@@ -100,12 +101,6 @@ class CursorPopup extends Component {
         let firstArr = editorDoc.$lines.slice(0, breakpoint);
         firstArr = this.removeComments(firstArr);
 
-        let hasLoop = this.detectLoops(this.removeComments(editorDoc.$lines.slice(0, editorDoc.$lines.length)), breakpoint);
-        
-        if(hasLoop) {
-            return hasLoop;
-        }
-
         let isInFunctionBody = this.detectFunctionBody(this.removeComments(editorDoc.$lines.slice(0, editorDoc.$lines.length)), breakpoint);
 
         if(isInFunctionBody) {
@@ -113,7 +108,19 @@ class CursorPopup extends Component {
                 isFunc: true
             });
             return isInFunctionBody;
+        } else {
+            this.setState({
+                isFunc: false
+            });
         }
+
+        let hasLoop = this.detectLoops(this.removeComments(editorDoc.$lines.slice(0, editorDoc.$lines.length)), breakpoint);
+        
+        if(hasLoop) {
+            return hasLoop;
+        }
+
+        
 
         firstArr.unshift("resetCursor();"); //Resets cursor before running code
         firstArr.push("return getCursor();"); //Now will return the cursor value after the breakpoint
@@ -152,28 +159,30 @@ class CursorPopup extends Component {
                             textArr.splice(end+3, 0, `${arr}.push(JSON.parse(JSON.stringify(getCursor())));`)    //Stores value at beginning of each loop iteration in it
                             textArr.splice(end + 2, 1);
 
-                            console.log(textArr);
-
-                            let text = textArr.join("\n")
+                            const getDiff = (obj1, obj2) => {
+                                let diff = null;
+                                Object.keys(obj1).map(function(key) {
+                                    if(typeof obj1[key] === "object") {
+                                        let temp = getDiff(obj1[key], obj2[key]);
+                                        if(temp)
+                                            diff[key] = temp; 
+                                    } else if(obj1[key] !== obj2[key]) {
+                                        if(diff === null)
+                                            diff = {}
+                                        diff[key] = obj2[key];
+                                    }
+                                })
+                                return diff;
+                            }
                             
+                            let text = textArr.join("\n")
                             // eslint-disable-next-line
                             let func = Function(`'use strict'; ${text}`);
-
-
-                            
                             let beforeAfter = func();
-                            console.log(beforeAfter[0]);
-                            let diff = {};
-                            let before = beforeAfter[0];
-                            Object.keys(beforeAfter[0]).map(function(key) {
-                                if(beforeAfter[0][key] !== beforeAfter[1][key])
-                                    diff[key] = beforeAfter[1][key];
-                            });
-                            console.log(diff);  
+                            const diff = getDiff(beforeAfter[0], beforeAfter[1]);
 
-                            console.log(func());
+                            console.log(diff)
                             return diff;
-                            //return beforeAfter[1].filter(x => beforeAfter[0].includes(x)); 
                         } else break;
                     }
                 }
