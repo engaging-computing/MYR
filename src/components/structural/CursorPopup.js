@@ -7,6 +7,13 @@ import {
     } from '@material-ui/core/';
 import "../../css/CursorState.css";
 
+
+/** TODO
+ * 1. Decide on behavior for nested loops
+ * 2. Triply nested loops do not behave
+ * 3. Work on function cursor popup
+ */
+
 class CursorPopup extends Component {
     constructor() {
         super();
@@ -179,22 +186,23 @@ class CursorPopup extends Component {
             if(hasLoop(i)) {
                 let extraCurlyCounter = 0;
                 for(let j = i; j < textArr.length; j ++) {
-                    console.log(extraCurlyCounter + ": " + textArr[j]);
                     if((j !== i && textArr[j].indexOf("{") !== -1) && !hasLoop(j)) {
                         extraCurlyCounter ++;
                     } else if(textArr[j].indexOf("}") !== -1  && extraCurlyCounter !== 0) {
                         extraCurlyCounter --;
                     } else if((textArr[j].indexOf("}") !== -1 && extraCurlyCounter === 0) && (i + 1 <= breakpoint && breakpoint <= j + 1)){
+                            console.log(textArr[i])
                             start = i;
                             end = j;
-
-                            if(!alreadyInit) {
+                            console.log(textArr.length);
+                            if(!alreadyInit){
                                 textArr.splice(start, 0, `let ${counter} = [];`);  //Creates array
                                 textArr.splice(start+2, 0, `${counter}.push(JSON.parse(JSON.stringify(getCursor())));`)    //Stores value at beginning of each loop iteration in it
-                                textArr.splice(end+4, 0, `${counter}.push(JSON.parse(JSON.stringify(getCursor())));`)    //Stores value at beginning of each loop iteration in it
                             } else {
                                 textArr.splice(start+1, 0, `${counter}.push(JSON.parse(JSON.stringify(getCursor())));`)    //Stores value at beginning of each loop iteration in it
                             }
+                            if(!alreadyInit)
+                                textArr.splice(end+4, 0, `${counter}.push(JSON.parse(JSON.stringify(getCursor())));`)    //Stores value at beginning of each loop iteration in it
                             
                             i += 3;
                             breakpoint += 3;
@@ -204,12 +212,12 @@ class CursorPopup extends Component {
                 }
             }
         }
+
         if(alreadyInit) {
+            console.log(textArr);
             textArr.splice(end+5, 0, `return ${counter};`);  //All values get returned at end
             text = textArr.join("\n");
             
-            console.log(textArr);
-
             // eslint-disable-next-line
             let func = Function(`'use strict'; ${text}`);
             return func();
