@@ -159,9 +159,21 @@ class CursorPopup extends Component {
                             // eslint-disable-next-line
                             let func = Function(`'use strict'; ${text}`);
 
+
                             
+                            let beforeAfter = func();
+                            console.log(beforeAfter[0]);
+                            let diff = {};
+                            let before = beforeAfter[0];
+                            Object.keys(beforeAfter[0]).map(function(key) {
+                                if(beforeAfter[0][key] !== beforeAfter[1][key])
+                                    diff[key] = beforeAfter[1][key];
+                            });
+                            console.log(diff);  
+
                             console.log(func());
-                            return func(); //Returns an array of cursor state objects
+                            return diff;
+                            //return beforeAfter[1].filter(x => beforeAfter[0].includes(x)); 
                         } else break;
                     }
                 }
