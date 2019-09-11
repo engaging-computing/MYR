@@ -6,13 +6,11 @@ import {
         Divider
     } from '@material-ui/core/';
 import "../../css/CursorState.css";
-import styled from "styled-components";
 
 
 /** TODO
- * 1. Decide on behavior for nested loops
- * 2. Triply nested loops do not behave
- * 3. Work on function cursor popup
+ * 2. Make pretty
+ * 
  */
 
 class CursorPopup extends Component {
@@ -34,6 +32,13 @@ class CursorPopup extends Component {
 
     componentDidMount() {
         const self = this;
+
+        //Sets focus in ace editor when page loads, which fixes a bug where 
+        //it wouldn't be focusable after reloading page
+        let editor = window.ace.edit("ace-editor");
+        editor.focus(); 
+        const n = editor.getSession().getValue().split("\n").length;
+        editor.gotoLine(n); 
 
         const getGutterClick = (e) => {  
             if (window.event) e = window.event.srcElement// (IE 6-8)
@@ -119,8 +124,6 @@ class CursorPopup extends Component {
         if(hasLoop) {
             return hasLoop;
         }
-
-        
 
         firstArr.unshift("resetCursor();"); //Resets cursor before running code
         firstArr.push("return getCursor();"); //Now will return the cursor value after the breakpoint
@@ -341,6 +344,7 @@ class CursorPopup extends Component {
     helper = (key, value, firstPass) => {
         const shouldRenderObjects = typeof value === 'object' && value !== null && !firstPass; 
         const shouldRenderOther = (typeof value !== 'object' && firstPass) || (typeof value === 'object' && !firstPass);
+
         if(shouldRenderObjects) {
             //This maps out all of the key/value pairs in an object
             let str = Object.keys(value).map(k => {
@@ -371,17 +375,34 @@ class CursorPopup extends Component {
                 </div>
             );
         } else {
-            if(shouldRenderOther)
+            if(shouldRenderOther) {
                 return (
                     <div className = "row">
-                        <div className = "col-8">
-                            <p className = "keyPara"> {this.capitalize(key)}</p>
-                        </div> 
-                        <div className = "col-4">
-                            <p className = "valuePara"> {this.capitalize(value) + ""}</p>
-                        </div> 
+                        {key !== "color" ?
+                            <>
+                                <div className = "col-8">
+                                    <p className = "keyPara"> {this.capitalize(key)}</p>
+                                </div> 
+                                <div className = "col-4">
+                                    <p className = "valuePara"> {this.capitalize(value) + ""}</p>
+                                </div> 
+                            </>
+                            :
+                            <>
+                                <div className = "col-8">
+                                    <p className = "keyPara"> {this.capitalize(key)}</p>
+                                </div> 
+                                <div className = "col-4">
+                                    <div className = "row">
+                                        <input style = {{"display": "inline-block"}} type ="color" value = {key} disabled = {true}/>
+                                        <p className = "valuePara"> {this.capitalize(value) + ""}</p>
+                                    </div>
+                                </div> 
+                            </>
+                        }
                     </div>        
                 );
+            }
         }
     }
     
