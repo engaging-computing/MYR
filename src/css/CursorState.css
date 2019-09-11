@@ -33,10 +33,11 @@ h3 h6 {
     text-align: center;
 }
 
-.popover_inside {
-    text-align: center;
-}
-
 #title {
     text-align: center !important;
+}
+
+#popover_div {
+    min-width: 200px !important;
+    min-height: 200px !important;
 }

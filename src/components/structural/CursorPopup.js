@@ -6,6 +6,7 @@ import {
         Divider
     } from '@material-ui/core/';
 import "../../css/CursorState.css";
+import styled from "styled-components";
 
 
 /** TODO
@@ -383,6 +384,14 @@ class CursorPopup extends Component {
                 );
         }
     }
+    
+    size(obj) {
+        var size = 0, key;
+        for (key in obj) {
+            if (obj.hasOwnProperty(key) && typeof obj[key] === "object") size++;
+        }
+        return size;
+    };
 
     handleClose() {
         this.setState({
@@ -404,7 +413,7 @@ class CursorPopup extends Component {
 
     render() {
         return (
-            <div id = "popover_inside">
+            <div>
                 <Popover
                     id={this.state.open ? "cursor_popover" : undefined}
                     open={Boolean(this.state.anchorEl)}
@@ -419,7 +428,7 @@ class CursorPopup extends Component {
                         horizontal: "left"
                     }} >
                         
-                    <div >
+                    <div id = "popover_div">
                         {
                             this.state.isArr ?
                                 <div className = "row">                                
@@ -471,7 +480,7 @@ class CursorPopup extends Component {
                         {
                             //Renders objects in a second sweep
                             <>
-                                <Divider variant="middle" />
+                                {this.size(this.state.obj) > 0 ? <Divider variant="middle" /> : null}
                                 <div className = "row">
                                     {
                                         Object.keys(this.state.obj).map(key => {
