@@ -6,7 +6,6 @@ import {
         Divider
     } from '@material-ui/core/';
 import "../../css/CursorState.css";
-import { throws } from 'assert';
 
 
 /** TODO
@@ -193,7 +192,7 @@ class CursorPopup extends Component {
 
     detectLoops(textArr, breakpoint) {
         const counter = "anOverlyComplicatedVariableName";
-        let start, end, text = null, alreadyInit = false;
+        let start, text = null, numLoops = 0, endOfOuterLoop;
 
         const hasLoop = i => {
             if(textArr[i].indexOf("while(") !== -1 || textArr[i].indexOf("for(") !== -1 || textArr[i].indexOf("do {") !== -1)
@@ -203,6 +202,7 @@ class CursorPopup extends Component {
 
         textArr.unshift("resetCursor();");
 
+        
         for(let i = 0; i < textArr.length && i <= breakpoint; i ++) {
             if(hasLoop(i)) {
                 let extraCurlyCounter = 0;
@@ -211,32 +211,45 @@ class CursorPopup extends Component {
                         extraCurlyCounter ++;
                     } else if(textArr[j].indexOf("}") !== -1  && extraCurlyCounter !== 0) {
                         extraCurlyCounter --;
-                    } else if((textArr[j].indexOf("}") !== -1 && extraCurlyCounter === 0) && (i + 1 <= breakpoint && breakpoint <= j + 1)){
-                            console.log(textArr[i])
-                            start = i;
-                            end = j;
-                            console.log(textArr.length);
-                            if(!alreadyInit){
-                                textArr.splice(start, 0, `let ${counter} = [];`);  //Creates array
-                                textArr.splice(start+2, 0, `${counter}.push(JSON.parse(JSON.stringify(getCursor())));`)    //Stores value at beginning of each loop iteration in it
-                            } else {
-                                textArr.splice(start+1, 0, `${counter}.push(JSON.parse(JSON.stringify(getCursor())));`)    //Stores value at beginning of each loop iteration in it
-                            }
-                            if(!alreadyInit)
-                                textArr.splice(end+4, 0, `${counter}.push(JSON.parse(JSON.stringify(getCursor())));`)    //Stores value at beginning of each loop iteration in it
-                            
+                    } else if((textArr[j].indexOf("}") !== -1 && extraCurlyCounter === 0) && (i + 1 <= breakpoint && breakpoint <= j + 1)){ 
+                        start = i;  
+                        if(numLoops === 0){
+                            textArr.splice(start, 0, `let ${counter} = [];`);  //Creates array
+                            textArr.splice(start+2, 0, `${counter}.push(JSON.parse(JSON.stringify(getCursor())));`)    //Stores value at beginning of each loop iteration in it
                             i += 3;
                             breakpoint += 3;
-                            alreadyInit = true;
-                            break;
+                        } else {
+                            textArr.splice(start+1, 0, `${counter}.push(JSON.parse(JSON.stringify(getCursor())));`)    //Stores value at beginning of each loop iteration in it
+                            i ++;
+                            breakpoint ++;
+                        }
+                        numLoops++;
+                        break;
                     }
                 }
             }
         }
 
-        if(alreadyInit) {
-            console.log(textArr);
-            textArr.splice(end+5, 0, `return ${counter};`);  //All values get returned at end
+        
+        let extraCurlyCounter = -1;
+        if(numLoops > 0) {
+            for(let i = 0; i < textArr.length && i <= breakpoint && extraCurlyCounter === -1; i ++) {
+                if(hasLoop(i)) {
+                    for(let j = i; j < textArr.length; j ++) {
+                        if(j !== i && textArr[j].indexOf("{") !== -1) {
+                            extraCurlyCounter ++;
+                        } else if(textArr[j].indexOf("}") !== -1  && extraCurlyCounter !== 0) {
+                            extraCurlyCounter --;
+                        } else if((textArr[j].indexOf("}") !== -1 && extraCurlyCounter === 0) && (i + 1 <= breakpoint && breakpoint <= j + 1)){
+                            endOfOuterLoop = j + 1;
+                            break;
+                        }
+                    }
+                }
+            }
+
+            textArr.splice(endOfOuterLoop + 1, 0, `${counter}.push(JSON.parse(JSON.stringify(getCursor())));`);  //All values get returned at end
+            textArr.splice(endOfOuterLoop + 2, 0, `return ${counter};`);  //All values get returned at end
             text = textArr.join("\n");
             
             // eslint-disable-next-line
