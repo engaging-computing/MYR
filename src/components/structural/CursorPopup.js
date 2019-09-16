@@ -140,6 +140,7 @@ class CursorPopup extends Component {
     detectFunctionBody(textArr, breakpoint) {
         const arr = "anOverlyComplicatedVariableName";
         let start, end;
+        const params = this.findParams(textArr, breakpoint);
         for(let i = 0; i < textArr.length && i <= breakpoint; i ++) {
             if(textArr[i].indexOf("function") !== -1 || textArr[i].indexOf("=>{") !== -1) {
                 let extraCurlyCounter = 0;
@@ -150,6 +151,7 @@ class CursorPopup extends Component {
                         extraCurlyCounter --;
                     } else if(textArr[j].indexOf("}") !== -1 && extraCurlyCounter === 0) {
                         if(i + 1 <= breakpoint && breakpoint <= j + 1){
+                            console.log(textArr[i]);
                             console.log("youre in a function")
                             start = i;
                             end = j;
@@ -192,6 +194,31 @@ class CursorPopup extends Component {
             }
         }
         return null;
+    }
+
+    findParams(textArr, breakpoint) {
+        for(let i = 0; i < textArr.length && i <= breakpoint; i ++) {
+            if(textArr[i].indexOf("function") !== -1 || textArr[i].indexOf("=>{") !== -1) {
+                let extraCurlyCounter = 0;
+                for(let j = i; j < textArr.length; j ++) {
+                    if(j !== i && textArr[j].indexOf("{") !== -1) {
+                        extraCurlyCounter ++;
+                    } else if(textArr[j].indexOf("}") !== -1  && extraCurlyCounter !== 0) {
+                        extraCurlyCounter --;
+                    } else if(textArr[j].indexOf("}") !== -1 && extraCurlyCounter === 0) {
+                        if(i + 1 <= breakpoint && breakpoint <= j + 1){
+                            //We found a function, and the breakpoint the user clicked on is within the funtion
+                            //textArr[i] is the header of the function
+                            console.log(textArr[i]);
+                            let paramStr = textArr[i].slice(textArr[i].indexOf('(') + 1, textArr[i].indexOf(')'))
+                            let params =  paramStr.split(", ");
+                            console.log(params);
+                            return params;
+                        } else break;
+                    }
+                }
+            }
+        }
     }
 
     detectLoops(textArr, breakpoint) {
