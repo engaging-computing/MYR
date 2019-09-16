@@ -59,7 +59,7 @@ export const asyncExampleProj = () => {
                         });
                         num_proj_loaded++;
                         if(num_proj_loaded === snap.size){
-                            dispatch(syncUserProj(exampleVals));
+                            dispatch(syncExampleProj(exampleVals));
                         }
                     });   
             });
