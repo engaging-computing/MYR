@@ -151,8 +151,6 @@ class CursorPopup extends Component {
                         extraCurlyCounter --;
                     } else if(textArr[j].indexOf("}") !== -1 && extraCurlyCounter === 0) {
                         if(i + 1 <= breakpoint && breakpoint <= j + 1){
-                            console.log(textArr[i]);
-                            console.log("youre in a function")
                             start = i;
                             end = j;
 
@@ -421,7 +419,12 @@ class CursorPopup extends Component {
                                 </div> 
                                 <div className = "col-4">
                                     <div className = "row">
-                                        <input style = {{"display": "inline-block"}} type ="color" value = {key} disabled = {true}/>
+                                        <input style = {{
+                                                "display": "inline-block"
+                                            }}
+                                            value = "#ff0000"
+                                            type ="color"
+                                            disabled = {false}/>
                                         <p className = "valuePara"> {this.capitalize(value) + ""}</p>
                                     </div>
                                 </div> 
