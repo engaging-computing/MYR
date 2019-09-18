@@ -47,10 +47,15 @@ class CursorPopup extends Component {
             if (e.className && e.className.indexOf('ace_gutter-cell') !== -1) { 
                 let cursorState;               
                 let selectionRange = window.ace.edit("ace-editor").getSelectionRange().start.row + 1;
-                let text = this.parseFullTextIntoArray(selectionRange);
-                
+                const data = this.parseFullTextIntoArray(selectionRange);
+                let text = data[0];
+                let type = data[1];
+
+                console.log("data recieved was type: " + type);
+                console.log(text);
+
                 //If we clicked on text not in a function or a loop
-                if(!Array.isArray(text) && !this.state.isFunc) {
+                if(type === "normal") {
                     // eslint-disable-next-line
                     let func = Function(`'use strict'; ${text}`);
                     cursorState = func();
@@ -65,7 +70,7 @@ class CursorPopup extends Component {
                         isFunc: false
                     });
                 //If we clicked on text in a function
-                } else if(this.state.isFunc){
+                } else if(type === "func"){
                     self.setState({
                         anchorEl: e,
                         obj: text,
@@ -76,7 +81,7 @@ class CursorPopup extends Component {
                         isFunc: true
                     });
                 //If we clicked on text in a loop
-                } else {
+                } else if(type === "loop"){
                     self.setState({
                         anchorEl: e,
                         obj: text[0],
@@ -103,44 +108,34 @@ class CursorPopup extends Component {
     parseFullTextIntoArray(breakpoint) {
         let editorDoc = window.ace.edit("ace-editor").getSession().doc;
 
-        let firstArr = editorDoc.$lines.slice(0, breakpoint);
-        firstArr = this.removeComments(firstArr);
-
+        //Checks for a function body click
         let isInFunctionBody = this.detectFunctionBody(this.removeComments(editorDoc.$lines.slice(0, editorDoc.$lines.length)), breakpoint);
-
-        if(isInFunctionBody) {
-            this.setState({
-                isFunc: true
-            });
-            return isInFunctionBody;
-        } else {
-            this.setState({
-                isFunc: false
-            });
-        }
-
-        let hasLoop = this.detectLoops(this.removeComments(editorDoc.$lines.slice(0, editorDoc.$lines.length)), breakpoint);
+        if(isInFunctionBody) return [isInFunctionBody, "func"];
         
-        if(hasLoop) {
-            return hasLoop;
-        }
+        //Checks for a click inside of loop(s)
+        let hasLoop = this.detectLoops(this.removeComments(editorDoc.$lines.slice(0, editorDoc.$lines.length)), breakpoint);
+        if(hasLoop) return [hasLoop, "loop"];
 
-        firstArr.unshift("resetCursor();"); //Resets cursor before running code
-        firstArr.push("return getCursor();"); //Now will return the cursor value after the breakpoint
+        //Handles a click outside of a function & loop
+        let textContainingState = editorDoc.$lines.slice(0, breakpoint);
+        textContainingState = this.removeComments(textContainingState);
+        textContainingState.unshift("resetCursor();"); //Resets cursor before running code
+        textContainingState.push("return getCursor();"); //Now will return the cursor value after the breakpoint
 
-        let secondArr = editorDoc.$lines.slice(breakpoint, editorDoc.$lines.length);
-        secondArr = this.removeComments(secondArr);
+        /* This gets appended to the first array despite it being 'out of bounds'
+         * to prevent an error from being thrown if there was a function called 
+         * that was defined after the breakpoint  */
+        let extraInfoText = editorDoc.$lines.slice(breakpoint, editorDoc.$lines.length);
+        extraInfoText = this.removeComments(extraInfoText);
 
-        const modifiedTextArr = firstArr.concat(secondArr);
-        //Modified array will now store all code since there was a function
-
-        return modifiedTextArr.join("\n");
+        const modifiedTextArr = textContainingState.concat(extraInfoText);
+        return [modifiedTextArr.join("\n"), "normal"];
     }
+    
 
     detectFunctionBody(textArr, breakpoint) {
         const arr = "anOverlyComplicatedVariableName";
         let start, end;
-        const params = this.findParams(textArr, breakpoint);
         for(let i = 0; i < textArr.length && i <= breakpoint; i ++) {
             if(textArr[i].indexOf("function") !== -1 || textArr[i].indexOf("=>{") !== -1) {
                 let extraCurlyCounter = 0;
@@ -178,45 +173,18 @@ class CursorPopup extends Component {
                                 return diff;
                             }
                             
-                            let text = textArr.join("\n")
+                            let text = textArr.join("\n");
                             // eslint-disable-next-line
                             let func = Function(`'use strict'; ${text}`);
                             let beforeAfter = func();
-                            const diff = getDiff(beforeAfter[0], beforeAfter[1]);
 
-                            console.log(diff)
-                            return diff;
+                            return getDiff(beforeAfter[0], beforeAfter[1]);
                         } else break;
                     }
                 }
             }
         }
         return null;
-    }
-
-    findParams(textArr, breakpoint) {
-        for(let i = 0; i < textArr.length && i <= breakpoint; i ++) {
-            if(textArr[i].indexOf("function") !== -1 || textArr[i].indexOf("=>{") !== -1) {
-                let extraCurlyCounter = 0;
-                for(let j = i; j < textArr.length; j ++) {
-                    if(j !== i && textArr[j].indexOf("{") !== -1) {
-                        extraCurlyCounter ++;
-                    } else if(textArr[j].indexOf("}") !== -1  && extraCurlyCounter !== 0) {
-                        extraCurlyCounter --;
-                    } else if(textArr[j].indexOf("}") !== -1 && extraCurlyCounter === 0) {
-                        if(i + 1 <= breakpoint && breakpoint <= j + 1){
-                            //We found a function, and the breakpoint the user clicked on is within the funtion
-                            //textArr[i] is the header of the function
-                            console.log(textArr[i]);
-                            let paramStr = textArr[i].slice(textArr[i].indexOf('(') + 1, textArr[i].indexOf(')'))
-                            let params =  paramStr.split(", ");
-                            console.log(params);
-                            return params;
-                        } else break;
-                    }
-                }
-            }
-        }
     }
 
     detectLoops(textArr, breakpoint) {
@@ -365,7 +333,6 @@ class CursorPopup extends Component {
         }
     }
 
-
     helper = (key, value, firstPass) => {
         const shouldRenderObjects = typeof value === 'object' && value !== null && !firstPass; 
         const shouldRenderOther = (typeof value !== 'object' && firstPass) || (typeof value === 'object' && !firstPass);
@@ -419,12 +386,7 @@ class CursorPopup extends Component {
                                 </div> 
                                 <div className = "col-4">
                                     <div className = "row">
-                                        <input style = {{
-                                                "display": "inline-block"
-                                            }}
-                                            value = "#ff0000"
-                                            type ="color"
-                                            disabled = {false}/>
+                                        <input style = {{"display": "inline-block"}} type ="color" value = {key} disabled = {true}/>
                                         <p className = "valuePara"> {this.capitalize(value) + ""}</p>
                                     </div>
                                 </div> 
