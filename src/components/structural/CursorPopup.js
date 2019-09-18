@@ -158,18 +158,25 @@ class CursorPopup extends Component {
                             textArr.splice(end + 2, 1);
 
                             const getDiff = (obj1, obj2) => {
+                                console.log(obj1, obj2);    
                                 let diff = null;
                                 Object.keys(obj1).map(function(key) {
+                                    console.log(obj1[key]);
                                     if(typeof obj1[key] === "object") {
                                         let temp = getDiff(obj1[key], obj2[key]);
-                                        if(temp)
+                                        if(temp) {
+                                            if(diff === null) {
+                                                diff = {};
+                                            }
                                             diff[key] = temp; 
+                                        }
                                     } else if(obj1[key] !== obj2[key]) {
+                                        console.log("obj2")
                                         if(diff === null)
-                                            diff = {}
+                                            diff = {};
                                         diff[key] = obj2[key];
                                     }
-                                })
+                                });
                                 return diff;
                             }
                             
@@ -178,7 +185,13 @@ class CursorPopup extends Component {
                             let func = Function(`'use strict'; ${text}`);
                             let beforeAfter = func();
 
-                            return getDiff(beforeAfter[0], beforeAfter[1]);
+                            const diff = getDiff(beforeAfter[0], beforeAfter[1]);
+                            console.log(diff);
+                            if(diff) {
+                                return diff;
+                            } else {
+                                return ["Function made no difference to cursor state"];
+                            }
                         } else break;
                     }
                 }
