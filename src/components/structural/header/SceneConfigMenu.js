@@ -348,7 +348,7 @@ class ConfigModal extends Component {
                 color="primary"
                 onClick={() => {
                     this.handleAddClassToggle();
-                    this.props.sceneActions.addcollectionID(this.state.collectionID.toLowerCase());
+                    this.props.sceneActions.addCollectionID(this.state.collectionID.toLowerCase());
                     this.props.handleSave();
                     this.props.handleSaveClose();
                 }} >
