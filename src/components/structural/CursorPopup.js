@@ -51,9 +51,6 @@ class CursorPopup extends Component {
                 let text = data[0];
                 let type = data[1];
 
-                console.log("data recieved was type: " + type);
-                console.log(text);
-
                 //If we clicked on text not in a function or a loop
                 if(type === "normal") {
                     // eslint-disable-next-line
@@ -67,7 +64,8 @@ class CursorPopup extends Component {
                         isArr: false,
                         index: 0,
                         maxIndex: 0,
-                        isFunc: false
+                        isFunc: false,
+                        params: null
                     });
                 //If we clicked on text in a function
                 } else if(type === "func"){
@@ -78,8 +76,10 @@ class CursorPopup extends Component {
                         isArr: false,
                         index: 0,
                         maxIndex: 0,
-                        isFunc: true
+                        isFunc: true,
+                        params: this.findParams()
                     });
+                    console.log(this.state.params);
                 //If we clicked on text in a loop
                 } else if(type === "loop"){
                     self.setState({
@@ -89,7 +89,8 @@ class CursorPopup extends Component {
                         isArr: true,
                         index: 0,
                         maxIndex: text.length - 1,
-                        isFunc: false
+                        isFunc: false,
+                        params: null
                     });
                 }
                 
@@ -158,10 +159,8 @@ class CursorPopup extends Component {
                             textArr.splice(end + 2, 1);
 
                             const getDiff = (obj1, obj2) => {
-                                console.log(obj1, obj2);    
                                 let diff = null;
                                 Object.keys(obj1).map(function(key) {
-                                    console.log(obj1[key]);
                                     if(typeof obj1[key] === "object") {
                                         let temp = getDiff(obj1[key], obj2[key]);
                                         if(temp) {
@@ -171,7 +170,6 @@ class CursorPopup extends Component {
                                             diff[key] = temp; 
                                         }
                                     } else if(obj1[key] !== obj2[key]) {
-                                        console.log("obj2")
                                         if(diff === null)
                                             diff = {};
                                         diff[key] = obj2[key];
@@ -186,7 +184,6 @@ class CursorPopup extends Component {
                             let beforeAfter = func();
 
                             const diff = getDiff(beforeAfter[0], beforeAfter[1]);
-                            console.log(diff);
                             if(diff) {
                                 return diff;
                             } else {
@@ -199,6 +196,36 @@ class CursorPopup extends Component {
         }
         return null;
     }
+
+    findParams() {
+        console.log("Finding params");
+        let editorDoc = window.ace.edit("ace-editor").getSession().doc;
+        let breakpoint = window.ace.edit("ace-editor").getSelectionRange().start.row + 1;
+        let textArr = this.removeComments(editorDoc.$lines.slice(0, editorDoc.$lines.length));
+
+        for(let i = 0; i < textArr.length && i <= breakpoint; i ++) {
+            if(textArr[i].indexOf("function") !== -1 || textArr[i].indexOf("=>{") !== -1) {
+                let extraCurlyCounter = 0;
+                for(let j = i; j < textArr.length; j ++) {
+                    if(j !== i && textArr[j].indexOf("{") !== -1) {
+                        extraCurlyCounter ++;
+                    } else if(textArr[j].indexOf("}") !== -1  && extraCurlyCounter !== 0) {
+                        extraCurlyCounter --;
+                    } else if(textArr[j].indexOf("}") !== -1 && extraCurlyCounter === 0) {
+                        if(i + 1 <= breakpoint && breakpoint <= j + 1){
+                            //We found a function, and the breakpoint the user clicked on is within the funtion
+                            //textArr[i] is the header of the function
+                            let paramStr = textArr[i].slice(textArr[i].indexOf('(') + 1, textArr[i].indexOf(')'))
+                            let params =  paramStr.split(", ");
+                            console.log(params);
+                            return params;
+                        } else break;
+                    }
+                }
+            }
+        }
+    }
+
 
     detectLoops(textArr, breakpoint) {
         const counter = "anOverlyComplicatedVariableName";
@@ -223,6 +250,7 @@ class CursorPopup extends Component {
                         extraCurlyCounter --;
                     } else if((textArr[j].indexOf("}") !== -1 && extraCurlyCounter === 0) && (i + 1 <= breakpoint && breakpoint <= j + 1)){ 
                         start = i;  
+                        console.log(i + 1, breakpoint, j);
                         if(numLoops === 0){
                             textArr.splice(start, 0, `let ${counter} = [];`);  //Creates array
                             textArr.splice(start+2, 0, `${counter}.push(JSON.parse(JSON.stringify(getCursor())));`)    //Stores value at beginning of each loop iteration in it
@@ -240,10 +268,9 @@ class CursorPopup extends Component {
             }
         }
 
-        
-        let extraCurlyCounter = -1;
+        let extraCurlyCounter = 0;
         if(numLoops > 0) {
-            for(let i = 0; i < textArr.length && i <= breakpoint && extraCurlyCounter === -1; i ++) {
+            for(let i = 0; i < textArr.length && i <= breakpoint; i ++) {
                 if(hasLoop(i)) {
                     for(let j = i; j < textArr.length; j ++) {
                         if(j !== i && textArr[j].indexOf("{") !== -1) {
@@ -254,14 +281,15 @@ class CursorPopup extends Component {
                             endOfOuterLoop = j + 1;
                             break;
                         }
+                        console.log("Finding loop end point");
                     }
                 }
             }
-
+            console.log(endOfOuterLoop);
             textArr.splice(endOfOuterLoop + 1, 0, `${counter}.push(JSON.parse(JSON.stringify(getCursor())));`);  //All values get returned at end
             textArr.splice(endOfOuterLoop + 2, 0, `return ${counter};`);  //All values get returned at end
             text = textArr.join("\n");
-            
+            console.log(textArr);
             // eslint-disable-next-line
             let func = Function(`'use strict'; ${text}`);
             return func();
@@ -453,7 +481,7 @@ class CursorPopup extends Component {
                         vertical: "top",
                         horizontal: "left"
                     }} >
-                        
+                    
                     <div id = "popover_div">
                         {
                             this.state.isArr ?
