@@ -9,8 +9,11 @@ The Engaging Computing Group develops new technologies to enable learners—yout
 ## Status
 [![CircleCI](https://circleci.com/gh/engaging-computing/MYR.svg?style=shield)](https://circleci.com/gh/engaging-computing/MYR)
 
-## Change Log - 1.6.1 -> 1.7.0
-- Classrooms are now called collections
+## Change Log - 1.6.1 -> 1.7.1
+- Fixed bug where you couldn't add projects to a collection
+- Fixed bug where the project drawer had to be closed and reopened after loading projects
+- Added prompt to save changes after changing settings
+- Next course will only prompt to save if changes have been made
 
 ## Acknowledgments
 MYR uses [Aframe](https://aframe.io), a fantastic open source project, to render objects and effects in the three dimensional space.  
