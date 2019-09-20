@@ -81,8 +81,8 @@ class ConfigModal extends Component {
             open: false,
             skyColor: this.props.scene.settings.color,
             displaySkyColorPicker: false,
-            displayFloorColorPicker: false,
             anchorEl: null,
+            displayFloorColorPicker: false,
             qrCodeOpen: false,
             pwProtectOpen: false,
             shareOpen: false,
@@ -90,9 +90,17 @@ class ConfigModal extends Component {
             email: "",
             sendTo: [],
             collectionID: "",
-            value: "a"
+            value: "a",
+            settingsChanged: false
         };
         this.emailRef = React.createRef();
+
+        window.addEventListener("beforeunload", (event) => {
+            if(this.state.settingsChanged){
+                event.preventDefault();
+                event.returnValue = "You may have unsaved changes!";
+            }
+        });
     }
 
     // Opens the modal
@@ -234,6 +242,7 @@ class ConfigModal extends Component {
             <ButtonBase
                 style={style}
                 onClick={() => {
+                    this.setState({ settingsChanged: true });
                     return this.props.sceneActions.changeView();
                 }
                 }
@@ -255,7 +264,10 @@ class ConfigModal extends Component {
         return (
             <ButtonBase
                 style={style}
-                onClick={() => this.props.sceneActions.toggleFly()} >
+                onClick={() => {
+                    this.props.sceneActions.toggleFly();
+                    this.setState({ settingsChanged: true });
+                }} >
                 {
                     this.props.scene.settings.canFly
                         ? <Icon className="material-icons">toggle_on</Icon>
@@ -276,6 +288,7 @@ class ConfigModal extends Component {
                 onClick={() => {
                     this.props.handleRender();
                     this.props.sceneActions.toggleCoordSky();
+                    this.setState({ settingsChanged: true });
                 }} >
                 {
                     this.props.scene.settings.showCoordHelper
@@ -297,6 +310,7 @@ class ConfigModal extends Component {
                 onClick={() => {
                     this.props.handleRender();
                     this.props.sceneActions.toggleFloor();
+                    this.setState({ settingsChanged: true });
                 }} >
                 {
                     this.props.scene.settings.showFloor
@@ -348,7 +362,7 @@ class ConfigModal extends Component {
                 color="primary"
                 onClick={() => {
                     this.handleAddClassToggle();
-                    this.props.sceneActions.addcollectionID(this.state.collectionID.toLowerCase());
+                    this.props.sceneActions.addCollectionID(this.state.collectionID.toLowerCase());
                     this.props.handleSave();
                     this.props.handleSaveClose();
                 }} >
@@ -379,6 +393,7 @@ class ConfigModal extends Component {
                 onClick={() => {
                     this.props.handleRender();
                     this.handleSkyColorClick();
+                    this.setState({ settingsChanged: true });
                 }}>
                 <Icon className="material-icons">color_lens</Icon>
                 Edit Sky Color
@@ -393,6 +408,7 @@ class ConfigModal extends Component {
                 onClick={() => {
                     this.props.handleRender();
                     this.handleFloorColorClick();
+                    this.setState({ settingsChanged: true });
                 }}>
                 <Icon className="material-icons">color_lens</Icon>
                 Edit Floor Color
