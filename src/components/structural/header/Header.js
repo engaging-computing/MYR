@@ -135,6 +135,7 @@ class Header extends Component {
                 //ctrl/cmd + enter renders the scene
                 e.preventDefault();
                 this.clear();
+                this.closeSnackBar();
                 this.handleRender();
             } else if ((e.ctrlKey || e.metaKey) && e.shiftKey && (e.key === "s" || e.key === "S")) {
                 //ctrl/cmd + shift + s saves the scene with a new ID
