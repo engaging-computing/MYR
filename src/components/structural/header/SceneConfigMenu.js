@@ -284,8 +284,8 @@ class ConfigModal extends Component {
             <ButtonBase
                 style={style}
                 onClick={() => {
+                    this.props.handleRender();
                     this.props.sceneActions.toggleFly();
-                    
                 }} >
                 {
                     this.props.scene.settings.canFly
