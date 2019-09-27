@@ -27,7 +27,6 @@ export const Collection = ({ editor, editorActions, user, authActions, scene, sc
             collections={collections}
             collection={match.params.collection}
             layoutType={layoutTypes.CLASSROOM}
-            savedText={editor.savedText}
         />
         <div className="row no-gutters">
             <div id="interface" className="col-12 col-md-4">
