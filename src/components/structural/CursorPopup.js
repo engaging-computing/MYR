@@ -48,8 +48,11 @@ class CursorPopup extends Component {
                 let cursorState;               
                 let selectionRange = window.ace.edit("ace-editor").getSelectionRange().start.row + 1;
                 const data = this.parseFullTextIntoArray(selectionRange);
+                console.log(data);
                 let text = data[0];
                 let type = data[1];
+                let param = data[2];
+                let textArr = data[3];
 
                 //If we clicked on text not in a function or a loop
                 if(type === "normal") {
@@ -65,7 +68,9 @@ class CursorPopup extends Component {
                         index: 0,
                         maxIndex: 0,
                         isFunc: false,
-                        params: null
+                        params: null,
+                        textArr : null,
+                        breakpoint: selectionRange
                     });
                 //If we clicked on text in a function
                 } else if(type === "func"){
@@ -77,9 +82,10 @@ class CursorPopup extends Component {
                         index: 0,
                         maxIndex: 0,
                         isFunc: true,
-                        params: this.findParams()
+                        params: param,
+                        textArr: textArr,
+                        breakpoint: selectionRange + 1
                     });
-                    console.log(this.state.params);
                 //If we clicked on text in a loop
                 } else if(type === "loop"){
                     self.setState({
@@ -90,7 +96,9 @@ class CursorPopup extends Component {
                         index: 0,
                         maxIndex: text.length - 1,
                         isFunc: false,
-                        params: null
+                        params: null,
+                        textArr: null,
+                        breakpoint: selectionRange
                     });
                 }
                 
@@ -111,7 +119,7 @@ class CursorPopup extends Component {
 
         //Checks for a function body click
         let isInFunctionBody = this.detectFunctionBody(this.removeComments(editorDoc.$lines.slice(0, editorDoc.$lines.length)), breakpoint);
-        if(isInFunctionBody) return [isInFunctionBody, "func"];
+        if(isInFunctionBody) return isInFunctionBody;
         
         //Checks for a click inside of loop(s)
         let hasLoop = this.detectLoops(this.removeComments(editorDoc.$lines.slice(0, editorDoc.$lines.length)), breakpoint);
@@ -178,17 +186,33 @@ class CursorPopup extends Component {
                                 return diff;
                             }
                             
+                            let params = this.findParams();
                             let text = textArr.join("\n");
-                            // eslint-disable-next-line
-                            let func = Function(`'use strict'; ${text}`);
-                            let beforeAfter = func();
-
-                            const diff = getDiff(beforeAfter[0], beforeAfter[1]);
-                            if(diff) {
-                                return diff;
-                            } else {
-                                return ["Function made no difference to cursor state"];
+                            let func = null, beforeAfter = null, diff = null;
+                            if(!params) {
+                                // eslint-disable-next-line
+                                func = Function(`'use strict'; ${text}`);
+                                beforeAfter = func();
+                                diff = getDiff(beforeAfter[0], beforeAfter[1]);
+                                if(diff)
+                                return [diff, "func"];
                             }
+
+                            try {
+                                // eslint-disable-next-line
+                                func = Function(`'use strict'; ${text}`);
+                                beforeAfter = func();
+                                diff = getDiff(beforeAfter[0], beforeAfter[1]);
+                                if(diff) return [diff, "func"];  
+                                //Params don't need to be returned because they aren't used in
+                                // cursor state setting calls, otherwise we would have gotten an error 
+                            } catch(e) {
+                                // We have parameters and there was an error on eval
+                                // user is likely setting state with params
+                                return [diff, "func", params, textArr];
+                            }
+
+                            return ["Function made no difference to cursor state", "func"];
                         } else break;
                     }
                 }
@@ -198,7 +222,6 @@ class CursorPopup extends Component {
     }
 
     findParams() {
-        console.log("Finding params");
         let editorDoc = window.ace.edit("ace-editor").getSession().doc;
         let breakpoint = window.ace.edit("ace-editor").getSelectionRange().start.row + 1;
         let textArr = this.removeComments(editorDoc.$lines.slice(0, editorDoc.$lines.length));
@@ -217,7 +240,8 @@ class CursorPopup extends Component {
                             //textArr[i] is the header of the function
                             let paramStr = textArr[i].slice(textArr[i].indexOf('(') + 1, textArr[i].indexOf(')'))
                             let params =  paramStr.split(", ");
-                            console.log(params);
+                            if(params[0] === "")
+                                return null;
                             return params;
                         } else break;
                     }
@@ -226,6 +250,62 @@ class CursorPopup extends Component {
         }
     }
 
+    handleRenderParams = () => {
+        const textArr = this.state.textArr;
+        let enteredValues = new Map();
+        for(let i = 0; i < this.state.params.length; i ++) {
+            let val = document.getElementById(this.state.params[i]).value;
+            if(val === "")
+                val = null;
+            enteredValues.set(this.state.params[i], val);
+        }
+
+        let start, end;
+        for(let i = 0; i < textArr.length && i <= this.state.breakpoint; i ++) {
+            if(textArr[i].indexOf("function") !== -1 || textArr[i].indexOf("=>{") !== -1) {
+                let extraCurlyCounter = 0;
+                for(let j = i; j < textArr.length; j ++) {
+                    if(j !== i && textArr[j].indexOf("{") !== -1) {
+                        extraCurlyCounter ++;
+                    } else if(textArr[j].indexOf("}") !== -1  && extraCurlyCounter !== 0) {
+                        extraCurlyCounter --;
+                    } else if(textArr[j].indexOf("}") !== -1 && extraCurlyCounter === 0) {
+                        start = i;
+                        end = j;
+                    }
+                }
+            }
+        }
+        
+        for(let i = start; i <= end; i ++) {
+            for(let k = 0; k < this.state.params.length; k ++) {
+                const formalParam = this.state.params[k];
+                const enteredArg = enteredValues.get(this.state.params[k]);
+                if(textArr[i].contains(formalParam) && enteredArg != null) {
+                    textArr[i].replace(formalParam, enteredArg);
+                } 
+            }
+        }
+
+        console.log(textArr, this.state.breakpoint);
+
+        const data = this.detectFunctionBody(textArr, this.state.breakpoint);
+        console.log(data);
+        let text = data[0];
+        let param = data[2];
+
+        this.setState({
+            obj: text,
+            arr: null,
+            isArr: false,
+            index: 0,
+            maxIndex: 0,
+            isFunc: true,
+            params: param,
+            textArr: textArr
+        });
+
+    }
 
     detectLoops(textArr, breakpoint) {
         const counter = "anOverlyComplicatedVariableName";
@@ -238,7 +318,6 @@ class CursorPopup extends Component {
         }
 
         textArr.unshift("resetCursor();");
-
         
         for(let i = 0; i < textArr.length && i <= breakpoint; i ++) {
             if(hasLoop(i)) {
@@ -468,6 +547,19 @@ class CursorPopup extends Component {
         }
     }
 
+    paramInputHelper = () => {
+        return (
+            <>
+            {
+                this.state.params.map(param => (
+                    <input id = {param} class = "param_input" type = "text" placeholder = {param}/>
+                ))
+            }
+                <input type = "submit" onClick = {this.handleRenderParams}/>
+            </>
+        );
+    }
+
     render() {
         return (
             <div>
@@ -501,18 +593,14 @@ class CursorPopup extends Component {
                                             <h4>Cursor State</h4>
                                             {
                                                 this.state.isFunc && this.state.index === 0
-                                                ?
-                                                    <h7>Before function</h7>
+                                                ? <h7>Before function</h7>
                                                 :
                                                     this.state.isFunc && this.state.index === 1
-                                                    ?
-                                                    <h7>After function</h7>
+                                                    ? <h7>After function</h7>
                                                     :
                                                         this.state.index === 0 
-                                                        ? 
-                                                        <h7> Pre-loop cursor</h7>
-                                                        :
-                                                        <h7> Iteration {this.state.index} of {this.state.maxIndex}</h7>
+                                                        ? <h7> Pre-loop cursor</h7>
+                                                        : <h7> Iteration {this.state.index} of {this.state.maxIndex}</h7>
 
                                             }
                                         </div>
@@ -525,14 +613,20 @@ class CursorPopup extends Component {
                                         </IconButton>
                                     </div>
                                 </div> 
-                            : <h4 id = "title">Cursor State</h4>
-                        
+                            : 
+                            <>
+                                <h4 id = "title">Cursor State</h4>
+                                {
+                                    this.state.isFunc && Boolean(this.state.params) 
+                                    ? <this.paramInputHelper /> : null
+                                }
+                            </>
                         }
                         {
                             //Renders all non objects first
-                            Object.keys(this.state.obj).map(key => {
+                            !this.state.params ? Object.keys(this.state.obj).map(key => {
                                 return this.helper(key, this.state.obj[key], true);
-                            })
+                            }) : null 
                         }
                         {
                             //Renders objects in a second sweep
@@ -540,9 +634,9 @@ class CursorPopup extends Component {
                                 {this.size(this.state.obj) > 0 ? <Divider variant="middle" /> : null}
                                 <div className = "row">
                                     {
-                                        Object.keys(this.state.obj).map(key => {
+                                        !this.state.params ? Object.keys(this.state.obj).map(key => {
                                             return this.helper(key, this.state.obj[key], false);
-                                        })
+                                        }) : null
                                     }
                                 </div>
                             </>
