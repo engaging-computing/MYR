@@ -7,7 +7,7 @@ import View from "../structural/View";
 
 import * as layoutTypes from "../../constants/LayoutTypes.js";
 
-export const Guided = ({ editor, user, scene, editorActions, authActions, projectActions, projects, courseActions, courses, course, match, sceneActions, classroomActions, classrooms }) => (
+export const Guided = ({ editor, user, scene, editorActions, authActions, projectActions, projects, courseActions, courses, course, match, sceneActions, collectionActions, collections }) => (
     <div className="App">
         <Header
             viewOnly={scene.settings.viewOnly}
@@ -27,8 +27,8 @@ export const Guided = ({ editor, user, scene, editorActions, authActions, projec
             course={course}
             courseName={match.params.shortname}
             layoutType={layoutTypes.GUIDED}
-            classroomActions={classroomActions}
-            classrooms={classrooms}
+            collectionActions={collectionActions}
+            collections={collections}
         />
         <div className="row no-gutters">
             {
