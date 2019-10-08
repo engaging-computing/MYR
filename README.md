@@ -9,11 +9,15 @@ The Engaging Computing Group develops new technologies to enable learners—yout
 ## Status
 [![CircleCI](https://circleci.com/gh/engaging-computing/MYR.svg?style=shield)](https://circleci.com/gh/engaging-computing/MYR)
 
-## Change Log - 1.6.1 -> 1.7.1
+## Change Log - 1.7.0 -> 1.8.0
 - Fixed bug where you couldn't add projects to a collection
 - Fixed bug where the project drawer had to be closed and reopened after loading projects
 - Added prompt to save changes after changing settings
 - Next course will only prompt to save if changes have been made
+- Collections will be more clear on which scene is being selected when choosing a scene.
+- Collections now have a default name for unnamed scenes.
+- Collections will not prompt to save changes on every change.
+- Box and torusknot are now double sided.
 
 ## Acknowledgments
 MYR uses [Aframe](https://aframe.io), a fantastic open source project, to render objects and effects in the three dimensional space.  
