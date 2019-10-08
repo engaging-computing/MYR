@@ -30,6 +30,11 @@ class CursorPopup extends Component {
         this.handleButtonClick = this.handleButtonClick.bind(this);
     }
 
+    componentDidUpdate() {
+        console.log("updated");
+        console.log(this.state);
+    }
+
     componentDidMount() {
         const self = this;
 
@@ -299,14 +304,14 @@ class CursorPopup extends Component {
 
         console.log(this.state);
 
-        this.setState({
+        window.setTimeout(()=>{this.setState({
             obj: diff,
             arr: null,
             isArr: false,
             index: 0,
             maxIndex: 0,
             isFunc: true,
-        });
+        })}, 0);
 
         
         console.log(this.state);
@@ -630,7 +635,7 @@ class CursorPopup extends Component {
                         }
                         {
                             //Renders all non objects first
-                            !this.state.params ? Object.keys(this.state.obj).map(key => {
+                            (!this.state.params || this.state.obj) ? Object.keys(this.state.obj).map(key => {
                                 return this.helper(key, this.state.obj[key], true);
                             }) : null 
                         }
@@ -640,7 +645,7 @@ class CursorPopup extends Component {
                                 {this.size(this.state.obj) > 0 ? <Divider variant="middle" /> : null}
                                 <div className = "row">
                                     {
-                                        !this.state.params ? Object.keys(this.state.obj).map(key => {
+                                        (!this.state.params || this.state.obj) ? Object.keys(this.state.obj).map(key => {
                                             return this.helper(key, this.state.obj[key], false);
                                         }) : null
                                     }
