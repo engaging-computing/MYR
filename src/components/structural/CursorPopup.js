@@ -144,6 +144,7 @@ class CursorPopup extends Component {
 
     detectFunctionBody(textArr, breakpoint) {
         const arr = "anOverlyComplicatedVariableName";
+        const unmodArr = [...textArr];
         let start, end;
         for(let i = 0; i < textArr.length && i <= breakpoint; i ++) {
             if(textArr[i].indexOf("function") !== -1 || textArr[i].indexOf("=>{") !== -1) {
@@ -209,7 +210,7 @@ class CursorPopup extends Component {
                             } catch(e) {
                                 // We have parameters and there was an error on eval
                                 // user is likely setting state with params
-                                return [diff, "func", params, textArr];
+                                return [diff, "func", params, unmodArr];
                             }
 
                             return ["Function made no difference to cursor state", "func"];
@@ -251,16 +252,18 @@ class CursorPopup extends Component {
     }
 
     handleRenderParams = () => {
-        const textArr = this.state.textArr;
+        let textArr = [...this.state.textArr];
         let enteredValues = new Map();
+        let start, end;
+
         for(let i = 0; i < this.state.params.length; i ++) {
             let val = document.getElementById(this.state.params[i]).value;
             if(val === "")
                 val = null;
             enteredValues.set(this.state.params[i], val);
         }
+        console.log(enteredValues);
 
-        let start, end;
         for(let i = 0; i < textArr.length && i <= this.state.breakpoint; i ++) {
             if(textArr[i].indexOf("function") !== -1 || textArr[i].indexOf("=>{") !== -1) {
                 let extraCurlyCounter = 0;
@@ -270,41 +273,43 @@ class CursorPopup extends Component {
                     } else if(textArr[j].indexOf("}") !== -1  && extraCurlyCounter !== 0) {
                         extraCurlyCounter --;
                     } else if(textArr[j].indexOf("}") !== -1 && extraCurlyCounter === 0) {
-                        start = i;
+                        start = i + 1;
                         end = j;
+                        if(start <= this.state.breakpoint && this.state.breakpoint <= end)
+                            break;
                     }
                 }
             }
         }
         
+        console.log(textArr)
         for(let i = start; i <= end; i ++) {
             for(let k = 0; k < this.state.params.length; k ++) {
                 const formalParam = this.state.params[k];
                 const enteredArg = enteredValues.get(this.state.params[k]);
-                if(textArr[i].contains(formalParam) && enteredArg != null) {
-                    textArr[i].replace(formalParam, enteredArg);
+                if(textArr[i].indexOf(formalParam) !== -1 && enteredArg != null) {
+                    textArr[i] = textArr[i].replace(formalParam, enteredArg);
                 } 
             }
         }
 
-        console.log(textArr, this.state.breakpoint);
+        const diff = this.detectFunctionBody(textArr, this.state.breakpoint)[0];
+        
+        console.log(diff);
 
-        const data = this.detectFunctionBody(textArr, this.state.breakpoint);
-        console.log(data);
-        let text = data[0];
-        let param = data[2];
+        console.log(this.state);
 
         this.setState({
-            obj: text,
+            obj: diff,
             arr: null,
             isArr: false,
             index: 0,
             maxIndex: 0,
             isFunc: true,
-            params: param,
-            textArr: textArr
         });
 
+        
+        console.log(this.state);
     }
 
     detectLoops(textArr, breakpoint) {
@@ -561,6 +566,7 @@ class CursorPopup extends Component {
     }
 
     render() {
+        console.log("rendering");
         return (
             <div>
                 <Popover
