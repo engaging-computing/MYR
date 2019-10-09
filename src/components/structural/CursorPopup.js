@@ -328,23 +328,23 @@ class CursorPopup extends Component {
         }
 
         textArr.unshift("resetCursor();");
+        breakpoint ++;
         
         for(let i = 0; i < textArr.length && i <= breakpoint; i ++) {
             if(hasLoop(i)) {
                 let extraCurlyCounter = 0;
-                for(let j = i; j < textArr.length; j ++) {
-                    if((j !== i && textArr[j].indexOf("{") !== -1) && !hasLoop(j)) {
+                for(let j = i + 1; j < textArr.length; j ++) {
+                    if(textArr[j].indexOf("{") !== -1 && !hasLoop(j)) {
                         extraCurlyCounter ++;
                     } else if(textArr[j].indexOf("}") !== -1  && extraCurlyCounter !== 0) {
                         extraCurlyCounter --;
                     } else if((textArr[j].indexOf("}") !== -1 && extraCurlyCounter === 0) && (i + 1 <= breakpoint && breakpoint <= j + 1)){ 
-                        start = i;  
-                        console.log(i + 1, breakpoint, j);
+                        start = i;
                         if(numLoops === 0){
                             textArr.splice(start, 0, `let ${counter} = [];`);  //Creates array
                             textArr.splice(start+2, 0, `${counter}.push(JSON.parse(JSON.stringify(getCursor())));`)    //Stores value at beginning of each loop iteration in it
-                            i += 3;
-                            breakpoint += 3;
+                            i += 2;
+                            breakpoint += 2;
                         } else {
                             textArr.splice(start+1, 0, `${counter}.push(JSON.parse(JSON.stringify(getCursor())));`)    //Stores value at beginning of each loop iteration in it
                             i ++;
@@ -353,7 +353,7 @@ class CursorPopup extends Component {
                         numLoops++;
                         break;
                     } else if((textArr[j].indexOf("}") !== -1 && extraCurlyCounter === 0) && !(i + 1 <= breakpoint && breakpoint <= j + 1)){ 
-                        //The loop ended before we hit our breakpoint
+                        //They did not click within the loop :'(
                         break;
                     }
                 }
@@ -361,25 +361,32 @@ class CursorPopup extends Component {
         }
 
         let extraCurlyCounter = 0;
+        endOfOuterLoop = -1;
+        
         if(numLoops > 0) {
             for(let i = 0; i < textArr.length && i <= breakpoint; i ++) {
                 if(hasLoop(i)) {
-                    for(let j = i; j < textArr.length; j ++) {
-                        if(j !== i && textArr[j].indexOf("{") !== -1) {
+                    for(let j = i + 1; j < textArr.length; j ++) {
+                        if(textArr[j].indexOf("{") !== -1) {
                             extraCurlyCounter ++;
+                            console.log("incd to " + extraCurlyCounter + " - " + j + ": " + textArr[j]);
                         } else if(textArr[j].indexOf("}") !== -1  && extraCurlyCounter !== 0) {
                             extraCurlyCounter --;
+                            console.log("dec to " + extraCurlyCounter + " - " + j + ": " + textArr[j]);
                         } else if((textArr[j].indexOf("}") !== -1 && extraCurlyCounter === 0) && (i + 1 <= breakpoint && breakpoint <= j + 1)){
-                            endOfOuterLoop = j + 1;
+                            console.log("end found: " + j );
+                            endOfOuterLoop = j;
                             break;
                         }
-                        console.log("Finding loop end point");
                     }
+                    if(endOfOuterLoop !== -1)
+                        break;
                 }
             }
-            console.log(endOfOuterLoop);
+            console.log(endOfOuterLoop + ": " + textArr[endOfOuterLoop]);
             textArr.splice(endOfOuterLoop + 1, 0, `${counter}.push(JSON.parse(JSON.stringify(getCursor())));`);  //All values get returned at end
             textArr.splice(endOfOuterLoop + 2, 0, `return ${counter};`);  //All values get returned at end
+            
             text = textArr.join("\n");
             console.log(textArr);
             // eslint-disable-next-line
