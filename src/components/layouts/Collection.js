@@ -36,6 +36,7 @@ export const Collection = ({ editor, editorActions, user, authActions, scene, sc
                     editorActions={editorActions}
                     user={user}
                     scene={scene}
+                    savedText={editor.savedText} 
                 />
                 <div className='collection'>
                     <Editor text={editor.text} user={user} savedText={editor.savedText} />
