@@ -40,19 +40,19 @@ export function syncCourses(payload) {
     return { type: types.SYNC_COURSES, payload: payload };
 }
 
-export function fetchCourse(courseId) {
+export function fetchCourse(courseId, index = 0) {
     return (dispatch) => {
         fetch(courseRef + courseId + getFirst, header)
             .then(response => {
                 response.json()
                     .then(json => {
                         dispatch(loadCourse(json));
-                        dispatch(loadLesson(json.firstLesson));
-                        dispatch(render(json.firstLesson.code || ""));
-                        dispatch(updateSavedText(json.firstLesson.code || ""));
+                        dispatch(loadLesson(json.lessons[index]));
+                        dispatch(render(json.lessons[index].code || ""));
+                        dispatch(updateSavedText(json.lessons[index].code || ""));
                         dispatch(sceneActions.setNameDesc(
                             {
-                                name: json.firstLesson.name,
+                                name: json.lessons[index].name,
                                 desc: "This scene was saved from the course: " + json.name
                             }));
                     })
