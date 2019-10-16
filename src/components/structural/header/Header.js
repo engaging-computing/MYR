@@ -135,6 +135,7 @@ class Header extends Component {
                 //ctrl/cmd + enter renders the scene
                 e.preventDefault();
                 this.clear();
+                this.closeSnackBar();
                 this.handleRender();
             } else if ((e.ctrlKey || e.metaKey) && e.shiftKey && (e.key === "s" || e.key === "S")) {
                 //ctrl/cmd + shift + s saves the scene with a new ID
@@ -269,6 +270,7 @@ class Header extends Component {
                 <TextField id="name-helper"
                     value={sceneName ? sceneName : ""}
                     label="Scene Name"
+                    placeholder={sceneName ? sceneName : "Untitled Scene"}
                     onBlur={this.handleNameChange}
                     onChange={this.handleNameChange} />
                 <TextField
@@ -349,7 +351,7 @@ class Header extends Component {
             imgRef.putString(img, "data_url").then(() => {
                 // Put the new document into the scenes collection
                 scenes.doc(projectId).set({
-                    name: this.props.scene.name,
+                    name: (this.props.scene.name ? this.props.scene.name : "Untitled Scene"),
                     desc: this.props.scene.desc,
                     code: text,
                     uid: this.props.user.uid,

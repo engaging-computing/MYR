@@ -16,13 +16,14 @@ const selectStyle = {
     }),
     option: (base, state) => ({
         ...base,
-        background: "#FFF",
+        background: state.isFocused ? "#F7F7F7" : "#FFF",
         color: state.isSelected ? "#4169E1" : "#222"
     }),
     container: base => ({
         ...base,
         zIndex: "999"
-    })
+    }),
+
 };
 
 class SelectProject extends PureComponent {

@@ -93,16 +93,36 @@ class ConfigModal extends Component {
             sendTo: [],
             collectionID: "",
             value: "a",
-            settingsChanged: false
         };
         this.emailRef = React.createRef();
+        
+        this.originalSettings = this.buildSettingsArr();
 
         window.addEventListener("beforeunload", (event) => {
-            if(this.state.settingsChanged){
+            let finalSettings = this.buildSettingsArr();
+
+            if(!this.settingsEqual(finalSettings)){
                 event.preventDefault();
                 event.returnValue = "You may have unsaved changes!";
             }
         });
+    }
+
+    buildSettingsArr = () => {
+        const sceneSettings = this.props.scene.settings;
+
+        return [sceneSettings.canFly, sceneSettings.floorColor, 
+            sceneSettings.showCoordHelper, sceneSettings.showFloor,
+            sceneSettings.skyColor, sceneSettings.viewOnly];
+    };
+    
+    settingsEqual = (newSettings) =>{
+        for(let i = 0; i < newSettings.length; ++i){
+            if(newSettings[i] !== this.originalSettings[i]){
+                return false;
+            }
+        }
+        return true;
     }
 
     // Opens the modal
@@ -252,7 +272,6 @@ class ConfigModal extends Component {
             <ButtonBase
                 style={style}
                 onClick={() => {
-                    this.setState({ settingsChanged: true });
                     return this.props.sceneActions.changeView();
                 }
                 }
@@ -275,8 +294,8 @@ class ConfigModal extends Component {
             <ButtonBase
                 style={style}
                 onClick={() => {
+                    this.props.handleRender();
                     this.props.sceneActions.toggleFly();
-                    this.setState({ settingsChanged: true });
                 }} >
                 {
                     this.props.scene.settings.canFly
@@ -298,7 +317,6 @@ class ConfigModal extends Component {
                 onClick={() => {
                     this.props.handleRender();
                     this.props.sceneActions.toggleCoordSky();
-                    this.setState({ settingsChanged: true });
                 }} >
                 {
                     this.props.scene.settings.showCoordHelper
@@ -359,8 +377,7 @@ class ConfigModal extends Component {
                 style={style}
                 onClick={() => {
                     this.props.handleRender();
-                    this.props.sceneActions.toggleFloor();
-                    this.setState({ settingsChanged: true });
+                    this.props.sceneActions.toggleFloor();  
                 }} >
                 {
                     this.props.scene.settings.showFloor
@@ -443,7 +460,6 @@ class ConfigModal extends Component {
                 onClick={() => {
                     this.props.handleRender();
                     this.handleSkyColorClick();
-                    this.setState({ settingsChanged: true });
                 }}>
                 <Icon className="material-icons">color_lens</Icon>
                 Edit Sky Color
@@ -458,7 +474,6 @@ class ConfigModal extends Component {
                 onClick={() => {
                     this.props.handleRender();
                     this.handleFloorColorClick();
-                    this.setState({ settingsChanged: true });
                 }}>
                 <Icon className="material-icons">color_lens</Icon>
                 Edit Floor Color

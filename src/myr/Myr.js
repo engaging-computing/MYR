@@ -545,7 +545,7 @@ class Myr {
         let base = {
             geometry: "primitive: box;",
             id: "box" + this.genNewId(),
-            material: `color: ${this.cursor.color};`,
+            material: `color: ${this.cursor.color}; side: double`,
             position: { ...this.cursor.position },
             rotation: this.cursor.rotation,
             scale: this.cursor.scale,
@@ -754,7 +754,7 @@ class Myr {
             position: this.cursor.position,
             scale: this.cursor.scale,
             rotation: this.cursor.rotation,
-            material: `color: ${this.cursor.color};`,
+            material: `color: ${this.cursor.color}; side: double`,
             p: 2,
             q: 3,
         };
