@@ -87,6 +87,8 @@ class ConfigModal extends Component {
             pwProtectOpen: false,
             shareOpen: false,
             addClassOpen: false,
+            defaultLight: true,
+            castShadow: false,
             email: "",
             sendTo: [],
             collectionID: "",
@@ -233,6 +235,14 @@ class ConfigModal extends Component {
         this.setState({ displayFloorColorPicker: false });
     };
 
+    handleDefaultLight = () =>{
+        this.setState({ defaultLight: !this.state.defaultLight});
+    }
+
+    handleCastShadow = () => {
+        this.setState({ castShadow: ! this.state.castShadow});
+    }
+
     // Toggles whether the editor is showing
     viewToggle = () => {
         let style = this.props.scene.settings.viewOnly ? btnStyle.off : btnStyle.on;
@@ -299,6 +309,46 @@ class ConfigModal extends Component {
             </ButtonBase >
         );
     };
+    defaultLightToggle = () =>{
+        let style = this.props.scene.settings.defaultLight ? btnStyle.on : btnStyle.off;
+        style = { ...btnStyle.base, ...style };
+        return (
+            <ButtonBase
+                style={style}
+                onClick={() => {
+                    this.props.handleRender();
+                    this.props.sceneActions.toggleDefaultLight();
+                    this.setState({ settingsChanged: true });
+                }} >
+                {
+                    this.props.scene.settings.defaultLight
+                        ? <Icon className="material-icons">toggle_on</Icon>
+                        : <Icon className="material-icons">toggle_off</Icon>
+                }
+                Default Light
+            </ButtonBase >
+        );
+    }
+    castShadowToggle = () => {
+        let style = this.props.scene.settings.castShadow ? btnStyle.on : btnStyle.off;
+        style = { ...btnStyle.base, ...style };
+        return (
+            <ButtonBase
+                style={style}
+                onClick={() => {
+                    this.props.handleRender();
+                    this.props.sceneActions.toggleCastShadow();
+                    this.setState({ settingsChanged: true });
+                }} >
+                {
+                    this.props.scene.settings.castShadow
+                        ? <Icon className="material-icons">toggle_on</Icon>
+                        : <Icon className="material-icons">toggle_off</Icon>
+                }
+                Cast Shadow
+            </ButtonBase >
+        );
+    }
 
     // Toggles the floor on and off
     floorToggle = () => {
@@ -469,10 +519,12 @@ class ConfigModal extends Component {
                                                 <this.viewToggle />
                                                 <this.floorToggle />
                                                 <this.gridToggle />
+                                                <this.castShadowToggle/>
                                             </div>
                                             <div className="col-6">
                                                 <this.changeSkyColor />
                                                 <this.changeFloorColor />
+                                                <this.defaultLightToggle/>
                                             </div>
                                             <div className="col-12 border-bottom pt-4">Camera Control</div>
                                             <div className="col-6">

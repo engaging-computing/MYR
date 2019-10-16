@@ -36,6 +36,17 @@ class Myr {
                 spin: 360,
                 fadeOut: 0,
                 general: 1
+            },
+            light: {
+                angle: 60,
+                decay: 0,
+                distance: 0,
+                intensity: 1.0,
+                penumbra: 0.0,
+                type: "directional",
+                target: null,
+                castShadow: false,
+                groundColor: "#FFFFFFF"
             }
         };
         if (baseEls) {
@@ -103,7 +114,17 @@ class Myr {
                 spin: 360,
                 fadeOut: 0,
                 general: 1
-            }
+            },
+            light: {
+                angle: 60,
+                decay: 0,
+                distance: 0,
+                intensity: 1.0,
+                penumbra: 0.0,
+                type: "directional",
+                target: null,
+                castShadow: true,
+            }	            
         };
         // restore the base objects of the scene
         this.els = [];
@@ -146,6 +167,16 @@ class Myr {
                 spin: 360,
                 fadeOut: 0,
                 general: 1
+            },
+            light: {
+                angle: 60,
+                decay: 0,
+                distance: 0,
+                intensity: 1.0,
+                penumbra: 0.0,
+                type: "directional",
+                target: null,
+                castShadow: false,
             }
         };
     }
@@ -757,16 +788,100 @@ class Myr {
     }
 
     // Render a new Aframe light with current Myr settings
-    light = () => {
-        let el = {
-            color: "lgt" + this.getRandomColor(),
+    light = (params) => {
+        let base = {
+            id: "lgt" + this.genNewId(),
+            light: {
+                state:
+                    `angle: ${this.cursor.light.angle};
+                    decay: ${this.cursor.light.decay};
+                    color: ${this.cursor.color};
+                    distance: ${this.cursor.light.distance};
+                    intensity: ${this.cursor.light.intensity};
+                    penumbra: ${this.cursor.light.penumbra};
+                    type: ${this.cursor.light.type};
+                    groundColor: ${this.cursor.light.groundColor};
+                    `,
+                target: this.cursor.light.target
+            },	  
+            // color: this.cursor.color,         
             position: this.cursor.position,
-            geometry: {
-                primitive: "light"
-            },
-        };
-        this.els.push(el);
-        return el;
+            scale: this.cursor.scale,
+            rotation: this.cursor.rotation,
+        };	
+
+        return this.mergeProps(base, params);
+    }	    
+    //temp functions
+    lightTypes = ["directional","ambient","hemisphere","spot","point"];
+    setType = (type ="directional") => {
+        if(typeof type === "string" && this.lightTypes.includes(type)){
+            if(type === "ambient" || type === "hemisphere"){
+                this.cursor.light.castShadow = false;
+            }else{
+                this.cursor.light.castShadow = true;
+            }
+            this.cursor.light.type = type;
+        }else{
+            console.error("Error");
+        }
+    }
+    
+    setAngle=(angle = 60)=>{
+        if(typeof angle === "number"){
+            this.cursor.light.angle = angle; 
+        }else{
+            console.error("Error");
+        }
+        
+    }
+    setDecay = (decay = 0.0) =>{
+        if(typeof decay === "number"){
+            this.cursor.light.decay = decay;
+        }else{
+            console.error("Error");
+        }
+    }
+    setDistance = (distance=0.0) =>{
+        if(typeof distance === "number"){
+            this.cursor.light.distance = distance; 
+        }else{
+            console.error("Error");
+        }
+    }
+    setIntensity = (intensity = 1.0) =>{
+        if(typeof intensity === "number"){
+            this.cursor.light.intensity = intensity;
+        }else{
+            console.error("Error");
+        }
+    }
+    setPenumbra = (penumbra = 0.0) => {
+        if(typeof penumbra === "number"){
+            this.cursor.light.penumbra = penumbra;
+        }else{
+            console.error("Error");
+        }
+        
+    }
+    setTarget = (x = 0, y = 0, z = 0) => {
+        if(typeof x === "number" && typeof y === "number" && typeof z === "number"){
+            this.cursor.light.target = `${x} ${y} ${z}`; 
+        }else{
+            console.error("Error");
+        }
+    }
+
+    castShadow = (shadow = false) => {
+        if(typeof shadow === "boolean"){
+            this.cursor.light.castShadow = shadow;
+        }else{
+            console.error("Error");
+        }
+    }
+    setGroundColor = (color) => {
+        this.cursor.light.groundColor = color;
+        return this.cursor.light.groundColor;
     }
 
     // Prism is an alias for Polyhedron

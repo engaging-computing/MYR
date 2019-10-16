@@ -55,7 +55,25 @@ class View extends Component {
 
             let el = document.getElementById("rig");
             el.components["movement-controls"].velocity = new THREE.Vector3(0, 0, 0);
+            // document.querySelector("a-scene").addEventListener("loaded",(e)=>{
+
+            //     console.log(e);
+            //     console.log("scene loaded");
+            // });
+
+
+            // console.log(el.components["movement-controls"]);
+            // 
+            // try{
+            //     el = document.getElementById("floor");
+            //     el.components["material"].material.shadowSide = THREE.FrontSide;
+            //     console.log(el.components["material"].material);
+            // }catch(e){
+            //     //it will throw error if it don't use try and catch because there are no floor component when
+            //     console.log(el.components["material"].material);
+            // }
         }
+        
     }
 
     componentWillUnmount() {
@@ -89,6 +107,9 @@ class View extends Component {
     // This renders json to aframe entities
     helper = (ent) => {
         if (ent) {
+            // if(ent.light){
+            //     ent.light = ent.light + ` groundColor: ${this.props.sceneConfig.floorColor}`;
+            // }
             let flattened = {
                 ...ent,
                 position: `${ent.position.x || 0} ${ent.position.y || 0} ${ent.position.z || 0}`,
@@ -110,7 +131,18 @@ class View extends Component {
             if (ent.tube) {
                 return <a-tube path={ent.path} radius={ent.radius} material={ent.material}></a-tube>;
             }
-            return <a-entity key={ent.id} {...flattened}></a-entity>;
+            if(ent.light){
+                console.log(ent);
+                ent.light.state += `castShadow: ${this.props.sceneConfig.settings.castShadow}`;
+                if(ent.light.target !== null){ 
+                    ent.light.state +="target: #lighttarget";
+                    return [ <a-entity id="lighttarget" position={ent.light.target}></a-entity>, <a-entity key={ent.id} id={ent.id} light={ent.light.state} position={flattened.position} rotation={flattened.rotation} scale={flattened.scale}></a-entity>];
+                }
+                
+                return <a-entity key={ent.id} id={ent.id} light={ent.light.state} position={flattened.position} rotation={flattened.rotation} scale={flattened.scale}></a-entity>;
+ 
+            }
+            return <a-entity key={ent.id} {...flattened} shadow="cast:true; receive:true;">></a-entity>;
         }
     }
 
@@ -208,12 +240,15 @@ class View extends Component {
     makeFloor = () => {
         if (this.props.sceneConfig.settings.showFloor) {
             return (
-                <a-entity id="floor"
+                <a-plane
+                    id="floor"
                     geometry="primitive: box;"
-                    material={"color: " + this.props.sceneConfig.settings.floorColor}
+                    color={this.props.sceneConfig.settings.floorColor}
+                    material="side: double;"
                     static-body="shape: box"
                     scale="80 .01 80"
                     position="0 -0.5 0"
+                    shadow={`cast: false; receieve: ${this.props.sceneConfig.settings.castShadow}`}
                 />
             );
         } else {
@@ -225,7 +260,7 @@ class View extends Component {
         /* eslint-disable */
         return (
             !this.state.welcomeOpen ?
-                <a-scene physics="debug: false; friction: 3; restitution: .3;" embedded debug="false">
+                <a-scene physics="debug: false; friction: 3; restitution: .3;" embedded debug="false" shadow="type: basic">
                     <a-assets>
                         <a-mixin id="checkpoint"></a-mixin>
                         <a-mixin id="checkpoint-hovered" color="#6CEEB5"></a-mixin>
@@ -236,11 +271,19 @@ class View extends Component {
                     <a-sky color={this.props.sceneConfig.settings.skyColor} />
                     <this.coordinateHelper />
                     <this.makeFloor />
+                    {this.props.sceneConfig.settings.defaultLight ? 
+                            <a-entity>                   
+                                <a-entity light="type: ambient; color: #BBB"></a-entity>
+                                <a-entity light="type: directional; color: #FFF; intensity: 0.6" position="-0.5 1 1"></a-entity> 
+                            </a-entity>  
+                            : null
+                    }
                     { // create the entities
                         Object.keys(this.props.objects).map(it => {
                             return this.helper(this.props.objects[it]);
                         })
                     }
+                    
 
                     {this.props.sceneConfig.settings.camConfig === 1 ?
                         <a-entity position="0 0 0">

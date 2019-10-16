@@ -25,6 +25,12 @@ export function loadScene(data) {
 export function toggleCoordSky() {
     return { type: types.TOGGLE_COORD_SKY };
 }
+export function toggleDefaultLight() {
+    return { type: types.TOGGLE_DEFAULT_LIGHT };
+}
+export function toggleCastShadow() {
+    return { type: types.TOGGLE_CAST_SHADOW };
+}
 
 export function changeSkyColor(color) {
     return { type: types.CHANGE_SKY_COLOR, color };
@@ -94,5 +100,7 @@ export default {
     changeSetting,
     addCollectionID,
     setDesc,
-    setNameDesc
+    setNameDesc,
+    toggleCastShadow,
+    toggleDefaultLight,
 };
