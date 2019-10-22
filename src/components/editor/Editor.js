@@ -37,6 +37,7 @@ class Editor extends Component {
             "maxerr": 1000,
             "esversion": 6
         }]);
+        window.ace.edit("ace-editor").focus(); //Fixes bug with cursor popup
     }
 
     /**
