@@ -117,7 +117,6 @@ class CursorPopup extends Component {
         //Checks for a click inside of loop(s)
         let isInLoop = this.detectLoops(this.removeComments(editorDoc.$lines.slice(0, editorDoc.$lines.length)), breakpoint);
         if(isInLoop) return [isInLoop, "loop"];
-        console.log("Lookie here")
         //Handles a click outside of a function & loop
         return this.handleDefaultClick(editorDoc, breakpoint);
     }
@@ -162,7 +161,15 @@ class CursorPopup extends Component {
         const unmodArr = [...textArr];
         let start, end;
         for(let i = 0; i < textArr.length && i <= breakpoint; i ++) {
-            if(textArr[i].indexOf("function") !== -1 || textArr[i].indexOf("=>{") !== -1) {
+            if(textArr[i].indexOf("function") !== -1 || textArr[i].indexOf("=>") !== -1) {
+                if((textArr[i].indexOf("function") !== -1 || textArr[i].indexOf("=>") !== -1) && (textArr[i].indexOf("{") === -1)){
+                    textArr.splice(i, 1);    
+                    while(textArr[i].indexOf("{") === -1){ 
+                        console.log("+1")
+                        i ++;
+                   }
+                }
+                console.log("x")
                 let extraCurlyCounter = 0;
                 for(let j = i; j < textArr.length; j ++) {
                     if(j !== i && textArr[j].indexOf("{") !== -1) {
@@ -186,6 +193,7 @@ class CursorPopup extends Component {
                             const text = textArr.join("\n");
                             let func = null, beforeAfter = null, diff = null;
                             if(!params) {
+                                console.log(text)
                                 // eslint-disable-next-line
                                 func = Function(`'use strict'; ${text}`);
                                 beforeAfter = func();
@@ -423,9 +431,6 @@ class CursorPopup extends Component {
                 }
             }
         }
-
-
-        console.log(textArr);
         return textArr;
     }
 
@@ -511,17 +516,13 @@ class CursorPopup extends Component {
             return value;
         } else {
             const rgb = this.getRGB(value);
-            console.log(rgb);
             const temp = this.rgbToHex(rgb.red, rgb.green, rgb.blue);
-            console.log(temp);
             return temp;
         }
     }
 
     componentToHex(c) {
-        console.log(c);
         const hex = Math.abs(c).toString(16);
-        console.log(hex)
         return hex.length === 1 ? "0" + hex : hex;
     }
       
