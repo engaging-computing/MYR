@@ -15,6 +15,27 @@ h3 h6 {
     margin: 6px;
 }
 
+#input_row {
+    max-width: 350px;
+}
+
+.param_input {
+    margin-left:20px;
+    margin-right:20px;
+}
+
+#submit_button {
+    margin-left:20px;
+    margin-right:20px;
+}
+
+#param_divider {
+    margin-top: 15px;
+    width: 90%;
+    margin-left: 5%;
+    margin-bottom: 10px;
+}
+
 .valuePara {
     float:right !important;
 }
