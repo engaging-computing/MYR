@@ -81,8 +81,8 @@ class ConfigModal extends Component {
             open: false,
             skyColor: this.props.scene.settings.color,
             displaySkyColorPicker: false,
-            displayFloorColorPicker: false,
             anchorEl: null,
+            displayFloorColorPicker: false,
             qrCodeOpen: false,
             pwProtectOpen: false,
             shareOpen: false,
@@ -90,9 +90,37 @@ class ConfigModal extends Component {
             email: "",
             sendTo: [],
             collectionID: "",
-            value: "a"
+            value: "a",
         };
         this.emailRef = React.createRef();
+        
+        this.originalSettings = this.buildSettingsArr();
+
+        window.addEventListener("beforeunload", (event) => {
+            let finalSettings = this.buildSettingsArr();
+
+            if(!this.settingsEqual(finalSettings)){
+                event.preventDefault();
+                event.returnValue = "You may have unsaved changes!";
+            }
+        });
+    }
+
+    buildSettingsArr = () => {
+        const sceneSettings = this.props.scene.settings;
+
+        return [sceneSettings.canFly, sceneSettings.floorColor, 
+            sceneSettings.showCoordHelper, sceneSettings.showFloor,
+            sceneSettings.skyColor, sceneSettings.viewOnly];
+    };
+    
+    settingsEqual = (newSettings) =>{
+        for(let i = 0; i < newSettings.length; ++i){
+            if(newSettings[i] !== this.originalSettings[i]){
+                return false;
+            }
+        }
+        return true;
     }
 
     // Opens the modal
@@ -255,7 +283,10 @@ class ConfigModal extends Component {
         return (
             <ButtonBase
                 style={style}
-                onClick={() => this.props.sceneActions.toggleFly()} >
+                onClick={() => {
+                    this.props.handleRender();
+                    this.props.sceneActions.toggleFly();
+                }} >
                 {
                     this.props.scene.settings.canFly
                         ? <Icon className="material-icons">toggle_on</Icon>
@@ -296,7 +327,7 @@ class ConfigModal extends Component {
                 style={style}
                 onClick={() => {
                     this.props.handleRender();
-                    this.props.sceneActions.toggleFloor();
+                    this.props.sceneActions.toggleFloor();  
                 }} >
                 {
                     this.props.scene.settings.showFloor
@@ -348,7 +379,7 @@ class ConfigModal extends Component {
                 color="primary"
                 onClick={() => {
                     this.handleAddClassToggle();
-                    this.props.sceneActions.addcollectionID(this.state.collectionID.toLowerCase());
+                    this.props.sceneActions.addCollectionID(this.state.collectionID.toLowerCase());
                     this.props.handleSave();
                     this.props.handleSaveClose();
                 }} >

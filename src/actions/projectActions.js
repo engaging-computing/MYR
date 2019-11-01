@@ -7,6 +7,7 @@ export function asyncUserProj(id) {
         if (id) {
             let userVals = [];
             scenes.where("uid", "==", id).get().then(snap => {
+                let num_proj_loaded = 0;
                 snap.forEach(doc => {
                     storageRef.child(`/images/perspective/${doc.id}`)
                         .getDownloadURL()
@@ -21,10 +22,13 @@ export function asyncUserProj(id) {
                                 data: dat,
                                 url: img ? img : "/img/no_preview.jpg"
                             });
+                            num_proj_loaded++;
+                            if(num_proj_loaded === snap.size){
+                                dispatch(syncUserProj(userVals));
+                            }
                         });
                 });
             });
-            dispatch(syncUserProj(userVals));
         }
     };
 }
@@ -38,6 +42,7 @@ export const asyncExampleProj = () => {
     return (dispatch) => {
         let exampleVals = [];
         scenes.where("uid", "==", "1").get().then(snap => {
+            let num_proj_loaded = 0;
             snap.forEach(doc => {
                 storageRef.child(`/images/perspective/${doc.id}`)
                     .getDownloadURL()
@@ -52,9 +57,12 @@ export const asyncExampleProj = () => {
                             data: dat,
                             url: img ? img : "/img/no_preview.jpg"
                         });
-                    });
+                        num_proj_loaded++;
+                        if(num_proj_loaded === snap.size){
+                            dispatch(syncExampleProj(exampleVals));
+                        }
+                    });   
             });
-            dispatch(syncExampleProj(exampleVals));
         });
     };
 };

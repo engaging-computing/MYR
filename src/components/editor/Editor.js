@@ -6,7 +6,6 @@ import "brace/ext/language_tools";
 import customCompleter from "./customCompleter.js";
 
 import "brace/ext/searchbox";
-import "../../css/Editor.css";
 
 /**
 * @summary - Editor is a React Component that creat the Ace Editor in the DOM.
@@ -22,7 +21,7 @@ class Editor extends Component {
         //Forces render cycle so user sees up to date view when viewonly loads
         this.props.render(text);
     }
- 
+
     componentDidMount() {
         try {
             // eslint-disable-next-line
@@ -30,6 +29,22 @@ class Editor extends Component {
         } catch (error) {
             console.error("Unable to attach custom completers");
         }
+
+        // Warn the issue before refreshing the page
+        window.addEventListener("beforeunload", (event) => {
+            let text;
+            try {
+                let editor = window.ace.edit("ace-editor");
+                text = editor.getSession().getValue();
+
+            } catch (err) {
+                console.error(err);
+            }
+            if (this.props.savedText !== text) {
+                event.preventDefault();
+                event.returnValue = "You may have unsaved scene changes!";
+            }
+        });
     }
 
     onLoad() {
@@ -37,7 +52,6 @@ class Editor extends Component {
             "maxerr": 1000,
             "esversion": 6
         }]);
-        window.ace.edit("ace-editor").focus(); //Fixes bug with cursor popup
     }
 
     /**
@@ -45,23 +59,23 @@ class Editor extends Component {
     */
     render() {
         return (
-                <AceEditor
-                    editorProps={{
-                        $blockScrolling: Infinity,
-                    }}
-                    height="94vh"
-                    mode="javascript"
-                    name="ace-editor"
-                    // eslint-disable-next-line
-                    ref="aceEditor"
-                    theme="github"
-                    value={this.props.text}
-                    width="100%"
-                    wrapEnabled={true}
-                    enableBasicAutocompletion={false}
-                    enableLiveAutocompletion={true}
-                    onLoad={this.onLoad}
-                />
+            <AceEditor
+                editorProps={{
+                    $blockScrolling: Infinity,
+                }}
+                height="94vh"
+                mode="javascript"
+                name="ace-editor"
+                // eslint-disable-next-line
+                ref="aceEditor"
+                theme="github"
+                value={this.props.text}
+                width="100%"
+                wrapEnabled={true}
+                enableBasicAutocompletion={false}
+                enableLiveAutocompletion={true}
+                onLoad={this.onLoad}
+            />
         );
     }
 }
