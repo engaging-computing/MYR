@@ -1,10 +1,10 @@
-import React, {Component} from 'react';
+import React, {Component} from "react";
 import {
-        Icon, 
-        IconButton,
-        Popover,
-        Divider
-    } from '@material-ui/core/';
+    Icon, 
+    IconButton,
+    Popover,
+    Divider
+} from "@material-ui/core/";
 import "../../css/CursorState.css";
 
 class CursorPopup extends Component {
@@ -19,7 +19,7 @@ class CursorPopup extends Component {
             rotOpen: false,
             magOpen: false,
             isFunc: false
-        }
+        };
 
         this.handleButtonClick = this.handleButtonClick.bind(this);
     }
@@ -35,10 +35,10 @@ class CursorPopup extends Component {
         editor.gotoLine(n); 
 
         const getGutterClick = (e) => {  
-            if (window.event) e = window.event.srcElement// (IE 6-8)
-            else e = e.target;     
+            if (window.event) {e = window.event.srcElement;}// (IE 6-8)
+            else {e = e.target;}     
             
-            if (e.className && e.className.indexOf('ace_gutter-cell') !== -1) {            
+            if (e.className && e.className.indexOf("ace_gutter-cell") !== -1) {            
                 const selectionRange = window.ace.edit("ace-editor").getSelectionRange().start.row + 1;
 
                 const data = this.handleGutterClick(selectionRange);
@@ -51,7 +51,7 @@ class CursorPopup extends Component {
                 if(type === "normal") {
                     // eslint-disable-next-line
                     const func = Function(`'use strict'; ${text}`),
-                          cursorState = func();
+                        cursorState = func();
 
                     self.setState({
                         anchorEl: e,
@@ -102,7 +102,7 @@ class CursorPopup extends Component {
                 }
                 
             }
-        }
+        };
 
         window.addEventListener("click", () => {
             try {
@@ -118,11 +118,11 @@ class CursorPopup extends Component {
 
         //Checks for a function body click
         let isInFunctionBody = this.detectFunctionBody(this.removeComments(editorDoc.$lines.slice(0, editorDoc.$lines.length)), breakpoint);
-        if(isInFunctionBody) return isInFunctionBody;
+        if(isInFunctionBody) {return isInFunctionBody;}
         
         //Checks for a click inside of loop(s)
         let isInLoop = this.detectLoops(this.removeComments(editorDoc.$lines.slice(0, editorDoc.$lines.length)), breakpoint);
-        if(isInLoop) return [isInLoop, "loop"];
+        if(isInLoop) {return [isInLoop, "loop"];}
         //Handles a click outside of a function & loop
         return this.handleDefaultClick(editorDoc, breakpoint);
     }
@@ -155,7 +155,7 @@ class CursorPopup extends Component {
                 }
             } else if(obj1[key] !== obj2[key]) {
                 if(diff === null)
-                    diff = {};
+                {diff = {};}
                 diff[key] = obj2[key];
             }
         });
@@ -172,7 +172,7 @@ class CursorPopup extends Component {
                     textArr.splice(i, 1);    
                     while(textArr[i].indexOf("{") === -1) { 
                         i ++;
-                   }
+                    }
                 }
                 let extraCurlyCounter = 0;
                 for(let j = i; j < textArr.length; j ++) {
@@ -188,9 +188,9 @@ class CursorPopup extends Component {
                             textArr.splice(start, 0, "resetCursor();"); //Resets cursor before function body
                             textArr.splice(start, 0, `let ${arr} = [];`);  //Creates array
                             textArr.splice(start + 2, 1);
-                            textArr.splice(start+2, 0, `${arr}.push(JSON.parse(JSON.stringify(getCursor())));`)    //Stores value at beginning of function body
+                            textArr.splice(start+2, 0, `${arr}.push(JSON.parse(JSON.stringify(getCursor())));`);    //Stores value at beginning of function body
                             textArr.splice(end+3, 0, `return ${arr};`);  //All values get returned at end
-                            textArr.splice(end+3, 0, `${arr}.push(JSON.parse(JSON.stringify(getCursor())));`)    //Stores value at beginning of each loop iteration in it
+                            textArr.splice(end+3, 0, `${arr}.push(JSON.parse(JSON.stringify(getCursor())));`);    //Stores value at beginning of each loop iteration in it
                             textArr.splice(end + 2, 1);
                             
                             const params = this.findParams();
@@ -202,7 +202,7 @@ class CursorPopup extends Component {
                                 beforeAfter = func();
                                 diff = this.getObjDiff(beforeAfter[0], beforeAfter[1]);
                                 if(diff)
-                                    return [diff, "func"];
+                                {return [diff, "func"];}
                             }
 
                             try {
@@ -210,7 +210,7 @@ class CursorPopup extends Component {
                                 func = Function(`'use strict'; ${text}`);
                                 beforeAfter = func();
                                 diff = this.getObjDiff(beforeAfter[0], beforeAfter[1]);
-                                if(diff) return [diff, "func"];  
+                                if(diff) {return [diff, "func"];}  
                                 //Params don't need to be returned because they aren't used in
                                 // cursor state setting calls, otherwise we would have gotten an error 
                             } catch(e) {
@@ -220,7 +220,7 @@ class CursorPopup extends Component {
                             }
 
                             return ["Function made no difference to cursor state", "func"];
-                        } else break;
+                        } else {break;}
                     }
                 }
             }
@@ -245,12 +245,12 @@ class CursorPopup extends Component {
                         if(i + 1 <= breakpoint && breakpoint <= j + 1){
                             //We found a function, and the breakpoint the user clicked on is within the funtion
                             //textArr[i] is the header of the function
-                            let paramStr = textArr[i].slice(textArr[i].indexOf('(') + 1, textArr[i].indexOf(')'))
+                            let paramStr = textArr[i].slice(textArr[i].indexOf("(") + 1, textArr[i].indexOf(")"));
                             let params =  paramStr.split(", ");
                             if(params[0] === "")
-                                return null;
+                            {return null;}
                             return params;
-                        } else break;
+                        } else {break;}
                     }
                 }
             }
@@ -265,7 +265,7 @@ class CursorPopup extends Component {
         for(let i = 0; i < this.state.params.length; i ++) {
             let val = document.getElementById(this.state.params[i]).value;
             if(val === "")
-                val = null;
+            {val = null;}
             enteredValues.set(this.state.params[i], val);
         }
 
@@ -281,7 +281,7 @@ class CursorPopup extends Component {
                         start = i + 1;
                         end = j;
                         if(start <= this.state.breakpoint && this.state.breakpoint <= end)
-                            break;
+                        {break;}
                     }
                 }
             }
@@ -291,7 +291,7 @@ class CursorPopup extends Component {
             for(let k = 0; k < this.state.params.length; k ++) {
                 const formalParam = this.state.params[k];
                 const enteredArg = enteredValues.get(this.state.params[k]);
-                if(textArr[i].indexOf(formalParam) !== -1 && enteredArg != null) {
+                if(textArr[i].indexOf(formalParam) !== -1 && enteredArg !== null) {
                     textArr[i] = textArr[i].replace(formalParam, enteredArg);
                 } 
             }
@@ -308,7 +308,7 @@ class CursorPopup extends Component {
                     index: 0,
                     maxIndex: 0,
                     isFunc: true,
-                })
+                });
             }, 0);
     }
 
@@ -318,9 +318,9 @@ class CursorPopup extends Component {
 
         const hasLoop = i => {
             if(textArr[i].indexOf("while(") !== -1 || textArr[i].indexOf("for(") !== -1 || textArr[i].indexOf("do {") !== -1)
-                return true;
+            {return true;}
             return false;
-        }
+        };
 
         textArr.unshift("resetCursor();");
         breakpoint ++;
@@ -337,11 +337,11 @@ class CursorPopup extends Component {
                         start = i;
                         if(numLoops === 0){
                             textArr.splice(start, 0, `let ${counter} = [];`);  //Creates array
-                            textArr.splice(start+2, 0, `${counter}.push(JSON.parse(JSON.stringify(getCursor())));`)    //Stores value at beginning of each loop iteration in it
+                            textArr.splice(start+2, 0, `${counter}.push(JSON.parse(JSON.stringify(getCursor())));`);    //Stores value at beginning of each loop iteration in it
                             i += 2;
                             breakpoint += 2;
                         } else {
-                            textArr.splice(start+1, 0, `${counter}.push(JSON.parse(JSON.stringify(getCursor())));`)    //Stores value at beginning of each loop iteration in it
+                            textArr.splice(start+1, 0, `${counter}.push(JSON.parse(JSON.stringify(getCursor())));`);    //Stores value at beginning of each loop iteration in it
                             i ++;
                             breakpoint ++;
                         }
@@ -372,7 +372,7 @@ class CursorPopup extends Component {
                         }
                     }
                     if(endOfOuterLoop !== -1)
-                        break;
+                    {break;}
                 }
             }
             textArr.splice(endOfOuterLoop + 1, 0, `${counter}.push(JSON.parse(JSON.stringify(getCursor())));`);  //All values get returned at end
@@ -441,9 +441,9 @@ class CursorPopup extends Component {
     }
 
     size(obj) {
-        var size = 0, key;
+        let size = 0, key;
         for (key in obj) {
-            if (obj.hasOwnProperty(key) && typeof obj[key] === "object") size++;
+            if (obj.hasOwnProperty(key) && typeof obj[key] === "object") {size++;}
         }
         return size;
     }
@@ -453,36 +453,36 @@ class CursorPopup extends Component {
             case "position":
                 this.setState({
                     posOpen: !this.state.posOpen
-                })
+                });
                 break;
             case "scale":
                 this.setState({
                     scaleOpen: !this.state.scaleOpen
-                })
+                });
                 break;
             case "rotation":
                 this.setState({
                     rotOpen: !this.state.rotOpen
-                })
+                });
                 break;
             case "magnitude":
                 this.setState({
                     magOpen: !this.state.magOpen
-                })
+                });
                 break;
             case "left" :
                 if(this.state.index !== 0)
-                    this.setState({
-                        obj: this.state.arr[this.state.index - 1],
-                        index: this.state.index - 1
-                    });
+                {this.setState({
+                    obj: this.state.arr[this.state.index - 1],
+                    index: this.state.index - 1
+                });}
                 break;
             case "right" :
                 if(this.state.index !== this.state.maxIndex)
-                    this.setState({
-                        obj: this.state.arr[this.state.index + 1],
-                        index: this.state.index + 1
-                    });
+                {this.setState({
+                    obj: this.state.arr[this.state.index + 1],
+                    index: this.state.index + 1
+                });}
                 break;
             default:
                 break;
@@ -492,13 +492,13 @@ class CursorPopup extends Component {
     getOpen = key => {
         switch (key) {
             case "position":
-                return this.state.posOpen ? "block" : "none"
+                return this.state.posOpen ? "block" : "none";
             case "scale":
-                return this.state.scaleOpen ? "block" : "none"
+                return this.state.scaleOpen ? "block" : "none";
             case "rotation":
-                    return this.state.rotOpen ? "block" : "none"
+                return this.state.rotOpen ? "block" : "none";
             case "magnitude":
-                    return this.state.magOpen ? "block" : "none"
+                return this.state.magOpen ? "block" : "none";
             default:
                 break;
         }
@@ -518,7 +518,7 @@ class CursorPopup extends Component {
     getHex = value => {
         if(this.colorNameToHex(value)) {
             return this.colorNameToHex(value);
-        } else if(value[0] === '#') {
+        } else if(value[0] === "#") {
             return value;
         } else {
             const rgb = this.getRGB(value);
@@ -539,43 +539,43 @@ class CursorPopup extends Component {
     getRGB(str){
         const match = str.match(/rgba?\((\d{1,3}), ?(\d{1,3}), ?(\d{1,3})\)?(?:, ?(\d(?:\.\d?))\))?/);
         return match ? {
-          red: match[1],
-          green: match[2],
-          blue: match[3]
+            red: match[1],
+            green: match[2],
+            blue: match[3]
         } : null;
-      }
+    }
 
     colorNameToHex(color){
         const colors = {"aliceblue":"#f0f8ff","antiquewhite":"#faebd7","aqua":"#00ffff","aquamarine":"#7fffd4","azure":"#f0ffff",
-        "beige":"#f5f5dc","bisque":"#ffe4c4","black":"#000000","blanchedalmond":"#ffebcd","blue":"#0000ff","blueviolet":"#8a2be2","brown":"#a52a2a","burlywood":"#deb887",
-        "cadetblue":"#5f9ea0","chartreuse":"#7fff00","chocolate":"#d2691e","coral":"#ff7f50","cornflowerblue":"#6495ed","cornsilk":"#fff8dc","crimson":"#dc143c","cyan":"#00ffff",
-        "darkblue":"#00008b","darkcyan":"#008b8b","darkgoldenrod":"#b8860b","darkgray":"#a9a9a9","darkgreen":"#006400","darkkhaki":"#bdb76b","darkmagenta":"#8b008b","darkolivegreen":"#556b2f",
-        "darkorange":"#ff8c00","darkorchid":"#9932cc","darkred":"#8b0000","darksalmon":"#e9967a","darkseagreen":"#8fbc8f","darkslateblue":"#483d8b","darkslategray":"#2f4f4f","darkturquoise":"#00ced1",
-        "darkviolet":"#9400d3","deeppink":"#ff1493","deepskyblue":"#00bfff","dimgray":"#696969","dodgerblue":"#1e90ff",
-        "firebrick":"#b22222","floralwhite":"#fffaf0","forestgreen":"#228b22","fuchsia":"#ff00ff",
-        "gainsboro":"#dcdcdc","ghostwhite":"#f8f8ff","gold":"#ffd700","goldenrod":"#daa520","gray":"#808080","green":"#008000","greenyellow":"#adff2f",
-        "honeydew":"#f0fff0","hotpink":"#ff69b4","indianred ":"#cd5c5c","indigo":"#4b0082","ivory":"#fffff0","khaki":"#f0e68c",
-        "lavender":"#e6e6fa","lavenderblush":"#fff0f5","lawngreen":"#7cfc00","lemonchiffon":"#fffacd","lightblue":"#add8e6","lightcoral":"#f08080","lightcyan":"#e0ffff","lightgoldenrodyellow":"#fafad2",
-        "lightgrey":"#d3d3d3","lightgreen":"#90ee90","lightpink":"#ffb6c1","lightsalmon":"#ffa07a","lightseagreen":"#20b2aa","lightskyblue":"#87cefa","lightslategray":"#778899","lightsteelblue":"#b0c4de",
-        "lightyellow":"#ffffe0","lime":"#00ff00","limegreen":"#32cd32","linen":"#faf0e6",
-        "magenta":"#ff00ff","maroon":"#800000","mediumaquamarine":"#66cdaa","mediumblue":"#0000cd","mediumorchid":"#ba55d3","mediumpurple":"#9370d8","mediumseagreen":"#3cb371","mediumslateblue":"#7b68ee",
-        "mediumspringgreen":"#00fa9a","mediumturquoise":"#48d1cc","mediumvioletred":"#c71585","midnightblue":"#191970","mintcream":"#f5fffa","mistyrose":"#ffe4e1","moccasin":"#ffe4b5",
-        "navajowhite":"#ffdead","navy":"#000080","oldlace":"#fdf5e6","olive":"#808000","olivedrab":"#6b8e23","orange":"#ffa500","orangered":"#ff4500","orchid":"#da70d6",
-        "palegoldenrod":"#eee8aa","palegreen":"#98fb98","paleturquoise":"#afeeee","palevioletred":"#d87093","papayawhip":"#ffefd5","peachpuff":"#ffdab9","peru":"#cd853f","pink":"#ffc0cb","plum":"#dda0dd","powderblue":"#b0e0e6","purple":"#800080",
-        "rebeccapurple":"#663399","red":"#ff0000","rosybrown":"#bc8f8f","royalblue":"#4169e1",
-        "saddlebrown":"#8b4513","salmon":"#fa8072","sandybrown":"#f4a460","seagreen":"#2e8b57","seashell":"#fff5ee","sienna":"#a0522d","silver":"#c0c0c0","skyblue":"#87ceeb","slateblue":"#6a5acd","slategray":"#708090","snow":"#fffafa","springgreen":"#00ff7f","steelblue":"#4682b4",
-        "tan":"#d2b48c","teal":"#008080","thistle":"#d8bfd8","tomato":"#ff6347","turquoise":"#40e0d0",
-        "violet":"#ee82ee","wheat":"#f5deb3","white":"#ffffff","whitesmoke":"#f5f5f5","yellow":"#ffff00","yellowgreen":"#9acd32"};
+            "beige":"#f5f5dc","bisque":"#ffe4c4","black":"#000000","blanchedalmond":"#ffebcd","blue":"#0000ff","blueviolet":"#8a2be2","brown":"#a52a2a","burlywood":"#deb887",
+            "cadetblue":"#5f9ea0","chartreuse":"#7fff00","chocolate":"#d2691e","coral":"#ff7f50","cornflowerblue":"#6495ed","cornsilk":"#fff8dc","crimson":"#dc143c","cyan":"#00ffff",
+            "darkblue":"#00008b","darkcyan":"#008b8b","darkgoldenrod":"#b8860b","darkgray":"#a9a9a9","darkgreen":"#006400","darkkhaki":"#bdb76b","darkmagenta":"#8b008b","darkolivegreen":"#556b2f",
+            "darkorange":"#ff8c00","darkorchid":"#9932cc","darkred":"#8b0000","darksalmon":"#e9967a","darkseagreen":"#8fbc8f","darkslateblue":"#483d8b","darkslategray":"#2f4f4f","darkturquoise":"#00ced1",
+            "darkviolet":"#9400d3","deeppink":"#ff1493","deepskyblue":"#00bfff","dimgray":"#696969","dodgerblue":"#1e90ff",
+            "firebrick":"#b22222","floralwhite":"#fffaf0","forestgreen":"#228b22","fuchsia":"#ff00ff",
+            "gainsboro":"#dcdcdc","ghostwhite":"#f8f8ff","gold":"#ffd700","goldenrod":"#daa520","gray":"#808080","green":"#008000","greenyellow":"#adff2f",
+            "honeydew":"#f0fff0","hotpink":"#ff69b4","indianred ":"#cd5c5c","indigo":"#4b0082","ivory":"#fffff0","khaki":"#f0e68c",
+            "lavender":"#e6e6fa","lavenderblush":"#fff0f5","lawngreen":"#7cfc00","lemonchiffon":"#fffacd","lightblue":"#add8e6","lightcoral":"#f08080","lightcyan":"#e0ffff","lightgoldenrodyellow":"#fafad2",
+            "lightgrey":"#d3d3d3","lightgreen":"#90ee90","lightpink":"#ffb6c1","lightsalmon":"#ffa07a","lightseagreen":"#20b2aa","lightskyblue":"#87cefa","lightslategray":"#778899","lightsteelblue":"#b0c4de",
+            "lightyellow":"#ffffe0","lime":"#00ff00","limegreen":"#32cd32","linen":"#faf0e6",
+            "magenta":"#ff00ff","maroon":"#800000","mediumaquamarine":"#66cdaa","mediumblue":"#0000cd","mediumorchid":"#ba55d3","mediumpurple":"#9370d8","mediumseagreen":"#3cb371","mediumslateblue":"#7b68ee",
+            "mediumspringgreen":"#00fa9a","mediumturquoise":"#48d1cc","mediumvioletred":"#c71585","midnightblue":"#191970","mintcream":"#f5fffa","mistyrose":"#ffe4e1","moccasin":"#ffe4b5",
+            "navajowhite":"#ffdead","navy":"#000080","oldlace":"#fdf5e6","olive":"#808000","olivedrab":"#6b8e23","orange":"#ffa500","orangered":"#ff4500","orchid":"#da70d6",
+            "palegoldenrod":"#eee8aa","palegreen":"#98fb98","paleturquoise":"#afeeee","palevioletred":"#d87093","papayawhip":"#ffefd5","peachpuff":"#ffdab9","peru":"#cd853f","pink":"#ffc0cb","plum":"#dda0dd","powderblue":"#b0e0e6","purple":"#800080",
+            "rebeccapurple":"#663399","red":"#ff0000","rosybrown":"#bc8f8f","royalblue":"#4169e1",
+            "saddlebrown":"#8b4513","salmon":"#fa8072","sandybrown":"#f4a460","seagreen":"#2e8b57","seashell":"#fff5ee","sienna":"#a0522d","silver":"#c0c0c0","skyblue":"#87ceeb","slateblue":"#6a5acd","slategray":"#708090","snow":"#fffafa","springgreen":"#00ff7f","steelblue":"#4682b4",
+            "tan":"#d2b48c","teal":"#008080","thistle":"#d8bfd8","tomato":"#ff6347","turquoise":"#40e0d0",
+            "violet":"#ee82ee","wheat":"#f5deb3","white":"#ffffff","whitesmoke":"#f5f5f5","yellow":"#ffff00","yellowgreen":"#9acd32"};
 
-        if (typeof colors[color.toLowerCase()] != 'undefined')
-            return colors[color.toLowerCase()];
+        if (typeof colors[color.toLowerCase()] !== "undefined")
+        {return colors[color.toLowerCase()];}
 
         return false;
     }
 
     helper = (key, value, firstPass) => {
-        const shouldRenderObjects = typeof value === 'object' && value !== null && !firstPass; 
-        const shouldRenderOther = (typeof value !== 'object' && firstPass) || (typeof value === 'object' && !firstPass);
+        const shouldRenderObjects = typeof value === "object" && value !== null && !firstPass; 
+        const shouldRenderOther = (typeof value !== "object" && firstPass) || (typeof value === "object" && !firstPass);
 
         if(shouldRenderObjects) {
             //This maps out all of the key/value pairs in an object
@@ -583,7 +583,7 @@ class CursorPopup extends Component {
                 return this.helper(k, value[k], (Boolean(typeof value[k] !== "object")));
             });
             const iconType = this.getIconType(key);
-            const shouldDisplayStyle = { "display": this.getOpen(key) }
+            const shouldDisplayStyle = { "display": this.getOpen(key) };
 
             return (
                 <div  className = "col-auto">
@@ -604,11 +604,10 @@ class CursorPopup extends Component {
                     </div>
                 </div>
             );
-        } else {
-            if(shouldRenderOther) {
-                return (
-                    <div className = "row">
-                        {key !== "color" ?
+        } else if(shouldRenderOther) {
+            return (
+                <div className = "row">
+                    {key !== "color" ?
                             <>
                                 <div className = "col-8">
                                     <p className = "keyPara"> {this.capitalize(key)}</p>
@@ -617,7 +616,7 @@ class CursorPopup extends Component {
                                     <p className = "valuePara"> {this.capitalize(value) + ""}</p>
                                 </div> 
                             </>
-                            :
+                        :
                             <>
                                 <div className = "col-8">
                                     <p className = "keyPara"> {this.capitalize(key)}</p>
@@ -629,10 +628,9 @@ class CursorPopup extends Component {
                                     </div>
                                 </div> 
                             </>
-                        }
-                    </div>        
-                );
-            }
+                    }
+                </div>        
+            );
         }
     }
 
@@ -645,7 +643,7 @@ class CursorPopup extends Component {
     capitalize = word => {
         try {
             if(typeof word === "boolean") {
-                return word ? "True" : "False"
+                return word ? "True" : "False";
             }
             return word.toString().charAt(0).toUpperCase() + word.slice(1);
         }
@@ -660,7 +658,7 @@ class CursorPopup extends Component {
                 <div className = "col-6">
                     {
                         this.state.params.map(param => (
-                            <input id = {param} class = "param_input" 
+                            <input id = {param} className = "param_input" 
                                 type = "text" placeholder = {param}/>
                         ))
                     }
@@ -704,21 +702,21 @@ class CursorPopup extends Component {
                                             <Icon className="material-icons">chevron_left</Icon>
                                         </IconButton>    
                                     </div>
-                                        <div className = "col-6">
-                                            <h4>Cursor State</h4>
-                                            {
-                                                this.state.isFunc && this.state.index === 0
+                                    <div className = "col-6">
+                                        <h4>Cursor State</h4>
+                                        {
+                                            this.state.isFunc && this.state.index === 0
                                                 ? <h7>Before function</h7>
                                                 :
-                                                    this.state.isFunc && this.state.index === 1
+                                                this.state.isFunc && this.state.index === 1
                                                     ? <h7>After function</h7>
                                                     :
-                                                        this.state.index === 0 
+                                                    this.state.index === 0 
                                                         ? <h7> Pre-loop cursor</h7>
                                                         : <h7> Iteration {this.state.index} of {this.state.maxIndex}</h7>
 
-                                            }
-                                        </div>
+                                        }
+                                    </div>
                                     <div className = "col-3">
                                         <IconButton
                                             onClick={ () => this.handleButtonClick("right") }
@@ -728,12 +726,12 @@ class CursorPopup extends Component {
                                         </IconButton>
                                     </div>
                                 </div> 
-                            : 
+                                : 
                             <>
                                 <h4 id = "title">Cursor State</h4>
                                 {
                                     this.state.isFunc && Boolean(this.state.params) 
-                                    ? <this.paramInputHelper /> : null
+                                        ? <this.paramInputHelper /> : null
                                 }
                             </>
                         }
@@ -759,12 +757,12 @@ class CursorPopup extends Component {
                         {
                             this.state.noDiff ?
                                 <p> The function made no difference to the cursor state </p>
-                            :null
+                                :null
                         }
                     </div>
                 </Popover>
             </div>
-          );
+        );
     }
 }
 
