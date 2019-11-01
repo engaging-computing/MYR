@@ -63,10 +63,14 @@ class CursorPopup extends Component {
                         isFunc: false,
                         params: null,
                         textArr : null,
-                        breakpoint: selectionRange
+                        breakpoint: selectionRange,
+                        noDiff: false
                     });
                 //If we clicked on text in a function
                 } else if(type === "func"){
+
+                    let tempDiff = text === "Function made no difference to cursor state" ? true : false;
+
                     self.setState({
                         anchorEl: e,
                         obj: text,
@@ -77,7 +81,8 @@ class CursorPopup extends Component {
                         isFunc: true,
                         params: param,
                         textArr: textArr,
-                        breakpoint: selectionRange + 1
+                        breakpoint: selectionRange + 1,
+                        noDiff: tempDiff
                     });
                 //If we clicked on text in a loop
                 } else if(type === "loop"){
@@ -91,7 +96,8 @@ class CursorPopup extends Component {
                         isFunc: false,
                         params: null,
                         textArr: null,
-                        breakpoint: selectionRange
+                        breakpoint: selectionRange,
+                        noDiff: false
                     });
                 }
                 
@@ -164,12 +170,10 @@ class CursorPopup extends Component {
             if(textArr[i].indexOf("function") !== -1 || textArr[i].indexOf("=>") !== -1) {
                 if((textArr[i].indexOf("function") !== -1 || textArr[i].indexOf("=>") !== -1) && (textArr[i].indexOf("{") === -1)){
                     textArr.splice(i, 1);    
-                    while(textArr[i].indexOf("{") === -1){ 
-                        console.log("+1")
+                    while(textArr[i].indexOf("{") === -1) { 
                         i ++;
                    }
                 }
-                console.log("x")
                 let extraCurlyCounter = 0;
                 for(let j = i; j < textArr.length; j ++) {
                     if(j !== i && textArr[j].indexOf("{") !== -1) {
@@ -193,13 +197,12 @@ class CursorPopup extends Component {
                             const text = textArr.join("\n");
                             let func = null, beforeAfter = null, diff = null;
                             if(!params) {
-                                console.log(text)
                                 // eslint-disable-next-line
                                 func = Function(`'use strict'; ${text}`);
                                 beforeAfter = func();
                                 diff = this.getObjDiff(beforeAfter[0], beforeAfter[1]);
                                 if(diff)
-                                return [diff, "func"];
+                                    return [diff, "func"];
                             }
 
                             try {
@@ -231,7 +234,7 @@ class CursorPopup extends Component {
         let textArr = this.removeComments(editorDoc.$lines.slice(0, editorDoc.$lines.length));
 
         for(let i = 0; i < textArr.length && i <= breakpoint; i ++) {
-            if(textArr[i].indexOf("function") !== -1 || textArr[i].indexOf("=>{") !== -1) {
+            if(textArr[i].indexOf("function") !== -1 || textArr[i].indexOf("=>") !== -1) {
                 let extraCurlyCounter = 0;
                 for(let j = i; j < textArr.length; j ++) {
                     if(j !== i && textArr[j].indexOf("{") !== -1) {
@@ -267,7 +270,7 @@ class CursorPopup extends Component {
         }
 
         for(let i = 0; i < textArr.length && i <= this.state.breakpoint; i ++) {
-            if(textArr[i].indexOf("function") !== -1 || textArr[i].indexOf("=>{") !== -1) {
+            if(textArr[i].indexOf("function") !== -1 || textArr[i].indexOf("=>") !== -1) {
                 let extraCurlyCounter = 0;
                 for(let j = i; j < textArr.length; j ++) {
                     if(j !== i && textArr[j].indexOf("{") !== -1) {
@@ -295,15 +298,18 @@ class CursorPopup extends Component {
         }
 
         const diff = this.detectFunctionBody(textArr, this.state.breakpoint)[0];
-    
-        window.setTimeout(()=>{this.setState({
-            obj: diff,
-            arr: null,
-            isArr: false,
-            index: 0,
-            maxIndex: 0,
-            isFunc: true,
-        })}, 0);
+
+        window.setTimeout(
+            () => {
+                this.setState({
+                    obj: diff,
+                    arr: null,
+                    isArr: false,
+                    index: 0,
+                    maxIndex: 0,
+                    isFunc: true,
+                })
+            }, 0);
     }
 
     detectLoops(textArr, breakpoint) {
@@ -733,14 +739,14 @@ class CursorPopup extends Component {
                         }
                         {
                             //Renders all non objects first
-                            (!this.state.params || this.state.obj) ? Object.keys(this.state.obj).map(key => {
+                            (!this.state.noDiff && (!this.state.params || this.state.obj)) ? Object.keys(this.state.obj).map(key => {
                                 return this.helper(key, this.state.obj[key], true);
                             }) : null 
                         }
                         {
                             //Renders objects in a second sweep
                             <>
-                                {this.size(this.state.obj) > 0 ? <Divider variant="middle" /> : null}
+                                {!this.state.noDiff && this.size(this.state.obj) > 0 ? <Divider variant="middle" /> : null}
                                 <div className = "row">
                                     {
                                         (!this.state.params || this.state.obj) ? Object.keys(this.state.obj).map(key => {
@@ -749,6 +755,11 @@ class CursorPopup extends Component {
                                     }
                                 </div>
                             </>
+                        }
+                        {
+                            this.state.noDiff ?
+                                <p> The function made no difference to the cursor state </p>
+                            :null
                         }
                     </div>
                 </Popover>
