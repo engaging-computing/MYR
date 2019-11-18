@@ -252,7 +252,7 @@ class Project extends React.Component {
                 </div>
             );
         }
-        let lastMod = new Date(project.data.ts);
+        let lastMod = new Date(project.updateTime);
         return (
             <div>
                 <h3>{project.name}</h3>
@@ -273,8 +273,8 @@ class Project extends React.Component {
 
     helper = (proj, canDelete) => {
         if (proj) {
-            let id = proj.id;
-            let name = proj.data.name;
+            let id = proj._id;
+            let name = proj.name;
             return (
                 <div key={id} id={id} title={name}
                     className="proj col-xs-12 col-md-6 col-lg-4 pt-2 pl-0" >
@@ -441,7 +441,7 @@ class Project extends React.Component {
                                     <div className="row" id="user-proj" style={{ width: "100%" }}>
                                         { // Sort the users projects in alphabetical order
                                             userProjs.sort(function (a, b) {
-                                                return a.name < b.name ? -1 : a.name > b.name ? 1 : a.data.ts > b.data.ts ? -1 : a.data.ts < b.data.ts ? 1 : 0;
+                                                return a.name < b.name ? -1 : a.name > b.name ? 1 : a.updateTime > b.updateTime ? -1 : a.updateTime < b.updateTime ? 1 : 0;
                                             }).map(proj => {
                                                 return this.helper(proj, true);
                                             })
@@ -453,7 +453,7 @@ class Project extends React.Component {
                                     <div className="row" id="sample-proj" style={{ width: "100%" }}>
                                         {
                                             exampleProjs.sort(function (a, b) {
-                                                return a.name < b.name ? -1 : a.name > b.name ? 1 : a.data.ts > b.data.ts ? -1 : a.data.ts < b.data.ts ? 1 : 0;
+                                                return a.name < b.name ? -1 : a.name > b.name ? 1 : a.updateTime > b.updateTime ? -1 : a.updateTime < b.updateTime ? 1 : 0;
                                             }).map(proj => {
                                                 return this.helper(proj, false);
                                             })

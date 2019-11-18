@@ -1,33 +1,27 @@
 import * as types from "../constants/ActionTypes";
 import { scenes, storageRef } from "../firebase.js";
 
+const sceneRef = "/apiv1/scenes";
+
 export function asyncUserProj(id) {
     // fetch user's project
     return (dispatch) => {
         if (id) {
-            let userVals = [];
-            scenes.where("uid", "==", id).get().then(snap => {
-                let num_proj_loaded = 0;
-                snap.forEach(doc => {
-                    storageRef.child(`/images/perspective/${doc.id}`)
-                        .getDownloadURL()
-                        .catch(() => {
-                            console.error("Error: Missing preview image");
-                        })
-                        .then((img) => {
-                            let dat = doc.data();
-                            userVals.push({
-                                name: dat.name,
-                                id: doc.id,
-                                data: dat,
-                                url: img ? img : "/img/no_preview.jpg"
+            //let userVals = [];
+            fetch(`${sceneRef}/`, {headers: {"x-access-token": id}}).then((response) =>{
+                if(response.status === 200){
+                    response.json().then((json) =>{
+                        for(let i = 0; i < json.length; ++i){
+                            let id = json[i].firebaseID ? json[i].firebaseID : json._id;
+                            storageRef.child(`/images/perspective/${id}`).getDownloadURL().catch(() =>{
+                                console.error("Error: Missing Preview Image");
+                            }).then((img) => {
+                                json[i].url = img ? img : "/img/no_preview.jpg";
                             });
-                            num_proj_loaded++;
-                            if(num_proj_loaded === snap.size){
-                                dispatch(syncUserProj(userVals));
-                            }
-                        });
-                });
+                        }
+                        dispatch(syncUserProj(json));
+                    });
+                }
             });
         }
     };
