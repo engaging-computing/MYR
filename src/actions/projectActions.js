@@ -34,29 +34,20 @@ export function syncUserProj(payload) {
 export const asyncExampleProj = () => {
     // fetch example projects
     return (dispatch) => {
-        let exampleVals = [];
-        scenes.where("uid", "==", "1").get().then(snap => {
-            let num_proj_loaded = 0;
-            snap.forEach(doc => {
-                storageRef.child(`/images/perspective/${doc.id}`)
-                    .getDownloadURL()
-                    .catch(() => {
-                        console.error("Error: Missing preview image");
-                    })
-                    .then((img) => {
-                        let dat = doc.data();
-                        exampleVals.push({
-                            name: dat.name,
-                            id: doc.id,
-                            data: dat,
-                            url: img ? img : "/img/no_preview.jpg"
+        fetch(`${sceneRef}/`, {headers: {"x-access-token": "1"}}).then((response) =>{
+            if(response.status === 200){
+                response.json().then((json) =>{
+                    for(let i = 0; i < json.length; ++i){
+                        let id = json[i].firebaseID ? json[i].firebaseID : json._id;
+                        storageRef.child(`/images/perspective/${id}`).getDownloadURL().catch(() =>{
+                            console.error("Error: Missing Preview Image");
+                        }).then((img) => {
+                            json[i].url = img ? img : "/img/no_preview.jpg";
                         });
-                        num_proj_loaded++;
-                        if(num_proj_loaded === snap.size){
-                            dispatch(syncExampleProj(exampleVals));
-                        }
-                    });   
-            });
+                    }
+                    dispatch(syncExampleProj(json));
+                });
+            }
         });
     };
 };
