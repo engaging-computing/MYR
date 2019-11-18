@@ -1,5 +1,5 @@
 import * as types from "../constants/ActionTypes";
-import { scenes, storageRef } from "../firebase.js";
+import { storageRef } from "../firebase.js";
 
 const sceneRef = "/apiv1/scenes";
 
@@ -56,7 +56,7 @@ export function syncExampleProj(payload) {
     return { type: types.SYNC_EXAMP_PROJ, payload: payload };
 }
 
-export function deleteProj(id, name) {
+export function deleteProj(uid, id, name) {
     if (window.confirm(`Are you sure you want to delete ${name}?`)) {
         // Delete Image
         let path = "images/perspective/" + id;
@@ -68,10 +68,12 @@ export function deleteProj(id, name) {
         });
 
         // Delete Document
-        scenes.doc(id).delete().then(() => {
-
+        fetch(`${sceneRef}/id/${id}`, {method: "delete", headers: {"x-access-token": uid}}).then((response) => {
+            if(response.status !== 204){
+                console.error("Error removing document: ", response.status);
+            }
             // If deleting current project, redirect to home
-            if (window.location.href === window.origin + "/" + id || window.location.href === window.origin + "/" + id + "/") {
+            else if (window.location.href === window.origin + "/" + id || window.location.href === window.origin + "/" + id + "/") {
                 window.location.href = window.origin;
             }
         }).catch((error) => {
