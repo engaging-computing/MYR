@@ -20,7 +20,7 @@ export default function project(state = initial_state, action) {
         case types.DELETE_PROJ:
             let projs = [];
             projs = state.userProjs.filter(x => {
-                return x.id !== action.id;
+                return x._id !== action._id;
             });
             return {
                 ...state,

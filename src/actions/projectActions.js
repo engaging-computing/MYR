@@ -7,7 +7,6 @@ export function asyncUserProj(id) {
     // fetch user's project
     return (dispatch) => {
         if (id) {
-            //let userVals = [];
             fetch(`${sceneRef}/`, {headers: {"x-access-token": id}}).then((response) =>{
                 if(response.status === 200){
                     response.json().then((json) =>{
@@ -76,10 +75,13 @@ export function deleteProj(uid, id, name) {
             else if (window.location.href === window.origin + "/" + id || window.location.href === window.origin + "/" + id + "/") {
                 window.location.href = window.origin;
             }
+            return Promise.resolve();
         }).catch((error) => {
             console.error("Error removing document: ", error);
+            return Promise.reject();
         });
-        return { type: types.DELETE_PROJ, id: id };
+
+        return { type: types.DELETE_PROJ, _id: id };
     }
 }
 
