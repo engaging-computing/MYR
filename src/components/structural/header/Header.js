@@ -26,6 +26,7 @@ import {
     createMuiTheme,
     MuiThemeProvider
 } from "@material-ui/core";
+import { save } from "../../../actions/projectActions.js";
 
 const exitBtnStyle = {
     position: "fixed",
@@ -340,23 +341,27 @@ class Header extends Component {
 
         if (this.props.user && this.props.user.uid && text) {
             this.setState({ spinnerOpen: true });
-            let ts = Date.now();
-            let projectId = this.getProjectId();
             let scene = document.querySelector("a-scene");
             // Access the scene and screen shot, with perspective view in a lossy jpeg format
             let img = scene.components.screenshot.getCanvas("perspective").toDataURL("image/jpeg", 0.1);
-            let path = "images/perspective/" + projectId;
+            let path = "images/perspective/";
             let imgRef = storageRef.child(path);
+            
+            let newScene = {
+                name: (this.props.scene.name ? this.props.scene.name : "Untitled Scene"),
+                desc: this.props.scene.desc,
+                code: text,
+                uid: this.props.user.uid,
+                settings: this.props.scene.settings,
+                updateTime: Date.now(),
+                createTime: (this.props.scene.createTime ? this.props.scene.createTime : Date.now())
+            };
 
             imgRef.putString(img, "data_url").then(() => {
-                // Put the new document into the scenes collection
-                scenes.doc(projectId).set({
-                    name: (this.props.scene.name ? this.props.scene.name : "Untitled Scene"),
-                    desc: this.props.scene.desc,
-                    code: text,
-                    uid: this.props.user.uid,
-                    settings: this.props.scene.settings,
-                    ts: ts,
+                save(this.props.user.uid, newScene, this.props.scene._id);
+                /* 
+                TODO: get save in projectActions working, and integrate here
+
                 }).then(() => {
                     this.props.actions.updateSavedText(this.props.text);
                     // If we have a new projectId reload page with it
@@ -374,7 +379,7 @@ class Header extends Component {
                 });
             }).catch((error) => {
                 console.error("Error uploading a data_url string ", error);
-                this.setState({ spinnerOpen: false });
+                this.setState({ spinnerOpen: false });*/
             });
         } else {
             // TODO: Don't use alert

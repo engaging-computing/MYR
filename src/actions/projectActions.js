@@ -85,6 +85,27 @@ export function deleteProj(uid, id, name) {
     }
 }
 
+export function save(uid, scene, sceneID=undefined){
+    if(sceneID === undefined){
+        console.log(scene);
+        fetch(`${sceneRef}/`, {method: "POST", body: JSON.stringify(scene),  headers:{"Content-Type": "application/json"}}).then((resp) => {
+            console.log(resp.body.message);
+            if(resp.status !== 201){
+                console.error("Could not create new Scene, are you sure you're logged in?");
+                return false;
+            }
+        });
+    }else{
+        //TODO get PUT working
+        fetch(`${sceneRef}/id/${sceneID}`, {body: scene, method: "PUT", headers: {"x-access-token": uid}}).then((response) =>{
+            if(response.status !== 200){
+                console.error(`Could not update this scene: ${response.status}`);
+                return false;
+            }
+        });
+    }  
+}
+
 export default {
     asyncUserProj,
     syncUserProj,
