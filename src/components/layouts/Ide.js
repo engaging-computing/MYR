@@ -32,7 +32,7 @@ export const Ide = ({ editor, editorActions, user, authActions, scene, sceneActi
                 scene.settings.viewOnly
                     ?
                     <div id="scene" className="col-12" >
-                        <View objects={editor.objects} sceneConfig={scene} assets={editor.assets} />
+                        <View objects={editor.objects} sceneActions={sceneActions} sceneConfig={scene} assets={editor.assets} />
                     </div>
                     :
                     <>
@@ -40,7 +40,7 @@ export const Ide = ({ editor, editorActions, user, authActions, scene, sceneActi
                             <Editor refresh={editorActions.refresh} render={editorActions.render} text={editor.text} user={user} />
                         </div>
                         <div id="scene" className="col-12 col-md-8" >
-                            <View objects={editor.objects} sceneConfig={scene} assets={editor.assets} />
+                            <View objects={editor.objects} sceneActions={sceneActions} sceneConfig={scene} assets={editor.assets} />
                         </div>
                     </>
             }

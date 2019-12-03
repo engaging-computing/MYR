@@ -11,6 +11,11 @@ class Myr {
         this.assets = [];
         this.res = { els: this.els, assets: this.assets };
         this.sceneEl = document.querySelector("a-scene");
+        this.seedTime = 0; 
+        this.randCounter = 0;
+        this.oldRandomCounter = 0;
+        this.oldSeedTime = 0;
+
         this.cursor = {
             color: "red",
             position: {
@@ -1011,6 +1016,7 @@ class Myr {
         return outerElId;
     }
 
+
     colorShift = (outerElId, color) => {
         let el = this.getEl(outerElId);
         if (String(el.id).includes("grp")) {
@@ -1045,6 +1051,107 @@ class Myr {
     `;
         el.animation__color = anim;
         return outerElId;
+    }
+
+    setSeed = (seed = 0) => {
+        if (seed === 0){
+            this.seedTime = new Date().getTime();
+        }
+        else{
+            this.seedTime = seed;
+        }
+        this.RandCounter = 0;
+    }
+
+    getSeed = () => {
+        return this.seedTime;
+    }
+
+    getSeedCounter = () => {
+        return this.randCounter;
+    }
+
+    decrementRandCounter = () => {
+        this.randCounter -= 1;
+    }
+
+    randomInt = (min = -40, max = 40) => {
+        let range = max - min;
+        let randNum, seedNum;
+
+        if(max <= min)
+        {
+            console.error("Improper use of randomInt");
+            return -1;
+        }
+
+        if(this.seedTime === 0)
+        {
+            this.seedTime = new Date().getTime();
+            this.randCounter = 0;
+        }
+
+        if(this.seedTime !== 0)
+        {
+            this.randCounter += 1;
+            
+            if(this.seedTime < 1000000000)
+            {
+                seedNum = this.seedTime + 1000000000;
+            }
+            else
+            {
+                seedNum = this.seedTime;
+            }
+            
+            let small = seedNum*0.000000000000000001;
+            let counter = this.randCounter * this.randCounter;
+
+            randNum = (seedNum*Math.PI*counter*small*1.368791473*0.5);
+            randNum = randNum % range;
+        }
+        randNum = Math.floor(randNum);
+        randNum = randNum + min;
+        return randNum;
+    }
+
+    random = (min = -40, max = 40) => {
+        let range = max - min;
+        let randNum, seedNum;
+
+        if(max <= min)
+        {
+            console.error("Improper use of randomInt");
+            return -1;
+        }
+
+        if(this.seedTime === 0)
+        {
+            this.seedTime = new Date().getTime();
+            this.randCounter = 0;
+        }
+
+        if(this.seedTime !== 0)
+        {
+            this.randCounter += 1;
+            if(this.seedTime < 1000000000)
+            {
+                seedNum = this.seedTime + 1000000000;
+            }
+            else
+            {
+                seedNum = this.seedTime;
+            }
+
+            let small = seedNum*0.000000000000000001;
+            let counterSq = this.randCounter * this.randCounter;
+
+            randNum = (seedNum*Math.PI*counterSq*small*1.368791473*0.5);
+            randNum = randNum % range;
+        }
+
+        randNum = randNum + min;
+        return randNum;
     }
 
     /********************* GETTERS *********************/

@@ -123,6 +123,7 @@ class Header extends Component {
         // Bind to keyboard to listen for shortcuts
         document.addEventListener("keydown", this.handleKeyDown.bind(this));
 
+
         // Warn the issue before refreshing the page
         if (this.props.layoutType !== layoutTypes.REFERENCE) {
             try {
