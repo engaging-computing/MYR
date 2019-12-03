@@ -151,7 +151,7 @@ class View extends Component {
         return (
             <a-entity id="rig"
                 debug={true}
-                movement-controls={this.props.sceneConfig.settings.canFly ? "fly:true" : "fly:false"} > 
+                movement-controls={this.props.sceneConfig.settings.canFly ? "fly:true" : "fly:false"} >
                 <a-camera
                     position={this.props.sceneConfig.settings.cameraPosition}
                     look-controls="pointerLockEnabled: true">

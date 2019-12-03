@@ -41,14 +41,7 @@ export function changeCamMode(config) {
 export function setCamera(x, y, z) {
     return { type: types.SET_CAMERA, x, y, z };
 }
-///////////////Testing for flight controls/////////////////////
-export function spaceUp(x, y, z) { //should be all thats necessary here
-    return { type: types.SPACE_UP, x, y, z};
-}
-export function shiftDown(x, y, z) {
-    return { type: types.SHIFT_DOWN, x, y, z};
-}
-///////////////////////////////////////////////////////////////
+
 export function changePerspective() {
     return { type: types.CHANGE_PERSPECTIVE };
 }
@@ -93,8 +86,6 @@ export default {
     changeFloorColor,
     changeCamMode,
     setCamera,
-    spaceUp,   /// Testing here
-    shiftDown, /// Testing here
     changePerspective,
     changeView,
     toggleFly,

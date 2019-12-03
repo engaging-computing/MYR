@@ -28,10 +28,6 @@ export const CHANGE_SKY_COLOR = "CHANGE_SKY_COLOR";
 export const CHANGE_FLOOR_COLOR = "CHANGE_FLOOR_COLOR";
 export const CHANGE_CAM_MODE = "CHANGE_CAM_MODE";
 export const SET_CAMERA = "SET_CAMERA";
-//////////////////////////////////////////////////////
-export const SPACE_UP = "SPACE_UP"; //should be all thats necessary here
-export const SHIFT_DOWN = "SHIFT_DOWN";
-//////////////////////////////////////////////////////
 export const CHANGE_PERSPECTIVE = "CHANGE_PERSPECTIVE";
 export const CHANGE_VIEW = "CHANGE_VIEW";
 export const TOGGLE_FLY = "TOGGLE_FLY";

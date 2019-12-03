@@ -65,26 +65,6 @@ export default function scene(state = initial_state, action) {
                     cameraPosition: camPos
                 }
             };
-        ////////////////////////added for testing flight control//////////////////////////
-        case types.SHIFT_DOWN: 
-            let camPosUp = `${action.x} ${action.y} ${action.z}`;
-            return {
-                ...state,
-                settings: {
-                    ...state.settings,
-                    cameraPosition: camPosUp
-                }
-            };
-        case types.SPACE_UP: 
-            let camPosDown = `${action.x} ${action.y} ${action.z}` ; 
-            return {
-                ...state,
-                settings: {
-                    ...state.settings,
-                    cameraPosition: camPosDown
-                }
-            };
-        ////////////////////////////////////////////////////////////////////////////////
         case types.CHANGE_VIEW:
             return {
                 ...state,
