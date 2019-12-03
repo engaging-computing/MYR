@@ -6,10 +6,6 @@ import "aframe-extras/dist/aframe-extras.min.js";
 import "aframe-physics-system";
 import "aframe-environment-component";
 import * as THREE from "three";
-import AFRAME from "aframe";
-
-//import Myr from "../../myr/Myr";
-
 
 /**
  * @summary - The View component return the aframe representation of the scene. This
@@ -22,12 +18,10 @@ class View extends Component {
         this.state = {
             welcomeOpen: true
         };
-        //console.log(this);
     }
     intervalID = 0;
 
     componentDidMount() {
-        //let test = this;
         // Don't show editor if welcome screen is open
         if (!this.getCookie("hasVisited")) {
             this.intervalID = setInterval(this.checkForWelcomeScreen, 1000);
@@ -49,47 +43,6 @@ class View extends Component {
         window.addEventListener("exit-vr", () => {
             document.getElementById("interface").style.visibility = "visible";
         });
-
-        /*window.addEventListener("keydown", function(e){
-            if(e.keyCode === 16) { //Shift
-                test.decrementYPosition();
-            }
-            if(e.keyCode === 32) { //Spacebar
-                test.incrementYPosition();
-            }
-        });*/
-        //AFRAME.registerComponent("flight-reader", {
-
-        /*window.addEventListener("enter-vr", () => {
-            console.log(76);
-            AFRAME.registerComponent("flight-reader", {
-                init : function () {
-                    console.log(44);
-                    let position = new THREE.Vector3();
-                    this.el.addEventListener("keydown", function(e){
-                        if(e.keyCode === 16) { //Shift
-                            this.el.object3D.getWorldPosition(position);
-                            let x = position.x, y = position.y, z = position.z;
-                            y = y + 10;
-                            this.props.sceneActions.spaceUp(x, y, z); 
-                        }
-                        if(e.keyCode === 32) { //Spacebar
-                            this.el.object3D.getWorldPosition(position);
-                            let x = position.x, y = position.y, z = position.z;
-                            y = y - 10;
-                            this.props.sceneActions.shiftDown(x, y, z); 
-                        }
-                    });
-                },
-                tick: (function () {
-                    let position = new THREE.Vector3();
-                    return function () {
-                        this.el.object3D.getWorldPosition(position);
-                    };
-                })
-            });
-        });*/
-
     }
     // This fires off an event when the system is fully rendered.
     componentDidUpdate() {
@@ -194,88 +147,14 @@ class View extends Component {
         );
     }
 
-
-    /*verticalFlight = () => {   //currently have this here and in component did mount, needs vertical flight line 215?
-        let test = this;
-        window.addEventListener("keydown", function(e){
-            if(e.keyCode === 16) { //Shift
-                test.decrementYPosition();
-            }
-            if(e.keyCode === 32) { //Spacebar
-                test.incrementYPosition();
-            }
-        });
-        return <a-entity></a-entity>;
-    }*/
-
-    ///////////////////////////////////////////
-    /*incrementYPosition() {
-        AFRAME.registerComponent("upflight", {
-            //tick: (function () {
-            init: (function () {
-                let position = new THREE.Vector3();
-                this.el.object3D.getWorldPosition(position);
-                let x = position.x, y = position.y, z = position.z;
-                this.props.sceneActions.spaceUp(x, y, z); 
-            })
-            //remove: function () {
-            //    window.removeEventListener("keydown", this.onKeydown);
-            //},
-        });*/
-        
-
-    //let position = this.props.sceneConfig.settings.cameraPosition;
-    //let position = this.el.object3D.getWorldPosition(position);
-    //console.log(this.el.object3D.position);
-    //y = y + 0.1;
-    //y = y + 10;
-    //console.log(y);
-    //test.props.sceneActions.spaceUp(5, 5, 5); 
-    //this.props.sceneActions.spaceUp(x, y, z); 
-    // }
-    /*  decrementYPosition() {
-        //let test = this;
-        let position = new THREE.Vector3();
-        //let position = this.props.sceneConfig.settings.cameraPosition;
-        this.el.object3D.getWorldPosition(position);
-        let x = position.x, y = position.y, z = position.z;
-
-        console.log(y);
-        //y = y - 0.1;
-        //y = y - 10; 
-        console.log(y);
-        this.props.sceneActions.shiftDown(x, y, z);
-    }*/
-     
-    //////////////////////////////////////////////////////////////////////////////////////
-    /*AFRAME.registerComponent("vertical_flight", {
-        init: function () {              
-            window.addEventListener("keydown", function(e){
-                if(e.keyCode === 16) { //Shift
-                    //decrementYPosition
-                }
-                if(e.keyCode === 32) { //Spacebar
-                    incrementYPosition
-                }
-            });
-        }, 
-        
-        remove: function () {
-            window.removeEventListener("keydown", this.onKeydown);
-        },
-        
-    });*/
-
-    /////////////////////////////////////////////////////////////////////////////////
-    /////vertical flight in movement controls //removed vertical flight from here
     basicMoveCam = () => {
         return (
             <a-entity id="rig"
                 debug={true}
-                movement-controls={this.props.sceneConfig.settings.canFly ? "fly:true" : "fly:false"}> 
+                movement-controls={this.props.sceneConfig.settings.canFly ? "fly:true" : "fly:false"} > 
                 <a-camera
                     position={this.props.sceneConfig.settings.cameraPosition}
-                    look-controls="pointerLockEnabled: true" flight-reader>
+                    look-controls="pointerLockEnabled: true">
                     <a-cursor
                         position="0 0 -1"
                         geometry="primitive: ring; radiusInner: 0.02; radiusOuter: 0.03;"
@@ -284,6 +163,8 @@ class View extends Component {
             </a-entity>
         );
     }
+
+
 
     /**
     * @summary - Produces the grid on the ground and the coordinate lines
@@ -344,7 +225,7 @@ class View extends Component {
         /* eslint-disable */
         return (
             !this.state.welcomeOpen ?
-                <a-scene  physics="debug: false; friction: 3; restitution: .3;" embedded debug="false">
+                <a-scene physics="debug: false; friction: 3; restitution: .3;" embedded debug="false">
                     <a-assets>
                         <a-mixin id="checkpoint"></a-mixin>
                         <a-mixin id="checkpoint-hovered" color="#6CEEB5"></a-mixin>
@@ -360,6 +241,7 @@ class View extends Component {
                             return this.helper(this.props.objects[it]);
                         })
                     }
+
                     {this.props.sceneConfig.settings.camConfig === 1 ?
                         <a-entity position="0 0 0">
                             <a-cylinder checkpoint radius="1" height="0.3" position="-25 1 -25" color="#39BB82"></a-cylinder>

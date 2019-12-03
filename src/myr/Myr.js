@@ -15,7 +15,6 @@ class Myr {
         this.randCounter = 0;
         this.oldRandomCounter = 0;
         this.oldSeedTime = 0;
-
         this.cursor = {
             color: "red",
             position: {
@@ -1015,7 +1014,6 @@ class Myr {
         el.animation__fadein = anim;
         return outerElId;
     }
-
 
     colorShift = (outerElId, color) => {
         let el = this.getEl(outerElId);
