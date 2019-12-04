@@ -85,25 +85,36 @@ export function deleteProj(uid, id, name) {
     }
 }
 
+/**
+ * Saves a scene to MongoDB
+ * @param {*} uid The id of the logged in user 
+ * @param {*} scene JSON data of the scene to be saved
+ * @param {*} sceneID sceneId to be updated, if undefined, creates a new scene
+ */
 export function save(uid, scene, sceneID=undefined){
     if(sceneID === undefined){
-        console.log(scene);
-        fetch(`${sceneRef}/`, {method: "POST", body: JSON.stringify(scene),  headers:{"Content-Type": "application/json"}}).then((resp) => {
-            console.log(resp.body.message);
+        return fetch(`${sceneRef}/`, {method: "POST", body: JSON.stringify(scene),  headers:{"Content-Type": "application/json"}}).then((resp) => {
             if(resp.status !== 201){
                 console.error("Could not create new Scene, are you sure you're logged in?");
                 return false;
             }
+            return resp.json((json) => { 
+                return json;
+            });
         });
-    }else{
+    }
+    else{
         //TODO get PUT working
-        fetch(`${sceneRef}/id/${sceneID}`, {body: scene, method: "PUT", headers: {"x-access-token": uid}}).then((response) =>{
-            if(response.status !== 200){
-                console.error(`Could not update this scene: ${response.status}`);
+        return fetch(`${sceneRef}/id/${sceneID}`, {method: "PUT", body: JSON.stringify(scene), headers: {"x-access-token": uid, "Content-Type": "application/json"}}).then((resp) =>{
+            if(resp.status !== 200){
+                console.error(`Could not update this scene: ${resp.status}`);
                 return false;
             }
+            return resp.json((json) =>{
+                return json;
+            });
         });
-    }  
+    }
 }
 
 export default {

@@ -358,38 +358,35 @@ class Header extends Component {
             };
 
             imgRef.putString(img, "data_url").then(() => {
-                save(this.props.user.uid, newScene, this.props.scene._id);
-                /* 
-                TODO: get save in projectActions working, and integrate here
-
-                }).then(() => {
-                    this.props.actions.updateSavedText(this.props.text);
+                save(this.props.user.uid, newScene, this.props.projectId).then((json) =>{
+                    let projectId = json._id;
+                    if(!projectId)
+                    {
+                        console.error("Could not save the scene");
+                    }
+                    
+                    this.props.actions.updateSavedText(text);
                     // If we have a new projectId reload page with it
-                    if (this.props.courseName) {
+                    if (projectId !== this.props.projectId) {
                         this.setState({ spinnerOpen: false });
-                        //window.open(window.origin + '/' + projectId);
-                    } else if (projectId !== this.props.projectId) {
                         window.location.href = window.origin + "/" + projectId;
-                    } else {
                         this.props.projectActions.asyncUserProj(this.props.user.uid);
                     }
-                }).catch((error) => {
-                    console.error("Error writing document: ", error);
-                    this.setState({ spinnerOpen: false });
+                    if(!this.state.viewOnly) {
+                        this.props.actions.refresh(text, this.props.user ? this.props.user.uid : "anon");
+                    }
+                    this.setState({spinnerOpen: false});
+                    this.handleSaveToggle();
+                    return true;
                 });
             }).catch((error) => {
                 console.error("Error uploading a data_url string ", error);
-                this.setState({ spinnerOpen: false });*/
+                this.setState({ spinnerOpen: false });
             });
         } else {
             // TODO: Don't use alert
             alert("We were unable to save your project. Are you currently logged in?");
         }
-
-        if(!this.state.viewOnly) {
-            this.props.actions.refresh(text, this.props.user ? this.props.user.uid : "anon");
-        }
-        this.handleSaveToggle();
     }
 
     /**
