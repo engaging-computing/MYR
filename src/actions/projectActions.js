@@ -93,7 +93,7 @@ export function deleteProj(uid, id, name) {
  */
 export function save(uid, scene, sceneID=undefined){
     if(sceneID === undefined){
-        return fetch(`${sceneRef}/`, {method: "POST", body: JSON.stringify(scene),  headers:{"Content-Type": "application/json"}}).then((resp) => {
+        return fetch(`${sceneRef}/`, {method: "POST", body: JSON.stringify(scene),  headers:{"Content-Type": "application/json", "x-access-token": uid}}).then((resp) => {
             if(resp.status !== 201){
                 console.error("Could not create new Scene, are you sure you're logged in?");
                 return false;

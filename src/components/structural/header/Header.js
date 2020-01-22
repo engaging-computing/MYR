@@ -360,8 +360,7 @@ class Header extends Component {
             imgRef.putString(img, "data_url").then(() => {
                 save(this.props.user.uid, newScene, this.props.projectId).then((json) =>{
                     let projectId = json._id;
-                    if(!projectId)
-                    {
+                    if(!projectId) {
                         console.error("Could not save the scene");
                     }
                     
