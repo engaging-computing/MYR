@@ -8,18 +8,19 @@ let KEYCODE_TO_CODE = {
     "87": "KeyW",
     "65": "KeyA",
     "83": "KeyS",
-    "68": "KeyD"
+    "68": "KeyD",
+    "32": "Space",
+    "16": "ShiftLeft"
 };
 
 let bind = AFRAME.utils.bind;
 let shouldCaptureKeyEvent = AFRAME.utils.shouldCaptureKeyEvent;
-
 let CLAMP_VELOCITY = 0.00001;
 let MAX_DELTA = 0.2;
 let KEYS = [
     "KeyW", "KeyA", "KeyS", "KeyD",
     "ArrowUp", "ArrowLeft", "ArrowRight", "ArrowDown",
-    "KeySpace", "KeyLShift"
+    "Space", "ShiftLeft", "ShiftRight"
 ];
 function isEmptyObject (keys) {
     let key;
@@ -58,6 +59,9 @@ AFRAME.registerComponent("wasd-plus-controls", {
         adInverted: {default: false},
         enabled: {default: true},
         fly: {default: false},
+        spshAxis: {default: "y", oneOf: ["x", "y", "z"]},
+        spshEnabled: {default: true},
+        spshInverted: {default: false},
         wsAxis: {default: "z", oneOf: ["x", "y", "z"]},
         wsEnabled: {default: true},
         wsInverted: {default: false}
@@ -70,7 +74,7 @@ AFRAME.registerComponent("wasd-plus-controls", {
     
         this.velocity = new THREE.Vector3();
     
-        // Bind methods and add event listeners.
+        // Bind methodsshouldCaptureKeyEvent(event) and add event listeners.
         this.onBlur = bind(this.onBlur, this);
         this.onFocus = bind(this.onFocus, this);
         this.onKeyDown = bind(this.onKeyDown, this);
@@ -84,14 +88,14 @@ AFRAME.registerComponent("wasd-plus-controls", {
         let el = this.el;
         let velocity = this.velocity;
     
-        if (!velocity[data.adAxis] && !velocity[data.wsAxis] &&
+        if (!velocity[data.adAxis] && !velocity[data.wsAxis] && !velocity[data.spshAxis] &&
             isEmptyObject(this.keys)) { return; }
     
         // Update velocity.
         delta = delta / 1000;
         this.updateVelocity(delta);
     
-        if (!velocity[data.adAxis] && !velocity[data.wsAxis]) { return; }
+        if (!velocity[data.adAxis] && !velocity[data.wsAxis] && !velocity[data.spshAxis]) { return; }
     
         // Get movement vector and translate position.
         el.object3D.position.add(this.getMovementVector(delta));
@@ -120,14 +124,18 @@ AFRAME.registerComponent("wasd-plus-controls", {
         let velocity = this.velocity;
         let wsAxis;
         let wsSign;
+        let spshAxis;
+        let spshSign;
     
         adAxis = data.adAxis;
         wsAxis = data.wsAxis;
+        spshAxis = data.spshAxis;
     
         // If FPS too low, reset velocity.
         if (delta > MAX_DELTA) {
             velocity[adAxis] = 0;
             velocity[wsAxis] = 0;
+            velocity[spshAxis] = 0;
             return;
         }
     
@@ -140,10 +148,14 @@ AFRAME.registerComponent("wasd-plus-controls", {
         if (velocity[wsAxis] !== 0) {
             velocity[wsAxis] -= velocity[wsAxis] * scaledEasing;
         }
+        if (velocity[spshAxis] !== 0) {
+            velocity[spshAxis] -= velocity[spshAxis] * scaledEasing;
+        }
     
         // Clamp velocity easing.
         if (Math.abs(velocity[adAxis]) < CLAMP_VELOCITY) { velocity[adAxis] = 0; }
         if (Math.abs(velocity[wsAxis]) < CLAMP_VELOCITY) { velocity[wsAxis] = 0; }
+        if (Math.abs(velocity[spshAxis]) < CLAMP_VELOCITY) { velocity[spshAxis] = 0; }
     
         if (!data.enabled) { return; }
     
@@ -158,6 +170,11 @@ AFRAME.registerComponent("wasd-plus-controls", {
             wsSign = data.wsInverted ? -1 : 1;
             if (keys.KeyW || keys.ArrowUp) { velocity[wsAxis] -= wsSign * acceleration * delta; }
             if (keys.KeyS || keys.ArrowDown) { velocity[wsAxis] += wsSign * acceleration * delta; }
+        }
+        if (data.spshEnabled && data.fly) {
+            spshSign = data.spshInverted ? -1 : 1;
+            if (keys.ShiftLeft || keys.shiftRight) { velocity[spshAxis] -= spshSign * acceleration * delta; }
+            if (keys.Space) { velocity[spshAxis] += spshSign * acceleration * delta; }
         }
     },
     

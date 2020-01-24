@@ -31,7 +31,7 @@ class View extends Component {
         }
         window.addEventListener("keydown", function (e) {
             //KEYS: left and right: 37, 39; up and down: 38, 40; space: 32
-            if ([38, 40].indexOf(e.keyCode) > -1) {
+            if ([38, 40, 32].indexOf(e.keyCode) > -1) {
                 e.preventDefault();
             }
         }, false);
@@ -54,7 +54,7 @@ class View extends Component {
             document.dispatchEvent(event);
 
             let el = document.getElementById("rig");
-            el.components["movement-controls"].velocity = new THREE.Vector3(0, 0, 0);
+            el.components["wasd-plus-controls"].velocity = new THREE.Vector3(0, 0, 0);
         }
     }
 
@@ -151,7 +151,7 @@ class View extends Component {
         return (
             <a-entity id="rig"
                 debug={true}
-                movement-controls={this.props.sceneConfig.settings.canFly ? "fly:true" : "fly:false"} >
+                wasd-plus-controls={this.props.sceneConfig.settings.canFly ? "fly:true" : "fly:false"} >
                 <a-camera
                     position={this.props.sceneConfig.settings.cameraPosition}
                     look-controls="pointerLockEnabled: true">
