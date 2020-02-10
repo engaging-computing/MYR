@@ -2,6 +2,7 @@ import * as types from "../constants/ActionTypes";
 import { storageRef } from "../firebase.js";
 
 const sceneRef = "/apiv1/scenes";
+const previewRef = "/apiv1/scenes/preview";
 
 export function asyncUserProj(id) {
     // fetch user's project
@@ -11,12 +12,7 @@ export function asyncUserProj(id) {
                 if(response.status === 200){
                     response.json().then((json) =>{
                         for(let i = 0; i < json.length; ++i){
-                            let id = json[i].firebaseID ? json[i].firebaseID : json._id;
-                            storageRef.child(`/images/perspective/${id}`).getDownloadURL().catch(() =>{
-                                console.error("Error: Missing Preview Image");
-                            }).then((img) => {
-                                json[i].url = img ? img : "/img/no_preview.jpg";
-                            });
+                            json[i].url = `${previewRef}/${json[i]._id}`;
                         }
                         dispatch(syncUserProj(json));
                     });
