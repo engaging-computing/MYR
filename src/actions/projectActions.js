@@ -54,28 +54,33 @@ export function syncExampleProj(payload) {
 export function deleteProj(uid, id, name) {
     if (window.confirm(`Are you sure you want to delete ${name}?`)) {
         // Delete Image
-        let path = "images/perspective/" + id;
-        let imgRef = storageRef.child(path);
-
-        imgRef.delete().then(() => {
-        }).catch((error) => {
-            console.error("Error removing img: ", error);
-        });
+        fetch(`${previewRef}/${id}`, {method: "delete", headers: {"x-access-token": uid}})
+            .then((response) =>{
+                if(response.status !== 204){
+                    console.error("Error removing image: ", response.status);
+                    return true;
+                }
+                return false;
+            }).then((err) =>{
+                if(!err){
+                    fetch(`${sceneRef}/id/${id}`, {method: "delete", headers: {"x-access-token": uid}}).then((response) => {
+                        if(response.status !== 204){
+                            console.error("Error removing document: ", response.status);
+                        }
+                        // If deleting current project, redirect to home
+                        else if (window.location.href === window.origin + "/" + id || window.location.href === window.origin + "/" + id + "/") {
+                            window.location.href = window.origin;
+                        }
+                        return Promise.resolve();
+                    }).catch((error) => {
+                        console.error("Error removing document: ", error);
+                        return Promise.reject();
+                    });
+                }
+                return Promise.reject();
+            });
 
         // Delete Document
-        fetch(`${sceneRef}/id/${id}`, {method: "delete", headers: {"x-access-token": uid}}).then((response) => {
-            if(response.status !== 204){
-                console.error("Error removing document: ", response.status);
-            }
-            // If deleting current project, redirect to home
-            else if (window.location.href === window.origin + "/" + id || window.location.href === window.origin + "/" + id + "/") {
-                window.location.href = window.origin;
-            }
-            return Promise.resolve();
-        }).catch((error) => {
-            console.error("Error removing document: ", error);
-            return Promise.reject();
-        });
 
         return { type: types.DELETE_PROJ, _id: id };
     }
