@@ -151,7 +151,7 @@ class View extends Component {
         return (
             <a-entity id="rig"
                 debug={true}
-                wasd-plus-controls={this.props.sceneConfig.settings.canFly ? "fly:true" : "fly:false"} >
+                wasd-plus-controls={this.props.sceneConfig.settings.canFly ? "fly:true" : "fly:false"}>
                 <a-camera
                     position={this.props.sceneConfig.settings.cameraPosition}
                     look-controls="pointerLockEnabled: true">
