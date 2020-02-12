@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from "react";
-import { auth, provider, scenes, collections, storageRef } from "../../../firebase.js";
+import { auth, provider, scenes, collections } from "../../../firebase.js";
 import Reference from "../../reference/Reference.js";
 import Collection from "../../collection/Collection.js";
 import SceneConfigMenu from "./SceneConfigMenu.js";
@@ -344,9 +344,7 @@ class Header extends Component {
             let scene = document.querySelector("a-scene");
             // Access the scene and screen shot, with perspective view in a lossy jpeg format
             let img = scene.components.screenshot.getCanvas("perspective").toDataURL("image/jpeg", 0.1);
-            let path = "images/perspective/";
-            let imgRef = storageRef.child(path);
-            
+
             let newScene = {
                 name: (this.props.scene.name ? this.props.scene.name : "Untitled Scene"),
                 desc: this.props.scene.desc,
@@ -356,31 +354,25 @@ class Header extends Component {
                 updateTime: Date.now(),
                 createTime: (this.props.scene.createTime ? this.props.scene.createTime : Date.now())
             };
-
-            imgRef.putString(img, "data_url").then(() => {
-                save(this.props.user.uid, newScene, this.props.projectId).then((json) =>{
-                    let projectId = json._id;
-                    if(!projectId) {
-                        console.error("Could not save the scene");
-                    }
-                    
-                    this.props.actions.updateSavedText(text);
-                    // If we have a new projectId reload page with it
-                    if (projectId !== this.props.projectId) {
-                        this.setState({ spinnerOpen: false });
-                        window.location.href = window.origin + "/" + projectId;
-                        this.props.projectActions.asyncUserProj(this.props.user.uid);
-                    }
-                    if(!this.state.viewOnly) {
-                        this.props.actions.refresh(text, this.props.user ? this.props.user.uid : "anon");
-                    }
-                    this.setState({spinnerOpen: false});
-                    this.handleSaveToggle();
-                    return true;
-                });
-            }).catch((error) => {
-                console.error("Error uploading a data_url string ", error);
-                this.setState({ spinnerOpen: false });
+            
+            save(this.props.user.uid, newScene, img, this.props.projectId).then((projectId) =>{
+                if(!projectId) {
+                    console.error("Could not save the scene");
+                }
+                
+                this.props.actions.updateSavedText(text);
+                // If we have a new projectId reload page with it
+                if (projectId !== this.props.projectId) {
+                    this.setState({ spinnerOpen: false });
+                    window.location.href = window.origin + "/" + projectId;
+                    this.props.projectActions.asyncUserProj(this.props.user.uid);
+                }
+                if(!this.state.viewOnly) {
+                    this.props.actions.refresh(text, this.props.user ? this.props.user.uid : "anon");
+                }
+                this.setState({spinnerOpen: false});
+                this.handleSaveToggle();
+                return true;
             });
         } else {
             // TODO: Don't use alert

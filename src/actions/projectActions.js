@@ -90,32 +90,47 @@ export function deleteProj(uid, id, name) {
  * Saves a scene to MongoDB
  * @param {*} uid The id of the logged in user 
  * @param {*} scene JSON data of the scene to be saved
+ * @param {*} img JPEG Image file of the Scene
  * @param {*} sceneID sceneId to be updated, if undefined, creates a new scene
+ * 
+ * @returns {*} The ID of the saved scene
  */
-export function save(uid, scene, sceneID=undefined){
-    if(sceneID === undefined){
-        return fetch(`${sceneRef}/`, {method: "POST", body: JSON.stringify(scene),  headers:{"Content-Type": "application/json", "x-access-token": uid}}).then((resp) => {
-            if(resp.status !== 201){
+export async function save(uid, scene, img, sceneID=undefined){
+    let id = undefined;
+    let url = `${sceneRef}`;
+    let method = "POST";
+
+    if(sceneID !== undefined){
+        method = "PUT";
+        url = `${sceneRef}/id/${sceneID}`;
+    }
+    await fetch(url, 
+        {method: method, body: JSON.stringify(scene),  
+            headers:{"Content-Type": "application/json", "x-access-token": uid}})
+        .then(async (resp) => {
+            if(resp.status !== 201 && resp.status !== 200){
                 console.error("Could not create new Scene, are you sure you're logged in?");
                 return false;
             }
-            return resp.json((json) => { 
-                return json;
-            });
+            return resp.json();
+        }).then((json) => {
+            id = json._id;
         });
+
+    if(id === ""){
+        console.error("Error receiving scene id from server");
+        return false;
     }
-    else{
-        //TODO get PUT working
-        return fetch(`${sceneRef}/id/${sceneID}`, {method: "PUT", body: JSON.stringify(scene), headers: {"x-access-token": uid, "Content-Type": "application/json"}}).then((resp) =>{
-            if(resp.status !== 200){
-                console.error(`Could not update this scene: ${resp.status}`);
-                return false;
+
+    let data = {data: img};
+    await fetch(`${previewRef}/${id}`, {method: method, body: JSON.stringify(data), 
+        headers: {"Content-Type": "application/json", "x-access-token": uid}})
+        .then((resp) => {
+            if(resp.status !== 201 && resp.status !== 204){
+                console.error("Error sending preview image to server: ", resp.status, resp.statusText);
             }
-            return resp.json((json) =>{
-                return json;
-            });
         });
-    }
+    return id;
 }
 
 export default {
