@@ -55,7 +55,25 @@ class View extends Component {
 
             let el = document.getElementById("rig");
             el.components["movement-controls"].velocity = new THREE.Vector3(0, 0, 0);
+            // document.querySelector("a-scene").addEventListener("loaded",(e)=>{
+
+            //     console.log(e);
+            //     console.log("scene loaded");
+            // });
+
+
+            // console.log(el.components["movement-controls"]);
+            // 
+            // try{
+            //     el = document.getElementById("floor");
+            //     el.components["material"].material.shadowSide = THREE.FrontSide;
+            //     console.log(el.components["material"].material);
+            // }catch(e){
+            //     //it will throw error if it don't use try and catch because there are no floor component when
+            //     console.log(el.components["material"].material);
+            // }
         }
+        
     }
 
     componentWillUnmount() {
@@ -89,6 +107,9 @@ class View extends Component {
     // This renders json to aframe entities
     helper = (ent) => {
         if (ent) {
+            // if(ent.light){
+            //     ent.light = ent.light + ` groundColor: ${this.props.sceneConfig.floorColor}`;
+            // }
             let flattened = {
                 ...ent,
                 position: `${ent.position.x || 0} ${ent.position.y || 0} ${ent.position.z || 0}`,
@@ -308,6 +329,7 @@ class View extends Component {
                             return this.helper(this.props.objects[it]);
                         })
                     }
+                    
 
                     {this.props.sceneConfig.settings.camConfig === 1 ?
                         <a-entity position="0 0 0">
