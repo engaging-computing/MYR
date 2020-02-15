@@ -785,6 +785,7 @@ class Myr {
             id: "lgt" + this.genNewId(),
             light: {
                 state:
+
                     `type: ambient; 
                     color: ${this.cursor.color}; 
                     intensity: ${this.cursor.light.intensity};
@@ -792,6 +793,7 @@ class Myr {
                 type: "ambient",
             },	  
             color: this.cursor.color,         
+
             position: this.cursor.position,
             scale: this.cursor.scale,
             rotation: this.cursor.rotation,
@@ -904,7 +906,7 @@ class Myr {
             console.error("must pass a numeric for setDecay");
         }
     }
-
+    
     setDistance = (distance=0.0) =>{
         if(typeof distance === "number"){
             this.cursor.light.distance = distance; 
@@ -912,7 +914,6 @@ class Myr {
             console.error("must pass a numeric for setDistance");
         }
     }
-
     setIntensity = (intensity = 1.0) =>{
         if(typeof intensity === "number"){
             this.cursor.light.intensity = intensity;
@@ -920,7 +921,7 @@ class Myr {
             console.error("must pass a numeric for setIntesity");
         }
     }
-
+    
     setPenumbra = (penumbra = 0.0) => {
         if(typeof penumbra === "number"){
             this.cursor.light.penumbra = penumbra;
