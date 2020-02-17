@@ -32,12 +32,6 @@ export function toggleCastShadow() {
     return { type: types.TOGGLE_CAST_SHADOW };
 }
 
-export function toggleDefaultLight() {
-    return { type: types.TOGGLE_DEFAULT_LIGHT };
-}
-export function toggleCastShadow() {
-    return { type: types.TOGGLE_CAST_SHADOW };
-}
 export function toggleLightIndicator(){
     return {type: types.TOGGLE_LIGHT_INDICATOR};
 }

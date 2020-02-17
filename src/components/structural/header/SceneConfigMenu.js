@@ -256,14 +256,6 @@ class ConfigModal extends Component {
         this.setState({ displayFloorColorPicker: false });
     };
 
-    handleDefaultLight = () =>{
-        this.setState({ defaultLight: !this.state.defaultLight});
-    }
-
-    handleCastShadow = () => {
-        this.setState({ castShadow: ! this.state.castShadow});
-    }
-
     // Toggles whether the editor is showing
     viewToggle = () => {
         let style = this.props.scene.settings.viewOnly ? btnStyle.off : btnStyle.on;
@@ -387,6 +379,8 @@ class ConfigModal extends Component {
                 Light Indicator
             </ButtonBase >
         );
+    }
+
     // Toggles the floor on and off
     floorToggle = () => {
         let style = this.props.scene.settings.showFloor ? btnStyle.on : btnStyle.off;
@@ -553,12 +547,10 @@ class ConfigModal extends Component {
                                                 <this.viewToggle />
                                                 <this.floorToggle />
                                                 <this.gridToggle />
-                                                <this.castShadowToggle/>
                                             </div>
                                             <div className="col-6">
                                                 <this.changeSkyColor />
                                                 <this.changeFloorColor />
-                                                <this.defaultLightToggle/>
                                             </div>
                                             <div className="col-12 border-bottom pt-4">Light Control</div>
                                             <div className="col-6">
