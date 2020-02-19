@@ -5,8 +5,6 @@ import * as types from "../constants/ActionTypes";
 import * as sceneActions from "./sceneActions";
 
 const courseRef = "/apiv1/courses/";
-const lessonRef = "/apiv1/lessons/id/";
-const getFirst = "?getLesson=true";
 const header = { headers: { "content-type": "application/json" } };
 const problem = {
     name: "Error",
@@ -42,17 +40,17 @@ export function syncCourses(payload) {
 
 export function fetchCourse(courseId) {
     return (dispatch) => {
-        fetch(courseRef + courseId + getFirst, header)
+        fetch(courseRef + courseId, header)
             .then(response => {
                 response.json()
                     .then(json => {
                         dispatch(loadCourse(json));
-                        dispatch(loadLesson(json.firstLesson));
-                        dispatch(render(json.firstLesson.code || ""));
-                        dispatch(updateSavedText(json.firstLesson.code || ""));
+                        dispatch(loadLesson(json.lessons[0]));
+                        dispatch(render(json.lessons[0].code || ""));
+                        dispatch(updateSavedText(json.lessons[0].code || ""));
                         dispatch(sceneActions.setNameDesc(
                             {
-                                name: json.firstLesson.name,
+                                name: json.lessons[0].name,
                                 desc: "This scene was saved from the course: " + json.name
                             }));
                     })
@@ -76,42 +74,28 @@ export function loadCourse(course) {
 }
 
 //Lesson Actions
-export function fetchLesson(lvlId) {
+export function fetchLesson(json) {
     return (dispatch) => {
-        fetch(lessonRef + lvlId, header)
-            .then(response => {
-                response.json()
-                    .then(json => {
-                        dispatch(loadLesson(json));
-                        dispatch(render(json.code || ""));
-                        dispatch(updateSavedText(json.code || ""));
-                        dispatch(sceneActions.nameScene(json.name));
-                    })
-                    .catch(err => {
-                        dispatch(loadLesson(problem));
-                        console.error(err);
-                    });
-            })
-            .catch(err => {
-                dispatch(loadLesson(problem));
-                console.error(err);
-            });
+        dispatch(loadLesson(json));
+        dispatch(render(json.code || ""));
+        dispatch(updateSavedText(json.code || ""));
+        dispatch(sceneActions.nameScene(json.name));
     };
 }
 
 // Frontend disables option if out of bounds
-export function nextLesson(currentIndex, nextID) {
+export function nextLesson(currentIndex, next) {
     return (dispatch) => {
         dispatch(setCurrentIndex(currentIndex + 1));
-        dispatch(fetchLesson(nextID));
+        dispatch(fetchLesson(next));
     };
 }
 
 // Frontend disables option if out of bounds
-export function previousLesson(currentIndex, nextID) {
+export function previousLesson(currentIndex, prev) {
     return (dispatch) => {
         dispatch(setCurrentIndex(currentIndex - 1));
-        dispatch(fetchLesson(nextID));
+        dispatch(fetchLesson(prev));
     };
 }
 
