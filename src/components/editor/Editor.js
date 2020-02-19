@@ -29,6 +29,22 @@ class Editor extends Component {
         } catch (error) {
             console.error("Unable to attach custom completers");
         }
+
+        // Warn the issue before refreshing the page
+        window.addEventListener("beforeunload", (event) => {
+            let text;
+            try {
+                let editor = window.ace.edit("ace-editor");
+                text = editor.getSession().getValue();
+
+            } catch (err) {
+                console.error(err);
+            }
+            if (this.props.savedText !== text) {
+                event.preventDefault();
+                event.returnValue = "You may have unsaved scene changes!";
+            }
+        });
     }
 
     onLoad() {
