@@ -23,9 +23,3 @@ AFRAME.registerComponent("force-pushable", {
         el.body.applyImpulse(force, el.body.position);
     }
 });
-
-AFRAME.registerComponent("wasd-controls-plus", {
-    schema: {
-        
-    }
-});
