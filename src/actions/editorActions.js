@@ -47,10 +47,12 @@ export function fetchScene(id, uid = "anon") {
                 if(response.status === 404){
                     window.location.href = window.origin + "/error-404";
                 }
+                console.error("Error retrieving scene. Reason: ", response.statusText);
+                return;
             }
             response.json().then((json) =>{
                 if(json.code){
-                    dispatch(render(json.code, uid || "annon"));
+                    dispatch(render(json.code, uid || "anon"));
                     dispatch(updateSavedText(json.code));
                     let settings = DEF_SETTINGS;
 
