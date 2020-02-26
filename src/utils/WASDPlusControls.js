@@ -3,20 +3,11 @@ import * as THREE from "three";
 const bind = AFRAME.utils.bind;
 const shouldCaptureKeyEvent = AFRAME.utils.shouldCaptureKeyEvent;
 
-const KEYCODE_TO_CODE = {
-    "38": "ArrowUp",
-    "37": "ArrowLeft",
-    "40": "ArrowDown",
-    "39": "ArrowRight",
-    "87": "KeyW",
-    "65": "KeyA",
-    "83": "KeyS",
-    "68": "KeyD",
-    "32": "Space",
-    "16": "Shift",
-};
-
-const KEYS = Object.values(KEYCODE_TO_CODE);
+const KEYS = [
+    "KeyW", "KeyA", "KeyS", "KeyD",
+    "ArrowUp", "ArrowLeft", "ArrowRight", "ArrowDown",
+    "Space", "ShiftLeft", "ShiftRight"
+];
 
 const MAX_DELTA = 0.25;
 const CLAMP_VELOCITY = 0.01;
@@ -124,7 +115,7 @@ AFRAME.registerComponent("wasd-plus-controls", {
         if (keys.KeyD || keys.ArrowRight) { velocity["x"] += xSign * acceleration * delta; }
 
         ySign = data.yInverted ? -1 : 1;
-        if (keys.Shift) { velocity["y"] -= ySign * acceleration * delta * MOD_Y; }
+        if (keys.ShiftLeft || keys.ShiftRight) { velocity["y"] -= ySign * acceleration * delta * MOD_Y; }
         if (keys.Space) { velocity["y"] += ySign * acceleration * delta * MOD_Y; }
 
         zSign = data.zInverted ? -1 : 1;
@@ -189,15 +180,14 @@ AFRAME.registerComponent("wasd-plus-controls", {
     },
     
     onKeyDown: function (event) {
-        let code;
         if (!shouldCaptureKeyEvent(event)) { return; }
-        code = event.code || KEYCODE_TO_CODE[event.keyCode];
-        if (KEYS.indexOf(code) !== -1) { this.keys[code] = true; }
+        let code = event.code;
+        if (KEYS.includes(code)) { this.keys[code] = true; }
     },
     
     onKeyUp: function (event) {
-        let code;
-        code = event.code || KEYCODE_TO_CODE[event.keyCode];
+        if (!shouldCaptureKeyEvent(event)) { return; }
+        let code = event.code;
         delete this.keys[code];
     }
 });
