@@ -1,9 +1,9 @@
 import AFRAME from "aframe";
 import * as THREE from "three";
-let bind = AFRAME.utils.bind;
-let shouldCaptureKeyEvent = AFRAME.utils.shouldCaptureKeyEvent;
+const bind = AFRAME.utils.bind;
+const shouldCaptureKeyEvent = AFRAME.utils.shouldCaptureKeyEvent;
 
-let KEYCODE_TO_CODE = {
+const KEYCODE_TO_CODE = {
     "38": "ArrowUp",
     "37": "ArrowLeft",
     "40": "ArrowDown",
@@ -13,18 +13,14 @@ let KEYCODE_TO_CODE = {
     "83": "KeyS",
     "68": "KeyD",
     "32": "Space",
-    "16": "ShiftLeft"
+    "16": "Shift",
 };
 
-let KEYS = [
-    "KeyW", "KeyA", "KeyS", "KeyD",
-    "ArrowUp", "ArrowLeft", "ArrowRight", "ArrowDown",
-    "Space", "ShiftLeft", "ShiftRight"
-];
+const KEYS = Object.values(KEYCODE_TO_CODE);
 
-let MAX_DELTA = 0.25;
-let CLAMP_VELOCITY = 0.01;
-let MOD_Y = 1.5;
+const MAX_DELTA = 0.25;
+const CLAMP_VELOCITY = 0.01;
+const MOD_Y = 1.5;
 
 let isEmptyObject = (keys) => {
     let key;
@@ -128,7 +124,7 @@ AFRAME.registerComponent("wasd-plus-controls", {
         if (keys.KeyD || keys.ArrowRight) { velocity["x"] += xSign * acceleration * delta; }
 
         ySign = data.yInverted ? -1 : 1;
-        if (keys.ShiftLeft || keys.shiftRight) { velocity["y"] -= ySign * acceleration * delta * MOD_Y; }
+        if (keys.Shift) { velocity["y"] -= ySign * acceleration * delta * MOD_Y; }
         if (keys.Space) { velocity["y"] += ySign * acceleration * delta * MOD_Y; }
 
         zSign = data.zInverted ? -1 : 1;
