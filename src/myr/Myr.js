@@ -2,6 +2,7 @@ import "aframe";
 import "aframe-physics-system";
 import Group from "./Group";
 import CANNON from "cannon";
+import TexturePack from "../components/structural/Textures.js";
 
 class Myr {
     constructor(baseEls) {
@@ -17,6 +18,7 @@ class Myr {
         this.oldSeed = 0;
         this.cursor = {
             color: "red",
+            texture: "brick",
             position: {
                 x: 0,
                 y: 0,
@@ -84,6 +86,7 @@ class Myr {
         this.id = 0;
         this.cursor = {
             color: "red",
+            texture: "brick",
             position: {
                 x: 0,
                 y: 0,
@@ -127,6 +130,7 @@ class Myr {
     resetCursor = () => {
         this.cursor = {
             color: "red",
+            texture: "brick",
             position: {
                 x: 0,
                 y: 0,
@@ -424,8 +428,18 @@ class Myr {
         this.cursor.color = color;
         return this.cursor.color;
     }
+    //////////////////////////////////////////////////////////////////////////
+    setTexture = (texture) => {
+        const textures = Object.keys(TexturePack);
+        console.log(textures);
+        
+        this.cursor.texture = texture;
 
-    getRandomColor = (colors = null) => {
+        return this.cursor.texture;
+    }
+
+    ///////////////////////////////////////////////////////////////////////
+    /*getRandomColor = (colors = null) => {
         let color;
         if (Array.isArray(colors) && colors.length !== 0) {
             color = colors[Math.floor(Math.random() * colors.length)];
@@ -442,7 +456,7 @@ class Myr {
         }
         this.cursor.color = color;
         return color;
-    }
+    }*/
 
     drop = (outerElId) => {
         this.getEl(outerElId)["dynamic-body"] = "shape: box; mass: 5";
@@ -522,6 +536,8 @@ class Myr {
             position: { ...this.cursor.position },
             rotation: this.cursor.rotation,
             scale: this.cursor.scale,
+            texture: this.cursor.texture,
+
         };
         return this.mergeProps(base, params);
     }
@@ -1051,6 +1067,11 @@ class Myr {
         return outerElId;
     }
 
+<<<<<<< HEAD
+=======
+<<<<<<< Updated upstream
+=======
+>>>>>>> textures_separation
     setSeed = (seed = 0) => {
         if (seed === 0){
             let newSeed = new Date().getTime();
@@ -1088,7 +1109,14 @@ class Myr {
 
         if(max <= min)
         {
+<<<<<<< HEAD
             console.error("Improper use of randomInt");
+=======
+            //console.error("Improper use of randomInt");
+            let temp = max;
+            max = min;
+            min = temp;
+>>>>>>> textures_separation
             return;
         }
 
@@ -1130,7 +1158,14 @@ class Myr {
 
         if(max <= min)
         {
+<<<<<<< HEAD
             console.error("Improper use of randomInt");
+=======
+            //console.error("Improper use of randomInt");
+            let temp = max;
+            max = min;
+            min = temp;
+>>>>>>> textures_separation
             return;
         }
 
@@ -1198,6 +1233,29 @@ class Myr {
         return randNum;
     }
 
+<<<<<<< HEAD
+=======
+    getRandomColor = (colors = null) => {
+        let color;
+        if (Array.isArray(colors) && colors.length !== 0) {
+            color = colors[Math.floor(Math.random() * colors.length)];
+        }
+        else {
+            let i, letters;
+            letters = "0123456789ABCDEF";
+            color = "#";
+            i = 0;
+            while (i < 6) {
+                color += letters[Math.floor(this.randomInt(0, 16))];
+                i++;
+            }
+        }
+        this.cursor.color = color;
+        return color;
+    }
+
+>>>>>>> Stashed changes
+>>>>>>> textures_separation
     /********************* GETTERS *********************/
 
     getColor = () => {

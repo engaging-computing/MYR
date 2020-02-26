@@ -6,6 +6,7 @@ import "aframe-extras/dist/aframe-extras.min.js";
 import "aframe-physics-system";
 import "aframe-environment-component";
 import * as THREE from "three";
+import TexturePack from "./Textures.js";
 
 /**
  * @summary - The View component return the aframe representation of the scene. This
@@ -95,6 +96,12 @@ class View extends Component {
                 scale: `${ent.scale.x || 1} ${ent.scale.y || 1} ${ent.scale.z || 1}`,
                 rotation: `${ent.rotation.x || 0} ${ent.rotation.y || 0} ${ent.rotation.z || 0}`
             };
+            //console.log(ent.texture);
+            flattened["src"] = TexturePack[ent.texture];
+            console.log(TexturePack[ent.texture]);
+
+            //flattened["src"] = "../../constants/textures.js";
+
             // If it is group then render children then render parent
             if (ent.group) {
                 return (
@@ -117,6 +124,7 @@ class View extends Component {
     assetsHelper = (asset) => {
         return (
             <a-asset-item key={asset.id} id={asset.id} src={asset.src}></a-asset-item>
+            
         );
     }
 
