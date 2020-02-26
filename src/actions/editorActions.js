@@ -42,14 +42,22 @@ export function recover() {
 */
 export function fetchScene(id, uid = "anon") {
     return (dispatch) => {  // Return a func that dispatches events after async
-        fetch(`${sceneRef}/id/${id}`).then((response) =>{
+        fetch(`${sceneRef}/id/${id}`, {redirect: "follow"}).then((response) =>{
+            if(response.redirected && id !== "error-404"){
+                let url = response.url.split("/");
+                window.location.href = window.origin + `/${url[url.length - 1]}`;
+                return;
+            }
+
             if(response.status !== 200){
                 if(response.status === 404){
                     window.location.href = window.origin + "/error-404";
+                }else{
+                    console.error("Error retrieving scene. Reason: ", response.statusText);
                 }
-                console.error("Error retrieving scene. Reason: ", response.statusText);
                 return;
             }
+
             response.json().then((json) =>{
                 if(json.code){
                     dispatch(render(json.code, uid || "anon"));
