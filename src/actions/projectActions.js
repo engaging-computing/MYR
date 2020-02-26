@@ -1,5 +1,4 @@
 import * as types from "../constants/ActionTypes";
-import { storageRef } from "../firebase.js";
 
 const sceneRef = "/apiv1/scenes";
 const previewRef = "/apiv1/scenes/preview";
@@ -11,9 +10,9 @@ export function asyncUserProj(id) {
             fetch(`${sceneRef}/`, {headers: {"x-access-token": id}}).then((response) =>{
                 if(response.status === 200){
                     response.json().then((json) =>{
-                        for(let i = 0; i < json.length; ++i){
-                            json[i].url = `${previewRef}/${json[i]._id}`;
-                        }
+                        json.forEach(element => {
+                            element.url = `${previewRef}/${element._id}`;
+                        });
                         dispatch(syncUserProj(json));
                     });
                 }
@@ -32,14 +31,9 @@ export const asyncExampleProj = () => {
         fetch(`${sceneRef}/`, {headers: {"x-access-token": "1"}}).then((response) =>{
             if(response.status === 200){
                 response.json().then((json) =>{
-                    for(let i = 0; i < json.length; ++i){
-                        let id = json[i].firebaseID ? json[i].firebaseID : json._id;
-                        storageRef.child(`/images/perspective/${id}`).getDownloadURL().catch(() =>{
-                            console.error("Error: Missing Preview Image");
-                        }).then((img) => {
-                            json[i].url = img ? img : "/img/no_preview.jpg";
-                        });
-                    }
+                    json.forEach(element => {
+                        element.url = `${previewRef}/${element._id}`;
+                    });
                     dispatch(syncExampleProj(json));
                 });
             }
