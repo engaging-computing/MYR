@@ -11,10 +11,12 @@ class Myr {
         this.assets = [];
         this.res = { els: this.els, assets: this.assets };
         this.sceneEl = document.querySelector("a-scene");
-        this.seed = 0; 
-        this.randCounter = 0;
-        this.oldRandomCounter = 0;
-        this.oldSeed = 0;
+        this.random = {
+            seed: 0, 
+            randCounter: 0,
+            oldRandomCounter: 0,
+            oldSeed: 0,
+        };
         this.cursor = {
             color: "red",
             position: {
@@ -1054,54 +1056,66 @@ class Myr {
     setSeed = (seed = 0) => {
         if (seed === 0){
             let newSeed = new Date().getTime();
-            while(this.seed === newSeed)
+            while(this.random.seed === newSeed)
             {
                 newSeed = new Date().getTime();
             }
-            this.seed = newSeed;
+            this.random.seed = newSeed;
         }
         else{
-            this.seed = seed;
+            this.random.seed = seed;
         }
-        this.randCounter = 0;
+        this.random.randCounter = 0;
     }
 
     getSeed = () => {
-        return this.seed;
+        return this.random.seed;
     }
 
     getSeedCounter = () => {
-        return this.randCounter;
+        return this.random.randCounter;
     }
 
     setSeedCounter = (counter = 0) => {
-        this.randCounter = counter;
+        this.random.randCounter = counter;
     }
 
     decrementRandCounter = () => {
-        this.randCounter -= 1;
+        this.random.randCounter -= 1;
+    }
+
+    calculateRandom = (seedNum, nextRand) => {
+        let small = seedNum*0.000000000000000001;
+        let counterPow = this.random.randCounter * this.random.randCounter;
+        return (seedNum*Math.PI*counterPow*small*1.543637*9.479137*0.5*nextRand);
     }
 
     randomInt = (min = -40, max = 40) => {
         let range = max - min;
         let randNum, seedNum, nextRand;
 
-        if(max <= min)
+        if(max < min)
         {
-            console.error("Improper use of randomInt");
+            let temp = max;
+            min = max;
+            max = temp;
             return;
         }
-
-        if(this.seed === 0)
+        if(max === min)
         {
-            this.seed = new Date().getTime();
-            this.randCounter = 0;
+            return max;
         }
 
-        if(this.seed !== 0)
+        if(this.random.seed === 0)
         {
-            this.randCounter += 1;
-            seedNum = this.seed;
+            this.random.seed = new Date().getTime();
+            this.random.randCounter = 0;
+        }
+
+        if(this.random.seed !== 0)
+        {
+            this.random.randCounter += 1;
+            seedNum = this.random.seed;
             while(seedNum < 1000000000)
             {
                 seedNum *= seedNum;
@@ -1110,9 +1124,7 @@ class Myr {
             nextRand = this.nextRandom(min, max);
             this.decrementRandCounter();
 
-            let small = seedNum*0.000000000000000001;
-            let counterPow = this.randCounter * this.randCounter;
-            randNum = (seedNum*Math.PI*counterPow*small*1.543637*9.479137*0.5*nextRand);
+            randNum = this.calculateRandom(seedNum, nextRand);
             while(randNum > 100000000000000)
             {
                 randNum = randNum / 100;
@@ -1128,22 +1140,28 @@ class Myr {
         let range = max - min;
         let randNum, seedNum, nextRand;
 
-        if(max <= min)
+        if(max < min)
         {
-            console.error("Improper use of randomInt");
+            let temp = max;
+            min = max;
+            max = temp;
             return;
         }
-
-        if(this.seed === 0)
+        if(max === min)
         {
-            this.seed = new Date().getTime();
-            this.randCounter = 0;
+            return max;
         }
 
-        if(this.seed !== 0)
+        if(this.random.seed === 0)
         {
-            this.randCounter += 1;
-            seedNum = this.seed;
+            this.random.seed = new Date().getTime();
+            this.random.randCounter = 0;
+        }
+
+        if(this.random.seed !== 0)
+        {
+            this.random.randCounter += 1;
+            seedNum = this.random.seed;
             while(seedNum < 1000000000)
             {
                 seedNum *= seedNum;
@@ -1152,9 +1170,8 @@ class Myr {
             nextRand = this.nextRandom(min, max);
             this.decrementRandCounter();
 
-            let small = seedNum*0.000000000000000001;
-            let counterPow = this.randCounter * this.randCounter;
-            randNum = (seedNum*Math.PI*counterPow*small*1.543637*7.479137*0.5*nextRand);
+            randNum = this.calculateRandom(seedNum, nextRand);
+
             while(randNum > 100000000000000)
             {
                 randNum = randNum / 100;
@@ -1170,16 +1187,14 @@ class Myr {
         let range = max - min;
         let randNum, seedNum;
 
-        this.randCounter += 1;
-        seedNum = this.seed;
+        this.random.randCounter += 1;
+        seedNum = this.random.seed;
         while(seedNum < 1000000000)
         {
             seedNum *= seedNum;
         }
 
-        let small = seedNum*0.000000000000000001;
-        let counterPow = this.randCounter * this.randCounter;
-        randNum = (seedNum*Math.PI*counterPow*small*1.543637*7.479137*0.5);
+        randNum = this.calculateRandom(seedNum, 1);
         while(randNum > 100000000000000)
         {
             randNum = randNum / 100;

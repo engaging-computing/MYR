@@ -64,39 +64,49 @@ describe("Random Function Tests", () => {
         expect(within).toEqual(1);
     });
 
-    it("incorrect randomInt value should return underfined", () => {
-        let zPos = myr.random(20, 15);
-        expect(zPos).toEqual(undefined);
+    it("inverted randomInt values should be swapped", () => {
+        let within = 0, zPos = myr.random(20, 15);
+        zPos = Math.floor(zPos);
+        myr.setPosition(1, 1, zPos);
+        if(zPos >= 15 && zPos < 20) {
+            within = 1;
+        }
+        expect(within).toEqual(undefined);
+    });
+
+    it("random number should equal 0", () => {
+        let zPos = myr.random(5,5);
+        expect(zPos).toEqual(0);
     });
 
     //seeding
     it("getSeedCounter should return correct seed value", () => {
         myr.setSeed();
         let seed = myr.getSeed();
-        expect(myr.seed).toEqual(seed);
+        expect(myr.random.seed).toEqual(seed);
     });
 
     it("setSeed should set seed to given seed", () => {
         myr.setSeed(5);
-        expect(myr.seed).toEqual(5);
+        expect(myr.random.seed).toEqual(5);
     });
 
     it("getSeed should return correct seed", () => {
         myr.setSeed();
         let seed = myr.getSeed();
-        expect(myr.seed).toEqual(seed);
+        expect(myr.random.seed).toEqual(seed);
     });
     
     //counter 
     it("counter should increment to 1", () => {
         myr.setSeed();
         myr.randomInt();
-        expect(myr.randCounter).toEqual(1);
+        expect(myr.random.randCounter).toEqual(1);
     });
 
     it("getSeedCounter should return correct counter value", () => {
         myr.setSeedCounter(12);
-        expect(myr.randCounter).toEqual(12);
+        expect(myr.random.randCounter).toEqual(12);
     });
 
     it("decrementRandCounter should decrement randCounter back to 0", () => {
@@ -105,7 +115,7 @@ describe("Random Function Tests", () => {
         myr.randomInt();
         myr.decrementRandCounter();
         myr.decrementRandCounter();
-        expect(myr.randCounter).toEqual(0);
+        expect(myr.random.randCounter).toEqual(0);
     });
 
     it("should return the same 'random' number", () => {
