@@ -364,6 +364,26 @@ let transformations = [
         example: "setPhiLength"
     },
     {
+        name: "randomInt",
+        parameters: [{ type: "number", name: "min" }, { type: "number", name: "max" }],
+        description: <span>The randomInt function generates a random integer derived from the current seed. The range begins with the minimum number and includes every integer less than the maximum. The default range is -40 to 40.</span>,
+    },
+    {
+        name: "random",
+        parameters: [{ type: "number", name: "min" }, { type: "number", name: "max" }],
+        description: <span>The random function generates a random float derived from the current seed. The range begins with the minimum number and includes every number less than the maximum. The default range is -40 to 40.</span>,
+    },    
+    {
+        name: "setSeed",
+        parameters: [{ type: "number", name: "seed" }],
+        description: <span>The setSeed function sets the seed used by the randomInt and random functions to generate random numbers. The default value is based on the current time.</span>,
+    },
+    {
+        name: "getSeed",
+        parameters: [],
+        description: <span>The getSeed function returns the value of the current seed.</span>,
+    },    
+    {
         name: "makeDroppable",
         parameters: [{ type: "string", name: "elementID" }, { type: "number", name: "mass" }],
         description: <span>The makeDroppable function allows the element to be affected by physics and sets the element's mass.</span>,
