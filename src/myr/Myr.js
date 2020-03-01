@@ -11,7 +11,7 @@ class Myr {
         this.assets = [];
         this.res = { els: this.els, assets: this.assets };
         this.sceneEl = document.querySelector("a-scene");
-        this.random = {
+        this.rand = {
             seed: 0, 
             randCounter: 0,
             oldRandomCounter: 0,
@@ -1056,66 +1056,65 @@ class Myr {
     setSeed = (seed = 0) => {
         if (seed === 0){
             let newSeed = new Date().getTime();
-            while(this.random.seed === newSeed)
+            while(this.rand.seed === newSeed)
             {
                 newSeed = new Date().getTime();
             }
-            this.random.seed = newSeed;
+            this.rand.seed = newSeed;
         }
         else{
-            this.random.seed = seed;
+            this.rand.seed = seed;
         }
-        this.random.randCounter = 0;
+        this.rand.randCounter = 0;
     }
 
     getSeed = () => {
-        return this.random.seed;
+        return this.rand.seed;
     }
 
     getSeedCounter = () => {
-        return this.random.randCounter;
+        return this.rand.randCounter;
     }
 
     setSeedCounter = (counter = 0) => {
-        this.random.randCounter = counter;
+        this.rand.randCounter = counter;
     }
 
     decrementRandCounter = () => {
-        this.random.randCounter -= 1;
+        this.rand.randCounter -= 1;
     }
 
     calculateRandom = (seedNum, nextRand) => {
         let small = seedNum*0.000000000000000001;
-        let counterPow = this.random.randCounter * this.random.randCounter;
+        let counterPow = this.rand.randCounter * this.rand.randCounter;
         return (seedNum*Math.PI*counterPow*small*1.543637*9.479137*0.5*nextRand);
     }
 
     randomInt = (min = -40, max = 40) => {
-        let range = max - min;
-        let randNum, seedNum, nextRand;
-
         if(max < min)
         {
             let temp = max;
             min = max;
             max = temp;
-            return;
         }
         if(max === min)
         {
             return max;
         }
 
-        if(this.random.seed === 0)
+        let range = max - min;
+        let randNum, seedNum, nextRand;
+
+        if(this.rand.seed === 0)
         {
-            this.random.seed = new Date().getTime();
-            this.random.randCounter = 0;
+            this.rand.seed = new Date().getTime();
+            this.rand.randCounter = 0;
         }
 
-        if(this.random.seed !== 0)
+        if(this.rand.seed !== 0)
         {
-            this.random.randCounter += 1;
-            seedNum = this.random.seed;
+            this.rand.randCounter += 1;
+            seedNum = this.rand.seed;
             while(seedNum < 1000000000)
             {
                 seedNum *= seedNum;
@@ -1137,31 +1136,30 @@ class Myr {
     }
 
     random = (min = -40, max = 40) => {
-        let range = max - min;
-        let randNum, seedNum, nextRand;
-
         if(max < min)
         {
             let temp = max;
             min = max;
             max = temp;
-            return;
         }
         if(max === min)
         {
             return max;
         }
+        
+        let range = max - min;
+        let randNum, seedNum, nextRand;
 
-        if(this.random.seed === 0)
+        if(this.rand.seed === 0)
         {
-            this.random.seed = new Date().getTime();
-            this.random.randCounter = 0;
+            this.rand.seed = new Date().getTime();
+            this.rand.randCounter = 0;
         }
 
-        if(this.random.seed !== 0)
+        if(this.rand.seed !== 0)
         {
-            this.random.randCounter += 1;
-            seedNum = this.random.seed;
+            this.rand.randCounter += 1;
+            seedNum = this.rand.seed;
             while(seedNum < 1000000000)
             {
                 seedNum *= seedNum;
@@ -1187,8 +1185,8 @@ class Myr {
         let range = max - min;
         let randNum, seedNum;
 
-        this.random.randCounter += 1;
-        seedNum = this.random.seed;
+        this.rand.randCounter += 1;
+        seedNum = this.rand.seed;
         while(seedNum < 1000000000)
         {
             seedNum *= seedNum;
