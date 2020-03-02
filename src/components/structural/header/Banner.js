@@ -13,20 +13,24 @@ class Banner extends Component {
             div:{
                 backgroundColor: this.props.color,
                 width: "100%",
-                textAlign: "center"
+                height: "40px",
+                textAlign: "center",
+                lineHeight: "35px"
             },
-            p: {
-                display: "inline"
+            span: {
+                display: "inline-block",
+                verticalAlign: "middle",
+                lineHeight: "normal"
             },
             button: {
                 float: "right",
-                padddingBottom: "2px"
+                height: "20px"
             }
         };
 
         return (this.state.isOpen ? 
             <div style={style.div}>
-                <p style={style.p}>{this.props.message}</p>
+                <span style={style.span}>{this.props.message}</span>
                 <Button style={style.button} onClick={() => {
                     this.setState({isOpen: false});
                 }}>Dismiss</Button>
