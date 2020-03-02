@@ -6,6 +6,12 @@ import * as sceneActions from "./sceneActions";
 
 const courseRef = "/apiv1/courses/";
 const header = { headers: { "content-type": "application/json" } };
+let noLessons = {
+    name: "",
+    id: -1,
+    prompt: "There are no lessons in this course",
+    code: ""
+};
 const problem = {
     name: "Error",
     id: -1,
@@ -45,7 +51,15 @@ export function fetchCourse(courseId) {
                 response.json()
                     .then(json => {
                         dispatch(loadCourse(json));
-                        dispatch(loadLesson(json.lessons[0]));
+
+                        //Make sure that the course is not empty
+                        if(json.lessons.length <= 0){
+                            noLessons.name = json.name;
+                            dispatch(loadLesson(noLessons));
+                            return;
+                        }
+
+                        dispatch(loadLesson(json.lessons[0] || ""));
                         dispatch(render(json.lessons[0].code || ""));
                         dispatch(updateSavedText(json.lessons[0].code || ""));
                         dispatch(sceneActions.setNameDesc(
