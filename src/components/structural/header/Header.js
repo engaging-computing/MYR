@@ -8,6 +8,7 @@ import MyrTour from "./MyrTour.js";
 import ProjectView from "./ProjectView.js";
 import CourseSelect from "../../courses/CourseSelect.js";
 import WelcomeScreen from "../WelcomeScreen.js";
+import Banner from "./Banner";
 
 import * as layoutTypes from "../../../constants/LayoutTypes.js";
 
@@ -602,6 +603,7 @@ class Header extends Component {
         const referenceMode = this.props.layoutType === layoutTypes.REFERENCE;
         return (
             <header className="App-header align-items-center ">
+                <Banner message="Hello there sir!" color="yellow" />
                 <div className="col-9 d-flex justify-content-start" style={{ paddingLeft: 0 }}>
                     <Sidebar scene={this.props.scene} nameScene={this.props.sceneActions.nameScene} >
                         <Button
