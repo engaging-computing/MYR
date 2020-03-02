@@ -11,9 +11,9 @@ class Banner extends Component {
     render = () => {
         const style = {
             backgroundColor: this.props.color,
-            width: 100,
-            height: 100
+            width: "100%"
         };
+
         return (this.state.isOpen ? 
             <div style={style}>
                 {this.props.message}
