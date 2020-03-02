@@ -603,7 +603,7 @@ class Header extends Component {
         const referenceMode = this.props.layoutType === layoutTypes.REFERENCE;
         return (
             <header className="App-header align-items-center ">
-                <Banner message="Hello there sir!" color="yellow" />
+                <Banner message="Hello there sir!" color="green" />
                 <div className="col-9 d-flex justify-content-start" style={{ paddingLeft: 0 }}>
                     <Sidebar scene={this.props.scene} nameScene={this.props.sceneActions.nameScene} >
                         <Button
