@@ -11,7 +11,8 @@ class Banner extends Component {
     render = () => {
         const style = {
             div:{
-                backgroundColor: this.props.color,
+                backgroundColor: this.props.color || "yellow",
+                color: this.props.fontColor || "black",
                 width: "100%",
                 height: "40px",
                 textAlign: "center",
@@ -23,6 +24,7 @@ class Banner extends Component {
                 lineHeight: "normal"
             },
             button: {
+                color: this.props.fontColor || "black",
                 float: "right",
                 height: "20px"
             }
