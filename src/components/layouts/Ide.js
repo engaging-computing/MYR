@@ -9,7 +9,7 @@ import * as layoutTypes from "../../constants/LayoutTypes.js";
 
 export const Ide = ({ editor, editorActions, user, authActions, scene, sceneActions, projectActions, courseActions, projects, courses, match, collectionActions, collections }) => (
     <div className="App">
-        <Banner message="Hello there sir!" color="yellow" />
+        <Banner message="Hello there sir!" color="yellow" title="Testing" link="https://google.com" />
         <Header
             viewOnly={scene.settings.viewOnly}
             logging={authActions}

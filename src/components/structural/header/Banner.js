@@ -1,5 +1,9 @@
 import React, {Component} from "react";
-import Button from "@material-ui/core/Button";
+import {
+    Button,
+    Icon,
+    IconButton
+} from "@material-ui/core";
 
 class Banner extends Component {
     constructor(props){
@@ -16,29 +20,52 @@ class Banner extends Component {
                 width: "100%",
                 height: "40px",
                 textAlign: "center",
-                lineHeight: "35px"
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center"
             },
-            span: {
-                display: "inline-block",
-                verticalAlign: "middle",
-                lineHeight: "normal"
+            leftSpacingDiv: {
+                marginLeft: "auto"
+            },
+            messageDiv: {
+                marginLeft: "5px"
             },
             button: {
-                color: this.props.fontColor || "black",
-                float: "right",
-                height: "20px"
+                color: this.props.fontColor || "black"
             }
         };
 
         return (this.state.isOpen ? 
             <div style={style.div}>
-                <span style={style.span}>{this.props.message}</span>
-                <Button style={style.button} onClick={() => {
-                    this.setState({isOpen: false});
-                }}>Dismiss</Button>
+                {this.props.title ? 
+                    <div style={style.leftSpacingDiv}>
+                        <strong>{this.props.title + ":"}</strong>
+                    </div>
+                    :
+                    <></>
+                }
+                <div style={style.messageDiv}>{this.props.message}</div>
+                <div style={style.leftSpacingDiv}>
+                    {this.props.link ? 
+                        <Button style={style.button} variant="outlined" href={this.props.link} target="_blank">
+                            {this.props.linkButtonText ? this.props.linkButtonText : "More Details"}
+                        </Button>
+                        :
+                        <></>
+                    } 
+                    <IconButton
+                        color="default"
+                        style={style.button}
+                        onClick={() => {
+                            this.setState({isOpen: false});
+                        }}>
+                        <Icon className="material-icons">close</Icon>
+                    </IconButton>
+                </div>
+   
             </div>
             :
-            <div></div>);
+            <></>);
     }
 }
 
