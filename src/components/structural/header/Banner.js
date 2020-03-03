@@ -16,10 +16,9 @@ class Banner extends Component {
         const style = {
             leftSpacingDiv: {
                 flex: 1,
-                display: "flex",
                 marginLeft: "auto",
                 marginRight: 0,
-                justifyContent: "right"
+                textAlign: "right"
             },
             button: {
                 color: this.props.fontColor || "black",
