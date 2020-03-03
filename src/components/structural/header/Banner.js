@@ -15,8 +15,18 @@ class Banner extends Component {
     renderButtons = () => {
         const style = {
             leftSpacingDiv: {
-                marginLeft: "auto"
+                flex: 1,
+                display: "flex",
+                marginLeft: "auto",
+                marginRight: 0,
+                justifyContent: "right"
             },
+            button: {
+                color: this.props.fontColor || "black",
+                height: "40px",
+                paddingLeft: "15px",
+                paddingRight: "15px"
+            }
         };
 
         return (
@@ -42,20 +52,18 @@ class Banner extends Component {
     renderMessage = () => {
         const style = {
             leftSpacingDiv: {
-                marginLeft: "auto"
-            },
-            messageDiv: {
-                marginLeft: "5px"
+                position: "flex",
+                justifyContent: "center",
+                textAlign: "center",
+                flex: 1
             }
         };
 
         return (this.props.title ?
-            <>
             <div style={style.leftSpacingDiv}>
-                <strong>{this.props.title + ":"}</strong>
+                <strong>{this.props.title}</strong>
+                {this.props.message}
             </div>
-            <div style={style.messageDiv}>{this.props.message}</div>
-            </>
             :
             <div style={style.leftSpacingDiv}>{this.props.message}</div>
         );
@@ -68,21 +76,20 @@ class Banner extends Component {
                 color: this.props.fontColor || "black",
                 width: "100%",
                 height: "40px",
-                textAlign: "center",
                 display: "flex",
-                alignItems: "center",
-                justifyContent: "center"
+                alignItems: "center"
             },
-            leftSpacingDiv: {
-                marginLeft: "auto"
-            },
-            button: {
-                color: this.props.fontColor || "black"
+            spacer: {
+                display: "flex",
+                flex: 1,
+                marginRight: "auto",
+                visibility: "hidden"
             }
         };
 
         return (this.state.isOpen ? 
             <div style={style.div}>
+                <div style={style.spacer}></div>
                 {this.renderMessage()}
                 {this.renderButtons()}
             </div>
