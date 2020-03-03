@@ -12,6 +12,28 @@ class Banner extends Component {
             isOpen: true
         };
     }
+
+    renderMessage = () => {
+        const style = {
+            leftSpacingDiv: {
+                marginLeft: "auto"
+            },
+            messageDiv: {
+                marginLeft: "5px"
+            }
+        };
+
+        return (this.props.title ?
+            <>
+            <div style={style.leftSpacingDiv}>
+                <strong>{this.props.title + ":"}</strong>
+            </div>
+            <div style={style.messageDiv}>{this.props.message}</div>
+            </>
+            :
+            <div style={style.leftSpacingDiv}>{this.props.message}</div>
+        );
+    }
     render = () => {
         const style = {
             div:{
@@ -27,9 +49,6 @@ class Banner extends Component {
             leftSpacingDiv: {
                 marginLeft: "auto"
             },
-            messageDiv: {
-                marginLeft: "5px"
-            },
             button: {
                 color: this.props.fontColor || "black"
             }
@@ -37,14 +56,7 @@ class Banner extends Component {
 
         return (this.state.isOpen ? 
             <div style={style.div}>
-                {this.props.title ? 
-                    <div style={style.leftSpacingDiv}>
-                        <strong>{this.props.title + ":"}</strong>
-                    </div>
-                    :
-                    <></>
-                }
-                <div style={style.messageDiv}>{this.props.message}</div>
+                {this.renderMessage()}
                 <div style={style.leftSpacingDiv}>
                     {this.props.link ? 
                         <Button style={style.button} variant="outlined" href={this.props.link} target="_blank">
