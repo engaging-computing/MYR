@@ -12,7 +12,33 @@ class Banner extends Component {
             isOpen: true
         };
     }
+    renderButtons = () => {
+        const style = {
+            leftSpacingDiv: {
+                marginLeft: "auto"
+            },
+        };
 
+        return (
+            <div style={style.leftSpacingDiv}>
+                {this.props.link ? 
+                    <Button style={style.button} variant="outlined" href={this.props.link} target="_blank">
+                        {this.props.linkButtonText ? this.props.linkButtonText : "More Details"}
+                    </Button>
+                    :
+                <></>
+                } 
+                <IconButton
+                    color="default"
+                    style={style.button}
+                    onClick={() => {
+                        this.setState({isOpen: false});
+                    }}>
+                    <Icon className="material-icons">close</Icon>
+                </IconButton>
+            </div>
+        );
+    }
     renderMessage = () => {
         const style = {
             leftSpacingDiv: {
@@ -34,6 +60,7 @@ class Banner extends Component {
             <div style={style.leftSpacingDiv}>{this.props.message}</div>
         );
     }
+
     render = () => {
         const style = {
             div:{
@@ -57,24 +84,7 @@ class Banner extends Component {
         return (this.state.isOpen ? 
             <div style={style.div}>
                 {this.renderMessage()}
-                <div style={style.leftSpacingDiv}>
-                    {this.props.link ? 
-                        <Button style={style.button} variant="outlined" href={this.props.link} target="_blank">
-                            {this.props.linkButtonText ? this.props.linkButtonText : "More Details"}
-                        </Button>
-                        :
-                        <></>
-                    } 
-                    <IconButton
-                        color="default"
-                        style={style.button}
-                        onClick={() => {
-                            this.setState({isOpen: false});
-                        }}>
-                        <Icon className="material-icons">close</Icon>
-                    </IconButton>
-                </div>
-   
+                {this.renderButtons()}
             </div>
             :
             <></>);
