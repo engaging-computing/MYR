@@ -5,93 +5,86 @@ const myr = new Myr();
 describe("Random Function Tests", () => {
     
     //randomInt
-    it("randomInt should move box to random x coordinate", () => {
-        let xPos = myr.randomInt();
-        myr.setPosition(xPos, 1, 1);
-        expect(myr.cursor.position).toEqual({ x: xPos, y: 1, z: 1 });
-    });
-
     it("randomInt value should be within default range", () => {
-        let within = 0, xPos = myr.randomInt();
-        xPos = myr.randomInt();
-        myr.setPosition(1, 1, xPos);
-        if(xPos >= -40 && xPos < 40) {
-            within = 1;
-        }
-        expect(within).toEqual(1);
+        const rand = myr.randomInt();
+        let within;
+
+        within = Boolean(rand >= -40 && rand < 40);
+
+        expect(within).toBeTruthy();
     });
 
-    it("random value should be within preset range", () => {
-        let within = 0, xPos = myr.random(15, 20);
-        xPos = Math.floor(xPos);
-        myr.setPosition(1, 1, xPos);
-        if(xPos >= 15 && xPos < 20){
-            within = 1;
-        }
-        expect(within).toEqual(1);
-    });
+    it("randomInt value should be within preset range", () => {
+        let within;
+        const rand = myr.randomInt(15, 20);
 
-    //random
-    it("random should move box to random z coordinate", () => {
-        let zPos = myr.random();
-        zPos = Math.floor(zPos);
-        myr.setPosition(1, 1, zPos);
-        expect(myr.cursor.position).toEqual({ x: 1, y: 1, z: zPos });
-    });
+        within = Boolean(rand >= 15 && rand < 20);
 
-    it("random number should be within default range", () => {
-        let within = 0, zPos = myr.random();
-        zPos = Math.floor(zPos);
-        myr.setPosition(1, 1, zPos);
-        if(zPos >= -40 && zPos < 40) {
-            within = 1;
-        }
-        expect(within).toEqual(1);
-    });
-
-    it("random number should be within preset range", () => {
-        let within = 0, zPos = myr.random(15, 20);
-        zPos = Math.floor(zPos);
-        myr.setPosition(1, 1, zPos);
-        if(zPos >= 15 && zPos < 20) {
-            within = 1;
-        }
-        expect(within).toEqual(1);
+        expect(within).toBeTruthy();
     });
 
     it("inverted random values should be swapped and within range", () => {
-        let within = 0, zPos = myr.random(20, 15);
-        zPos = Math.floor(zPos);
-        myr.setPosition(1, 1, zPos);
-        if(zPos >= 15 && zPos < 20) {
-            within = 1;
-        }
-        expect(within).toEqual(1);
+        let within; 
+        const rand = myr.randomInt(20, 15);
+        
+        within = Boolean(rand >= 15 && rand < 20);
+        
+        expect(within).toBeTruthy();
     });
 
-    it("random number should equal 0", () => {
-        let zPos = myr.random(5,5);
-        expect(zPos).toEqual(5);
+    it("random number should equal 5", () => {
+        const rand = myr.randomInt(5,5);
+        expect(rand).toEqual(5);
+    });
+
+    //random
+    it("random number should be within default range", () => {
+        const rand = myr.random();
+        let within;
+
+        within = Boolean(rand >= -40 && rand < 40);
+
+        expect(within).toBeTruthy();
+    });
+
+    it("random number should be within preset range", () => {
+        const rand = myr.random(15, 20);
+        let within;
+
+        within = Boolean(rand >= 15 && rand < 20);
+
+        expect(within).toBeTruthy();
+    });
+
+    it("inverted random values should be swapped and within range", () => {
+        let within;
+        const rand = myr.random(20, 15);
+        within = Boolean(rand >= 15 && rand < 20);
+        
+        expect(within).toBeTruthy();
+    });
+
+    it("random number should equal 5", () => {
+        const rand = myr.random(5,5);
+        expect(rand).toEqual(5);
     });
 
     //seeding
-    it("getSeedCounter should return correct seed value", () => {
+    it("setSeed should set seed to a default value", () => {
         myr.setSeed();
-        let seed = myr.getSeed();
-        expect(myr.rand.seed).toEqual(seed);
+        expect(myr.rand.seed).not.toEqual(0);
     });
 
     it("setSeed should set seed to given seed", () => {
         myr.setSeed(5);
         expect(myr.rand.seed).toEqual(5);
     });
-
-    it("getSeed should return correct seed", () => {
-        myr.setSeed();
-        let seed = myr.getSeed();
-        expect(myr.rand.seed).toEqual(seed);
-    });
     
+    it("getSeed should return correct seed value", () => {
+        myr.setSeed(12);
+        expect(myr.getSeed()).toEqual(12);
+    });
+
     //counter 
     it("counter should increment to 1", () => {
         myr.setSeed();
@@ -99,9 +92,14 @@ describe("Random Function Tests", () => {
         expect(myr.rand.randCounter).toEqual(1);
     });
 
-    it("getSeedCounter should return correct counter value", () => {
+    it("setSeedCounter should set the seed to 12", () => {
         myr.setSeedCounter(12);
         expect(myr.rand.randCounter).toEqual(12);
+    });
+
+    it("getSeedCounter should return correct counter value", () => {
+        myr.setSeedCounter(12);
+        expect(myr.getSeedCounter()).toEqual(12);
     });
 
     it("decrementRandCounter should decrement randCounter back to 0", () => {
@@ -113,13 +111,13 @@ describe("Random Function Tests", () => {
         expect(myr.rand.randCounter).toEqual(0);
     });
 
-    it("should return the same 'random' number", () => {
+    it("should return the same 'random' number after incrementing and decrementing counter value", () => {
         myr.setSeed();
-        let first = myr.randomInt();
+        const first = myr.randomInt();
         myr.randomInt();
         myr.decrementRandCounter();
         myr.decrementRandCounter();
-        let second = myr.randomInt();
+        const second = myr.randomInt();
         expect(first).toEqual(second);
     });
 });

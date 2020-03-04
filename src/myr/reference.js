@@ -371,7 +371,7 @@ let transformations = [
     {
         name: "random",
         parameters: [{ type: "number", name: "min" }, { type: "number", name: "max" }],
-        description: <span>The random function generates a random float derived from the current seed. The range begins with the minimum number and includes every number less than the maximum. The default range is -40 to 40.</span>,
+        description: <span>The random function generates a random decimal derived from the current seed. The range begins with the minimum number and includes every number less than the maximum. The default range is -40 to 40.</span>,
     },    
     {
         name: "setSeed",
@@ -381,7 +381,7 @@ let transformations = [
     {
         name: "getSeed",
         parameters: [],
-        description: <span>The getSeed function returns the value of the current seed.</span>,
+        description: <span>The getSeed function returns the value of the current seed used by the randomInt and random functions to generate random numbers.</span>,
     },    
     {
         name: "makeDroppable",

@@ -1085,25 +1085,30 @@ class Myr {
     }
 
     calculateRandom = (seedNum, nextRand) => {
-        let small = seedNum*0.000000000000000001;
-        let counterPow = this.rand.randCounter * this.rand.randCounter;
-        return (seedNum*Math.PI*counterPow*small*1.543637*9.479137*0.5*nextRand);
+        const counterPow = this.rand.randCounter * this.rand.randCounter; //
+        const seedPow = seedNum * seedNum;
+        const small = 0.000000000000000001, pi = Math.PI, rand_factor = 7.316173367;
+
+
+        return (seedPow*counterPow*small*nextRand*pi*rand_factor);
     }
 
     randomInt = (min = -40, max = 40) => {
+        let randNum, seedNum;
+        let nMin = min, nMax = max;
+
         if(max < min)
         {
-            let temp = max;
+            let temp = min;
             min = max;
             max = temp;
         }
-        if(max === min)
+        else if(max === min)
         {
             return max;
         }
 
-        let range = max - min;
-        let randNum, seedNum, nextRand;
+        const range = nMax - nMin;
 
         if(this.rand.seed === 0)
         {
@@ -1111,43 +1116,43 @@ class Myr {
             this.rand.randCounter = 0;
         }
 
-        if(this.rand.seed !== 0)
+        this.rand.randCounter += 1;
+        seedNum = this.rand.seed;
+        while(seedNum < 1000000000)
         {
-            this.rand.randCounter += 1;
-            seedNum = this.rand.seed;
-            while(seedNum < 1000000000)
-            {
-                seedNum *= seedNum;
-            }
-
-            nextRand = this.nextRandom(min, max);
-            this.decrementRandCounter();
-
-            randNum = this.calculateRandom(seedNum, nextRand);
-            while(randNum > 100000000000000)
-            {
-                randNum = randNum / 100;
-            }
-            randNum = randNum % range;
+            seedNum *= seedNum;
         }
+
+        const nextRand = this.nextRandom(min, max);
+        this.decrementRandCounter();
+
+        randNum = this.calculateRandom(seedNum, nextRand);
+
+        while(randNum > 100000000000000)
+        {
+            randNum = randNum / 100;
+        }
+        randNum = randNum % range;
+ 
         randNum = Math.floor(randNum);
         randNum = randNum + min;
+
         return randNum;
     }
 
     random = (min = -40, max = 40) => {
         if(max < min)
         {
-            let temp = max;
+            let temp = min;
             min = max;
             max = temp;
         }
-        if(max === min)
+        else if(max === min)
         {
             return max;
         }
         
-        let range = max - min;
+        const range = max - min;
         let randNum, seedNum, nextRand;
 
         if(this.rand.seed === 0)
@@ -1156,26 +1161,23 @@ class Myr {
             this.rand.randCounter = 0;
         }
 
-        if(this.rand.seed !== 0)
+        this.rand.randCounter += 1;
+        seedNum = this.rand.seed;
+        while(seedNum < 1000000000)
         {
-            this.rand.randCounter += 1;
-            seedNum = this.rand.seed;
-            while(seedNum < 1000000000)
-            {
-                seedNum *= seedNum;
-            }
-
-            nextRand = this.nextRandom(min, max);
-            this.decrementRandCounter();
-
-            randNum = this.calculateRandom(seedNum, nextRand);
-
-            while(randNum > 100000000000000)
-            {
-                randNum = randNum / 100;
-            }
-            randNum = randNum % range;
+            seedNum *= seedNum;
         }
+
+        nextRand = this.nextRandom(min, max);
+        this.decrementRandCounter();
+
+        randNum = this.calculateRandom(seedNum, nextRand);
+
+        while(randNum > 100000000000000)
+        {
+            randNum = randNum / 100;
+        }
+        randNum = randNum % range;
 
         randNum = randNum + min;
         return randNum;
