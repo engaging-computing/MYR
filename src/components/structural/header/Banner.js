@@ -2,7 +2,8 @@ import React, {Component} from "react";
 import {
     Button,
     Icon,
-    IconButton
+    IconButton,
+    Grid
 } from "@material-ui/core";
 
 class Banner extends Component {
@@ -12,85 +13,64 @@ class Banner extends Component {
             isOpen: true
         };
     }
+
+    closeButtonClick = () => {
+        this.setState({isOpen: false});
+    }
+
     renderButtons = () => {
+        return (
+            <Grid container direction="row" xs={2} alignItems="center" style={{textAlign: "right"}}>
+                {this.props.link ?
+                    <Grid item xs>
+                        <Button variant="outlined" href={this.props.link} target="_blank">{this.props.linkButtonText || "Details"}</Button>
+                        <IconButton onClick={this.closeButtonClick}>
+                            <Icon className="material-icons">close</Icon>
+                        </IconButton>
+                    </Grid>
+                    :
+                    <Grid item xs>
+                        <IconButton onClick={this.closeButtonClick}>
+                            <Icon className="material-icons">close</Icon>
+                        </IconButton>
+                    </Grid>
+                }
+            </Grid>
+        );
+    }
+
+    renderMessage = () => {
         const style = {
-            leftSpacingDiv: {
-                flex: 1,
+            centerAlign: {
                 marginLeft: "auto",
-                marginRight: 0,
-                textAlign: "right"
-            },
-            button: {
-                color: this.props.fontColor || "black",
-                height: "40px",
-                paddingLeft: "15px",
-                paddingRight: "15px"
+                marginRight: "auto",
+                paddingRight: "10px"
             }
         };
 
         return (
-            <div style={style.leftSpacingDiv}>
-                {this.props.link ? 
-                    <Button style={style.button} variant="outlined" href={this.props.link} target="_blank">
-                        {this.props.linkButtonText ? this.props.linkButtonText : "More Details"}
-                    </Button>
+            <Grid container direction="column" xs={11}>
+                {this.props.title ? 
+                    <Grid item style={style.centerAlign}>
+                        <strong>{this.props.title}</strong>
+                    </Grid>
                     :
-                <></>
-                } 
-                <IconButton
-                    color="default"
-                    style={style.button}
-                    onClick={() => {
-                        this.setState({isOpen: false});
-                    }}>
-                    <Icon className="material-icons">close</Icon>
-                </IconButton>
-            </div>
-        );
-    }
-    renderMessage = () => {
-        const style = {
-            leftSpacingDiv: {
-                position: "flex",
-                justifyContent: "center",
-                textAlign: "center",
-                flex: 1
-            }
-        };
-
-        return (this.props.title ?
-            <div style={style.leftSpacingDiv}>
-                <strong>{this.props.title}</strong>
-                {this.props.message}
-            </div>
-            :
-            <div style={style.leftSpacingDiv}>{this.props.message}</div>
+                    <></>
+                }
+                <Grid item style={style.centerAlign}>{this.props.message}</Grid>
+            </Grid>
         );
     }
 
     render = () => {
-        const style = {
-            div:{
-                backgroundColor: this.props.color || "yellow",
-                color: this.props.fontColor || "black",
-                width: "100%",
-                height: "40px",
-                display: "flex",
-                alignItems: "center"
-            },
-            spacer: {
-                display: "flex",
-                flex: 1,
-                marginRight: "auto",
-                visibility: "hidden"
-            }
-        };
-
         return (this.state.isOpen ? 
-            <div style={style.div}>
-                <div style={style.spacer}></div>
-                {this.renderMessage()}
-                {this.renderButtons()}
+            <div style={{
+                backgroundColor: this.props.backgroundColor || "yellow"
+            }}>
+                <Grid container direction="row" alignItems="center" wrap="nowrap">
+                    {this.renderMessage()}
+                    {this.renderButtons()}
+                </Grid>
             </div>
             :
             <></>);
