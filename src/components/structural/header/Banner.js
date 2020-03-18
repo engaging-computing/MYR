@@ -13,7 +13,9 @@ class Banner extends Component {
         let widthMediaQuery = window.matchMedia("(max-width: 1130px)");
         this.state = {
             isOpen: true,
-            mobile: widthMediaQuery.matches
+            mobile: widthMediaQuery.matches,
+            messageIndex: 0,
+            currentMessage: this.props.messages[0]
         };
         
         widthMediaQuery.addListener((ev) => {
@@ -22,7 +24,14 @@ class Banner extends Component {
     }
 
     closeButtonClick = () => {
-        this.setState({isOpen: false});
+        if(this.state.messageIndex + 1 >= this.props.messages.length){
+            this.setState({isOpen: false});
+        }else{
+            this.setState({
+                messageIndex: this.state.messageIndex + 1, 
+                currentMessage: this.props.messages[this.state.messageIndex + 1]
+            });
+        }
     }
 
     renderButtons = () => {
@@ -40,10 +49,10 @@ class Banner extends Component {
         };
 
         let linkButton = ( <></> );
-        if(this.props.link){
+        if(this.state.currentMessage.link){
             linkButton = (
-                <Button variant="outlined" href={this.props.link} target="_blank">
-                    {this.props.linkButtonText || "Details"}
+                <Button variant="outlined" href={this.state.currentMessage.link} target="_blank" style={{color: this.state.currentMessage.fontColor || "black"}}>
+                    {this.state.currentMessage.linkButtonText || "Details"}
                 </Button>
             );
         } 
@@ -95,10 +104,10 @@ class Banner extends Component {
 
         let title = ( <></> );
         
-        if(this.props.title){
+        if(this.state.currentMessage.title){
             title = (
                 <Grid item style={this.state.mobile ? style.title.mobile : style.title.desktop}>
-                    <strong>{this.props.title}</strong>
+                    <strong>{this.state.currentMessage.title}</strong>
                 </Grid>
             );
         }
@@ -106,12 +115,12 @@ class Banner extends Component {
         return (this.state.mobile ?
             <Grid container direction="column">
                 {title}
-                <Grid item style={style.message.mobile} xs={12}>{this.props.message}</Grid>
+                <Grid item style={style.message.mobile} xs={12}>{this.state.currentMessage.message}</Grid>
             </Grid>
             :
             <>
                 {title}
-                <Grid item style={style.message.desktop} xs={10}>{this.props.message}</Grid>
+                <Grid item style={style.message.desktop} xs={10}>{this.state.currentMessage.message}</Grid>
             </>
         );
     }
@@ -141,7 +150,8 @@ class Banner extends Component {
     render = () => {
         return (this.state.isOpen ? 
             <div style={{
-                backgroundColor: this.props.backgroundColor || "yellow"
+                backgroundColor: this.state.currentMessage.color || "yellow",
+                color: this.state.currentMessage.fontColor || "black"
             }}>
                 {this.state.mobile ? 
                     this.renderMobile()
