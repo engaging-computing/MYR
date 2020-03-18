@@ -10,9 +10,9 @@ import * as layoutTypes from "../../constants/LayoutTypes.js";
 export const Ide = ({ editor, editorActions, user, authActions, scene, sceneActions, projectActions, courseActions, projects, courses, match, collectionActions, collections }) => (
     <div className="App">
         <Banner 
-            message="Hello sir!" 
+            message="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam eu nulla cursus, faucibus massa at, rhoncus purus. Maecenas sed vehicula dolor. Donec ac elit dolor. Sed tempus enim vitae magna ornare congue. Nunc vitae nibh quis sem nullam." 
             color="yellow" 
-            title="Testing" 
+            title="Notice" 
             link="https://learnmyr.org" 
             linkButtonText="Details" 
             fontColor="black"
