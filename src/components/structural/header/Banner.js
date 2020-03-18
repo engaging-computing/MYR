@@ -9,10 +9,16 @@ import {
 class Banner extends Component {
     constructor(props){
         super(props);
+
+        let widthMediaQuery = window.matchMedia("(max-width: 1130px)");
         this.state = {
             isOpen: true,
-            mobile: window.matchMedia("(max-width: 800px)").matches
+            mobile: widthMediaQuery.matches
         };
+        
+        widthMediaQuery.addListener((ev) => {
+            this.setState({mobile: ev.matches});
+        });
     }
 
     closeButtonClick = () => {
@@ -25,38 +31,42 @@ class Banner extends Component {
                 marginTop: "8px",
                 paddingLeft: "36px",
                 paddingRight: "8px",
-                textAlign: "left"
+                textAlign: "right"
             },
             mobile:{
                 paddingLeft: "8px",
                 alignItems: "center"
             }
         };
+
+        let linkButton = ( <></> );
+        if(this.props.link){
+            linkButton = (
+                <Button variant="outlined" href={this.props.link} target="_blank">
+                    {this.props.linkButtonText || "Details"}
+                </Button>
+            );
+        } 
+        
+        const closeButton = (
+            <IconButton onClick={this.closeButtonClick}>
+                <Icon className="material-icons">close</Icon>
+            </IconButton>
+        );
+
         return (this.state.mobile ?
             <>
-            <Grid item xs={2} style={style.mobile}>
-                {this.props.link ? 
-                    <Button variant="outlined" href={this.props.link} target="_blank">{this.props.linkButtonText || "Details"}</Button>
-                    :
-                    <></>                    
-                }
-            </Grid>
-            <Grid item xs={10} style={{textAlign: "right"}}>
-                <IconButton onClick={this.closeButtonClick}>
-                    <Icon className="material-icons">close</Icon>
-                </IconButton>
-            </Grid>
+                <Grid item xs={2} style={this.state.mobile ? style.mobile : style.desktop}>
+                    {linkButton}
+                </Grid>
+                <Grid item xs={10} style={{textAlign: "right"}}>
+                    {closeButton}
+                </Grid>
             </>
             :
             <Grid item xs={2} style={style.desktop}>
-                {this.props.link ?
-                    <Button variant="outlined" href={this.props.link} target="_blank">{this.props.linkButtonText || "Details"}</Button>
-                    :
-                    <></>
-                }
-                <IconButton onClick={this.closeButtonClick}>
-                    <Icon className="material-icons">close</Icon>
-                </IconButton>
+                {linkButton}
+                {closeButton}
             </Grid>
         );
     }
@@ -64,30 +74,43 @@ class Banner extends Component {
     renderMessage = () => {
         const style = {
             title: {
-                paddingLeft: "16px",
-                paddingRight: "24px"
+                desktop:{
+                    paddingLeft: "16px"
+                },
+                mobile: {
+                    alignSelf: "center"
+                }
             },
             message: {
-                paddingLeft: "24px",
+                mobile: {
+                    paddingLeft: "8px", 
+                    paddingRight: "8px"
+                },
+                desktop: {
+                    paddingLeft: "24px",
+                }
             }
         };
-        return (this.state.mobile ?
-            <Grid container direction="column">
-                <Grid item style={{alignSelf: "center"}}>
+
+        let title = ( <></> );
+        
+        if(this.props.title){
+            title = (
+                <Grid item style={this.state.mobile ? style.title.mobile : style.title.desktop} xs={1}>
                     <strong>{this.props.title}</strong>
                 </Grid>
-                <Grid item style={{paddingLeft: "8px", paddingRight: "8px"}}>{this.props.message}</Grid>
+            );
+        }
+
+        return (this.state.mobile ?
+            <Grid container direction="column">
+                {title}
+                <Grid item style={style.message.mobile} xs={12}>{this.props.message}</Grid>
             </Grid>
             :
             <>
-            {this.props.title ? 
-                <Grid item style={style.title}>
-                    <strong>{this.props.title}</strong>
-                </Grid>
-                :
-                <></>
-            }
-            <Grid item style={style.leftAlign}>{this.props.message}</Grid>
+                {title}
+                <Grid item style={style.message.desktop} xs={9}>{this.props.message}</Grid>
             </>
         );
     }
@@ -104,12 +127,12 @@ class Banner extends Component {
     renderMobile = () => {
         return (
             <>
-            <Grid container direction="row" alignItems="center" wrap="nowrap" style={{paddingBottom: "8px"}}>
-                {this.renderMessage()}
-            </Grid>
-            <Grid container direction="row">
-                {this.renderButtons()}
-            </Grid>
+                <Grid container direction="row" alignItems="center" wrap="nowrap" style={{paddingBottom: "8px"}}>
+                    {this.renderMessage()}
+                </Grid>
+                <Grid container direction="row">
+                    {this.renderButtons()}
+                </Grid>
             </>
         );
     }
