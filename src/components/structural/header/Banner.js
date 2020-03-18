@@ -88,6 +88,7 @@ class Banner extends Component {
                 },
                 desktop: {
                     paddingLeft: "24px",
+                    textAlign: "left"
                 }
             }
         };
@@ -96,7 +97,7 @@ class Banner extends Component {
         
         if(this.props.title){
             title = (
-                <Grid item style={this.state.mobile ? style.title.mobile : style.title.desktop} xs={1}>
+                <Grid item style={this.state.mobile ? style.title.mobile : style.title.desktop}>
                     <strong>{this.props.title}</strong>
                 </Grid>
             );
@@ -110,7 +111,7 @@ class Banner extends Component {
             :
             <>
                 {title}
-                <Grid item style={style.message.desktop} xs={9}>{this.props.message}</Grid>
+                <Grid item style={style.message.desktop} xs={10}>{this.props.message}</Grid>
             </>
         );
     }
