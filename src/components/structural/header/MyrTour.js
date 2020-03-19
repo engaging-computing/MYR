@@ -73,7 +73,11 @@ const steps = [
     },
     {
         selector: "#scene",
-        content: "The View is where you can see your work. \n Click the goggle to view in VR."
+        content: "The View is where you can see your work.\n" +
+            "You can move forward and backward with W and S, \n" +
+            "left and right with A and D, and \n" +
+            "up and down with Space and Shift.\n" +
+            "Click the goggle to view in VR."
     },
     {
         selector: "#new-btn",
