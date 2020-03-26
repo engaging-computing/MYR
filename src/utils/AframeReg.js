@@ -41,8 +41,7 @@ AFRAME.registerComponent("layer",{
     init: function(){
         this.el.getObject3D(this.data.type).layers.set(this.data.layer);
     }
-});
-
+});   
 
 //this display different layer in scene at same time
 AFRAME.registerComponent("scenelayer",{
@@ -78,7 +77,6 @@ AFRAME.registerComponent("shadowcustomsetting", {
     },
 }); 
 
-
 AFRAME.registerComponent("outline",{
     schema:{
         default:""
@@ -89,6 +87,31 @@ AFRAME.registerComponent("outline",{
         
         mesh.material.color.set(invertColor);
         mesh.material.side = THREE.BackSide;
-        mesh.scale.multiplyScalar(1.5);
+        //mesh.scale.multiplyScalar(1.5);
     }
+});
+
+AFRAME.registerComponent("indicatorrotation",{
+    schema:{
+        position:{
+            type: "vec3",
+            default:{x:0,y:0,z:0}
+        },
+        target:{
+            type:"vec3",
+            default:{x:0,y:0,z:0}
+        },
+    },
+    init: function(){
+        let mesh =  this.el.getObject3D("mesh");
+        mesh.rotation.copy(this.FindRotationOf2Pts(this.data.position,this.data.target));
+    },
+    FindRotationOf2Pts: function(vec,vec2){
+        let vector = new THREE.Vector3(vec.x,vec.y,vec.z);
+        let origin = new THREE.Vector3(vec2.x,vec2.y,vec2.z);
+        if(vector === origin){return null;}
+        let direction = new THREE.Vector3().subVectors(vector,origin);
+        let arrow = new THREE.ArrowHelper( direction.normalize(), origin,1 );
+        return arrow.rotation;
+    },
 });

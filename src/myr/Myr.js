@@ -785,14 +785,13 @@ class Myr {
             id: "lgt" + this.genNewId(),
             light: {
                 state:
-
                     `type: ambient; 
-                    color: ${this.cursor.color}; 
+                    color: ${this.cursor.color};
                     intensity: ${this.cursor.light.intensity};
                     `,
                 type: "ambient",
             },	  
-            color: this.cursor.color,         
+            color: this.cursor.color,
 
             position: this.cursor.position,
             scale: this.cursor.scale,
@@ -809,15 +808,15 @@ class Myr {
                     `type: spot; 
                     angle: ${this.cursor.light.angle}; 
                     decay: ${this.cursor.light.decay}; 
-                    color: ${this.cursor.color}; 
                     distance: ${this.cursor.light.distance}; 
                     intensity: ${this.cursor.light.intensity}; 
                     penumbra: ${this.cursor.light.penumbra};
+                    color: ${this.cursor.color};
                     `,
                 type: "spot",
                 angle: this.cursor.light.angle,
             },	  
-            color: this.cursor.color,         
+            color: this.cursor.color,
             position: this.cursor.position,
             scale: this.cursor.scale,
             rotation: {
@@ -839,11 +838,12 @@ class Myr {
                     distance: ${this.cursor.light.distance}; 
                     intensity: ${this.cursor.light.intensity}; 
                     penumbra: ${this.cursor.light.penumbra};
+                    color: ${this.cursor.color};
                     `,
                 
                 type: "point",
             },	 
-            color: this.cursor.color,         
+            color: this.cursor.color,
             position: this.cursor.position,
             scale: this.cursor.scale,
             rotation: this.cursor.rotation,
@@ -857,13 +857,13 @@ class Myr {
             light: {
                 state:
                     `type:hemisphere; 
-                    color: ${this.cursor.color}; 
                     intensity: ${this.cursor.light.intensity}; 
+                    color: ${this.cursor.color};
                     groundColor: ${groundColor};
                     `,
                 type: "hemisphere",
             },	  
-            color: this.cursor.color,         
+            color: this.cursor.color,
             position: this.cursor.position,
             scale: this.cursor.scale,
             rotation: this.cursor.rotation,
@@ -877,13 +877,13 @@ class Myr {
             light: {
                 state:
                     `type: directional; 
-                    color: ${this.cursor.color}; 
                     intensity: ${this.cursor.light.intensity};
+                    color: ${this.cursor.color};
                     `,
                 target: this.cursor.light.target,
                 type: "directional",
             },	  
-            color: this.cursor.color,         
+            color: this.cursor.color,
             position: this.cursor.position,
             scale: this.cursor.scale,
             rotation: this.cursor.rotation,

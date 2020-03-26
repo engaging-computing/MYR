@@ -107,9 +107,6 @@ class View extends Component {
     // This renders json to aframe entities
     helper = (ent) => {
         if (ent) {
-            // if(ent.light){
-            //     ent.light = ent.light + ` groundColor: ${this.props.sceneConfig.floorColor}`;
-            // }
             let flattened = {
                 ...ent,
                 position: `${ent.position.x || 0} ${ent.position.y || 0} ${ent.position.z || 0}`,
@@ -133,27 +130,16 @@ class View extends Component {
             }
             if(ent.light){
                 delete flattened.light;
-                let color =`color: ${ent.color};`;
-                ent.light.state += color;
                 let target=null,indicator=null;
-
                 if(ent.light.target){ 
                     ent.light.state +="target: #lighttarget;";
                     target = <a-entity id="lighttarget"  position={ent.light.target}></a-entity>;
                 }
-                if(ent.light.type !== "ambient" && ent.light.type !== "hemisphere"){
-                    ent.light.state = this.lightShadowHelper(ent.light);
+                if(this.props.sceneConfig.settings.castShadow){
+                    ent.light.state += this.lightShadowHelper(ent.light);
                 }
                 if(this.props.sceneConfig.settings.lightIndicator){
-                    if(ent.light.type !== "ambient"){
-                        let geo = "primitive:"+ent.light.type+"LightIndicator";
-                        let mat = color + " side:double;";
-                        delete flattened.id;
-                        indicator = <a-entity>
-                            <a-entity key={ent.id+"Indicator"} id={ent.id+"Indicator"} geometry={geo} material={mat} layer="type: mesh; layer:1;"></a-entity>;
-                            <a-entity key={ent.id+"IndicatorOutline"} id={ent.id+"IndicatorOutline"} geometry={geo} material={mat} outline layer="type: mesh; layer:1;"></a-entity>;
-                        </a-entity>;
-                    }
+                    indicator = this.lightIndicatorHelper(ent);
                 }
                 return <a-entity key={ent.id} id={ent.id} light={ent.light.state} {...flattened}>{indicator}{target}</a-entity>;
             }
@@ -166,10 +152,25 @@ class View extends Component {
             return <a-entity key={ent.id} {...flattened} shadow={shadow} shadowcustomsetting >></a-entity>;
         }
     }
-
+    //return elements that contains necessary configuration for light indicator based on light's type
+    lightIndicatorHelper =(ent)=>{  
+        if(ent.light.type !== "ambient"){
+            let position =`position: ${ent.position.x || 0} ${ent.position.y || 0} ${ent.position.z || 0}`;
+            let geo = `primitive: ${ent.light.type+"LightIndicator"};`;
+            let geoOutline = `primitive: ${ent.light.type+"LightOutlineIndicator"};`;
+            let mat = `color:${ent.color}; side:double;`;
+            return <a-entity >
+                <a-entity key={ent.id+"Indicator"} id={ent.id+"Indicator"} geometry={geo} material={mat} layer="type: mesh; layer:1;" indicatorrotation={position}></a-entity>;
+                <a-entity key={ent.id+"IndicatorOutline"} id={ent.id+"IndicatorOutline"} geometry={geoOutline} material={mat} outline layer="type: mesh; layer:1;" indicatorrotation={position}></a-entity>;
+            </a-entity>;
+        }
+        return null;
+    }
+    //return string that contains necessary configuration for shadow based on light's type
     lightShadowHelper = (light) =>{
-        let newState = light.state;
-        if(this.props.sceneConfig.settings.castShadow){
+        let newState = "";
+        //ambient and hemisphere light doesn't cast shadow
+        if(light.type !== "ambient" && light.type !== "hemisphere"){
             newState += "castShadow: true;  shadowMapHeight: 1000; shadowMapWidth: 1000;";
             if(light.type ==="directional"){
                 newState += "shadowCameraNear: -40;shadowBias: -0.002; shadowCameraTop: 40; shadowCameraBottom: -40; shadowCameraLeft: -40; shadowCameraRight: 40; ";
