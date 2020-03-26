@@ -52,7 +52,8 @@ class Header extends Component {
             referenceOpen: false,
             coursesOpen: false,
             tourOpen: false,
-            welcomeOpen: false
+            welcomeOpen: false,
+            savedSettings: []
         };
     }
 
@@ -167,6 +168,36 @@ class Header extends Component {
         if (this.state.lastMsgTime !== this.props.message.time && this.props.message.text !== "") {
             this.setState({ snackOpen: true, lastMsgTime: this.props.message.time });
         }
+        if(this.state.savedSettings.length === 0 && this.props.scene.id !== 0){
+            this.setState({savedSettings: this.buildSettingsArr()});
+
+            window.addEventListener("beforeunload", (event) => {
+                let finalSettings = this.buildSettingsArr();
+    
+                if(!this.settingsEqual(finalSettings)){
+                    event.preventDefault();
+                    event.returnValue = "You may have unsaved changes!";
+                }
+            });
+        }
+    }
+
+
+    buildSettingsArr = () => {
+        const sceneSettings = this.props.scene.settings;
+
+        return [sceneSettings.canFly, sceneSettings.floorColor, 
+            sceneSettings.showCoordHelper, sceneSettings.showFloor,
+            sceneSettings.skyColor, sceneSettings.viewOnly];
+    };
+    
+    settingsEqual = (newSettings) =>{
+        for(let i = 0; i < newSettings.length; ++i){
+            if(newSettings[i] !== this.state.savedSettings[i]){
+                return false;
+            }
+        }
+        return true;
     }
 
     /**
@@ -384,6 +415,7 @@ class Header extends Component {
         if(!this.state.viewOnly) {
             this.props.actions.refresh(text, this.props.user ? this.props.user.uid : "anon");
         }
+        this.setState({savedSettings: this.buildSettingsArr()});
         this.handleSaveToggle();
     }
 
