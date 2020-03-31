@@ -6,6 +6,12 @@ import {
     Grid
 } from "@material-ui/core";
 
+const redirectedNotif = {
+    title: "Redirection Notice",
+    message: "The scene you requested has been moved to a new URL and you have been redirected. Please update your bookmarks.",
+    color: "cyan"
+};
+
 class Banner extends Component {
     constructor(props){
         super(props);
@@ -25,7 +31,16 @@ class Banner extends Component {
 
         fetch(this.props.endpoint).then(resp => {
             resp.json().then(json => {
-                this.setState({messages: json, currentMessage: json[0]});
+                let arr = [];
+                if(this.props.redirected){
+                    arr = [redirectedNotif].concat(json);
+                    
+                    const url = window.location.toString();
+                    window.history.pushState({}, "", url.substr(0, url.indexOf("?")));
+                }else{
+                    arr = json;
+                }
+                this.setState({messages: arr, currentMessage: arr[0]});
             });
         });
     }
@@ -91,7 +106,8 @@ class Banner extends Component {
         const style = {
             title: {
                 desktop:{
-                    paddingLeft: "16px"
+                    paddingLeft: "16px",
+                    flexWrap: "nowrap"
                 },
                 mobile: {
                     alignSelf: "center"
@@ -104,7 +120,8 @@ class Banner extends Component {
                 },
                 desktop: {
                     paddingLeft: "24px",
-                    textAlign: "left"
+                    textAlign: "left",
+                    flexShrink: "1"
                 }
             }
         };
@@ -113,7 +130,11 @@ class Banner extends Component {
         
         if(this.state.currentMessage.title){
             title = (
-                <Grid item style={this.state.mobile ? style.title.mobile : style.title.desktop}>
+                <Grid item 
+                    xs={
+                        Math.round(this.state.currentMessage.title.length/10)
+                    } 
+                    style={this.state.mobile ? style.title.mobile : style.title.desktop}>
                     <strong>{this.state.currentMessage.title}</strong>
                 </Grid>
             );

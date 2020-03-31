@@ -9,7 +9,12 @@ import * as layoutTypes from "../../constants/LayoutTypes.js";
 
 export const Ide = ({ editor, editorActions, user, authActions, scene, sceneActions, projectActions, courseActions, projects, courses, match, collectionActions, collections }) => (
     <div className="App">
-        <Banner endpoint="/apiv1/notifications" />
+        <Banner 
+            endpoint="/apiv1/notifications"
+            redirected={
+                new URLSearchParams(window.location.search).get("redirected") === "true"
+            }
+        />
         <Header
             viewOnly={scene.settings.viewOnly}
             logging={authActions}
