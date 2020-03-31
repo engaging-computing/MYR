@@ -15,21 +15,28 @@ class Banner extends Component {
             isOpen: true,
             mobile: widthMediaQuery.matches,
             messageIndex: 0,
-            currentMessage: this.props.messages[0]
+            currentMessage: undefined,
+            messages: []
         };
         
         widthMediaQuery.addListener((ev) => {
             this.setState({mobile: ev.matches});
         });
+
+        fetch(this.props.endpoint).then(resp => {
+            resp.json().then(json => {
+                this.setState({messages: json, currentMessage: json[0]});
+            });
+        });
     }
 
     closeButtonClick = () => {
-        if(this.state.messageIndex + 1 >= this.props.messages.length){
+        if(this.state.messageIndex + 1 >= this.state.messages.length){
             this.setState({isOpen: false});
         }else{
             this.setState({
                 messageIndex: this.state.messageIndex + 1, 
-                currentMessage: this.props.messages[this.state.messageIndex + 1]
+                currentMessage: this.state.messages[this.state.messageIndex + 1]
             });
         }
     }
@@ -148,7 +155,7 @@ class Banner extends Component {
     }
 
     render = () => {
-        return (this.state.isOpen ? 
+        return (this.state.isOpen && this.state.currentMessage ? 
             <div style={{
                 backgroundColor: this.state.currentMessage.color || "yellow",
                 color: this.state.currentMessage.fontColor || "black"
