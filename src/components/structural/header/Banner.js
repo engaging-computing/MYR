@@ -7,10 +7,13 @@ import {
 } from "@material-ui/core";
 
 const redirectedNotif = {
+    _id: -1,
     title: "Redirection Notice",
     message: "The scene you requested has been moved to a new URL and you have been redirected. Please update your bookmarks.",
     color: "cyan"
 };
+
+const localStorageKey = "seenMsgs";
 
 class Banner extends Component {
     constructor(props){
@@ -22,7 +25,8 @@ class Banner extends Component {
             mobile: widthMediaQuery.matches,
             messageIndex: 0,
             currentMessage: undefined,
-            messages: []
+            messages: [],
+            seenMessages: JSON.parse(window.localStorage.getItem(localStorageKey)) || []
         };
         
         widthMediaQuery.addListener((ev) => {
@@ -40,12 +44,25 @@ class Banner extends Component {
                 }else{
                     arr = json;
                 }
+
+                //Remove messages that have already been seen
+                arr = arr.filter( item => (this.state.seenMessages.indexOf(item._id) < 0) );
                 this.setState({messages: arr, currentMessage: arr[0]});
             });
         });
     }
 
     closeButtonClick = () => {
+        //Prevent notification redirects from being pushed to the ignore array
+        if(this.state.currentMessage._id !== -1){
+            this.state.seenMessages.push(
+                this.state.messages[this.state.messageIndex]._id
+            );
+            window.localStorage.setItem(localStorageKey, 
+                JSON.stringify(this.state.seenMessages)
+            );
+        }
+        
         if(this.state.messageIndex + 1 >= this.state.messages.length){
             this.setState({isOpen: false});
         }else{
