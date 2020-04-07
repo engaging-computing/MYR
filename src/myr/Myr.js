@@ -13,8 +13,6 @@ class Myr {
         this.res = { els: this.els, assets: this.assets };
         this.sceneEl = document.querySelector("a-scene");
         this.seed = 0; 
-        this.randCounter = 0;
-        this.oldRandomCounter = 0;
         this.oldSeed = 0;
         this.cursor = {
             color: "red",
