@@ -254,6 +254,11 @@ let transformations = [
         example: "setColor"
     },
     {
+        name: "setTexture",
+        parameters: [{type: "string", name: "texture"}],
+        description: <span>The setColor function changes the texture of the cursor. The unaltered texture is displayed when the color is white, otherwise the texture will be affected by the current color.</span>,
+    },
+    {
         name: "getRandomColor",
         parameters: [{ type: "array", name: "colors" }],
         description: <span>The getRandomColor function returns a random color and changes the color of the cursor. If passed an array, getRandomColor will choose randomly from the given colors.</span>,
