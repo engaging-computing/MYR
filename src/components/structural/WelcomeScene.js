@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-//import TexturePack from "../../constants/Textures.js";
 
 class WelcomeScene extends Component {
     render() {
@@ -8,7 +7,6 @@ class WelcomeScene extends Component {
                 <a-assets>
                     <a-mixin id="checkpoint"></a-mixin>
                     <a-mixin id="checkpoint-hovered" color="#6CEEB5"></a-mixin>
-
                 </a-assets>
                 <a-entity id="rig"
                     debug={true}

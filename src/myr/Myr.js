@@ -18,7 +18,7 @@ class Myr {
         this.oldSeed = 0;
         this.cursor = {
             color: "red",
-            texture: "brick",
+            texture: "",
             position: {
                 x: 0,
                 y: 0,
@@ -86,7 +86,7 @@ class Myr {
         this.id = 0;
         this.cursor = {
             color: "red",
-            texture: "brick",
+            texture: "",
             position: {
                 x: 0,
                 y: 0,
@@ -130,7 +130,7 @@ class Myr {
     resetCursor = () => {
         this.cursor = {
             color: "red",
-            texture: "brick",
+            texture: "",
             position: {
                 x: 0,
                 y: 0,
@@ -428,18 +428,26 @@ class Myr {
         this.cursor.color = color;
         return this.cursor.color;
     }
-    //////////////////////////////////////////////////////////////////////////
-    setTexture = (texture) => {
-        const textures = Object.keys(TexturePack);
-        console.log(textures);
-        
-        this.cursor.texture = texture;
 
+    setTexture = (texture = "blank") => {
+        let holdKey;
+
+        TexturePack.forEach(function(item) {
+            Object.keys(item).forEach(function(key) {
+                if(key === texture){
+                    holdKey = item[key];
+                }
+            });
+        });
+        if(holdKey){
+            this.cursor.texture = holdKey;
+        } else {
+            this.cursor.texture = texture;
+        }
         return this.cursor.texture;
     }
 
-    ///////////////////////////////////////////////////////////////////////
-    /*getRandomColor = (colors = null) => {
+    getRandomColor = (colors = null) =>{
         let color;
         if (Array.isArray(colors) && colors.length !== 0) {
             color = colors[Math.floor(Math.random() * colors.length)];
@@ -456,7 +464,7 @@ class Myr {
         }
         this.cursor.color = color;
         return color;
-    }*/
+    }
 
     drop = (outerElId) => {
         this.getEl(outerElId)["dynamic-body"] = "shape: box; mass: 5";
@@ -532,12 +540,11 @@ class Myr {
         let base = {
             geometry: "primitive: box;",
             id: "box" + this.genNewId(),
-            material: `color: ${this.cursor.color};`,
+            material: `color: ${this.cursor.color}; src: ${this.cursor.texture};`,
             position: { ...this.cursor.position },
             rotation: this.cursor.rotation,
             scale: this.cursor.scale,
             texture: this.cursor.texture,
-
         };
         return this.mergeProps(base, params);
     }
@@ -550,7 +557,7 @@ class Myr {
             position: this.cursor.position,
             scale: this.cursor.scale,
             rotation: this.cursor.rotation,
-            material: `color: ${this.cursor.color}; side: double;`,
+            material: `color: ${this.cursor.color}; src: ${this.cursor.texture}; side: double;`,
         };
         return this.mergeProps(base, params);
     }
@@ -563,7 +570,7 @@ class Myr {
             position: this.cursor.position,
             scale: this.cursor.scale,
             rotation: this.cursor.rotation,
-            material: `color: ${this.cursor.color}; side: double;`,
+            material: `color: ${this.cursor.color}; src: ${this.cursor.texture}; side: double;`,
         };
         return this.mergeProps(base, params);
     }
@@ -576,7 +583,7 @@ class Myr {
             position: this.cursor.position,
             scale: this.cursor.scale,
             rotation: this.cursor.rotation,
-            material: `color: ${this.cursor.color};  side: double;`,
+            material: `color: ${this.cursor.color}; src: ${this.cursor.texture}; side: double;`,
         };
         return this.mergeProps(base, params);
     }
@@ -590,7 +597,7 @@ class Myr {
             position: this.cursor.position,
             scale: this.cursor.scale,
             rotation: this.cursor.rotation,
-            material: `color: ${this.cursor.color}; side: double;`,
+            material: `color: ${this.cursor.color}; src: ${this.cursor.texture}; side: double;`,
         };
         return this.mergeProps(base, params);
     }
@@ -603,7 +610,7 @@ class Myr {
             position: this.cursor.position,
             scale: this.cursor.scale,
             rotation: this.cursor.rotation,
-            material: `color: ${this.cursor.color};  side: double;`,
+            material: `color: ${this.cursor.color}; src: ${this.cursor.texture}; side: double;`,
         };
         return this.mergeProps(base, params);
     }
@@ -616,7 +623,7 @@ class Myr {
             position: this.cursor.position,
             scale: this.cursor.scale,
             rotation: this.cursor.rotation,
-            material: `color: ${this.cursor.color};  side: double;`,
+            material: `color: ${this.cursor.color}; src: ${this.cursor.texture}; side: double;`,
         };
         return this.mergeProps(base, params);
     }
@@ -630,7 +637,7 @@ class Myr {
             position: this.cursor.position,
             scale: this.cursor.scale,
             rotation: this.cursor.rotation,
-            material: `color: ${this.cursor.color};  side: double;`,
+            material: `color: ${this.cursor.color}; src: ${this.cursor.texture}; side: double;`,
         };
         return this.mergeProps(base, params);
     }
@@ -642,7 +649,7 @@ class Myr {
             position: this.cursor.position,
             scale: this.cursor.scale,
             rotation: this.cursor.rotation,
-            material: `color: ${this.cursor.color}; side: double;`,
+            material: `color: ${this.cursor.color}; src: ${this.cursor.texture}; side: double;`,
         };
         return this.mergeProps(base, params);
     }
@@ -655,7 +662,7 @@ class Myr {
             position: this.cursor.position,
             scale: this.cursor.scale,
             rotation: this.cursor.rotation,
-            material: `color: ${this.cursor.color}; side: double;`,
+            material: `color: ${this.cursor.color}; src: ${this.cursor.texture}; side: double;`,
         };
         return this.mergeProps(base, params);
     }
@@ -667,7 +674,7 @@ class Myr {
             position: this.cursor.position,
             scale: this.cursor.scale,
             rotation: this.cursor.rotation,
-            material: `color: ${this.cursor.color}; side: double;`,
+            material: `color: ${this.cursor.color}; src: ${this.cursor.texture}; side: double;`,
         };
         return this.mergeProps(base, params);
     }
@@ -680,7 +687,7 @@ class Myr {
             position: this.cursor.position,
             scale: this.cursor.scale,
             rotation: this.cursor.rotation,
-            material: `color: ${this.cursor.color}; side: double;`,
+            material: `color: ${this.cursor.color}; src: ${this.cursor.texture}; side: double;`,
         };
         return this.mergeProps(base, params);
     }
@@ -692,7 +699,7 @@ class Myr {
             position: this.cursor.position,
             scale: this.cursor.scale,
             rotation: this.cursor.rotation,
-            material: `color: ${this.cursor.color}; side: double;`,
+            material: `color: ${this.cursor.color}; src: ${this.cursor.texture}; side: double;`,
         };
         return this.mergeProps(base, params);
     }
@@ -731,7 +738,7 @@ class Myr {
             position: this.cursor.position,
             scale: this.cursor.scale,
             rotation: this.cursor.rotation,
-            material: `color: ${this.cursor.color};  side: double;`,
+            material: `color: ${this.cursor.color}; src: ${this.cursor.texture}; side: double;`,
         };
         return this.mergeProps(base, params);
     }
@@ -743,7 +750,7 @@ class Myr {
             position: this.cursor.position,
             scale: this.cursor.scale,
             rotation: this.cursor.rotation,
-            material: `color: ${this.cursor.color};`,
+            material: `color: ${this.cursor.color}; src: ${this.cursor.texture};`,
             p: 2,
             q: 3,
         };
@@ -757,7 +764,7 @@ class Myr {
             position: this.cursor.position,
             scale: this.cursor.scale,
             rotation: this.cursor.rotation,
-            material: `color: ${this.cursor.color};  side: double;`,
+            material: `color: ${this.cursor.color}; src: ${this.cursor.texture}; side: double;`,
         };
         return this.mergeProps(base, params);
     }
@@ -771,7 +778,7 @@ class Myr {
             position: this.cursor.position,
             scale: this.cursor.scale,
             rotation: this.cursor.rotation,
-            material: `color: ${this.cursor.color};  side: double;`,
+            material: `color: ${this.cursor.color}; src: ${this.cursor.texture}; side: double;`,
         };
         return this.mergeProps(base, params);
     }
@@ -1067,195 +1074,6 @@ class Myr {
         return outerElId;
     }
 
-<<<<<<< HEAD
-=======
-<<<<<<< Updated upstream
-=======
->>>>>>> textures_separation
-    setSeed = (seed = 0) => {
-        if (seed === 0){
-            let newSeed = new Date().getTime();
-            while(this.seed === newSeed)
-            {
-                newSeed = new Date().getTime();
-            }
-            this.seed = newSeed;
-        }
-        else{
-            this.seed = seed;
-        }
-        this.randCounter = 0;
-    }
-
-    getSeed = () => {
-        return this.seed;
-    }
-
-    getSeedCounter = () => {
-        return this.randCounter;
-    }
-
-    setSeedCounter = (counter = 0) => {
-        this.randCounter = counter;
-    }
-
-    decrementRandCounter = () => {
-        this.randCounter -= 1;
-    }
-
-    randomInt = (min = -40, max = 40) => {
-        let range = max - min;
-        let randNum, seedNum, nextRand;
-
-        if(max <= min)
-        {
-<<<<<<< HEAD
-            console.error("Improper use of randomInt");
-=======
-            //console.error("Improper use of randomInt");
-            let temp = max;
-            max = min;
-            min = temp;
->>>>>>> textures_separation
-            return;
-        }
-
-        if(this.seed === 0)
-        {
-            this.seed = new Date().getTime();
-            this.randCounter = 0;
-        }
-
-        if(this.seed !== 0)
-        {
-            this.randCounter += 1;
-            seedNum = this.seed;
-            while(seedNum < 1000000000)
-            {
-                seedNum *= seedNum;
-            }
-
-            nextRand = this.nextRandom(min, max);
-            this.decrementRandCounter();
-
-            let small = seedNum*0.000000000000000001;
-            let counterPow = this.randCounter * this.randCounter;
-            randNum = (seedNum*Math.PI*counterPow*small*1.543637*9.479137*0.5*nextRand);
-            while(randNum > 100000000000000)
-            {
-                randNum = randNum / 100;
-            }
-            randNum = randNum % range;
-        }
-        randNum = Math.floor(randNum);
-        randNum = randNum + min;
-        return randNum;
-    }
-
-    random = (min = -40, max = 40) => {
-        let range = max - min;
-        let randNum, seedNum, nextRand;
-
-        if(max <= min)
-        {
-<<<<<<< HEAD
-            console.error("Improper use of randomInt");
-=======
-            //console.error("Improper use of randomInt");
-            let temp = max;
-            max = min;
-            min = temp;
->>>>>>> textures_separation
-            return;
-        }
-
-        if(this.seed === 0)
-        {
-            this.seed = new Date().getTime();
-            this.randCounter = 0;
-        }
-
-        if(this.seed !== 0)
-        {
-            this.randCounter += 1;
-            seedNum = this.seed;
-            while(seedNum < 1000000000)
-            {
-                seedNum *= seedNum;
-            }
-
-            nextRand = this.nextRandom(min, max);
-            this.decrementRandCounter();
-
-            let small = seedNum*0.000000000000000001;
-            let counterPow = this.randCounter * this.randCounter;
-            randNum = (seedNum*Math.PI*counterPow*small*1.543637*7.479137*0.5*nextRand);
-            while(randNum > 100000000000000)
-            {
-                randNum = randNum / 100;
-            }
-            randNum = randNum % range;
-        }
-
-        randNum = randNum + min;
-        return randNum;
-    }
-
-    nextRandom = (min = -40, max = 40) => {
-        let range = max - min;
-        let randNum, seedNum;
-
-        this.randCounter += 1;
-        seedNum = this.seed;
-        while(seedNum < 1000000000)
-        {
-            seedNum *= seedNum;
-        }
-
-        let small = seedNum*0.000000000000000001;
-        let counterPow = this.randCounter * this.randCounter;
-        randNum = (seedNum*Math.PI*counterPow*small*1.543637*7.479137*0.5);
-        while(randNum > 100000000000000)
-        {
-            randNum = randNum / 100;
-        }
-        randNum = randNum % range;
-
-        randNum = randNum + min;
-        if(randNum < 0)
-        {
-            randNum = 0 - randNum;
-        }
-        else if (randNum === 0)
-        {
-            randNum++;
-        }
-        return randNum;
-    }
-
-<<<<<<< HEAD
-=======
-    getRandomColor = (colors = null) => {
-        let color;
-        if (Array.isArray(colors) && colors.length !== 0) {
-            color = colors[Math.floor(Math.random() * colors.length)];
-        }
-        else {
-            let i, letters;
-            letters = "0123456789ABCDEF";
-            color = "#";
-            i = 0;
-            while (i < 6) {
-                color += letters[Math.floor(this.randomInt(0, 16))];
-                i++;
-            }
-        }
-        this.cursor.color = color;
-        return color;
-    }
-
->>>>>>> Stashed changes
->>>>>>> textures_separation
     /********************* GETTERS *********************/
 
     getColor = () => {
