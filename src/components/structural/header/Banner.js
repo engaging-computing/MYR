@@ -75,6 +75,12 @@ class Banner extends Component {
 
     renderButtons = () => {
         const style = {
+            closeButton: {
+                color: this.state.currentMessage.fontColor || "black"
+            },
+            linkButton: {
+                color: this.state.currentMessage.fontColor || "black"
+            },
             desktop: {
                 marginTop: "8px",
                 paddingLeft: "36px",
@@ -90,14 +96,14 @@ class Banner extends Component {
         let linkButton = ( <></> );
         if(this.state.currentMessage.link){
             linkButton = (
-                <Button variant="outlined" href={this.state.currentMessage.link} target="_blank" style={{color: this.state.currentMessage.fontColor || "black"}}>
-                    {this.state.currentMessage.linkButtonText || "Details"}
+                <Button variant="outlined" href={this.state.currentMessage.link} target="_blank" style={style.linkButton}>
+                    {this.state.currentMessage.linkText || "Details"}
                 </Button>
             );
         } 
         
         const closeButton = (
-            <IconButton onClick={this.closeButtonClick}>
+            <IconButton onClick={this.closeButtonClick} style={style.closeButton}>
                 <Icon className="material-icons">close</Icon>
             </IconButton>
         );
@@ -112,7 +118,7 @@ class Banner extends Component {
                 </Grid>
             </>
             :
-            <Grid item xs={2} style={style.desktop}>
+            <Grid item xs={3} style={style.desktop}>
                 {linkButton}
                 {closeButton}
             </Grid>
