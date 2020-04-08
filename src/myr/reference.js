@@ -256,7 +256,7 @@ let transformations = [
     {
         name: "setTexture",
         parameters: [{type: "string", name: "texture"}],
-        description: <span>The setColor function changes the texture of the cursor. The unaltered texture is displayed when the color is white, otherwise the texture will be affected by the current color.</span>,
+        description: <span>The setTexture function changes the texture of the cursor. The unaltered texture is displayed when the color is white, otherwise the texture will be affected by the current color. Textures can either be applied using the name of one of these /*insert link here*/ colors (e.g. "brick") or by inserting a valid url (e.g. "https://upload.wikimedia.org/wikipedia/commons/5/5e/Water_drop_001.jpg")</span>,
     },
     {
         name: "getRandomColor",

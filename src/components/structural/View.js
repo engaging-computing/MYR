@@ -117,7 +117,6 @@ class View extends Component {
     assetsHelper = (asset) => {
         return (
             <a-asset-item key={asset.id} id={asset.id} src={asset.src}></a-asset-item>
-            
         );
     }
 

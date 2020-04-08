@@ -12,8 +12,6 @@ class Myr {
         this.assets = [];
         this.res = { els: this.els, assets: this.assets };
         this.sceneEl = document.querySelector("a-scene");
-        this.seed = 0; 
-        this.oldSeed = 0;
         this.cursor = {
             color: "red",
             texture: "",
@@ -316,6 +314,9 @@ class Myr {
             case "color":
                 this.setColor(value);
                 break;
+            case "texture":
+                this.setTexture(value);
+                break;
             case "position":
                 this.setPosition(value.x, value.y, value.z);
                 break;
@@ -428,18 +429,13 @@ class Myr {
     }
 
     setTexture = (texture = "blank") => {
-        let holdKey;
-
-        TexturePack.forEach(function(item) {
-            Object.keys(item).forEach(function(key) {
-                if(key === texture){
-                    holdKey = item[key];
-                }
-            });
-        });
-        if(holdKey){
-            this.cursor.texture = holdKey;
-        } else {
+        for (let i=0; i < TexturePack.length; i++) {
+            if (TexturePack[i].title === texture) {
+                this.cursor.texture = TexturePack[i].url;
+            }
+        }
+        let urlregex = /^(https?|ftp):\/\/([a-zA-Z0-9.-]+(:[a-zA-Z0-9.&%$-]+)*@)*((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9][0-9]?)(\.(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9]?[0-9])){3}|([a-zA-Z0-9-]+\.)*[a-zA-Z0-9-]+\.(com|edu|gov|int|mil|net|org|biz|arpa|info|name|pro|aero|coop|museum|[a-zA-Z]{2}))(:[0-9]+)*(\/($|[a-zA-Z0-9.,?'\\+&%$#=~_-]+))*$/;
+        if(urlregex.test(texture)) {
             this.cursor.texture = texture;
         }
         return this.cursor.texture;
@@ -1076,6 +1072,9 @@ class Myr {
 
     getColor = () => {
         return this.cursor.color;
+    };
+    getTexture = () => {
+        return this.cursor.texture;
     };
     getXPos = () => {
         return this.cursor.position.x;

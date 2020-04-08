@@ -192,6 +192,44 @@ export const customCompleter = {
             "yellowgreen"
         ];
 
+        let Texture = [
+            "bark",
+            "blank", 
+            "brick",
+            "cement",
+            "cobblestone",
+            "duck",
+            "error",
+            "floral",
+            "grass",
+            "ground",
+            "illusion",
+            "lava",
+            "maze",
+            "metal",
+            "myr",
+            "night_sky",
+            "patterned_glass",
+            "pavement",
+            "sand",
+            "snow",
+            "steel",
+            "stars",
+            "water",
+            "wicker",
+            "wood",
+            "wool"
+        ];
+
+        callback(null, Texture.map(function (word) {
+            return {
+                caption: word,
+                value: word,
+                meta: "texture",
+                score: 0
+            };
+        }));
+
         callback(null, BasicAutocompleteKeyWords.map(function (word) {
             return {
                 caption: word,
