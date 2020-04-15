@@ -155,9 +155,7 @@ class Banner extends Component {
         if(this.state.currentMessage.title){
             title = (
                 <Grid item 
-                    xs={
-                        Math.round(this.state.currentMessage.title.length/10)
-                    } 
+                    xs={1} 
                     style={this.state.mobile ? style.title.mobile : style.title.desktop}>
                     <strong>{this.state.currentMessage.title}</strong>
                 </Grid>
