@@ -79,7 +79,8 @@ class Banner extends Component {
                 color: this.state.currentMessage.fontColor || "black"
             },
             linkButton: {
-                color: this.state.currentMessage.fontColor || "black"
+                color: this.state.currentMessage.fontColor || "black",
+                borderColor: this.state.currentMessage.fontColor || "black"
             },
             desktop: {
                 marginTop: "8px",
@@ -96,7 +97,7 @@ class Banner extends Component {
         let linkButton = ( <></> );
         if(this.state.currentMessage.link){
             linkButton = (
-                <Button variant="outlined" href={this.state.currentMessage.link} target="_blank" style={style.linkButton}>
+                <Button variant="outlined" href={this.state.currentMessage.link} target="_blank" rel="noopener noreferrer" style={style.linkButton}>
                     {this.state.currentMessage.linkText || "Details"}
                 </Button>
             );
