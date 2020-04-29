@@ -13,6 +13,7 @@ The Engaging Computing Group develops new technologies to enable learners—yout
 - Fixed settings save prompt bug.
 - Courses use new schema.
 - Fixed course UI bug.
+- Added the ability for the admin team to show notification banners.
 
 ## Acknowledgments
 MYR uses [Aframe](https://aframe.io), a fantastic open source project, to render objects and effects in the three dimensional space.  
