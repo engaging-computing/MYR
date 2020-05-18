@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from "react";
-import { auth, provider, scenes, collections } from "../../../firebase.js";
+import { scenes, collections } from "../../../firebase.js";
 import Reference from "../../reference/Reference.js";
 import Collection from "../../collection/Collection.js";
 import SceneConfigMenu from "./SceneConfigMenu.js";
@@ -8,6 +8,7 @@ import MyrTour from "./MyrTour.js";
 import ProjectView from "./ProjectView.js";
 import CourseSelect from "../../courses/CourseSelect.js";
 import WelcomeScreen from "../WelcomeScreen.js";
+import { GoogleLogin, GoogleLogout } from "react-google-login";
 
 import * as layoutTypes from "../../../constants/LayoutTypes.js";
 
@@ -90,6 +91,7 @@ class Header extends Component {
 
         }
 
+        /*
         // Sync authentication
         auth.onAuthStateChanged((account) => {
             if (account) {
@@ -101,6 +103,7 @@ class Header extends Component {
                 this.props.logging.logout();
             }
         });
+        */
 
         // Render project if we have projectId. This should only happen if coming from viewer
         const { match } = this.props;
@@ -174,23 +177,25 @@ class Header extends Component {
     * @summary - The logout function runs when the user click to logout of the application.
     */
     logout = () => {
-        auth.signOut().then(() => {
-            // sync with application state
-            this.props.logging.logout();
-            this.setState({ logMenuOpen: false });
-        });
+        // sync with application state
+        this.props.logging.logout();
+        this.setState({ logMenuOpen: false });
     }
 
     /**
     * @summary - The login function runs when the user click to login of the application.
     */
-    login = () => {
+    login = (googleAuth) => {
+        this.props.logging.login(googleAuth.profileObj);
+        this.setState({ logMenuOpen: false });
+        /*
         auth.signInWithPopup(provider).then((result) => {
             const account = result.account;
             // sync with application state
             this.props.logging.login(account);
             this.setState({ logMenuOpen: false });
         });
+        */
     }
 
     /**
@@ -199,38 +204,55 @@ class Header extends Component {
     loginBtn = () => {
         return (
             <div id="user" >
-                {this.props.user && this.props.user.displayName ?
-                    <Fragment>
-                        <Avatar
-                            id="login"
-                            src={this.props.user.photoURL}
-                            open={this.state.logMenuOpen}
-                            onClick={() => this.setState({ logMenuOpen: !this.state.logMenuOpen })}
-                            label="logout"
-                            style={{ marginTop: 5 }} />
-                        <Popover
-                            open={this.state.logMenuOpen}
-                            anchorEl={document.getElementById("user")}
-                            anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
-                            onClose={this.handleLogClick} >
-                            <MenuItem primarytext="Log Out" onClick={this.logout} >Log Out</MenuItem>
-                        </Popover>
-                    </Fragment>
+                {this.props.user && this.props.user.name ?
+                    <GoogleLogout
+                        clientId="523816335453-d4k4mmt542bp42phibftqvdfldcrq3lv.apps.googleusercontent.com"
+                        buttonText="Logout"
+                        render={renderProps => (
+                            <Fragment>
+                                <Avatar
+                                    id="login"
+                                    src={this.props.user.imageUrl}
+                                    open={this.state.logMenuOpen}
+                                    onClick={() => this.setState({ logMenuOpen: !this.state.logMenuOpen })}
+                                    label="logout"
+                                    style={{ marginTop: 5 }} />
+                                <Popover
+                                    open={this.state.logMenuOpen}
+                                    anchorEl={document.getElementById("user")}
+                                    anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
+                                    onClose={this.handleLogClick} >
+                                    <MenuItem primarytext="Log Out" onClick={renderProps.onClick}>Log Out</MenuItem>
+                                </Popover>
+                            </Fragment>
+                        )}
+                        onLogoutSuccess={this.logout}
+                        onFailure={(err) => console.error("Could not logout: ", err) }
+                    />
                     :
-                    <Button
-                        type="button"
-                        variant="outlined"
-                        size="small"
-                        color="primary"
-                        onClick={this.login}
-                        style={{
-                            color: "white",
-                            margin: 4,
-                            padding: 2,
-                            border: "1px solid #fff"
-                        }}>
-                        Log In
-                    </Button>
+                    <GoogleLogin
+                        clientId="523816335453-d4k4mmt542bp42phibftqvdfldcrq3lv.apps.googleusercontent.com"
+                        buttonText="Login"
+                        isSignedIn={true}
+                        render={renderProps => (
+                            <Button
+                                type="button"
+                                variant="outlined"
+                                size="small"
+                                color="primary"
+                                onClick={renderProps.onClick}
+                                style={{
+                                    color: "white",
+                                    margin: 4,
+                                    padding: 2,
+                                    border: "1px solid #fff"
+                                }}>
+                                    Log In
+                            </Button>
+                        )}
+                        onSuccess={this.login}
+                        onFailure={(err) => { console.error("Error logging in: ", err); }}
+                    />
                 }
             </div>
         );
