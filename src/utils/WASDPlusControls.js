@@ -13,7 +13,7 @@ const MAX_DELTA = 0.25;
 const CLAMP_VELOCITY = 0.01;
 const MOD_Y = 1.5;
 
-let isEmptyObject = (keys) => {
+const isEmptyObject = (keys) => {
     let key;
     for (key in keys) { return false; }
     return true;

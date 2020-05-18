@@ -55,13 +55,37 @@ class MyrTour extends Component {
     }
 }
 
+const lineBreakHelper = (string) => {
+    return (
+        <div>
+            {string.split("\n").map( (i, key) => {
+                return <div key={key}>{i}</div>;
+            })}
+        </div>
+    );
+};
+
+const view = "The View is where you can see your work. " +
+    "You can navigate the scene with the following controls: \n" +
+    "W: Forward \n" +
+    "A: Left\n" +
+    "S: Backward\n" +
+    "D: Right\n" +
+    "Space: Fly Upwards\n" +
+    "Shift: Fly Downwards\n" +
+    "To view the scene in VR, click the goggles!";
+
+const editor = "This is the editor. You can create 3D scenes using JavaScript " +
+    "and a special set of instructions or functions to MYR.\n The editor can be " +
+    "toggled on and off by opening the settings menu in the top right and " +
+    "clicking the \"View Editor\" switch.";
+
+const stop = "The Stop button will stop the scene. \n Use this to save battery.";
+
 const steps = [
     {
         selector: "#ace-editor",
-        content: "This is the editor. You can create 3D scenes using JavaScript " +
-            "and a special set of instructions or functions to MYR.\n The editor can be " +
-            "toggled on and off by opening the settings menu in the top right and " +
-            "clicking the \"View Editor\" switch."
+        content: lineBreakHelper(editor)
     },
     {
         selector: "#play-btn",
@@ -69,15 +93,11 @@ const steps = [
     },
     {
         selector: "#stop-btn",
-        content: "The Stop button will stop the scene. \n Use this to save battery."
+        content: lineBreakHelper(stop)
     },
     {
         selector: "#scene",
-        content: "The View is where you can see your work.\n" +
-            "You can move forward and backward with W and S, \n" +
-            "left and right with A and D, and \n" +
-            "up and down with Space and Shift.\n" +
-            "Click the goggle to view in VR."
+        content: lineBreakHelper(view)
     },
     {
         selector: "#new-btn",
