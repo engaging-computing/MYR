@@ -91,20 +91,6 @@ class Header extends Component {
 
         }
 
-        /*
-        // Sync authentication
-        auth.onAuthStateChanged((account) => {
-            if (account) {
-                this.props.logging.login(account);
-                // 2. If we have a user, load their projects
-                this.props.projectActions.asyncUserProj(this.props.user.uid);
-                this.props.collectionActions.asyncCollections(this.props.user.uid);
-            } else {
-                this.props.logging.logout();
-            }
-        });
-        */
-
         // Render project if we have projectId. This should only happen if coming from viewer
         const { match } = this.props;
         const projectId = (match && match.params && match.params.id) || "";
@@ -188,14 +174,6 @@ class Header extends Component {
     login = (googleAuth) => {
         this.props.logging.login(googleAuth.profileObj);
         this.setState({ logMenuOpen: false });
-        /*
-        auth.signInWithPopup(provider).then((result) => {
-            const account = result.account;
-            // sync with application state
-            this.props.logging.login(account);
-            this.setState({ logMenuOpen: false });
-        });
-        */
     }
 
     /**
@@ -206,7 +184,7 @@ class Header extends Component {
             <div id="user" >
                 {this.props.user && this.props.user.name ?
                     <GoogleLogout
-                        clientId="523816335453-d4k4mmt542bp42phibftqvdfldcrq3lv.apps.googleusercontent.com"
+                        clientId="12320757914-puvjd9tbs79sc19sl433gqp9sci1tfqt.apps.googleusercontent.com"
                         buttonText="Logout"
                         render={renderProps => (
                             <Fragment>
@@ -231,7 +209,7 @@ class Header extends Component {
                     />
                     :
                     <GoogleLogin
-                        clientId="523816335453-d4k4mmt542bp42phibftqvdfldcrq3lv.apps.googleusercontent.com"
+                        clientId="12320757914-puvjd9tbs79sc19sl433gqp9sci1tfqt.apps.googleusercontent.com"
                         buttonText="Login"
                         isSignedIn={true}
                         render={renderProps => (
