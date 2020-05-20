@@ -172,8 +172,13 @@ class Header extends Component {
     * @summary - The login function runs when the user click to login of the application.
     */
     login = (googleAuth) => {
+        //googleAuth.getAuthResponse().id_token;
+        googleAuth.profileObj["uid"] = googleAuth.getAuthResponse().id_token;
         this.props.logging.login(googleAuth.profileObj);
         this.setState({ logMenuOpen: false });
+        
+        this.props.projectActions.asyncUserProj(this.props.user.uid);
+        this.props.collectionActions.asyncCollections(this.props.user.uid);
     }
 
     /**
