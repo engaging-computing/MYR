@@ -303,7 +303,7 @@ class Project extends React.Component {
                                 label="delete Project"
                                 color="secondary"
                                 fullwidth={String(!this.state.showImg)}
-                                onClick={() => this.props.deleteFunc(proj.uid, id, proj.name)}>
+                                onClick={() => this.props.deleteFunc(this.props.user.uid, id, proj.name)}>
                                 <Icon className="material-icons">delete</Icon>
                             </IconButton>
                         </span>

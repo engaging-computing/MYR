@@ -690,7 +690,8 @@ class Header extends Component {
                         exampleProjs={this.props.projects.exampleProjs}
                         projectsOpen={this.state.projectsOpen}
                         handleProjectToggle={this.handleProjectToggle}
-                        tab={this.state.projectTab} />
+                        tab={this.state.projectTab}
+                        user={this.props.user} />
                     <MyrTour
                         tourOpen={this.state.tourOpen}
                         handleTourToggle={this.handleTourToggle}
