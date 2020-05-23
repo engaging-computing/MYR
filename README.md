@@ -16,6 +16,7 @@ The Engaging Computing Group develops new technologies to enable learners—yout
 
 - Fixed bug where reference key was covered on transformations tab.
 - Updated NPM dependencies.
+- Create security policy.
 
 ## Acknowledgments
 
