@@ -29,6 +29,6 @@ jobs:
     - run: echo /home/runner/work/MYR/MYR/src/keys/firebase.js
     - run: npm install
       # When switching to NPM for all builds, switch the above to be `npm ci`
-    - run: npm run build --if-present
     - run: npm test
     - run: npm lint
+    - run: npm run build
