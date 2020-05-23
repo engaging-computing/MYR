@@ -25,7 +25,7 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
     - name: Create firebase key
-      run: mkdir ~/MYR/src/keys && touch ~/MYR/src/keys/firebase.js && echo -e "export const firebaseKey = \"$FIREBASE_KEY\";\nexport default firebaseKey;" > src/keys/firebase.js 
+      run: pwd && mkdir -p ~/MYR/src/keys && touch ~/MYR/src/keys/firebase.js && echo -e "export const firebaseKey = \"$FIREBASE_KEY\";\nexport default firebaseKey;" > src/keys/firebase.js 
     - run: npm install
     - run: npm run build --if-present
     - run: npm test
