@@ -15,6 +15,7 @@ The Engaging Computing Group develops new technologies to enable learners—yout
 ## Change Log - 1.9.0 -> 1.9.1
 
 - Fixed bug where reference key was covered on transformations tab.
+- Updated NPM dependencies.
 
 ## Acknowledgments
 
