@@ -18,6 +18,7 @@ The Engaging Computing Group develops new technologies to enable learners—yout
 - Updated NPM dependencies.
 - Create security policy.
 - Add beta testing with GitHub actions.
+- MYR now uses npm instead of yarn.
 
 ## Acknowledgments
 
