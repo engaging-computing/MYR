@@ -25,7 +25,7 @@ class MyrTour extends Component {
                 {!isDisabled ?
                     <React.Fragment>
                         <Tour
-                            steps={steps}
+                            steps={formatSteps(steps)}
                             maskClassName="mask"
                             isOpen={this.props.tourOpen}
                             onAfterOpen={() => {
@@ -55,37 +55,37 @@ class MyrTour extends Component {
     }
 }
 
-const lineBreakHelper = (string) => {
-    return (
-        <div>
-            {string.split("\n").map( (i, key) => {
-                return <div key={key}>{i}</div>;
-            })}
-        </div>
-    );
+const formatLineBreaks = (string) => {
+    if (typeof string !== "string") {
+        return string;
+    }
+    else {
+        return (
+            <div>
+                {
+                    string.split("\n").map( (i, key) => {
+                        return <div key={key}>{i}</div>;
+                    })
+                }
+            </div>
+        );
+    }
 };
 
-const view = "The View is where you can see your work. " +
-    "You can navigate the scene with the following controls: \n" +
-    "W: Forward \n" +
-    "A: Left\n" +
-    "S: Backward\n" +
-    "D: Right\n" +
-    "Space: Fly Upwards\n" +
-    "Shift: Fly Downwards\n" +
-    "To view the scene in VR, click the goggles!";
-
-const editor = "This is the editor. You can create 3D scenes using JavaScript " +
-    "and a special set of instructions or functions to MYR.\n The editor can be " +
-    "toggled on and off by opening the settings menu in the top right and " +
-    "clicking the \"View Editor\" switch.";
-
-const stop = "The Stop button will stop the scene. \n Use this to save battery.";
+const formatSteps = (steps) => {
+    return steps.map( (step) => {
+        step.content = formatLineBreaks(step.content);
+        return step;
+    });
+};
 
 const steps = [
     {
         selector: "#ace-editor",
-        content: lineBreakHelper(editor)
+        content: "This is the editor. You can create 3D scenes using JavaScript " +
+            "and a special set of instructions or functions to MYR.\nThe editor can be " +
+            "toggled on and off by opening the settings menu in the top right and " +
+            "clicking the \"View Editor\" switch."
     },
     {
         selector: "#play-btn",
@@ -93,11 +93,19 @@ const steps = [
     },
     {
         selector: "#stop-btn",
-        content: lineBreakHelper(stop)
+        content: "The Stop button will stop the scene. \nUse this to save battery."
     },
     {
         selector: "#scene",
-        content: lineBreakHelper(view)
+        content: "The View is where you can see your work. " +
+            "You can navigate the scene with the following controls: \n" +
+            "W: Forward \n" +
+            "A: Left\n" +
+            "S: Backward\n" +
+            "D: Right\n" +
+            "Space: Fly Upwards\n" +
+            "Shift: Fly Downwards\n" +
+            "To view the scene in VR, click the goggles!"
     },
     {
         selector: "#new-btn",
