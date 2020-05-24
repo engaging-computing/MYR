@@ -1,0 +1,36 @@
+# This workflow will do a clean install of node dependencies, build the source code and run tests across different versions of node
+# For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
+
+name: MYR Github Actions CI
+
+on:
+  push:
+    branches: [ master, dev ]
+  pull_request:
+    branches: [ master, dev ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-18.04
+
+    strategy:
+      matrix:
+        node-version: [10.x]
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v1
+      with:
+        node-version: ${{ matrix.node-version }}
+    - shell: bash
+      env:
+        FIREBASE_KEY: ${{ secrets.FIREBASE_KEY }}
+      name: Create firebase key
+      run: pwd && mkdir -p /home/runner/work/MYR/MYR/src/keys && touch /home/runner/work/MYR/MYR/src/keys/firebase.js && echo -e "export const firebaseKey = \"$FIREBASE_KEY\";\nexport default firebaseKey;" > /home/runner/work/MYR/MYR/src/keys/firebase.js 
+    - run: npm install
+      # When switching to NPM for all builds, switch the above to be `npm ci`
+    - run: npm test
+    - run: npm run lint
+    - run: npm run build
