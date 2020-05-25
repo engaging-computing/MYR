@@ -54,7 +54,8 @@ class Header extends Component {
             referenceOpen: false,
             coursesOpen: false,
             tourOpen: false,
-            welcomeOpen: false
+            welcomeOpen: false,
+            updateCollect: false
         };
     }
 
@@ -145,8 +146,6 @@ class Header extends Component {
     * @summary - Removes listener for real time sync process
     */
     componentWillUnmount() {
-        let unsubscribe = scenes.onSnapshot(function () { });
-        unsubscribe();
     }
 
     /**
@@ -156,6 +155,10 @@ class Header extends Component {
     componentDidUpdate() {
         if (this.state.lastMsgTime !== this.props.message.time && this.props.message.text !== "") {
             this.setState({ snackOpen: true, lastMsgTime: this.props.message.time });
+        }
+        if(this.state.updateCollect && this.props.user){
+            this.props.collectionActions.asyncCollection(this.props.collection, this.props.user.uid);
+            this.setState({ updateCollect: false });
         }
     }
 
@@ -310,10 +313,6 @@ class Header extends Component {
     getProjectId = () => {
         const { match } = this.props;
         let projectId = (match && match.params && match.params.id) || null;
-        if (!projectId || !this.props.scene.id || this.state.needsNewId) {
-            // Generate a new projectId
-            projectId = scenes.doc().id;
-        }
         return projectId;
     }
 
