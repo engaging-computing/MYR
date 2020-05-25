@@ -1,6 +1,6 @@
 import * as types from "../constants/ActionTypes";
 
-const collectRef = "/apiv1/collections";
+export const collectRef = "/apiv1/collections";
 
 export function asyncCollections(id) {
     // fetch user's collections
@@ -31,19 +31,28 @@ export function asyncCollection(collectionID, uid) {
             let projectOptions = [];
             fetch(`${collectRef}/id/${collectionID}`, {headers: {"x-access-token": uid}})
                 .then((resp) => {
-                    resp.json().then((data) => {
-                        data.forEach((doc) => {
-                            collectionProjects.push(doc);
-                        });
-                        collectionProjects.map((proj) => {
-                            projectOptions.push({
-                                value: proj._id,
-                                label: proj.name
+                    switch(resp.status){
+                        case 200:
+                            resp.json().then((data) => {
+                                data.forEach((doc) => {
+                                    collectionProjects.push(doc);
+                                });
+                                collectionProjects.map((proj) => {
+                                    projectOptions.push({
+                                        value: proj._id,
+                                        label: proj.name
+                                    });
+                                });
+        
+                                dispatch(syncCollection(projectOptions));
                             });
-                        });
-
-                        dispatch(syncCollection(projectOptions));
-                    });
+                            break;
+                        case 401:
+                            window.alert("Error: You are not logged in as the owner of this collection");
+                            break;
+                        default:
+                            window.alert(`Error fetching collection scenes: ${resp.statusText}`);
+                    }
                 });
         }
     };
@@ -70,23 +79,25 @@ export function deleteCollection(id, name = null, uid) {
     };
 }
 
-export function createCollection(name, uid) {
+export async function createCollection(name, uid) {
     name = name.toLowerCase();
     
-    fetch(`${collectRef}/`, {
+    let resp = await fetch(`${collectRef}/`, {
         method: "POST", 
         body: JSON.stringify({collectID: name}),
         headers:{"Content-Type": "application/json", "x-access-token": uid}
-    }).then((resp) => {
-        if(resp.status === 409){
-            window.alert("Error: A collection already exists with that collection name.");
-        }else if (resp.status !== 201) {
-            window.alert(`Error creating collection: ${resp.statusText}`);
-        }else{
-            this.props.collectionActions.asyncCollections(this.props.user.uid);
-            window.alert("Collection added!");
-        }
     });
+    if(resp.status === 409){
+        window.alert("Error: A collection already exists with that collection name.");
+        return false;
+    }else if (resp.status !== 201) {
+        window.alert(`Error creating collection: ${resp.statusText}`);
+        return false;
+    }else{
+        asyncCollections(uid);
+        window.alert("Collection added!");
+        return true;
+    }
 }
 
 
@@ -96,5 +107,6 @@ export default {
     deleteCollection,
     syncCollection,
     syncCollections,
-    createCollection
+    createCollection,
+    collectRef
 };

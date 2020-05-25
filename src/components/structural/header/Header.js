@@ -1,5 +1,4 @@
 import React, { Component, Fragment } from "react";
-import { scenes, collections } from "../../../firebase.js";
 import Reference from "../../reference/Reference.js";
 import Collection from "../../collection/Collection.js";
 import SceneConfigMenu from "./SceneConfigMenu.js";
@@ -55,7 +54,8 @@ class Header extends Component {
             coursesOpen: false,
             tourOpen: false,
             welcomeOpen: false,
-            updateCollect: false
+            updateCollect: false,
+            fetchCollect: false
         };
     }
 
@@ -72,24 +72,7 @@ class Header extends Component {
             this.props.referenceExampleActions.fetchReferenceExample(this.props.refExName);
         }
         else if (this.props.collection) {
-            let userCollections = [];
-            collections.where("collectionID", "==", this.props.collection).get().then(snap => {
-                snap.forEach(doc => {
-                    let dat = doc.data();
-                    userCollections.push({
-                        collectionID: dat.collectionID,
-                        uid: dat.uid
-                    });
-                });
-            }).then(() => {
-                if (this.props.user && this.props.user.uid && userCollections.length === 1 && userCollections[0].uid === this.props.user.uid) {
-                    this.props.collectionActions.asyncCollection(this.props.collection);
-                }
-                else {
-                    window.alert("Error: You are not logged in as the owner of this collection");
-                }
-            });
-
+            this.setState({ fetchCollect: true });
         }
 
         // Render project if we have projectId. This should only happen if coming from viewer
@@ -97,17 +80,8 @@ class Header extends Component {
         const projectId = (match && match.params && match.params.id) || "";
         if (this.props.match && projectId) {
             this.setState({ spinnerOpen: true });
-            // When the data's metedata changes, ie update
-            scenes.doc(projectId).onSnapshot({
-                includeMetadataChanges: true,
-            }, () => {
-                if (this.props.user && this.props.user.uid) {
-                    this.props.actions.fetchScene(projectId, this.props.user.uid);
-                } else {
-                    this.props.actions.fetchScene(projectId);
-                }
-                this.setState({ spinnerOpen: false });
-            });
+            this.props.actions.fetchScene(projectId);
+            this.setState({ spinnerOpen: false });
         }
 
         // Bind to keyboard to listen for shortcuts
@@ -159,6 +133,10 @@ class Header extends Component {
         if(this.state.updateCollect && this.props.user){
             this.props.collectionActions.asyncCollection(this.props.collection, this.props.user.uid);
             this.setState({ updateCollect: false });
+        }
+        if(this.state.fetchCollect && this.props.user){
+            this.props.collectionActions.asyncCollection(this.props.collection, this.props.user.uid);
+            this.setState({ fetchCollect: false });
         }
     }
 

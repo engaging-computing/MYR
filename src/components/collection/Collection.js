@@ -154,7 +154,28 @@ class CollectionModal extends Component {
             this.handleAddClassToggle();
         }
         else {
-            this.props.collectionActions.createCollection(this.state.newcollectionID, this.props.user.uid);
+            let name = this.state.newcollectionID.toLowerCase();
+    
+            fetch("/apiv1/collections", {
+                method: "POST", 
+                body: JSON.stringify({collectID: name}),
+                headers:{"Content-Type": "application/json", "x-access-token": this.props.user.uid}
+            }).then((resp) => {
+
+                switch(resp.status) {
+                    case 201://Success
+                        this.props.collectionActions.asyncCollections(this.props.user.uid);
+                        window.alert("Collection added!");
+                        this.handleCloseAll();
+                        break;
+                    case 409:
+                        window.alert("Error: A collection already exists with that collection name.");
+                        break;
+                    default:
+                        window.alert(`Error creating collection: ${resp.statusText}`);
+                        break;
+                }
+            });
         }
     }
 
