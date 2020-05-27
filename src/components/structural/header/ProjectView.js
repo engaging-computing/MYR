@@ -236,12 +236,12 @@ class Project extends React.Component {
         let project;
         if (this.state.isUserProj) {
             project = this.props.userProjs.find(function (project) {
-                return project.id === projectId;
+                return project._id === projectId;
             });
         }
         else {
             project = this.props.exampleProjs.find(function (project) {
-                return project.id === projectId;
+                return project._id === projectId;
             });
         }
         if (!project) {
@@ -256,7 +256,7 @@ class Project extends React.Component {
         return (
             <div>
                 <h3>{project.name}</h3>
-                <p id="info-description">{project.data.desc}</p>
+                <p id="info-description">{project.desc}</p>
                 <small>Last Modified: {lastMod.toDateString()}</small>
             </div>
         );
