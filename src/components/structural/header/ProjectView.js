@@ -225,7 +225,7 @@ class Project extends React.Component {
             <Button
                 color="primary"
                 onClick={this.handleAddEmail}
-                href={`mailto:${this.state.sendTo.join("; ")}?subject=Check out my VR Scene in MYR&body=You can find my scene at ${window.origin + "/" + this.state.projectId}`}>
+                href={`mailto:${this.state.sendTo.join("; ")}?subject=Check out my VR Scene in MYR&body=You can find my scene at ${window.origin + "/scene/" + this.state.projectId}`}>
                 Send
             </Button>
         </div>
@@ -266,7 +266,7 @@ class Project extends React.Component {
         return (
             <div>
                 <h5>QR Code to Your Project</h5>
-                <QRCode size={330} value={window.origin + "/" + this.state.projectId} />
+                <QRCode size={330} value={window.origin + "/scene/" + this.state.projectId} />
             </div>
         );
     };
@@ -278,7 +278,7 @@ class Project extends React.Component {
             return (
                 <div key={id} id={id} title={name}
                     className="proj col-xs-12 col-md-6 col-lg-4 pt-2 pl-0" >
-                    <a href={`/${id}`} >
+                    <a href={`/scene/${id}`} >
                         <span className="project-span">{name}</span>
                         <img id={id} alt={id} src={proj.url}
                             className={"img-thumbnail " + (this.state.showImg && "d-none")} />
