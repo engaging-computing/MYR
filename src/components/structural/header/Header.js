@@ -8,6 +8,7 @@ import ProjectView from "./ProjectView.js";
 import CourseSelect from "../../courses/CourseSelect.js";
 import WelcomeScreen from "../WelcomeScreen.js";
 import { GoogleLogin, GoogleLogout } from "react-google-login";
+import sockets from "socket.io-client";
 
 import * as layoutTypes from "../../../constants/LayoutTypes.js";
 
@@ -55,8 +56,13 @@ class Header extends Component {
             tourOpen: false,
             welcomeOpen: false,
             updateCollect: false,
-            fetchCollect: false
+            fetchCollect: false,
+            socket: sockets()
         };
+
+        this.state.socket.on("update", () => {
+            this.props.actions.fetchScene(this.props.projectId);
+        });
     }
 
     /**
@@ -82,6 +88,8 @@ class Header extends Component {
             this.setState({ spinnerOpen: true });
             this.props.actions.fetchScene(projectId);
             this.setState({ spinnerOpen: false });
+
+            this.state.socket.emit("scene", projectId);
         }
 
         // Bind to keyboard to listen for shortcuts
@@ -346,7 +354,7 @@ class Header extends Component {
                 // If we have a new projectId reload page with it
                 if (projectId !== this.props.projectId) {
                     this.setState({ spinnerOpen: false });
-                    window.location.href = window.origin + "/" + projectId;
+                    window.location.href = window.origin + "/scene/" + projectId;
                     this.props.projectActions.asyncUserProj(this.props.user.uid);
                 }
                 if(!this.state.viewOnly) {
@@ -354,6 +362,7 @@ class Header extends Component {
                 }
                 this.setState({spinnerOpen: false});
                 this.handleSaveToggle();
+                this.state.socket.emit("save");
                 return true;
             });
         } else {
