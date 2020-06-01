@@ -63,16 +63,13 @@ export function deleteProj(uid, id, name) {
                                 console.error("Error removing document: ", response.status);
                             }
                             // If deleting current project, redirect to home
-                            else if (window.location.href === window.origin + "/" + id || window.location.href === window.origin + "/" + id + "/") {
+                            else if (window.location.href === window.origin + "/scene/" + id || window.location.href === window.origin + "/scene/" + id + "/") {
                                 window.location.href = window.origin;
                             }
-                            return Promise.resolve();
                         }).catch((error) => {
                             console.error("Error removing document: ", error);
-                            return Promise.reject();
                         });
                     }
-                    return Promise.reject();
                 });
 
             // Delete Document

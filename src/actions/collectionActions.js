@@ -38,7 +38,7 @@ export function asyncCollection(collectionID, uid) {
                                     collectionProjects.push(doc);
                                 });
                                 collectionProjects.map((proj) => {
-                                    projectOptions.push({
+                                    return projectOptions.push({
                                         value: proj._id,
                                         label: proj.name
                                     });

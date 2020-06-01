@@ -61,7 +61,10 @@ class Header extends Component {
         };
 
         this.state.socket.on("update", () => {
-            this.props.actions.fetchScene(this.props.projectId);
+            let editor = window.ace.edit("ace-editor");            
+            if(editor.getSession().getValue() === this.props.text || window.confirm("A new version of the scene is available, would you like to load it?")){
+                this.props.actions.fetchScene(this.props.projectId);
+            }
         });
     }
 
