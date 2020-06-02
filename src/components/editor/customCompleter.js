@@ -1,4 +1,5 @@
 import myrReference from "../../myr/reference.js";
+import myrTextures from "../structural/Textures.js";
 
 export const customCompleter = {
     getCompletions: function (editor, session, pos, prefix, callback) {
@@ -32,6 +33,11 @@ export const customCompleter = {
             "public",
             "protected",
             "static"
+        ];
+
+        let texture = myrTextures();
+        let Texture = [...texture.TexturePack.map(obj => obj.title),
+            "group()"
         ];
 
         let reference = myrReference();
@@ -192,44 +198,6 @@ export const customCompleter = {
             "yellowgreen"
         ];
 
-        let Texture = [
-            "bark",
-            "blank", 
-            "brick",
-            "cement",
-            "cobblestone",
-            "duck",
-            "error",
-            "floral",
-            "grass",
-            "ground",
-            "illusion",
-            "lava",
-            "maze",
-            "metal",
-            "myr",
-            "night_sky",
-            "patterned_glass",
-            "pavement",
-            "sand",
-            "snow",
-            "steel",
-            "stars",
-            "water",
-            "wicker",
-            "wood",
-            "wool"
-        ];
-
-        callback(null, Texture.map(function (word) {
-            return {
-                caption: word,
-                value: word,
-                meta: "texture",
-                score: 0
-            };
-        }));
-
         callback(null, BasicAutocompleteKeyWords.map(function (word) {
             return {
                 caption: word,
@@ -254,6 +222,15 @@ export const customCompleter = {
                 value: word,
                 meta: "color",
                 score: 0
+            };
+        }));
+
+        callback(null, Texture.map(function (word) {
+            return {
+                caption: word,
+                value: word,
+                meta: "texture",
+                score: 3
             };
         }));
     }

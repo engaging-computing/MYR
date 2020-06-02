@@ -33,6 +33,7 @@ class Myr {
             radius: "1",
             phiLength: 360,
             loop: true,
+            textureColoring: false,
             duration: 1000,
             magnitude: {
                 spin: 360,
@@ -101,6 +102,7 @@ class Myr {
             radius: "1",
             phiLength: 360,
             loop: true,
+            textureColoring: false,
             duration: 1000,
             magnitude: {
                 spin: 360,
@@ -116,7 +118,6 @@ class Myr {
             });
         }
     }
-
 
     /********************* TRANSFORMATIONS *********************/
 
@@ -145,6 +146,7 @@ class Myr {
             radius: "1",
             phiLength: 360,
             loop: true,
+            textureColoring: false,
             duration: 1000,
             magnitude: {
                 spin: 360,
@@ -428,18 +430,25 @@ class Myr {
         return this.cursor.color;
     }
 
-    setTexture = (texture = "blank") => {
-        for (let i=0; i < TexturePack.length; i++) {
-            if (TexturePack[i].title === texture) {
-                this.cursor.texture = TexturePack[i].url;
-            }
-        }
+    setTexture = (texture = "") => {
+        let textures = TexturePack();
+        let textureTitle = [...textures.TexturePack.map(obj => obj.title)];
+        let textureURL = [...textures.TexturePack.map(obj => obj.url)];
+ 
+        this.cursor.texture = textureURL[textureTitle.indexOf(texture)];
+
         let urlregex = /^(https?|ftp):\/\/([a-zA-Z0-9.-]+(:[a-zA-Z0-9.&%$-]+)*@)*((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9][0-9]?)(\.(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9]?[0-9])){3}|([a-zA-Z0-9-]+\.)*[a-zA-Z0-9-]+\.(com|edu|gov|int|mil|net|org|biz|arpa|info|name|pro|aero|coop|museum|[a-zA-Z]{2}))(:[0-9]+)*(\/($|[a-zA-Z0-9.,?'\\+&%$#=~_-]+))*$/;
-        if(urlregex.test(texture)) {
+        if(urlregex.test(texture) || (texture === "")) {
             this.cursor.texture = texture;
-        }
+        } 
+
         return this.cursor.texture;
     }
+
+    setTextureColoring = (i) => {
+        this.cursor.textureColoring = Boolean(i);
+        return this.cursor.textureColoring;
+    };
 
     getRandomColor = (colors = null) =>{
         let color;
@@ -530,16 +539,30 @@ class Myr {
     }
 
     // Render an Aframe Box Primitive with current Myr settings
-    box = (params) => {
+/*    box = (params) => {
         let base = {
             geometry: "primitive: box;",
             id: "box" + this.genNewId(),
-            material: `color: ${this.cursor.color}; side: double; src: ${this.cursor.texture};`,
+            material: this.cursor.textureColoring ? `color: ${this.cursor.color}; side: double; src: ${this.cursor.texture};` : `color: white; side: double; src: ${this.cursor.texture};`,
             position: { ...this.cursor.position },
             rotation: this.cursor.rotation,
             scale: this.cursor.scale,
             texture: this.cursor.texture,
         };
+        return this.mergeProps(base, params);
+    }*/
+
+    box = (params) => {
+        let base = {
+            geometry: "primitive: box;",
+            id: "box" + this.genNewId(),
+            material: ((this.cursor.texture === "" || this.cursor.textureColoring) ? `color: ${this.cursor.color};` : "color: white;") + `side: double; src: ${this.cursor.texture};`,
+            position: { ...this.cursor.position },
+            rotation: this.cursor.rotation,
+            scale: this.cursor.scale,
+            texture: this.cursor.texture,
+        };
+
         return this.mergeProps(base, params);
     }
 
@@ -551,7 +574,7 @@ class Myr {
             position: this.cursor.position,
             scale: this.cursor.scale,
             rotation: this.cursor.rotation,
-            material: `color: ${this.cursor.color}; src: ${this.cursor.texture}; side: double;`,
+            material: ((this.cursor.texture === "" || this.cursor.textureColoring) ? `color: ${this.cursor.color};` : "color: white;") + `side: double; src: ${this.cursor.texture};`,
         };
         return this.mergeProps(base, params);
     }
@@ -564,7 +587,7 @@ class Myr {
             position: this.cursor.position,
             scale: this.cursor.scale,
             rotation: this.cursor.rotation,
-            material: `color: ${this.cursor.color}; src: ${this.cursor.texture}; side: double;`,
+            material: ((this.cursor.texture === "" || this.cursor.textureColoring) ? `color: ${this.cursor.color};` : "color: white;") + `side: double; src: ${this.cursor.texture};`,
         };
         return this.mergeProps(base, params);
     }
@@ -577,7 +600,7 @@ class Myr {
             position: this.cursor.position,
             scale: this.cursor.scale,
             rotation: this.cursor.rotation,
-            material: `color: ${this.cursor.color}; src: ${this.cursor.texture}; side: double;`,
+            material: ((this.cursor.texture === "" || this.cursor.textureColoring) ? `color: ${this.cursor.color};` : "color: white;") + `side: double; src: ${this.cursor.texture};`,
         };
         return this.mergeProps(base, params);
     }
@@ -591,7 +614,7 @@ class Myr {
             position: this.cursor.position,
             scale: this.cursor.scale,
             rotation: this.cursor.rotation,
-            material: `color: ${this.cursor.color}; src: ${this.cursor.texture}; side: double;`,
+            material: ((this.cursor.texture === "" || this.cursor.textureColoring) ? `color: ${this.cursor.color};` : "color: white;") + `side: double; src: ${this.cursor.texture};`,
         };
         return this.mergeProps(base, params);
     }
@@ -604,7 +627,7 @@ class Myr {
             position: this.cursor.position,
             scale: this.cursor.scale,
             rotation: this.cursor.rotation,
-            material: `color: ${this.cursor.color}; src: ${this.cursor.texture}; side: double;`,
+            material: ((this.cursor.texture === "" || this.cursor.textureColoring) ? `color: ${this.cursor.color};` : "color: white;") + `side: double; src: ${this.cursor.texture};`,
         };
         return this.mergeProps(base, params);
     }
@@ -617,7 +640,7 @@ class Myr {
             position: this.cursor.position,
             scale: this.cursor.scale,
             rotation: this.cursor.rotation,
-            material: `color: ${this.cursor.color}; src: ${this.cursor.texture}; side: double;`,
+            material: ((this.cursor.texture === "" || this.cursor.textureColoring) ? `color: ${this.cursor.color};` : "color: white;") + `side: double; src: ${this.cursor.texture};`,
         };
         return this.mergeProps(base, params);
     }
@@ -631,7 +654,7 @@ class Myr {
             position: this.cursor.position,
             scale: this.cursor.scale,
             rotation: this.cursor.rotation,
-            material: `color: ${this.cursor.color}; src: ${this.cursor.texture}; side: double;`,
+            material: ((this.cursor.texture === "" || this.cursor.textureColoring) ? `color: ${this.cursor.color};` : "color: white;") + `side: double; src: ${this.cursor.texture};`,
         };
         return this.mergeProps(base, params);
     }
@@ -643,7 +666,7 @@ class Myr {
             position: this.cursor.position,
             scale: this.cursor.scale,
             rotation: this.cursor.rotation,
-            material: `color: ${this.cursor.color}; src: ${this.cursor.texture}; side: double;`,
+            material: ((this.cursor.texture === "" || this.cursor.textureColoring) ? `color: ${this.cursor.color};` : "color: white;") + `side: double; src: ${this.cursor.texture};`,
         };
         return this.mergeProps(base, params);
     }
@@ -656,7 +679,7 @@ class Myr {
             position: this.cursor.position,
             scale: this.cursor.scale,
             rotation: this.cursor.rotation,
-            material: `color: ${this.cursor.color}; src: ${this.cursor.texture}; side: double;`,
+            material: ((this.cursor.texture === "" || this.cursor.textureColoring) ? `color: ${this.cursor.color};` : "color: white;") + `side: double; src: ${this.cursor.texture};`,
         };
         return this.mergeProps(base, params);
     }
@@ -668,7 +691,7 @@ class Myr {
             position: this.cursor.position,
             scale: this.cursor.scale,
             rotation: this.cursor.rotation,
-            material: `color: ${this.cursor.color}; src: ${this.cursor.texture}; side: double;`,
+            material: ((this.cursor.texture === "" || this.cursor.textureColoring) ? `color: ${this.cursor.color};` : "color: white;") + `side: double; src: ${this.cursor.texture};`,
         };
         return this.mergeProps(base, params);
     }
@@ -681,7 +704,7 @@ class Myr {
             position: this.cursor.position,
             scale: this.cursor.scale,
             rotation: this.cursor.rotation,
-            material: `color: ${this.cursor.color}; src: ${this.cursor.texture}; side: double;`,
+            material: ((this.cursor.texture === "" || this.cursor.textureColoring) ? `color: ${this.cursor.color};` : "color: white;") + `side: double; src: ${this.cursor.texture};`,
         };
         return this.mergeProps(base, params);
     }
@@ -693,7 +716,7 @@ class Myr {
             position: this.cursor.position,
             scale: this.cursor.scale,
             rotation: this.cursor.rotation,
-            material: `color: ${this.cursor.color}; src: ${this.cursor.texture}; side: double;`,
+            material: ((this.cursor.texture === "" || this.cursor.textureColoring) ? `color: ${this.cursor.color};` : "color: white;") + `side: double; src: ${this.cursor.texture};`,
         };
         return this.mergeProps(base, params);
     }
@@ -712,7 +735,7 @@ class Myr {
             value: text,
             id: "txt" + this.genNewId(),
             side: "double",
-            color: this.cursor.color,
+            material: `color: ${this.cursor.color}; side: double;`,
             position: this.cursor.position,
             scale: this.cursor.scale,
             rotation: this.cursor.rotation,
@@ -732,7 +755,7 @@ class Myr {
             position: this.cursor.position,
             scale: this.cursor.scale,
             rotation: this.cursor.rotation,
-            material: `color: ${this.cursor.color}; src: ${this.cursor.texture}; side: double;`,
+            material: ((this.cursor.texture === "" || this.cursor.textureColoring) ? `color: ${this.cursor.color};` : "color: white;") + `side: double; src: ${this.cursor.texture};`,
         };
         return this.mergeProps(base, params);
     }
@@ -744,7 +767,7 @@ class Myr {
             position: this.cursor.position,
             scale: this.cursor.scale,
             rotation: this.cursor.rotation,
-            material: `color: ${this.cursor.color}; side: double; src: ${this.cursor.texture};`,
+            material: ((this.cursor.texture === "" || this.cursor.textureColoring) ? `color: ${this.cursor.color};` : "color: white;") + `side: double; src: ${this.cursor.texture};`,
             p: 2,
             q: 3,
         };
@@ -758,7 +781,7 @@ class Myr {
             position: this.cursor.position,
             scale: this.cursor.scale,
             rotation: this.cursor.rotation,
-            material: `color: ${this.cursor.color}; src: ${this.cursor.texture}; side: double;`,
+            material: ((this.cursor.texture === "" || this.cursor.textureColoring) ? `color: ${this.cursor.color};` : "color: white;") + `side: double; src: ${this.cursor.texture};`,
         };
         return this.mergeProps(base, params);
     }
@@ -772,7 +795,7 @@ class Myr {
             position: this.cursor.position,
             scale: this.cursor.scale,
             rotation: this.cursor.rotation,
-            material: `color: ${this.cursor.color}; src: ${this.cursor.texture}; side: double;`,
+            material: ((this.cursor.texture === "" || this.cursor.textureColoring) ? `color: ${this.cursor.color};` : "color: white;") + `side: double; src: ${this.cursor.texture};`,
         };
         return this.mergeProps(base, params);
     }
@@ -1074,7 +1097,16 @@ class Myr {
         return this.cursor.color;
     };
     getTexture = () => {
-        return this.cursor.texture;
+        let textures = TexturePack();
+        let textureTitle = [...textures.TexturePack.map(obj => obj.title)];
+        let textureURL = [...textures.TexturePack.map(obj => obj.url)];
+        let returnTexture = textureTitle[textureURL.indexOf(this.cursor.texture)];
+
+        if(returnTexture === undefined){
+            returnTexture = this.cursor.texture;
+        }
+
+        return returnTexture;
     };
     getXPos = () => {
         return this.cursor.position.x;
