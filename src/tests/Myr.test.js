@@ -866,6 +866,15 @@ describe("Other Myr functionality", () => {
         myr.setColor("#ff0000");
         expect(myr.cursor.color).toEqual("#ff0000");
     });
-    
+
+    // This is will test different variations of color
+    it("Should accept any caps or lowercase letters", () => {
+        myr.setColor("Blue");
+        expect(myr.cursor.color).toEqual("blue");
+        myr.setColor("pURPle");
+        expect(myr.cursor.color).toEqual("purple");
+        myr.setColor("OrAnGe");
+        expect(myr.cursor.color).toEqual("orange");
+    });
 
 });
