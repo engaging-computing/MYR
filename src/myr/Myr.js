@@ -794,7 +794,7 @@ class Myr {
             color: this.cursor.color,
 
             position: this.cursor.position,
-            scale: this.cursor.scale,
+            scale: "1 1 1",
             rotation: this.cursor.rotation,
         };	
         return this.mergeProps(base, params);
@@ -818,7 +818,7 @@ class Myr {
             },	  
             color: this.cursor.color,
             position: this.cursor.position,
-            scale: this.cursor.scale,
+            scale:  "1 1 1",
             rotation: {
                 ...this.cursor.rotation,
                 x: this.cursor.rotation.x-90,
@@ -845,27 +845,28 @@ class Myr {
             },	 
             color: this.cursor.color,
             position: this.cursor.position,
-            scale: this.cursor.scale,
+            scale: "1 1 1",
             rotation: this.cursor.rotation,
         };	
         return this.mergeProps(base, params);
     }
 
-    hemisphereLight  = (groundColor,params) => {
+    hemisphereLight  = (groundColor="red",params) => {
         let base = {
             id: "lgt" + this.genNewId(),
             light: {
                 state:
                     `type:hemisphere; 
-                    intensity: ${this.cursor.light.intensity}; 
+                    intensity: ${this.cursor.light.intensity};
                     color: ${this.cursor.color};
                     groundColor: ${groundColor};
                     `,
                 type: "hemisphere",
+                groundColor: groundColor
             },	  
             color: this.cursor.color,
             position: this.cursor.position,
-            scale: this.cursor.scale,
+            scale: "1 1 1",
             rotation: this.cursor.rotation,
         };	
         return this.mergeProps(base, params);
@@ -885,7 +886,7 @@ class Myr {
             },	  
             color: this.cursor.color,
             position: this.cursor.position,
-            scale: this.cursor.scale,
+            scale: "1 1 1",
             rotation: this.cursor.rotation,
         };	
         return this.mergeProps(base, params);

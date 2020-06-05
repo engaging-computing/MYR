@@ -135,11 +135,11 @@ class View extends Component {
                     ent.light.state +="target: #lighttarget;";
                     target = <a-entity id="lighttarget"  position={ent.light.target}></a-entity>;
                 }
-                if(this.props.sceneConfig.settings.castShadow){
-                    ent.light.state += this.lightShadowHelper(ent.light);
-                }
                 if(this.props.sceneConfig.settings.lightIndicator){
                     indicator = this.lightIndicatorHelper(ent);
+                }
+                if(this.props.sceneConfig.settings.castShadow){
+                    ent.light.state += this.lightShadowHelper(ent.light);
                 }
                 return <a-entity key={ent.id} id={ent.id} light={ent.light.state} {...flattened}>{indicator}{target}</a-entity>;
             }
@@ -153,15 +153,26 @@ class View extends Component {
         }
     }
     //return elements that contains necessary configuration for light indicator based on light's type
-    lightIndicatorHelper =(ent)=>{  
-        if(ent.light.type !== "ambient"){
-            let position =`position: ${ent.position.x || 0} ${ent.position.y || 0} ${ent.position.z || 0}`;
-            let geo = `primitive: ${ent.light.type+"LightIndicator"};`;
-            let geoOutline = `primitive: ${ent.light.type+"LightOutlineIndicator"};`;
-            let mat = `color:${ent.color}; side:double;`;
+    lightIndicatorHelper =(ent)=>{ 
+        let position =`position: ${ent.position.x || 0} ${ent.position.y || 0} ${ent.position.z || 0}`;
+        let geo = `primitive: ${ent.light.type+"LightIndicator"};`;
+        let geoOutline = `primitive: ${ent.light.type+"LightOutlineIndicator"};`;
+        let mat = `color:${ent.color}; side:double;`;
+        let layer = "type: mesh; layer:1;";
+        if(ent.light.type === "hemisphere"){
+            let oppositePosition =`position: ${-ent.position.x || 0} ${-ent.position.y || 0} ${-ent.position.z || 0}`;
+            return <a-entity>
+                <a-entity key={ent.id+"IndicatorTop"} id={ent.id+"IndicatorTop"} geometry={geo} material={mat} layer={layer} indicatorrotation={position}>
+                    <a-entity key={ent.id+"IndicatorBottom"} id={ent.id+"IndicatorBottom"} geometry={geo} material={`color:${ent.light.groundColor};side:double;`} layer={layer} indicatorrotation={oppositePosition}></a-entity>
+                </a-entity>
+                <a-entity key={ent.id+"IndicatorOutlineTop"} id={ent.id+"IndicatorOutline"} geometry={geoOutline} material={mat} outline layer={layer} indicatorrotation={position}>
+                    <a-entity key={ent.id+"IndicatorOutlineBottom"} id={ent.id+"IndicatorOutlineBottom"} geometry={geoOutline} material={`color:${ent.light.groundColor};side:double;`} outline layer={layer} indicatorrotation={oppositePosition}></a-entity>;
+                </a-entity>
+            </a-entity>;
+        } else if(ent.light.type !== "ambient"){
             return <a-entity >
-                <a-entity key={ent.id+"Indicator"} id={ent.id+"Indicator"} geometry={geo} material={mat} layer="type: mesh; layer:1;" indicatorrotation={position}></a-entity>;
-                <a-entity key={ent.id+"IndicatorOutline"} id={ent.id+"IndicatorOutline"} geometry={geoOutline} material={mat} outline layer="type: mesh; layer:1;" indicatorrotation={position}></a-entity>;
+                <a-entity key={ent.id+"Indicator"} id={ent.id+"Indicator"} geometry={geo} material={mat} layer={layer} indicatorrotation={position}></a-entity>;
+                <a-entity key={ent.id+"IndicatorOutline"} id={ent.id+"IndicatorOutline"} geometry={geoOutline} material={mat} outline layer={layer} indicatorrotation={position}></a-entity>;
             </a-entity>;
         }
         return null;

@@ -59,15 +59,13 @@ AFRAME.registerGeometry("hemisphereLightIndicator",{
     init: function(){
         let geometry = new THREE.Geometry();
 
-        let topCone = new THREE.ConeGeometry(.5);
-        let bottomCone = new THREE.ConeGeometry(.5);
-        let cylinder = new THREE.CylinderGeometry(.1,.1 ,2 ,20);
-        topCone.translate(0,1.5,0);
-        bottomCone.translate(0,1.5,0);
-        bottomCone.rotateX(Math.PI);
-        geometry.merge(topCone);
-        geometry.merge(cylinder);
-        geometry.merge(bottomCone);
+        let arrowHead = new THREE.ConeGeometry(.5);
+        let arrowPole = new THREE.CylinderGeometry(.1,.1 ,1 ,20);
+        arrowHead.translate(0,1.5,0);
+        arrowPole.translate(0,0.5,0);
+
+        geometry.merge(arrowHead);
+        geometry.merge(arrowPole);
 
         this.geometry = geometry;
     },
@@ -143,16 +141,12 @@ AFRAME.registerGeometry("hemisphereLightOutlineIndicator",{
     init: function(){
         let geometry = new THREE.Geometry();
 
-        let topCone = new THREE.ConeGeometry(.7,1.3);
-        let bottomCone = new THREE.ConeGeometry(.7,1.3);
-        let cylinder = new THREE.CylinderGeometry(.2,.2 ,2.8 ,20,4);
-        topCone.translate(0,1.5,0);
-        bottomCone.translate(0,1.5,0);
-        bottomCone.rotateX(Math.PI);
-        geometry.merge(topCone);
-        geometry.merge(cylinder);
-        geometry.merge(bottomCone);
-
+        let arrowHead = new THREE.ConeGeometry(.7,1.3);
+        let arrowPole = new THREE.CylinderGeometry(.2,.2 ,1.2 ,20,4);
+        arrowHead.translate(0,1.5,0);
+        arrowPole.translate(0,0.6,0);
+        geometry.merge(arrowHead);
+        geometry.merge(arrowPole);
         this.geometry = geometry;
     },
 });
