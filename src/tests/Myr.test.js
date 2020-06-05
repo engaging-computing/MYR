@@ -866,5 +866,6 @@ describe("Other Myr functionality", () => {
         myr.setColor("#ff0000");
         expect(myr.cursor.color).toEqual("#ff0000");
     });
+    
 
 });
