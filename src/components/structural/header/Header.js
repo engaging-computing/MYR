@@ -181,7 +181,7 @@ class Header extends Component {
             <div id="user" >
                 {this.props.user && this.props.user.name ?
                     <GoogleLogout
-                        clientId="12320757914-puvjd9tbs79sc19sl433gqp9sci1tfqt.apps.googleusercontent.com"
+                        clientId={process.env.REACT_APP_GOOGLE_CLIENTID}
                         buttonText="Logout"
                         render={renderProps => (
                             <Fragment>
@@ -206,7 +206,7 @@ class Header extends Component {
                     />
                     :
                     <GoogleLogin
-                        clientId="12320757914-puvjd9tbs79sc19sl433gqp9sci1tfqt.apps.googleusercontent.com"
+                        clientId={process.env.REACT_APP_GOOGLE_CLIENTID}
                         buttonText="Login"
                         isSignedIn={true}
                         render={renderProps => (
