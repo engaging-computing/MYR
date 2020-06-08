@@ -321,7 +321,7 @@ class Header extends Component {
     /**
     * @summary - When the user clicks save it will upload the information to Firebase
     */
-    handleSave = () => {
+    handleSave = (newCollectionID = undefined) => {
         let editor, text;
         if (!this.props.viewOnly) {
             //If in editor mode, gets text directly from editor
@@ -343,7 +343,10 @@ class Header extends Component {
                 desc: this.props.scene.desc,
                 code: text,
                 uid: this.props.user.uid,
-                settings: this.props.scene.settings,
+                settings: {
+                    ...this.props.scene.settings,
+                    collectionID: newCollectionID || this.props.scene.settings.collectionID
+                },
                 updateTime: Date.now(),
                 createTime: (this.props.scene.createTime ? this.props.scene.createTime : Date.now())
             };

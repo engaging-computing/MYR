@@ -380,7 +380,7 @@ class ConfigModal extends Component {
                 onClick={() => {
                     this.handleAddClassToggle();
                     this.props.sceneActions.addCollectionID(this.state.collectionID.toLowerCase());
-                    this.props.handleSave();
+                    this.props.handleSave(this.state.collectionID.toLowerCase());
                     this.props.handleSaveClose();
                 }} >
                 Save

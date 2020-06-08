@@ -29,7 +29,7 @@ export function asyncCollection(collectionID, uid) {
         if (collectionID) {
             let collectionProjects = [];
             let projectOptions = [];
-            fetch(`${collectRef}/id/${collectionID}`, {headers: {"x-access-token": uid}})
+            fetch(`${collectRef}/collectionID/${collectionID}`, {headers: {"x-access-token": uid}})
                 .then((resp) => {
                     switch(resp.status){
                         case 200:
@@ -68,7 +68,7 @@ export function deleteCollection(id, name = null, uid) {
         if (window.confirm(`Are you sure you want to delete collection "${name}"?`)) {
 
             // Delete Document
-            fetch(`${collectRef}/id/${name}`, {method: "DELETE", headers: { "x-access-token": uid}}).then((resp) => {
+            fetch(`${collectRef}/collectionID/${name}`, {method: "DELETE", headers: { "x-access-token": uid}}).then((resp) => {
                 if(resp.status !== 204) {
                     console.error(`Error deleting collection ${name}: ${resp.statusText}`);
                     return;
