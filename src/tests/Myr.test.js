@@ -867,7 +867,7 @@ describe("Other Myr functionality", () => {
         expect(myr.cursor.color).toEqual("#ff0000");
         myr.setColor("#FF0000");
         expect(myr.cursor.color).toEqual("#ff0000");
-        myr.setColor("#0000FF");
+        myr.setColor("#0000fF");
         expect(myr.cursor.color).toEqual("#0000ff");
         myr.setColor("#008000");
         expect(myr.cursor.color).toEqual("#008000");
