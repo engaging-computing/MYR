@@ -5,8 +5,6 @@ import "three-pathfinding/dist/three-pathfinding";
 import "aframe-extras/dist/aframe-extras.min.js";
 import "aframe-physics-system";
 import "aframe-environment-component";
-import * as THREE from "three";
-
 /**
  * @summary - The View component return the aframe representation of the scene. This
  * system utilizes the entity component system(ECS) to build objects in the scene from different
@@ -31,7 +29,7 @@ class View extends Component {
         }
         window.addEventListener("keydown", function (e) {
             //KEYS: left and right: 37, 39; up and down: 38, 40; space: 32
-            if ([38, 40].indexOf(e.keyCode) > -1) {
+            if ([38, 40, 32].indexOf(e.keyCode) > -1) {
                 e.preventDefault();
             }
         }, false);
@@ -52,9 +50,6 @@ class View extends Component {
 
             // Dispatch/Trigger/Fire the event
             document.dispatchEvent(event);
-
-            let el = document.getElementById("rig");
-            el.components["movement-controls"].velocity = new THREE.Vector3(0, 0, 0);
         }
     }
 
@@ -149,12 +144,11 @@ class View extends Component {
 
     basicMoveCam = () => {
         return (
-            <a-entity id="rig"
-                debug={true}
-                movement-controls={this.props.sceneConfig.settings.canFly ? "fly:true" : "fly:false"} >
+            <a-entity id="rig" debug={true}>
                 <a-camera
                     position={this.props.sceneConfig.settings.cameraPosition}
-                    look-controls="pointerLockEnabled: true">
+                    look-controls="pointerLockEnabled: true"
+                    wasd-plus-controls>
                     <a-cursor
                         position="0 0 -1"
                         geometry="primitive: ring; radiusInner: 0.02; radiusOuter: 0.03;"
