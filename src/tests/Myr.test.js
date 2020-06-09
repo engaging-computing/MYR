@@ -865,6 +865,12 @@ describe("Other Myr functionality", () => {
     it("Should accept hex colors entered for setColor function", () => {
         myr.setColor("#ff0000");
         expect(myr.cursor.color).toEqual("#ff0000");
+        myr.setColor("#FF0000");
+        expect(myr.cursor.color).toEqual("#ff0000");
+        myr.setColor("#0000FF");
+        expect(myr.cursor.color).toEqual("#0000ff");
+        myr.setColor("#008000");
+        expect(myr.cursor.color).toEqual("#008000");
     });
 
     // This is will test different variations of color
