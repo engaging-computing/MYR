@@ -216,7 +216,7 @@ export default class Reference extends React.Component {
                                 </Tabs>
                             </div>
 
-                            {<div style={{ margin: 7, overflow: "hidden" }}>
+                            {<div style={{ margin: 7, overflow: "hidden", minHeight: "2em" }}>
                                 <p style={{ fontSize: "80%" }}> Key: <span className="array">array </span>
                                     <span className="bool">bool </span>
                                     <span className="number">number </span>
