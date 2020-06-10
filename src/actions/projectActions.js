@@ -48,32 +48,26 @@ export function syncExampleProj(payload) {
 export function deleteProj(uid, id, name) {
     return (dispatch) => {
         if (window.confirm(`Are you sure you want to delete ${name}?`)) {
-            // Delete Image
-            fetch(`${previewRef}/${id}`, {method: "delete", headers: {"x-access-token": uid}})
-                .then((response) =>{
-                    if(response.status !== 204){
-                        console.error("Error removing image: ", response.status);
-                        return true;
+            //Delete Scene and Image
+            fetch(`${sceneRef}/id/${id}`, {method: "delete", headers: {"x-access-token": uid}}).then(response => {
+                if(response.status === 204){
+                    // Delete Document
+                    dispatch({ type: types.DELETE_PROJ, _id: id });
+                    if (window.location.href === `${window.origin}/scene/${id}` || window.location.href === `${window.origin}/scene/${id}/`) {
+                        window.location.assign(window.origin);
                     }
-                    return false;
-                }).then((err) =>{
-                    if(!err){
-                        fetch(`${sceneRef}/id/${id}`, {method: "delete", headers: {"x-access-token": uid}}).then((response) => {
-                            if(response.status !== 204){
-                                console.error("Error removing document: ", response.status);
-                            }
-                            // If deleting current project, redirect to home
-                            else if (window.location.href === `${window.origin}/scene/${id}` || window.location.href === `${window.origin}/scene/${id}/`) {
-                                window.location.assign(window.origin);
-                            }
-                        }).catch((error) => {
-                            console.error("Error removing document: ", error);
-                        });
-                    }
-                });
+                    return true;
+                }else{
+                    return response.json();
+                }
+            }).then((body) => {
+                if(body !== true){
+                    console.error("Error deleting scene");
+                    console.error(body);
 
-            // Delete Document
-            dispatch({ type: types.DELETE_PROJ, _id: id });
+                    alert(`Error Deleting scene ${name}`);
+                }
+            });
         }
     };
 }
