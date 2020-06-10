@@ -360,7 +360,7 @@ class Header extends Component {
                 // If we have a new projectId reload page with it
                 if (projectId !== this.props.projectId) {
                     this.setState({ spinnerOpen: false });
-                    window.location.href = window.origin + "/scene/" + projectId;
+                    window.location.assign(`${window.origin}/scene/${projectId}`);
                     this.props.projectActions.asyncUserProj(this.props.user.uid);
                 }
                 if(!this.state.viewOnly) {
@@ -564,7 +564,7 @@ class Header extends Component {
                     <Sidebar scene={this.props.scene} nameScene={this.props.sceneActions.nameScene} >
                         <Button
                             variant="raised"
-                            onClick={() => { window.location.href = window.origin; }}
+                            onClick={() => { window.location.assign(window.origin); }}
                             color="primary"
                             className="sidebar-btn">
                             <Icon className="material-icons">add</Icon>
@@ -615,7 +615,7 @@ class Header extends Component {
                     </Sidebar>
                     <h1 className="mr-2 d-none d-sm-block"
                         style={{ cursor: "pointer" }}
-                        onClick={() => { window.location.href = window.origin; }} >
+                        onClick={() => { window.location.assign(window.origin); }} >
                         MYR
                     </h1>
                     <MuiThemeProvider theme={theme}>
@@ -660,7 +660,7 @@ class Header extends Component {
                     <Tooltip title="New Scene" placement="bottom-start">
                         <IconButton
                             id="new-btn"
-                            onClick={() => { window.location.href = window.origin; }}
+                            onClick={() => { window.location.assign(window.origin); }}
                             style={style.default}
                             className="header-btn d-none d-md-block" >
                             <Icon className="material-icons">add_circle_outline</Icon>

@@ -63,8 +63,8 @@ export function deleteProj(uid, id, name) {
                                 console.error("Error removing document: ", response.status);
                             }
                             // If deleting current project, redirect to home
-                            else if (window.location.href === window.origin + "/scene/" + id || window.location.href === window.origin + "/scene/" + id + "/") {
-                                window.location.href = window.origin;
+                            else if (window.location.href === `${window.origin}/scene/${id}` || window.location.href === `${window.origin}/scene/${id}/`) {
+                                window.location.assign(window.origin);
                             }
                         }).catch((error) => {
                             console.error("Error removing document: ", error);

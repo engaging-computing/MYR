@@ -77,7 +77,7 @@ class CollectionModal extends Component {
     }
 
     handleChange = (selectedCollection) => {
-        window.location.href = window.origin + "/collection/" + selectedCollection.value;
+        window.location.assign(window.origin + "/collection/" + selectedCollection.value);
     }
 
     handleDelete = (selectedCollection) => {
