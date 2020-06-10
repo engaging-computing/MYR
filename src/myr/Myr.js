@@ -815,14 +815,12 @@ class Myr {
                     `,
                 type: "spot",
                 angle: this.cursor.light.angle,
+                target: this.cursor.light.target
             },	  
             color: this.cursor.color,
             position: this.cursor.position,
             scale:  "1 1 1",
-            rotation: {
-                ...this.cursor.rotation,
-                x: this.cursor.rotation.x-90,
-            },
+            rotation:this.cursor.rotation
         };	
         return this.mergeProps(base, params);
     }
@@ -840,7 +838,6 @@ class Myr {
                     penumbra: ${this.cursor.light.penumbra};
                     color: ${this.cursor.color};
                     `,
-                
                 type: "point",
             },	 
             color: this.cursor.color,
@@ -933,7 +930,11 @@ class Myr {
 
     setTarget = (x = 0, y = 0, z = 0) => {
         if(typeof x === "number" && typeof y === "number" && typeof z === "number"){
-            this.cursor.light.target = `${x} ${y} ${z}`; 
+            this.cursor.light.target = {
+                x: x,
+                y: y,
+                z: z
+            }; 
         }else{
             console.error("must pass a numeric for setTarget");
         }

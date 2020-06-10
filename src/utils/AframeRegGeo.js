@@ -2,27 +2,22 @@ import AFRAME from "aframe";
 import * as THREE from "three";
 
 AFRAME.registerGeometry("spotLightIndicator",{
-    schema:{
-        default:""
-    },
+    schema:{},
     init: function(){
         let geometry = new THREE.Geometry();
         
-        let cone = new THREE.CylinderGeometry(.75,.1,1,24,1,true);
+        let cone = new THREE.CylinderGeometry(.1,.75,1,24,1,true);
         let circle = new THREE.CircleGeometry(.1,24);
         circle.rotateX(Math.PI/2);
-        circle.translate(0,-.5,0);
+        circle.translate(0,.5,0);
         geometry.merge(circle);
         geometry.merge(cone);
-        geometry.rotateX(-Math.PI/2);
     
         this.geometry = geometry;
     },    
 });
 AFRAME.registerGeometry("pointLightIndicator",{
-    schema:{
-        default:""
-    },
+    schema:{},
     init: function(){
         let geometry = new THREE.Geometry();
 
@@ -33,9 +28,7 @@ AFRAME.registerGeometry("pointLightIndicator",{
     },    
 });
 AFRAME.registerGeometry("directionalLightIndicator",{
-    schema:{
-        default:""
-    },
+    schema:{},
     init: function(){
         let geometry = new THREE.Geometry();
 
@@ -53,9 +46,7 @@ AFRAME.registerGeometry("directionalLightIndicator",{
 });
 
 AFRAME.registerGeometry("hemisphereLightIndicator",{
-    schema:{
-        default:""
-    },
+    schema:{},
     init: function(){
         let geometry = new THREE.Geometry();
 
@@ -78,32 +69,24 @@ AFRAME.registerGeometry("hemisphereLightIndicator",{
 //    },
 // });
 
-
-
 //Geoemtry for light's outline
-
 AFRAME.registerGeometry("spotLightOutlineIndicator",{
-    schema:{
-        default:""
-    },
+    schema:{},
     init: function(){
         let geometry = new THREE.Geometry();
         
-        let cone = new THREE.CylinderGeometry(1,.2,1.5,24,1,true);
+        let cone = new THREE.CylinderGeometry(.2,1,1.5,24,1,true);
         let circle = new THREE.CircleGeometry(.2,24);
         circle.rotateX(Math.PI/2);
-        circle.translate(0,-.5,0);
+        circle.translate(0,.75,0);
         geometry.merge(circle);
         geometry.merge(cone);
-        geometry.rotateX(-Math.PI/2);
     
         this.geometry = geometry;
     },    
 });
 AFRAME.registerGeometry("pointLightOutlineIndicator",{
-    schema:{
-        default:""
-    },
+    schema:{},
     init: function(){
         let geometry = new THREE.Geometry();
 
@@ -115,9 +98,7 @@ AFRAME.registerGeometry("pointLightOutlineIndicator",{
 });
 
 AFRAME.registerGeometry("directionalLightOutlineIndicator",{
-    schema:{
-        default:""
-    },
+    schema:{},
     init: function(){
         let geometry = new THREE.Geometry();
 
@@ -135,9 +116,7 @@ AFRAME.registerGeometry("directionalLightOutlineIndicator",{
 });
 
 AFRAME.registerGeometry("hemisphereLightOutlineIndicator",{
-    schema:{
-        default:""
-    },
+    schema:{},
     init: function(){
         let geometry = new THREE.Geometry();
 
