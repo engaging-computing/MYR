@@ -12,6 +12,7 @@ The Engaging Computing Group develops new technologies to enable learners—yout
 ## Change Log - 1.9.0 -> 1.10.0
 - Added the ability to fly using space and shift.
 - Fixed bug where key was hidden in some reference tabs.
+- setColor arguments are no longer case sensitive.
 
 ## Acknowledgments
 MYR uses [Aframe](https://aframe.io), a fantastic open source project, to render objects and effects in the three dimensional space.  
