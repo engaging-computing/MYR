@@ -1,7 +1,7 @@
 import * as types from "../constants/ActionTypes";
 
 const sceneRef = "/apiv1/scenes";
-const previewRef = "/apiv1/scenes/preview";
+const previewRef = "/apiv1/preview/id";
 
 export function asyncUserProj(id) {
     // fetch user's project
@@ -28,7 +28,7 @@ export function syncUserProj(payload) {
 export const asyncExampleProj = () => {
     // fetch example projects
     return (dispatch) => {
-        fetch(`${sceneRef}/`, {headers: {"x-access-token": "1"}}).then((response) =>{
+        fetch(`${sceneRef}/example`).then((response) =>{
             if(response.status === 200){
                 response.json().then((json) =>{
                     json.forEach(element => {
