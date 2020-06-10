@@ -55,8 +55,8 @@ class Header extends Component {
             coursesOpen: false,
             tourOpen: false,
             welcomeOpen: false,
-            updateCollect: false,
-            fetchCollect: false,
+            updateCollection: false,
+            fetchCollection: false,
             socket: sockets()
         };
 
@@ -141,11 +141,11 @@ class Header extends Component {
         if (this.state.lastMsgTime !== this.props.message.time && this.props.message.text !== "") {
             this.setState({ snackOpen: true, lastMsgTime: this.props.message.time });
         }
-        if(this.state.updateCollect && this.props.user){
+        if(this.state.updateCollection&& this.props.user){
             this.props.collectionActions.asyncCollection(this.props.collection, this.props.user.uid);
             this.setState({ updateCollect: false });
         }
-        if(this.state.fetchCollect && this.props.user){
+        if(this.state.fetchCollection&& this.props.user){
             this.props.collectionActions.asyncCollection(this.props.collection, this.props.user.uid);
             this.setState({ fetchCollect: false });
         }
