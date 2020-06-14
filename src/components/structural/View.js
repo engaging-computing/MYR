@@ -145,43 +145,38 @@ class View extends Component {
         );
     }
 
-    isMobile = () => {
-        return useMediaQuery({query: "(max-device-width: 1224px)"});
-    }
-
-
     basicMoveCam = () => {
-        return (
-            <a-entity id="rig" debug={true}>
-                {
-                    this.isMobile() ?
-                        <a-entity id="rig" 
-                            debug={true}
-                            movement-controls="fly: true">
-                            <a-camera
-                                position={this.props.sceneConfig.settings.cameraPosition}
-                                look-controls="pointerLockEnabled: true">
-                                <a-cursor
-                                    position="0 0 -1"
-                                    geometry="primitive: ring; radiusInner: 0.02; radiusOuter: 0.03;"
-                                    material="color: #CCC; shader: flat;" />
-                            </a-camera>
-                        </a-entity> 
-                        :
-                        <a-entity id="rig" debug={true}>
-                            <a-camera
-                                position={this.props.sceneConfig.settings.cameraPosition}
-                                look-controls="pointerLockEnabled: true"
-                                wasd-plus-controls>
-                                <a-cursor
-                                    position="0 0 -1"
-                                    geometry="primitive: ring; radiusInner: 0.02; radiusOuter: 0.03;"
-                                    material="color: #CCC; shader: flat;" />
-                            </a-camera>
-                        </a-entity>
-                }
-            </a-entity>
-        );
+        if (useMediaQuery({query: "(max-device-width: 1224px)"})) {
+            return (
+                <a-entity id="rig" 
+                    debug={true}
+                    movement-controls="fly: true">
+                    <a-camera
+                        position={this.props.sceneConfig.settings.cameraPosition}
+                        look-controls="pointerLockEnabled: true">
+                        <a-cursor
+                            position="0 0 -1"
+                            geometry="primitive: ring; radiusInner: 0.02; radiusOuter: 0.03;"
+                            material="color: #CCC; shader: flat;" />
+                    </a-camera>
+                </a-entity> 
+            );
+        }
+        else {
+            return (
+                <a-entity id="rig" debug={true}>
+                    <a-camera
+                        position={this.props.sceneConfig.settings.cameraPosition}
+                        look-controls="pointerLockEnabled: true"
+                        wasd-plus-controls>
+                        <a-cursor
+                            position="0 0 -1"
+                            geometry="primitive: ring; radiusInner: 0.02; radiusOuter: 0.03;"
+                            material="color: #CCC; shader: flat;" />
+                    </a-camera>
+                </a-entity>
+            );
+        }
     }
 
 

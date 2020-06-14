@@ -248,27 +248,6 @@ class ConfigModal extends Component {
         );
     };
 
-    // Toggles the ability to fly in the scene
-    flyToggle = () => {
-        let style = this.props.scene.settings.canFly ? btnStyle.on : btnStyle.off;
-        style = { ...btnStyle.base, ...style };
-        return (
-            <ButtonBase
-                style={style}
-                onClick={() => {
-                    this.props.handleRender();
-                    this.props.sceneActions.toggleFly();
-                }} >
-                {
-                    this.props.scene.settings.canFly
-                        ? <Icon className="material-icons">toggle_on</Icon>
-                        : <Icon className="material-icons">toggle_off</Icon>
-                }
-                Flying
-            </ButtonBase >
-        );
-    };
-
     // Toggles the grid on and off
     gridToggle = () => {
         let style = this.props.scene.settings.showCoordHelper ? btnStyle.on : btnStyle.off;
@@ -462,9 +441,6 @@ class ConfigModal extends Component {
                                                 <this.changeFloorColor />
                                             </div>
                                             <div className="col-12 border-bottom pt-4">Camera Control</div>
-                                            <div className="col-6">
-                                                <this.flyToggle />
-                                            </div>
                                             <div className="col-6">
                                                 <this.resetPosition />
                                             </div>

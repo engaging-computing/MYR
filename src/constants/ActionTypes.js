@@ -32,7 +32,6 @@ export const CHANGE_CAM_MODE = "CHANGE_CAM_MODE";
 export const SET_CAMERA = "SET_CAMERA";
 export const CHANGE_PERSPECTIVE = "CHANGE_PERSPECTIVE";
 export const CHANGE_VIEW = "CHANGE_VIEW";
-export const TOGGLE_FLY = "TOGGLE_FLY";
 export const TOGGLE_FLOOR = "TOGGLE_FLOOR";
 export const LOAD_SETTINGS = "LOAD_SETTINGS";
 export const CHANGE_SETTING = "CHANGE_SETTING";
