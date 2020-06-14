@@ -1,10 +1,13 @@
 import React, { Component, Fragment } from "react";
+import { useMediaQuery } from "react-responsive";
 import "aframe";
 import "aframe-animation-component";
 import "three-pathfinding/dist/three-pathfinding";
 import "aframe-extras/dist/aframe-extras.min.js";
 import "aframe-physics-system";
 import "aframe-environment-component";
+
+
 /**
  * @summary - The View component return the aframe representation of the scene. This
  * system utilizes the entity component system(ECS) to build objects in the scene from different
@@ -142,18 +145,41 @@ class View extends Component {
         );
     }
 
+    isMobile = () => {
+        return useMediaQuery({query: "(max-device-width: 1224px)"});
+    }
+
+
     basicMoveCam = () => {
         return (
             <a-entity id="rig" debug={true}>
-                <a-camera
-                    position={this.props.sceneConfig.settings.cameraPosition}
-                    look-controls="pointerLockEnabled: true"
-                    wasd-plus-controls>
-                    <a-cursor
-                        position="0 0 -1"
-                        geometry="primitive: ring; radiusInner: 0.02; radiusOuter: 0.03;"
-                        material="color: #CCC; shader: flat;" />
-                </a-camera>
+                {
+                    this.isMobile() ?
+                        <a-entity id="rig" 
+                            debug={true}
+                            movement-controls="fly: true">
+                            <a-camera
+                                position={this.props.sceneConfig.settings.cameraPosition}
+                                look-controls="pointerLockEnabled: true">
+                                <a-cursor
+                                    position="0 0 -1"
+                                    geometry="primitive: ring; radiusInner: 0.02; radiusOuter: 0.03;"
+                                    material="color: #CCC; shader: flat;" />
+                            </a-camera>
+                        </a-entity> 
+                        :
+                        <a-entity id="rig" debug={true}>
+                            <a-camera
+                                position={this.props.sceneConfig.settings.cameraPosition}
+                                look-controls="pointerLockEnabled: true"
+                                wasd-plus-controls>
+                                <a-cursor
+                                    position="0 0 -1"
+                                    geometry="primitive: ring; radiusInner: 0.02; radiusOuter: 0.03;"
+                                    material="color: #CCC; shader: flat;" />
+                            </a-camera>
+                        </a-entity>
+                }
             </a-entity>
         );
     }
