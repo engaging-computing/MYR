@@ -93,34 +93,6 @@ class ConfigModal extends Component {
             value: "a",
         };
         this.emailRef = React.createRef();
-        
-        this.originalSettings = this.buildSettingsArr();
-
-        window.addEventListener("beforeunload", (event) => {
-            let finalSettings = this.buildSettingsArr();
-
-            if(!this.settingsEqual(finalSettings)){
-                event.preventDefault();
-                event.returnValue = "You may have unsaved changes!";
-            }
-        });
-    }
-
-    buildSettingsArr = () => {
-        const sceneSettings = this.props.scene.settings;
-
-        return [sceneSettings.canFly, sceneSettings.floorColor, 
-            sceneSettings.showCoordHelper, sceneSettings.showFloor,
-            sceneSettings.skyColor, sceneSettings.viewOnly];
-    };
-    
-    settingsEqual = (newSettings) =>{
-        for(let i = 0; i < newSettings.length; ++i){
-            if(newSettings[i] !== this.originalSettings[i]){
-                return false;
-            }
-        }
-        return true;
     }
 
     // Opens the modal

@@ -57,7 +57,8 @@ class Header extends Component {
             welcomeOpen: false,
             updateCollection: false,
             fetchCollection: false,
-            socket: sockets()
+            socket: sockets(),
+            savedSettings: []
         };
 
         this.state.socket.on("update", () => {
@@ -149,6 +150,36 @@ class Header extends Component {
             this.props.collectionActions.asyncCollection(this.props.collection, this.props.user.uid);
             this.setState({ fetchCollect: false });
         }
+        if(this.state.savedSettings.length === 0 && this.props.scene.id !== 0){
+            this.setState({savedSettings: this.buildSettingsArr()});
+
+            window.addEventListener("beforeunload", (event) => {
+                let finalSettings = this.buildSettingsArr();
+    
+                if(!this.settingsEqual(finalSettings)){
+                    event.preventDefault();
+                    event.returnValue = "You may have unsaved changes!";
+                }
+            });
+        }
+    }
+
+
+    buildSettingsArr = () => {
+        const sceneSettings = this.props.scene.settings;
+
+        return [sceneSettings.canFly, sceneSettings.floorColor, 
+            sceneSettings.showCoordHelper, sceneSettings.showFloor,
+            sceneSettings.skyColor, sceneSettings.viewOnly];
+    };
+    
+    settingsEqual = (newSettings) =>{
+        for(let i = 0; i < newSettings.length; ++i){
+            if(newSettings[i] !== this.state.savedSettings[i]){
+                return false;
+            }
+        }
+        return true;
     }
 
     /**
@@ -375,6 +406,12 @@ class Header extends Component {
             // TODO: Don't use alert
             alert("We were unable to save your project. Are you currently logged in?");
         }
+
+        if(!this.state.viewOnly) {
+            this.props.actions.refresh(text, this.props.user ? this.props.user.uid : "anon");
+        }
+        this.setState({savedSettings: this.buildSettingsArr()});
+        this.handleSaveToggle();
     }
 
     /**
