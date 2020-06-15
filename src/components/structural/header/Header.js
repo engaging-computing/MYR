@@ -75,6 +75,7 @@ class Header extends Component {
     componentDidMount() {
         this.props.projectActions.asyncExampleProj();
         this.props.courseActions.fetchCourses();
+
         if (this.props.courseName) {
             this.props.courseActions.fetchCourse(this.props.courseName);
         }
@@ -82,7 +83,7 @@ class Header extends Component {
             this.props.referenceExampleActions.fetchReferenceExample(this.props.refExName);
         }
         else if (this.props.collection) {
-            this.setState({ fetchCollect: true });
+            this.setState({ fetchCollection: true });
         }
 
         // Render project if we have projectId. This should only happen if coming from viewer
@@ -144,11 +145,11 @@ class Header extends Component {
         }
         if(this.state.updateCollection&& this.props.user){
             this.props.collectionActions.asyncCollection(this.props.collection, this.props.user.uid);
-            this.setState({ updateCollect: false });
+            this.setState({ updateCollection: false });
         }
         if(this.state.fetchCollection&& this.props.user){
             this.props.collectionActions.asyncCollection(this.props.collection, this.props.user.uid);
-            this.setState({ fetchCollect: false });
+            this.setState({ fetchCollection: false });
         }
         if(this.state.savedSettings.length === 0 && this.props.scene.id !== 0){
             this.setState({savedSettings: this.buildSettingsArr()});
