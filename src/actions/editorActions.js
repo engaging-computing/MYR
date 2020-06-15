@@ -45,7 +45,7 @@ export function fetchScene(id, uid = "anon") {
         fetch(`${sceneRef}/id/${id}`, {redirect: "follow"}).then((response) =>{
             if(response.redirected && id !== "error-404"){
                 let url = response.url.split("/");
-                window.location.assign(`${window.origin}/scene/${url[url.length - 1]}`);
+                window.location.assign(`${window.origin}/scene/${url[url.length - 1]}?redirected=true`);
                 return;
             }
 
