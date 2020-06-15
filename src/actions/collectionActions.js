@@ -50,6 +50,9 @@ export function asyncCollection(collectionID, uid) {
                         case 401:
                             window.alert("Error: You are not logged in as the owner of this collection");
                             break;
+                        case 404:
+                            window.location.assign("/error-404");
+                            break;
                         default:
                             window.alert(`Error fetching collection scenes: ${resp.statusText}`);
                     }
