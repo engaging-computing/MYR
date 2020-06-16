@@ -9,8 +9,7 @@ The Engaging Computing Group develops new technologies to enable learners—yout
 ## Status
 [![CircleCI](https://circleci.com/gh/engaging-computing/MYR.svg?style=shield)](https://circleci.com/gh/engaging-computing/MYR)
 
-## Change Log - 1.9.0 -> 1.10.0
-- Added the ability to fly using space and shift.
+## Change Log - 1.9.0 -> 1.9.1
 - Fixed bug where key was hidden in some reference tabs.
 - setColor arguments are no longer case sensitive.
 
