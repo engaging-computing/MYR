@@ -38,11 +38,11 @@ class Myr {
                 general: 1
             },
             light: {
-                angle: 60,
+                beamAngle: 60,
                 decay: 0.01,
                 distance: 50,
                 intensity: 1.0,
-                penumbra: 0.0,
+                diffusion: 0.0,
                 target: null
             }
         };
@@ -113,11 +113,11 @@ class Myr {
                 general: 1
             },
             light: {
-                angle: 60,
+                beamAngle: 60,
                 decay: 0.01,
                 distance: 50,
                 intensity: 1.0,
-                penumbra: 0.0,
+                diffusion: 0.0,
                 target: null,
             }	            
         };
@@ -164,15 +164,63 @@ class Myr {
                 general: 1
             },
             light: {
-                angle: 60,
+                beamAngle: 60,
                 decay: 0.01,
                 distance: 50,
                 intensity: 1.0,
-                penumbra: 0.0,
+                diffusion: 0.0,
                 target: null,
             }
         };
     }
+
+    resetTransformationCursor = () => {
+        this.cursor = {
+            ...this.cursor,
+            color: "red",
+            position: {
+                x: 0,
+                y: 0,
+                z: 0
+            },
+            scale: {
+                x: 1,
+                y: 1,
+                z: 1
+            },
+            rotation: {
+                x: 0,
+                y: 0,
+                z: 0
+            },
+            radius: "1",
+            phiLength: 360,
+        }
+    };
+
+    resetAnimationCursor = () => {
+        this.cursor = {
+            ...this.cursor,
+            loop: true,
+            duration: 1000,
+            magnitude: {
+                spin: 360,
+                fadeOut: 0,
+                general: 1
+            }
+        }
+    };
+
+    resetLightCursor = () => {
+        this.cursor.light = {
+            beamAngle: 60,
+            decay: 0.01,
+            distance: 50,
+            intensity: 1.0,
+            diffusion: 0.0,
+            target: null
+        }	 
+    };
 
     genNewId = () => {
         return this.counter++;
@@ -799,75 +847,6 @@ class Myr {
         };	
         return this.mergeProps(base, params);
     }
-    
-    spotLight  = (params) => {
-        let base = {
-            id: "lgt" + this.genNewId(),
-            light: {
-                state:
-                    `type: spot; 
-                    angle: ${this.cursor.light.angle}; 
-                    decay: ${this.cursor.light.decay}; 
-                    distance: ${this.cursor.light.distance}; 
-                    intensity: ${this.cursor.light.intensity}; 
-                    penumbra: ${this.cursor.light.penumbra};
-                    color: ${this.cursor.color};
-                    `,
-                type: "spot",
-                angle: this.cursor.light.angle,
-                target: this.cursor.light.target
-            },	  
-            color: this.cursor.color,
-            position: this.cursor.position,
-            scale:  "1 1 1",
-            rotation:this.cursor.rotation
-        };	
-        return this.mergeProps(base, params);
-    }
-
-    pointLight  = (params) => {
-        let base = {
-            id: "lgt" + this.genNewId(),
-            light: {
-                state:
-                    `type: point; 
-                    angle: ${this.cursor.light.angle}; 
-                    decay: ${this.cursor.light.decay}; 
-                    distance: ${this.cursor.light.distance}; 
-                    intensity: ${this.cursor.light.intensity}; 
-                    penumbra: ${this.cursor.light.penumbra};
-                    color: ${this.cursor.color};
-                    `,
-                type: "point",
-            },	 
-            color: this.cursor.color,
-            position: this.cursor.position,
-            scale: "1 1 1",
-            rotation: this.cursor.rotation,
-        };	
-        return this.mergeProps(base, params);
-    }
-
-    hemisphereLight  = (groundColor="red",params) => {
-        let base = {
-            id: "lgt" + this.genNewId(),
-            light: {
-                state:
-                    `type:hemisphere; 
-                    intensity: ${this.cursor.light.intensity};
-                    color: ${this.cursor.color};
-                    groundColor: ${groundColor};
-                    `,
-                type: "hemisphere",
-                groundColor: groundColor
-            },	  
-            color: this.cursor.color,
-            position: this.cursor.position,
-            scale: "1 1 1",
-            rotation: this.cursor.rotation,
-        };	
-        return this.mergeProps(base, params);
-    }
 
     directionalLight  = (params) => {
         let base = {
@@ -889,11 +868,80 @@ class Myr {
         return this.mergeProps(base, params);
     }
     
-    setAngle=(angle = 60)=>{
-        if(typeof angle === "number"){
-            this.cursor.light.angle = angle; 
+    spotLight  = (params) => {
+        let base = {
+            id: "lgt" + this.genNewId(),
+            light: {
+                state:
+                    `type: spot; 
+                    beamAngle: ${this.cursor.light.beamAngle}; 
+                    decay: ${this.cursor.light.decay}; 
+                    distance: ${this.cursor.light.distance}; 
+                    intensity: ${this.cursor.light.intensity}; 
+                    diffusion: ${this.cursor.light.diffusion};
+                    color: ${this.cursor.color};
+                    `,
+                type: "spot",
+                beamAngle: this.cursor.light.beamAngle,
+                target: this.cursor.light.target
+            },	  
+            color: this.cursor.color,
+            position: this.cursor.position,
+            scale:  "1 1 1",
+            rotation:this.cursor.rotation
+        };	
+        return this.mergeProps(base, params);
+    }
+
+    pointLight  = (params) => {
+        let base = {
+            id: "lgt" + this.genNewId(),
+            light: {
+                state:
+                    `type: point; 
+                    beamAngle: ${this.cursor.light.beamAngle}; 
+                    decay: ${this.cursor.light.decay}; 
+                    distance: ${this.cursor.light.distance}; 
+                    intensity: ${this.cursor.light.intensity}; 
+                    diffusion: ${this.cursor.light.diffusion};
+                    color: ${this.cursor.color};
+                    `,
+                type: "point",
+            },	 
+            color: this.cursor.color,
+            position: this.cursor.position,
+            scale: "1 1 1",
+            rotation: this.cursor.rotation,
+        };	
+        return this.mergeProps(base, params);
+    }
+
+    hemisphereLight  = (secondColor="red",params) => {
+        let base = {
+            id: "lgt" + this.genNewId(),
+            light: {
+                state:
+                    `type:hemisphere; 
+                    intensity: ${this.cursor.light.intensity};
+                    color: ${this.cursor.color};
+                    secondColor: ${secondColor};
+                    `,
+                type: "hemisphere",
+                secondColor: secondColor
+            },	  
+            color: this.cursor.color,
+            position: this.cursor.position,
+            scale: "1 1 1",
+            rotation: this.cursor.rotation,
+        };	
+        return this.mergeProps(base, params);
+    }
+    
+    setBeamAngle=(beamAngle = 60)=>{
+        if(typeof beamAngle === "number"){
+            this.cursor.light.beamAngle = beamAngle; 
         }else{
-            console.error("must pass a numeric for setAngle");
+            console.error("must pass a numeric for setBeamAngle");
         }
         
     }
@@ -920,15 +968,15 @@ class Myr {
         }
     }
     
-    setPenumbra = (penumbra = 0.0) => {
-        if(typeof penumbra === "number"){
-            this.cursor.light.penumbra = penumbra;
+    setDiffusion = (diffusion = 0.0) => {
+        if(typeof diffusion === "number"){
+            this.cursor.light.diffusion = diffusion;
         }else{
-            console.error("must pass a numeric for setPenumbra");
+            console.error("must pass a numeric for setDiffusion");
         }
     }
 
-    setTarget = (x = 0, y = 0, z = 0) => {
+    setLightTarget = (x = 0, y = 0, z = 0) => {
         if(typeof x === "number" && typeof y === "number" && typeof z === "number"){
             this.cursor.light.target = {
                 x: x,
@@ -936,7 +984,7 @@ class Myr {
                 z: z
             }; 
         }else{
-            console.error("must pass a numeric for setTarget");
+            console.error("must pass a numeric for setLightTarget");
         }
     }
 
@@ -1122,7 +1170,7 @@ class Myr {
             let anim;
             if(type === "spot"){
                 anim = `
-                property: light.angle;
+                property: light.beamAngle;
                 from: 60;
                 to: ${magnitude};
                 dur: ${this.cursor.duration};
@@ -1164,7 +1212,7 @@ class Myr {
             let anim;
             if(type === "spot"){
                 anim = `
-                property: light.angle;
+                property: light.beamAngle;
                 from: ${magnitude};
                 to:  10;
                 dur: ${this.cursor.duration};

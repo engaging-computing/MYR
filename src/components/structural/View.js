@@ -150,7 +150,7 @@ class View extends Component {
             }else{
                 shadow = "cast:false; receive:false;";
             }
-            return <a-entity key={ent.id} {...flattened} shadow={shadow} shadowcustomsetting >></a-entity>;
+            return <a-entity key={ent.id} {...flattened} shadow={shadow} shadowcustomsetting ></a-entity>;
         }
     }
     //return elements that contains necessary configuration for light indicator based on light's type
