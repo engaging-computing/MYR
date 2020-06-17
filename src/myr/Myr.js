@@ -874,15 +874,15 @@ class Myr {
             light: {
                 state:
                     `type: spot; 
-                    beamAngle: ${this.cursor.light.beamAngle}; 
+                    angle: ${this.cursor.light.beamAngle}; 
                     decay: ${this.cursor.light.decay}; 
                     distance: ${this.cursor.light.distance}; 
                     intensity: ${this.cursor.light.intensity}; 
-                    diffusion: ${this.cursor.light.diffusion};
+                    penumbra: ${this.cursor.light.diffusion};
                     color: ${this.cursor.color};
                     `,
                 type: "spot",
-                beamAngle: this.cursor.light.beamAngle,
+                angle: this.cursor.light.beamAngle,
                 target: this.cursor.light.target
             },	  
             color: this.cursor.color,
@@ -899,11 +899,11 @@ class Myr {
             light: {
                 state:
                     `type: point; 
-                    beamAngle: ${this.cursor.light.beamAngle}; 
+                    angle: ${this.cursor.light.beamAngle}; 
                     decay: ${this.cursor.light.decay}; 
                     distance: ${this.cursor.light.distance}; 
                     intensity: ${this.cursor.light.intensity}; 
-                    diffusion: ${this.cursor.light.diffusion};
+                    penumbra: ${this.cursor.light.diffusion};
                     color: ${this.cursor.color};
                     `,
                 type: "point",
@@ -916,6 +916,7 @@ class Myr {
         return this.mergeProps(base, params);
     }
 
+    //secondColor == groundColor
     hemisphereLight  = (secondColor="red",params) => {
         let base = {
             id: "lgt" + this.genNewId(),
@@ -924,7 +925,7 @@ class Myr {
                     `type:hemisphere; 
                     intensity: ${this.cursor.light.intensity};
                     color: ${this.cursor.color};
-                    secondColor: ${secondColor};
+                    groundColor: ${secondColor};
                     `,
                 type: "hemisphere",
                 secondColor: secondColor
@@ -937,6 +938,7 @@ class Myr {
         return this.mergeProps(base, params);
     }
     
+    //beamAngle == angle
     setBeamAngle=(beamAngle = 60)=>{
         if(typeof beamAngle === "number"){
             this.cursor.light.beamAngle = beamAngle; 
@@ -968,6 +970,7 @@ class Myr {
         }
     }
     
+    //diffusion == penumbra
     setDiffusion = (diffusion = 0.0) => {
         if(typeof diffusion === "number"){
             this.cursor.light.diffusion = diffusion;
@@ -1170,7 +1173,7 @@ class Myr {
             let anim;
             if(type === "spot"){
                 anim = `
-                property: light.beamAngle;
+                property: light.angle;
                 from: 60;
                 to: ${magnitude};
                 dur: ${this.cursor.duration};
@@ -1212,7 +1215,7 @@ class Myr {
             let anim;
             if(type === "spot"){
                 anim = `
-                property: light.beamAngle;
+                property: light.angle;
                 from: ${magnitude};
                 to:  10;
                 dur: ${this.cursor.duration};
