@@ -399,7 +399,6 @@ class Header extends Component {
                     this.props.actions.refresh(text, this.props.user ? this.props.user.uid : "anon");
                 }
                 this.setState({spinnerOpen: false});
-                this.handleSaveToggle();
                 this.state.socket.emit("save");
                 return true;
             });
@@ -412,7 +411,6 @@ class Header extends Component {
             this.props.actions.refresh(text, this.props.user ? this.props.user.uid : "anon");
         }
         this.setState({savedSettings: this.buildSettingsArr()});
-        this.handleSaveToggle();
     }
 
     /**
