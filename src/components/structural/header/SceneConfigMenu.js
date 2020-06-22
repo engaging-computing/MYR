@@ -525,9 +525,13 @@ class ConfigModal extends Component {
                                                 </ButtonBase> */}
                                             </div>
                                             <div className="col-12 border-bottom pt-4">Collection Control</div>
-                                            <div className="col-6">
-                                                <this.addCollectionToggle />
-                                            </div>
+                                            {this.props.displayCollectionConfig ? 
+                                                <div className="col-6">
+                                                    <this.addCollectionToggle />
+                                                </div>
+                                                :
+                                                <></>
+                                            }
                                             <div className="col-6">
                                                 <this.classInfoToggle />
                                             </div>

@@ -143,11 +143,11 @@ class Header extends Component {
         if (this.state.lastMsgTime !== this.props.message.time && this.props.message.text !== "") {
             this.setState({ snackOpen: true, lastMsgTime: this.props.message.time });
         }
-        if(this.state.updateCollection&& this.props.user){
+        if(this.state.updateCollection && this.props.user){
             this.props.collectionActions.asyncCollection(this.props.collection, this.props.user.uid);
             this.setState({ updateCollection: false });
         }
-        if(this.state.fetchCollection&& this.props.user){
+        if(this.state.fetchCollection && this.props.user){
             this.props.collectionActions.asyncCollection(this.props.collection, this.props.user.uid);
             this.setState({ fetchCollection: false });
         }
@@ -742,7 +742,9 @@ class Header extends Component {
                         handleRender={this.handleRender}
                         handleSave={this.handleSave}
                         handleSaveClose={this.handleSaveClose}
-                        layoutType={this.props.layoutType} />
+                        layoutType={this.props.layoutType}
+                        displayCollectionConfig={!this.props.collection}
+                    />
                     <CourseSelect
                         coursesOpen={this.state.coursesOpen}
                         handleCoursesToggle={this.handleCoursesToggle}
