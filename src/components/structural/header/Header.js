@@ -402,7 +402,9 @@ class Header extends Component {
                 this.state.socket.emit("save");
                 return true;
             });
-        } else {
+        } else if(!text) {
+            alert("There is no code to save for this scene. Try adding some in the editor!");
+        }else {
             // TODO: Don't use alert
             alert("We were unable to save your project. Are you currently logged in?");
         }
