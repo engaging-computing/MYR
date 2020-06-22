@@ -85,23 +85,28 @@ export async function save(uid, scene, img, sceneID=undefined){
     let id = undefined;
     let url = `${sceneRef}`;
     let method = "POST";
+    const headers = {
+        "Content-Type": "application/json",
+        "x-access-token": uid
+    };
 
     if(sceneID !== undefined){
         method = "PUT";
         url = `${sceneRef}/id/${sceneID}`;
     }
-    await fetch(url, 
-        {method: method, body: JSON.stringify(scene),  
-            headers:{"Content-Type": "application/json", "x-access-token": uid}})
-        .then(async (resp) => {
-            if(resp.status !== 201 && resp.status !== 200){
-                console.error("Could not create new Scene, are you sure you're logged in?");
-                return false;
-            }
-            return resp.json();
-        }).then((json) => {
-            id = json._id;
-        });
+    let resp = await fetch(url, {method: method, body: JSON.stringify(scene), headers: headers});
+    
+    if(resp.status === 401){
+        method = "POST";
+        resp = await fetch(sceneRef, {method: method, body: JSON.stringify(scene), headers: headers});
+    }
+
+    if(resp.status !== 201 && resp.status !== 200){
+        console.error("Could not create new Scene, are you sure you're logged in?");
+        return false;
+    }
+    let json = await resp.json();
+    id = json._id;
 
     if(id === ""){
         console.error("Error receiving scene id from server");
