@@ -189,6 +189,7 @@ class Header extends Component {
     logout = () => {
         // sync with application state
         this.props.logging.logout();
+        this.props.projectActions.syncUserProj([]);
         this.setState({ logMenuOpen: false });
     }
 
