@@ -489,7 +489,7 @@ class Myr {
     };
 
     setColor = (color) => {
-        this.cursor.color = color;
+        this.cursor.color = color.toLowerCase();
         return this.cursor.color;
     }
 

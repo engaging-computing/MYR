@@ -13,12 +13,8 @@ The Engaging Computing Group develops new technologies to enable learners—yout
 [![CircleCI](https://circleci.com/gh/engaging-computing/MYR.svg?style=shield)](https://circleci.com/gh/engaging-computing/MYR)
 
 ## Change Log - 1.9.0 -> 1.9.1
-
-- Fixed bug where reference key was covered on transformations tab.
-- Updated NPM dependencies.
-- Create security policy.
-- Add beta testing with GitHub actions.
-- MYR now uses npm instead of yarn.
+- Fixed bug where key was hidden in some reference tabs.
+- setColor arguments are no longer case sensitive.
 
 ## Acknowledgments
 
