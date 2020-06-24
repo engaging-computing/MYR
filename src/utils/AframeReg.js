@@ -87,7 +87,6 @@ AFRAME.registerComponent("outline",{
         
         mesh.material.color.set(invertColor);
         mesh.material.side = THREE.BackSide;
-        //mesh.scale.multiplyScalar(1.5);
     }
 });
 
@@ -112,6 +111,7 @@ AFRAME.registerComponent("indicatorrotation",{
         if(vector === origin){return null;}
         let direction = new THREE.Vector3().subVectors(vector,origin);
         let arrow = new THREE.ArrowHelper( direction.normalize(), origin,1 );
+        
         return arrow.rotation;
     },
 });

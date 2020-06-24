@@ -39,8 +39,8 @@ class Myr {
             },
             light: {
                 beamAngle: 60,
-                decay: 0.01,
-                distance: 50,
+                decay: 1,
+                distance: 0.0,
                 intensity: 1.0,
                 diffusion: 0.0,
                 target: null
@@ -114,12 +114,12 @@ class Myr {
             },
             light: {
                 beamAngle: 60,
-                decay: 0.01,
-                distance: 50,
+                decay: 1,
+                distance: 0.0,
                 intensity: 1.0,
                 diffusion: 0.0,
-                target: null,
-            }	            
+                target: null
+            }            
         };
         // restore the base objects of the scene
         this.els = [];
@@ -165,11 +165,11 @@ class Myr {
             },
             light: {
                 beamAngle: 60,
-                decay: 0.01,
-                distance: 50,
+                decay: 1,
+                distance: 0.0,
                 intensity: 1.0,
                 diffusion: 0.0,
-                target: null,
+                target: null
             }
         };
     }
@@ -195,7 +195,7 @@ class Myr {
             },
             radius: "1",
             phiLength: 360,
-        }
+        };
     };
 
     resetAnimationCursor = () => {
@@ -208,18 +208,18 @@ class Myr {
                 fadeOut: 0,
                 general: 1
             }
-        }
+        };
     };
 
     resetLightCursor = () => {
         this.cursor.light = {
             beamAngle: 60,
-            decay: 0.01,
-            distance: 50,
+            decay: 1,
+            distance: 0.0,
             intensity: 1.0,
             diffusion: 0.0,
             target: null
-        }	 
+        };
     };
 
     genNewId = () => {

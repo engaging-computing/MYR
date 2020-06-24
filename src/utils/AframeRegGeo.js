@@ -8,11 +8,29 @@ AFRAME.registerGeometry("spotLightIndicator",{
         
         let cone = new THREE.CylinderGeometry(.1,.75,1,24,1,true);
         let circle = new THREE.CircleGeometry(.1,24);
-        circle.rotateX(Math.PI/2);
-        circle.translate(0,.5,0);
+        circle.translate(0,0,0.5);
+        cone.rotateX(Math.PI/2);
+    
         geometry.merge(circle);
         geometry.merge(cone);
+        this.geometry = geometry;
+    },    
+});
+
+//we have another geometry of indicator for spotlight because the rotation calculated using target position is different from actual rotation value.
+AFRAME.registerGeometry("spotLightTargetIndicator",{
+    schema:{},
+    init: function(){
+        let geometry = new THREE.Geometry();
+        
+        let cone = new THREE.CylinderGeometry(.1,.75,1,24,1,true);
+        let circle = new THREE.CircleGeometry(.1,24);
+        circle.rotateX(Math.PI/2);
+        circle.translate(0,0.5,0);
+        
     
+        geometry.merge(circle);
+        geometry.merge(cone);
         this.geometry = geometry;
     },    
 });
@@ -77,13 +95,29 @@ AFRAME.registerGeometry("spotLightOutlineIndicator",{
         
         let cone = new THREE.CylinderGeometry(.2,1,1.5,24,1,true);
         let circle = new THREE.CircleGeometry(.2,24);
-        circle.rotateX(Math.PI/2);
-        circle.translate(0,.75,0);
+        circle.translate(0,0,.75);
+        cone.rotateX(Math.PI/2);
         geometry.merge(circle);
         geometry.merge(cone);
     
         this.geometry = geometry;
-    },    
+    }
+});
+
+AFRAME.registerGeometry("spotLightTargetOutlineIndicator",{
+    schema:{},
+    init: function(){
+        let geometry = new THREE.Geometry();
+        
+        let cone = new THREE.CylinderGeometry(.2,1,1.5,24,1,true);
+        let circle = new THREE.CircleGeometry(.2,24);
+        circle.translate(0,0,-.75);
+        circle.rotateX(Math.PI/2);
+        geometry.merge(circle);
+        geometry.merge(cone);
+    
+        this.geometry = geometry;
+    }
 });
 AFRAME.registerGeometry("pointLightOutlineIndicator",{
     schema:{},
