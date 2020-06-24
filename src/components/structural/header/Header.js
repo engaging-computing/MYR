@@ -507,6 +507,7 @@ class Header extends Component {
     loadCollection = () => {
         return (
             <Collection
+                openCollection={this.props.collection}
                 collections={this.props.collections}
                 collectionActions={this.props.collectionActions}
                 user={this.props.user}

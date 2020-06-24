@@ -81,8 +81,12 @@ class CollectionModal extends Component {
     }
 
     handleDelete = (selectedCollection) => {
+        let needsToRedirect = (this.props.openCollection === selectedCollection.label);
         this.props.collectionActions.deleteCollection(selectedCollection.value, selectedCollection.label, this.props.user.uid);
         this.handleCloseAll();
+        if(needsToRedirect){
+            window.location.assign("/");
+        }
     }
 
     handleTextChange = name => event => {
