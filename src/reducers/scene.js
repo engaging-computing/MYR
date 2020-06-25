@@ -105,6 +105,14 @@ export default function scene(state = initial_state, action) {
                     collectionID: action.payload
                 }
             };
+        case types.REMOVE_CLASSROOM:
+            return {
+                ...state,
+                settings: {
+                    ...state.settings,
+                    collectionID: null
+                }
+            };
         case types.LOAD_SETTINGS:
             return {
                 ...state,

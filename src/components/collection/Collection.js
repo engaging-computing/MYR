@@ -87,6 +87,7 @@ class CollectionModal extends Component {
         if(needsToRedirect){
             window.location.assign("/");
         }
+        this.props.deleteCallback(selectedCollection.label);
     }
 
     handleTextChange = name => event => {

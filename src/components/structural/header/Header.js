@@ -504,6 +504,12 @@ class Header extends Component {
         this.setState({ referenceOpen: !this.state.referenceOpen });
     };
 
+    handleCollectionDelete = (collectionID) => {
+        if(this.props.scene.settings.collectionID === collectionID) {
+            this.props.sceneActions.removeCollectionID(this.props.scene);
+        }
+    }
+
     loadCollection = () => {
         return (
             <Collection
@@ -513,7 +519,8 @@ class Header extends Component {
                 user={this.props.user}
                 open={this.state.collectionOpen}
                 handleCollectionToggle={this.handleCollectionToggle}
-                handleCollectionClose={this.handleCollectionClose} />
+                handleCollectionClose={this.handleCollectionClose} 
+                deleteCallback={this.handleCollectionDelete} />
         );
     }
 
