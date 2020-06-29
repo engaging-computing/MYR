@@ -81,9 +81,13 @@ export function deleteCollection(id, name = null, uid) {
         }
     };
 }
-
+/**
+ * 
+ * @param {string} name The name of the collection to be created
+ * @param {*} uid A JWT token to authenticate with the backend
+ */
 export async function createCollection(name, uid) {
-    name = name.toLowerCase();
+    name = name.toLowerCase().trim();
     
     let resp = await fetch(`${collectRef}/`, {
         method: "POST", 

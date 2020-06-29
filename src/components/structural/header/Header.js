@@ -748,6 +748,8 @@ class Header extends Component {
                     <SceneConfigMenu
                         scene={this.props.scene}
                         sceneActions={this.props.sceneActions}
+                        collectionActions={this.props.collectionActions}
+                        user={this.props.user}
                         handleRender={this.handleRender}
                         handleSave={this.handleSave}
                         handleSaveClose={this.handleSaveClose}
