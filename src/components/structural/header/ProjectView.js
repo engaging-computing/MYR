@@ -225,7 +225,7 @@ class Project extends React.Component {
             <Button
                 color="primary"
                 onClick={this.handleAddEmail}
-                href={`mailto:${this.state.sendTo.join("; ")}?subject=Check out my VR Scene in MYR&body=You can find my scene at ${window.origin + "/" + this.state.projectId}`}>
+                href={`mailto:${this.state.sendTo.join("; ")}?subject=Check out my VR Scene in MYR&body=You can find my scene at ${window.origin + "/scene/" + this.state.projectId}`}>
                 Send
             </Button>
         </div>
@@ -236,12 +236,12 @@ class Project extends React.Component {
         let project;
         if (this.state.isUserProj) {
             project = this.props.userProjs.find(function (project) {
-                return project.id === projectId;
+                return project._id === projectId;
             });
         }
         else {
             project = this.props.exampleProjs.find(function (project) {
-                return project.id === projectId;
+                return project._id === projectId;
             });
         }
         if (!project) {
@@ -252,11 +252,11 @@ class Project extends React.Component {
                 </div>
             );
         }
-        let lastMod = new Date(project.data.ts);
+        let lastMod = new Date(project.updateTime);
         return (
             <div>
                 <h3>{project.name}</h3>
-                <p id="info-description">{project.data.desc}</p>
+                <p id="info-description">{project.desc}</p>
                 <small>Last Modified: {lastMod.toDateString()}</small>
             </div>
         );
@@ -266,19 +266,19 @@ class Project extends React.Component {
         return (
             <div>
                 <h5>QR Code to Your Project</h5>
-                <QRCode size={330} value={window.origin + "/" + this.state.projectId} />
+                <QRCode size={330} value={window.origin + "/scene/" + this.state.projectId} />
             </div>
         );
     };
 
     helper = (proj, canDelete) => {
         if (proj) {
-            let id = proj.id;
-            let name = proj.data.name;
+            let id = proj._id;
+            let name = proj.name;
             return (
                 <div key={id} id={id} title={name}
                     className="proj col-xs-12 col-md-6 col-lg-4 pt-2 pl-0" >
-                    <a href={`/${id}`} >
+                    <a href={`/scene/${id}`} >
                         <span className="project-span">{name}</span>
                         <img id={id} alt={id} src={proj.url}
                             className={"img-thumbnail " + (this.state.showImg && "d-none")} />
@@ -303,7 +303,7 @@ class Project extends React.Component {
                                 label="delete Project"
                                 color="secondary"
                                 fullwidth={String(!this.state.showImg)}
-                                onClick={() => this.props.deleteFunc(id, proj.data.name)}>
+                                onClick={() => this.props.deleteFunc(this.props.user.uid, id, proj.name)}>
                                 <Icon className="material-icons">delete</Icon>
                             </IconButton>
                         </span>
@@ -441,7 +441,7 @@ class Project extends React.Component {
                                     <div className="row" id="user-proj" style={{ width: "100%" }}>
                                         { // Sort the users projects in alphabetical order
                                             userProjs.sort(function (a, b) {
-                                                return a.name < b.name ? -1 : a.name > b.name ? 1 : a.data.ts > b.data.ts ? -1 : a.data.ts < b.data.ts ? 1 : 0;
+                                                return a.name < b.name ? -1 : a.name > b.name ? 1 : a.updateTime > b.updateTime ? -1 : a.updateTime < b.updateTime ? 1 : 0;
                                             }).map(proj => {
                                                 return this.helper(proj, true);
                                             })
@@ -453,7 +453,7 @@ class Project extends React.Component {
                                     <div className="row" id="sample-proj" style={{ width: "100%" }}>
                                         {
                                             exampleProjs.sort(function (a, b) {
-                                                return a.name < b.name ? -1 : a.name > b.name ? 1 : a.data.ts > b.data.ts ? -1 : a.data.ts < b.data.ts ? 1 : 0;
+                                                return a.name < b.name ? -1 : a.name > b.name ? 1 : a.updateTime > b.updateTime ? -1 : a.updateTime < b.updateTime ? 1 : 0;
                                             }).map(proj => {
                                                 return this.helper(proj, false);
                                             })
