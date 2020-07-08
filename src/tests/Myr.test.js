@@ -853,4 +853,31 @@ describe("Other Myr functionality", () => {
         expect(response).toEqual({ "test1": 1, "test2": 3 });
     });
 
+    it("Should accept hex colors entered for setColor function", () => {
+        myr.setColor("#ff0000");
+        expect(myr.cursor.color).toEqual("#ff0000");
+        myr.setColor("#FF0000");
+        expect(myr.cursor.color).toEqual("#ff0000");
+        myr.setColor("#0000fF");
+        expect(myr.cursor.color).toEqual("#0000ff");
+        myr.setColor("#008000");
+        expect(myr.cursor.color).toEqual("#008000");
+    });
+
+    // This is will test different variations of color
+    it("Should accept any caps or lowercase letters", () => {
+        myr.setColor("Blue");
+        expect(myr.cursor.color).toEqual("blue");
+        myr.setColor("pURPle");
+        expect(myr.cursor.color).toEqual("purple");
+        myr.setColor("OrAnGe");
+        expect(myr.cursor.color).toEqual("orange");
+        myr.setColor("Red");
+        expect(myr.cursor.color).toEqual("red");
+        myr.setColor("rED");
+        expect(myr.cursor.color).toEqual("red");
+        myr.setColor("ReD");
+        expect(myr.cursor.color).toEqual("red");
+    });
+
 });
