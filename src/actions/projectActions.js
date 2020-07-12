@@ -1,33 +1,21 @@
 import * as types from "../constants/ActionTypes";
-import { scenes, storageRef } from "../firebase.js";
+
+const sceneRef = "/apiv1/scenes";
+const previewRef = "/apiv1/preview/id";
 
 export function asyncUserProj(id) {
     // fetch user's project
     return (dispatch) => {
         if (id) {
-            let userVals = [];
-            scenes.where("uid", "==", id).get().then(snap => {
-                let num_proj_loaded = 0;
-                snap.forEach(doc => {
-                    storageRef.child(`/images/perspective/${doc.id}`)
-                        .getDownloadURL()
-                        .catch(() => {
-                            console.error("Error: Missing preview image");
-                        })
-                        .then((img) => {
-                            let dat = doc.data();
-                            userVals.push({
-                                name: dat.name,
-                                id: doc.id,
-                                data: dat,
-                                url: img ? img : "/img/no_preview.jpg"
-                            });
-                            num_proj_loaded++;
-                            if(num_proj_loaded === snap.size){
-                                dispatch(syncUserProj(userVals));
-                            }
+            fetch(`${sceneRef}/`, {headers: {"x-access-token": id}}).then((response) =>{
+                if(response.status === 200){
+                    response.json().then((json) =>{
+                        json.forEach(element => {
+                            element.url = `${previewRef}/${element._id}`;
                         });
-                });
+                        dispatch(syncUserProj(json));
+                    });
+                }
             });
         }
     };
@@ -40,29 +28,15 @@ export function syncUserProj(payload) {
 export const asyncExampleProj = () => {
     // fetch example projects
     return (dispatch) => {
-        let exampleVals = [];
-        scenes.where("uid", "==", "1").get().then(snap => {
-            let num_proj_loaded = 0;
-            snap.forEach(doc => {
-                storageRef.child(`/images/perspective/${doc.id}`)
-                    .getDownloadURL()
-                    .catch(() => {
-                        console.error("Error: Missing preview image");
-                    })
-                    .then((img) => {
-                        let dat = doc.data();
-                        exampleVals.push({
-                            name: dat.name,
-                            id: doc.id,
-                            data: dat,
-                            url: img ? img : "/img/no_preview.jpg"
-                        });
-                        num_proj_loaded++;
-                        if(num_proj_loaded === snap.size){
-                            dispatch(syncExampleProj(exampleVals));
-                        }
-                    });   
-            });
+        fetch(`${sceneRef}/example`).then((response) =>{
+            if(response.status === 200){
+                response.json().then((json) =>{
+                    json.forEach(element => {
+                        element.url = `${previewRef}/${element._id}`;
+                    });
+                    dispatch(syncExampleProj(json));
+                });
+            }
         });
     };
 };
@@ -71,29 +45,83 @@ export function syncExampleProj(payload) {
     return { type: types.SYNC_EXAMP_PROJ, payload: payload };
 }
 
-export function deleteProj(id, name) {
-    if (window.confirm(`Are you sure you want to delete ${name}?`)) {
-        // Delete Image
-        let path = "images/perspective/" + id;
-        let imgRef = storageRef.child(path);
+export function deleteProj(uid, id, name) {
+    return (dispatch) => {
+        if (window.confirm(`Are you sure you want to delete ${name}?`)) {
+            //Delete Scene and Image
+            fetch(`${sceneRef}/id/${id}`, {method: "delete", headers: {"x-access-token": uid}}).then(response => {
+                if(response.status === 204){
+                    // Delete Document
+                    dispatch({ type: types.DELETE_PROJ, _id: id });
+                    if (window.location.href === `${window.origin}/scene/${id}` || window.location.href === `${window.origin}/scene/${id}/`) {
+                        window.location.assign(window.origin);
+                    }
+                    return true;
+                }else{
+                    return response.json();
+                }
+            }).then((body) => {
+                if(body !== true){
+                    console.error("Error deleting scene");
+                    console.error(body);
 
-        imgRef.delete().then(() => {
-        }).catch((error) => {
-            console.error("Error removing img: ", error);
-        });
+                    alert(`Error Deleting scene ${name}`);
+                }
+            });
+        }
+    };
+}
 
-        // Delete Document
-        scenes.doc(id).delete().then(() => {
+/**
+ * Saves a scene to MongoDB
+ * @param {*} uid The id of the logged in user 
+ * @param {*} scene JSON data of the scene to be saved
+ * @param {*} img JPEG Image file of the Scene
+ * @param {*} sceneID sceneId to be updated, if undefined, creates a new scene
+ * 
+ * @returns {*} The ID of the saved scene
+ */
+export async function save(uid, scene, img, sceneID=undefined){
+    let id = undefined;
+    let url = `${sceneRef}`;
+    let method = "POST";
+    const headers = {
+        "Content-Type": "application/json",
+        "x-access-token": uid
+    };
 
-            // If deleting current project, redirect to home
-            if (window.location.href === window.origin + "/" + id || window.location.href === window.origin + "/" + id + "/") {
-                window.location.href = window.origin;
-            }
-        }).catch((error) => {
-            console.error("Error removing document: ", error);
-        });
-        return { type: types.DELETE_PROJ, id: id };
+    if(sceneID !== undefined){
+        method = "PUT";
+        url = `${sceneRef}/id/${sceneID}`;
     }
+    let resp = await fetch(url, {method: method, body: JSON.stringify(scene), headers: headers});
+    
+    if(resp.status === 401){
+        method = "POST";
+        resp = await fetch(sceneRef, {method: method, body: JSON.stringify(scene), headers: headers});
+    }
+
+    if(resp.status !== 201 && resp.status !== 200){
+        console.error("Could not create new Scene, are you sure you're logged in?");
+        return false;
+    }
+    let json = await resp.json();
+    id = json._id;
+
+    if(id === ""){
+        console.error("Error receiving scene id from server");
+        return false;
+    }
+
+    let data = {data: img};
+    await fetch(`${previewRef}/${id}`, {method: method, body: JSON.stringify(data), 
+        headers: {"Content-Type": "application/json", "x-access-token": uid}})
+        .then((resp) => {
+            if(resp.status !== 201 && resp.status !== 204){
+                console.error("Error sending preview image to server: ", resp.status, resp.statusText);
+            }
+        });
+    return id;
 }
 
 export default {
