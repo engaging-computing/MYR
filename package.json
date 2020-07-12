@@ -1,6 +1,6 @@
 {
     "name": "myr",
-    "version": "1.9.1",
+    "version": "2.0.0",
     "private": false,
     "engines": {
         "node": "10.13.0"
