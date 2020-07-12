@@ -3,7 +3,7 @@
     "version": "2.0.0",
     "private": false,
     "engines": {
-        "node": "10.13.0"
+        "node": "12.18.2"
     },
     "devDependencies": {
         "babel-eslint": "^9.0.0",
