@@ -22,6 +22,7 @@
         "aframe-physics-system": "^3.2.0",
         "aframe-react": "^4.4.0",
         "bootstrap": "^4.0.0",
+        "browserslist": "^4.6.2",
         "cannon": "^0.6.2",
         "create-react-app": "^3.0.1",
         "eslint": "5.6.0",
