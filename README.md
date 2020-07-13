@@ -13,6 +13,8 @@ The Engaging Computing Group develops new technologies to enable learners—yout
 - Removed all Firebase dependencies and uses Mongo exclusively
 - Changed scene URL schema to be `/scene/:id`
 - Replaced authentication with Google OAuth2
+- Update npm version
+- Replaced yarn with npm
 
 ## Acknowledgments
 MYR uses [Aframe](https://aframe.io), a fantastic open source project, to render objects and effects in the three dimensional space.  
