@@ -214,7 +214,6 @@ class Header extends Component {
             oneMinute*5, //Default of 5 minutes
             time - Date.now() - oneMinute*5 // give 5 mins of breathing room
         );
-        console.log(expiryTime/oneMinute);
         setTimeout(this.refreshToken, expiryTime);
     }
 
