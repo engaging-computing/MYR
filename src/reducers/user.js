@@ -14,6 +14,13 @@ export default function user(state = initial_state, action) {
             return {
                 user: null
             };
+        case types.REFRESH_TOKEN:
+            return {
+                user: {
+                    ...state,
+                    uid: action.token
+                }
+            };
         default:
             return state;
     }
