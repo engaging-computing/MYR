@@ -91,6 +91,7 @@ class ConfigModal extends Component {
             sendTo: [],
             collectionID: "",
             value: "a",
+            collectionError: ""
         };
         this.emailRef = React.createRef();
     }
@@ -303,7 +304,7 @@ class ConfigModal extends Component {
     };
 
     handleAddClassToggle = () => {
-        this.setState({ addClassOpen: !this.state.addClassOpen });
+        this.setState({ addClassOpen: !this.state.addClassOpen, collectionError: "" });
     };
 
     classInfoToggle = () => {
@@ -321,6 +322,7 @@ class ConfigModal extends Component {
         <div>
             <h5>Please enter your collection name.</h5>
             {this.props.scene && this.props.scene.settings.collectionID ? <p>{"Current collection: " + this.props.scene.settings.collectionID}</p> : null}
+            {this.state.collectionError ? <p style={{color: "red"}}>{`Error: ${this.state.collectionError}`}</p> : null}
             <TextField
                 id="standard-name"
                 type="text"
@@ -329,10 +331,19 @@ class ConfigModal extends Component {
             <Button
                 color="primary"
                 onClick={() => {
-                    this.handleAddClassToggle();
-                    this.props.sceneActions.addCollectionID(this.state.collectionID.toLowerCase());
-                    this.props.handleSave();
-                    this.props.handleSaveClose();
+                    let collectionID = this.state.collectionID.toLowerCase().trim();
+
+                    fetch(`/apiv1/collections/collectionID/${collectionID}/exists`).then((resp) => {
+                        if(resp.status === 200){
+                            this.handleAddClassToggle();
+                            this.props.sceneActions.addCollectionID(collectionID);
+                            this.props.handleSave(collectionID);
+                            this.props.handleSaveClose();
+                            this.setState({collectionError: ""});
+                        }else{
+                            this.setState({collectionError: `Collection ${collectionID} does not exist!`});
+                        }
+                    });
                 }} >
                 Save
             </Button>
@@ -501,9 +512,13 @@ class ConfigModal extends Component {
                                                 </ButtonBase> */}
                                             </div>
                                             <div className="col-12 border-bottom pt-4">Collection Control</div>
-                                            <div className="col-6">
-                                                <this.addCollectionToggle />
-                                            </div>
+                                            {this.props.displayCollectionConfig ? 
+                                                <div className="col-6">
+                                                    <this.addCollectionToggle />
+                                                </div>
+                                                :
+                                                <></>
+                                            }
                                             <div className="col-6">
                                                 <this.classInfoToggle />
                                             </div>

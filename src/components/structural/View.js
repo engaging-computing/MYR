@@ -7,7 +7,6 @@ import "aframe-extras/dist/aframe-extras.min.js";
 import "aframe-physics-system";
 import "aframe-environment-component";
 
-
 /**
  * @summary - The View component return the aframe representation of the scene. This
  * system utilizes the entity component system(ECS) to build objects in the scene from different
@@ -32,7 +31,7 @@ class View extends Component {
         }
         window.addEventListener("keydown", function (e) {
             //KEYS: left and right: 37, 39; up and down: 38, 40; space: 32
-            if ([38, 40, 32].indexOf(e.keyCode) > -1) {
+            if ([38, 40].indexOf(e.keyCode) > -1) {
                 e.preventDefault();
             }
         }, false);

@@ -66,6 +66,10 @@ export function addCollectionID(payload) {
     return { type: types.ADD_CLASSROOM, payload };
 }
 
+export function removeCollectionID(payload) {
+    return { type: types.REMOVE_CLASSROOM, payload};
+}
+
 export function setDesc(payload) {
     return { type: types.SET_DESC, payload };
 }
@@ -89,5 +93,6 @@ export default {
     changeSetting,
     addCollectionID,
     setDesc,
-    setNameDesc
+    setNameDesc,
+    removeCollectionID
 };

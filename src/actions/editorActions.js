@@ -1,7 +1,8 @@
-import { scenes } from "../firebase.js";
 import { loadScene } from "./sceneActions";
 import { DEF_SETTINGS } from "../reducers/scene";
 import * as types from "../constants/ActionTypes";
+
+const sceneRef = "/apiv1/scenes";
 
 /**
  * @function - Sends a signal to the reducer to render the scene
@@ -41,41 +42,41 @@ export function recover() {
 */
 export function fetchScene(id, uid = "anon") {
     return (dispatch) => {  // Return a func that dispatches events after async
-        scenes.doc(id).get().then((scene) => {
-            let data = scene.data();
-            if (data && data.pw) {
-                let pw = prompt("Please enter the PW");
-                if (pw !== data.pw) { return; }
+        fetch(`${sceneRef}/id/${id}`, {redirect: "follow"}).then((response) =>{
+            if(response.redirected && id !== "error-404"){
+                let url = response.url.split("/");
+                window.location.assign(`${window.origin}/scene/${url[url.length - 1]}?redirected=true`);
+                return;
             }
-            if (data && data.code) { // If it worked
-                // render the editor
-                dispatch(render(data.code, uid || "anon"));
-                dispatch(updateSavedText(data.code));
-                // Use default for eventual consistency in db
-                let settings = DEF_SETTINGS;
 
-                // if the incoming scene has a settings, merge default with incoming
-                if (data.settings) {
-                    settings = { ...settings, ...data.settings };
+            if(response.status !== 200){
+                if(response.status === 404){
+                    window.location.assign(window.origin + "/error-404");
+                }else{
+                    console.error("Error retrieving scene. Reason: ", response.statusText);
                 }
-
-                // apply name/desc
-                dispatch(loadScene({
-                    name: data.name ? data.name : "",
-                    id: data.uid === uid ? id : 0,
-                    ts: data.ts ? data.ts : Date.now(),
-                    desc: data.desc ? data.desc : "",
-                    settings: settings
-                }));
-                // apply settings, set id to 0 if not the owner of the scene
-                // dispatch(loadSettings(settings));
-
-            } else { // If no scene is found and we are not looking for 404 return 404
-                if (id !== "error-404") {
-                    window.location.href = window.origin + "/error-404";
-                }
-                console.error("Unable to fetch scene:" + id);
+                return;
             }
+
+            response.json().then((json) =>{
+                if(json.code){
+                    dispatch(render(json.code, uid || "anon"));
+                    dispatch(updateSavedText(json.code));
+                    let settings = DEF_SETTINGS;
+
+                    if(json.settings){
+                        settings = {...settings, ...json.settings};
+                    }
+
+                    dispatch(loadScene({
+                        name: json.name ? json.name : "",
+                        id: json.uid === uid ? id : 0,
+                        ts: json.updateTime ? json.updateTime : Date.now(),
+                        desc: json.desc ? json.desc : "",
+                        settings: settings
+                    }));
+                }
+            });
         });
     };
 }
