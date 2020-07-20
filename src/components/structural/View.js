@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from "react";
-import { useMediaQuery } from "react-responsive";
+import { isMobile } from "../../utils/mobileCheck";
 import "aframe";
 import "aframe-animation-component";
 import "three-pathfinding/dist/three-pathfinding";
@@ -145,7 +145,7 @@ class View extends Component {
     }
 
     basicMoveCam = () => {
-        if (useMediaQuery({query: "(max-device-width: 1224px)"})) {
+        if (isMobile()) {
             return (
                 <a-entity id="rig" 
                     debug={true}

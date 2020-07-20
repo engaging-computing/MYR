@@ -1,10 +1,10 @@
 import React, { Component } from "react";
-import { useMediaQuery } from "react-responsive";
+import { isMobile } from "../../utils/mobileCheck";
 
 
 class WelcomeScene extends Component {
     createCam = () => {
-        if (useMediaQuery({query: "(max-device-width: 1224px)"})) {
+        if (isMobile()) {
             return (
                 <a-entity id="rig" 
                     debug={true}
