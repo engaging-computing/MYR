@@ -20,7 +20,12 @@ export function logout() {
     return { type: types.LOGOUT };
 }
 
+export function refreshToken(token) {
+    return { type: types.REFRESH_TOKEN, token };
+}
+
 export default {
     login,
-    logout
+    logout,
+    refreshToken
 };
