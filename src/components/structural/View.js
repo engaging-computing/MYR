@@ -31,7 +31,7 @@ class View extends Component {
         }
         window.addEventListener("keydown", function (e) {
             //KEYS: left and right: 37, 39; up and down: 38, 40; space: 32
-            if ([38, 40].indexOf(e.keyCode) > -1) {
+            if ([38, 40, 32].indexOf(e.keyCode) > -1) {
                 e.preventDefault();
             }
         }, false);

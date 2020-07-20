@@ -1,4 +1,4 @@
-import { getDevice } from "ua-parser-js";
+import { UAParser } from "ua-parser-js";
 
 const MOBILE_TYPES = [
     "mobile",
@@ -6,11 +6,10 @@ const MOBILE_TYPES = [
     "wearable"
 ];
 
-const isMobile = () => { 
-    let device = getDevice();
-    if(MOBILE_TYPES.find(device) !== undefined) {
+export const isMobile = () => {
+    let parser = new UAParser();
+    const device = parser.getDevice();
+    if(MOBILE_TYPES.indexOf(device) !== -1) {
         return true;
     }
 };
-
-export default isMobile;
