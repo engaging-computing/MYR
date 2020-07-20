@@ -9,12 +9,8 @@ The Engaging Computing Group develops new technologies to enable learners—yout
 ## Status
 [![CircleCI](https://circleci.com/gh/engaging-computing/MYR.svg?style=shield)](https://circleci.com/gh/engaging-computing/MYR)
 
-## Change Log - 1.9.1 -> 2.0.0
-- Removed all Firebase dependencies and uses Mongo exclusively
-- Changed scene URL schema to be `/scene/:id`
-- Replaced authentication with Google OAuth2
-- Update npm version
-- Replaced yarn with npm
+## Change Log - 2.0.0 -> 2.0.1
+- Fixed bug where tokens expired after one hour and weren't refreshed
 
 ## Acknowledgments
 MYR uses [Aframe](https://aframe.io), a fantastic open source project, to render objects and effects in the three dimensional space.  
