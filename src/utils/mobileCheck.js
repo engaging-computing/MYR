@@ -9,7 +9,10 @@ const MOBILE_TYPES = [
 export const isMobile = () => {
     let parser = new UAParser();
     const device = parser.getDevice();
-    if(MOBILE_TYPES.indexOf(device) !== -1) {
+    if(MOBILE_TYPES.indexOf(device.type) !== -1) {
         return true;
+    }
+    else {
+        return false;
     }
 };

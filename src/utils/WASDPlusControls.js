@@ -21,7 +21,7 @@ const isEmptyObject = (keys) => {
 
 AFRAME.registerComponent("wasd-plus-controls", {
     schema: {
-        acceleration: {default : 100},  
+        acceleration: {default : 150},  
         enabled : {default : true},
         xInverted : {default : false},
         yInverted : {default : false},
