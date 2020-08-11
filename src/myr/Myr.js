@@ -113,11 +113,11 @@ class Myr {
                 general: 1
             },
             light: {
+                intensity: 1.0,
                 beamAngle: 60,
+                diffusion: 0.0,
                 decay: 1,
                 distance: 0.0,
-                intensity: 1.0,
-                diffusion: 0.0,
                 target: null
             }            
         };
@@ -164,13 +164,13 @@ class Myr {
                 general: 1
             },
             light: {
+                intensity: 1.0,
                 beamAngle: 60,
+                diffusion: 0.0,
                 decay: 1,
                 distance: 0.0,
-                intensity: 1.0,
-                diffusion: 0.0,
                 target: null
-            }
+            }    
         };
     }
 
@@ -213,11 +213,11 @@ class Myr {
 
     resetLightCursor = () => {
         this.cursor.light = {
+            intensity: 1.0,
             beamAngle: 60,
+            diffusion: 0.0,
             decay: 1,
             distance: 0.0,
-            intensity: 1.0,
-            diffusion: 0.0,
             target: null
         };
     };
@@ -489,7 +489,7 @@ class Myr {
     };
 
     setColor = (color) => {
-        this.cursor.color = color.toLowerCase();
+        this.cursor.color = color;
         return this.cursor.color;
     }
 
@@ -832,17 +832,16 @@ class Myr {
         let base = {
             id: "lgt" + this.genNewId(),
             light: {
-                state:
-                    `type: ambient; 
-                    color: ${this.cursor.color};
-                    intensity: ${this.cursor.light.intensity};
-                    `,
+                state:`
+      type: ambient; 
+      color: ${this.cursor.color};
+      intensity: ${this.cursor.light.intensity};`,
                 type: "ambient",
             },	  
             color: this.cursor.color,
 
             position: this.cursor.position,
-            scale: "1 1 1",
+            scale: {x:1,y:1,z:1},
             rotation: this.cursor.rotation,
         };	
         return this.mergeProps(base, params);
@@ -852,17 +851,16 @@ class Myr {
         let base = {
             id: "lgt" + this.genNewId(),
             light: {
-                state:
-                    `type: directional; 
-                    intensity: ${this.cursor.light.intensity};
-                    color: ${this.cursor.color};
-                    `,
+                state:`
+      type: directional;
+      color: ${this.cursor.color};
+      intensity: ${this.cursor.light.intensity};`,
                 target: this.cursor.light.target,
                 type: "directional",
             },	  
             color: this.cursor.color,
             position: this.cursor.position,
-            scale: "1 1 1",
+            scale: {x:1,y:1,z:1},
             rotation: this.cursor.rotation,
         };	
         return this.mergeProps(base, params);
@@ -872,22 +870,21 @@ class Myr {
         let base = {
             id: "lgt" + this.genNewId(),
             light: {
-                state:
-                    `type: spot; 
-                    angle: ${this.cursor.light.beamAngle}; 
-                    decay: ${this.cursor.light.decay}; 
-                    distance: ${this.cursor.light.distance}; 
-                    intensity: ${this.cursor.light.intensity}; 
-                    penumbra: ${this.cursor.light.diffusion};
-                    color: ${this.cursor.color};
-                    `,
+                state:`
+      type: spot;
+      angle: ${this.cursor.light.beamAngle};
+      decay: ${this.cursor.light.decay};
+      distance: ${this.cursor.light.distance};
+      intensity: ${this.cursor.light.intensity};
+      penumbra: ${this.cursor.light.diffusion};
+      color: ${this.cursor.color};`,
                 type: "spot",
                 angle: this.cursor.light.beamAngle,
                 target: this.cursor.light.target
             },	  
             color: this.cursor.color,
             position: this.cursor.position,
-            scale:  "1 1 1",
+            scale:  {x:1,y:1,z:1},
             rotation:this.cursor.rotation
         };	
         return this.mergeProps(base, params);
@@ -897,20 +894,19 @@ class Myr {
         let base = {
             id: "lgt" + this.genNewId(),
             light: {
-                state:
-                    `type: point; 
-                    angle: ${this.cursor.light.beamAngle}; 
-                    decay: ${this.cursor.light.decay}; 
-                    distance: ${this.cursor.light.distance}; 
-                    intensity: ${this.cursor.light.intensity}; 
-                    penumbra: ${this.cursor.light.diffusion};
-                    color: ${this.cursor.color};
-                    `,
+                state:`
+      type: point;
+      angle: ${this.cursor.light.beamAngle};
+      decay: ${this.cursor.light.decay};
+      distance: ${this.cursor.light.distance};
+      intensity: ${this.cursor.light.intensity};
+      penumbra: ${this.cursor.light.diffusion};
+      color: ${this.cursor.color};`,
                 type: "point",
             },	 
             color: this.cursor.color,
             position: this.cursor.position,
-            scale: "1 1 1",
+            scale: {x:1,y:1,z:1},
             rotation: this.cursor.rotation,
         };	
         return this.mergeProps(base, params);
@@ -921,18 +917,17 @@ class Myr {
         let base = {
             id: "lgt" + this.genNewId(),
             light: {
-                state:
-                    `type:hemisphere; 
-                    intensity: ${this.cursor.light.intensity};
-                    color: ${this.cursor.color};
-                    groundColor: ${secondColor};
-                    `,
+                state:`
+      type: hemisphere;
+      intensity: ${this.cursor.light.intensity};
+      color: ${this.cursor.color};
+      groundColor: ${secondColor};`,
                 type: "hemisphere",
                 secondColor: secondColor
             },	  
             color: this.cursor.color,
             position: this.cursor.position,
-            scale: "1 1 1",
+            scale: {x:1,y:1,z:1},
             rotation: this.cursor.rotation,
         };	
         return this.mergeProps(base, params);
