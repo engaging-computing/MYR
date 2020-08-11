@@ -488,8 +488,8 @@ class Myr {
         return this.cursor.duration;
     };
 
-    setColor = (color) => {
-        this.cursor.color = color;
+    setColor = (color = "white") => {
+        this.cursor.color = color.toLowerCase();
         return this.cursor.color;
     }
 

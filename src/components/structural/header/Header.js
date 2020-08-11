@@ -1,5 +1,4 @@
 import React, { Component, Fragment } from "react";
-import { auth, provider, scenes, collections, storageRef } from "../../../firebase.js";
 import Reference from "../../reference/Reference.js";
 import Collection from "../../collection/Collection.js";
 import SceneConfigMenu from "./SceneConfigMenu.js";
@@ -8,6 +7,8 @@ import MyrTour from "./MyrTour.js";
 import ProjectView from "./ProjectView.js";
 import CourseSelect from "../../courses/CourseSelect.js";
 import WelcomeScreen from "../WelcomeScreen.js";
+import { GoogleLogin, GoogleLogout } from "react-google-login";
+import sockets from "socket.io-client";
 
 import * as layoutTypes from "../../../constants/LayoutTypes.js";
 
@@ -26,6 +27,7 @@ import {
     createMuiTheme,
     MuiThemeProvider
 } from "@material-ui/core";
+import { save } from "../../../actions/projectActions.js";
 
 const exitBtnStyle = {
     position: "fixed",
@@ -53,8 +55,19 @@ class Header extends Component {
             coursesOpen: false,
             tourOpen: false,
             welcomeOpen: false,
-            savedSettings: []
+            updateCollection: false,
+            fetchCollection: false,
+            socket: sockets(),
+            savedSettings: [],
+            googleUser: undefined
         };
+
+        this.state.socket.on("update", () => {
+            let editor = window.ace.edit("ace-editor");            
+            if(editor.getSession().getValue() === this.props.text || window.confirm("A new version of the scene is available, would you like to load it?")){
+                this.props.actions.fetchScene(this.props.projectId);
+            }
+        });
     }
 
     /**
@@ -63,6 +76,7 @@ class Header extends Component {
     componentDidMount() {
         this.props.projectActions.asyncExampleProj();
         this.props.courseActions.fetchCourses();
+
         if (this.props.courseName) {
             this.props.courseActions.fetchCourse(this.props.courseName);
         }
@@ -70,54 +84,18 @@ class Header extends Component {
             this.props.referenceExampleActions.fetchReferenceExample(this.props.refExName);
         }
         else if (this.props.collection) {
-            let userCollections = [];
-            collections.where("collectionID", "==", this.props.collection).get().then(snap => {
-                snap.forEach(doc => {
-                    let dat = doc.data();
-                    userCollections.push({
-                        collectionID: dat.collectionID,
-                        uid: dat.uid
-                    });
-                });
-            }).then(() => {
-                if (this.props.user && this.props.user.uid && userCollections.length === 1 && userCollections[0].uid === this.props.user.uid) {
-                    this.props.collectionActions.asyncCollection(this.props.collection);
-                }
-                else {
-                    window.alert("Error: You are not logged in as the owner of this collection");
-                }
-            });
-
+            this.setState({ fetchCollection: true });
         }
-
-        // Sync authentication
-        auth.onAuthStateChanged((account) => {
-            if (account) {
-                this.props.logging.login(account);
-                // 2. If we have a user, load their projects
-                this.props.projectActions.asyncUserProj(this.props.user.uid);
-                this.props.collectionActions.asyncCollections(this.props.user.uid);
-            } else {
-                this.props.logging.logout();
-            }
-        });
 
         // Render project if we have projectId. This should only happen if coming from viewer
         const { match } = this.props;
         const projectId = (match && match.params && match.params.id) || "";
         if (this.props.match && projectId) {
             this.setState({ spinnerOpen: true });
-            // When the data's metedata changes, ie update
-            scenes.doc(projectId).onSnapshot({
-                includeMetadataChanges: true,
-            }, () => {
-                if (this.props.user && this.props.user.uid) {
-                    this.props.actions.fetchScene(projectId, this.props.user.uid);
-                } else {
-                    this.props.actions.fetchScene(projectId);
-                }
-                this.setState({ spinnerOpen: false });
-            });
+            this.props.actions.fetchScene(projectId);
+            this.setState({ spinnerOpen: false });
+
+            this.state.socket.emit("scene", projectId);
         }
 
         // Bind to keyboard to listen for shortcuts
@@ -156,8 +134,6 @@ class Header extends Component {
     * @summary - Removes listener for real time sync process
     */
     componentWillUnmount() {
-        let unsubscribe = scenes.onSnapshot(function () { });
-        unsubscribe();
     }
 
     /**
@@ -167,6 +143,14 @@ class Header extends Component {
     componentDidUpdate() {
         if (this.state.lastMsgTime !== this.props.message.time && this.props.message.text !== "") {
             this.setState({ snackOpen: true, lastMsgTime: this.props.message.time });
+        }
+        if(this.state.updateCollection && this.props.user){
+            this.props.collectionActions.asyncCollection(this.props.collection, this.props.user.uid);
+            this.setState({ updateCollection: false });
+        }
+        if(this.state.fetchCollection && this.props.user){
+            this.props.collectionActions.asyncCollection(this.props.collection, this.props.user.uid);
+            this.setState({ fetchCollection: false });
         }
         if(this.state.savedSettings.length === 0 && this.props.scene.id !== 0){
             this.setState({savedSettings: this.buildSettingsArr()});
@@ -204,22 +188,39 @@ class Header extends Component {
     * @summary - The logout function runs when the user click to logout of the application.
     */
     logout = () => {
-        auth.signOut().then(() => {
-            // sync with application state
-            this.props.logging.logout();
-            this.setState({ logMenuOpen: false });
-        });
+        // sync with application state
+        this.props.logging.logout();
+        this.props.projectActions.syncUserProj([]);
+        this.setState({ logMenuOpen: false });
     }
 
     /**
     * @summary - The login function runs when the user click to login of the application.
     */
-    login = () => {
-        auth.signInWithPopup(provider).then((result) => {
-            const account = result.account;
-            // sync with application state
-            this.props.logging.login(account);
-            this.setState({ logMenuOpen: false });
+    login = (googleAuth) => {
+        //googleAuth.getAuthResponse().id_token;
+        googleAuth.profileObj["uid"] = googleAuth.getAuthResponse().id_token;
+        this.props.logging.login(googleAuth.profileObj);
+        this.setState({ logMenuOpen: false, googleUser: googleAuth });
+        
+        this.props.projectActions.asyncUserProj(this.props.user.uid);
+        this.props.collectionActions.asyncCollections(this.props.user.uid);
+        this.setRefreshTime(googleAuth.tokenObj.expires_at);
+    }
+
+    setRefreshTime = (time) => {
+        const oneMinute = 60*1000;
+        let expiryTime = Math.max(
+            oneMinute*5, //Default of 5 minutes
+            time - Date.now() - oneMinute*5 // give 5 mins of breathing room
+        );
+        setTimeout(this.refreshToken, expiryTime);
+    }
+
+    refreshToken = () => {
+        this.state.googleUser.reloadAuthResponse().then((authResponse) => {
+            this.props.logging.refreshToken(authResponse.id_token);
+            this.setRefreshTime(authResponse.expires_at);
         });
     }
 
@@ -229,38 +230,55 @@ class Header extends Component {
     loginBtn = () => {
         return (
             <div id="user" >
-                {this.props.user && this.props.user.displayName ?
-                    <Fragment>
-                        <Avatar
-                            id="login"
-                            src={this.props.user.photoURL}
-                            open={this.state.logMenuOpen}
-                            onClick={() => this.setState({ logMenuOpen: !this.state.logMenuOpen })}
-                            label="logout"
-                            style={{ marginTop: 5 }} />
-                        <Popover
-                            open={this.state.logMenuOpen}
-                            anchorEl={document.getElementById("user")}
-                            anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
-                            onClose={this.handleLogClick} >
-                            <MenuItem primarytext="Log Out" onClick={this.logout} >Log Out</MenuItem>
-                        </Popover>
-                    </Fragment>
+                {this.props.user && this.props.user.name ?
+                    <GoogleLogout
+                        clientId={process.env.REACT_APP_GOOGLE_CLIENTID}
+                        buttonText="Logout"
+                        render={renderProps => (
+                            <Fragment>
+                                <Avatar
+                                    id="login"
+                                    src={this.props.user.imageUrl}
+                                    open={this.state.logMenuOpen}
+                                    onClick={() => this.setState({ logMenuOpen: !this.state.logMenuOpen })}
+                                    label="logout"
+                                    style={{ marginTop: 5 }} />
+                                <Popover
+                                    open={this.state.logMenuOpen}
+                                    anchorEl={document.getElementById("user")}
+                                    anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
+                                    onClose={this.handleLogClick} >
+                                    <MenuItem primarytext="Log Out" onClick={renderProps.onClick}>Log Out</MenuItem>
+                                </Popover>
+                            </Fragment>
+                        )}
+                        onLogoutSuccess={this.logout}
+                        onFailure={(err) => console.error("Could not logout: ", err) }
+                    />
                     :
-                    <Button
-                        type="button"
-                        variant="outlined"
-                        size="small"
-                        color="primary"
-                        onClick={this.login}
-                        style={{
-                            color: "white",
-                            margin: 4,
-                            padding: 2,
-                            border: "1px solid #fff"
-                        }}>
-                        Log In
-                    </Button>
+                    <GoogleLogin
+                        clientId={process.env.REACT_APP_GOOGLE_CLIENTID}
+                        buttonText="Login"
+                        isSignedIn={true}
+                        render={renderProps => (
+                            <Button
+                                type="button"
+                                variant="outlined"
+                                size="small"
+                                color="primary"
+                                onClick={renderProps.onClick}
+                                style={{
+                                    color: "white",
+                                    margin: 4,
+                                    padding: 2,
+                                    border: "1px solid #fff"
+                                }}>
+                                    Log In
+                            </Button>
+                        )}
+                        onSuccess={this.login}
+                        onFailure={(err) => { console.error("Error logging in: ", err); }}
+                    />
                 }
             </div>
         );
@@ -335,10 +353,6 @@ class Header extends Component {
     getProjectId = () => {
         const { match } = this.props;
         let projectId = (match && match.params && match.params.id) || null;
-        if (!projectId || !this.props.scene.id || this.state.needsNewId) {
-            // Generate a new projectId
-            projectId = scenes.doc().id;
-        }
         return projectId;
     }
 
@@ -358,7 +372,7 @@ class Header extends Component {
     /**
     * @summary - When the user clicks save it will upload the information to Firebase
     */
-    handleSave = () => {
+    handleSave = (newCollectionID = undefined) => {
         let editor, text;
         if (!this.props.viewOnly) {
             //If in editor mode, gets text directly from editor
@@ -371,43 +385,45 @@ class Header extends Component {
 
         if (this.props.user && this.props.user.uid && text) {
             this.setState({ spinnerOpen: true });
-            let ts = Date.now();
-            let projectId = this.getProjectId();
             let scene = document.querySelector("a-scene");
             // Access the scene and screen shot, with perspective view in a lossy jpeg format
             let img = scene.components.screenshot.getCanvas("perspective").toDataURL("image/jpeg", 0.1);
-            let path = "images/perspective/" + projectId;
-            let imgRef = storageRef.child(path);
 
-            imgRef.putString(img, "data_url").then(() => {
-                // Put the new document into the scenes collection
-                scenes.doc(projectId).set({
-                    name: (this.props.scene.name ? this.props.scene.name : "Untitled Scene"),
-                    desc: this.props.scene.desc,
-                    code: text,
-                    uid: this.props.user.uid,
-                    settings: this.props.scene.settings,
-                    ts: ts,
-                }).then(() => {
-                    this.props.actions.updateSavedText(this.props.text);
-                    // If we have a new projectId reload page with it
-                    if (this.props.courseName) {
-                        this.setState({ spinnerOpen: false });
-                        //window.open(window.origin + '/' + projectId);
-                    } else if (projectId !== this.props.projectId) {
-                        window.location.href = window.origin + "/" + projectId;
-                    } else {
-                        this.props.projectActions.asyncUserProj(this.props.user.uid);
-                    }
-                }).catch((error) => {
-                    console.error("Error writing document: ", error);
+            let newScene = {
+                name: (this.props.scene.name ? this.props.scene.name : "Untitled Scene"),
+                desc: this.props.scene.desc,
+                code: text,
+                uid: this.props.user.uid,
+                settings: {
+                    ...this.props.scene.settings,
+                    collectionID: newCollectionID || this.props.scene.settings.collectionID
+                },
+                updateTime: Date.now(),
+                createTime: (this.props.scene.createTime ? this.props.scene.createTime : Date.now())
+            };
+            
+            save(this.props.user.uid, newScene, img, this.props.projectId).then((projectId) =>{
+                if(!projectId) {
+                    console.error("Could not save the scene");
+                }
+                
+                this.props.actions.updateSavedText(text);
+                // If we have a new projectId reload page with it
+                if (projectId !== this.props.projectId) {
                     this.setState({ spinnerOpen: false });
-                });
-            }).catch((error) => {
-                console.error("Error uploading a data_url string ", error);
-                this.setState({ spinnerOpen: false });
+                    window.location.assign(`${window.origin}/scene/${projectId}`);
+                    this.props.projectActions.asyncUserProj(this.props.user.uid);
+                }
+                if(!this.state.viewOnly) {
+                    this.props.actions.refresh(text, this.props.user ? this.props.user.uid : "anon");
+                }
+                this.setState({spinnerOpen: false, saveOpen: false});
+                this.state.socket.emit("save");
+                return true;
             });
-        } else {
+        } else if(!text) {
+            alert("There is no code to save for this scene. Try adding some in the editor!");
+        }else {
             // TODO: Don't use alert
             alert("We were unable to save your project. Are you currently logged in?");
         }
@@ -416,7 +432,6 @@ class Header extends Component {
             this.props.actions.refresh(text, this.props.user ? this.props.user.uid : "anon");
         }
         this.setState({savedSettings: this.buildSettingsArr()});
-        this.handleSaveToggle();
     }
 
     /**
@@ -507,15 +522,23 @@ class Header extends Component {
         this.setState({ referenceOpen: !this.state.referenceOpen });
     };
 
+    handleCollectionDelete = (collectionID) => {
+        if(this.props.scene.settings.collectionID === collectionID) {
+            this.props.sceneActions.removeCollectionID(this.props.scene);
+        }
+    }
+
     loadCollection = () => {
         return (
             <Collection
+                openCollection={this.props.collection}
                 collections={this.props.collections}
                 collectionActions={this.props.collectionActions}
                 user={this.props.user}
                 open={this.state.collectionOpen}
                 handleCollectionToggle={this.handleCollectionToggle}
-                handleCollectionClose={this.handleCollectionClose} />
+                handleCollectionClose={this.handleCollectionClose} 
+                deleteCallback={this.handleCollectionDelete} />
         );
     }
 
@@ -606,7 +629,7 @@ class Header extends Component {
                     <Sidebar scene={this.props.scene} nameScene={this.props.sceneActions.nameScene} >
                         <Button
                             variant="raised"
-                            onClick={() => { window.location.href = window.origin; }}
+                            onClick={() => { window.location.assign(window.origin); }}
                             color="primary"
                             className="sidebar-btn">
                             <Icon className="material-icons">add</Icon>
@@ -657,7 +680,7 @@ class Header extends Component {
                     </Sidebar>
                     <h1 className="mr-2 d-none d-sm-block"
                         style={{ cursor: "pointer" }}
-                        onClick={() => { window.location.href = window.origin; }} >
+                        onClick={() => { window.location.assign(window.origin); }} >
                         MYR
                     </h1>
                     <MuiThemeProvider theme={theme}>
@@ -702,7 +725,7 @@ class Header extends Component {
                     <Tooltip title="New Scene" placement="bottom-start">
                         <IconButton
                             id="new-btn"
-                            onClick={() => { window.location.href = window.origin; }}
+                            onClick={() => { window.location.assign(window.origin); }}
                             style={style.default}
                             className="header-btn d-none d-md-block" >
                             <Icon className="material-icons">add_circle_outline</Icon>
@@ -724,7 +747,8 @@ class Header extends Component {
                         exampleProjs={this.props.projects.exampleProjs}
                         projectsOpen={this.state.projectsOpen}
                         handleProjectToggle={this.handleProjectToggle}
-                        tab={this.state.projectTab} />
+                        tab={this.state.projectTab}
+                        user={this.props.user} />
                     <MyrTour
                         tourOpen={this.state.tourOpen}
                         handleTourToggle={this.handleTourToggle}
@@ -742,10 +766,14 @@ class Header extends Component {
                     <SceneConfigMenu
                         scene={this.props.scene}
                         sceneActions={this.props.sceneActions}
+                        collectionActions={this.props.collectionActions}
+                        user={this.props.user}
                         handleRender={this.handleRender}
                         handleSave={this.handleSave}
                         handleSaveClose={this.handleSaveClose}
-                        layoutType={this.props.layoutType} />
+                        layoutType={this.props.layoutType}
+                        displayCollectionConfig={!this.props.collection}
+                    />
                     <CourseSelect
                         coursesOpen={this.state.coursesOpen}
                         handleCoursesToggle={this.handleCoursesToggle}

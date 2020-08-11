@@ -12,9 +12,8 @@ The Engaging Computing Group develops new technologies to enable learners—yout
 
 [![CircleCI](https://circleci.com/gh/engaging-computing/MYR.svg?style=shield)](https://circleci.com/gh/engaging-computing/MYR)
 
-## Change Log - 1.9.0 -> 1.9.1
-- Fixed bug where key was hidden in some reference tabs.
-- setColor arguments are no longer case sensitive.
+## Change Log - 2.0.0 -> 2.0.1
+- Fixed bug where tokens expired after one hour and weren't refreshed
 
 ## Acknowledgments
 

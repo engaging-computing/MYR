@@ -1,5 +1,6 @@
 export const LOGIN = "LOGIN";
 export const LOGOUT = "LOGOUT";
+export const REFRESH_TOKEN = "REFRESH_TOKEN";
 
 export const SYNC_COURSES = "SYNC_COURSES";
 export const LOAD_COURSE = "LOAD_COURSE";
@@ -37,6 +38,7 @@ export const TOGGLE_FLOOR = "TOGGLE_FLOOR";
 export const LOAD_SETTINGS = "LOAD_SETTINGS";
 export const CHANGE_SETTING = "CHANGE_SETTING";
 export const ADD_CLASSROOM = "ADD_CLASSROOM";
+export const REMOVE_CLASSROOM = "REMOVE_CLASSROOM";
 export const SET_DESC = "SET_DESC";
 export const SET_NAME_DESC = "SET_NAME_DESC";
 export const TOGGLE_DEFAULT_LIGHT = "TOGGLE_DEFAULT_LIGHT";

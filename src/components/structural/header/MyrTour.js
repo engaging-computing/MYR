@@ -26,7 +26,6 @@ class MyrTour extends Component {
                     <React.Fragment>
                         <Tour
                             steps={steps}
-                            maskClassName="mask"
                             isOpen={this.props.tourOpen}
                             onAfterOpen={() => {
                                 this.setState({ viewOnlyOnOpen: this.props.viewOnly });
