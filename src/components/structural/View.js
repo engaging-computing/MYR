@@ -121,13 +121,6 @@ class View extends Component {
                     </a-entity>
                 );
             }
-            if (ent.text) {
-                delete flattened.text; // this takes care of a warning, may not be necessary
-                return <a-text key={ent.id} {...flattened}></a-text>;
-            }
-            if (ent.tube) {
-                return <a-tube path={ent.path} radius={ent.radius} material={ent.material}></a-tube>;
-            }
             if(ent.light){
                 delete flattened.light;
                 let target=null,indicator=null;
@@ -152,10 +145,18 @@ class View extends Component {
             }else{
                 shadow = "cast:false; receive:false;";
             }
+
+            if (ent.text) {
+                delete flattened.text; // this takes care of a warning, may not be necessary
+                return <a-text key={ent.id} {...flattened}></a-text>;
+            }
+            if (ent.tube) {
+                return <a-tube path={ent.path} radius={ent.radius} material={ent.material} shadow={shadow} shadowcustomsetting></a-tube>;
+            }
             return <a-entity key={ent.id} {...flattened} shadow={shadow} shadowcustomsetting ></a-entity>;
         }
     }
-    //return elements that contains necessary configuration for light indicator based on light's type
+    //return elements that contains necessary configuration for light indicator based on light's type and properties
     lightIndicatorHelper =(ent)=>{ 
         //ambient light doesn't have an indicator
         if(ent.light.type !== "ambient"){
@@ -170,7 +171,7 @@ class View extends Component {
             //this is second position for indicator of hemisphere light
             let oppositePosition =`position: ${-ent.position.x || 0} ${-ent.position.y || 0} ${-ent.position.z || 0};`;
 
-            //if there's target set, we need to count that into the rotation of light.
+            //if there's target to set, we need to count that into the rotation of light.
             if(ent.light.target){
                 if(ent.light.type === "spot") {
                     geo = "primitive: spotLightTargetIndicator";

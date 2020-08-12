@@ -109,5 +109,8 @@ export default {
     addCollectionID,
     setDesc,
     setNameDesc,
-    removeCollectionID
+    removeCollectionID,
+    toggleDefaultLight,
+    toggleCastShadow,
+    toggleLightIndicator
 };
