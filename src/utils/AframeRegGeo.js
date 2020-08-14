@@ -17,7 +17,7 @@ AFRAME.registerGeometry("spotLightIndicator",{
     },    
 });
 
-//we have another geometry of indicator for spotlight because the rotation calculated using target position is different from actual rotation value.
+//We have another geometry for spotlight indicator because the rotation calculated using target is different from actual rotation value.
 AFRAME.registerGeometry("spotLightTargetIndicator",{
     schema:{},
     init: function(){
@@ -28,7 +28,6 @@ AFRAME.registerGeometry("spotLightTargetIndicator",{
         circle.rotateX(Math.PI/2);
         circle.translate(0,0.5,0);
         
-    
         geometry.merge(circle);
         geometry.merge(cone);
         this.geometry = geometry;
@@ -79,13 +78,6 @@ AFRAME.registerGeometry("hemisphereLightIndicator",{
         this.geometry = geometry;
     },
 });
-// AFRAME.registerGeometry("indicatorAmbient",{
-//     schema:{
-//         default:""
-//     },
-//     init: function(data){
-//    },
-// });
 
 //Geoemtry for light's outline
 AFRAME.registerGeometry("spotLightOutlineIndicator",{

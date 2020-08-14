@@ -55,23 +55,6 @@ class View extends Component {
 
             let el = document.getElementById("rig");
             el.components["movement-controls"].velocity = new THREE.Vector3(0, 0, 0);
-            // document.querySelector("a-scene").addEventListener("loaded",(e)=>{
-
-            //     console.log(e);
-            //     console.log("scene loaded");
-            // });
-
-
-            // console.log(el.components["movement-controls"]);
-            // 
-            // try{
-            //     el = document.getElementById("floor");
-            //     el.components["material"].material.shadowSide = THREE.FrontSide;
-            //     console.log(el.components["material"].material);
-            // }catch(e){
-            //     //it will throw error if it don't use try and catch because there are no floor component when
-            //     console.log(el.components["material"].material);
-            // }
         }
         
     }
@@ -205,9 +188,9 @@ class View extends Component {
         let newState = "";
         //ambient and hemisphere light doesn't cast shadow
         if(light.type !== "ambient" && light.type !== "hemisphere"){
-            newState += "castShadow: true;  shadowMapHeight: 1000; shadowMapWidth: 1000;";
+            newState += "castShadow: true;"; //  shadowMapHeight: 1000; shadowMapWidth: 1000;"
             if(light.type ==="directional"){
-                newState += "shadowCameraNear: -40;shadowBias: -0.002; shadowCameraTop: 40; shadowCameraBottom: -40; shadowCameraLeft: -40; shadowCameraRight: 40; ";
+                newState += "shadowCameraNear: -40;shadowBias: -0.002; shadowCameraTop: 40; shadowCameraBottom: -40; shadowCameraLeft: -40; shadowCameraRight: 40;";
             }else if(light.type === "point"){
                 newState += "shadowCameraFar: 25; shadowBias: -0.02; ";
             }else{

@@ -24,7 +24,7 @@ AFRAME.registerComponent("force-pushable", {
     }
 });
 
-//this set aframe entity to different layer (0-31)
+//This set aframe entity to different layer (range from 0-31)
 //all the regular MYR entities will goes to layer 0
 //And other, such as grid, light indicator will goes to layer 1 so it won't take effect of user created light
 AFRAME.registerComponent("layer",{
@@ -43,7 +43,7 @@ AFRAME.registerComponent("layer",{
     }
 });   
 
-//this display different layer in scene at same time
+//Attached to the a-scene. Display aframe entities in different layer in scene at same time
 AFRAME.registerComponent("scenelayer",{
     schema:{
         default:""
@@ -64,7 +64,7 @@ AFRAME.registerComponent("scenelayer",{
     }
 });
 
-
+//This sets the side where the shadow should be rendered
 AFRAME.registerComponent("shadowcustomsetting", {
     schema:{
         default:""
@@ -77,6 +77,7 @@ AFRAME.registerComponent("shadowcustomsetting", {
     },
 }); 
 
+//This change necessary properties to entity to create a outline to light indicator
 AFRAME.registerComponent("outline",{
     schema:{
         default:""
@@ -90,6 +91,7 @@ AFRAME.registerComponent("outline",{
     }
 });
 
+//This calculate and sets the rotation of the entity based on 2 points
 AFRAME.registerComponent("indicatorrotation",{
     schema:{
         position:{
