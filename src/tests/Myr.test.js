@@ -25,6 +25,7 @@ const defaultCursor = {
     radius: "1",
     phiLength: 360,
     loop: true,
+    textureColoring: false,
     duration: 1000,
     magnitude: {
         spin: 360,
@@ -40,24 +41,62 @@ describe("Updates to Myr's Model", () => {
         expect(myr.cursor.color).toEqual("red");
     });
 
-    it("shoud set the texture by using a title, and getTexture() should return that title", () => {
-        myr.setTexture("illusion");
-        expect(myr.cursor.texture).toEqual("https://upload.wikimedia.org/wikipedia/commons/f/f0/Red_brick_texture.jpg");
-        let getTest = myr.getTexture(); 
-        expect(getTest).toEqual("illusion");
+    it("should set the texture by using a title and getTexture() should return that title", () => {
+        myr.setTexture("bricks");
+        expect(myr.cursor.texture).toEqual("img/textures/bricks.jpg");
+        let getTest = myr.getTexture();
+        expect(getTest).toEqual("bricks");
     });
 
-    it("shoud set the texture by using a url", () => {
-        myr.setTexture("https://upload.wikimedia.org/wikipedia/commons/thumb/a/aa/Polarlicht_2.jpg/461px-Polarlicht_2.jpg");
-        expect(myr.cursor.texture).toEqual("https://upload.wikimedia.org/wikipedia/commons/thumb/a/aa/Polarlicht_2.jpg/461px-Polarlicht_2.jpg");
+    it("should set the texture by using a url and getTexture() should return that url", () => {
+        myr.setTexture("https://learnmyr.org/img/MYR-Logo.png");
+        expect(myr.cursor.texture).toEqual("https://learnmyr.org/img/MYR-Logo.png");
     });
 
-    it("should not set improper texture", () => {
-        myr.setTexture("illusion");
-        myr.setTexture("asdfgh");
-        expect(myr.cursor.texture).toEqual("https://img-s-msn-com.akamaized.net/tenant/amp/entityid/AAHAKHD.img?h=315&w=600&m=6&q=60&o=t&l=f&f=jpg&x=294&y=260");
-        let getTest = myr.getTexture(); 
-        expect(getTest).toEqual("https://upload.wikimedia.org/wikipedia/commons/f/f0/Red_brick_texture.jpg");
+    it("improper texture should return undefined", () => {
+        myr.setTexture("asdfghjkl");
+        expect(myr.cursor.texture).toEqual(undefined);
+        let getUndefinedTest = myr.getTexture();
+        expect(getUndefinedTest).toEqual(undefined);
+    });
+
+    it("setTextureColoring(true) should allow a textured object to have a color other than white", () => {
+        myr.setTextureColoring(true);
+        myr.setColor("blue");
+        myr.setTexture("bricks");
+        myr.els = [];
+        let id = myr.box();
+        let box = myr.els[id];
+
+        expect(myr.getColor()).toMatch("blue");
+        expect(box.material).toMatch(/color: blue;/);
+    });
+
+    it("setTextureColoring(false) should not affect an untextures objects color", () => {
+        myr.setTextureColoring(false);
+        myr.setTexture();
+        myr.setColor("blue");
+        myr.els = [];
+        let id = myr.box();
+        let box = myr.els[id];
+
+        expect(myr.getColor()).toMatch("blue");
+        expect(box.material).toMatch(/color: blue;/);
+    });
+
+    it("setTextureColoring(false) should change the color of a textured object to white", () => {
+        myr.setTextureColoring(false);
+        myr.setTexture("bricks");
+        myr.setColor("blue");
+        myr.els = [];
+        let id = myr.box();
+        let box = myr.els[id];
+
+        expect(myr.getColor()).toMatch("blue");
+        expect(myr.getTexture()).toMatch("bricks");
+        expect(box.material).toMatch(/color: white;/);
+
+        myr.setTexture();
     });
 
     it("to SetPosition", () => {
@@ -100,68 +139,68 @@ describe("Updates to Myr's Model", () => {
 
 describe("Component Renders", () => {
     it("Box", () => {
-        let id = myr.box({ material: "color: blue; texture: brick", position: { x: 1, y: 1, z: 1 } });
+        let id = myr.box({ material: "color: blue; texture: bricks", position: { x: 1, y: 1, z: 1 } });
         let box = myr.els[id];
         expect(box).toBeDefined();
         expect(box.geometry).toMatch(/box/);
         expect(box.material).toMatch(/color: blue;/);
-        expect(box.material).toMatch(/texture: brick/);
+        expect(box.material).toMatch(/texture: bricks/);
         expect(box.position).toEqual({ x: 1, y: 1, z: 1 });
     });
 
     it("Sphere", () => {
         myr.els = [];
-        let id = myr.sphere({ material: "color: blue; texture: brick", position: { x: 1, y: 1, z: 1 } });
+        let id = myr.sphere({ material: "color: blue; texture: bricks", position: { x: 1, y: 1, z: 1 } });
         let sphere = myr.els[id];
         expect(sphere).toBeDefined();
         expect(sphere.geometry).toMatch(/sphere/);
         expect(sphere.material).toMatch(/color: blue;/);
-        expect(sphere.material).toMatch(/texture: brick/);
+        expect(sphere.material).toMatch(/texture: bricks/);
         expect(sphere.position).toEqual({ x: 1, y: 1, z: 1 });
     });
 
     it("Circle", () => {
         myr.els = [];
-        let id = myr.circle({ material: "color: blue; texture: brick", position: { x: 1, y: 1, z: 1 } });
+        let id = myr.circle({ material: "color: blue; texture: bricks", position: { x: 1, y: 1, z: 1 } });
         let circle = myr.els[id];
         expect(circle).toBeDefined();
         expect(circle.geometry).toMatch(/circle/);
         expect(circle.material).toMatch(/color: blue;/);
-        expect(circle.material).toMatch(/texture: brick/);
+        expect(circle.material).toMatch(/texture: bricks/);
         expect(circle.position).toEqual({ x: 1, y: 1, z: 1 });
     });
 
 
     it("Cone", () => {
         myr.els = [];
-        let id = myr.cone({ material: "color: blue; texture: brick", position: { x: 1, y: 1, z: 1 } });
+        let id = myr.cone({ material: "color: blue; texture: bricks", position: { x: 1, y: 1, z: 1 } });
         let cone = myr.els[id];
         expect(cone).toBeDefined();
         expect(cone.geometry).toMatch(/cone/);
         expect(cone.material).toMatch(/color: blue;/);
-        expect(cone.material).toMatch(/texture: brick/);
+        expect(cone.material).toMatch(/texture: bricks/);
         expect(cone.position).toEqual({ x: 1, y: 1, z: 1 });
     });
 
     it("Cylinder", () => {
         myr.els = [];
-        let id = myr.cylinder({ material: "color: blue; texture: brick", position: { x: 1, y: 1, z: 1 } });
+        let id = myr.cylinder({ material: "color: blue; texture: bricks;", position: { x: 1, y: 1, z: 1 } });
         let cylinder = myr.els[id];
         expect(cylinder).toBeDefined();
         expect(cylinder.geometry).toMatch(/cylinder/);
         expect(cylinder.material).toMatch(/color: blue;/);
-        expect(cylinder.material).toMatch(/texture: brick/);
+        expect(cylinder.material).toMatch(/texture: bricks/);
         expect(cylinder.position).toEqual({ x: 1, y: 1, z: 1 });
     });
 
     it("Ring", () => {
         myr.reset();
-        let id = myr.ring();
+        let id = myr.ring({ material: "color: red; texture: bricks; side: double;" });
         let ring = myr.els[id];
         expect(ring).toBeDefined();
         expect(ring.geometry).toMatch(/ring/);
         expect(ring.material).toMatch(/color: red;/);
-        expect(ring.material).toMatch(/texture: brick/);
+        expect(ring.material).toMatch(/texture: bricks/);
         expect(ring.material).toMatch(/side: double;/);
         expect(ring.position).toEqual({ x: 0, y: 0, z: 0 });
     });
@@ -169,35 +208,37 @@ describe("Component Renders", () => {
     it("Plane", () => {
         myr.reset();
         myr.els = [];
+        myr.setTexture("bricks");
         let id = myr.plane();
         let plane = myr.els[id];
         expect(plane).toBeDefined();
         expect(plane.geometry).toMatch(/plane/);
-        expect(plane.material).toMatch(/color: red;/);
-        expect(plane.material).toMatch(/texture: brick/);
+        expect(plane.material).toMatch(/color: white;/);
+        expect(plane.material).toMatch("img/textures/bricks.jpg");
         expect(plane.material).toMatch(/side: double;/);
         expect(plane.position).toEqual({ x: 0, y: 0, z: 0 });
     });
 
     it("Tetrahedron", () => {
         myr.reset();
-        let id = myr.tetrahedron();
+        let id = myr.tetrahedron({ material: "color: red; texture: bricks; side: double;" });
         let tetrahedron = myr.els[id];
         expect(tetrahedron).toBeDefined();
         expect(tetrahedron.geometry).toMatch(/tetrahedron/);
         expect(tetrahedron.material).toMatch(/color: red;/);
-        expect(tetrahedron.material).toMatch(/texture: brick/);
+        expect(tetrahedron.material).toMatch(/texture: bricks/);
         expect(tetrahedron.material).toMatch(/side: double;/);
         expect(tetrahedron.position).toEqual({ x: 0, y: 0, z: 0 });
     });
 
     it("Triangle", () => {
         myr.els = [];
-        let id = myr.triangle({ material: "color: blue; texture: brick", position: { x: 1, y: 1, z: 1 } });
+        myr.setTextureColoring(true);
+        let id = myr.triangle({ material: "color: blue; texture: bricks", position: { x: 1, y: 1, z: 1 } });
         let triangle = myr.els[id];
         expect(triangle).toBeDefined();
         expect(triangle.geometry).toMatch(/triangle/);
-        expect(triangle.material).toMatch(/texture: brick/);
+        expect(triangle.material).toMatch(/texture: bricks/);
         expect(triangle.material).toMatch(/color: blue;/);
         expect(triangle.position).toEqual({ x: 1, y: 1, z: 1 });
     });
@@ -258,27 +299,30 @@ describe("Component Renders", () => {
 
     it("Torus", () => {
         myr.els = [];
+        myr.setTextureColoring(false);
         myr.setColor("blue");
-        myr.setTexture("brick");
+        myr.setTexture("bricks");
         let id = myr.torus({ position: { x: 1, y: 1, z: 1 } });
         let torus = myr.els[id];
         expect(torus).toBeDefined();
         expect(torus.geometry).toMatch(/torus/);
-        expect(torus.material).toMatch(/color: blue;/);
-        expect(torus.material).toMatch(/texture: brick/);
+        expect(torus.material).toMatch(/color: white;/);
+        expect(myr.getTexture()).toMatch("bricks");
         expect(torus.position).toEqual({ x: 1, y: 1, z: 1 });
     });
 
     it("torusknot", () => {
         myr.els = [];
         myr.setColor("blue");
-        myr.setTexture("brick");
+        myr.setTexture("bricks");
+        myr.setTextureColoring(true);
         let id = myr.torusknot({ position: { x: 1, y: 1, z: 1 } });
         let torusknot = myr.els[id];
         expect(torusknot).toBeDefined();
         expect(torusknot.geometry).toMatch(/torus/);
         expect(torusknot.material).toMatch(/color: blue;/);
-        expect(torusknot.material).toMatch(/texture: brick/);
+        expect(torusknot.material).toMatch("img/textures/bricks.jpg");
+        expect(myr.getTexture()).toMatch("bricks");
         expect(torusknot.position).toEqual({ x: 1, y: 1, z: 1 });
     });
 
@@ -298,34 +342,34 @@ describe("Component Renders", () => {
 
     it("dodecahedron", () => {
         myr.els = [];
-        let id = myr.dodecahedron({ material: "color: blue; texture: brick;", position: { x: 1, y: 1, z: 1 } });
+        let id = myr.dodecahedron({ material: "color: blue; texture: bricks;", position: { x: 1, y: 1, z: 1 } });
         let dodecahedron = myr.els[id];
         expect(dodecahedron).toBeDefined();
         expect(dodecahedron.geometry).toMatch(/dodecahedron/);
         expect(dodecahedron.material).toMatch(/color: blue;/);
-        expect(dodecahedron.material).toMatch(/texture: brick/);
+        expect(dodecahedron.material).toMatch(/texture: bricks/);
         expect(dodecahedron.position).toEqual({ x: 1, y: 1, z: 1 });
     });
 
     it("icosahedron", () => {
         myr.els = [];
-        let id = myr.icosahedron({ material: "color: blue; texture: brick", position: { x: 1, y: 1, z: 1 } });
+        let id = myr.icosahedron({ material: "color: blue; texture: bricks", position: { x: 1, y: 1, z: 1 } });
         let icosahedron = myr.els[id];
         expect(icosahedron).toBeDefined();
         expect(icosahedron.geometry).toMatch(/icosahedron/);
         expect(icosahedron.material).toMatch(/color: blue;/);
-        expect(icosahedron.material).toMatch(/texture: brick/);
+        expect(icosahedron.material).toMatch(/texture: bricks/);
         expect(icosahedron.position).toEqual({ x: 1, y: 1, z: 1 });
     });
 
     it("octahedron", () => {
         myr.els = [];
-        let id = myr.octahedron({ material: "color: blue; texture: brick", position: { x: 1, y: 1, z: 1 } });
+        let id = myr.octahedron({ material: "color: blue; texture: bricks", position: { x: 1, y: 1, z: 1 } });
         let octahedron = myr.els[id];
         expect(octahedron).toBeDefined();
         expect(octahedron.geometry).toMatch(/octahedron/);
         expect(octahedron.material).toMatch(/color: blue;/);
-        expect(octahedron.material).toMatch(/texture: brick/);
+        expect(octahedron.material).toMatch(/texture: bricks/);
         expect(octahedron.position).toEqual({ x: 1, y: 1, z: 1 });
     });
 });

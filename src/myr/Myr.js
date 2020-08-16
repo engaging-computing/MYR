@@ -434,13 +434,13 @@ class Myr {
         let textures = TexturePack();
         let textureTitle = [...textures.TexturePack.map(obj => obj.title)];
         let textureURL = [...textures.TexturePack.map(obj => obj.url)];
- 
+
         this.cursor.texture = textureURL[textureTitle.indexOf(texture)];
 
         let urlregex = /^(https?|ftp):\/\/([a-zA-Z0-9.-]+(:[a-zA-Z0-9.&%$-]+)*@)*((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9][0-9]?)(\.(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9]?[0-9])){3}|([a-zA-Z0-9-]+\.)*[a-zA-Z0-9-]+\.(com|edu|gov|int|mil|net|org|biz|arpa|info|name|pro|aero|coop|museum|[a-zA-Z]{2}))(:[0-9]+)*(\/($|[a-zA-Z0-9.,?'\\+&%$#=~_-]+))*$/;
         if(urlregex.test(texture) || (texture === "")) {
             this.cursor.texture = texture;
-        } 
+        }
 
         return this.cursor.texture;
     }
@@ -450,7 +450,7 @@ class Myr {
         return this.cursor.textureColoring;
     };
 
-    getRandomColor = (colors = null) =>{
+    getRandomColor = (colors = null) => {
         let color;
         if (Array.isArray(colors) && colors.length !== 0) {
             color = colors[Math.floor(Math.random() * colors.length)];
@@ -538,20 +538,7 @@ class Myr {
         return outerElId;
     }
 
-    // Render an Aframe Box Primitive with current Myr settings
-/*    box = (params) => {
-        let base = {
-            geometry: "primitive: box;",
-            id: "box" + this.genNewId(),
-            material: this.cursor.textureColoring ? `color: ${this.cursor.color}; side: double; src: ${this.cursor.texture};` : `color: white; side: double; src: ${this.cursor.texture};`,
-            position: { ...this.cursor.position },
-            rotation: this.cursor.rotation,
-            scale: this.cursor.scale,
-            texture: this.cursor.texture,
-        };
-        return this.mergeProps(base, params);
-    }*/
-
+    // Render an Aframe box Primitive with current Myr settings
     box = (params) => {
         let base = {
             geometry: "primitive: box;",
@@ -560,7 +547,6 @@ class Myr {
             position: { ...this.cursor.position },
             rotation: this.cursor.rotation,
             scale: this.cursor.scale,
-            texture: this.cursor.texture,
         };
 
         return this.mergeProps(base, params);
@@ -579,7 +565,7 @@ class Myr {
         return this.mergeProps(base, params);
     }
 
-    // Render an Aframe circle Primitive with current Myr settings
+    // Render an Aframe cone Primitive with current Myr settings
     cone = (params) => {
         let base = {
             id: "cone" + this.genNewId(),
@@ -592,7 +578,7 @@ class Myr {
         return this.mergeProps(base, params);
     }
 
-    // Render an Aframe Text Primitive with current Myr settings
+    // Render an Aframe cylinder Primitive with current Myr settings
     cylinder = (params) => {
         let base = {
             id: "cyl" + this.genNewId(),
@@ -671,7 +657,7 @@ class Myr {
         return this.mergeProps(base, params);
     }
 
-    // Render an Aframe Polyhedron with current Myr settings
+    // Render an Aframe polyhedron with current Myr settings
     polyhedron = (params) => {
         let base = {
             id: "poly" + this.genNewId(),
@@ -735,7 +721,7 @@ class Myr {
             value: text,
             id: "txt" + this.genNewId(),
             side: "double",
-            material: `color: ${this.cursor.color}; side: double;`,
+            color: this.cursor.color,
             position: this.cursor.position,
             scale: this.cursor.scale,
             rotation: this.cursor.rotation,
@@ -1096,6 +1082,7 @@ class Myr {
     getColor = () => {
         return this.cursor.color;
     };
+
     getTexture = () => {
         let textures = TexturePack();
         let textureTitle = [...textures.TexturePack.map(obj => obj.title)];
@@ -1108,45 +1095,59 @@ class Myr {
 
         return returnTexture;
     };
+
     getXPos = () => {
         return this.cursor.position.x;
     };
+
     getYPos = () => {
         return this.cursor.position.y;
     };
+
     getZPos = () => {
         return this.cursor.position.z;
     };
+
     getXScale = () => {
         return this.cursor.scale.x;
     };
+
     getYScale = () => {
         return this.cursor.scale.y;
     };
+
     getZScale = () => {
         return this.cursor.scale.z;
     };
+
     getXRotation = () => {
         return this.cursor.rotation.x;
     };
+
     getYRotation = () => {
         return this.cursor.rotation.y;
     };
+
     getZRotation = () => {
         return this.cursor.rotation.z;
     };
+
     getRadius = () => {
         return this.cursor.radius;
     };
+
     getPhiLength = () => {
         return this.cursor.phiLength;
     };
+
     getLoop = () => {
         return this.cursor.loop;
     };
+
     getDuration = () => {
         return this.cursor.duration;
     };
+
     getMagnitude = () => {
         return this.cursor.magnitude.general;
     };

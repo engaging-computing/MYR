@@ -15,6 +15,10 @@ const HtmlTooltip = withStyles(theme => ({
     },
 }))(Tooltip);
 
+const handleTextureOpen = () => {
+    window.open(window.origin + "/textureReference");
+};
+
 export const stringText = (text) => {
     return (
         <HtmlTooltip
@@ -262,18 +266,18 @@ let transformations = [
     {
         name: "getColor",
         parameters: [],
-        description: <span>returns the current color of the cursor. The color can ge changed by the setColor() or getRandomColor() functions </span>,
+        description: <span>returns the current color of the cursor. The color can be changed by the setColor() or getRandomColor() functions </span>,
     },
     {
         name: "setTexture",
         parameters: [{type: "string", name: "texture"}],
-        description: <span>The setTexture function changes the texture of the cursor. The unaltered texture is displayed when the color is white, otherwise the texture will be affected by the current color. Textures can either be applied using the name of one of these /*insert link here*/ colors (e.g. "brick") or by inserting a valid url (e.g. "https://learnmyr.org/img/MYR-Logo.png"). An empty setTexture() statement will return the cursor texture to displaying no texture.</span>,
+        description: <span>The setTexture function changes the texture of the cursor. The texture's normal color is displayed when setTextureColoring() is false, otherwise the texture will be affected by the current color. Textures can be applied either by using the name of one of <button id="textures" onClick = {handleTextureOpen} style = {{backgroundColor:"white", color:"blue", padding:0, border:"none"}}>these textures</button> or by inserting a valid url. An empty setTexture() or setTexture("") statement will remove the current texture.</span>,
         example: "setTexture"
     },
     {
         name: "setTextureColoring",
-        parameters: [{type: "bool", name:"setTextureColoring"}],
-        description: <span>The setTextureColoring function sets the textureColoring attribute in the cursor, turning whether colors are applied to objects with textures on and off. The default vale is false.</span>,
+        parameters: [{type: "bool", name:"boolean"}],
+        description: <span>The setTextureColoring function sets the textureColoring attribute in the cursor, turning whether colors are applied to objects with textures on and off. The default value is false.</span>,
         example: "setTextureColoring"
     },
     {
@@ -328,17 +332,17 @@ let transformations = [
     {
         name: "getXPos",
         parameters: [],
-        description: <span>returns the current x coordinate of the cursor. The x coordinate can be changed in the setPosition, setXPos, increacePosition(), or increaceXPos() functions.</span>
+        description: <span>returns the current x coordinate of the cursor. The x coordinate can be changed in the setPosition, setXPos, increacePosition, or increaceXPos functions.</span>
     },
     {
         name: "getYPos",
         parameters: [],
-        description: <span>returns the current y coordinate of the cursor. The y coordinate can be changed in the setPosition, setYPos, increacePosition(), or increaceYPos() functions.</span>
+        description: <span>returns the current y coordinate of the cursor. The y coordinate can be changed in the setPosition, setYPos, increacePosition, or increaceYPos functions.</span>
     },
     {
         name: "getZPos",
         parameters: [],
-        description: <span>returns the current z coordinate of the cursor. The z coordinate can be changed in the setPosition, setZPos, increacePosition(), or increaceZPos() functions.</span>
+        description: <span>returns the current z coordinate of the cursor. The z coordinate can be changed in the setPosition, setZPos, increacePosition, or increaceZPos functions.</span>
     },
     {
         name: "setScale",
@@ -367,17 +371,17 @@ let transformations = [
     {
         name: "getXScale",
         parameters: [],
-        description: <span>returns the current x scale component of the cursor. The x scale component can be changed by the setScale() and setXScale().</span>
+        description: <span>returns the current x scale component of the cursor. The x scale component can be changed by the setScale and setXScale functions.</span>
     },
     {
         name: "getYScale",
         parameters: [],
-        description: <span>returns the current y scale component of the cursor. The y scale component can be changed by the setScale() and setYScale().</span>
+        description: <span>returns the current y scale component of the cursor. The y scale component can be changed by the setScale and setYScale functions.</span>
     },
     {
         name: "getZScale",
         parameters: [],
-        description: <span>returns the current z scale component of the cursor. The z scale component can be changed by the setScale() and setZScale().</span>
+        description: <span>returns the current z scale component of the cursor. The z scale component can be changed by the setScale and setZScale functions.</span>
     },
     {
         name: "setRotation",
@@ -406,17 +410,17 @@ let transformations = [
     {
         name: "getXRotation",
         parameters: [],
-        description: <span>returns the current x rotation component of the cursor. The x rotation component can be changed by the setPosition() or pitchX() functions.</span>
+        description: <span>returns the current x rotation component of the cursor. The x rotation component can be changed by the setPosition or pitchX functions.</span>
     },
     {
         name: "getYRotation",
         parameters: [],
-        description: <span>returns the current y rotation component of the cursor. The y rotation component can be changed by the setPosition() or yawY() functions.</span>
+        description: <span>returns the current y rotation component of the cursor. The y rotation component can be changed by the setPosition or yawY functions.</span>
     },
     {
         name: "getZRotation",
         parameters: [],
-        description: <span>returns the current z rotation component of the cursor. The z rotation component can be changed by the setPosition() or rollZ() functions.</span>
+        description: <span>returns the current z rotation component of the cursor. The z rotation component can be changed by the setPosition or rollZ functions.</span>
     },
     {
         name: "setRadius",
@@ -438,7 +442,7 @@ let transformations = [
     {
         name: "getPhiLength",
         parameters: [],
-        description: <span>returns the current PhiLength of the cursor. The PhiLength can be changed by the setPhiLength function.</span>
+        description: <span>returns the current phi Length of the cursor. The phi Length can be changed by the setPhiLength function.</span>
     },
     {
         name: "makeDroppable",
@@ -484,7 +488,7 @@ let animations = [
     {
         name: "getLoop",
         parameters: [],
-        description: <span>Returns whether the loop attribute has been set to true or false. The default value is true but can be changed by the setLoop() function.</span>
+        description: <span>Returns whether the loop attribute has been set to true or false. The default value is true but can be changed by the setLoop function.</span>
     },
     {
         name: "setDuration",
@@ -506,7 +510,7 @@ let animations = [
     {
         name: "getMagnitude",
         parameters: [],
-        desription: <span>The getMagnitude function returns the current magnitude attribute of the cursor. The magnitude can be changed by the setMagnitude() function.</span>
+        desription: <span>The getMagnitude function returns the current magnitude attribute of the cursor. The magnitude can be changed by the setMagnitude function.</span>
     },
     {
         name: "spin",
