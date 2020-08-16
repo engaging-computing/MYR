@@ -1,6 +1,5 @@
 import React from "react";
 import myrReference from "../../myr/textureReference";
-//import * as refFunctions from "../../myr/textureReference";
 
 import * as layoutTypes from "../../constants/LayoutTypes";
 
