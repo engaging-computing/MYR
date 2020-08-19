@@ -351,6 +351,12 @@ class Project extends React.Component {
                 </ListItemIcon>
                 <ListItemText inset primary="Send" />
             </MenuItem>
+            <MenuItem>
+                <ListItemIcon>
+                    <Icon className="material-icons">get_app</Icon>
+                </ListItemIcon>
+                <ListItemText inset primary="Export"/>
+            </MenuItem>
             {/* <MenuItem
         onClick={() => { this.handleClose(); this.handlePwToggle(); }}>
         <ListItemIcon >
@@ -438,6 +444,22 @@ class Project extends React.Component {
                             </Tabs>
                             {this.state.value === "a" &&
                                 <div id="project-list" style={{ marginTop: 0, overflow: "scroll" }}>
+                                    <div className="row" style={{width: "100%", flexDirection: "row-reverse"}}>
+                                    <div>
+                                        <Tooltip title="Export all Scenes, use the share button to export individual scenes">
+                                            <Button>
+                                                <Icon className="material-icons">get_app</Icon>
+                                                <span>&nbsp;</span>Export All
+                                            </Button>
+                                        </Tooltip>
+                                        </div>
+                                        <div>
+                                            <Button>
+                                                <Icon className="material-icons">publish</Icon>
+                                                <span>&nbsp;</span>Import
+                                            </Button>
+                                        </div>
+                                    </div>
                                     <div className="row" id="user-proj" style={{ width: "100%" }}>
                                         { // Sort the users projects in alphabetical order
                                             userProjs.sort(function (a, b) {
