@@ -26,6 +26,7 @@
         "cannon": "^0.6.2",
         "create-react-app": "^3.0.1",
         "eslint": "5.6.0",
+        "file-saver": "^2.0.2",
         "jquery": "^3.3.1",
         "qrcode": "^1.2.0",
         "qrcode.react": "^0.8.0",

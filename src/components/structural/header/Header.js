@@ -9,6 +9,7 @@ import CourseSelect from "../../courses/CourseSelect.js";
 import WelcomeScreen from "../WelcomeScreen.js";
 import { GoogleLogin, GoogleLogout } from "react-google-login";
 import sockets from "socket.io-client";
+import { saveAs } from "file-saver";
 
 import * as layoutTypes from "../../../constants/LayoutTypes.js";
 
@@ -550,6 +551,25 @@ class Header extends Component {
         this.setState({ snackOpen: false });
     }
 
+    onExport = () => {
+        console.log("Exporting all scenes");
+        fetch("/apiv1/scenes/export", {headers: {"x-access-token": this.props.user.uid}}).then(async (resp) => {
+            switch(resp.status) {
+            case 204:
+                alert("There are no scenes saved for you to export!");
+                break;
+            case 200:
+                let data = await resp.json();
+                saveAs(new Blob([JSON.stringify(data)]), "MYR-export.json", {
+                    type: "application/json"
+                });
+                break;
+            default:
+                alert("There was a server error fetching your scenes.  Try again later");
+            }
+        });
+    }
+
     renderSnackBar = () => {
         return (
             <Snackbar
@@ -747,6 +767,7 @@ class Header extends Component {
                         exampleProjs={this.props.projects.exampleProjs}
                         projectsOpen={this.state.projectsOpen}
                         handleProjectToggle={this.handleProjectToggle}
+                        exportFunc={this.onExport}
                         tab={this.state.projectTab}
                         user={this.props.user} />
                     <MyrTour

@@ -447,7 +447,7 @@ class Project extends React.Component {
                                     <div className="row" style={{width: "100%", flexDirection: "row-reverse"}}>
                                     <div>
                                         <Tooltip title="Export all Scenes, use the share button to export individual scenes">
-                                            <Button>
+                                            <Button onClick={this.props.exportFunc}>
                                                 <Icon className="material-icons">get_app</Icon>
                                                 <span>&nbsp;</span>Export All
                                             </Button>
