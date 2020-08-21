@@ -188,13 +188,13 @@ class View extends Component {
         let newState = "";
         //ambient and hemisphere light doesn't cast shadow
         if(light.type !== "ambient" && light.type !== "hemisphere"){
-            newState += "castShadow: true;"; //  shadowMapHeight: 1000; shadowMapWidth: 1000;"
+            newState += "shadowCameraVisible:true; castShadow:true; shadowMapHeight:1024; shadowMapWidth:1024;";  
             if(light.type ==="directional"){
-                newState += "shadowCameraNear: -40;shadowBias: -0.002; shadowCameraTop: 40; shadowCameraBottom: -40; shadowCameraLeft: -40; shadowCameraRight: 40;";
+                newState += "shadowCameraNear: -40;shadowBias: -0.0011; shadowCameraTop: 40; shadowCameraBottom: -40; shadowCameraLeft: -40; shadowCameraRight: 40;";
             }else if(light.type === "point"){
-                newState += "shadowCameraFar: 25; shadowBias: -0.02; ";
+                newState += "shadowCameraFar: 25;shadowBias: -0.02; ";
             }else{
-                newState += "shadowBias: -0.02; ";
+                newState += "shadowBias: -0.02; shadowCameraNear: 7;";
             }
         }else{
             newState += "castShadow: false;";
