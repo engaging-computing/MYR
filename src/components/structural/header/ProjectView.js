@@ -105,6 +105,7 @@ class Project extends React.Component {
             value: this.props.tab,
         };
         this.emailRef = React.createRef();
+        this.inputFileRef = React.createRef();
     }
 
     handleClick = event => {
@@ -351,7 +352,8 @@ class Project extends React.Component {
                 </ListItemIcon>
                 <ListItemText inset primary="Send" />
             </MenuItem>
-            <MenuItem>
+            <MenuItem
+                onClick={() => {this.props.exportFunc(this.state.projectId)}}>
                 <ListItemIcon>
                     <Icon className="material-icons">get_app</Icon>
                 </ListItemIcon>
@@ -454,10 +456,13 @@ class Project extends React.Component {
                                         </Tooltip>
                                         </div>
                                         <div>
-                                            <Button>
-                                                <Icon className="material-icons">publish</Icon>
-                                                <span>&nbsp;</span>Import
-                                            </Button>
+                                            <form>
+                                                <input type="file" name="import" ref={this.inputFileRef} style={{visibility: "hidden"}} onChange={this.props.importFunc} accept=".json" />
+                                                <Button onClick={() => { this.inputFileRef.current.click(); }}>
+                                                    <Icon className="material-icons">publish</Icon>
+                                                    <span>&nbsp;</span>Import
+                                                </Button>
+                                            </form>
                                         </div>
                                     </div>
                                     <div className="row" id="user-proj" style={{ width: "100%" }}>

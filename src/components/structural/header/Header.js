@@ -551,9 +551,13 @@ class Header extends Component {
         this.setState({ snackOpen: false });
     }
 
-    onExport = () => {
-        console.log("Exporting all scenes");
-        fetch("/apiv1/scenes/export", {headers: {"x-access-token": this.props.user.uid}}).then(async (resp) => {
+    onExport = (scene = undefined) => {
+        let param = "";
+        if(scene) {
+            param = `?id=${scene}`;
+        }
+
+        fetch(`/apiv1/scenes/export${param}`, {headers: {"x-access-token": this.props.user.uid}}).then(async (resp) => {
             switch(resp.status) {
             case 204:
                 alert("There are no scenes saved for you to export!");
@@ -568,6 +572,10 @@ class Header extends Component {
                 alert("There was a server error fetching your scenes.  Try again later");
             }
         });
+    }
+
+    onImport = (fileEvent) => {
+        console.log(fileEvent.target.files[0]);
     }
 
     renderSnackBar = () => {
@@ -768,6 +776,7 @@ class Header extends Component {
                         projectsOpen={this.state.projectsOpen}
                         handleProjectToggle={this.handleProjectToggle}
                         exportFunc={this.onExport}
+                        importFunc={this.onImport}
                         tab={this.state.projectTab}
                         user={this.props.user} />
                     <MyrTour
