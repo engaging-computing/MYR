@@ -149,7 +149,7 @@ class View extends Component {
             let mat = `color:${ent.color}; side:double;`;
             let layer = "type: mesh; layer:1;";
 
-            //this is a position for passing in to indicatorroation component to determine the rotation of the light that use position as vector.
+            //this is a position for passing in to indicatorroation component(aframe reg) to determine the rotation of the light that use position as vector.
             let position =`position:${ent.position.x || 0} ${ent.position.y || 0} ${ent.position.z || 0};`;
             //this is second position for indicator of hemisphere light
             let oppositePosition =`position: ${-ent.position.x || 0} ${-ent.position.y || 0} ${-ent.position.z || 0};`;
@@ -162,7 +162,7 @@ class View extends Component {
                 }
                 position += `target:${ent.light.target.x || 0} ${ent.light.target.y || 0} ${ent.light.target.z || 0};`;
                 oppositePosition += `target: ${-ent.light.target.x || 0} ${-ent.light.target.y || 0} ${-ent.light.target.z || 0};`;
-            //if there's no target and light is spotlight, set position to the null so that
+            //if there's no target and light is spotlight, set position to the empty string so that the calculation won't effect the indicator
             } else if (ent.light.type === "spot") {
                 position = "";
             }
@@ -318,7 +318,7 @@ class View extends Component {
         /* eslint-disable */
         return (
             !this.state.welcomeOpen ?
-                <a-scene scenelayer shadow="type:pcf;" physics="debug: false; friction: 3; restitution: .3;" embedded debug="false">
+                <a-scene stats scenelayer shadow="type:pcf;" physics="debug: false; friction: 3; restitution: .3;" embedded debug="false">
                     <a-assets>
                         <a-mixin id="checkpoint"></a-mixin>
                         <a-mixin id="checkpoint-hovered" color="#6CEEB5"></a-mixin>
