@@ -149,7 +149,7 @@ class View extends Component {
             let mat = `color:${ent.color}; side:double;`;
             let layer = "type: mesh; layer:1;";
 
-            //this is a position for passing in to indicatorroation component(aframe reg) to determine the rotation of the light that use position as vector.
+            //this is a position for passing in to indicatorroation component(aframeReg.js) to determine the rotation of the light that use position as vector.
             let position =`position:${ent.position.x || 0} ${ent.position.y || 0} ${ent.position.z || 0};`;
             //this is second position for indicator of hemisphere light
             let oppositePosition =`position: ${-ent.position.x || 0} ${-ent.position.y || 0} ${-ent.position.z || 0};`;
