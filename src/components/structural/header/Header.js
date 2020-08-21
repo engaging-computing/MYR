@@ -29,6 +29,7 @@ import {
     MuiThemeProvider
 } from "@material-ui/core";
 import { save } from "../../../actions/projectActions.js";
+import { parseJSON } from "jquery";
 
 const exitBtnStyle = {
     position: "fixed",
@@ -575,7 +576,19 @@ class Header extends Component {
     }
 
     onImport = (fileEvent) => {
-        console.log(fileEvent.target.files[0]);
+        const file = fileEvent.target.files[0];
+        file.text().then((data) => {
+            try{
+                let json = parseJSON(data);
+                
+                json.forEach(async (scene) => {
+                    await save(this.props.user.uid, scene, scene.image);
+                    this.props.projectActions.asyncUserProj(this.props.user.uid);
+                });
+            }catch(err) {
+                alert("Invalid file uploaded");
+            }
+        });
     }
 
     renderSnackBar = () => {
