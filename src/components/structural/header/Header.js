@@ -58,7 +58,8 @@ class Header extends Component {
             updateCollection: false,
             fetchCollection: false,
             socket: sockets(),
-            savedSettings: []
+            savedSettings: [],
+            googleUser: undefined
         };
 
         this.state.socket.on("update", () => {
@@ -200,10 +201,27 @@ class Header extends Component {
         //googleAuth.getAuthResponse().id_token;
         googleAuth.profileObj["uid"] = googleAuth.getAuthResponse().id_token;
         this.props.logging.login(googleAuth.profileObj);
-        this.setState({ logMenuOpen: false });
+        this.setState({ logMenuOpen: false, googleUser: googleAuth });
         
         this.props.projectActions.asyncUserProj(this.props.user.uid);
         this.props.collectionActions.asyncCollections(this.props.user.uid);
+        this.setRefreshTime(googleAuth.tokenObj.expires_at);
+    }
+
+    setRefreshTime = (time) => {
+        const oneMinute = 60*1000;
+        let expiryTime = Math.max(
+            oneMinute*5, //Default of 5 minutes
+            time - Date.now() - oneMinute*5 // give 5 mins of breathing room
+        );
+        setTimeout(this.refreshToken, expiryTime);
+    }
+
+    refreshToken = () => {
+        this.state.googleUser.reloadAuthResponse().then((authResponse) => {
+            this.props.logging.refreshToken(authResponse.id_token);
+            this.setRefreshTime(authResponse.expires_at);
+        });
     }
 
     /**
@@ -399,7 +417,7 @@ class Header extends Component {
                 if(!this.state.viewOnly) {
                     this.props.actions.refresh(text, this.props.user ? this.props.user.uid : "anon");
                 }
-                this.setState({spinnerOpen: false});
+                this.setState({spinnerOpen: false, saveOpen: false});
                 this.state.socket.emit("save");
                 return true;
             });

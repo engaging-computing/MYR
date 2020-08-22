@@ -1,5 +1,6 @@
 export const LOGIN = "LOGIN";
 export const LOGOUT = "LOGOUT";
+export const REFRESH_TOKEN = "REFRESH_TOKEN";
 
 export const SYNC_COURSES = "SYNC_COURSES";
 export const LOAD_COURSE = "LOAD_COURSE";
