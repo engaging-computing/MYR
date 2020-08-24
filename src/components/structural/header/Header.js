@@ -560,17 +560,17 @@ class Header extends Component {
 
         fetch(`/apiv1/scenes/export${param}`, {headers: {"x-access-token": this.props.user.uid}}).then(async (resp) => {
             switch(resp.status) {
-            case 204:
-                alert("There are no scenes saved for you to export!");
-                break;
-            case 200:
-                let data = await resp.json();
-                saveAs(new Blob([JSON.stringify(data)]), "MYR-export.json", {
-                    type: "application/json"
-                });
-                break;
-            default:
-                alert("There was a server error fetching your scenes.  Try again later");
+                case 204:
+                    alert("There are no scenes saved for you to export!");
+                    break;
+                case 200:
+                    let data = await resp.json();
+                    saveAs(new Blob([JSON.stringify(data)]), "MYR-export.json", {
+                        type: "application/json"
+                    });
+                    break;
+                default:
+                    alert("There was a server error fetching your scenes.  Try again later");
             }
         });
     }
@@ -582,9 +582,11 @@ class Header extends Component {
                 let json = parseJSON(data);
                 
                 json.forEach(async (scene) => {
-                    await save(this.props.user.uid, scene, scene.image);
-                    this.props.projectActions.asyncUserProj(this.props.user.uid);
+                    if(scene.code && scene.name && scene.settings && scene.image) {
+                        await save(this.props.user.uid, scene, scene.image);
+                    }
                 });
+                this.props.projectActions.asyncUserProj(this.props.user.uid);
             }catch(err) {
                 alert("Invalid file uploaded");
             }

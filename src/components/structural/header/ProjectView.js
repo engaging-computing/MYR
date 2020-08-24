@@ -353,7 +353,7 @@ class Project extends React.Component {
                 <ListItemText inset primary="Send" />
             </MenuItem>
             <MenuItem
-                onClick={() => {this.props.exportFunc(this.state.projectId)}}>
+                onClick={() => {this.props.exportFunc(this.state.projectId);}}>
                 <ListItemIcon>
                     <Icon className="material-icons">get_app</Icon>
                 </ListItemIcon>
@@ -447,13 +447,13 @@ class Project extends React.Component {
                             {this.state.value === "a" &&
                                 <div id="project-list" style={{ marginTop: 0, overflow: "scroll" }}>
                                     <div className="row" style={{width: "100%", flexDirection: "row-reverse"}}>
-                                    <div>
-                                        <Tooltip title="Export all Scenes, use the share button to export individual scenes">
-                                            <Button onClick={() => {this.props.exportFunc(); } }>
-                                                <Icon className="material-icons">get_app</Icon>
-                                                <span>&nbsp;</span>Export All
-                                            </Button>
-                                        </Tooltip>
+                                        <div>
+                                            <Tooltip title="Export all Scenes, use the share button to export individual scenes">
+                                                <Button onClick={() => {this.props.exportFunc(); } }>
+                                                    <Icon className="material-icons">get_app</Icon>
+                                                    <span>&nbsp;</span>Export All
+                                                </Button>
+                                            </Tooltip>
                                         </div>
                                         <div>
                                             <form>
