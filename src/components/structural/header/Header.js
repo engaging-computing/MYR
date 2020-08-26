@@ -580,7 +580,6 @@ class Header extends Component {
         file.text().then((data) => {
             try{
                 let json = parseJSON(data);
-                console.log(json);
                 this.props.projectActions.importScenes(this.props.user.uid, json);
             }catch(err) {
                 alert("Invalid file uploaded");

@@ -73,12 +73,12 @@ export function deleteProj(uid, id, name) {
 }
 
 export function importScenes(uid, sceneList) {
-    const headers = {
-        "Content-Type": "application/json",
-        "x-access-token": uid
-    };
-
-    return (dispatch) => {
+    return () => {
+        const headers = {
+            "Content-Type": "application/json",
+            "x-access-token": uid
+        };
+    
         fetch(`${sceneRef}/import`, {headers: headers, body: JSON.stringify(sceneList), method: "POST"}).then((resp) => {
             resp.json().then((respBody) => {
                 if(resp.status !== 200) {
