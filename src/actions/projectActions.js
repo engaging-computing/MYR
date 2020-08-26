@@ -72,6 +72,25 @@ export function deleteProj(uid, id, name) {
     };
 }
 
+export function importScenes(uid, sceneList) {
+    const headers = {
+        "Content-Type": "application/json",
+        "x-access-token": uid
+    };
+
+    return (dispatch) => {
+        fetch(`${sceneRef}/import`, {headers: headers, body: JSON.stringify(sceneList), method: "POST"}).then((resp) => {
+            resp.json().then((respBody) => {
+                if(resp.status !== 200) {
+                    alert(respBody.message);
+                }
+            });
+        });
+
+        asyncUserProj(uid);
+    };
+}
+
 /**
  * Saves a scene to MongoDB
  * @param {*} uid The id of the logged in user 
@@ -129,5 +148,6 @@ export default {
     syncUserProj,
     asyncExampleProj,
     syncExampleProj,
-    deleteProj
+    deleteProj,
+    importScenes
 };

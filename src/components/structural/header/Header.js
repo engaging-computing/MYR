@@ -580,16 +580,13 @@ class Header extends Component {
         file.text().then((data) => {
             try{
                 let json = parseJSON(data);
-                
-                json.forEach(async (scene) => {
-                    if(scene.code && scene.name && scene.settings && scene.image) {
-                        await save(this.props.user.uid, scene, scene.image);
-                    }
-                });
-                this.props.projectActions.asyncUserProj(this.props.user.uid);
+                console.log(json);
+                this.props.projectActions.importScenes(this.props.user.uid, json);
             }catch(err) {
                 alert("Invalid file uploaded");
+                console.error(err);
             }
+            this.props.projectActions.asyncUserProj(this.props.user.uid);
         });
     }
 
