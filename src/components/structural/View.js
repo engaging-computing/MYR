@@ -188,13 +188,13 @@ class View extends Component {
         let newState = "";
         //ambient and hemisphere light doesn't cast shadow
         if(light.type !== "ambient" && light.type !== "hemisphere"){
-            newState += "castShadow:true; shadowMapHeight:1024; shadowMapWidth:1024;";  
-            if(light.type ==="directional"){
-                newState += "shadowCameraNear: -40; shadowBias: -0.0011; shadowCameraTop: 40; shadowCameraBottom: -40; shadowCameraLeft: -40; shadowCameraRight: 40;";
+            newState += "castShadow:true; shadowMapHeight:2000; shadowMapWidth:2000;";
+            if(light.type === "spot"){
+                newState += "shadowBias: -0.02; shadowCameraNear: 7;";
+            }else if(light.type ==="directional"){
+                newState += "shadowCameraNear: -40; shadowBias: -0.002; shadowCameraTop: 40; shadowCameraBottom: -40; shadowCameraLeft: -40; shadowCameraRight: 40;";
             }else if(light.type === "point"){
                 newState += "shadowCameraFar: 25; shadowBias: -0.02;";
-            }else{
-                newState += "shadowBias: -0.02; shadowCameraNear: 7;";
             }
         }else{
             newState += "castShadow: false;";
@@ -318,7 +318,7 @@ class View extends Component {
         /* eslint-disable */
         return (
             !this.state.welcomeOpen ?
-                <a-scene stats scenelayer shadow="type:pcf;" physics="debug: false; friction: 3; restitution: .3;" embedded debug="false">
+                <a-scene scenelayer shadow="type:pcf;" physics="debug: false; friction: 3; restitution: .3;" embedded debug="false">
                     <a-assets>
                         <a-mixin id="checkpoint"></a-mixin>
                         <a-mixin id="checkpoint-hovered" color="#6CEEB5"></a-mixin>
