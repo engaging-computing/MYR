@@ -6,6 +6,7 @@ let colorRegEx = new RegExp("#([0-9]|[A-F]|[a-f]){6}");
 
 const defaultCursor = {
     color: "red",
+    opacity: 1,
     position: {
         x: 0,
         y: 0,
@@ -880,4 +881,18 @@ describe("Other Myr functionality", () => {
         expect(myr.cursor.color).toEqual("red");
     });
 
+
+    it("setTransparency should set the appropriate cursor attribute correctly", () => {
+        myr.setTransparency(0);
+        expect(myr.cursor.opacity).toEqual(1);
+
+        myr.setTransparency(100);
+        expect(myr.cursor.opacity).toEqual(0);
+
+        myr.setTransparency(50);
+        expect(myr.cursor.opacity).toEqual(0.5);
+
+        myr.setTransparency(40);
+        expect(myr.cursor.opacity).toEqual(0.6);
+    });
 });
