@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import Select from "react-select";
-import { collections } from "../../firebase.js";
 
 import {
     Button,
@@ -78,12 +77,17 @@ class CollectionModal extends Component {
     }
 
     handleChange = (selectedCollection) => {
-        window.location.href = window.origin + "/collection/" + selectedCollection.value;
+        window.location.assign(window.origin + "/collection/" + selectedCollection.value);
     }
 
     handleDelete = (selectedCollection) => {
-        this.props.collectionActions.deleteCollection(selectedCollection.value, selectedCollection.label);
+        let needsToRedirect = (this.props.openCollection === selectedCollection.label);
+        this.props.collectionActions.deleteCollection(selectedCollection.value, selectedCollection.label, this.props.user.uid);
         this.handleCloseAll();
+        if(needsToRedirect){
+            window.location.assign("/");
+        }
+        this.props.deleteCallback(selectedCollection.label);
     }
 
     handleTextChange = name => event => {
@@ -136,7 +140,7 @@ class CollectionModal extends Component {
 
         userCollections.map((collection) =>
             optionItems.push({
-                value: collection.id,
+                value: collection._id,
                 label: collection.collectionID
             })
         );
@@ -150,34 +154,31 @@ class CollectionModal extends Component {
     }
 
     handleSubmit = () => {
-        let existingClasses = [];
         if (!this.props.user) {
             window.alert("You must be signed in to create a collection.");
             this.handleAddClassToggle();
         }
         else {
-            let newcollectionID = this.state.newcollectionID.toLowerCase();
-            collections.where("collectionID", "==", newcollectionID).get().then(snap => {
-                snap.forEach(doc => {
-                    existingClasses.push({
-                        id: doc.id
-                    });
-                });
-            }).then(() => {
-                if (existingClasses.length > 0) {
-                    window.alert("Error: A collection already exists with that collection name.");
-                }
-                else {
-                    let newID = collections.doc().id;
-                    collections.doc(newID).set({
-                        collectionID: newcollectionID,
-                        timestamp: Date.now(),
-                        uid: this.props.user.uid
-                    }).then(() => {
+            let name = this.state.newcollectionID.toLowerCase();
+    
+            fetch("/apiv1/collections", {
+                method: "POST", 
+                body: JSON.stringify({collectID: name}),
+                headers:{"Content-Type": "application/json", "x-access-token": this.props.user.uid}
+            }).then((resp) => {
+
+                switch(resp.status) {
+                    case 201://Success
                         this.props.collectionActions.asyncCollections(this.props.user.uid);
                         window.alert("Collection added!");
                         this.handleCloseAll();
-                    });
+                        break;
+                    case 409:
+                        window.alert("Error: A collection already exists with that collection name.");
+                        break;
+                    default:
+                        window.alert(`Error creating collection: ${resp.statusText}`);
+                        break;
                 }
             });
         }

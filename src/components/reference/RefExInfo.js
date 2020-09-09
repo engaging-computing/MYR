@@ -12,7 +12,7 @@ class ReferenceExampleBox extends Component {
             this.props.referenceExample && suggestedCourseName ?
                 <Button
                     variant="raised"
-                    onClick={() => window.location.href = window.origin + "/course/" + suggestedCourse}
+                    onClick={() => window.location.assign(`${window.origin}/course/${suggestedCourse}`) }
                     color="primary"
                     className="ref-ex-btn">
                     <Icon className="material-icons">school</Icon>
