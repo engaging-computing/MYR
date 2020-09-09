@@ -12,7 +12,7 @@ class Myr {
         this.res = { els: this.els, assets: this.assets };
         this.sceneEl = document.querySelector("a-scene");
         this.rand = {
-            seed: 0, 
+            seed: undefined, 
             randCounter: 0,
             oldRandomCounter: 0,
             oldSeed: 0,
@@ -1053,8 +1053,8 @@ class Myr {
         return outerElId;
     }
 
-    setSeed = (seed = 0) => {
-        if (seed === 0){
+    setSeed = (seed) => {
+        if ((seed === undefined) || (seed === 0)) {
             let newSeed = new Date().getTime();
             while(this.rand.seed === newSeed)
             {
@@ -1062,9 +1062,13 @@ class Myr {
             }
             this.rand.seed = newSeed;
         }
-        else{
+        else if (seed > 0){
             this.rand.seed = seed;
         }
+        else {
+            console.error("Invalid setSeed input");
+        }
+
         this.rand.randCounter = 0;
     }
 
@@ -1085,10 +1089,9 @@ class Myr {
     }
 
     calculateRandom = (seedNum, nextRand) => {
-        const counterPow = this.rand.randCounter * this.rand.randCounter; //
-        const seedPow = seedNum * seedNum;
-        const small = 0.000000000000000001, pi = Math.PI, rand_factor = 7.316173367;
-
+        let counterPow = this.rand.randCounter * this.rand.randCounter; //
+        let seedPow = seedNum * seedNum;
+        let small = 0.000000000000000001, pi = Math.PI, rand_factor = 7.316173367;
 
         return (seedPow*counterPow*small*nextRand*pi*rand_factor);
     }
@@ -1108,9 +1111,9 @@ class Myr {
             return max;
         }
 
-        const range = nMax - nMin;
+        let range = nMax - nMin;
 
-        if(this.rand.seed === 0)
+        if(this.rand.seed === undefined)
         {
             this.rand.seed = new Date().getTime();
             this.rand.randCounter = 0;
@@ -1123,7 +1126,7 @@ class Myr {
             seedNum *= seedNum;
         }
 
-        const nextRand = this.nextRandom(min, max);
+        let nextRand = this.nextRandom(min, max);
         this.decrementRandCounter();
 
         randNum = this.calculateRandom(seedNum, nextRand);
@@ -1133,7 +1136,7 @@ class Myr {
             randNum = randNum / 100;
         }
         randNum = randNum % range;
- 
+
         randNum = Math.floor(randNum);
         randNum = randNum + min;
 
@@ -1155,7 +1158,7 @@ class Myr {
         const range = max - min;
         let randNum, seedNum, nextRand;
 
-        if(this.rand.seed === 0)
+        if(this.rand.seed === undefined)
         {
             this.rand.seed = new Date().getTime();
             this.rand.randCounter = 0;
