@@ -3,11 +3,18 @@ import Editor from "../editor/Editor";
 import Header from "../structural/header/Header";
 import Footer from "../structural/Footer";
 import View from "../structural/View";
+import Banner from "../structural/header/Banner";
 
 import * as layoutTypes from "../../constants/LayoutTypes.js";
 
 export const Ide = ({ editor, editorActions, user, authActions, scene, sceneActions, projectActions, courseActions, projects, courses, match, collectionActions, collections }) => (
     <div className="App">
+        <Banner 
+            endpoint="/apiv1/notifications"
+            redirected={
+                new URLSearchParams(window.location.search).get("redirected") === "true"
+            }
+        />
         <Header
             viewOnly={scene.settings.viewOnly}
             logging={authActions}
@@ -37,7 +44,7 @@ export const Ide = ({ editor, editorActions, user, authActions, scene, sceneActi
                     :
                     <>
                         <div id="interface" className="col-12 col-md-4" >
-                            <Editor refresh={editorActions.refresh} render={editorActions.render} text={editor.text} user={user} />
+                            <Editor refresh={editorActions.refresh} render={editorActions.render} text={editor.text} user={user} savedText={editor.savedText} />/>
                         </div>
                         <div id="scene" className="col-12 col-md-8" >
                             <View objects={editor.objects} sceneConfig={scene} assets={editor.assets} />

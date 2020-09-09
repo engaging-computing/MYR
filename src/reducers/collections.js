@@ -20,7 +20,7 @@ export default function classes(state = initial_state, action) {
         case types.DELETE_CLASS:
             let userClasses = [];
             userClasses = state.collections.filter(x => {
-                return x.id !== action.id;
+                return x._id !== action.id;
             });
             return {
                 ...state,

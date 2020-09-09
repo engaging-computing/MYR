@@ -23,7 +23,14 @@ const router = () => {
                 />
                 <Redirect from="/lesson" exact to="/" />
                 <Redirect from="/course" exact to="/" />
-                <Route path='/:id' component={Ide} />
+                
+                <Route path='/:id' exact render={({ match }) => {
+                    if(match.params.id === "error-404"){
+                        return <Route path="/:id" component={Ide} />;
+                    }
+                    return <Redirect to={`/scene/${match.params.id}?redirected=true`} />;
+                }} />
+                <Route path='/scene/:id' component={Ide} />
             </Switch>
         </BrowserRouter>
     );
