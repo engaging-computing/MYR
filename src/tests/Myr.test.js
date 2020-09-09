@@ -6,7 +6,7 @@ let colorRegEx = new RegExp("#([0-9]|[A-F]|[a-f]){6}");
 
 const defaultCursor = {
     color: "red",
-    opacity: 1,
+    transparency: 0,
     position: {
         x: 0,
         y: 0,
@@ -884,15 +884,41 @@ describe("Other Myr functionality", () => {
 
     it("setTransparency should set the appropriate cursor attribute correctly", () => {
         myr.setTransparency(0);
-        expect(myr.cursor.opacity).toEqual(1);
+        expect(myr.cursor.transparency).toEqual(0);
 
         myr.setTransparency(100);
-        expect(myr.cursor.opacity).toEqual(0);
+        expect(myr.cursor.transparency).toEqual(1);
 
         myr.setTransparency(50);
-        expect(myr.cursor.opacity).toEqual(0.5);
+        expect(myr.cursor.transparency).toEqual(0.5);
 
         myr.setTransparency(40);
-        expect(myr.cursor.opacity).toEqual(0.6);
+        expect(myr.cursor.transparency).toEqual(0.4);
+    });
+
+    it("setTransparency should not change opacity if it received an invalid argument", () => {
+        myr.reset();
+
+        myr.setTransparency(-100);
+        expect(myr.cursor.transparency).toEqual(0);
+        myr.setTransparency(-50);
+        expect(myr.cursor.transparency).toEqual(0);
+        myr.setTransparency(-1);
+        expect(myr.cursor.transparency).toEqual(0);
+
+        myr.setTransparency("50");
+        expect(myr.cursor.transparency).toEqual(0);
+        myr.setTransparency("1");
+        expect(myr.cursor.transparency).toEqual(0);
+
+        myr.setTransparency([1, 2, 3]);
+        expect(myr.cursor.transparency).toEqual(0);
+
+        myr.setTransparency({
+            test: true,
+            valid: "false",
+            value: 1
+        });
+        expect(myr.cursor.transparency).toEqual(0);
     });
 });
