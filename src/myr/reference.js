@@ -285,7 +285,7 @@ let transformations = [
     },
     {
         name: "setTransparency",
-        parameters: [{type: "number", name: "transparentcy"}],
+        parameters: [{type: "number", name: "transparency"}],
         description: <span>The setTransparency function changes the opacity of the element. The range of transparency is from 0% (solid) to 100% (invisible). The default is 0%.</span>,
         example: "setTransparency"
     },
