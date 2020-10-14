@@ -198,6 +198,14 @@ export default class Reference extends React.Component {
                                             </Hidden>
                                         }
                                         value='d' />
+                                    <Tab
+                                        icon={<Icon className="material-icons geometry">highlight</Icon>}
+                                        label={
+                                            <Hidden xsDown>
+                                                <div>LIGHT</div>
+                                            </Hidden>
+                                        }
+                                        value='e' />
                                     {/*<Tab
                                     style={{ background: "green", color: "white" }}
                                     icon={<Icon className="material-icons">open_in_new</Icon>}
@@ -239,6 +247,10 @@ export default class Reference extends React.Component {
                             {this.state.value === "d" &&
                                 <div style={{ marginTop: 0, overflow: "scroll" }}>
                                     {this.TableEx("groups")}
+                                </div>}
+                            {this.state.value === "e" &&
+                                <div style={{ marginTop: 0, overflow: "scroll" }}>
+                                    {this.TableEx("lights")}
                                 </div>}
                         </Drawer>
                     </React.Fragment> : null}
