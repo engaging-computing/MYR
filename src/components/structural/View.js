@@ -181,7 +181,7 @@ class View extends Component {
                     <a-camera
                         position={this.props.sceneConfig.settings.cameraPosition}
                         look-controls="pointerLockEnabled: true"
-                        wasd-plus-controls>
+                        wasd-plus-controls="enabled: true">
                         <a-cursor
                             position="0 0 -1"
                             geometry="primitive: ring; radiusInner: 0.02; radiusOuter: 0.03;"

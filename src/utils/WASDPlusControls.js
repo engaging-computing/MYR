@@ -1,3 +1,4 @@
+
 import AFRAME from "aframe";
 import * as THREE from "three";
 const bind = AFRAME.utils.bind;
@@ -21,11 +22,11 @@ const isEmptyObject = (keys) => {
 
 AFRAME.registerComponent("wasd-plus-controls", {
     schema: {
-        acceleration: {default : 150},  
-        enabled : {default : true},
-        xInverted : {default : false},
-        yInverted : {default : false},
-        zInverted : {default : false},
+        acceleration: {type: "number", default : 150},
+        enabled : {type: "boolean", default : true},
+        xInverted : {type: "boolean", default : false},
+        yInverted : {type: "boolean", default : false},
+        zInverted : {type: "boolean", default : false},
     },
     init: function() {
         //tracks the state of keypresses
@@ -79,7 +80,7 @@ AFRAME.registerComponent("wasd-plus-controls", {
         let xSign;
         let ySign;
         let zSign;
-    
+
         // If FPS too low, reset velocity.
         if (delta > MAX_DELTA) {
             velocity["x"] = 0;
@@ -87,7 +88,6 @@ AFRAME.registerComponent("wasd-plus-controls", {
             velocity["z"] = 0;
             return;
         }
-    
         // https://gamedev.stackexchange.com/questions/151383/frame-rate-independant-movement-with-acceleration
         let scaledEasing = Math.pow(1 / this.easing, delta * 60);
         // Velocity Easing based on framerate
