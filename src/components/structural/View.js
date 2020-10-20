@@ -1,7 +1,6 @@
 import React, { Component, Fragment } from "react";
-import { isMobile } from "../../utils/mobileCheck";
+import { browserType } from "../../utils/browserType";
 import "aframe";
-import "aframe-animation-component";
 import "three-pathfinding/dist/three-pathfinding";
 import "aframe-extras/dist/aframe-extras.min.js";
 import "aframe-physics-system";
@@ -145,7 +144,7 @@ class View extends Component {
     }
 
     basicMoveCam = () => {
-        if (isMobile()) {
+        if (browserType() === "mobile") {
             return (
                 <a-entity id="rig" 
                     debug={true}
@@ -153,6 +152,21 @@ class View extends Component {
                     <a-camera
                         position={this.props.sceneConfig.settings.cameraPosition}
                         look-controls="pointerLockEnabled: true">
+                        <a-cursor
+                            position="0 0 -1"
+                            geometry="primitive: ring; radiusInner: 0.02; radiusOuter: 0.03;"
+                            material="color: #CCC; shader: flat;" />
+                    </a-camera>
+                </a-entity> 
+            );
+        }
+        if (browserType() === "vr") {
+            return (
+                <a-entity id="rig" 
+                    debug={true}
+                    tracked-controls="idPrefix: OpenVR">
+                    <a-camera
+                        position={this.props.sceneConfig.settings.cameraPosition}>
                         <a-cursor
                             position="0 0 -1"
                             geometry="primitive: ring; radiusInner: 0.02; radiusOuter: 0.03;"
