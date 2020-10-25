@@ -32,6 +32,8 @@ export function fetchReferenceExample(funcName) {
                 response.json()
                     .then(json => {
                         dispatch(loadReferenceExample(response.status === 200 ? json : notFound));
+                        if(response.status === 200) document.title = json.functionName + " Reference | MYR";
+                        else document.title = "Reference | MYR";
                         dispatch(render(json.code || ""));
                         dispatch(sceneActions.setNameDesc(
                             {
