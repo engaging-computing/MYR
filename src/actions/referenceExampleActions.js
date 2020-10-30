@@ -24,7 +24,7 @@ const notFound = {
     code: ""
 };
 
-//Lesson Actions
+// Lesson Actions
 export function fetchReferenceExample(funcName) {
     return (dispatch) => {
         fetch(refExRef + funcName, header)

@@ -87,7 +87,7 @@ export function loadCourse(course) {
     };
 }
 
-//Lesson Actions
+// Lesson Actions
 export function fetchLesson(json) {
     return (dispatch) => {
         dispatch(loadLesson(json));
