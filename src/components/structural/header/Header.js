@@ -208,7 +208,7 @@ class Header extends Component {
         this.setRefreshTime(googleAuth.tokenObj.expires_at);
 
         //send uid to google analyrica
-        window.gtag('config', 'UA-122925714-1', {'user_id': this.props.user.googleId});
+        window.gtag("config", "UA-122925714-1", {"user_id": this.props.user.googleId});
     }
 
     setRefreshTime = (time) => {
