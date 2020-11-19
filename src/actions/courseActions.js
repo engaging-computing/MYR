@@ -19,7 +19,9 @@ const problem = {
     code: ""
 };
 
-//Course Actions
+/**
+ * Course Actions
+ */
 export function fetchCourses() {
     return (dispatch) => {
         fetch(courseRef, header)
@@ -87,7 +89,9 @@ export function loadCourse(course) {
     };
 }
 
-// Lesson Actions
+/**
+ * Lesson Actions
+ */
 export function fetchLesson(json) {
     return (dispatch) => {
         dispatch(loadLesson(json));
@@ -97,7 +101,12 @@ export function fetchLesson(json) {
     };
 }
 
-// Frontend disables option if out of bounds
+/**
+ * Frontend disables option if out of bounds
+ * 
+ * @param {*} currentIndex !!!DESCRIPTION NEEDED!!!
+ * @param {*} next !!!DESCRIPTION NEEDED!!!
+ */
 export function nextLesson(currentIndex, next) {
     return (dispatch) => {
         dispatch(setCurrentIndex(currentIndex + 1));
@@ -105,7 +114,12 @@ export function nextLesson(currentIndex, next) {
     };
 }
 
-// Frontend disables option if out of bounds
+/**
+ * Frontend disables option if out of bounds
+ * 
+ * @param {*} currentIndex !!!DESCRIPTION NEEDED!!!
+ * @param {*} prev !!!DESCRIPTION NEEDED!!!
+ */
 export function previousLesson(currentIndex, prev) {
     return (dispatch) => {
         dispatch(setCurrentIndex(currentIndex - 1));

@@ -28,7 +28,10 @@ function getOuterModalStyle() {
     };
 }
 
-// CSS for modal
+/**
+ * CSS for modal
+ * @param {*} theme 
+ */
 const modelStyles = theme => ({
     outer: {
         position: "absolute",

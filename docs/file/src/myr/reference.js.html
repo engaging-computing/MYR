@@ -1,0 +1,795 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <base data-ice="baseUrl" href="../../../">
+  <title data-ice="title">src/myr/reference.js | myr</title>
+  <link type="text/css" rel="stylesheet" href="css/style.css">
+  <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
+  <script src="script/prettify/prettify.js"></script>
+  <script src="script/manual.js"></script>
+</head>
+<body class="layout-container" data-ice="rootContainer">
+
+<header>
+  <a href="./">Home</a>
+  
+  <a href="identifiers.html">Reference</a>
+  <a href="source.html">Source</a>
+  
+  <div class="search-box">
+  <span>
+    <img src="./image/search.png">
+    <span class="search-input-edge"></span><input class="search-input"><span class="search-input-edge"></span>
+  </span>
+    <ul class="search-result"></ul>
+  </div>
+</header>
+
+<nav class="navigation" data-ice="nav"><div>
+  <ul>
+    
+  <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-router">router</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#actions">actions</a><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-login">login</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-logout">logout</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-refreshToken">refreshToken</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-asyncCollection">asyncCollection</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-asyncCollections">asyncCollections</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-createCollection">createCollection</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-deleteCollection">deleteCollection</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-syncCollection">syncCollection</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-syncCollections">syncCollections</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-fetchCourse">fetchCourse</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-fetchCourses">fetchCourses</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-fetchLesson">fetchLesson</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-loadCourse">loadCourse</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-loadLesson">loadLesson</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-nextLesson">nextLesson</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-previousLesson">previousLesson</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-setCurrentIndex">setCurrentIndex</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-syncCourses">syncCourses</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-addPassword">addPassword</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-fetchScene">fetchScene</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-recover">recover</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-refresh">refresh</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-render">render</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-updateSavedText">updateSavedText</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-asyncExampleProj">asyncExampleProj</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-asyncUserProj">asyncUserProj</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-deleteProj">deleteProj</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-save">save</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-syncExampleProj">syncExampleProj</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-syncUserProj">syncUserProj</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-fetchReferenceExample">fetchReferenceExample</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-loadReferenceExample">loadReferenceExample</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-addCollectionID">addCollectionID</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-changeCamMode">changeCamMode</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-changeFloorColor">changeFloorColor</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-changePerspective">changePerspective</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-changeSetting">changeSetting</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-changeSkyColor">changeSkyColor</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-changeView">changeView</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-loadScene">loadScene</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-loadSettings">loadSettings</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-nameScene">nameScene</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-removeCollectionID">removeCollectionID</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-setCamera">setCamera</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-setDesc">setDesc</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-setNameDesc">setNameDesc</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-toggleCoordSky">toggleCoordSky</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-toggleFloor">toggleFloor</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-toggleFly">toggleFly</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-collectRef">collectRef</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#components-collection">components/collection</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/components/collection/SelectProject.js~SelectProject.html">SelectProject</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-Collection">Collection</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#components-courses">components/courses</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/components/courses/Course.js~Lesson.html">Lesson</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-CourseSelect">CourseSelect</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#components-editor">components/editor</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/components/editor/Editor.js~Editor.html">Editor</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-customCompleter">customCompleter</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#components-layouts">components/layouts</a><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-Collection">Collection</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-Reference">Reference</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#components-reference">components/reference</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/components/reference/RefExInfo.js~ReferenceExampleBox.html">ReferenceExampleBox</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/components/reference/Reference.js~Reference.html">Reference</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/components/reference/ReferencePage.js~Reference.html">Reference</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#components-structural">components/structural</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/components/structural/Footer.js~Footer.html">Footer</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/components/structural/View.js~View.html">View</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/components/structural/WelcomeScene.js~WelcomeScene.html">WelcomeScene</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-WelcomeScreen">WelcomeScreen</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#components-structural-header">components/structural/header</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/components/structural/header/Header.js~Header.html">Header</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/components/structural/header/MyrTour.js~MyrTour.html">MyrTour</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/components/structural/header/Sidebar.js~Sidebar.html">Sidebar</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-ProjectView">ProjectView</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#constants">constants</a><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-ADD_CLASSROOM">ADD_CLASSROOM</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-ADD_PW">ADD_PW</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-ASYNC_EXAMP_PROJ">ASYNC_EXAMP_PROJ</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-ASYNC_USER_PROJ">ASYNC_USER_PROJ</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-CHANGE_CAM_MODE">CHANGE_CAM_MODE</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-CHANGE_FLOOR_COLOR">CHANGE_FLOOR_COLOR</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-CHANGE_PERSPECTIVE">CHANGE_PERSPECTIVE</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-CHANGE_SETTING">CHANGE_SETTING</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-CHANGE_SKY_COLOR">CHANGE_SKY_COLOR</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-CHANGE_VIEW">CHANGE_VIEW</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-DELETE_CLASS">DELETE_CLASS</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-DELETE_PROJ">DELETE_PROJ</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-EDITOR_CHANGE">EDITOR_CHANGE</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-EDITOR_RECOVER">EDITOR_RECOVER</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-EDITOR_REFRESH">EDITOR_REFRESH</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-EDITOR_RENDER">EDITOR_RENDER</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-EDITOR_UPDATE_SAVEDTEXT">EDITOR_UPDATE_SAVEDTEXT</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-LOAD_COURSE">LOAD_COURSE</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-LOAD_LESSON">LOAD_LESSON</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-LOAD_REF_EX">LOAD_REF_EX</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-LOAD_SCENE">LOAD_SCENE</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-LOAD_SETTINGS">LOAD_SETTINGS</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-LOGIN">LOGIN</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-LOGOUT">LOGOUT</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-NAME_SCENE">NAME_SCENE</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-NEW_SCENE">NEW_SCENE</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-REFRESH_TOKEN">REFRESH_TOKEN</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-REMOVE_CLASSROOM">REMOVE_CLASSROOM</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-REQ_RELOAD">REQ_RELOAD</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-SAVE_FIN">SAVE_FIN</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-SAVE_START">SAVE_START</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-SET_CAMERA">SET_CAMERA</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-SET_DESC">SET_DESC</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-SET_INDEX">SET_INDEX</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-SET_NAME_DESC">SET_NAME_DESC</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-SYNC_CLASS">SYNC_CLASS</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-SYNC_CLASSES">SYNC_CLASSES</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-SYNC_COURSES">SYNC_COURSES</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-SYNC_EXAMP_PROJ">SYNC_EXAMP_PROJ</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-SYNC_USER_PROJ">SYNC_USER_PROJ</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-TOGGLE_COORD_SKY">TOGGLE_COORD_SKY</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-TOGGLE_FLOOR">TOGGLE_FLOOR</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-TOGGLE_FLY">TOGGLE_FLY</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-CLASSROOM">CLASSROOM</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-GUIDED">GUIDED</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-IDE">IDE</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-REFERENCE">REFERENCE</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-REF_EXAMPLE">REF_EXAMPLE</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#myr">myr</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/myr/Group.js~Group.html">Group</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/myr/Myr.js~Myr.html">Myr</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-arrayText">arrayText</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-boolText">boolText</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-dataText">dataText</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-numberText">numberText</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-r">r</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-stringText">stringText</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#reducers">reducers</a><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-classes">classes</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-course">course</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-editor">editor</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-project">project</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-referenceExample">referenceExample</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-scene">scene</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-user">user</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-store">store</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-DEF_SETTINGS">DEF_SETTINGS</a></span></span></li>
+</ul>
+</div>
+</nav>
+
+<div class="content" data-ice="content"><h1 data-ice="title">src/myr/reference.js</h1>
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">import React from &quot;react&quot;;
+import {
+    Tooltip,
+    Typography,
+    withStyles
+} from &quot;@material-ui/core&quot;;
+
+const HtmlTooltip = withStyles(theme =&gt; ({
+    tooltip: {
+        maxWidth: 300,
+        fontSize: theme.typography.pxToRem(14),
+        &quot;&amp; b&quot;: {
+            fontWeight: &quot;inherit&quot;,
+        },
+    },
+}))(Tooltip);
+
+export const stringText = (text) =&gt; {
+    return (
+        &lt;HtmlTooltip
+            title={
+                &lt;React.Fragment&gt;
+                    &lt;Typography color=&quot;inherit&quot;&gt;String&lt;/Typography&gt;
+                    &lt;p&gt;
+                        In computer science a string is any finite sequence of characters
+                        (i.e., letters, numerals, symbols and punctuation marks). &lt;br /&gt;
+                    &lt;/p&gt;
+                    {text === &quot;elementID&quot; &amp;&amp;
+                        &lt;p&gt;An elementID is a special type of string returned by geometries and groups.&lt;/p&gt;}
+                &lt;/React.Fragment&gt;
+            }
+        &gt;
+            &lt;span
+                className=&quot;string&quot;
+                style={{ borderBottom: &quot;1px dotted green&quot; }}&gt;
+                {text}
+            &lt;/span&gt;
+        &lt;/HtmlTooltip&gt;);
+};
+export const numberText = (text) =&gt; {
+    return (
+        &lt;HtmlTooltip
+            title={
+                &lt;React.Fragment&gt;
+                    &lt;Typography color=&quot;inherit&quot;&gt;Number&lt;/Typography&gt;
+                    &lt;p&gt;
+                        A number is any real number, or an expression that evaluates to a real number
+                        (e.g., -2, 3.14, 1/3).
+                    &lt;/p&gt;
+                &lt;/React.Fragment&gt;
+            }
+        &gt;
+            &lt;span
+                className=&quot;number&quot;
+                style={{ borderBottom: &quot;1px dotted blue&quot; }}&gt;
+                {text}
+            &lt;/span&gt;
+        &lt;/HtmlTooltip&gt;);
+};
+export const boolText = (text) =&gt; {
+    return (
+        &lt;HtmlTooltip
+            title={
+                &lt;React.Fragment&gt;
+                    &lt;Typography color=&quot;inherit&quot;&gt;Bool&lt;/Typography&gt;
+                    &lt;p&gt;
+                        In computer science, the bool data type has one of two possible Boolean values: true or false.
+                    &lt;/p&gt;
+                &lt;/React.Fragment&gt;
+            }
+        &gt;
+            &lt;span
+                className=&quot;bool&quot;
+                style={{ borderBottom: &quot;1px dotted red&quot; }}&gt;
+                {text}
+            &lt;/span&gt;
+        &lt;/HtmlTooltip&gt;);
+};
+
+export const arrayText = (text) =&gt; {
+    return (
+        &lt;HtmlTooltip
+            title={
+                &lt;React.Fragment&gt;
+                    &lt;Typography color=&quot;inherit&quot;&gt;Array&lt;/Typography&gt;
+                    &lt;p&gt;
+                        In computer science, an array is a data structure that consists of a number of indexable elements.
+                    &lt;/p&gt;
+                    &lt;p&gt;
+                        This code sets the color of the cursor to blue:
+                    &lt;/p&gt;
+                    &lt;p style={{ fontFamily: &quot;monospace&quot; }}&gt;
+                        let colors = [&quot;blue&quot;, &quot;green&quot;, &quot;red&quot;];&lt;br /&gt;
+                        setColor(colors[0]);&lt;br /&gt;
+                        box();&lt;br /&gt;
+                    &lt;/p&gt;
+                &lt;/React.Fragment&gt;
+            }
+        &gt;
+            &lt;span
+                className=&quot;array&quot;
+                style={{ borderBottom: &quot;1px dotted black&quot; }}&gt;
+                {text}
+            &lt;/span&gt;
+        &lt;/HtmlTooltip&gt;);
+};
+
+export const dataText = (text) =&gt; {
+    return (
+        &lt;HtmlTooltip
+            title={
+                &lt;React.Fragment&gt;
+                    &lt;Typography color=&quot;inherit&quot;&gt;Data&lt;/Typography&gt;
+                    &lt;p&gt;
+                        Data can be of any valid JS datatype. This includes a strings, numbers, booleans, and objects among other datatypes. &lt;br /&gt;
+                    &lt;/p&gt;
+                &lt;/React.Fragment&gt;
+            }
+        &gt;
+            &lt;span
+                className=&quot;data&quot;
+                style={{ borderBottom: &quot;1px dotted orange&quot; }}&gt;
+                {text}
+            &lt;/span&gt;
+        &lt;/HtmlTooltip&gt;);
+};
+
+let geometry = [
+    {
+        name: &quot;box&quot;,
+        parameters: [],
+        description: &lt;span&gt;The box function makes a 3D quadrilateral using the current cursor attributes. This function returns an {stringText(&quot;elementID&quot;)}.&lt;/span&gt;,
+        example: &quot;box&quot;
+    },
+    {
+        name: &quot;circle&quot;,
+        parameters: [],
+        description: &lt;span&gt;The circle function makes a 2D circle using the current cursor attributes. This function returns an {stringText(&quot;elementID&quot;)}.&lt;/span&gt;,
+        example: &quot;circle&quot;
+    },
+    {
+        name: &quot;cone&quot;,
+        parameters: [],
+        description: &lt;span&gt;The cone function makes a cone using the current cursor attributes. This function returns an {stringText(&quot;elementID&quot;)}.&lt;/span&gt;,
+        example: &quot;cone&quot;
+    },
+    {
+        name: &quot;cylinder&quot;,
+        parameters: [],
+        description: &lt;span&gt;The cylinder function makes a cylinder using the current cursor attributes. This function returns an {stringText(&quot;elementID&quot;)}.&lt;/span&gt;,
+        example: &quot;cylinder&quot;
+    },
+    {
+        name: &quot;dodecahedron&quot;,
+        parameters: [],
+        description: &lt;span&gt;The dodecahedron function makes a polyhedron with twelve equilateral faces using the current cursor attributes. This function returns an {stringText(&quot;elementID&quot;)}.&lt;/span&gt;,
+        example: &quot;dodecahedron&quot;
+    },
+    {
+        name: &quot;icosahedron&quot;,
+        parameters: [],
+        description: &lt;span&gt;The icosahedron function makes a polyhedron with twenty equilateral faces using the current cursor attributes. This function returns an {stringText(&quot;elementID&quot;)}.&lt;/span&gt;,
+        example: &quot;icosahedron&quot;
+    },
+    {
+        name: &quot;octahedron&quot;,
+        parameters: [],
+        description: &lt;span&gt;The octahedron function makes a polyhedron with eight equilateral triangular faces using the current cursor attributes. This function returns an {stringText(&quot;elementID&quot;)}.&lt;/span&gt;,
+        example: &quot;octahedron&quot;
+    },
+    // This is out temporarily until better fleshed out
+    //{
+    //  name: &apos;line()&apos;,
+    //  description: &lt;span&gt;Renders a line using current internal cursor properties. Returns an &lt;span className=&quot;string element&quot;&gt;element id&lt;/span&gt;.&lt;/span&gt;
+    //},
+    {
+        name: &quot;plane&quot;,
+        parameters: [],
+        description: &lt;span&gt;The plane geometry creates a flat surface with four 90 degree angles using the current cursor attributes. This function returns an {stringText(&quot;elementID&quot;)}.&lt;/span&gt;,
+        example: &quot;plane&quot;
+    },
+    {
+        name: &quot;prism&quot;,
+        parameters: [],
+        description: &lt;span&gt;The prism function makes a round 3D shape with three edges that meet at the top and bottom using the current cursor attributes. This function returns an {stringText(&quot;elementID&quot;)}.&lt;/span&gt;,
+        example: &quot;prism&quot;
+    },
+    {
+        name: &quot;ring&quot;,
+        parameters: [],
+        description: &lt;span&gt;The ring function makes a flat ring, like a CD, using the current cursor attributes. This function returns an {stringText(&quot;elementID&quot;)}.&lt;/span&gt;,
+        example: &quot;ring&quot;
+    },
+    {
+        name: &quot;sphere&quot;,
+        parameters: [],
+        description: &lt;span&gt;The sphere function makes a sphere (e.g., ball) using the current cursor attributes. This function returns an {stringText(&quot;elementID&quot;)}.&lt;/span&gt;,
+        example: &quot;sphere&quot;
+    },
+    {
+        name: &quot;tetrahedron&quot;,
+        parameters: [],
+        description: &lt;span&gt;The tetrahedron function makes a polyhedron with four equilateral faces using the current cursor attributes. This function returns an {stringText(&quot;elementID&quot;)}.&lt;/span&gt;,
+        example: &quot;tetrahedron&quot;
+    },
+    {
+        name: &quot;text&quot;,
+        parameters: [{ type: &quot;string&quot;, name: &quot;text&quot; }],
+        description: &lt;span&gt;The text function prints the given text using the current cursor attributes. If given no text, it will print &quot;Default&quot;. This function returns an {stringText(&quot;elementID&quot;)}.&lt;/span&gt;,
+        example: &quot;text&quot;
+    },
+    {
+        name: &quot;torus&quot;,
+        parameters: [],
+        description: &lt;span&gt;The torus function makes a curved tube shape, like a donut, using the current cursor attributes. This function returns an {stringText(&quot;elementID&quot;)}.&lt;/span&gt;,
+        example: &quot;torus&quot;
+    },
+    {
+        name: &quot;torusknot&quot;,
+        parameters: [],
+        description: &lt;span&gt;The torusknot function makes a pretzel-like shape using the current cursor attributes. This function returns an {stringText(&quot;elementID&quot;)}.&lt;/span&gt;,
+        example: &quot;torusknot&quot;
+    },
+    {
+        name: &quot;triangle&quot;,
+        parameters: [],
+        description: &lt;span&gt;The triangle function makes flat 2D triangle using the current cursor attributes. This function returns an {stringText(&quot;elementID&quot;)}.&lt;/span&gt;,
+        example: &quot;triangle&quot;
+    },
+    //{
+    //  name: &lt;span&gt;tube()&lt;/span&gt;,
+    //  description: &lt;span&gt;Renders a tube using current internal cursor properties. Returns an &lt;span className=&quot;string element&quot;&gt;element id&lt;/span&gt;.&lt;/span&gt;,
+    //  example: &apos;tube&apos;
+    //},
+    //should this be documented?
+    // {
+    //   name: &apos;light()&apos;,
+    //   description: &lt;span&gt;Renders a light using current internal MYR properties. Returns an &lt;span className=&quot;string element&quot;&gt;element id&lt;/span&gt;.&lt;/span&gt;
+    // },
+
+];
+
+let transformations = [
+    {
+        name: &quot;resetCursor&quot;,
+        parameters: [],
+        description: &lt;span&gt;The resetCursor function resets the properties of the cursor to their defaults. This includes cursor attributes pertaining to Transformations and Animations.&lt;/span&gt;,
+        example: &quot;resetCursor&quot;
+    },
+    {
+        name: &quot;setColor&quot;,
+        parameters: [{ type: &quot;string&quot;, name: &quot;color&quot; }],
+        description: &lt;span&gt;The setColor function changes the color of the cursor. For general colors, &lt;a href=&apos;https://htmlcolorcodes.com/color-names/&apos; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;HTML color codes&lt;/a&gt; can be used (e.g., &quot;blue&quot;, &quot;deeppink&quot;), and for specific colors HEX colors can be used (e.g., &quot;#00ffff&quot;). The default cursor state is &quot;red&quot;.&lt;/span&gt;,
+        example: &quot;setColor&quot;
+    },
+    {
+        name: &quot;getRandomColor&quot;,
+        parameters: [{ type: &quot;array&quot;, name: &quot;colors&quot; }],
+        description: &lt;span&gt;The getRandomColor function returns a random color and changes the color of the cursor. If passed an array, getRandomColor will choose randomly from the given colors.&lt;/span&gt;,
+        example: &quot;getRandomColor&quot;
+    },
+    {
+        name: &quot;setPosition&quot;,
+        parameters: [{ type: &quot;number&quot;, name: &quot;x&quot; }, { type: &quot;number&quot;, name: &quot;y&quot; }, { type: &quot;number&quot;, name: &quot;z&quot; }],
+        description: &lt;span&gt;The setPosition function changes the position of the cursor along all axes.  The default positions are x:0, y:0, z:0.&lt;/span&gt;,
+        example: &quot;setPosition&quot;
+    },
+    {
+        name: &quot;setXPos&quot;,
+        parameters: [{ type: &quot;number&quot;, name: &quot;x&quot; }],
+        description: &lt;span&gt;The setXPos function changes the x component of the position in the cursor. The default x position is 0.&lt;/span&gt;,
+        example: &quot;setXPos&quot;
+    },
+    {
+        name: &quot;setYPos&quot;,
+        parameters: [{ type: &quot;number&quot;, name: &quot;y&quot; }],
+        description: &lt;span&gt;The setYPos function changes the y component of the position in the cursor. To view negative coordinates, try turning off the floor in the scene settings. The default y position is 0.&lt;/span&gt;,
+        example: &quot;setYPos&quot;
+    },
+    {
+        name: &quot;setZPos&quot;,
+        parameters: [{ type: &quot;number&quot;, name: &quot;z&quot; }],
+        description: &lt;span&gt;The setZPos function changes the z component of the position in the cursor. The default z position is 0.&lt;/span&gt;,
+        example: &quot;setZPos&quot;
+    },
+    {
+        name: &quot;increasePosition&quot;,
+        parameters: [{ type: &quot;number&quot;, name: &quot;x&quot; }, { type: &quot;number&quot;, name: &quot;y&quot; }, { type: &quot;number&quot;, name: &quot;z&quot; }],
+        description: &lt;span&gt;The increasePosition function increases the position of the cursor, or decreases the position using negative values. This function returns the position of the cursor after it is modified. &lt;/span&gt;,
+    },
+    {
+        name: &quot;increaseXPos&quot;,
+        parameters: [{ type: &quot;number&quot;, name: &quot;x&quot; }],
+        description: &lt;span&gt;The increaseXPos function increases the x position of the cursor, or decreases the position using negative values. This function returns the x position after it is modified. The defualt increases the position by 1.&lt;/span&gt;,
+    },
+    {
+        name: &quot;increaseYPos&quot;,
+        parameters: [{ type: &quot;number&quot;, name: &quot;y&quot; }],
+        description: &lt;span&gt;The increaseYPos function increases the y position of the cursor, or decreases the position using negative values. This function returns the y position after it is modified. The defualt increases the position by 1.&lt;/span&gt;,
+    },
+    {
+        name: &quot;increaseZPos&quot;,
+        parameters: [{ type: &quot;number&quot;, name: &quot;z&quot; }],
+        description: &lt;span&gt;The increaseZPos function increases the z position of the cursor, or decreases the position using negative values. This function returns the z position after it is modified. The defualt increases the position by 1.&lt;/span&gt;,
+    },
+    {
+        name: &quot;setScale&quot;,
+        parameters: [{ type: &quot;number&quot;, name: &quot;x&quot; }, { type: &quot;number&quot;, name: &quot;y&quot; }, { type: &quot;number&quot;, name: &quot;z&quot; }],
+        description: &lt;span&gt;The setScale function changes the scale cursor component to the given ratios. Values greater than 1 make the object larger, and values between 0 and 1 make the object smaller. The default values are x:1, y:1, z:1.&lt;/span&gt;,
+        example: &quot;setScale&quot;
+    },
+    {
+        name: &quot;setXScale&quot;,
+        parameters: [{ type: &quot;number&quot;, name: &quot;x&quot; }],
+        description: &lt;span&gt;The setXScale function changes the x component of the scale in the cursor. Values greater than 1 make the object larger, and values between 0 and 1 make the object smaller. The default x scale is 1.&lt;/span&gt;,
+        example: &quot;setXScale&quot;
+    },
+    {
+        name: &quot;setYScale&quot;,
+        parameters: [{ type: &quot;number&quot;, name: &quot;y&quot; }],
+        description: &lt;span&gt;The setYScale function changes the y component of the scale in the cursor. Values greater than 1 make the object larger, and values between 0 and 1 make the object smaller. The default y scale is 1.&lt;/span&gt;,
+        example: &quot;setYScale&quot;
+    },
+    {
+        name: &quot;setZScale&quot;,
+        parameters: [{ type: &quot;number&quot;, name: &quot;z&quot; }],
+        description: &lt;span&gt;The setZScale function changes the z component of the scale in the cursor. Values greater than 1 make the object larger, and values between 0 and 1 make the object smaller. The default z scale is 1.&lt;/span&gt;,
+        example: &quot;setZScale&quot;
+    },
+    {
+        name: &quot;setRotation&quot;,
+        parameters: [{ type: &quot;number&quot;, name: &quot;x&quot; }, { type: &quot;number&quot;, name: &quot;y&quot; }, { type: &quot;number&quot;, name: &quot;z&quot; }],
+        description: &lt;span&gt;The setRotation function changes the rotation in degrees around the x, y, and z axes. The default values are x:0, y:0, z:0.&lt;/span&gt;,
+        example: &quot;setRotation&quot;
+    },
+    {
+        name: &quot;pitchX&quot;,
+        parameters: [{ type: &quot;number&quot;, name: &quot;x&quot; }],
+        description: &lt;span&gt;The pitchX function changes the rotation in degrees around the x axis. The default value is 0.&lt;/span&gt;,
+        example: &quot;pitchX&quot;
+    },
+    {
+        name: &quot;yawY&quot;,
+        parameters: [{ type: &quot;number&quot;, name: &quot;y&quot; }],
+        description: &lt;span&gt;The yawY function changes the rotation in degrees around the y axis. The default value is 0.&lt;/span&gt;,
+        example: &quot;yawY&quot;
+    },
+    {
+        name: &quot;rollZ&quot;,
+        parameters: [{ type: &quot;number&quot;, name: &quot;z&quot; }],
+        description: &lt;span&gt;The rollZ function changes the rotation in degrees around the z axis. The default value is 0.&lt;/span&gt;,
+        example: &quot;rollZ&quot;
+    },
+    {
+        name: &quot;setRadius&quot;,
+        parameters: [{ type: &quot;number&quot;, name: &quot;radius&quot; }],
+        description: &lt;span&gt;The setRadius function changes the radius of certain shapes. The shapes are: circle, cone, cylinder, dodecahedron, and torus. The default value is 1.&lt;/span&gt;,
+        example: &quot;setRadius&quot;
+    },
+    {
+        name: &quot;setPhiLength&quot;,
+        parameters: [{ type: &quot;number&quot;, name: &quot;phiLength&quot; }],
+        description: &lt;span&gt;The setPhiLength function sets the phi length of the cursor in degrees. This changes the number of degrees shown of certain shapes. Interesting shapes can be achieved with values greater than 360. The default phi length is 360.&lt;/span&gt;,
+        example: &quot;setPhiLength&quot;
+    },
+    {
+        name: &quot;makeDroppable&quot;,
+        parameters: [{ type: &quot;string&quot;, name: &quot;elementID&quot; }, { type: &quot;number&quot;, name: &quot;mass&quot; }],
+        description: &lt;span&gt;The makeDroppable function allows the element to be affected by physics and sets the element&apos;s mass.&lt;/span&gt;,
+        example: &quot;makeDroppable&quot;
+    },
+    {
+        name: &quot;makeUnDroppable&quot;,
+        parameters: [{ type: &quot;string&quot;, name: &quot;elementID&quot; }],
+        description: &lt;span&gt;The makeUnDroppable function prevents the given element from being affected by physics.&lt;/span&gt;
+    },
+    {
+        name: &quot;makePushable&quot;,
+        parameters: [{ type: &quot;string&quot;, name: &quot;elementID&quot; }, { type: &quot;number&quot;, name: &quot;mass&quot; }],
+        description: &lt;span&gt;The makePushable function allows the object to be affected by physics and be pushed by clicking with the cursor.&lt;/span&gt;,
+        example: &quot;makePushable&quot;
+    },
+    {
+        name: &quot;makeUnPushable&quot;,
+        parameters: [{ type: &quot;string&quot;, name: &quot;elementID&quot; }],
+        description: &lt;span&gt;The makeUnPushable function prevents the given element from being affected by physics or being pushed by the cursor.&lt;/span&gt;
+    },
+    {
+        name: &quot;setCursorAttribute&quot;,
+        parameters: [{ type: &quot;string&quot;, name: &quot;key&quot; }, { type: &quot;data&quot;, name: &quot;value&quot; }],
+        description: &lt;span&gt;The setCursorAttribute function allows the user to set a custom attribute and add it to the cursor.&lt;/span&gt;
+    },
+    {
+        name: &quot;getCursorAttribute&quot;,
+        parameters: [{ type: &quot;string&quot;, name: &quot;key&quot; }],
+        description: &lt;span&gt;The getCursorAttribute function allows the user to get a cursor attributes set by the setCursorAttribute function or by any other cursor setter.&lt;/span&gt;
+    }
+];
+
+let animations = [
+    {
+        name: &quot;setLoop&quot;,
+        parameters: [{ type: &quot;bool&quot;, name: &quot;loop&quot; }],
+        description: &lt;span&gt;The setLoop function sets the loop attribute in the cursor, turning infinite looping on and off. The default value is true.&lt;/span&gt;,
+        example: &quot;setLoop&quot;
+    },
+    {
+        name: &quot;setDuration&quot;,
+        parameters: [{ type: &quot;number&quot;, name: &quot;duration&quot; }],
+        description: &lt;span&gt;The setDuration function sets the duration attribute of the cursor in milliseconds. The default value is 1000.&lt;/span&gt;,
+        example: &quot;setDuration&quot;
+    },
+    {
+        name: &quot;setMagnitude&quot;,
+        parameters: [{ type: &quot;number&quot;, name: &quot;magnitude&quot; }],
+        description: &lt;span&gt;The setMagnitude function sets the magnitude attribute of the cursor in units or degrees. The default value is 1.&lt;/span&gt;,
+        example: &quot;setMagnitude&quot;
+    },
+    {
+        name: &quot;spin&quot;,
+        parameters: [{ type: &quot;string&quot;, name: &quot;elementID&quot; }],
+        description: &lt;span&gt;The spin function spins the given element around the y axis in degrees.&lt;/span&gt;,
+        example: &quot;spin&quot;
+    },
+    {
+        name: &quot;yoyo&quot;,
+        parameters: [{ type: &quot;string&quot;, name: &quot;elementID&quot; }],
+        description: &lt;span&gt;The yoyo function bounces the given element a number of units.&lt;/span&gt;,
+        example: &quot;yoyo&quot;
+    },
+    {
+        name: &quot;sideToSide&quot;,
+        parameters: [{ type: &quot;string&quot;, name: &quot;elementID&quot; }],
+        description: &lt;span&gt;The sideToSide function shifts the element a number of units in the negative direction on the x axis.&lt;/span&gt;,
+        example: &quot;sideToSide&quot;
+    },
+    {
+        name: &quot;goUp&quot;,
+        parameters: [{ type: &quot;string&quot;, name: &quot;elementID&quot; }],
+        description: &lt;span&gt;The goUp function shifts the element &quot;up&quot;, or a certain number of units in a positive direction on the y axis.&lt;/span&gt;,
+        example: &quot;goUp&quot;
+    },
+    {
+        name: &quot;goDown&quot;,
+        parameters: [{ type: &quot;string&quot;, name: &quot;elementID&quot; }],
+        description: &lt;span&gt;The goDown function shifts the element &quot;down&quot;, or a certain number of units in a negative direction on the y axis.&lt;/span&gt;,
+        example: &quot;goDown&quot;
+    },
+    {
+        name: &quot;goRight&quot;,
+        parameters: [{ type: &quot;string&quot;, name: &quot;elementID&quot; }],
+        description: &lt;span&gt;The goRight function shifts the element &quot;right&quot;, or a certain number of units in a positive direction on the x axis.&lt;/span&gt;,
+        example: &quot;goRight&quot;
+    },
+    {
+        name: &quot;goLeft&quot;,
+        parameters: [{ type: &quot;string&quot;, name: &quot;elementID&quot; }],
+        description: &lt;span&gt;The goLeft function shifts the element &quot;left&quot;, or a certain number of units in a negative direction on the x axis.&lt;/span&gt;,
+        example: &quot;goLeft&quot;
+    },
+    {
+        name: &quot;goTowards&quot;,
+        parameters: [{ type: &quot;string&quot;, name: &quot;elementID&quot; }],
+        description: &lt;span&gt;The goTowards function shifts the element &quot;towards&quot; the default camera view, or a certain number of units in a positive direction on the z axis.&lt;/span&gt;,
+        example: &quot;goTowards&quot;
+    },
+    {
+        name: &quot;goAway&quot;,
+        parameters: [{ type: &quot;string&quot;, name: &quot;elementID&quot; }],
+        description: &lt;span&gt;The goAway function shifts the element &quot;away&quot; from the default camera view, or a certain number of units in a negative direction on the z axis.&lt;/span&gt;,
+        example: &quot;goAway&quot;
+    },
+    {
+        name: &quot;grow&quot;,
+        parameters: [{ type: &quot;string&quot;, name: &quot;elementID&quot; }],
+        description: &lt;span&gt;The grow function scales the element by a [magnitude] multiplier in the x, y, z components.&lt;/span&gt;,
+        example: &quot;grow&quot;
+    },
+    {
+        name: &quot;shrink&quot;,
+        parameters: [{ type: &quot;string&quot;, name: &quot;elementID&quot; }],
+        description: &lt;span&gt;The shrink function scales the element down by the inverse of the magnitude in the x, y, z components.&lt;/span&gt;,
+        example: &quot;shrink&quot;
+    },
+    {
+        name: &quot;fadeOut&quot;,
+        parameters: [{ type: &quot;string&quot;, name: &quot;elementID&quot; }],
+        description: &lt;span&gt;The fadeOut function shifts from transparency:1 (opaque) to transparency:magnitude. Magnitude should be between 0 and 1 inclusive.&lt;/span&gt;,
+        example: &quot;fadeOut&quot;
+    },
+    {
+        name: &quot;fadeIn&quot;,
+        parameters: [{ type: &quot;string&quot;, name: &quot;elementID&quot; }],
+        description: &lt;span&gt;The fadeIn function shifts from transparency:0 (invisible) to transparency:magnitude. Magnitude should be between 0 (exclusive) and 1 (inclusive).&lt;/span&gt;,
+        example: &quot;fadeIn&quot;
+    },
+    {
+        name: &quot;colorShift&quot;,
+        parameters: [{ type: &quot;string&quot;, name: &quot;elementID&quot; }, { type: &quot;string&quot;, name: &quot;color&quot; }],
+        description: &lt;span&gt;The colorShift function shifts the element from its original color to the given color. All colors valid for setColor are applicable.&lt;/span&gt;,
+        example: &quot;colorShift&quot;
+    },
+
+    // {
+    //   name: &lt;span&gt;spin(&lt;span className=&quot;string&quot;&gt;element&lt;/span&gt;, &lt;span className=&quot;number&quot;&gt;magnitude&lt;/span&gt;, &lt;span className=&quot;bool&quot;&gt;loop&lt;/span&gt;, &lt;span className=&quot;number&quot;&gt;duration&lt;/span&gt;)&lt;/span&gt;,
+    //   description: &lt;span&gt;Spins the element around the y axis &lt;span className=&quot;number&quot;&gt;magnitude&lt;/span&gt; degrees.&lt;/span&gt;
+    // },
+    // {
+    //   name: &lt;span&gt;yoyo(&lt;span className=&quot;string&quot;&gt;element&lt;/span&gt;, &lt;span className=&quot;number&quot;&gt;magnitude&lt;/span&gt;, &lt;span className=&quot;bool&quot;&gt;loop&lt;/span&gt;, &lt;span className=&quot;number&quot;&gt;duration&lt;/span&gt;)&lt;/span&gt;,
+    //   description: &lt;span&gt;Bounces the element &lt;span className=&quot;number&quot;&gt;magnitude&lt;/span&gt; units in a positive direction on the y axis for &lt;span className=&quot;number&quot;&gt;duration&lt;/span&gt; milliseconds.&lt;/span&gt;
+    // },
+    // {
+    //   name: &lt;span&gt;sideToSide(&lt;span className=&quot;string&quot;&gt;element&lt;/span&gt;, &lt;span className=&quot;number&quot;&gt;magnitude&lt;/span&gt;, &lt;span className=&quot;bool&quot;&gt;loop&lt;/span&gt;, &lt;span className=&quot;number&quot;&gt;duration&lt;/span&gt;)&lt;/span&gt;,
+    //   description: &lt;span&gt;Shifts the element &lt;span className=&quot;number&quot;&gt;magnitude&lt;/span&gt; units in a negative direction on the x axis and back to the original coordinate over &lt;span className=&quot;number&quot;&gt;duration&lt;/span&gt; milliseconds.&lt;/span&gt;
+    // },
+    // {
+    //   name: &lt;span&gt;goUp(&lt;span className=&quot;string&quot;&gt;element&lt;/span&gt;, &lt;span className=&quot;number&quot;&gt;magnitude&lt;/span&gt;, &lt;span className=&quot;bool&quot;&gt;loop&lt;/span&gt;, &lt;span className=&quot;number&quot;&gt;duration&lt;/span&gt;)&lt;/span&gt;,
+    //   description: &lt;span&gt;Translates the element &lt;span className=&quot;number&quot;&gt;magnitude&lt;/span&gt; units in a positive direction on the y axis over &lt;span className=&quot;number&quot;&gt;duration&lt;/span&gt; milliseconds.&lt;/span&gt;
+    // },
+    // {
+    //   name: &lt;span&gt;goDown(&lt;span className=&quot;string&quot;&gt;element&lt;/span&gt;, &lt;span className=&quot;number&quot;&gt;magnitude&lt;/span&gt;, &lt;span className=&quot;bool&quot;&gt;loop&lt;/span&gt;, &lt;span className=&quot;number&quot;&gt;duration&lt;/span&gt;)&lt;/span&gt;,
+    //   description: &lt;span&gt;Translates the element &lt;span className=&quot;number&quot;&gt;magnitude&lt;/span&gt; units in a negative direction on the y axis over &lt;span className=&quot;number&quot;&gt;duration&lt;/span&gt; milliseconds.&lt;/span&gt;
+    // },
+    // {
+    //   name: &lt;span&gt;goRight(&lt;span className=&quot;string&quot;&gt;element&lt;/span&gt;, &lt;span className=&quot;number&quot;&gt;magnitude&lt;/span&gt;, &lt;span className=&quot;bool&quot;&gt;loop&lt;/span&gt;, &lt;span className=&quot;number&quot;&gt;duration&lt;/span&gt;)&lt;/span&gt;,
+    //   description: &lt;span&gt;Translates the element &lt;span className=&quot;number&quot;&gt;magnitude&lt;/span&gt; units in a positive direction on the x axis over &lt;span className=&quot;number&quot;&gt;duration&lt;/span&gt; milliseconds.&lt;/span&gt;
+    // },
+    // {
+    //   name: &lt;span&gt;goLeft(&lt;span className=&quot;string&quot;&gt;element&lt;/span&gt;, &lt;span className=&quot;number&quot;&gt;magnitude&lt;/span&gt;, &lt;span className=&quot;bool&quot;&gt;loop&lt;/span&gt;, &lt;span className=&quot;number&quot;&gt;duration&lt;/span&gt;)&lt;/span&gt;,
+    //   description: &lt;span&gt;Translates the element &lt;span className=&quot;number&quot;&gt;magnitude&lt;/span&gt; units in a negative direction on the x axis over &lt;span className=&quot;number&quot;&gt;duration&lt;/span&gt; milliseconds.&lt;/span&gt;
+    // },
+    // {
+    //   name: &lt;span&gt;goTowards(&lt;span className=&quot;string&quot;&gt;element&lt;/span&gt;, &lt;span className=&quot;number&quot;&gt;magnitude&lt;/span&gt;, &lt;span className=&quot;bool&quot;&gt;loop&lt;/span&gt;, &lt;span className=&quot;number&quot;&gt;duration&lt;/span&gt;)&lt;/span&gt;,
+    //   description: &lt;span&gt;Translates the element &lt;span className=&quot;number&quot;&gt;magnitude&lt;/span&gt; units in a positive direction on the z axis over &lt;span className=&quot;number&quot;&gt;duration&lt;/span&gt; milliseconds.&lt;/span&gt;
+    // },
+    // {
+    //   name: &lt;span&gt;goAway(&lt;span className=&quot;string&quot;&gt;element&lt;/span&gt;, &lt;span className=&quot;number&quot;&gt;magnitude&lt;/span&gt;, &lt;span className=&quot;bool&quot;&gt;loop&lt;/span&gt;, &lt;span className=&quot;number&quot;&gt;duration&lt;/span&gt;)&lt;/span&gt;,
+    //   description: &lt;span&gt;Translates the element &lt;span className=&quot;number&quot;&gt;magnitude&lt;/span&gt; units in a negative direction on the z axis over &lt;span className=&quot;number&quot;&gt;duration&lt;/span&gt; milliseconds.&lt;/span&gt;
+    // },
+    // {
+    //   name: &lt;span&gt;grow(&lt;span className=&quot;string&quot;&gt;element&lt;/span&gt;, &lt;span className=&quot;number&quot;&gt;magnitude&lt;/span&gt;, &lt;span className=&quot;bool&quot;&gt;loop&lt;/span&gt;, &lt;span className=&quot;number&quot;&gt;duration&lt;/span&gt;)&lt;/span&gt;,
+    //   description: &lt;span&gt;Scales the element by a &lt;span className=&quot;number&quot;&gt;magnitude&lt;/span&gt; multiplier over &lt;span className=&quot;number&quot;&gt;duration&lt;/span&gt; milliseconds.&lt;/span&gt;
+    // },
+    // {
+    //   name: &lt;span&gt;shrink(&lt;span className=&quot;string&quot;&gt;element&lt;/span&gt;, &lt;span className=&quot;number&quot;&gt;magnitude&lt;/span&gt;, &lt;span className=&quot;bool&quot;&gt;loop&lt;/span&gt;, &lt;span className=&quot;number&quot;&gt;duration&lt;/span&gt;)&lt;/span&gt;,
+    //   description: &lt;span&gt;Scales the element by a 1/&lt;span className=&quot;number&quot;&gt;magnitude&lt;/span&gt; multiplier over &lt;span className=&quot;number&quot;&gt;duration&lt;/span&gt; milliseconds.&lt;/span&gt;
+    // },
+    // {
+    //   name: &lt;span&gt;fadeOut(&lt;span className=&quot;string&quot;&gt;element&lt;/span&gt;, &lt;span className=&quot;number&quot;&gt;magnitude&lt;/span&gt;, &lt;span className=&quot;bool&quot;&gt;loop&lt;/span&gt;, &lt;span className=&quot;number&quot;&gt;duration&lt;/span&gt;)&lt;/span&gt;,
+    //   description: &lt;span&gt;Modifies transparency from 1 to &lt;span className=&quot;number&quot;&gt;magnitude&lt;/span&gt; [0,1) over &lt;span className=&quot;number&quot;&gt;duration&lt;/span&gt; milliseconds.&lt;/span&gt;
+    // },
+    // {
+    //   name: &lt;span&gt;fadeIn(&lt;span className=&quot;string&quot;&gt;element&lt;/span&gt;, &lt;span className=&quot;number&quot;&gt;magnitude&lt;/span&gt;, &lt;span className=&quot;bool&quot;&gt;loop&lt;/span&gt;, &lt;span className=&quot;number&quot;&gt;duration&lt;/span&gt;)&lt;/span&gt;,
+    //   description: &lt;span&gt;Modifies transparency from 0 to &lt;span className=&quot;number&quot;&gt;magnitude&lt;/span&gt; (0,1] over &lt;span className=&quot;number&quot;&gt;duration&lt;/span&gt; milliseconds.&lt;/span&gt;
+    // },
+];
+
+let groups = [
+    {
+        name: &lt;span&gt;let &lt;span className=&quot;group&quot;&gt;myGroup&lt;/span&gt; = group&lt;/span&gt;,
+        parameters: [],
+        description: &lt;span&gt;The group function creates an entity that can store other elements. This function does not draw anything.&lt;/span&gt;,
+        example: &quot;group&quot;
+    },
+    {
+        name: &lt;span&gt;&lt;span className=&quot;group&quot;&gt;myGroup&lt;/span&gt;.add&lt;/span&gt;,
+        parameters: [{ type: &quot;string&quot;, name: &quot;elementID&quot; }],
+        description: &lt;span&gt;The myGroup.add function adds an element to the group.&lt;/span&gt;,
+        example: &quot;g.add&quot;
+    },
+    {
+        name: &lt;span&gt;&lt;span className=&quot;group&quot;&gt;myGroup&lt;/span&gt;.remove&lt;/span&gt;,
+        parameters: [{ type: &quot;string&quot;, name: &quot;elementID&quot; }],
+        description: &lt;span&gt;The myGroup.remove function removes the given element from the group. The object will print with the cursor properties that it was made with, but will no longer be affected by modifications to the group.&lt;/span&gt;,
+        example: &quot;g.remove&quot;
+    },
+    {
+        name: &lt;span&gt;&lt;span className=&quot;group&quot;&gt;myGroup&lt;/span&gt;.setPosition&lt;/span&gt;,
+        parameters: [{ type: &quot;number&quot;, name: &quot;x&quot; }, { type: &quot;number&quot;, name: &quot;y&quot; }, { type: &quot;number&quot;, name: &quot;z&quot; }],
+        description: &lt;span&gt;The myGroup.setPosition sets the position of the center of the group.&lt;/span&gt;,
+        example: &quot;g.setPosition&quot;
+    },
+    {
+        name: &lt;span&gt;&lt;span className=&quot;group&quot;&gt;myGroup&lt;/span&gt;.setScale&lt;/span&gt;,
+        parameters: [{ type: &quot;number&quot;, name: &quot;x&quot; }, { type: &quot;number&quot;, name: &quot;y&quot; }, { type: &quot;number&quot;, name: &quot;z&quot; }],
+        description: &lt;span&gt;The myGroup.setScale function sets the scale of the group. Values greater than 1 make the entity larger, values between 0 and 1 will make the entity smaller.&lt;/span&gt;,
+        example: &quot;g.setScale&quot;
+    },
+    {
+        name: &lt;span&gt;&lt;span className=&quot;group&quot;&gt;myGroup&lt;/span&gt;.setRotation&lt;/span&gt;,
+        parameters: [{ type: &quot;number&quot;, name: &quot;x&quot; }, { type: &quot;number&quot;, name: &quot;y&quot; }, { type: &quot;number&quot;, name: &quot;z&quot; }],
+        description: &lt;span&gt;The myGroup.setRotation function sets the rotation of the group.&lt;/span&gt;,
+        example: &quot;g.setRotation&quot;
+    },
+
+];
+
+const reference = {
+    geometry: geometry,
+    transformations: transformations,
+    animations: animations,
+    groups: groups,
+};
+
+export default function r(ref = reference) {
+    return ref;
+}
+</code></pre>
+
+</div>
+
+<footer class="footer">
+  Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(1.1.0)</span><img src="./image/esdoc-logo-mini-black.png"></a>
+</footer>
+
+<script src="script/search_index.js"></script>
+<script src="script/search.js"></script>
+<script src="script/pretty-print.js"></script>
+<script src="script/inherited-summary.js"></script>
+<script src="script/test-summary.js"></script>
+<script src="script/inner-link.js"></script>
+<script src="script/patch-for-local.js"></script>
+</body>
+</html>

@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <base data-ice="baseUrl" href>
+  <title data-ice="title">Source | myr</title>
+  <link type="text/css" rel="stylesheet" href="css/style.css">
+  <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
+  <script src="script/prettify/prettify.js"></script>
+  <script src="script/manual.js"></script>
+</head>
+<body class="layout-container" data-ice="rootContainer">
+
+<header>
+  <a href="./">Home</a>
+  
+  <a href="identifiers.html">Reference</a>
+  <a href="source.html">Source</a>
+  
+  <div class="search-box">
+  <span>
+    <img src="./image/search.png">
+    <span class="search-input-edge"></span><input class="search-input"><span class="search-input-edge"></span>
+  </span>
+    <ul class="search-result"></ul>
+  </div>
+</header>
+
+<nav class="navigation" data-ice="nav"><div>
+  <ul>
+    
+  <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-router">router</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#actions">actions</a><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-login">login</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-logout">logout</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-refreshToken">refreshToken</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-asyncCollection">asyncCollection</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-asyncCollections">asyncCollections</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-createCollection">createCollection</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-deleteCollection">deleteCollection</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-syncCollection">syncCollection</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-syncCollections">syncCollections</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-fetchCourse">fetchCourse</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-fetchCourses">fetchCourses</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-fetchLesson">fetchLesson</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-loadCourse">loadCourse</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-loadLesson">loadLesson</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-nextLesson">nextLesson</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-previousLesson">previousLesson</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-setCurrentIndex">setCurrentIndex</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-syncCourses">syncCourses</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-addPassword">addPassword</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-fetchScene">fetchScene</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-recover">recover</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-refresh">refresh</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-render">render</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-updateSavedText">updateSavedText</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-asyncExampleProj">asyncExampleProj</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-asyncUserProj">asyncUserProj</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-deleteProj">deleteProj</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-save">save</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-syncExampleProj">syncExampleProj</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-syncUserProj">syncUserProj</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-fetchReferenceExample">fetchReferenceExample</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-loadReferenceExample">loadReferenceExample</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-addCollectionID">addCollectionID</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-changeCamMode">changeCamMode</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-changeFloorColor">changeFloorColor</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-changePerspective">changePerspective</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-changeSetting">changeSetting</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-changeSkyColor">changeSkyColor</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-changeView">changeView</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-loadScene">loadScene</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-loadSettings">loadSettings</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-nameScene">nameScene</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-removeCollectionID">removeCollectionID</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-setCamera">setCamera</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-setDesc">setDesc</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-setNameDesc">setNameDesc</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-toggleCoordSky">toggleCoordSky</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-toggleFloor">toggleFloor</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-toggleFly">toggleFly</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-collectRef">collectRef</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#components-collection">components/collection</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/components/collection/SelectProject.js~SelectProject.html">SelectProject</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-Collection">Collection</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#components-courses">components/courses</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/components/courses/Course.js~Lesson.html">Lesson</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-CourseSelect">CourseSelect</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#components-editor">components/editor</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/components/editor/Editor.js~Editor.html">Editor</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-customCompleter">customCompleter</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#components-layouts">components/layouts</a><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-Collection">Collection</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-Reference">Reference</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#components-reference">components/reference</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/components/reference/RefExInfo.js~ReferenceExampleBox.html">ReferenceExampleBox</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/components/reference/Reference.js~Reference.html">Reference</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/components/reference/ReferencePage.js~Reference.html">Reference</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#components-structural">components/structural</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/components/structural/Footer.js~Footer.html">Footer</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/components/structural/View.js~View.html">View</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/components/structural/WelcomeScene.js~WelcomeScene.html">WelcomeScene</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-WelcomeScreen">WelcomeScreen</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#components-structural-header">components/structural/header</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/components/structural/header/Header.js~Header.html">Header</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/components/structural/header/MyrTour.js~MyrTour.html">MyrTour</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/components/structural/header/Sidebar.js~Sidebar.html">Sidebar</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-ProjectView">ProjectView</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#constants">constants</a><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-ADD_CLASSROOM">ADD_CLASSROOM</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-ADD_PW">ADD_PW</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-ASYNC_EXAMP_PROJ">ASYNC_EXAMP_PROJ</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-ASYNC_USER_PROJ">ASYNC_USER_PROJ</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-CHANGE_CAM_MODE">CHANGE_CAM_MODE</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-CHANGE_FLOOR_COLOR">CHANGE_FLOOR_COLOR</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-CHANGE_PERSPECTIVE">CHANGE_PERSPECTIVE</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-CHANGE_SETTING">CHANGE_SETTING</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-CHANGE_SKY_COLOR">CHANGE_SKY_COLOR</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-CHANGE_VIEW">CHANGE_VIEW</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-DELETE_CLASS">DELETE_CLASS</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-DELETE_PROJ">DELETE_PROJ</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-EDITOR_CHANGE">EDITOR_CHANGE</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-EDITOR_RECOVER">EDITOR_RECOVER</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-EDITOR_REFRESH">EDITOR_REFRESH</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-EDITOR_RENDER">EDITOR_RENDER</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-EDITOR_UPDATE_SAVEDTEXT">EDITOR_UPDATE_SAVEDTEXT</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-LOAD_COURSE">LOAD_COURSE</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-LOAD_LESSON">LOAD_LESSON</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-LOAD_REF_EX">LOAD_REF_EX</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-LOAD_SCENE">LOAD_SCENE</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-LOAD_SETTINGS">LOAD_SETTINGS</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-LOGIN">LOGIN</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-LOGOUT">LOGOUT</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-NAME_SCENE">NAME_SCENE</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-NEW_SCENE">NEW_SCENE</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-REFRESH_TOKEN">REFRESH_TOKEN</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-REMOVE_CLASSROOM">REMOVE_CLASSROOM</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-REQ_RELOAD">REQ_RELOAD</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-SAVE_FIN">SAVE_FIN</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-SAVE_START">SAVE_START</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-SET_CAMERA">SET_CAMERA</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-SET_DESC">SET_DESC</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-SET_INDEX">SET_INDEX</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-SET_NAME_DESC">SET_NAME_DESC</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-SYNC_CLASS">SYNC_CLASS</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-SYNC_CLASSES">SYNC_CLASSES</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-SYNC_COURSES">SYNC_COURSES</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-SYNC_EXAMP_PROJ">SYNC_EXAMP_PROJ</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-SYNC_USER_PROJ">SYNC_USER_PROJ</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-TOGGLE_COORD_SKY">TOGGLE_COORD_SKY</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-TOGGLE_FLOOR">TOGGLE_FLOOR</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-TOGGLE_FLY">TOGGLE_FLY</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-CLASSROOM">CLASSROOM</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-GUIDED">GUIDED</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-IDE">IDE</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-REFERENCE">REFERENCE</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-REF_EXAMPLE">REF_EXAMPLE</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#myr">myr</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/myr/Group.js~Group.html">Group</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/myr/Myr.js~Myr.html">Myr</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-arrayText">arrayText</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-boolText">boolText</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-dataText">dataText</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-numberText">numberText</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-r">r</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-stringText">stringText</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#reducers">reducers</a><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-classes">classes</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-course">course</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-editor">editor</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-project">project</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-referenceExample">referenceExample</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-scene">scene</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-user">user</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-store">store</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-DEF_SETTINGS">DEF_SETTINGS</a></span></span></li>
+</ul>
+</div>
+</nav>
+
+<div class="content" data-ice="content"><h1>Source <img data-ice="coverageBadge" src="./badge.svg"><span data-ice="totalCoverageCount" class="total-coverage-count">150/470</span></h1>
+
+<table class="files-summary" data-ice="files" data-use-coverage="true">
+  <thead>
+    <tr>
+      <td>File</td>
+      <td>Identifier</td>
+      <td class="coverage">Document</td>
+      <td style="display: none;">Size</td>
+      <td style="display: none;">Lines</td>
+      <td style="display: none;">Updated</td>
+    </tr>
+  </thead>
+  <tbody>
+    
+  <tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/src/actions/authActions.js.html#errorLines=23">src/actions/authActions.js</a></span></td>
+      <td data-ice="identifier" class="identifiers"><span><a href="function/index.html#static-function-login">login</a></span>
+<span><a href="function/index.html#static-function-logout">logout</a></span>
+<span><a href="function/index.html#static-function-refreshToken">refreshToken</a></span></td>
+      <td class="coverage"><span data-ice="coverage">66 %</span><span data-ice="coverageCount" class="coverage-count">2/3</span></td>
+      <td style="display: none;" data-ice="size">684 byte</td>
+      <td style="display: none;" data-ice="lines">30</td>
+      <td style="display: none;" data-ice="updated">2020-11-06 22:45:02 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/src/actions/collectionActions.js.html#errorLines=22,26,3,5,64,68">src/actions/collectionActions.js</a></span></td>
+      <td data-ice="identifier" class="identifiers"><span><a href="function/index.html#static-function-asyncCollection">asyncCollection</a></span>
+<span><a href="function/index.html#static-function-asyncCollections">asyncCollections</a></span>
+<span><a href="variable/index.html#static-variable-collectRef">collectRef</a></span>
+<span><a href="function/index.html#static-function-createCollection">createCollection</a></span>
+<span><a href="function/index.html#static-function-deleteCollection">deleteCollection</a></span>
+<span><a href="function/index.html#static-function-syncCollection">syncCollection</a></span>
+<span><a href="function/index.html#static-function-syncCollections">syncCollections</a></span></td>
+      <td class="coverage"><span data-ice="coverage">14 %</span><span data-ice="coverageCount" class="coverage-count">1/7</span></td>
+      <td style="display: none;" data-ice="size">4194 byte</td>
+      <td style="display: none;" data-ice="lines">118</td>
+      <td style="display: none;" data-ice="updated">2020-09-05 16:41:08 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/src/actions/courseActions.js.html#errorLines=130,137,15,45,49,7,8,85,9">src/actions/courseActions.js</a></span></td>
+      <td data-ice="identifier" class="identifiers"><span><a href="function/index.html#static-function-fetchCourse">fetchCourse</a></span>
+<span><a href="function/index.html#static-function-fetchCourses">fetchCourses</a></span>
+<span><a href="function/index.html#static-function-fetchLesson">fetchLesson</a></span>
+<span><a href="function/index.html#static-function-loadCourse">loadCourse</a></span>
+<span><a href="function/index.html#static-function-loadLesson">loadLesson</a></span>
+<span><a href="function/index.html#static-function-nextLesson">nextLesson</a></span>
+<span><a href="function/index.html#static-function-previousLesson">previousLesson</a></span>
+<span><a href="function/index.html#static-function-setCurrentIndex">setCurrentIndex</a></span>
+<span><a href="function/index.html#static-function-syncCourses">syncCourses</a></span></td>
+      <td class="coverage"><span data-ice="coverage">30 %</span><span data-ice="coverageCount" class="coverage-count">4/13</span></td>
+      <td style="display: none;" data-ice="size">4280 byte</td>
+      <td style="display: none;" data-ice="lines">153</td>
+      <td style="display: none;" data-ice="updated">2020-11-06 22:44:50 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/src/actions/editorActions.js.html#errorLines=5,93">src/actions/editorActions.js</a></span></td>
+      <td data-ice="identifier" class="identifiers"><span><a href="function/index.html#static-function-addPassword">addPassword</a></span>
+<span><a href="function/index.html#static-function-fetchScene">fetchScene</a></span>
+<span><a href="function/index.html#static-function-recover">recover</a></span>
+<span><a href="function/index.html#static-function-refresh">refresh</a></span>
+<span><a href="function/index.html#static-function-render">render</a></span>
+<span><a href="function/index.html#static-function-updateSavedText">updateSavedText</a></span></td>
+      <td class="coverage"><span data-ice="coverage">71 %</span><span data-ice="coverageCount" class="coverage-count">5/7</span></td>
+      <td style="display: none;" data-ice="size">3228 byte</td>
+      <td style="display: none;" data-ice="lines">103</td>
+      <td style="display: none;" data-ice="updated">2020-11-06 22:44:39 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/src/actions/index.js.html">src/actions/index.js</a></span></td>
+      <td data-ice="identifier" class="identifiers">-</td>
+      <td class="coverage"><span data-ice="coverage">-</span></td>
+      <td style="display: none;" data-ice="size">449 byte</td>
+      <td style="display: none;" data-ice="lines">6</td>
+      <td style="display: none;" data-ice="updated">2020-09-05 16:41:08 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/src/actions/projectActions.js.html#errorLines=24,28,3,4,44,48,6">src/actions/projectActions.js</a></span></td>
+      <td data-ice="identifier" class="identifiers"><span><a href="function/index.html#static-function-asyncExampleProj">asyncExampleProj</a></span>
+<span><a href="function/index.html#static-function-asyncUserProj">asyncUserProj</a></span>
+<span><a href="function/index.html#static-function-deleteProj">deleteProj</a></span>
+<span><a href="function/index.html#static-function-save">save</a></span>
+<span><a href="function/index.html#static-function-syncExampleProj">syncExampleProj</a></span>
+<span><a href="function/index.html#static-function-syncUserProj">syncUserProj</a></span></td>
+      <td class="coverage"><span data-ice="coverage">12 %</span><span data-ice="coverageCount" class="coverage-count">1/8</span></td>
+      <td style="display: none;" data-ice="size">4422 byte</td>
+      <td style="display: none;" data-ice="lines">133</td>
+      <td style="display: none;" data-ice="updated">2020-11-06 22:44:09 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/src/actions/referenceExampleActions.js.html#errorLines=18,58,7,8,9">src/actions/referenceExampleActions.js</a></span></td>
+      <td data-ice="identifier" class="identifiers"><span><a href="function/index.html#static-function-fetchReferenceExample">fetchReferenceExample</a></span>
+<span><a href="function/index.html#static-function-loadReferenceExample">loadReferenceExample</a></span></td>
+      <td class="coverage"><span data-ice="coverage">16 %</span><span data-ice="coverageCount" class="coverage-count">1/6</span></td>
+      <td style="display: none;" data-ice="size">2049 byte</td>
+      <td style="display: none;" data-ice="lines">67</td>
+      <td style="display: none;" data-ice="updated">2020-11-06 22:45:19 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/src/actions/sceneActions.js.html#errorLines=25,29,33,37,41,45,49,53,57,61,65,69,73,77,81">src/actions/sceneActions.js</a></span></td>
+      <td data-ice="identifier" class="identifiers"><span><a href="function/index.html#static-function-addCollectionID">addCollectionID</a></span>
+<span><a href="function/index.html#static-function-changeCamMode">changeCamMode</a></span>
+<span><a href="function/index.html#static-function-changeFloorColor">changeFloorColor</a></span>
+<span><a href="function/index.html#static-function-changePerspective">changePerspective</a></span>
+<span><a href="function/index.html#static-function-changeSetting">changeSetting</a></span>
+<span><a href="function/index.html#static-function-changeSkyColor">changeSkyColor</a></span>
+<span><a href="function/index.html#static-function-changeView">changeView</a></span>
+<span><a href="function/index.html#static-function-loadScene">loadScene</a></span>
+<span><a href="function/index.html#static-function-loadSettings">loadSettings</a></span>
+<span><a href="function/index.html#static-function-nameScene">nameScene</a></span>
+<span><a href="function/index.html#static-function-removeCollectionID">removeCollectionID</a></span>
+<span><a href="function/index.html#static-function-setCamera">setCamera</a></span>
+<span><a href="function/index.html#static-function-setDesc">setDesc</a></span>
+<span><a href="function/index.html#static-function-setNameDesc">setNameDesc</a></span>
+<span><a href="function/index.html#static-function-toggleCoordSky">toggleCoordSky</a></span>
+<span><a href="function/index.html#static-function-toggleFloor">toggleFloor</a></span>
+<span><a href="function/index.html#static-function-toggleFly">toggleFly</a></span></td>
+      <td class="coverage"><span data-ice="coverage">11 %</span><span data-ice="coverageCount" class="coverage-count">2/17</span></td>
+      <td style="display: none;" data-ice="size">2345 byte</td>
+      <td style="display: none;" data-ice="lines">102</td>
+      <td style="display: none;" data-ice="updated">2020-11-06 22:45:52 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/src/components/collection/Collection.js.html#errorLines=105,109,113,117,122,142,162,193,309,48,74,75,77,85,89,99">src/components/collection/Collection.js</a></span></td>
+      <td data-ice="identifier" class="identifiers"><span><a href="variable/index.html#static-variable-Collection">Collection</a></span></td>
+      <td class="coverage"><span data-ice="coverage">15 %</span><span data-ice="coverageCount" class="coverage-count">3/19</span></td>
+      <td style="display: none;" data-ice="size">11058 byte</td>
+      <td style="display: none;" data-ice="lines">311</td>
+      <td style="display: none;" data-ice="updated">2020-11-06 22:57:37 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/src/components/collection/SelectProject.js.html#errorLines=29,30,50,6,65,81">src/components/collection/SelectProject.js</a></span></td>
+      <td data-ice="identifier" class="identifiers"><span><a href="class/src/components/collection/SelectProject.js~SelectProject.html">SelectProject</a></span></td>
+      <td class="coverage"><span data-ice="coverage">0 %</span><span data-ice="coverageCount" class="coverage-count">0/6</span></td>
+      <td style="display: none;" data-ice="size">2614 byte</td>
+      <td style="display: none;" data-ice="lines">90</td>
+      <td style="display: none;" data-ice="updated">2020-10-06 23:28:52 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/src/components/courses/Course.js.html#errorLines=10,22,34,50,85,9">src/components/courses/Course.js</a></span></td>
+      <td data-ice="identifier" class="identifiers"><span><a href="class/src/components/courses/Course.js~Lesson.html">Lesson</a></span></td>
+      <td class="coverage"><span data-ice="coverage">0 %</span><span data-ice="coverageCount" class="coverage-count">0/6</span></td>
+      <td style="display: none;" data-ice="size">3595 byte</td>
+      <td style="display: none;" data-ice="lines">97</td>
+      <td style="display: none;" data-ice="updated">2020-09-05 16:41:08 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/src/components/courses/CourseSelect.js.html#errorLines=142,51,52,54,59">src/components/courses/CourseSelect.js</a></span></td>
+      <td data-ice="identifier" class="identifiers"><span><a href="variable/index.html#static-variable-CourseSelect">CourseSelect</a></span></td>
+      <td class="coverage"><span data-ice="coverage">37 %</span><span data-ice="coverageCount" class="coverage-count">3/8</span></td>
+      <td style="display: none;" data-ice="size">4652 byte</td>
+      <td style="display: none;" data-ice="lines">145</td>
+      <td style="display: none;" data-ice="updated">2020-11-06 22:57:45 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/src/components/editor/Editor.js.html#errorLines=15,24,49">src/components/editor/Editor.js</a></span></td>
+      <td data-ice="identifier" class="identifiers"><span><a href="class/src/components/editor/Editor.js~Editor.html">Editor</a></span></td>
+      <td class="coverage"><span data-ice="coverage">40 %</span><span data-ice="coverageCount" class="coverage-count">2/5</span></td>
+      <td style="display: none;" data-ice="size">2487 byte</td>
+      <td style="display: none;" data-ice="lines">82</td>
+      <td style="display: none;" data-ice="updated">2020-11-06 23:19:14 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/src/components/editor/customCompleter.js.html#errorLines=3">src/components/editor/customCompleter.js</a></span></td>
+      <td data-ice="identifier" class="identifiers"><span><a href="variable/index.html#static-variable-customCompleter">customCompleter</a></span></td>
+      <td class="coverage"><span data-ice="coverage">0 %</span><span data-ice="coverageCount" class="coverage-count">0/1</span></td>
+      <td style="display: none;" data-ice="size">5770 byte</td>
+      <td style="display: none;" data-ice="lines">223</td>
+      <td style="display: none;" data-ice="updated">2020-09-05 16:41:08 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/src/components/layouts/Collection.js.html#errorLines=10">src/components/layouts/Collection.js</a></span></td>
+      <td data-ice="identifier" class="identifiers"><span><a href="function/index.html#static-function-Collection">Collection</a></span></td>
+      <td class="coverage"><span data-ice="coverage">0 %</span><span data-ice="coverageCount" class="coverage-count">0/1</span></td>
+      <td style="display: none;" data-ice="size">2103 byte</td>
+      <td style="display: none;" data-ice="lines">52</td>
+      <td style="display: none;" data-ice="updated">2020-09-05 16:41:08 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/src/components/layouts/Reference.js.html#errorLines=8">src/components/layouts/Reference.js</a></span></td>
+      <td data-ice="identifier" class="identifiers"><span><a href="function/index.html#static-function-Reference">Reference</a></span></td>
+      <td class="coverage"><span data-ice="coverage">0 %</span><span data-ice="coverageCount" class="coverage-count">0/1</span></td>
+      <td style="display: none;" data-ice="size">1237 byte</td>
+      <td style="display: none;" data-ice="lines">34</td>
+      <td style="display: none;" data-ice="updated">2020-09-05 16:41:08 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/src/components/reference/RefExInfo.js.html#errorLines=27,37,47,7,9">src/components/reference/RefExInfo.js</a></span></td>
+      <td data-ice="identifier" class="identifiers"><span><a href="class/src/components/reference/RefExInfo.js~ReferenceExampleBox.html">ReferenceExampleBox</a></span></td>
+      <td class="coverage"><span data-ice="coverage">0 %</span><span data-ice="coverageCount" class="coverage-count">0/5</span></td>
+      <td style="display: none;" data-ice="size">2112 byte</td>
+      <td style="display: none;" data-ice="lines">60</td>
+      <td style="display: none;" data-ice="updated">2020-09-05 16:41:08 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/src/components/reference/Reference.js.html#errorLines=114,22,28,33,35,37,40,43,47,52,74,90">src/components/reference/Reference.js</a></span></td>
+      <td data-ice="identifier" class="identifiers"><span><a href="class/src/components/reference/Reference.js~Reference.html">Reference</a></span></td>
+      <td class="coverage"><span data-ice="coverage">0 %</span><span data-ice="coverageCount" class="coverage-count">0/12</span></td>
+      <td style="display: none;" data-ice="size">10898 byte</td>
+      <td style="display: none;" data-ice="lines">248</td>
+      <td style="display: none;" data-ice="updated">2020-09-05 16:41:08 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/src/components/reference/ReferencePage.js.html#errorLines=20,22,24,27,30,32,36,51,73,97">src/components/reference/ReferencePage.js</a></span></td>
+      <td data-ice="identifier" class="identifiers"><span><a href="class/src/components/reference/ReferencePage.js~Reference.html">Reference</a></span></td>
+      <td class="coverage"><span data-ice="coverage">0 %</span><span data-ice="coverageCount" class="coverage-count">0/10</span></td>
+      <td style="display: none;" data-ice="size">6068 byte</td>
+      <td style="display: none;" data-ice="lines">165</td>
+      <td style="display: none;" data-ice="updated">2020-09-05 16:41:08 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/src/components/structural/Footer.js.html#errorLines=3,4">src/components/structural/Footer.js</a></span></td>
+      <td data-ice="identifier" class="identifiers"><span><a href="class/src/components/structural/Footer.js~Footer.html">Footer</a></span></td>
+      <td class="coverage"><span data-ice="coverage">0 %</span><span data-ice="coverageCount" class="coverage-count">0/2</span></td>
+      <td style="display: none;" data-ice="size">2871 byte</td>
+      <td style="display: none;" data-ice="lines">52</td>
+      <td style="display: none;" data-ice="updated">2020-09-05 16:41:08 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/src/components/structural/View.js.html#errorLines=124,130,141,157,16,18,214,22,230,24,64,68,76">src/components/structural/View.js</a></span></td>
+      <td data-ice="identifier" class="identifiers"><span><a href="class/src/components/structural/View.js~View.html">View</a></span></td>
+      <td class="coverage"><span data-ice="coverage">23 %</span><span data-ice="coverageCount" class="coverage-count">4/17</span></td>
+      <td style="display: none;" data-ice="size">10094 byte</td>
+      <td style="display: none;" data-ice="lines">269</td>
+      <td style="display: none;" data-ice="updated">2020-11-06 23:28:05 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/src/components/structural/WelcomeScene.js.html#errorLines=3,4">src/components/structural/WelcomeScene.js</a></span></td>
+      <td data-ice="identifier" class="identifiers"><span><a href="class/src/components/structural/WelcomeScene.js~WelcomeScene.html">WelcomeScene</a></span></td>
+      <td class="coverage"><span data-ice="coverage">0 %</span><span data-ice="coverageCount" class="coverage-count">0/2</span></td>
+      <td style="display: none;" data-ice="size">39556 byte</td>
+      <td style="display: none;" data-ice="lines">236</td>
+      <td style="display: none;" data-ice="updated">2020-09-05 16:41:08 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/src/components/structural/WelcomeScreen.js.html#errorLines=100,110,115,120,130,136,141,146,18,219,239,245,297,63,68,69,71,78,84">src/components/structural/WelcomeScreen.js</a></span></td>
+      <td data-ice="identifier" class="identifiers"><span><a href="variable/index.html#static-variable-WelcomeScreen">WelcomeScreen</a></span></td>
+      <td class="coverage"><span data-ice="coverage">5 %</span><span data-ice="coverageCount" class="coverage-count">1/20</span></td>
+      <td style="display: none;" data-ice="size">11386 byte</td>
+      <td style="display: none;" data-ice="lines">298</td>
+      <td style="display: none;" data-ice="updated">2020-11-06 23:28:23 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/src/components/structural/header/Header.js.html#errorLines=170,178,211,220,32,359,38,39,41,501,505,509,513,517,521,525,531,553">src/components/structural/header/Header.js</a></span></td>
+      <td data-ice="identifier" class="identifiers"><span><a href="class/src/components/structural/header/Header.js~Header.html">Header</a></span></td>
+      <td class="coverage"><span data-ice="coverage">56 %</span><span data-ice="coverageCount" class="coverage-count">23/41</span></td>
+      <td style="display: none;" data-ice="size">31987 byte</td>
+      <td style="display: none;" data-ice="lines">803</td>
+      <td style="display: none;" data-ice="updated">2020-11-06 23:25:29 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/src/components/structural/header/MyrTour.js.html#errorLines=14,21,57,6,7,9">src/components/structural/header/MyrTour.js</a></span></td>
+      <td data-ice="identifier" class="identifiers"><span><a href="class/src/components/structural/header/MyrTour.js~MyrTour.html">MyrTour</a></span></td>
+      <td class="coverage"><span data-ice="coverage">0 %</span><span data-ice="coverageCount" class="coverage-count">0/6</span></td>
+      <td style="display: none;" data-ice="size">3676 byte</td>
+      <td style="display: none;" data-ice="lines">107</td>
+      <td style="display: none;" data-ice="updated">2020-09-05 16:41:08 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/src/components/structural/header/ProjectView.js.html#errorLines=107,110,114,119,124,128,134,141,145,149,153,203,22,234,265,274,334,35,364,368,46,529,58,86,91,92,94">src/components/structural/header/ProjectView.js</a></span></td>
+      <td data-ice="identifier" class="identifiers"><span><a href="variable/index.html#static-variable-ProjectView">ProjectView</a></span></td>
+      <td class="coverage"><span data-ice="coverage">0 %</span><span data-ice="coverageCount" class="coverage-count">0/27</span></td>
+      <td style="display: none;" data-ice="size">20867 byte</td>
+      <td style="display: none;" data-ice="lines">531</td>
+      <td style="display: none;" data-ice="updated">2020-09-05 16:41:08 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/src/components/structural/header/Sidebar.js.html#errorLines=10,13,19,8">src/components/structural/header/Sidebar.js</a></span></td>
+      <td data-ice="identifier" class="identifiers"><span><a href="class/src/components/structural/header/Sidebar.js~Sidebar.html">Sidebar</a></span></td>
+      <td class="coverage"><span data-ice="coverage">42 %</span><span data-ice="coverageCount" class="coverage-count">3/7</span></td>
+      <td style="display: none;" data-ice="size">2967 byte</td>
+      <td style="display: none;" data-ice="lines">83</td>
+      <td style="display: none;" data-ice="updated">2020-11-06 23:27:35 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/src/constants/ActionTypes.js.html#errorLines=1,10,11,12,13,14,15,16,17,18,2,20,21,22,23,24,26,27,28,29,3,30,31,32,33,34,35,36,37,38,39,40,41,42,43,45,46,47,49,5,6,7,8">src/constants/ActionTypes.js</a></span></td>
+      <td data-ice="identifier" class="identifiers"><span><a href="variable/index.html#static-variable-ADD_CLASSROOM">ADD_CLASSROOM</a></span>
+<span><a href="variable/index.html#static-variable-ADD_PW">ADD_PW</a></span>
+<span><a href="variable/index.html#static-variable-ASYNC_EXAMP_PROJ">ASYNC_EXAMP_PROJ</a></span>
+<span><a href="variable/index.html#static-variable-ASYNC_USER_PROJ">ASYNC_USER_PROJ</a></span>
+<span><a href="variable/index.html#static-variable-CHANGE_CAM_MODE">CHANGE_CAM_MODE</a></span>
+<span><a href="variable/index.html#static-variable-CHANGE_FLOOR_COLOR">CHANGE_FLOOR_COLOR</a></span>
+<span><a href="variable/index.html#static-variable-CHANGE_PERSPECTIVE">CHANGE_PERSPECTIVE</a></span>
+<span><a href="variable/index.html#static-variable-CHANGE_SETTING">CHANGE_SETTING</a></span>
+<span><a href="variable/index.html#static-variable-CHANGE_SKY_COLOR">CHANGE_SKY_COLOR</a></span>
+<span><a href="variable/index.html#static-variable-CHANGE_VIEW">CHANGE_VIEW</a></span>
+<span><a href="variable/index.html#static-variable-DELETE_CLASS">DELETE_CLASS</a></span>
+<span><a href="variable/index.html#static-variable-DELETE_PROJ">DELETE_PROJ</a></span>
+<span><a href="variable/index.html#static-variable-EDITOR_CHANGE">EDITOR_CHANGE</a></span>
+<span><a href="variable/index.html#static-variable-EDITOR_RECOVER">EDITOR_RECOVER</a></span>
+<span><a href="variable/index.html#static-variable-EDITOR_REFRESH">EDITOR_REFRESH</a></span>
+<span><a href="variable/index.html#static-variable-EDITOR_RENDER">EDITOR_RENDER</a></span>
+<span><a href="variable/index.html#static-variable-EDITOR_UPDATE_SAVEDTEXT">EDITOR_UPDATE_SAVEDTEXT</a></span>
+<span><a href="variable/index.html#static-variable-LOAD_COURSE">LOAD_COURSE</a></span>
+<span><a href="variable/index.html#static-variable-LOAD_LESSON">LOAD_LESSON</a></span>
+<span><a href="variable/index.html#static-variable-LOAD_REF_EX">LOAD_REF_EX</a></span>
+<span><a href="variable/index.html#static-variable-LOAD_SCENE">LOAD_SCENE</a></span>
+<span><a href="variable/index.html#static-variable-LOAD_SETTINGS">LOAD_SETTINGS</a></span>
+<span><a href="variable/index.html#static-variable-LOGIN">LOGIN</a></span>
+<span><a href="variable/index.html#static-variable-LOGOUT">LOGOUT</a></span>
+<span><a href="variable/index.html#static-variable-NAME_SCENE">NAME_SCENE</a></span>
+<span><a href="variable/index.html#static-variable-NEW_SCENE">NEW_SCENE</a></span>
+<span><a href="variable/index.html#static-variable-REFRESH_TOKEN">REFRESH_TOKEN</a></span>
+<span><a href="variable/index.html#static-variable-REMOVE_CLASSROOM">REMOVE_CLASSROOM</a></span>
+<span><a href="variable/index.html#static-variable-REQ_RELOAD">REQ_RELOAD</a></span>
+<span><a href="variable/index.html#static-variable-SAVE_FIN">SAVE_FIN</a></span>
+<span><a href="variable/index.html#static-variable-SAVE_START">SAVE_START</a></span>
+<span><a href="variable/index.html#static-variable-SET_CAMERA">SET_CAMERA</a></span>
+<span><a href="variable/index.html#static-variable-SET_DESC">SET_DESC</a></span>
+<span><a href="variable/index.html#static-variable-SET_INDEX">SET_INDEX</a></span>
+<span><a href="variable/index.html#static-variable-SET_NAME_DESC">SET_NAME_DESC</a></span>
+<span><a href="variable/index.html#static-variable-SYNC_CLASS">SYNC_CLASS</a></span>
+<span><a href="variable/index.html#static-variable-SYNC_CLASSES">SYNC_CLASSES</a></span>
+<span><a href="variable/index.html#static-variable-SYNC_COURSES">SYNC_COURSES</a></span>
+<span><a href="variable/index.html#static-variable-SYNC_EXAMP_PROJ">SYNC_EXAMP_PROJ</a></span>
+<span><a href="variable/index.html#static-variable-SYNC_USER_PROJ">SYNC_USER_PROJ</a></span>
+<span><a href="variable/index.html#static-variable-TOGGLE_COORD_SKY">TOGGLE_COORD_SKY</a></span>
+<span><a href="variable/index.html#static-variable-TOGGLE_FLOOR">TOGGLE_FLOOR</a></span>
+<span><a href="variable/index.html#static-variable-TOGGLE_FLY">TOGGLE_FLY</a></span></td>
+      <td class="coverage"><span data-ice="coverage">0 %</span><span data-ice="coverageCount" class="coverage-count">0/43</span></td>
+      <td style="display: none;" data-ice="size">1965 byte</td>
+      <td style="display: none;" data-ice="lines">48</td>
+      <td style="display: none;" data-ice="updated">2020-09-05 16:41:08 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/src/constants/LayoutTypes.js.html#errorLines=1,2,3,4,5">src/constants/LayoutTypes.js</a></span></td>
+      <td data-ice="identifier" class="identifiers"><span><a href="variable/index.html#static-variable-CLASSROOM">CLASSROOM</a></span>
+<span><a href="variable/index.html#static-variable-GUIDED">GUIDED</a></span>
+<span><a href="variable/index.html#static-variable-IDE">IDE</a></span>
+<span><a href="variable/index.html#static-variable-REFERENCE">REFERENCE</a></span>
+<span><a href="variable/index.html#static-variable-REF_EXAMPLE">REF_EXAMPLE</a></span></td>
+      <td class="coverage"><span data-ice="coverage">0 %</span><span data-ice="coverageCount" class="coverage-count">0/5</span></td>
+      <td style="display: none;" data-ice="size">179 byte</td>
+      <td style="display: none;" data-ice="lines">4</td>
+      <td style="display: none;" data-ice="updated">2020-09-05 16:41:08 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/src/containers/Collection.js.html">src/containers/Collection.js</a></span></td>
+      <td data-ice="identifier" class="identifiers">-</td>
+      <td class="coverage"><span data-ice="coverage">100 %</span><span data-ice="coverageCount" class="coverage-count">2/2</span></td>
+      <td style="display: none;" data-ice="size">1793 byte</td>
+      <td style="display: none;" data-ice="lines">56</td>
+      <td style="display: none;" data-ice="updated">2020-11-02 23:04:15 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/src/containers/Guided.js.html#errorLines=21">src/containers/Guided.js</a></span></td>
+      <td data-ice="identifier" class="identifiers">-</td>
+      <td class="coverage"><span data-ice="coverage">50 %</span><span data-ice="coverageCount" class="coverage-count">1/2</span></td>
+      <td style="display: none;" data-ice="size">1530 byte</td>
+      <td style="display: none;" data-ice="lines">51</td>
+      <td style="display: none;" data-ice="updated">2020-11-02 23:04:48 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/src/containers/Ide.js.html">src/containers/Ide.js</a></span></td>
+      <td data-ice="identifier" class="identifiers">-</td>
+      <td class="coverage"><span data-ice="coverage">100 %</span><span data-ice="coverageCount" class="coverage-count">2/2</span></td>
+      <td style="display: none;" data-ice="size">1467 byte</td>
+      <td style="display: none;" data-ice="lines">49</td>
+      <td style="display: none;" data-ice="updated">2020-11-02 23:05:24 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/src/containers/Reference.js.html">src/containers/Reference.js</a></span></td>
+      <td data-ice="identifier" class="identifiers">-</td>
+      <td class="coverage"><span data-ice="coverage">100 %</span><span data-ice="coverageCount" class="coverage-count">2/2</span></td>
+      <td style="display: none;" data-ice="size">1503 byte</td>
+      <td style="display: none;" data-ice="lines">49</td>
+      <td style="display: none;" data-ice="updated">2020-11-02 23:05:52 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/src/containers/ReferenceExample.js.html">src/containers/ReferenceExample.js</a></span></td>
+      <td data-ice="identifier" class="identifiers">-</td>
+      <td class="coverage"><span data-ice="coverage">100 %</span><span data-ice="coverageCount" class="coverage-count">2/2</span></td>
+      <td style="display: none;" data-ice="size">1659 byte</td>
+      <td style="display: none;" data-ice="lines">51</td>
+      <td style="display: none;" data-ice="updated">2020-11-02 23:06:17 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/src/index.js.html">src/index.js</a></span></td>
+      <td data-ice="identifier" class="identifiers">-</td>
+      <td class="coverage"><span data-ice="coverage">-</span></td>
+      <td style="display: none;" data-ice="size">410 byte</td>
+      <td style="display: none;" data-ice="lines">16</td>
+      <td style="display: none;" data-ice="updated">2020-09-05 16:41:08 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/src/myr/Group.js.html#errorLines=1,17,2,27,3,31,4,40,48,5,56,6,64,9">src/myr/Group.js</a></span></td>
+      <td data-ice="identifier" class="identifiers"><span><a href="class/src/myr/Group.js~Group.html">Group</a></span></td>
+      <td class="coverage"><span data-ice="coverage">0 %</span><span data-ice="coverageCount" class="coverage-count">0/14</span></td>
+      <td style="display: none;" data-ice="size">1595 byte</td>
+      <td style="display: none;" data-ice="lines">73</td>
+      <td style="display: none;" data-ice="updated">2020-09-05 16:41:08 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/src/myr/Myr.js.html#errorLines=10,1001,1004,11,12,13,14,1505,153,1555,1584,1614,1619,1625,499,538,567,6,641,7,8,80,9">src/myr/Myr.js</a></span></td>
+      <td data-ice="identifier" class="identifiers"><span><a href="class/src/myr/Myr.js~Myr.html">Myr</a></span></td>
+      <td class="coverage"><span data-ice="coverage">78 %</span><span data-ice="coverageCount" class="coverage-count">84/107</span></td>
+      <td style="display: none;" data-ice="size">52738 byte</td>
+      <td style="display: none;" data-ice="lines">1658</td>
+      <td style="display: none;" data-ice="updated">2020-11-06 22:50:13 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/src/myr/reference.js.html#errorLines=108,128,18,243,40,400,558,598,60,605,8,80">src/myr/reference.js</a></span></td>
+      <td data-ice="identifier" class="identifiers"><span><a href="function/index.html#static-function-arrayText">arrayText</a></span>
+<span><a href="function/index.html#static-function-boolText">boolText</a></span>
+<span><a href="function/index.html#static-function-dataText">dataText</a></span>
+<span><a href="function/index.html#static-function-numberText">numberText</a></span>
+<span><a href="function/index.html#static-function-r">r</a></span>
+<span><a href="function/index.html#static-function-stringText">stringText</a></span></td>
+      <td class="coverage"><span data-ice="coverage">0 %</span><span data-ice="coverageCount" class="coverage-count">0/12</span></td>
+      <td style="display: none;" data-ice="size">30727 byte</td>
+      <td style="display: none;" data-ice="lines">607</td>
+      <td style="display: none;" data-ice="updated">2020-09-05 16:41:08 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/src/reducers/collections.js.html#errorLines=3,8">src/reducers/collections.js</a></span></td>
+      <td data-ice="identifier" class="identifiers"><span><a href="function/index.html#static-function-classes">classes</a></span></td>
+      <td class="coverage"><span data-ice="coverage">0 %</span><span data-ice="coverageCount" class="coverage-count">0/2</span></td>
+      <td style="display: none;" data-ice="size">858 byte</td>
+      <td style="display: none;" data-ice="lines">32</td>
+      <td style="display: none;" data-ice="updated">2020-09-05 16:41:08 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/src/reducers/course.js.html#errorLines=15,3">src/reducers/course.js</a></span></td>
+      <td data-ice="identifier" class="identifiers"><span><a href="function/index.html#static-function-course">course</a></span></td>
+      <td class="coverage"><span data-ice="coverage">0 %</span><span data-ice="coverageCount" class="coverage-count">0/2</span></td>
+      <td style="display: none;" data-ice="size">1428 byte</td>
+      <td style="display: none;" data-ice="lines">53</td>
+      <td style="display: none;" data-ice="updated">2020-09-05 16:41:08 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/src/reducers/editor.js.html#errorLines=28,44,5">src/reducers/editor.js</a></span></td>
+      <td data-ice="identifier" class="identifiers"><span><a href="function/index.html#static-function-editor">editor</a></span></td>
+      <td class="coverage"><span data-ice="coverage">40 %</span><span data-ice="coverageCount" class="coverage-count">2/5</span></td>
+      <td style="display: none;" data-ice="size">3226 byte</td>
+      <td style="display: none;" data-ice="lines">115</td>
+      <td style="display: none;" data-ice="updated">2020-11-02 23:14:35 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/src/reducers/index.js.html#errorLines=13,23,25">src/reducers/index.js</a></span></td>
+      <td data-ice="identifier" class="identifiers"><span><a href="variable/index.html#static-variable-store">store</a></span></td>
+      <td class="coverage"><span data-ice="coverage">0 %</span><span data-ice="coverageCount" class="coverage-count">0/3</span></td>
+      <td style="display: none;" data-ice="size">801 byte</td>
+      <td style="display: none;" data-ice="lines">30</td>
+      <td style="display: none;" data-ice="updated">2020-09-05 16:41:08 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/src/reducers/project.js.html#errorLines=3,8">src/reducers/project.js</a></span></td>
+      <td data-ice="identifier" class="identifiers"><span><a href="function/index.html#static-function-project">project</a></span></td>
+      <td class="coverage"><span data-ice="coverage">0 %</span><span data-ice="coverageCount" class="coverage-count">0/2</span></td>
+      <td style="display: none;" data-ice="size">843 byte</td>
+      <td style="display: none;" data-ice="lines">32</td>
+      <td style="display: none;" data-ice="updated">2020-09-05 16:41:08 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/src/reducers/referenceExample.js.html#errorLines=13,3">src/reducers/referenceExample.js</a></span></td>
+      <td data-ice="identifier" class="identifiers"><span><a href="function/index.html#static-function-referenceExample">referenceExample</a></span></td>
+      <td class="coverage"><span data-ice="coverage">0 %</span><span data-ice="coverageCount" class="coverage-count">0/2</span></td>
+      <td style="display: none;" data-ice="size">556 byte</td>
+      <td style="display: none;" data-ice="lines">23</td>
+      <td style="display: none;" data-ice="updated">2020-09-05 16:41:08 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/src/reducers/scene.js.html#errorLines=15,26,3">src/reducers/scene.js</a></span></td>
+      <td data-ice="identifier" class="identifiers"><span><a href="variable/index.html#static-variable-DEF_SETTINGS">DEF_SETTINGS</a></span>
+<span><a href="function/index.html#static-function-scene">scene</a></span></td>
+      <td class="coverage"><span data-ice="coverage">0 %</span><span data-ice="coverageCount" class="coverage-count">0/3</span></td>
+      <td style="display: none;" data-ice="size">4048 byte</td>
+      <td style="display: none;" data-ice="lines">146</td>
+      <td style="display: none;" data-ice="updated">2020-09-05 16:41:08 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/src/reducers/user.js.html#errorLines=3,7">src/reducers/user.js</a></span></td>
+      <td data-ice="identifier" class="identifiers"><span><a href="function/index.html#static-function-user">user</a></span></td>
+      <td class="coverage"><span data-ice="coverage">0 %</span><span data-ice="coverageCount" class="coverage-count">0/2</span></td>
+      <td style="display: none;" data-ice="size">629 byte</td>
+      <td style="display: none;" data-ice="lines">27</td>
+      <td style="display: none;" data-ice="updated">2020-09-05 16:41:08 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/src/routes.js.html#errorLines=9">src/routes.js</a></span></td>
+      <td data-ice="identifier" class="identifiers"><span><a href="function/index.html#static-function-router">router</a></span></td>
+      <td class="coverage"><span data-ice="coverage">0 %</span><span data-ice="coverageCount" class="coverage-count">0/1</span></td>
+      <td style="display: none;" data-ice="size">1666 byte</td>
+      <td style="display: none;" data-ice="lines">38</td>
+      <td style="display: none;" data-ice="updated">2020-09-05 16:41:08 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/src/utils/AframeReg.js.html">src/utils/AframeReg.js</a></span></td>
+      <td data-ice="identifier" class="identifiers">-</td>
+      <td class="coverage"><span data-ice="coverage">-</span></td>
+      <td style="display: none;" data-ice="size">792 byte</td>
+      <td style="display: none;" data-ice="lines">25</td>
+      <td style="display: none;" data-ice="updated">2020-09-05 16:41:08 (UTC)</td>
+    </tr>
+</tbody>
+</table>
+</div>
+
+<footer class="footer">
+  Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(1.1.0)</span><img src="./image/esdoc-logo-mini-black.png"></a>
+</footer>
+
+<script src="script/search_index.js"></script>
+<script src="script/search.js"></script>
+<script src="script/pretty-print.js"></script>
+<script src="script/inherited-summary.js"></script>
+<script src="script/test-summary.js"></script>
+<script src="script/inner-link.js"></script>
+<script src="script/patch-for-local.js"></script>
+</body>
+</html>

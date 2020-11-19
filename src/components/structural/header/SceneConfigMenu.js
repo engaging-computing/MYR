@@ -20,7 +20,9 @@ import * as layoutTypes from "../../../constants/LayoutTypes.js";
 
 import "../../../css/SceneConfig.css";
 
-// FUNC to position modal in the middle of the screen
+/**
+ * FUNC to position modal in the middle of the screen
+ */
 function getModalStyle() {
     const top = 50;
     const left = 50;
@@ -33,7 +35,11 @@ function getModalStyle() {
     };
 }
 
-// CSS for modal
+/**
+ * CSS for modal
+ * 
+ * @param {*} theme 
+ */
 const modelStyles = theme => ({
     paper: {
         position: "absolute",
@@ -47,7 +53,9 @@ const modelStyles = theme => ({
     }
 });
 
-// CSS for buttons
+/**
+ * CSS for buttons
+ */
 const btnStyle = {
     base: {
         marginTop: 20,
@@ -96,12 +104,16 @@ class ConfigModal extends Component {
         this.emailRef = React.createRef();
     }
 
-    // Opens the modal
+    /**
+     * Opens the modal
+     */
     handleOpen = () => {
         this.setState({ open: true });
     };
 
-    // Closes the modal
+    /**
+     * Closes the modal
+     */
     handleClose = () => {
         this.setState({ open: false, displaySkyColorPicker: false, displayFloorColorPicker: false });
     };
@@ -195,7 +207,9 @@ class ConfigModal extends Component {
         );
     };
 
-    // Toggles the grid on and off
+    /**
+     * Toggles the grid on and off
+     */
     toggleGrid = () => {
         this.props.sceneActions.toggleCoordSky();
     };
@@ -226,7 +240,9 @@ class ConfigModal extends Component {
         this.setState({ displayFloorColorPicker: false });
     };
 
-    // Toggles whether the editor is showing
+    /**
+     * Toggles whether the editor is showing
+     */
     viewToggle = () => {
         let style = this.props.scene.settings.viewOnly ? btnStyle.off : btnStyle.on;
 
@@ -249,7 +265,9 @@ class ConfigModal extends Component {
         );
     };
 
-    // Toggles the ability to fly in the scene
+    /**
+     * Toggles the ability to fly in the scene
+     */
     flyToggle = () => {
         let style = this.props.scene.settings.canFly ? btnStyle.on : btnStyle.off;
         style = { ...btnStyle.base, ...style };
@@ -270,7 +288,9 @@ class ConfigModal extends Component {
         );
     };
 
-    // Toggles the grid on and off
+    /**
+     * Toggles the grid on and off
+     */
     gridToggle = () => {
         let style = this.props.scene.settings.showCoordHelper ? btnStyle.on : btnStyle.off;
         style = { ...btnStyle.base, ...style };
@@ -291,7 +311,9 @@ class ConfigModal extends Component {
         );
     };
 
-    // Toggles the floor on and off
+    /**
+     * Toggles the floor on and off
+     */
     floorToggle = () => {
         let style = this.props.scene.settings.showFloor ? btnStyle.on : btnStyle.off;
         style = { ...btnStyle.base, ...style };
@@ -371,10 +393,10 @@ class ConfigModal extends Component {
         </div>
     );
 
-
-
-    // Resets the camera, but also applies a small random num to make it reset
-    // See reducer for more info
+    /**
+     * Resets the camera, but also applies a small random num to make it reset
+     * See reducer for more info
+     */
     resetPosition = () => {
         return (
             <ButtonBase

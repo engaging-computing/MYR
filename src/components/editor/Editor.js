@@ -8,9 +8,8 @@ import customCompleter from "./customCompleter.js";
 import "brace/ext/searchbox";
 
 /**
-* @summary - Editor is a React Component that creat the Ace Editor in the DOM.
-*
-*/
+ * Editor is a React Component that creat the Ace Editor in the DOM.
+ */
 
 class Editor extends Component {
     componentWillUnmount() {
@@ -55,8 +54,8 @@ class Editor extends Component {
     }
 
     /**
-    * @summary -render(), creates the editor in the DOM
-    */
+     * Creates the editor in the DOM
+     */
     render() {
         return (
             <AceEditor

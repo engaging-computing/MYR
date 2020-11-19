@@ -8,7 +8,7 @@ import "aframe-environment-component";
 import * as THREE from "three";
 
 /**
- * @summary - The View component return the aframe representation of the scene. This
+ * The View component return the aframe representation of the scene. This
  * system utilizes the entity component system(ECS) to build objects in the scene from different
  * components.
  */
@@ -44,7 +44,10 @@ class View extends Component {
             document.getElementById("interface").style.visibility = "visible";
         });
     }
-    // This fires off an event when the system is fully rendered.
+    
+    /**
+     * This fires off an event when the system is fully rendered.
+     */
     componentDidUpdate() {
         if (!this.state.welcomeOpen) {
             // Create the event
@@ -86,7 +89,11 @@ class View extends Component {
         return "";
     }
 
-    // This renders json to aframe entities
+    /**
+     * This renders json to aframe entities
+     * 
+     * @param {*} ent 
+     */
     helper = (ent) => {
         if (ent) {
             let flattened = {
@@ -167,8 +174,7 @@ class View extends Component {
 
 
     /**
-    * @summary - Produces the grid on the ground and the coordinate lines
-    *
+    * Produces the grid on the ground and the coordinate lines
     */
     coordinateHelper = () => {
         if (this.props.sceneConfig.settings.showCoordHelper) {

@@ -14,7 +14,9 @@ import { withStyles } from "@material-ui/core/styles";
 
 import "../../css/CourseSelect.css";
 
-// FUNC to position modal in the middle of the screen
+/**
+ * FUNC to position modal in the middle of the screen
+ */
 function getModalStyle() {
     const top = 50;
     const left = 50;
@@ -27,7 +29,11 @@ function getModalStyle() {
     };
 }
 
-// CSS for modal
+/**
+ * CSS for modal
+ * 
+ * @param {*} theme !!!DESCRIPTION NEEDED!!! 
+ */
 const modelStyles = theme => ({
     paper: {
         position: "absolute",
@@ -80,7 +86,9 @@ class CourseSelectModal extends Component {
         }
     }
 
-    // Render all of the elements
+    /**
+     * Render all of the elements
+     */
     render() {
         const { classes } = this.props;
         const courses = [].concat(this.props.courses);

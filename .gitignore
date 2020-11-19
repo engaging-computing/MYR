@@ -12,6 +12,9 @@
 # api keys
 /src/keys
 
+# doc scripts
+GenerateDocsWindows.bat
+
 # misc
 .DS_Store
 .env*

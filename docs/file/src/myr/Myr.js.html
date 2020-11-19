@@ -1,0 +1,1846 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <base data-ice="baseUrl" href="../../../">
+  <title data-ice="title">src/myr/Myr.js | myr</title>
+  <link type="text/css" rel="stylesheet" href="css/style.css">
+  <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
+  <script src="script/prettify/prettify.js"></script>
+  <script src="script/manual.js"></script>
+</head>
+<body class="layout-container" data-ice="rootContainer">
+
+<header>
+  <a href="./">Home</a>
+  
+  <a href="identifiers.html">Reference</a>
+  <a href="source.html">Source</a>
+  
+  <div class="search-box">
+  <span>
+    <img src="./image/search.png">
+    <span class="search-input-edge"></span><input class="search-input"><span class="search-input-edge"></span>
+  </span>
+    <ul class="search-result"></ul>
+  </div>
+</header>
+
+<nav class="navigation" data-ice="nav"><div>
+  <ul>
+    
+  <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-router">router</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#actions">actions</a><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-login">login</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-logout">logout</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-refreshToken">refreshToken</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-asyncCollection">asyncCollection</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-asyncCollections">asyncCollections</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-createCollection">createCollection</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-deleteCollection">deleteCollection</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-syncCollection">syncCollection</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-syncCollections">syncCollections</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-fetchCourse">fetchCourse</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-fetchCourses">fetchCourses</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-fetchLesson">fetchLesson</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-loadCourse">loadCourse</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-loadLesson">loadLesson</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-nextLesson">nextLesson</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-previousLesson">previousLesson</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-setCurrentIndex">setCurrentIndex</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-syncCourses">syncCourses</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-addPassword">addPassword</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-fetchScene">fetchScene</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-recover">recover</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-refresh">refresh</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-render">render</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-updateSavedText">updateSavedText</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-asyncExampleProj">asyncExampleProj</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-asyncUserProj">asyncUserProj</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-deleteProj">deleteProj</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-save">save</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-syncExampleProj">syncExampleProj</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-syncUserProj">syncUserProj</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-fetchReferenceExample">fetchReferenceExample</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-loadReferenceExample">loadReferenceExample</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-addCollectionID">addCollectionID</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-changeCamMode">changeCamMode</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-changeFloorColor">changeFloorColor</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-changePerspective">changePerspective</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-changeSetting">changeSetting</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-changeSkyColor">changeSkyColor</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-changeView">changeView</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-loadScene">loadScene</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-loadSettings">loadSettings</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-nameScene">nameScene</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-removeCollectionID">removeCollectionID</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-setCamera">setCamera</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-setDesc">setDesc</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-setNameDesc">setNameDesc</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-toggleCoordSky">toggleCoordSky</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-toggleFloor">toggleFloor</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-toggleFly">toggleFly</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-collectRef">collectRef</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#components-collection">components/collection</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/components/collection/SelectProject.js~SelectProject.html">SelectProject</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-Collection">Collection</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#components-courses">components/courses</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/components/courses/Course.js~Lesson.html">Lesson</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-CourseSelect">CourseSelect</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#components-editor">components/editor</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/components/editor/Editor.js~Editor.html">Editor</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-customCompleter">customCompleter</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#components-layouts">components/layouts</a><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-Collection">Collection</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-Reference">Reference</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#components-reference">components/reference</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/components/reference/RefExInfo.js~ReferenceExampleBox.html">ReferenceExampleBox</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/components/reference/Reference.js~Reference.html">Reference</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/components/reference/ReferencePage.js~Reference.html">Reference</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#components-structural">components/structural</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/components/structural/Footer.js~Footer.html">Footer</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/components/structural/View.js~View.html">View</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/components/structural/WelcomeScene.js~WelcomeScene.html">WelcomeScene</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-WelcomeScreen">WelcomeScreen</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#components-structural-header">components/structural/header</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/components/structural/header/Header.js~Header.html">Header</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/components/structural/header/MyrTour.js~MyrTour.html">MyrTour</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/components/structural/header/Sidebar.js~Sidebar.html">Sidebar</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-ProjectView">ProjectView</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#constants">constants</a><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-ADD_CLASSROOM">ADD_CLASSROOM</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-ADD_PW">ADD_PW</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-ASYNC_EXAMP_PROJ">ASYNC_EXAMP_PROJ</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-ASYNC_USER_PROJ">ASYNC_USER_PROJ</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-CHANGE_CAM_MODE">CHANGE_CAM_MODE</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-CHANGE_FLOOR_COLOR">CHANGE_FLOOR_COLOR</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-CHANGE_PERSPECTIVE">CHANGE_PERSPECTIVE</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-CHANGE_SETTING">CHANGE_SETTING</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-CHANGE_SKY_COLOR">CHANGE_SKY_COLOR</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-CHANGE_VIEW">CHANGE_VIEW</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-DELETE_CLASS">DELETE_CLASS</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-DELETE_PROJ">DELETE_PROJ</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-EDITOR_CHANGE">EDITOR_CHANGE</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-EDITOR_RECOVER">EDITOR_RECOVER</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-EDITOR_REFRESH">EDITOR_REFRESH</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-EDITOR_RENDER">EDITOR_RENDER</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-EDITOR_UPDATE_SAVEDTEXT">EDITOR_UPDATE_SAVEDTEXT</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-LOAD_COURSE">LOAD_COURSE</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-LOAD_LESSON">LOAD_LESSON</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-LOAD_REF_EX">LOAD_REF_EX</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-LOAD_SCENE">LOAD_SCENE</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-LOAD_SETTINGS">LOAD_SETTINGS</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-LOGIN">LOGIN</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-LOGOUT">LOGOUT</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-NAME_SCENE">NAME_SCENE</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-NEW_SCENE">NEW_SCENE</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-REFRESH_TOKEN">REFRESH_TOKEN</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-REMOVE_CLASSROOM">REMOVE_CLASSROOM</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-REQ_RELOAD">REQ_RELOAD</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-SAVE_FIN">SAVE_FIN</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-SAVE_START">SAVE_START</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-SET_CAMERA">SET_CAMERA</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-SET_DESC">SET_DESC</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-SET_INDEX">SET_INDEX</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-SET_NAME_DESC">SET_NAME_DESC</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-SYNC_CLASS">SYNC_CLASS</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-SYNC_CLASSES">SYNC_CLASSES</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-SYNC_COURSES">SYNC_COURSES</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-SYNC_EXAMP_PROJ">SYNC_EXAMP_PROJ</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-SYNC_USER_PROJ">SYNC_USER_PROJ</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-TOGGLE_COORD_SKY">TOGGLE_COORD_SKY</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-TOGGLE_FLOOR">TOGGLE_FLOOR</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-TOGGLE_FLY">TOGGLE_FLY</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-CLASSROOM">CLASSROOM</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-GUIDED">GUIDED</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-IDE">IDE</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-REFERENCE">REFERENCE</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-REF_EXAMPLE">REF_EXAMPLE</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#myr">myr</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/myr/Group.js~Group.html">Group</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/myr/Myr.js~Myr.html">Myr</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-arrayText">arrayText</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-boolText">boolText</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-dataText">dataText</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-numberText">numberText</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-r">r</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-stringText">stringText</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#reducers">reducers</a><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-classes">classes</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-course">course</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-editor">editor</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-project">project</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-referenceExample">referenceExample</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-scene">scene</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-user">user</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-store">store</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-DEF_SETTINGS">DEF_SETTINGS</a></span></span></li>
+</ul>
+</div>
+</nav>
+
+<div class="content" data-ice="content"><h1 data-ice="title">src/myr/Myr.js</h1>
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">import &quot;aframe&quot;;
+import &quot;aframe-physics-system&quot;;
+import Group from &quot;./Group&quot;;
+import CANNON from &quot;cannon&quot;;
+
+class Myr {
+    constructor(baseEls) {
+        this.counter = 0;
+        this.baseEls = baseEls;
+        this.els = [];
+        this.assets = [];
+        this.res = { els: this.els, assets: this.assets };
+        this.sceneEl = document.querySelector(&quot;a-scene&quot;);
+        this.cursor = {
+            color: &quot;red&quot;,
+            position: {
+                x: 0,
+                y: 0,
+                z: 0
+            },
+            scale: {
+                x: 1,
+                y: 1,
+                z: 1
+            },
+            rotation: {
+                x: 0,
+                y: 0,
+                z: 0
+            },
+            radius: &quot;1&quot;,
+            phiLength: 360,
+            loop: true,
+            duration: 1000,
+            magnitude: {
+                spin: 360,
+                fadeOut: 0,
+                general: 1
+            }
+        };
+        if (baseEls) {
+            Object.keys(this.baseEls).forEach(it =&gt; {
+                this.els[it] = this.baseEls[it];
+            });
+        }
+
+    }
+
+    /**
+     * init creates and binds the myr object to the window
+     *
+     * @param [{}] objs these are the base objects for this object
+     *
+     */
+    init = () =&gt; {
+
+        // Get all the function names of the Myr(this) class
+        let funs = Object.keys(this).filter((p) =&gt; {
+            return typeof this[p] === &quot;function&quot;;
+        });
+
+        // For each function bind it to the window
+        funs.forEach(element =&gt; {
+            // If a collision is detected then do not override and warn
+            if (window.hasOwnProperty(element)) {
+                console.warn(`The ${element} of Myr is being overridden.\n` +
+                    &quot;If this was not intentional consider renaming the function.&quot;);
+            } else {
+                // Collision free so we can bind to window
+                window[element] = this[element];
+            }
+        });
+    }
+
+    /**
+     * Reset this.els to the base elements supplied to the constructor
+     */
+    reset = () =&gt; {
+        // Reset base params, we might be able to merge two objects later
+        this.id = 0;
+        this.cursor = {
+            color: &quot;red&quot;,
+            position: {
+                x: 0,
+                y: 0,
+                z: 0
+            },
+            scale: {
+                x: 1,
+                y: 1,
+                z: 1
+            },
+            rotation: {
+                x: 0,
+                y: 0,
+                z: 0
+            },
+            radius: &quot;1&quot;,
+            phiLength: 360,
+            loop: true,
+            duration: 1000,
+            magnitude: {
+                spin: 360,
+                fadeOut: 0,
+                general: 1
+            }
+        };
+        // restore the base objects of the scene
+        this.els = [];
+        if (this.baseEls) {
+            Object.keys(this.baseEls).forEach(it =&gt; {
+                this.els[it] = this.baseEls[it];
+            });
+        }
+    }
+
+
+    /********************* TRANSFORMATIONS *********************/
+
+    /**
+     * Reset the cursor to the default
+     */
+    resetCursor = () =&gt; {
+        this.cursor = {
+            color: &quot;red&quot;,
+            position: {
+                x: 0,
+                y: 0,
+                z: 0
+            },
+            scale: {
+                x: 1,
+                y: 1,
+                z: 1
+            },
+            rotation: {
+                x: 0,
+                y: 0,
+                z: 0
+            },
+            radius: &quot;1&quot;,
+            phiLength: 360,
+            loop: true,
+            duration: 1000,
+            magnitude: {
+                spin: 360,
+                fadeOut: 0,
+                general: 1
+            }
+        };
+    }
+
+    genNewId = () =&gt; {
+        return this.counter++;
+    };
+
+    /**
+     * Sets the x, y, and z position of the cursor
+     * 
+     * @param {number} x New x position of the cursor
+     * @param {number} y New y position of the cursor
+     * @param {number} z New z position of the cursor
+     */
+    setPosition = (x = 0, y = 1, z = 0) =&gt; {
+        if (typeof x === &quot;number&quot; &amp;&amp; typeof y === &quot;number&quot; &amp;&amp; typeof z === &quot;number&quot;) {
+            this.cursor.position = {
+                x: x,
+                y: y,
+                z: z
+            };
+        } else {
+            console.error(&quot;setPosition() must be all numeric values&quot;);
+        }
+        return { x: this.cursor.position.x, y: this.cursor.position.y, z: this.cursor.position.z };
+    };
+
+    /**
+     * Sets the x position of the cursor
+     * 
+     * @param {number} x New x position of the cursor
+     */
+    setXPos = (x = 0) =&gt; {
+        if (typeof x === &quot;number&quot;) {
+            this.cursor.position = { ...this.cursor.position, x };
+        } else {
+            console.error(&quot;must pass a numeric for setXPos&quot;);
+        }
+        return this.cursor.position.x;
+    };
+
+    /**
+     * Sets the y position of the cursor
+     * 
+     * @param {number} y New y position of the cursor
+     */
+    setYPos = (y = 0) =&gt; {
+        if (typeof y === &quot;number&quot;) {
+            this.cursor.position = { ...this.cursor.position, y };
+        } else {
+            console.error(&quot;must pass a numeric for setYPos&quot;);
+        }
+        return this.cursor.position.y;
+    };
+
+    /**
+     * Sets the z position of the cursor
+     * 
+     * @param {number} z New z position of the cursor
+     */
+    setZPos = (z = 0) =&gt; {
+        if (typeof z === &quot;number&quot;) {
+            this.cursor.position = { ...this.cursor.position, z };
+        } else {
+            console.error(&quot;must pass a numeric for setZPos&quot;);
+        }
+        return this.cursor.position.z;
+    };
+
+    /**
+     * Increases the current x, y, and z position of the cursor by the given amount
+     * 
+     * @param {number} x Amount to increment the x position by
+     * @param {number} y Amount to increment the y position by
+     * @param {number} z Amount to increment the z position by
+     */
+    increasePosition = (x = 0, y = 0, z = 0) =&gt; {
+
+        if (typeof x === &quot;number&quot; &amp;&amp; typeof y === &quot;number&quot; &amp;&amp; typeof z === &quot;number&quot;) {
+            this.cursor.position = {
+                ...this.cursor.position,
+                x: this.cursor.position.x + x,
+                y: this.cursor.position.y + y,
+                z: this.cursor.position.z + z
+            };
+        } else {
+            console.error(&quot;increasePosition() must be all numeric values&quot;);
+        }
+        return { x: this.cursor.position.x, y: this.cursor.position.y, z: this.cursor.position.z };
+    }
+
+    /**
+     * Increases the current x position of the cursor by the given amount
+     * 
+     * @param {number} x Amount to increment the x position by 
+     */
+    increaseXPos = (x = 1) =&gt; {
+        if (typeof x === &quot;number&quot;) {
+            this.cursor.position = {
+                ...this.cursor.position,
+                x: this.cursor.position.x + x,
+            };
+        } else {
+            console.error(&quot;must pass a numeric value for increaseXPos&quot;);
+        }
+
+        return this.cursor.position.x;
+    }
+
+    /**
+     * Increases the current y position of the cursor by the given amount
+     * 
+     * @param {number} y Amount to increment the y position by 
+     */
+    increaseYPos = (y = 1) =&gt; {
+        if (typeof y === &quot;number&quot;) {
+            this.cursor.position = {
+                ...this.cursor.position,
+                y: this.cursor.position.y + y,
+            };
+        } else {
+            console.error(&quot;must pass a numeric value for increaseYPos&quot;);
+        }
+
+        return this.cursor.position.y;
+    }
+
+    /**
+     * Increases the current z position of the cursor by the given amount
+     * 
+     * @param {number} z Amount to increment the z position by 
+     */
+    increaseZPos = (z = 1) =&gt; {
+        if (typeof z === &quot;number&quot;) {
+            this.cursor.position = {
+                ...this.cursor.position,
+                z: this.cursor.position.z + z,
+            };
+        } else {
+            console.error(&quot;must pass a numeric value for increaseZPos&quot;);
+        }
+
+        return this.cursor.position.z;
+    }
+
+    /**
+     * Sets the x, y, and z scale of the cursor
+     * 
+     * @param {number} x New x scale of the cursor
+     * @param {number} y New y scale of the cursor
+     * @param {number} z New z scale of the cursor
+     */
+    setScale = (x = 1, y = 1, z = 1) =&gt; {
+        if (typeof x === &quot;number&quot; &amp;&amp; typeof y === &quot;number&quot; &amp;&amp; typeof z === &quot;number&quot;) {
+            this.cursor.scale = {
+                x: x,
+                y: y,
+                z: z
+            };
+        } else {
+            console.error(&quot;setScale() must be all numeric values&quot;);
+        }
+        return { x: this.cursor.scale.x, y: this.cursor.scale.y, z: this.cursor.scale.z };
+    };
+
+    /**
+     * Applies a given scale along the x dimension of the cursor
+     * 
+     * @param {number} x New x scale of the cursor
+     */
+    setXScale = (x) =&gt; {
+        if (typeof x === &quot;number&quot;) {
+            this.cursor.scale = { ...this.cursor.scale, x };
+        } else {
+            console.error(&quot;must pass a numeric for setXScale&quot;);
+        }
+        return this.cursor.scale.x;
+    };
+
+    /**
+     * Applies a given scale along the y dimension of the cursor
+     * 
+     * @param {number} y New y scale of the cursor
+     */
+    setYScale = (y) =&gt; {
+        if (typeof y === &quot;number&quot;) {
+            this.cursor.scale = { ...this.cursor.scale, y };
+        } else {
+            console.error(&quot;must pass a numeric for setYScale&quot;);
+        }
+        return this.cursor.scale.y;
+    };
+
+    /**
+     * Applies a given scale along the z dimension of the cursor
+     * 
+     * @param {number} z New z scale of the cursor
+     */
+    setZScale = (z) =&gt; {
+        if (typeof z === &quot;number&quot;) {
+            this.cursor.scale = { ...this.cursor.scale, z };
+        } else {
+            console.error(&quot;must pass a numeric for setZScale&quot;);
+        }
+        return this.cursor.scale.z;
+    };
+
+    /**
+     * Sets the x, y, and z rotation of the cursor
+     * 
+     * @param {number} x New x rotation of the cursor
+     * @param {number} y New y rotation of the cursor
+     * @param {number} z New z rotation of the cursor
+     */
+    setRotation = (x, y = 0, z = 0) =&gt; {
+        if (typeof x === &quot;number&quot; &amp;&amp; typeof y === &quot;number&quot; &amp;&amp; typeof z === &quot;number&quot;) {
+            this.cursor.rotation = {
+                x: x,
+                y: y,
+                z: z
+            };
+        } else {
+            console.error(&quot;setRotation() must be all numeric values&quot;);
+        }
+        return { x: this.cursor.rotation.x, y: this.cursor.rotation.y, z: this.cursor.rotation.z };
+    }
+
+    /**
+     * Applies a given x rotation to the cursor
+     * 
+     * @param {number} x New x rotation of the cursor
+     */
+    pitchX = (x) =&gt; {
+        if (typeof x === &quot;number&quot;) {
+            this.cursor.rotation = { ...this.cursor.rotation, x };
+        } else {
+            console.error(&quot;must pass a numeric for pitchX&quot;);
+        }
+        return this.cursor.rotation.x;
+    };
+
+    /**
+     * Applies a given y rotation to the cursor
+     * 
+     * @param {number} y New y rotation of the cursor
+     */
+    yawY = (y) =&gt; {
+        if (typeof y === &quot;number&quot;) {
+            this.cursor.rotation = { ...this.cursor.rotation, y };
+        } else {
+            console.error(&quot;must pass a numeric for yawY&quot;);
+        }
+        return this.cursor.rotation.y;
+    };
+
+    /**
+     * Applies a given z rotation to the cursor
+     * 
+     * @param {number} z New z rotation of the cursor
+     */
+    rollZ = (z) =&gt; {
+        if (typeof z === &quot;number&quot;) {
+            this.cursor.rotation = { ...this.cursor.rotation, z };
+        } else {
+            console.error(&quot;must pass a numeric for rollZ&quot;);
+        }
+        return this.cursor.rotation.z;
+    };
+
+    /**
+     * Sets the radius of the cursor
+     * 
+     * @param {number} i New radius of the cursor
+     */
+    setRadius = (i) =&gt; {
+        if (typeof i === &quot;number&quot;) {
+            this.cursor.radius = String(i);
+        } else {
+            console.error(&quot;must pass a numeric for setRadius&quot;);
+        }
+        return this.cursor.radius;
+    };
+
+    /**
+     * Sets the phi length of the cursor
+     * 
+     * @param {number} i New phi length of the cursor
+     */
+    setPhiLength = (i) =&gt; {
+        if (typeof i === &quot;number&quot;) {
+            this.cursor.phiLength = String(i);
+        } else {
+            console.error(&quot;must pass a numeric for setPhiLength&quot;);
+        }
+        return this.cursor.phiLength;
+    };
+
+    /**
+     * Sets the loop of the cursor
+     * 
+     * @param {number} i New loop of the cursor
+     */
+    setLoop = (i) =&gt; {
+        this.cursor.loop = Boolean(i);
+        return this.cursor.loop;
+    };
+
+    /**
+     * Sets the magnitude of the cursor
+     * 
+     * @param {number} i New magnitude of the cursor
+     */
+    setMagnitude = (i) =&gt; {
+        if (typeof i === &quot;number&quot;) {
+            this.cursor.magnitude = {
+                spin: i,
+                fadeOut: i,
+                general: i
+            };
+        } else {
+            console.error(&quot;must pass a numeric for setMagnitude&quot;);
+        }
+        return this.cursor.magnitude.general;
+    };
+
+    /**
+     * Sets the duration of the cursor
+     * 
+     * @param {number} i New duration of the cursor
+     */
+    setDuration = (i) =&gt; {
+        if (typeof i === &quot;number&quot;) {
+            this.cursor.duration = i;
+        } else {
+            console.error(&quot;must pass a numeric for setDuration&quot;);
+        }
+        return this.cursor.duration;
+    };
+
+    /**
+     * Sets the current color of the cursor. Defaults to white.
+     * 
+     * @param {number} color New color of the cursor
+     */
+    setColor = (color = &quot;white&quot;) =&gt; {
+        this.cursor.color = color.toLowerCase();
+        return this.cursor.color;
+    }
+
+    setCursorAttribute = (key = &quot;&quot;, value = &quot;&quot;) =&gt; {
+        if (typeof (key) !== &quot;string&quot; || key === &quot;&quot;) {
+            console.error(&quot;Error: Invalid key&quot;);
+            return this.cursor;
+        }
+        switch (key.toLowerCase()) {
+            case &quot;color&quot;:
+                this.setColor(value);
+                break;
+            case &quot;position&quot;:
+                this.setPosition(value.x, value.y, value.z);
+                break;
+            case &quot;scale&quot;:
+                this.setScale(value.x, value.y, value.z);
+                break;
+            case &quot;rotation&quot;:
+                this.setRotation(value.x, value.y, value.z);
+                break;
+            case &quot;radius&quot;:
+                this.setRadius(value);
+                break;
+            case &quot;philength&quot;:
+                this.setPhiLength(value);
+                break;
+            case &quot;loop&quot;:
+                this.setLoop(value);
+                break;
+            case &quot;duration&quot;:
+                this.setDuration(value);
+                break;
+            case &quot;magnitude&quot;:
+                this.setMagnitude(value);
+                break;
+            default:
+                this.cursor[key] = value;
+        }
+        return this.cursor;
+    }
+
+    getCursorAttribute = (key = &quot;&quot;) =&gt; {
+        return this.cursor[key];
+    }
+
+    /**
+     * Returns a random valid color.
+     * 
+     * @param {array} colors An array of colors to choose from. If left 
+     * empty then all colors are drawn from
+     */
+    getRandomColor = (colors = null) =&gt; {
+        let color;
+        if (Array.isArray(colors) &amp;&amp; colors.length !== 0) {
+            color = colors[Math.floor(Math.random() * colors.length)];
+        }
+        else {
+            let i, letters;
+            letters = &quot;0123456789ABCDEF&quot;;
+            color = &quot;#&quot;;
+            i = 0;
+            while (i &lt; 6) {
+                color += letters[Math.floor(Math.random() * 16)];
+                i++;
+            }
+        }
+        this.cursor.color = color;
+        return color;
+    }
+
+    drop = (outerElId) =&gt; {
+        this.getEl(outerElId)[&quot;dynamic-body&quot;] = &quot;shape: box; mass: 5&quot;;
+        return outerElId;
+    }
+
+    /**
+     * Allows the entity to be dropped
+     * 
+     * @param {number} outerElId !!!DESCRIPTION NEEDED!!!
+     * @param {number} mass !!!DESCRIPTION NEEDED!!!
+     */
+    makeDroppable = (outerElId, mass = 2) =&gt; {
+        let el = this.getEl(outerElId);
+        let dynamicBody = `shape: auto; mass: ${mass}; angularDamping: 0.5; linearDamping: 0.5;`;
+        el[&quot;dynamic-body&quot;] = dynamicBody;
+        return outerElId;
+    }
+
+    /**
+     * Disallows the entity to be dropped
+     * 
+     * @param {number} outerElId !!!DESCRIPTION NEEDED!!!
+     */
+    makeUnDroppable = (outerElId) =&gt; {
+        let el = this.getEl(outerElId);
+        //Only makes an item undroppable if it is droppable but is not pushable
+        if (el[&quot;dynamic-body&quot;] &amp;&amp; (!el[&quot;force-pushable&quot;] || el[&quot;force-pushable&quot;] === &quot;false&quot;)) {
+            el[&quot;dynamic-body&quot;] = null;
+        }
+        return outerElId;
+    }
+
+    /**
+     * Allows the entity to be pushed
+     * 
+     * @param {number} outerElId !!!DESCRIPTION NEEDED!!!
+     * @param {number} mass !!!DESCRIPTION NEEDED!!!
+     */
+    makePushable = (outerElId, mass = 2) =&gt; {
+        let el = this.getEl(outerElId);
+        let dynamicBody = `shape: auto; mass: ${mass}; angularDamping: 0.5; linearDamping: 0.5;`;
+        el[&quot;dynamic-body&quot;] = dynamicBody;
+        el[&quot;force-pushable&quot;] = &quot;true&quot;;
+        return outerElId;
+    }
+
+    /**
+     * Disallows the entity to be pushed
+     * 
+     * @param {number} outerElId !!!DESCRIPTION NEEDED!!!
+     */
+    makeUnPushable = (outerElId) =&gt; {
+        let el = this.getEl(outerElId);
+        if (el[&quot;force-pushable&quot;]) {
+            el[&quot;dynamic-body&quot;] = null;
+            el[&quot;force-pushable&quot;] = &quot;false&quot;;
+        }
+        return outerElId;
+    }
+
+    /**
+     * Disallows the entity to be pushed
+     * 
+     * @param {number} outerElId !!!DESCRIPTION NEEDED!!!
+     */
+    makeUnPushable = (outerElId) =&gt; {
+        let el = this.getEl(outerElId);
+        if (el[&quot;force-pushable&quot;]) {
+            el[&quot;dynamic-body&quot;] = null;
+            el[&quot;force-pushable&quot;] = &quot;false&quot;;
+        }
+        return outerElId;
+    }
+
+    push = (outerElId, x, y, z) =&gt; {
+        // Add an event listener
+        document.addEventListener(&quot;myr-view-rendered&quot;, () =&gt; {
+            let el = document.querySelector(&quot;#&quot; + outerElId);
+            if (!el) {
+                return;
+            }
+            el.addEventListener(&quot;body-loaded&quot;, () =&gt; {
+                el.body.applyImpulse(
+                    /* impulse */        new CANNON.Vec3(x, y, z),
+                    /* world position */ new CANNON.Vec3().copy(el.object3D.position)
+                );
+            });
+        });
+        return outerElId;
+    }
+
+    /**
+     * Render an Aframe box with current Myr settings
+     * 
+     * @param {*} params !!!DESCRIPTION NEEDED!!!
+     */
+    box = (params) =&gt; {
+        let base = {
+            geometry: &quot;primitive: box;&quot;,
+            id: &quot;box&quot; + this.genNewId(),
+            material: `color: ${this.cursor.color}; side: double`,
+            position: { ...this.cursor.position },
+            rotation: this.cursor.rotation,
+            scale: this.cursor.scale,
+        };
+        return this.mergeProps(base, params);
+    }
+
+    /**
+     * Render an Aframe circle with current Myr settings
+     * 
+     * @param {*} params !!!DESCRIPTION NEEDED!!!
+     */
+    circle = (params) =&gt; {
+        let base = {
+            geometry: `primitive: circle; radius: ${this.cursor.radius}; theta-length: ${this.cursor.phiLength};`,
+            id: &quot;circ&quot; + this.genNewId(),
+            position: this.cursor.position,
+            scale: this.cursor.scale,
+            rotation: this.cursor.rotation,
+            material: `color: ${this.cursor.color}; side: double;`,
+        };
+        return this.mergeProps(base, params);
+    }
+
+    /**
+     * Render an Aframe cone with current Myr settings
+     * 
+     * @param {*} params !!!DESCRIPTION NEEDED!!!
+     */
+    cone = (params) =&gt; {
+        let base = {
+            id: &quot;cone&quot; + this.genNewId(),
+            geometry: `primitive: cone; radiusBottom: ${this.cursor.radius}; radiusTop: 0.1;`,
+            position: this.cursor.position,
+            scale: this.cursor.scale,
+            rotation: this.cursor.rotation,
+            material: `color: ${this.cursor.color}; side: double;`,
+        };
+        return this.mergeProps(base, params);
+    }
+
+    /**
+     * Render an Aframe cylinder with current Myr settings
+     * 
+     * @param {*} params !!!DESCRIPTION NEEDED!!!
+     */
+    cylinder = (params) =&gt; {
+        let base = {
+            id: &quot;cyl&quot; + this.genNewId(),
+            geometry: `primitive: cylinder; radius: ${this.cursor.radius}; theta-length: ${this.cursor.phiLength};`,
+            position: this.cursor.position,
+            scale: this.cursor.scale,
+            rotation: this.cursor.rotation,
+            material: `color: ${this.cursor.color};  side: double;`,
+        };
+        return this.mergeProps(base, params);
+    }
+
+
+    /**
+     * Render an Aframe dodecahedron with current Myr settings
+     * 
+     * @param {*} params !!!DESCRIPTION NEEDED!!!
+     */
+    dodecahedron = (params) =&gt; {
+        let base = {
+            id: &quot;dod&quot; + this.genNewId(),
+            geometry: `primitive: dodecahedron; radius: ${this.cursor.radius};`,
+            position: this.cursor.position,
+            scale: this.cursor.scale,
+            rotation: this.cursor.rotation,
+            material: `color: ${this.cursor.color}; side: double;`,
+        };
+        return this.mergeProps(base, params);
+    }
+
+    /**
+     * Render an Aframe icosahedron with current Myr settings
+     * 
+     * @param {*} params !!!DESCRIPTION NEEDED!!!
+     */
+    icosahedron = (params) =&gt; {
+        let base = {
+            id: &quot;iso&quot; + this.genNewId(),
+            geometry: &quot;primitive: icosahedron;&quot;,
+            position: this.cursor.position,
+            scale: this.cursor.scale,
+            rotation: this.cursor.rotation,
+            material: `color: ${this.cursor.color};  side: double;`,
+        };
+        return this.mergeProps(base, params);
+    }
+
+    /**
+     * Render an Aframe octahedron with current Myr settings
+     * 
+     * @param {*} params !!!DESCRIPTION NEEDED!!!
+     */
+    octahedron = (params) =&gt; {
+        let base = {
+            id: &quot;oct&quot; + this.genNewId(),
+            geometry: &quot;primitive: octahedron;&quot;,
+            position: this.cursor.position,
+            scale: this.cursor.scale,
+            rotation: this.cursor.rotation,
+            material: `color: ${this.cursor.color};  side: double;`,
+        };
+        return this.mergeProps(base, params);
+    }
+
+    /**
+     * Render an Aframe line with current Myr settings
+     * 
+     * @param {*} params !!!DESCRIPTION NEEDED!!!
+     */
+    line = (path, params) =&gt; {
+        let base = {
+            id: &quot;line&quot; + this.genNewId(),
+            tube: true,
+            radius: &quot;.01&quot;,
+            path: path,
+            position: this.cursor.position,
+            scale: this.cursor.scale,
+            rotation: this.cursor.rotation,
+            material: `color: ${this.cursor.color};  side: double;`,
+        };
+        return this.mergeProps(base, params);
+    }
+
+    /**
+     * Render an Aframe plane with current Myr settings
+     * 
+     * @param {*} params !!!DESCRIPTION NEEDED!!!
+     */
+    plane = (params) =&gt; {
+        let base = {
+            id: &quot;plane&quot; + this.genNewId(),
+            geometry: `primitive: plane; height: 1; width: 1; phi-length: ${this.cursor.phiLength};`,
+            position: this.cursor.position,
+            scale: this.cursor.scale,
+            rotation: this.cursor.rotation,
+            material: `color: ${this.cursor.color}; side: double;`,
+        };
+        return this.mergeProps(base, params);
+    }
+
+    /**
+     * Render an Aframe polyhedron with current Myr settings
+     * 
+     * @param {*} params !!!DESCRIPTION NEEDED!!!
+     */
+    polyhedron = (params) =&gt; {
+        let base = {
+            id: &quot;poly&quot; + this.genNewId(),
+            geometry: `primitive: sphere; segmentsWidth: 2; segmentsHeight: 8; phi-length: ${this.cursor.phiLength};`,
+            position: this.cursor.position,
+            scale: this.cursor.scale,
+            rotation: this.cursor.rotation,
+            material: `color: ${this.cursor.color}; side: double;`,
+        };
+        return this.mergeProps(base, params);
+    }
+
+    /**
+     * Render an Aframe ring with current Myr settings
+     * 
+     * @param {*} params !!!DESCRIPTION NEEDED!!!
+     */
+    ring = (params) =&gt; {
+        let base = {
+            id: &quot;ring&quot; + this.genNewId(),
+            geometry: `primitive: ring; radiusInner: 0.5; radiusOuter: 1; theta-length: ${this.cursor.phiLength};`,
+            position: this.cursor.position,
+            scale: this.cursor.scale,
+            rotation: this.cursor.rotation,
+            material: `color: ${this.cursor.color}; side: double;`,
+        };
+        return this.mergeProps(base, params);
+    }
+
+    /**
+     * Render an Aframe sphere with current Myr settings
+     * 
+     * @param {*} params !!!DESCRIPTION NEEDED!!!
+     */
+    sphere = (params) =&gt; {
+        let base = {
+            id: &quot;sphere&quot; + this.genNewId(),
+            geometry: `primitive: sphere; phi-length: ${this.cursor.phiLength}`,
+            position: this.cursor.position,
+            scale: this.cursor.scale,
+            rotation: this.cursor.rotation,
+            material: `color: ${this.cursor.color}; side: double;`,
+        };
+        return this.mergeProps(base, params);
+    }
+
+    /**
+     * Render an Aframe tetrahedron with current Myr settings
+     * 
+     * @param {*} params !!!DESCRIPTION NEEDED!!!
+     */
+    tetrahedron = (params) =&gt; {
+        let base = {
+            id: &quot;tetra&quot; + this.genNewId(),
+            geometry: &quot;primitive: tetrahedron;&quot;,
+            position: this.cursor.position,
+            scale: this.cursor.scale,
+            rotation: this.cursor.rotation,
+            material: `color: ${this.cursor.color}; side: double;`,
+        };
+        return this.mergeProps(base, params);
+    }
+
+    /**
+    * Render an Aframe text with current Myr settings
+    *
+    * This is a bit tricky. We need to pass text so we can decide how to render it.
+    * This throws a warning since text is not part of the entity system.
+    * Instead we pass it and then pull it off again if we see it.
+    */
+    text = (text, params) =&gt; {
+        if (typeof text !== &quot;string&quot;) {
+            text = &quot;Default&quot;;
+        }
+        let base = {
+            text: true,
+            value: text,
+            id: &quot;txt&quot; + this.genNewId(),
+            side: &quot;double&quot;,
+            color: this.cursor.color,
+            position: this.cursor.position,
+            scale: this.cursor.scale,
+            rotation: this.cursor.rotation,
+        };
+        if (!params || typeof params === &quot;string&quot;) {
+            this.els[base.id] = { ...base };
+        } else {
+            this.els[base.id] = { ...base, ...params };
+        }
+        return base.id;
+    }
+
+    /**
+     * Render an Aframe torus with current Myr settings
+     * 
+     * @param {*} params !!!DESCRIPTION NEEDED!!!
+     */
+    torus = (params) =&gt; {
+        let base = {
+            id: &quot;torus&quot; + this.genNewId(),
+            geometry: `primitive: torus; radius: ${this.cursor.radius}; radiusTubular: 0.5; arc: 360; arc: ${this.cursor.phiLength};`,
+            position: this.cursor.position,
+            scale: this.cursor.scale,
+            rotation: this.cursor.rotation,
+            material: `color: ${this.cursor.color};  side: double;`,
+        };
+        return this.mergeProps(base, params);
+    }
+
+    /**
+     * Render an Aframe torusknot with current Myr settings
+     * 
+     * @param {*} params !!!DESCRIPTION NEEDED!!!
+     */
+    torusknot = (params) =&gt; {
+        let base = {
+            id: &quot;torKn&quot; + this.genNewId(),
+            geometry: &quot;primitive: torusKnot;&quot;,
+            position: this.cursor.position,
+            scale: this.cursor.scale,
+            rotation: this.cursor.rotation,
+            material: `color: ${this.cursor.color}; side: double`,
+            p: 2,
+            q: 3,
+        };
+        return this.mergeProps(base, params);
+    }
+
+    /**
+     * Render an Aframe triangle with current Myr settings
+     * 
+     * @param {*} params !!!DESCRIPTION NEEDED!!!
+     */
+    triangle = (params) =&gt; {
+        let base = {
+            id: &quot;tri&quot; + this.genNewId(),
+            geometry: &quot;primitive: triangle;&quot;,
+            position: this.cursor.position,
+            scale: this.cursor.scale,
+            rotation: this.cursor.rotation,
+            material: `color: ${this.cursor.color};  side: double;`,
+        };
+        return this.mergeProps(base, params);
+    }
+
+    /**
+     * Render an Aframe tube with current Myr settings
+     * 
+     * @param {*} params !!!DESCRIPTION NEEDED!!!
+     */
+    tube = (path, params) =&gt; {
+        let base = {
+            id: &quot;tube&quot; + this.genNewId(),
+            tube: true,
+            radius: this.cursor.radius,
+            path: path,
+            position: this.cursor.position,
+            scale: this.cursor.scale,
+            rotation: this.cursor.rotation,
+            material: `color: ${this.cursor.color};  side: double;`,
+        };
+        return this.mergeProps(base, params);
+    }
+
+    /**
+     * Render an Aframe light with current Myr settings
+     * 
+     * @param {*} params !!!DESCRIPTION NEEDED!!!
+     */
+    light = () =&gt; {
+        let el = {
+            color: &quot;lgt&quot; + this.getRandomColor(),
+            position: this.cursor.position,
+            geometry: {
+                primitive: &quot;light&quot;
+            },
+        };
+        this.els.push(el);
+        return el;
+    }
+
+    // Prism is an alias for Polyhedron
+    prism = this.polyhedron
+
+    // Cube is an alias for Box
+    cube = this.box
+
+
+    /********************* ANIMATIONS *********************/
+
+    /**
+     * Animate the Aframe element which is passed as arg
+     * 
+     * @param {number} outerElId target element ID
+     * @param {number} magnitude !!!DESCRIPTION NEEDED!!!
+     * @param {*} loop !!!DESCRIPTION NEEDED!!!
+     * @param {*} duration !!!DESCRIPTION NEEDED!!!
+     */
+    animate = (outerElId, magnitude = null, loop = null, duration = null) =&gt; {
+        magnitude = magnitude !== null ? magnitude : this.cursor.magnitude.spin;
+        loop = loop !== null ? loop : this.cursor.loop;
+        duration = duration !== null ? duration : this.cursor.duration;
+        let el = this.getEl(outerElId);
+        let anim = `
+      property: rotation;
+      dir: alternate;
+      to: ${el.rotation.x} ${el.rotation.y + magnitude} ${el.rotation.z};
+      dur: ${duration};
+      loop: ${Boolean(loop)};
+    `;
+        el.animation = anim;
+        return outerElId;
+    };
+
+    /**
+     * Apply a spin animation to the Aframe element which is passed as arg
+     * 
+     * @param {number} outerElId target element ID
+     * @param {number} magnitude !!!DESCRIPTION NEEDED!!!
+     * @param {*} loop !!!DESCRIPTION NEEDED!!!
+     * @param {*} duration !!!DESCRIPTION NEEDED!!!
+     */
+    spin = (outerElId, magnitude = null, loop = null, duration = null) =&gt; {
+        magnitude = magnitude !== null ? magnitude : this.cursor.magnitude.spin;
+        loop = loop !== null ? loop : this.cursor.loop;
+        duration = duration !== null ? duration : this.cursor.duration;
+        let el = this.getEl(outerElId);
+        let anim = `
+      property: rotation;
+      dir: alternate;
+      dur: ${duration};
+      loop: ${Boolean(loop)};
+      easing: linear;
+      to: ${el.rotation.x} ${el.rotation.y + magnitude} ${el.rotation.z};
+    `;
+        el.animation__spin = anim;
+        return outerElId;
+    };
+
+    /**
+     * Apply a yoyo animation to the Aframe element which is passed as arg
+     * 
+     * @param {number} outerElId target element ID
+     * @param {number} magnitude !!!DESCRIPTION NEEDED!!!
+     * @param {*} loop !!!DESCRIPTION NEEDED!!!
+     * @param {*} duration !!!DESCRIPTION NEEDED!!!
+     */
+    yoyo = (outerElId, magnitude = null, loop = null, duration = null) =&gt; {
+        magnitude = magnitude !== null ? magnitude : this.cursor.magnitude.general;
+        loop = loop !== null ? loop : this.cursor.loop;
+        duration = duration !== null ? duration : this.cursor.duration;
+        let el = this.getEl(outerElId);
+        let anim = `
+      property: position;
+      dir: alternate;
+      dur: ${duration};
+      loop: ${Boolean(loop)};
+      to: ${el.position.x} ${el.position.y + magnitude} ${el.position.z};
+    `;
+        el.animation__yoyo = anim;
+        return outerElId;
+    };
+
+    /**
+     * Apply a sideToSide animation to the Aframe element which is passed as arg
+     * 
+     * @param {number} outerElId target element ID
+     * @param {number} magnitude !!!DESCRIPTION NEEDED!!!
+     * @param {*} loop !!!DESCRIPTION NEEDED!!!
+     * @param {*} duration !!!DESCRIPTION NEEDED!!!
+     */
+    sideToSide = (outerElId, magnitude = null, loop = null, duration = null) =&gt; {
+        magnitude = magnitude !== null ? magnitude : this.cursor.magnitude.general;
+        loop = loop !== null ? loop : this.cursor.loop;
+        duration = duration !== null ? duration : this.cursor.duration;
+        let el = this.getEl(outerElId);
+        let anim = `
+      dir: alternate;
+      dur: ${duration};
+      loop: ${Boolean(loop)};
+      property: position;
+      to: ${el.position.x + magnitude} ${el.position.y} ${el.position.z};
+    `;
+        el.position = { ...el.position, x: el.position.x - magnitude };
+        el.animation__sidetoside = anim;
+        return outerElId;
+    };
+
+    /**
+     * Apply a goUp animation to the Aframe element which is passed as arg
+     * 
+     * @param {number} outerElId target element ID
+     * @param {number} magnitude !!!DESCRIPTION NEEDED!!!
+     * @param {*} loop !!!DESCRIPTION NEEDED!!!
+     * @param {*} duration !!!DESCRIPTION NEEDED!!!
+     */
+    goUp = (outerElId, magnitude = null, loop = null, duration = null) =&gt; {
+        magnitude = magnitude !== null ? magnitude : this.cursor.magnitude.general;
+        loop = loop !== null ? loop : this.cursor.loop;
+        duration = duration !== null ? duration : this.cursor.duration;
+        let el = this.getEl(outerElId);
+        let anim = `
+      property: position;
+      dir: alternate;
+      dur: ${duration};
+      loop: ${Boolean(loop)};
+      to: ${el.position.x} ${el.position.y + magnitude} ${el.position.z};
+    `;
+        el.animation__goup = anim;
+        return outerElId;
+    };
+
+    /**
+     * Apply a goDown animation to the Aframe element which is passed as arg
+     * 
+     * @param {number} outerElId target element ID
+     * @param {number} magnitude !!!DESCRIPTION NEEDED!!!
+     * @param {*} loop !!!DESCRIPTION NEEDED!!!
+     * @param {*} duration !!!DESCRIPTION NEEDED!!!
+     */
+    goDown = (outerElId, magnitude = null, loop = null, duration = null) =&gt; {
+        magnitude = magnitude !== null ? magnitude : this.cursor.magnitude.general;
+        loop = loop !== null ? loop : this.cursor.loop;
+        duration = duration !== null ? duration : this.cursor.duration;
+        let el = this.getEl(outerElId);
+        let anim = `
+      property: position;
+      dir: alternate;
+      dur: ${duration};
+      loop: ${Boolean(loop)};
+      to: ${el.position.x} ${el.position.y - magnitude} ${el.position.z};
+    `;
+        el.animation__godown = anim;
+        return outerElId;
+    };
+
+    /**
+     * Apply a goLeft animation to the Aframe element which is passed as arg
+     * 
+     * @param {number} outerElId target element ID
+     * @param {number} magnitude !!!DESCRIPTION NEEDED!!!
+     * @param {*} loop !!!DESCRIPTION NEEDED!!!
+     * @param {*} duration !!!DESCRIPTION NEEDED!!!
+     */
+    goLeft = (outerElId, magnitude = null, loop = null, duration = null) =&gt; {
+        magnitude = magnitude !== null ? magnitude : this.cursor.magnitude.general;
+        loop = loop !== null ? loop : this.cursor.loop;
+        duration = duration !== null ? duration : this.cursor.duration;
+        let el = this.getEl(outerElId);
+        let anim = `
+      property: position;
+      dir: alternate;
+      dur: ${duration};
+      loop: ${Boolean(loop)};
+      to: ${el.position.x - magnitude} ${el.position.y} ${el.position.z};
+    `;
+        el.animation__goleft = anim;
+        return outerElId;
+    };
+
+    /**
+     * Apply a goRight animation to the Aframe element which is passed as arg
+     * 
+     * @param {number} outerElId target element ID
+     * @param {number} magnitude !!!DESCRIPTION NEEDED!!!
+     * @param {*} loop !!!DESCRIPTION NEEDED!!!
+     * @param {*} duration !!!DESCRIPTION NEEDED!!!
+     */
+    goRight = (outerElId, magnitude = null, loop = null, duration = null) =&gt; {
+        magnitude = magnitude !== null ? magnitude : this.cursor.magnitude.general;
+        loop = loop !== null ? loop : this.cursor.loop;
+        duration = duration !== null ? duration : this.cursor.duration;
+        let el = this.getEl(outerElId);
+        let anim = `
+      property: position;
+      dir: alternate;
+      dur: ${duration};
+      loop: ${Boolean(loop)};
+      to: ${el.position.x + magnitude} ${el.position.y} ${el.position.z};
+    `;
+        el.animation__goright = anim;
+        return outerElId;
+    };
+
+    /**
+     * Apply a goTowards animation to the Aframe element which is passed as arg
+     * 
+     * @param {number} outerElId target element ID
+     * @param {number} magnitude !!!DESCRIPTION NEEDED!!!
+     * @param {*} loop !!!DESCRIPTION NEEDED!!!
+     * @param {*} duration !!!DESCRIPTION NEEDED!!!
+     */
+    goTowards = (outerElId, magnitude = null, loop = null, duration = null) =&gt; {
+        magnitude = magnitude !== null ? magnitude : this.cursor.magnitude.general;
+        loop = loop !== null ? loop : this.cursor.loop;
+        duration = duration !== null ? duration : this.cursor.duration;
+        let el = this.getEl(outerElId);
+        let anim = `
+      property: position;
+      dir: alternate;
+      dur: ${duration};
+      loop: ${Boolean(loop)};
+      to: ${el.position.x} ${el.position.y} ${el.position.z + magnitude};
+    `;
+        el.animation__goleft = anim;
+        return outerElId;
+    };
+
+    /**
+     * Apply a goAway animation to the Aframe element which is passed as arg
+     * 
+     * @param {number} outerElId target element ID
+     * @param {number} magnitude !!!DESCRIPTION NEEDED!!!
+     * @param {*} loop !!!DESCRIPTION NEEDED!!!
+     * @param {*} duration !!!DESCRIPTION NEEDED!!!
+     */
+    goAway = (outerElId, magnitude = null, loop = null, duration = null) =&gt; {
+        magnitude = magnitude !== null ? magnitude : this.cursor.magnitude.general;
+        loop = loop !== null ? loop : this.cursor.loop;
+        duration = duration !== null ? duration : this.cursor.duration;
+        let el = this.getEl(outerElId);
+        let anim = `
+      property: position;
+      dir: alternate;
+      dur: ${duration};
+      loop: ${Boolean(loop)};
+      to: ${el.position.x} ${el.position.y} ${el.position.z - magnitude};
+    `;
+        el.animation__goaway = anim;
+        return outerElId;
+    };
+
+    /**
+     * Apply a grow animation to the Aframe element which is passed as arg
+     * 
+     * @param {number} outerElId target element ID
+     * @param {number} magnitude !!!DESCRIPTION NEEDED!!!
+     * @param {*} loop !!!DESCRIPTION NEEDED!!!
+     * @param {*} duration !!!DESCRIPTION NEEDED!!!
+     */
+    grow = (outerElId, magnitude = null, loop = null, duration = null) =&gt; {
+        magnitude = magnitude !== null ? magnitude : this.cursor.magnitude.general;
+        loop = loop !== null ? loop : this.cursor.loop;
+        duration = duration !== null ? duration : this.cursor.duration;
+        let el = this.getEl(outerElId);
+        let anim = `
+      property: scale;
+      dir: alternate;
+      dur: ${duration};
+      loop: ${Boolean(loop)};
+      to: ${el.scale.x * magnitude} ${el.scale.y * magnitude} ${el.scale.z * magnitude};
+    `;
+        el.animation__grow = anim;
+        return outerElId;
+    };
+
+    /**
+     * Apply a shrink animation to the Aframe element which is passed as arg
+     * 
+     * @param {number} outerElId target element ID
+     * @param {number} magnitude !!!DESCRIPTION NEEDED!!!
+     * @param {*} loop !!!DESCRIPTION NEEDED!!!
+     * @param {*} duration !!!DESCRIPTION NEEDED!!!
+     */
+    shrink = (outerElId, magnitude = null, loop = null, duration = null) =&gt; {
+        magnitude = magnitude !== null ? magnitude : this.cursor.magnitude.general;
+        loop = loop !== null ? loop : this.cursor.loop;
+        duration = duration !== null ? duration : this.cursor.duration;
+        let el = this.getEl(outerElId);
+        let anim = `
+      property: scale;
+      dir: alternate;
+      dur: ${duration};
+      loop: ${Boolean(loop)};
+      to: ${el.scale.x / magnitude} ${el.scale.y / magnitude} ${el.scale.z / magnitude};
+    `;
+        el.animation__shrink = anim;
+        return outerElId;
+    };
+
+    /**
+     * Apply a fadeOut animation to the Aframe element which is passed as arg
+     * 
+     * @param {number} outerElId target element ID
+     * @param {number} magnitude !!!DESCRIPTION NEEDED!!!
+     * @param {*} loop !!!DESCRIPTION NEEDED!!!
+     * @param {*} duration !!!DESCRIPTION NEEDED!!!
+     */
+    fadeOut = (outerElId, magnitude = null, loop = null, duration = null) =&gt; {
+        magnitude = magnitude !== null ? magnitude : this.cursor.magnitude.fadeOut;
+        loop = loop !== null ? loop : this.cursor.loop;
+        duration = duration !== null ? duration : this.cursor.duration;
+        let el = this.getEl(outerElId);
+        let anim = `
+      property: components.material.material.opacity;
+      dir: alternate;
+      dur: ${duration};
+      loop: ${Boolean(loop)};
+      isRawProperty: true;
+      from: 1;
+      to: ${magnitude};
+    `;
+        el.material = el.material + &quot;; transparent: true;&quot;;
+        el.animation__fadeout = anim;
+        return outerElId;
+    }
+
+    /**
+     * Apply a fadeIn animation to the Aframe element which is passed as arg
+     * 
+     * @param {number} outerElId target element ID
+     * @param {number} magnitude !!!DESCRIPTION NEEDED!!!
+     * @param {*} loop !!!DESCRIPTION NEEDED!!!
+     * @param {*} duration !!!DESCRIPTION NEEDED!!!
+     */
+    fadeIn = (outerElId, magnitude = null, loop = null, duration = null) =&gt; {
+        magnitude = magnitude !== null ? magnitude : this.cursor.magnitude.general;
+        loop = loop !== null ? loop : this.cursor.loop;
+        duration = duration !== null ? duration : this.cursor.duration;
+        let el = this.getEl(outerElId);
+        let anim = `
+      property: components.material.material.opacity;
+      dir: alternate;
+      dur: ${duration};
+      loop: ${Boolean(loop)};
+      isRawProperty: true;
+      from: 0;
+      to: ${magnitude};
+    `;
+        el.material = el.material + &quot;; transparent: true;&quot;;
+        el.animation__fadein = anim;
+        return outerElId;
+    }
+
+    /**
+     * Apply a colorShift animation to the Aframe element which is passed as arg
+     * 
+     * @param {number} outerElId target element ID
+     * @param {*} color !!!DESCRIPTION NEEDED!!!
+     */
+    colorShift = (outerElId, color) =&gt; {
+        let el = this.getEl(outerElId);
+        if (String(el.id).includes(&quot;grp&quot;)) {
+            for (let i in el.els) {
+                let innerEl = el.els[i];
+                //innerEl.material.split(/\s|;/) returns an array of strings separated by &quot; &quot; and &quot;;&quot;,
+                //color is always its first attribute (after &quot;color: &quot;)
+                let anim = `
+          property: components.material.material.color;
+          from: ${(innerEl.material.split(/\s|;/))[1]};
+          to: ${color};
+          dur: ${this.cursor.duration};
+          dir: alternate;
+          loop: ${Boolean(this.cursor.loop)};
+          isRawProperty: true;
+          type: color;
+        `;
+                innerEl.animation__color = anim;
+
+            }
+            return outerElId;
+        }
+        let anim = `
+      property: components.material.material.color;
+      from: ${(el.material.split(/\s|;/))[1]};
+      to: ${color};
+      dur: ${this.cursor.duration};
+      dir: alternate;
+      loop: ${Boolean(this.cursor.loop)};
+      isRawProperty: true;
+      type: color;
+    `;
+        el.animation__color = anim;
+        return outerElId;
+    }
+
+    /********************* GETTERS *********************/
+
+    /**
+     * Gets the current color of the cursor
+     */
+    getColor = () =&gt; {
+        return this.cursor.color;
+    };
+
+    /**
+     * Gets the current x position of the cursor
+     */
+    getXPos = () =&gt; {
+        return this.cursor.position.x;
+    };
+
+    /**
+     * Gets the current y position of the cursor
+     */
+    getYPos = () =&gt; {
+        return this.cursor.position.y;
+    };
+
+    /**
+     * Gets the current z position of the cursor
+     */
+    getZPos = () =&gt; {
+        return this.cursor.position.z;
+    };
+
+    /**
+     * Gets the current x scale of the cursor
+     */
+    getXScale = () =&gt; {
+        return this.cursor.scale.x;
+    };
+
+    /**
+     * Gets the current y scale of the cursor
+     */
+    getYScale = () =&gt; {
+        return this.cursor.scale.y;
+    };
+
+    /**
+     * Gets the current z scale of the cursor
+     */
+    getZScale = () =&gt; {
+        return this.cursor.scale.z;
+    };
+
+    /**
+     * Gets the current x rotation of the cursor
+     */
+    getXRotation = () =&gt; {
+        return this.cursor.rotation.x;
+    };
+
+    /**
+     * Gets the current y rotation of the cursor
+     */
+    getYRotation = () =&gt; {
+        return this.cursor.rotation.y;
+    };
+
+    /**
+     * Gets the current z rotation of the cursor
+     */
+    getZRotation = () =&gt; {
+        return this.cursor.rotation.z;
+    };
+
+    /**
+     * Gets the current radius of the cursor
+     */
+    getRadius = () =&gt; {
+        return this.cursor.radius;
+    };
+
+    /**
+     * Gets the current phi length of the cursor
+     */
+    getPhiLength = () =&gt; {
+        return this.cursor.phiLength;
+    };
+
+    /**
+     * Gets the current lopp of the cursor
+     */
+    getLoop = () =&gt; {
+        return this.cursor.loop;
+    };
+
+    /**
+     * Gets the current duration of the cursor
+     */
+    getDuration = () =&gt; {
+        return this.cursor.duration;
+    };
+    
+    /**
+     * Gets the current magnitude of the cursor
+     */
+    getMagnitude = () =&gt; {
+        return this.cursor.magnitude.general;
+    };
+
+
+
+    // MODELS
+    addCModel = () =&gt; {
+        let asset = {
+            id: &quot;c-obj&quot;,
+            src: &quot;/img/c.obj&quot;
+        };
+        let el = {
+            &quot;obj-model&quot;: &quot;obj: #c-obj&quot;,
+            mtl: &quot;c-mtl&quot;,
+            position: this.cursor.position,
+            scale: this.cursor.scale,
+            rotation: this.cursor.rotation
+        };
+        this.els.push(el);
+        this.assets.push(asset);
+        return el;
+    }
+
+    /**
+     * Gets the element associated with the given element ID
+     *  
+     * @param {string} outerElId target element ID
+     */ 
+    getEl = (outerElId) =&gt; {
+        if (outerElId.entity) {
+            outerElId = outerElId.id;
+        }
+        return this.els[outerElId];
+    }
+
+    /**
+     * Interface for setting an object&apos;s parameters in the DOM
+     * the idea is the setup an event listener as an almost DOM ready listener.
+     *
+     * @param {string} outerElId target element ID
+     * @param {string} type what param to change
+     * @param {*} newParam changes
+     */
+    change = (outerElId, type, newParam) =&gt; {
+        document.addEventListener(&quot;myr-view-rendered&quot;, () =&gt; {
+            try {
+                let el = document.querySelector(&quot;#&quot; + outerElId);
+                el.setAttribute(type, newParam);
+            } catch (error) {
+                return Error(&quot;change() failed execution&quot; +
+                    &quot;Ensure you are passing the proper id to the method&quot; +
+                    `Error msg: ${error}`);
+            }
+        });
+    }
+
+    syncChange = (outerElId, type, newParam) =&gt; {
+        try {
+            let el = document.querySelector(&quot;#&quot; + outerElId);
+            el.setAttribute(type, newParam);
+        } catch (error) {
+            let err = Error(&quot;syncChange() failed execution\n&quot; +
+                &quot;Ensure you are passing the proper id to the method&quot; +
+                `Error msg: ${error}`);
+            console.error(err);
+            return err;
+        }
+    }
+
+    /**
+    * This creates an entity w shape of object and merges with supplied params
+    *
+    * @param {string} shape one of the allowed arguments to this.core()
+    * @param {obj} params arguments to be merged, not guarenteed to be successful
+    */
+    mergeProps = (entity, params) =&gt; {
+        let id = params &amp;&amp; params.id ? params.id : entity.id;
+        if (!params || typeof params === &quot;string&quot;) {
+            this.els[id] = entity;
+        } else {
+            this.els[id] = { ...entity, ...params };
+        }
+        return id;
+    }
+
+    sleep = (ms) =&gt; {
+        return new Promise(resolve =&gt; setTimeout(resolve, ms));
+    }
+
+    /**
+     * Return a Entity that can be used to group elements together
+     */
+    group = () =&gt; {
+        let base = {
+            id: &quot;grp&quot; + this.genNewId(),
+            position: { ...this.cursor.position },
+            rotation: this.cursor.rotation,
+            scale: this.cursor.scale,
+        };
+        let entity = new Group(this, base.id);
+        this.els[base.id] = { ...base, ...entity.entObj() };
+        return entity;
+    }
+
+    /**
+     * Transfer the object from MYR to the Entity
+     * 
+     * @param {number} id !!!DESCRIPTION NEEDED!!! 
+     */
+    transfer = (id) =&gt; {
+        let retVal = this.els[id];
+        delete this.els[id];
+        return retVal;
+    }
+
+    HALT = () =&gt; {
+        // console.log(this);
+        // console.log(&quot;Halted&quot;);
+    }
+
+    infiniteLoopDetector = (function () {
+        let map = {};
+
+        // define an InfiniteLoopError class
+        function InfiniteLoopError(msg) {
+            Error.call(this, msg);
+            this.type = &quot;InfiniteLoopError&quot;;
+        }
+
+        function infiniteLoopDetector(id) {
+            if (id in map) {
+                if (Date.now() - map[id] &gt; 200) {
+                    delete map[id];
+                    throw new Error(&quot;Loop runing too long!&quot;, InfiniteLoopError);
+                }
+            } else {
+                map[id] = Date.now();
+            }
+        }
+
+        infiniteLoopDetector.wrap = function (codeStr) {
+            if (typeof codeStr !== &quot;string&quot;) {
+                throw new Error(&quot;Input type must be a string&quot;);
+            }
+            // this is not a strong regex, but enough to use at the time
+            return codeStr.replace(/for *\(.*\{|while *\(.*\{|do *\{/g, function (loopHead) {
+                let id = parseInt(Math.random() * Number.MAX_SAFE_INTEGER);
+                return `infiniteLoopDetector(${id});${loopHead}infiniteLoopDetector(${id});`;
+            });
+        };
+
+        infiniteLoopDetector.unwrap = function (codeStr) {
+            return codeStr.replace(/infiniteLoopDetector\([0-9]*?\);/g, &quot;&quot;);
+        };
+
+        return infiniteLoopDetector;
+    }());
+}
+
+export default Myr;
+</code></pre>
+
+</div>
+
+<footer class="footer">
+  Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(1.1.0)</span><img src="./image/esdoc-logo-mini-black.png"></a>
+</footer>
+
+<script src="script/search_index.js"></script>
+<script src="script/search.js"></script>
+<script src="script/pretty-print.js"></script>
+<script src="script/inherited-summary.js"></script>
+<script src="script/test-summary.js"></script>
+<script src="script/inner-link.js"></script>
+<script src="script/patch-for-local.js"></script>
+</body>
+</html>
