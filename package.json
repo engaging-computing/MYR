@@ -59,7 +59,8 @@
         "coverage": "react-scripts test --env=jsdom --coverage --collectCoverageFrom=src/**/*.{js,jsx} --browser --silent",
         "test": "react-scripts test --env=jsdom --browser --silent",
         "eject": "react-scripts eject",
-        "analyze": "source-map-explorer build/static/js/main.*"
+        "analyze": "source-map-explorer build/static/js/main.*",
+        "doc": "./node_modules/.bin/esdoc"
     },
     "proxy": "http://localhost:1337/",
     "browserslist": [
