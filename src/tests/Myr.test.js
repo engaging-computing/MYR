@@ -43,7 +43,7 @@ describe("Updates to Myr's Model", () => {
 
     it("should set the texture by using a title and getTexture() should return that title", () => {
         myr.setTexture("bricks");
-        expect(myr.cursor.texture).toEqual("img/textures/bricks.jpg");
+        expect(myr.cursor.texture).toEqual("/img/textures/bricks.jpg");
         let getTest = myr.getTexture();
         expect(getTest).toEqual("bricks");
     });
