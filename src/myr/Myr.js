@@ -288,7 +288,7 @@ class Myr {
         return this.cursor.scale.z;
     };
 
-    setRotation = (x, y = 0, z = 0) => {
+    setRotation = (x = 0, y = 0, z = 0) => {
         if (typeof x === "number" && typeof y === "number" && typeof z === "number") {
             this.cursor.rotation = {
                 x: x,
