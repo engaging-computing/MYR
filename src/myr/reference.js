@@ -284,6 +284,12 @@ let transformations = [
         example: "setZPos"
     },
     {
+        name: "setTransparency",
+        parameters: [{type: "number", name: "transparency"}],
+        description: <span>The setTransparency function changes the opacity of the element. The range of transparency is from 0% (solid) to 100% (invisible). The default is 0%.</span>,
+        example: "setTransparency"
+    },
+    {
         name: "increasePosition",
         parameters: [{ type: "number", name: "x" }, { type: "number", name: "y" }, { type: "number", name: "z" }],
         description: <span>The increasePosition function increases the position of the cursor, or decreases the position using negative values. This function returns the position of the cursor after it is modified. </span>,

@@ -95,6 +95,7 @@ export default class Reference extends React.Component {
     };
 
     render() {
+        document.title = "Reference | MYR";
         return (
             <div id="reference-page">
                 <Tabs
