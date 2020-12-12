@@ -106,6 +106,8 @@ class Header extends Component {
      * Catches certain keyboard shortcuts
      *
      * @param {event} e - event from the keystroke.
+     * 
+     * @return {void}
      */
     handleKeyDown(e) {
         //metaKey is cmd and windows key in some browsers
