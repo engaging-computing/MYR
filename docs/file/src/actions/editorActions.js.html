@@ -230,6 +230,10 @@ export function fetchScene(id, uid = &quot;anon&quot;) {
 
             response.json().then((json) =&gt;{
                 if(json.code){
+                    //don&apos;t change the title when fetching scene in collection
+                    if(!document.title.includes(&quot;Collection&quot;)) {
+                        document.title = json.name + &quot; | MYR&quot;;
+                    }
                     dispatch(render(json.code, uid || &quot;anon&quot;));
                     dispatch(updateSavedText(json.code));
                     let settings = DEF_SETTINGS;

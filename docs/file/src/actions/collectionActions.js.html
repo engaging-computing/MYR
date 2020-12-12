@@ -204,6 +204,7 @@ export function asyncCollection(collectionID, uid) {
                 .then((resp) =&gt; {
                     switch(resp.status){
                         case 200:
+                            document.title = collectionID + &quot; Collection | MYR&quot;;
                             resp.json().then((data) =&gt; {
                                 data.forEach((doc) =&gt; {
                                     collectionProjects.push(doc);

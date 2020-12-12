@@ -2508,6 +2508,12 @@ window.esdocSearchIndex = [
     "member"
   ],
   [
+    "src/myr/myr.js~myr#settransparency",
+    "class/src/myr/Myr.js~Myr.html#instance-member-setTransparency",
+    "src/myr/Myr.js~Myr#setTransparency",
+    "member"
+  ],
+  [
     "src/myr/myr.js~myr#setxpos",
     "class/src/myr/Myr.js~Myr.html#instance-member-setXPos",
     "src/myr/Myr.js~Myr#setXPos",

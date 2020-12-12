@@ -184,6 +184,7 @@ class Myr {
         this.sceneEl = document.querySelector(&quot;a-scene&quot;);
         this.cursor = {
             color: &quot;red&quot;,
+            transparency: 0,
             position: {
                 x: 0,
                 y: 0,
@@ -251,6 +252,7 @@ class Myr {
         this.id = 0;
         this.cursor = {
             color: &quot;red&quot;,
+            transparency: 0,
             position: {
                 x: 0,
                 y: 0,
@@ -294,6 +296,7 @@ class Myr {
     resetCursor = () =&gt; {
         this.cursor = {
             color: &quot;red&quot;,
+            transparency: 0,
             position: {
                 x: 0,
                 y: 0,
@@ -324,6 +327,21 @@ class Myr {
     genNewId = () =&gt; {
         return this.counter++;
     };
+    
+    /**
+     * Sets the transparency of the cursor
+     *
+     * @param {number} transparency New transparency of the cursor (0-100)
+     */
+    setTransparency = (transparency = 0) =&gt; {
+        if(typeof transparency === &quot;number&quot; &amp;&amp; transparency &lt;= 100 &amp;&amp; transparency &gt;= 0) {
+            this.cursor.transparency = transparency / 100;
+        } else {
+            console.error(&quot;setTransparency() either recieved a non numeric value or a value out of range (0-100)&quot;);
+        }
+
+        return this.cursor.opacity;
+    }
 
     /**
      * Sets the x, y, and z position of the cursor
@@ -532,7 +550,7 @@ class Myr {
      * @param {number} y New y rotation of the cursor
      * @param {number} z New z rotation of the cursor
      */
-    setRotation = (x, y = 0, z = 0) =&gt; {
+    setRotation = (x = 0, y = 0, z = 0) =&gt; {
         if (typeof x === &quot;number&quot; &amp;&amp; typeof y === &quot;number&quot; &amp;&amp; typeof z === &quot;number&quot;) {
             this.cursor.rotation = {
                 x: x,
@@ -543,6 +561,52 @@ class Myr {
             console.error(&quot;setRotation() must be all numeric values&quot;);
         }
         return { x: this.cursor.rotation.x, y: this.cursor.rotation.y, z: this.cursor.rotation.z };
+    }
+
+    setCursorAttribute = (key = &quot;&quot;, value = &quot;&quot;) =&gt; {
+        if (typeof (key) !== &quot;string&quot; || key === &quot;&quot;) {
+            console.error(&quot;Error: Invalid key&quot;);
+            return this.cursor;
+        }
+        switch (key.toLowerCase()) {
+            case &quot;color&quot;:
+                this.setColor(value);
+                break;
+            case &quot;position&quot;:
+                this.setPosition(value.x, value.y, value.z);
+                break;
+            case &quot;scale&quot;:
+                this.setScale(value.x, value.y, value.z);
+                break;
+            case &quot;rotation&quot;:
+                this.setRotation(value.x, value.y, value.z);
+                break;
+            case &quot;radius&quot;:
+                this.setRadius(value);
+                break;
+            case &quot;philength&quot;:
+                this.setPhiLength(value);
+                break;
+            case &quot;loop&quot;:
+                this.setLoop(value);
+                break;
+            case &quot;duration&quot;:
+                this.setDuration(value);
+                break;
+            case &quot;magnitude&quot;:
+                this.setMagnitude(value);
+                break;
+            case &quot;transparency&quot;:
+                this.setTransparency(value);
+                break;
+            default:
+                this.cursor[key] = value;
+        }
+        return this.cursor;
+    }
+
+    getCursorAttribute = (key = &quot;&quot;) =&gt; {
+        return this.cursor[key];
     }
 
     /**
@@ -835,7 +899,7 @@ class Myr {
         let base = {
             geometry: &quot;primitive: box;&quot;,
             id: &quot;box&quot; + this.genNewId(),
-            material: `color: ${this.cursor.color}; side: double`,
+            material: `color: ${this.cursor.color}; side: double; opacity: ${1 - this.cursor.transparency};`,
             position: { ...this.cursor.position },
             rotation: this.cursor.rotation,
             scale: this.cursor.scale,
@@ -855,7 +919,7 @@ class Myr {
             position: this.cursor.position,
             scale: this.cursor.scale,
             rotation: this.cursor.rotation,
-            material: `color: ${this.cursor.color}; side: double;`,
+            material: `color: ${this.cursor.color}; side: double; opacity: ${1 - this.cursor.transparency};`,
         };
         return this.mergeProps(base, params);
     }
@@ -868,7 +932,7 @@ class Myr {
     cone = (params) =&gt; {
         let base = {
             id: &quot;cone&quot; + this.genNewId(),
-            geometry: `primitive: cone; radiusBottom: ${this.cursor.radius}; radiusTop: 0.1;`,
+            geometry: `primitive: cone; radiusBottom: ${this.cursor.radius}; radiusTop: 0.1; opacity: ${1 - this.cursor.transparency};`,
             position: this.cursor.position,
             scale: this.cursor.scale,
             rotation: this.cursor.rotation,
@@ -885,7 +949,7 @@ class Myr {
     cylinder = (params) =&gt; {
         let base = {
             id: &quot;cyl&quot; + this.genNewId(),
-            geometry: `primitive: cylinder; radius: ${this.cursor.radius}; theta-length: ${this.cursor.phiLength};`,
+            geometry: `primitive: cylinder; radius: ${this.cursor.radius}; theta-length: ${this.cursor.phiLength}; opacity: ${1 - this.cursor.transparency};`,
             position: this.cursor.position,
             scale: this.cursor.scale,
             rotation: this.cursor.rotation,
@@ -907,7 +971,7 @@ class Myr {
             position: this.cursor.position,
             scale: this.cursor.scale,
             rotation: this.cursor.rotation,
-            material: `color: ${this.cursor.color}; side: double;`,
+            material: `color: ${this.cursor.color}; side: double; opacity: ${1 - this.cursor.transparency};`,
         };
         return this.mergeProps(base, params);
     }
@@ -924,7 +988,7 @@ class Myr {
             position: this.cursor.position,
             scale: this.cursor.scale,
             rotation: this.cursor.rotation,
-            material: `color: ${this.cursor.color};  side: double;`,
+            material: `color: ${this.cursor.color};  side: double; opacity: ${1 - this.cursor.transparency};`,
         };
         return this.mergeProps(base, params);
     }
@@ -941,7 +1005,7 @@ class Myr {
             position: this.cursor.position,
             scale: this.cursor.scale,
             rotation: this.cursor.rotation,
-            material: `color: ${this.cursor.color};  side: double;`,
+            material: `color: ${this.cursor.color};  side: double; opacity: ${1 - this.cursor.transparency};`,
         };
         return this.mergeProps(base, params);
     }
@@ -973,7 +1037,7 @@ class Myr {
     plane = (params) =&gt; {
         let base = {
             id: &quot;plane&quot; + this.genNewId(),
-            geometry: `primitive: plane; height: 1; width: 1; phi-length: ${this.cursor.phiLength};`,
+            geometry: `primitive: plane; height: 1; width: 1; phi-length: ${this.cursor.phiLength}; opacity: ${1 - this.cursor.transparency};`,
             position: this.cursor.position,
             scale: this.cursor.scale,
             rotation: this.cursor.rotation,
@@ -990,7 +1054,7 @@ class Myr {
     polyhedron = (params) =&gt; {
         let base = {
             id: &quot;poly&quot; + this.genNewId(),
-            geometry: `primitive: sphere; segmentsWidth: 2; segmentsHeight: 8; phi-length: ${this.cursor.phiLength};`,
+            geometry: `primitive: sphere; segmentsWidth: 2; segmentsHeight: 8; phi-length: ${this.cursor.phiLength}; opacity: ${1 - this.cursor.transparency};`,
             position: this.cursor.position,
             scale: this.cursor.scale,
             rotation: this.cursor.rotation,
@@ -1007,7 +1071,7 @@ class Myr {
     ring = (params) =&gt; {
         let base = {
             id: &quot;ring&quot; + this.genNewId(),
-            geometry: `primitive: ring; radiusInner: 0.5; radiusOuter: 1; theta-length: ${this.cursor.phiLength};`,
+            geometry: `primitive: ring; radiusInner: 0.5; radiusOuter: 1; theta-length: ${this.cursor.phiLength}; opacity: ${1 - this.cursor.transparency};`,
             position: this.cursor.position,
             scale: this.cursor.scale,
             rotation: this.cursor.rotation,
@@ -1028,7 +1092,7 @@ class Myr {
             position: this.cursor.position,
             scale: this.cursor.scale,
             rotation: this.cursor.rotation,
-            material: `color: ${this.cursor.color}; side: double;`,
+            material: `color: ${this.cursor.color}; side: double; opacity: ${1 - this.cursor.transparency};`,
         };
         return this.mergeProps(base, params);
     }
@@ -1045,7 +1109,7 @@ class Myr {
             position: this.cursor.position,
             scale: this.cursor.scale,
             rotation: this.cursor.rotation,
-            material: `color: ${this.cursor.color}; side: double;`,
+            material: `color: ${this.cursor.color}; side: double; opacity: ${1 - this.cursor.transparency};`,
         };
         return this.mergeProps(base, params);
     }
@@ -1091,7 +1155,7 @@ class Myr {
             position: this.cursor.position,
             scale: this.cursor.scale,
             rotation: this.cursor.rotation,
-            material: `color: ${this.cursor.color};  side: double;`,
+            material: `color: ${this.cursor.color};  side: double; opacity: ${1 - this.cursor.transparency};`,
         };
         return this.mergeProps(base, params);
     }
@@ -1108,7 +1172,7 @@ class Myr {
             position: this.cursor.position,
             scale: this.cursor.scale,
             rotation: this.cursor.rotation,
-            material: `color: ${this.cursor.color}; side: double`,
+            material: `color: ${this.cursor.color}; side: double; opacity: ${1 - this.cursor.transparency};`,
             p: 2,
             q: 3,
         };
@@ -1127,7 +1191,7 @@ class Myr {
             position: this.cursor.position,
             scale: this.cursor.scale,
             rotation: this.cursor.rotation,
-            material: `color: ${this.cursor.color};  side: double;`,
+            material: `color: ${this.cursor.color};  side: double; opacity: ${1 - this.cursor.transparency};`,
         };
         return this.mergeProps(base, params);
     }
@@ -1146,7 +1210,7 @@ class Myr {
             position: this.cursor.position,
             scale: this.cursor.scale,
             rotation: this.cursor.rotation,
-            material: `color: ${this.cursor.color};  side: double;`,
+            material: `color: ${this.cursor.color};  side: double; opacity: ${1 - this.cursor.transparency};`,
         };
         return this.mergeProps(base, params);
     }
