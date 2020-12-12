@@ -52,11 +52,12 @@ export function fetchCourse(courseId) {
             .then(response => {
                 response.json()
                     .then(json => {
+                        document.title = json.name + " Course | MYR";
                         dispatch(loadCourse(json));
 
                         //Make sure that the course is not empty
                         if(json.lessons.length <= 0){
-                            noLessons.name = json.name;
+                            noLessons.name = json.name; 
                             dispatch(loadLesson(noLessons));
                             return;
                         }
@@ -68,7 +69,7 @@ export function fetchCourse(courseId) {
                             {
                                 name: json.lessons[0].name,
                                 desc: "This scene was saved from the course: " + json.name
-                            }));
+                            }));   
                     })
                     .catch(err => {
                         console.error(err);

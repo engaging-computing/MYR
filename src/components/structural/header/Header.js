@@ -64,7 +64,7 @@ class Header extends Component {
 
         this.state.socket.on("update", () => {
             let editor = window.ace.edit("ace-editor");            
-            if(editor.getSession().getValue() === this.props.text || window.confirm("A new version of the scene is available, would you like to load it?")){
+            if(editor.getSession().getValue() === this.props.scene.code || window.confirm("A new version of the scene is available, would you like to load it?")){
                 this.props.actions.fetchScene(this.props.projectId);
             }
         });
@@ -208,6 +208,9 @@ class Header extends Component {
         this.props.projectActions.asyncUserProj(this.props.user.uid);
         this.props.collectionActions.asyncCollections(this.props.user.uid);
         this.setRefreshTime(googleAuth.tokenObj.expires_at);
+
+        //send uid to google analyrica
+        window.gtag("config", "UA-122925714-1", {"user_id": this.props.user.googleId});
     }
 
     setRefreshTime = (time) => {
