@@ -58,33 +58,33 @@ function getInfoModalStyle() {
 const modelStyles = theme => ({
     outer: {
         position: "absolute",
-        width: theme.spacing.unit * 150,
+        width: theme.spacing(150),
         backgroundColor: theme.palette.background.paper,
         boxShadow: theme.shadows[5],
-        padding: theme.spacing.unit * 4,
+        padding: theme.spacing(4),
         overflow: "scroll"
     },
     paper: {
         position: "absolute",
-        width: theme.spacing.unit * 50,
+        width: theme.spacing(50),
         backgroundColor: theme.palette.background.paper,
         boxShadow: theme.shadows[5],
-        padding: theme.spacing.unit * 4,
+        padding: theme.spacing(4),
     },
     info: {
         position: "absolute",
-        width: theme.spacing.unit * 100,
+        width: theme.spacing(100),
         backgroundColor: theme.palette.background.paper,
         boxShadow: theme.shadows[5],
-        padding: theme.spacing.unit * 4,
+        padding: theme.spacing(4),
     },
     button: {
-        margin: theme.spacing.unit,
+        margin: theme.spacing(1),
     }
 });
 
 const exitBtnStyle = {
-    position: "fixed",
+    position: "absolute",
     top: 0,
     right: 0,
 };
@@ -376,7 +376,6 @@ class Project extends React.Component {
         const style = {
             default: {
                 margin: 2,
-                padding: 0,
                 color: "#fff",
             }
         };

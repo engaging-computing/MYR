@@ -37,13 +37,13 @@ function getModalStyle() {
 const modelStyles = theme => ({
     paper: {
         position: "absolute",
-        width: theme.spacing.unit * 50,
+        width: theme.spacing(50),
         backgroundColor: theme.palette.background.paper,
         boxShadow: theme.shadows[5],
-        padding: theme.spacing.unit * 4,
+        padding: theme.spacing(4),
     },
     button: {
-        margin: theme.spacing.unit,
+        margin: theme.spacing(1),
     }
 });
 
@@ -172,7 +172,7 @@ class ConfigModal extends Component {
                 onChange={this.handleTextChange("email")}
             />
             <IconButton
-                variant="raised"
+                variant="contained"
                 onClick={this.handleAddEmail}
                 color="primary">
                 <Icon className="material-icons">add</Icon>
@@ -432,7 +432,6 @@ class ConfigModal extends Component {
                                 style={{
                                     color: "#fff",
                                     margin: 2,
-                                    padding: 0,
                                 }}>
                                 <Icon className="material-icons">settings</Icon>
                             </IconButton >
@@ -449,7 +448,6 @@ class ConfigModal extends Component {
                                     <Icon className="material-icons">clear</Icon>
                                 </ButtonBase >
                                 <Tabs
-                                    fullWidth={false}
                                     value={this.state.value}
                                     onChange={this.handleChange}>
                                     <Tab
