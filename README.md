@@ -9,8 +9,12 @@ The Engaging Computing Group develops new technologies to enable learners—yout
 ## Status
 [![CircleCI](https://circleci.com/gh/engaging-computing/MYR.svg?style=shield)](https://circleci.com/gh/engaging-computing/MYR)
 
-## Change Log - 2.0.0 -> 2.0.1
-- Fixed bug where tokens expired after one hour and weren't refreshed
+## Change Log - 2.0.1 -> 2.1.0
+- Added object transparency
+- Page titles are not all Myr.js
+- Fixed bug where save prompt would not appear
+- Added missing defauly argument to setRotation
+- Track UID in Analytics
 
 ## Acknowledgments
 MYR uses [Aframe](https://aframe.io), a fantastic open source project, to render objects and effects in the three dimensional space.  
