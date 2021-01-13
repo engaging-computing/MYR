@@ -31,14 +31,14 @@ function getModalStyle() {
 const modelStyles = theme => ({
     paper: {
         position: "absolute",
-        width: theme.spacing.unit * 100,
+        width: theme.spacing(100),
         maxWidth: "90%",
         backgroundColor: theme.palette.background.paper,
         boxShadow: theme.shadows[5],
-        padding: theme.spacing.unit * 4,
+        padding: theme.spacing(4),
     },
     button: {
-        margin: theme.spacing.unit,
+        margin: theme.spacing(1),
     }
 });
 
@@ -60,18 +60,19 @@ class CourseSelectModal extends Component {
             return (
                 <div key={id} id={id} title={name}
                     className="course-listing col-xs-12 col-md-6">
-                    <a
-                        tabIndex="0"
-                        rel="noopener noreferrer"
-                        role="button"
-                        href={link}>
-                        <Card>
-                            <CardContent>
+                    <Card raised="true">
+                        <CardContent>
+                            <a
+                                tabIndex="0"
+                                rel="noopener noreferrer"
+                                role="button"
+                                href={link}>
                                 <h4>{name}</h4>
                                 <p>{description}</p>
-                            </CardContent>
-                        </Card>
-                    </a>
+                            
+                            </a>
+                        </CardContent>
+                    </Card>
                     <br></br>
                 </div >
             );
@@ -96,7 +97,6 @@ class CourseSelectModal extends Component {
                                 style={{
                                     color: "#fff",
                                     margin: 2,
-                                    padding: 0,
                                 }}>
                                 <Icon className="material-icons">school</Icon>
                             </IconButton >
@@ -116,7 +116,7 @@ class CourseSelectModal extends Component {
                         </ButtonBase >
                         <h3 className="col-12 p-0 mb-3 border-bottom">Available Courses</h3>
                         <div className="row" id="courses">
-                            { // Sort the users projects in alphabetical order
+                            { // Sort the courses in alphabetical order
                                 courses.sort(function (a, b) {
                                     return a.name < b.name ? -1 : a.name > b.name ? 1 : 0;
                                 }).map(course => {
