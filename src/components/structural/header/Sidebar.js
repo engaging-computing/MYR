@@ -40,7 +40,7 @@ class Sidebar extends Component {
     */
     render() {
         const exitBtnStyle = {
-            position: "fixed",
+            position: "absolute",
             top: 0,
             right: 0,
         };
@@ -50,7 +50,7 @@ class Sidebar extends Component {
                 <Button
                     aria-label="Menu"
                     size="small"
-                    style={{ color: "#fff", marginLeft: -10 }}
+                    style={{ color: "#fff", marginTop: 8, marginLeft:-10, padding: 0}}
                     onClick={this.handleToggle}>
                     <Icon style={{ fontSize: 32 }}>menu</Icon>
                 </Button>
@@ -62,7 +62,7 @@ class Sidebar extends Component {
                     onClick={this.handleToggle}
                     onClose={this.handleToggle} >
                     <IconButton
-                        variant="raised"
+                        variant="contained"
                         color="default"
                         style={exitBtnStyle}
                         onClick={this.handleToggle}>

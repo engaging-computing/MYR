@@ -1,6 +1,6 @@
 {
     "name": "myr",
-    "version": "2.0.1",
+    "version": "2.1.0",
     "private": false,
     "engines": {
         "node": "12.18.2"
@@ -14,7 +14,7 @@
         "redux-devtools": "^3.4.1"
     },
     "dependencies": {
-        "@material-ui/core": "^1.5.1",
+        "@material-ui/core": "^4.11.2",
         "aframe": "^0.8.2",
         "aframe-animation-component": "^5.0.0",
         "aframe-environment-component": "^1.0.0",

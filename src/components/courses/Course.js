@@ -59,7 +59,8 @@ class Lesson extends Component {
                             onClick={() => this.lastLesson()}
                             color="primary"
                             disabled={prevValid ? courses.currentIndex <= 0 : true}
-                            fullWidth
+                            variant="text"
+                            fullWidth={true}
                             className="">
                             <Icon className="material-icons">chevron_left</Icon>
                         </Button>
@@ -72,7 +73,8 @@ class Lesson extends Component {
                             onClick={() => this.nextLesson()}
                             color="primary"
                             disabled={nextValid ? courses.currentIndex >= course.lessons.length - 1 : true}
-                            fullWidth
+                            variant="text"
+                            fullWidth={true}
                             className="">
                             <Icon className="material-icons">chevron_right</Icon>
                         </Button>

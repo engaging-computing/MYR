@@ -32,7 +32,7 @@ import { save } from "../../../actions/projectActions.js";
 import { parseJSON } from "jquery";
 
 const exitBtnStyle = {
-    position: "fixed",
+    position: "absolute",
     top: 0,
     right: 0,
 };
@@ -66,7 +66,7 @@ class Header extends Component {
 
         this.state.socket.on("update", () => {
             let editor = window.ace.edit("ace-editor");            
-            if(editor.getSession().getValue() === this.props.text || window.confirm("A new version of the scene is available, would you like to load it?")){
+            if(editor.getSession().getValue() === this.props.scene.code || window.confirm("A new version of the scene is available, would you like to load it?")){
                 this.props.actions.fetchScene(this.props.projectId);
             }
         });
@@ -208,6 +208,9 @@ class Header extends Component {
         this.props.projectActions.asyncUserProj(this.props.user.uid);
         this.props.collectionActions.asyncCollections(this.props.user.uid);
         this.setRefreshTime(googleAuth.tokenObj.expires_at);
+
+        //send uid to google analyrica
+        window.gtag("config", "UA-122925714-1", {"user_id": this.props.user.googleId});
     }
 
     setRefreshTime = (time) => {
@@ -473,7 +476,7 @@ class Header extends Component {
                 className="side-drawer"
                 open={this.state.saveOpen}
                 onClose={this.handleSaveToggle} >
-                <IconButton variant="raised"
+                <IconButton variant="contained"
                     color="default"
                     style={exitBtnStyle}
                     onClick={this.handleSaveToggle}>
@@ -481,7 +484,7 @@ class Header extends Component {
                 </IconButton>
                 <this.sceneName />
                 <Button
-                    variant="raised"
+                    variant="contained"
                     size="small"
                     color="primary"
                     onClick={() => this.handleSave(false)}
@@ -619,7 +622,6 @@ class Header extends Component {
         const style = {
             play: {
                 margin: 5,
-                padding: 0,
                 background: "linear-gradient(45deg, #38e438 30%, #58e458 90%)",
             },
             play_disabled: {
@@ -645,19 +647,17 @@ class Header extends Component {
             },
             default: {
                 margin: 2,
-                padding: 0,
                 color: "#fff",
             },
             disabled: {
                 margin: 2,
-                padding: 0,
                 color: "#777",
             },
         };
         const theme = createMuiTheme({
             palette: {
                 primary: {
-                    main: "#777",
+                    main: "#3f51b5",
                 }
             }
         });
@@ -667,7 +667,7 @@ class Header extends Component {
                 <div className="col-9 d-flex justify-content-start" style={{ paddingLeft: 0 }}>
                     <Sidebar scene={this.props.scene} nameScene={this.props.sceneActions.nameScene} >
                         <Button
-                            variant="raised"
+                            variant="contained"
                             onClick={() => { window.location.assign(window.origin); }}
                             color="primary"
                             className="sidebar-btn">
@@ -675,7 +675,7 @@ class Header extends Component {
                             Start New
                         </Button>
                         <Button
-                            variant="raised"
+                            variant="contained"
                             onClick={this.props.actions.recover}
                             color="primary"
                             className="sidebar-btn"
@@ -684,7 +684,7 @@ class Header extends Component {
                             Recover
                         </Button>
                         <Button
-                            variant="raised"
+                            variant="contained"
                             onClick={this.handleSaveToggle}
                             color="primary"
                             className="sidebar-btn"
@@ -693,7 +693,7 @@ class Header extends Component {
                             Save Project
                         </Button>
                         <Button
-                            variant="raised"
+                            variant="contained"
                             onClick={this.handleProjectToggle}
                             color="primary"
                             className="sidebar-btn">
@@ -701,7 +701,7 @@ class Header extends Component {
                             Open Project
                         </Button>
                         <Button
-                            variant="raised"
+                            variant="contained"
                             onClick={this.handleCollectionToggle}
                             color="primary"
                             className="sidebar-btn">
@@ -709,7 +709,7 @@ class Header extends Component {
                             Collections
                         </Button>
                         <Button
-                            variant="raised"
+                            variant="contained"
                             onClick={this.handleWelcomeToggle}
                             color="primary"
                             className="sidebar-btn">
