@@ -35,33 +35,33 @@ function getOuterModalStyle() {
 const modelStyles = theme => ({
     outer: {
         position: "absolute",
-        width: theme.spacing.unit * 150,
+        width: theme.spacing(150),
         backgroundColor: theme.palette.background.paper,
         boxShadow: theme.shadows[5],
-        padding: theme.spacing.unit * 4,
+        padding: theme.spacing(4),
         "overflow-y": "auto"
     },
     paper: {
         position: "absolute",
-        width: theme.spacing.unit * 50,
+        width: theme.spacing(50),
         backgroundColor: theme.palette.background.paper,
         boxShadow: theme.shadows[5],
-        padding: theme.spacing.unit * 4,
+        padding: theme.spacing(4),
     },
     info: {
         position: "absolute",
-        width: theme.spacing.unit * 100,
+        width: theme.spacing(100),
         backgroundColor: theme.palette.background.paper,
         boxShadow: theme.shadows[5],
-        padding: theme.spacing.unit * 4,
+        padding: theme.spacing(4),
     },
     button: {
-        margin: theme.spacing.unit,
+        margin: theme.spacing(1),
     }
 });
 
 const exitBtnStyle = {
-    position: "fixed",
+    position: "absolute",
     top: 0,
     right: 0,
 };
@@ -148,7 +148,7 @@ class Welcome extends React.Component {
             <div className="row">
                 <div className="col-xs-12 col-md-6 col-lg-4" >
                     <Button
-                        variant="raised"
+                        variant="contained"
                         onClick={this.handleCoursesToggle}
                         className="welcome-btn">
                         <Icon className="material-icons">school</Icon>
@@ -157,7 +157,7 @@ class Welcome extends React.Component {
                 </div >
                 <div className="col-xs-12 col-md-6 col-lg-4" >
                     <Button
-                        variant="raised"
+                        variant="contained"
                         onClick={this.handleProjectToggle}
                         className="welcome-btn">
                         <Icon className="material-icons">perm_media</Icon>
@@ -166,7 +166,7 @@ class Welcome extends React.Component {
                 </div >
                 <div className="col-xs-12 col-md-6 col-lg-4" >
                     <Button
-                        variant="raised"
+                        variant="contained"
                         href="/reference"
                         target="_blank"
                         rel="noopener noreferrer"
@@ -178,7 +178,7 @@ class Welcome extends React.Component {
                 </div >
                 <div className="col-xs-12 col-md-6 col-lg-4 d-none d-md-block" >
                     <Button
-                        variant="raised"
+                        variant="contained"
                         onClick={() => {
                             this.props.handleTourToggle();
                             this.props.handleWelcomeToggle();
@@ -190,7 +190,7 @@ class Welcome extends React.Component {
                 </div >
                 <div className="col-xs-12 col-md-6 col-lg-4" >
                     <Button
-                        variant="raised"
+                        variant="contained"
                         href="/about/support"
                         target="_blank"
                         rel="noopener noreferrer"
@@ -202,7 +202,7 @@ class Welcome extends React.Component {
                 </div >
                 <div className="col-xs-12 col-md-6 col-lg-4" >
                     <Button
-                        variant="raised"
+                        variant="contained"
                         href="https://github.com/engaging-computing/MYR"
                         target="_blank"
                         rel="noopener noreferrer"

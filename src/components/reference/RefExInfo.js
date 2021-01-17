@@ -11,7 +11,7 @@ class ReferenceExampleBox extends Component {
         return (
             this.props.referenceExample && suggestedCourseName ?
                 <Button
-                    variant="raised"
+                    variant="contained"
                     onClick={() => window.location.assign(`${window.origin}/course/${suggestedCourse}`) }
                     color="primary"
                     className="ref-ex-btn">
