@@ -227,6 +227,12 @@ let geometry = [
         description: <span>The triangle function makes flat 2D triangle using the current cursor attributes. This function returns an {stringText("elementID")}.</span>,
         example: "triangle"
     },
+    {
+        name: "gltf_model",
+        parameters: [{ type: "string" }],
+        description: <span>The gltf_model function loads a custom gltf model using the current cursor attributes. This function returns an {stringText("elementID")}.</span>,
+        example: "model"
+    },
     //{
     //  name: <span>tube()</span>,
     //  description: <span>Renders a tube using current internal cursor properties. Returns an <span className="string element">element id</span>.</span>,

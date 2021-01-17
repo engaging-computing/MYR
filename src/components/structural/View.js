@@ -110,6 +110,9 @@ class View extends Component {
             if (ent.tube) {
                 return <a-tube path={ent.path} radius={ent.radius} material={ent.material}></a-tube>;
             }
+            if (ent.custom) {
+                return <a-entity key={ent.id} gltf-model={"#" + ent.id} {...flattened}></a-entity>
+            }
             return <a-entity key={ent.id} {...flattened}></a-entity>;
         }
     }
