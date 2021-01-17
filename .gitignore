@@ -9,6 +9,7 @@
 # production
 /build
 /docs/*
+!docs/.gitkeep
 
 # api keys
 /src/keys
