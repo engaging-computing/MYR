@@ -55,7 +55,7 @@
         "start": "react-scripts start",
         "build": "react-scripts build",
         "lint": "./node_modules/.bin/eslint \"src/**/*.js\"",
-        "prod": "react-scripts build && mv build ../MYR-backend && rm -r ../MYR-backend/public/myr && mv ../MYR-backend/build ../MYR-backend/public/myr",
+        "prod": "react-scripts build && mv build ../MYR-backend && rm -r ../MYR-backend/public/myr && mv ../MYR-backend/build ../MYR-backend/public/myr && esdoc && rm -r ../MYR-backend/public/docs && mv docs ../MYR-backend/public",
         "coverage": "react-scripts test --env=jsdom --coverage --collectCoverageFrom=src/**/*.{js,jsx} --browser --silent",
         "test": "react-scripts test --env=jsdom --browser --silent",
         "eject": "react-scripts eject",

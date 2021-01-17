@@ -8,6 +8,7 @@
 
 # production
 /build
+/docs/*
 
 # api keys
 /src/keys
