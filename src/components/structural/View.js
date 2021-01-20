@@ -132,8 +132,7 @@ class View extends Component {
             <a-entity id="rig" movement-controls="controls: checkpoint" checkpoint-controls="mode: animate">
                 <a-camera
                     position={this.props.sceneConfig.settings.cameraPosition}
-                    look-controls="pointerLockEnabled: true"
-                >
+                    look-controls="pointerLockEnabled: true">
                     <a-cursor
                         position="0 0 -1"
                         geometry="primitive: ring; radiusInner: 0.02; radiusOuter: 0.03;"
@@ -164,7 +163,7 @@ class View extends Component {
             return (
                 <a-entity id="rig" 
                     debug={true}
-                    tracked-controls="idPrefix: OpenVR">
+                    movement-controls>
                     <a-camera
                         position={this.props.sceneConfig.settings.cameraPosition}>
                         <a-cursor

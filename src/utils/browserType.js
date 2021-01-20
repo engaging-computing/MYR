@@ -14,7 +14,6 @@ export const browserType = () => {
         return "vr";
     }
     else if("getVRDisplays" in navigator && navigator.getVRDisplays().length > 0) {
-        
         return "vr";
     }
     else if(MOBILE_TYPES.indexOf(device.type) === -1) {
