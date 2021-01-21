@@ -533,6 +533,18 @@ class ConfigModal extends Component {
                                                     Add PW
                                                 </ButtonBase> */}
                                             </div>
+                                            {this.props.exportFunc ?
+                                                <div className="col-6">
+                                                    <ButtonBase 
+                                                        style={btnStyle.base}
+                                                        onClick={this.props.exportFunc}>
+                                                        <Icon classname="material-icons">get_app</Icon>
+                                                        Export Scene
+                                                    </ButtonBase>
+                                                </div>
+                                                :
+                                                <></>
+                                            }
                                             <div className="col-12 border-bottom pt-4">Collection Control</div>
                                             {this.props.displayCollectionConfig ? 
                                                 <div className="col-6">

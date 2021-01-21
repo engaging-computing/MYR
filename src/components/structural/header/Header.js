@@ -779,6 +779,7 @@ class Header extends Component {
                         handleSaveClose={this.handleSaveClose}
                         layoutType={this.props.layoutType}
                         displayCollectionConfig={!this.props.collection}
+                        exportFunc={this.props.projectId ? () => { this.handleExport(this.props.projectId); } : false}
                     />
                     <CourseSelect
                         coursesOpen={this.state.coursesOpen}
