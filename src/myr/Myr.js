@@ -48,11 +48,11 @@ class Myr {
     }
 
     /**
-    * @summary - init creates and binds the myr object to the window
-    *
-    * @param [{}] objs - these are the base objects for this object
-    *
-    */
+     * init creates and binds the myr object to the window
+     *
+     * @param [{}] objs these are the base objects for this object
+     *
+     */
     init = () => {
 
         // Get all the function names of the Myr(this) class
@@ -74,8 +74,8 @@ class Myr {
     }
 
     /**
-    * @summary - Reset this.els to the base elements supplied to the constructor
-    */
+     * Reset this.els to the base elements supplied to the constructor
+     */
     reset = () => {
         // Reset base params, we might be able to merge two objects later
         this.id = 0;
@@ -120,8 +120,8 @@ class Myr {
     /********************* TRANSFORMATIONS *********************/
 
     /**
-    * @summary - Reset the cursor to the default
-    */
+     * Reset the cursor to the default
+     */
     resetCursor = () => {
         this.cursor = {
             color: "red",
@@ -156,7 +156,12 @@ class Myr {
     genNewId = () => {
         return this.counter++;
     };
-
+    
+    /**
+     * Sets the transparency of the cursor
+     *
+     * @param {number} transparency New transparency of the cursor (0-100)
+     */
     setTransparency = (transparency = 0) => {
         if(typeof transparency === "number" && transparency <= 100 && transparency >= 0) {
             this.cursor.transparency = transparency / 100;
@@ -167,6 +172,13 @@ class Myr {
         return this.cursor.opacity;
     }
 
+    /**
+     * Sets the x, y, and z position of the cursor
+     * 
+     * @param {number} x New x position of the cursor
+     * @param {number} y New y position of the cursor
+     * @param {number} z New z position of the cursor
+     */
     setPosition = (x = 0, y = 1, z = 0) => {
         if (typeof x === "number" && typeof y === "number" && typeof z === "number") {
             this.cursor.position = {
@@ -180,6 +192,11 @@ class Myr {
         return { x: this.cursor.position.x, y: this.cursor.position.y, z: this.cursor.position.z };
     };
 
+    /**
+     * Sets the x position of the cursor
+     * 
+     * @param {number} x New x position of the cursor
+     */
     setXPos = (x = 0) => {
         if (typeof x === "number") {
             this.cursor.position = { ...this.cursor.position, x };
@@ -189,6 +206,11 @@ class Myr {
         return this.cursor.position.x;
     };
 
+    /**
+     * Sets the y position of the cursor
+     * 
+     * @param {number} y New y position of the cursor
+     */
     setYPos = (y = 0) => {
         if (typeof y === "number") {
             this.cursor.position = { ...this.cursor.position, y };
@@ -198,6 +220,11 @@ class Myr {
         return this.cursor.position.y;
     };
 
+    /**
+     * Sets the z position of the cursor
+     * 
+     * @param {number} z New z position of the cursor
+     */
     setZPos = (z = 0) => {
         if (typeof z === "number") {
             this.cursor.position = { ...this.cursor.position, z };
@@ -207,6 +234,13 @@ class Myr {
         return this.cursor.position.z;
     };
 
+    /**
+     * Increases the current x, y, and z position of the cursor by the given amount
+     * 
+     * @param {number} x Amount to increment the x position by
+     * @param {number} y Amount to increment the y position by
+     * @param {number} z Amount to increment the z position by
+     */
     increasePosition = (x = 0, y = 0, z = 0) => {
 
         if (typeof x === "number" && typeof y === "number" && typeof z === "number") {
@@ -222,6 +256,11 @@ class Myr {
         return { x: this.cursor.position.x, y: this.cursor.position.y, z: this.cursor.position.z };
     }
 
+    /**
+     * Increases the current x position of the cursor by the given amount
+     * 
+     * @param {number} x Amount to increment the x position by 
+     */
     increaseXPos = (x = 1) => {
         if (typeof x === "number") {
             this.cursor.position = {
@@ -235,6 +274,11 @@ class Myr {
         return this.cursor.position.x;
     }
 
+    /**
+     * Increases the current y position of the cursor by the given amount
+     * 
+     * @param {number} y Amount to increment the y position by 
+     */
     increaseYPos = (y = 1) => {
         if (typeof y === "number") {
             this.cursor.position = {
@@ -248,6 +292,11 @@ class Myr {
         return this.cursor.position.y;
     }
 
+    /**
+     * Increases the current z position of the cursor by the given amount
+     * 
+     * @param {number} z Amount to increment the z position by 
+     */
     increaseZPos = (z = 1) => {
         if (typeof z === "number") {
             this.cursor.position = {
@@ -261,6 +310,13 @@ class Myr {
         return this.cursor.position.z;
     }
 
+    /**
+     * Sets the x, y, and z scale of the cursor
+     * 
+     * @param {number} x New x scale of the cursor
+     * @param {number} y New y scale of the cursor
+     * @param {number} z New z scale of the cursor
+     */
     setScale = (x = 1, y = 1, z = 1) => {
         if (typeof x === "number" && typeof y === "number" && typeof z === "number") {
             this.cursor.scale = {
@@ -274,6 +330,11 @@ class Myr {
         return { x: this.cursor.scale.x, y: this.cursor.scale.y, z: this.cursor.scale.z };
     };
 
+    /**
+     * Applies a given scale along the x dimension of the cursor
+     * 
+     * @param {number} x New x scale of the cursor
+     */
     setXScale = (x) => {
         if (typeof x === "number") {
             this.cursor.scale = { ...this.cursor.scale, x };
@@ -283,6 +344,11 @@ class Myr {
         return this.cursor.scale.x;
     };
 
+    /**
+     * Applies a given scale along the y dimension of the cursor
+     * 
+     * @param {number} y New y scale of the cursor
+     */
     setYScale = (y) => {
         if (typeof y === "number") {
             this.cursor.scale = { ...this.cursor.scale, y };
@@ -292,6 +358,11 @@ class Myr {
         return this.cursor.scale.y;
     };
 
+    /**
+     * Applies a given scale along the z dimension of the cursor
+     * 
+     * @param {number} z New z scale of the cursor
+     */
     setZScale = (z) => {
         if (typeof z === "number") {
             this.cursor.scale = { ...this.cursor.scale, z };
@@ -301,6 +372,13 @@ class Myr {
         return this.cursor.scale.z;
     };
 
+    /**
+     * Sets the x, y, and z rotation of the cursor
+     * 
+     * @param {number} x New x rotation of the cursor
+     * @param {number} y New y rotation of the cursor
+     * @param {number} z New z rotation of the cursor
+     */
     setRotation = (x = 0, y = 0, z = 0) => {
         if (typeof x === "number" && typeof y === "number" && typeof z === "number") {
             this.cursor.rotation = {
@@ -360,6 +438,11 @@ class Myr {
         return this.cursor[key];
     }
 
+    /**
+     * Applies a given x rotation to the cursor
+     * 
+     * @param {number} x New x rotation of the cursor
+     */
     pitchX = (x) => {
         if (typeof x === "number") {
             this.cursor.rotation = { ...this.cursor.rotation, x };
@@ -369,6 +452,11 @@ class Myr {
         return this.cursor.rotation.x;
     };
 
+    /**
+     * Applies a given y rotation to the cursor
+     * 
+     * @param {number} y New y rotation of the cursor
+     */
     yawY = (y) => {
         if (typeof y === "number") {
             this.cursor.rotation = { ...this.cursor.rotation, y };
@@ -378,6 +466,11 @@ class Myr {
         return this.cursor.rotation.y;
     };
 
+    /**
+     * Applies a given z rotation to the cursor
+     * 
+     * @param {number} z New z rotation of the cursor
+     */
     rollZ = (z) => {
         if (typeof z === "number") {
             this.cursor.rotation = { ...this.cursor.rotation, z };
@@ -387,6 +480,11 @@ class Myr {
         return this.cursor.rotation.z;
     };
 
+    /**
+     * Sets the radius of the cursor
+     * 
+     * @param {number} i New radius of the cursor
+     */
     setRadius = (i) => {
         if (typeof i === "number") {
             this.cursor.radius = String(i);
@@ -396,6 +494,11 @@ class Myr {
         return this.cursor.radius;
     };
 
+    /**
+     * Sets the phi length of the cursor
+     * 
+     * @param {number} i New phi length of the cursor
+     */
     setPhiLength = (i) => {
         if (typeof i === "number") {
             this.cursor.phiLength = String(i);
@@ -405,11 +508,21 @@ class Myr {
         return this.cursor.phiLength;
     };
 
+    /**
+     * Sets the loop of the cursor
+     * 
+     * @param {number} i New loop of the cursor
+     */
     setLoop = (i) => {
         this.cursor.loop = Boolean(i);
         return this.cursor.loop;
     };
 
+    /**
+     * Sets the magnitude of the cursor
+     * 
+     * @param {number} i New magnitude of the cursor
+     */
     setMagnitude = (i) => {
         if (typeof i === "number") {
             this.cursor.magnitude = {
@@ -423,6 +536,11 @@ class Myr {
         return this.cursor.magnitude.general;
     };
 
+    /**
+     * Sets the duration of the cursor
+     * 
+     * @param {number} i New duration of the cursor
+     */
     setDuration = (i) => {
         if (typeof i === "number") {
             this.cursor.duration = i;
@@ -432,11 +550,65 @@ class Myr {
         return this.cursor.duration;
     };
 
+    /**
+     * Sets the current color of the cursor. Defaults to white.
+     * 
+     * @param {number} color New color of the cursor
+     */
     setColor = (color = "white") => {
         this.cursor.color = color.toLowerCase();
         return this.cursor.color;
     }
 
+    setCursorAttribute = (key = "", value = "") => {
+        if (typeof (key) !== "string" || key === "") {
+            console.error("Error: Invalid key");
+            return this.cursor;
+        }
+        switch (key.toLowerCase()) {
+            case "color":
+                this.setColor(value);
+                break;
+            case "position":
+                this.setPosition(value.x, value.y, value.z);
+                break;
+            case "scale":
+                this.setScale(value.x, value.y, value.z);
+                break;
+            case "rotation":
+                this.setRotation(value.x, value.y, value.z);
+                break;
+            case "radius":
+                this.setRadius(value);
+                break;
+            case "philength":
+                this.setPhiLength(value);
+                break;
+            case "loop":
+                this.setLoop(value);
+                break;
+            case "duration":
+                this.setDuration(value);
+                break;
+            case "magnitude":
+                this.setMagnitude(value);
+                break;
+            default:
+                this.cursor[key] = value;
+        }
+        return this.cursor;
+    }
+
+    getCursorAttribute = (key = "") => {
+        return this.cursor[key];
+    }
+
+    /**
+     * Returns a random valid color.
+     * 
+     * @param {array} colors An array of colors to choose from. If left 
+     * empty then all colors are drawn from
+     */
     getRandomColor = (colors = null) => {
         let color;
         if (Array.isArray(colors) && colors.length !== 0) {
@@ -461,7 +633,12 @@ class Myr {
         return outerElId;
     }
 
-    // Allows the entity to be dropped
+    /**
+     * Allows the entity to be dropped
+     * 
+     * @param {number} outerElId !!!DESCRIPTION NEEDED!!!
+     * @param {number} mass !!!DESCRIPTION NEEDED!!!
+     */
     makeDroppable = (outerElId, mass = 2) => {
         let el = this.getEl(outerElId);
         let dynamicBody = `shape: auto; mass: ${mass}; angularDamping: 0.5; linearDamping: 0.5;`;
@@ -469,7 +646,11 @@ class Myr {
         return outerElId;
     }
 
-    // Disallows the entity to be dropped
+    /**
+     * Disallows the entity to be dropped
+     * 
+     * @param {number} outerElId !!!DESCRIPTION NEEDED!!!
+     */
     makeUnDroppable = (outerElId) => {
         let el = this.getEl(outerElId);
         //Only makes an item undroppable if it is droppable but is not pushable
@@ -479,7 +660,12 @@ class Myr {
         return outerElId;
     }
 
-    // Allows the entity to be pushed
+    /**
+     * Allows the entity to be pushed
+     * 
+     * @param {number} outerElId !!!DESCRIPTION NEEDED!!!
+     * @param {number} mass !!!DESCRIPTION NEEDED!!!
+     */
     makePushable = (outerElId, mass = 2) => {
         let el = this.getEl(outerElId);
         let dynamicBody = `shape: auto; mass: ${mass}; angularDamping: 0.5; linearDamping: 0.5;`;
@@ -488,7 +674,11 @@ class Myr {
         return outerElId;
     }
 
-    // Disallows the entity to be pushed
+    /**
+     * Disallows the entity to be pushed
+     * 
+     * @param {number} outerElId !!!DESCRIPTION NEEDED!!!
+     */
     makeUnPushable = (outerElId) => {
         let el = this.getEl(outerElId);
         if (el["force-pushable"]) {
@@ -498,7 +688,11 @@ class Myr {
         return outerElId;
     }
 
-    // Disallows the entity to be pushed
+    /**
+     * Disallows the entity to be pushed
+     * 
+     * @param {number} outerElId !!!DESCRIPTION NEEDED!!!
+     */
     makeUnPushable = (outerElId) => {
         let el = this.getEl(outerElId);
         if (el["force-pushable"]) {
@@ -525,7 +719,11 @@ class Myr {
         return outerElId;
     }
 
-    // Render an Aframe Box Primitive with current Myr settings
+    /**
+     * Render an Aframe box with current Myr settings
+     * 
+     * @param {*} params !!!DESCRIPTION NEEDED!!!
+     */
     box = (params) => {
         let base = {
             geometry: "primitive: box;",
@@ -538,7 +736,11 @@ class Myr {
         return this.mergeProps(base, params);
     }
 
-    // Render an Aframe circle Primitive with current Myr settings
+    /**
+     * Render an Aframe circle with current Myr settings
+     * 
+     * @param {*} params !!!DESCRIPTION NEEDED!!!
+     */
     circle = (params) => {
         let base = {
             geometry: `primitive: circle; radius: ${this.cursor.radius}; theta-length: ${this.cursor.phiLength};`,
@@ -551,7 +753,11 @@ class Myr {
         return this.mergeProps(base, params);
     }
 
-    // Render an Aframe circle Primitive with current Myr settings
+    /**
+     * Render an Aframe cone with current Myr settings
+     * 
+     * @param {*} params !!!DESCRIPTION NEEDED!!!
+     */
     cone = (params) => {
         let base = {
             id: "cone" + this.genNewId(),
@@ -564,7 +770,11 @@ class Myr {
         return this.mergeProps(base, params);
     }
 
-    // Render an Aframe Text Primitive with current Myr settings
+    /**
+     * Render an Aframe cylinder with current Myr settings
+     * 
+     * @param {*} params !!!DESCRIPTION NEEDED!!!
+     */
     cylinder = (params) => {
         let base = {
             id: "cyl" + this.genNewId(),
@@ -578,7 +788,11 @@ class Myr {
     }
 
 
-    // Render an Aframe dodecahedron with current Myr settings
+    /**
+     * Render an Aframe dodecahedron with current Myr settings
+     * 
+     * @param {*} params !!!DESCRIPTION NEEDED!!!
+     */
     dodecahedron = (params) => {
         let base = {
             id: "dod" + this.genNewId(),
@@ -591,7 +805,11 @@ class Myr {
         return this.mergeProps(base, params);
     }
 
-    // Render an Aframe icosahedron with current Myr settings
+    /**
+     * Render an Aframe icosahedron with current Myr settings
+     * 
+     * @param {*} params !!!DESCRIPTION NEEDED!!!
+     */
     icosahedron = (params) => {
         let base = {
             id: "iso" + this.genNewId(),
@@ -604,7 +822,11 @@ class Myr {
         return this.mergeProps(base, params);
     }
 
-    // Render an Aframe octahedron with current Myr settings
+    /**
+     * Render an Aframe octahedron with current Myr settings
+     * 
+     * @param {*} params !!!DESCRIPTION NEEDED!!!
+     */
     octahedron = (params) => {
         let base = {
             id: "oct" + this.genNewId(),
@@ -617,6 +839,11 @@ class Myr {
         return this.mergeProps(base, params);
     }
 
+    /**
+     * Render an Aframe line with current Myr settings
+     * 
+     * @param {*} params !!!DESCRIPTION NEEDED!!!
+     */
     line = (path, params) => {
         let base = {
             id: "line" + this.genNewId(),
@@ -631,6 +858,11 @@ class Myr {
         return this.mergeProps(base, params);
     }
 
+    /**
+     * Render an Aframe plane with current Myr settings
+     * 
+     * @param {*} params !!!DESCRIPTION NEEDED!!!
+     */
     plane = (params) => {
         let base = {
             id: "plane" + this.genNewId(),
@@ -643,7 +875,11 @@ class Myr {
         return this.mergeProps(base, params);
     }
 
-    // Render an Aframe Polyhedron with current Myr settings
+    /**
+     * Render an Aframe polyhedron with current Myr settings
+     * 
+     * @param {*} params !!!DESCRIPTION NEEDED!!!
+     */
     polyhedron = (params) => {
         let base = {
             id: "poly" + this.genNewId(),
@@ -656,6 +892,11 @@ class Myr {
         return this.mergeProps(base, params);
     }
 
+    /**
+     * Render an Aframe ring with current Myr settings
+     * 
+     * @param {*} params !!!DESCRIPTION NEEDED!!!
+     */
     ring = (params) => {
         let base = {
             id: "ring" + this.genNewId(),
@@ -668,7 +909,11 @@ class Myr {
         return this.mergeProps(base, params);
     }
 
-    // Render an Aframe Sphere Primitive with current Myr settings
+    /**
+     * Render an Aframe sphere with current Myr settings
+     * 
+     * @param {*} params !!!DESCRIPTION NEEDED!!!
+     */
     sphere = (params) => {
         let base = {
             id: "sphere" + this.genNewId(),
@@ -681,6 +926,11 @@ class Myr {
         return this.mergeProps(base, params);
     }
 
+    /**
+     * Render an Aframe tetrahedron with current Myr settings
+     * 
+     * @param {*} params !!!DESCRIPTION NEEDED!!!
+     */
     tetrahedron = (params) => {
         let base = {
             id: "tetra" + this.genNewId(),
@@ -693,7 +943,9 @@ class Myr {
         return this.mergeProps(base, params);
     }
 
-    /*
+    /**
+    * Render an Aframe text with current Myr settings
+    *
     * This is a bit tricky. We need to pass text so we can decide how to render it.
     * This throws a warning since text is not part of the entity system.
     * Instead we pass it and then pull it off again if we see it.
@@ -720,6 +972,11 @@ class Myr {
         return base.id;
     }
 
+    /**
+     * Render an Aframe torus with current Myr settings
+     * 
+     * @param {*} params !!!DESCRIPTION NEEDED!!!
+     */
     torus = (params) => {
         let base = {
             id: "torus" + this.genNewId(),
@@ -732,6 +989,11 @@ class Myr {
         return this.mergeProps(base, params);
     }
 
+    /**
+     * Render an Aframe torusknot with current Myr settings
+     * 
+     * @param {*} params !!!DESCRIPTION NEEDED!!!
+     */
     torusknot = (params) => {
         let base = {
             id: "torKn" + this.genNewId(),
@@ -746,6 +1008,11 @@ class Myr {
         return this.mergeProps(base, params);
     }
 
+    /**
+     * Render an Aframe triangle with current Myr settings
+     * 
+     * @param {*} params !!!DESCRIPTION NEEDED!!!
+     */
     triangle = (params) => {
         let base = {
             id: "tri" + this.genNewId(),
@@ -758,6 +1025,11 @@ class Myr {
         return this.mergeProps(base, params);
     }
 
+    /**
+     * Render an Aframe tube with current Myr settings
+     * 
+     * @param {*} params !!!DESCRIPTION NEEDED!!!
+     */
     tube = (path, params) => {
         let base = {
             id: "tube" + this.genNewId(),
@@ -772,7 +1044,11 @@ class Myr {
         return this.mergeProps(base, params);
     }
 
-    // Render a new Aframe light with current Myr settings
+    /**
+     * Render an Aframe light with current Myr settings
+     * 
+     * @param {*} params !!!DESCRIPTION NEEDED!!!
+     */
     light = () => {
         let el = {
             color: "lgt" + this.getRandomColor(),
@@ -794,7 +1070,14 @@ class Myr {
 
     /********************* ANIMATIONS *********************/
 
-    // Animate the Aframe element which is passed as arg
+    /**
+     * Animate the Aframe element which is passed as arg
+     * 
+     * @param {number} outerElId target element ID
+     * @param {number} magnitude !!!DESCRIPTION NEEDED!!!
+     * @param {*} loop !!!DESCRIPTION NEEDED!!!
+     * @param {*} duration !!!DESCRIPTION NEEDED!!!
+     */
     animate = (outerElId, magnitude = null, loop = null, duration = null) => {
         magnitude = magnitude !== null ? magnitude : this.cursor.magnitude.spin;
         loop = loop !== null ? loop : this.cursor.loop;
@@ -811,6 +1094,14 @@ class Myr {
         return outerElId;
     };
 
+    /**
+     * Apply a spin animation to the Aframe element which is passed as arg
+     * 
+     * @param {number} outerElId target element ID
+     * @param {number} magnitude !!!DESCRIPTION NEEDED!!!
+     * @param {*} loop !!!DESCRIPTION NEEDED!!!
+     * @param {*} duration !!!DESCRIPTION NEEDED!!!
+     */
     spin = (outerElId, magnitude = null, loop = null, duration = null) => {
         magnitude = magnitude !== null ? magnitude : this.cursor.magnitude.spin;
         loop = loop !== null ? loop : this.cursor.loop;
@@ -828,6 +1119,14 @@ class Myr {
         return outerElId;
     };
 
+    /**
+     * Apply a yoyo animation to the Aframe element which is passed as arg
+     * 
+     * @param {number} outerElId target element ID
+     * @param {number} magnitude !!!DESCRIPTION NEEDED!!!
+     * @param {*} loop !!!DESCRIPTION NEEDED!!!
+     * @param {*} duration !!!DESCRIPTION NEEDED!!!
+     */
     yoyo = (outerElId, magnitude = null, loop = null, duration = null) => {
         magnitude = magnitude !== null ? magnitude : this.cursor.magnitude.general;
         loop = loop !== null ? loop : this.cursor.loop;
@@ -844,6 +1143,14 @@ class Myr {
         return outerElId;
     };
 
+    /**
+     * Apply a sideToSide animation to the Aframe element which is passed as arg
+     * 
+     * @param {number} outerElId target element ID
+     * @param {number} magnitude !!!DESCRIPTION NEEDED!!!
+     * @param {*} loop !!!DESCRIPTION NEEDED!!!
+     * @param {*} duration !!!DESCRIPTION NEEDED!!!
+     */
     sideToSide = (outerElId, magnitude = null, loop = null, duration = null) => {
         magnitude = magnitude !== null ? magnitude : this.cursor.magnitude.general;
         loop = loop !== null ? loop : this.cursor.loop;
@@ -861,6 +1168,14 @@ class Myr {
         return outerElId;
     };
 
+    /**
+     * Apply a goUp animation to the Aframe element which is passed as arg
+     * 
+     * @param {number} outerElId target element ID
+     * @param {number} magnitude !!!DESCRIPTION NEEDED!!!
+     * @param {*} loop !!!DESCRIPTION NEEDED!!!
+     * @param {*} duration !!!DESCRIPTION NEEDED!!!
+     */
     goUp = (outerElId, magnitude = null, loop = null, duration = null) => {
         magnitude = magnitude !== null ? magnitude : this.cursor.magnitude.general;
         loop = loop !== null ? loop : this.cursor.loop;
@@ -877,6 +1192,14 @@ class Myr {
         return outerElId;
     };
 
+    /**
+     * Apply a goDown animation to the Aframe element which is passed as arg
+     * 
+     * @param {number} outerElId target element ID
+     * @param {number} magnitude !!!DESCRIPTION NEEDED!!!
+     * @param {*} loop !!!DESCRIPTION NEEDED!!!
+     * @param {*} duration !!!DESCRIPTION NEEDED!!!
+     */
     goDown = (outerElId, magnitude = null, loop = null, duration = null) => {
         magnitude = magnitude !== null ? magnitude : this.cursor.magnitude.general;
         loop = loop !== null ? loop : this.cursor.loop;
@@ -893,6 +1216,14 @@ class Myr {
         return outerElId;
     };
 
+    /**
+     * Apply a goLeft animation to the Aframe element which is passed as arg
+     * 
+     * @param {number} outerElId target element ID
+     * @param {number} magnitude !!!DESCRIPTION NEEDED!!!
+     * @param {*} loop !!!DESCRIPTION NEEDED!!!
+     * @param {*} duration !!!DESCRIPTION NEEDED!!!
+     */
     goLeft = (outerElId, magnitude = null, loop = null, duration = null) => {
         magnitude = magnitude !== null ? magnitude : this.cursor.magnitude.general;
         loop = loop !== null ? loop : this.cursor.loop;
@@ -909,6 +1240,14 @@ class Myr {
         return outerElId;
     };
 
+    /**
+     * Apply a goRight animation to the Aframe element which is passed as arg
+     * 
+     * @param {number} outerElId target element ID
+     * @param {number} magnitude !!!DESCRIPTION NEEDED!!!
+     * @param {*} loop !!!DESCRIPTION NEEDED!!!
+     * @param {*} duration !!!DESCRIPTION NEEDED!!!
+     */
     goRight = (outerElId, magnitude = null, loop = null, duration = null) => {
         magnitude = magnitude !== null ? magnitude : this.cursor.magnitude.general;
         loop = loop !== null ? loop : this.cursor.loop;
@@ -925,6 +1264,14 @@ class Myr {
         return outerElId;
     };
 
+    /**
+     * Apply a goTowards animation to the Aframe element which is passed as arg
+     * 
+     * @param {number} outerElId target element ID
+     * @param {number} magnitude !!!DESCRIPTION NEEDED!!!
+     * @param {*} loop !!!DESCRIPTION NEEDED!!!
+     * @param {*} duration !!!DESCRIPTION NEEDED!!!
+     */
     goTowards = (outerElId, magnitude = null, loop = null, duration = null) => {
         magnitude = magnitude !== null ? magnitude : this.cursor.magnitude.general;
         loop = loop !== null ? loop : this.cursor.loop;
@@ -941,6 +1288,14 @@ class Myr {
         return outerElId;
     };
 
+    /**
+     * Apply a goAway animation to the Aframe element which is passed as arg
+     * 
+     * @param {number} outerElId target element ID
+     * @param {number} magnitude !!!DESCRIPTION NEEDED!!!
+     * @param {*} loop !!!DESCRIPTION NEEDED!!!
+     * @param {*} duration !!!DESCRIPTION NEEDED!!!
+     */
     goAway = (outerElId, magnitude = null, loop = null, duration = null) => {
         magnitude = magnitude !== null ? magnitude : this.cursor.magnitude.general;
         loop = loop !== null ? loop : this.cursor.loop;
@@ -957,6 +1312,14 @@ class Myr {
         return outerElId;
     };
 
+    /**
+     * Apply a grow animation to the Aframe element which is passed as arg
+     * 
+     * @param {number} outerElId target element ID
+     * @param {number} magnitude !!!DESCRIPTION NEEDED!!!
+     * @param {*} loop !!!DESCRIPTION NEEDED!!!
+     * @param {*} duration !!!DESCRIPTION NEEDED!!!
+     */
     grow = (outerElId, magnitude = null, loop = null, duration = null) => {
         magnitude = magnitude !== null ? magnitude : this.cursor.magnitude.general;
         loop = loop !== null ? loop : this.cursor.loop;
@@ -973,6 +1336,14 @@ class Myr {
         return outerElId;
     };
 
+    /**
+     * Apply a shrink animation to the Aframe element which is passed as arg
+     * 
+     * @param {number} outerElId target element ID
+     * @param {number} magnitude !!!DESCRIPTION NEEDED!!!
+     * @param {*} loop !!!DESCRIPTION NEEDED!!!
+     * @param {*} duration !!!DESCRIPTION NEEDED!!!
+     */
     shrink = (outerElId, magnitude = null, loop = null, duration = null) => {
         magnitude = magnitude !== null ? magnitude : this.cursor.magnitude.general;
         loop = loop !== null ? loop : this.cursor.loop;
@@ -989,6 +1360,14 @@ class Myr {
         return outerElId;
     };
 
+    /**
+     * Apply a fadeOut animation to the Aframe element which is passed as arg
+     * 
+     * @param {number} outerElId target element ID
+     * @param {number} magnitude !!!DESCRIPTION NEEDED!!!
+     * @param {*} loop !!!DESCRIPTION NEEDED!!!
+     * @param {*} duration !!!DESCRIPTION NEEDED!!!
+     */
     fadeOut = (outerElId, magnitude = null, loop = null, duration = null) => {
         magnitude = magnitude !== null ? magnitude : this.cursor.magnitude.fadeOut;
         loop = loop !== null ? loop : this.cursor.loop;
@@ -1008,6 +1387,14 @@ class Myr {
         return outerElId;
     }
 
+    /**
+     * Apply a fadeIn animation to the Aframe element which is passed as arg
+     * 
+     * @param {number} outerElId target element ID
+     * @param {number} magnitude !!!DESCRIPTION NEEDED!!!
+     * @param {*} loop !!!DESCRIPTION NEEDED!!!
+     * @param {*} duration !!!DESCRIPTION NEEDED!!!
+     */
     fadeIn = (outerElId, magnitude = null, loop = null, duration = null) => {
         magnitude = magnitude !== null ? magnitude : this.cursor.magnitude.general;
         loop = loop !== null ? loop : this.cursor.loop;
@@ -1027,6 +1414,12 @@ class Myr {
         return outerElId;
     }
 
+    /**
+     * Apply a colorShift animation to the Aframe element which is passed as arg
+     * 
+     * @param {number} outerElId target element ID
+     * @param {*} color !!!DESCRIPTION NEEDED!!!
+     */
     colorShift = (outerElId, color) => {
         let el = this.getEl(outerElId);
         if (String(el.id).includes("grp")) {
@@ -1065,48 +1458,107 @@ class Myr {
 
     /********************* GETTERS *********************/
 
+    /**
+     * Gets the current color of the cursor
+     */
     getColor = () => {
         return this.cursor.color;
     };
+
+    /**
+     * Gets the current x position of the cursor
+     */
     getXPos = () => {
         return this.cursor.position.x;
     };
+
+    /**
+     * Gets the current y position of the cursor
+     */
     getYPos = () => {
         return this.cursor.position.y;
     };
+
+    /**
+     * Gets the current z position of the cursor
+     */
     getZPos = () => {
         return this.cursor.position.z;
     };
+
+    /**
+     * Gets the current x scale of the cursor
+     */
     getXScale = () => {
         return this.cursor.scale.x;
     };
+
+    /**
+     * Gets the current y scale of the cursor
+     */
     getYScale = () => {
         return this.cursor.scale.y;
     };
+
+    /**
+     * Gets the current z scale of the cursor
+     */
     getZScale = () => {
         return this.cursor.scale.z;
     };
+
+    /**
+     * Gets the current x rotation of the cursor
+     */
     getXRotation = () => {
         return this.cursor.rotation.x;
     };
+
+    /**
+     * Gets the current y rotation of the cursor
+     */
     getYRotation = () => {
         return this.cursor.rotation.y;
     };
+
+    /**
+     * Gets the current z rotation of the cursor
+     */
     getZRotation = () => {
         return this.cursor.rotation.z;
     };
+
+    /**
+     * Gets the current radius of the cursor
+     */
     getRadius = () => {
         return this.cursor.radius;
     };
+
+    /**
+     * Gets the current phi length of the cursor
+     */
     getPhiLength = () => {
         return this.cursor.phiLength;
     };
+
+    /**
+     * Gets the current lopp of the cursor
+     */
     getLoop = () => {
         return this.cursor.loop;
     };
+
+    /**
+     * Gets the current duration of the cursor
+     */
     getDuration = () => {
         return this.cursor.duration;
     };
+    
+    /**
+     * Gets the current magnitude of the cursor
+     */
     getMagnitude = () => {
         return this.cursor.magnitude.general;
     };
@@ -1131,6 +1583,11 @@ class Myr {
         return el;
     }
 
+    /**
+     * Gets the element associated with the given element ID
+     *  
+     * @param {string} outerElId target element ID
+     */ 
     getEl = (outerElId) => {
         if (outerElId.entity) {
             outerElId = outerElId.id;
@@ -1139,14 +1596,13 @@ class Myr {
     }
 
     /**
-    * @summary - Interface for setting an object's parameters in the DOM
-    * the idea is the setup an event listener as an almost DOM ready listener.
-    *
-    * @param {string} outerElId - target
-    * @param {string} type - what param to change
-    * @param {obj} newParam - changes
-    *
-    */
+     * Interface for setting an object's parameters in the DOM
+     * the idea is the setup an event listener as an almost DOM ready listener.
+     *
+     * @param {string} outerElId target element ID
+     * @param {string} type what param to change
+     * @param {*} newParam changes
+     */
     change = (outerElId, type, newParam) => {
         document.addEventListener("myr-view-rendered", () => {
             try {
@@ -1174,11 +1630,10 @@ class Myr {
     }
 
     /**
-    * @summary - This creates an entity w shape of object and merges with supplied params
+    * This creates an entity w shape of object and merges with supplied params
     *
-    * @param {string} shape - one of the allowed arguments to this.core()
-    * @param {obj} params - arguments to be merged, not guarenteed to be successful
-    *
+    * @param {string} shape one of the allowed arguments to this.core()
+    * @param {obj} params arguments to be merged, not guarenteed to be successful
     */
     mergeProps = (entity, params) => {
         let id = params && params.id ? params.id : entity.id;
@@ -1194,7 +1649,9 @@ class Myr {
         return new Promise(resolve => setTimeout(resolve, ms));
     }
 
-    // Return a Entity that can be used to group elements together
+    /**
+     * Return a Entity that can be used to group elements together
+     */
     group = () => {
         let base = {
             id: "grp" + this.genNewId(),
@@ -1207,7 +1664,11 @@ class Myr {
         return entity;
     }
 
-    // Transfer the object from MYR to the Entity
+    /**
+     * Transfer the object from MYR to the Entity
+     * 
+     * @param {number} id !!!DESCRIPTION NEEDED!!! 
+     */
     transfer = (id) => {
         let retVal = this.els[id];
         delete this.els[id];

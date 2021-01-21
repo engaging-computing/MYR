@@ -28,7 +28,7 @@ const selectStyle = {
 
 class SelectProject extends PureComponent {
     handleChange = (projectID) => {
-        //show warning if there's unsaved change
+        // show warning if there's unsaved change
         if(this.hasEditorChanged()){
             if((window.confirm("Are you sure you want to continue?\nYou will lose any unsaved work!"))){
                 if (this.props.user && this.props.user.uid) {
