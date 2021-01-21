@@ -29,7 +29,6 @@ import {
     MuiThemeProvider
 } from "@material-ui/core";
 import { save } from "../../../actions/projectActions.js";
-import { parseJSON } from "jquery";
 
 const exitBtnStyle = {
     position: "absolute",
@@ -582,7 +581,7 @@ class Header extends Component {
         const file = fileEvent.target.files[0];
         file.text().then((data) => {
             try{
-                let json = parseJSON(data);
+                let json = JSON.parse(data);
                 this.props.projectActions.importScenes(this.props.user.uid, json);
             }catch(err) {
                 alert("Invalid file uploaded");
