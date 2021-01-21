@@ -22,6 +22,7 @@ export const SYNC_USER_PROJ = "SYNC_USER_PROJ";
 export const ASYNC_EXAMP_PROJ = "ASYNC_EXAMP_PROJ";
 export const SYNC_EXAMP_PROJ = "SYNC_EXAMP_PROJ";
 export const DELETE_PROJ = "DELETE_PROJ";
+export const ADD_PROJS = "ADD_PROJS";
 
 export const NAME_SCENE = "NAME_SCENE";
 export const NEW_SCENE = "NEW_SCENE";

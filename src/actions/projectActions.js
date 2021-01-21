@@ -1,4 +1,5 @@
 import * as types from "../constants/ActionTypes";
+import { saveAs } from "file-saver";
 
 const sceneRef = "/apiv1/scenes";
 const previewRef = "/apiv1/preview/id";
@@ -72,22 +73,84 @@ export function deleteProj(uid, id, name) {
     };
 }
 
-export function importScenes(uid, sceneList) {
-    return () => {
+/**
+ * Adds an array of scenes to the redux store without removing existing entries
+ * 
+ * @param {Object[]} payload An array of scenes to be added to the Redux Store
+ * 
+ * @returns {Object} A object with the type of "ADD_PROJS" and the payload being the parameter payload
+ */
+export function syncAddUserProjs(payload) {
+    return {type: types.ADD_PROJS, payload: payload};
+}
+
+/**
+ * Requests the backend to export a specific or all of a user's scenes
+ * 
+ * @param {string} uid The JWT token for the user, this should be from this.props.user.uid in most components
+ * @param {string} scene The ObjectID of the scene to be exported, if undefined all scenes will be exported
+ */
+export function exportScenes(uid, scene = undefined) {
+    return async () => {
+        let param = "";
+        if(scene) {
+            param = `?id=${scene}`;
+        }
+
+        let resp = await fetch(`/apiv1/scenes/export${param}`, {headers: {"x-access-token": uid}});
+        switch(resp.status) {
+            case 204:
+                alert("There are no scenes saved for you to export!");
+                break;
+            case 200:
+                let data = await resp.json();
+                saveAs(new Blob([JSON.stringify(data)]), "MYR-export.json", {
+                    type: "application/json"
+                });
+                break;
+            default:
+                alert("There was a server error fetching your scenes.  Try again later");
+        }
+    };
+}
+
+/**
+ * Requests the backend to import all scenes from a given file
+ * 
+ * @param {string} uid The JWT token for the user, this should be from this.props.user.uid in most components
+ * @param {FileList} fileEvent A list of files that the user uploaded, currently there is support for only one.
+ */
+export function importScenes(uid, fileEvent) {
+    return async (dispatch) => {
+        const file = fileEvent.target.files[0];
+        let data = await file.text();
+        let json;
+        try{
+            json = JSON.parse(data);
+        }catch(err) {
+            alert("Invalid file uploaded");
+            console.error(err);
+            return;
+        }
+
         const headers = {
             "Content-Type": "application/json",
             "x-access-token": uid
         };
-    
-        fetch(`${sceneRef}/import`, {headers: headers, body: JSON.stringify(sceneList), method: "POST"}).then((resp) => {
-            resp.json().then((respBody) => {
-                if(resp.status !== 200) {
-                    alert(respBody.message);
-                }
-            });
+
+        let resp = await fetch(`${sceneRef}/import`, {headers: headers, body: JSON.stringify(json), method: "POST"});
+        let respBody = await resp.json();
+
+        if(resp.status !== 200) {
+            alert(respBody.message);
+            return;
+        }
+
+        respBody.imported.forEach(element => {
+            element.url = `${previewRef}/${element._id}`;
         });
 
-        asyncUserProj(uid);
+        dispatch(syncAddUserProjs(respBody.imported));
     };
 }
 
@@ -149,5 +212,6 @@ export default {
     asyncExampleProj,
     syncExampleProj,
     deleteProj,
-    importScenes
+    importScenes,
+    exportScenes
 };

@@ -9,7 +9,6 @@ import CourseSelect from "../../courses/CourseSelect.js";
 import WelcomeScreen from "../WelcomeScreen.js";
 import { GoogleLogin, GoogleLogout } from "react-google-login";
 import sockets from "socket.io-client";
-import { saveAs } from "file-saver";
 
 import * as layoutTypes from "../../../constants/LayoutTypes.js";
 
@@ -554,41 +553,8 @@ class Header extends Component {
         this.setState({ snackOpen: false });
     }
 
-    onExport = (scene = undefined) => {
-        let param = "";
-        if(scene) {
-            param = `?id=${scene}`;
-        }
-
-        fetch(`/apiv1/scenes/export${param}`, {headers: {"x-access-token": this.props.user.uid}}).then(async (resp) => {
-            switch(resp.status) {
-                case 204:
-                    alert("There are no scenes saved for you to export!");
-                    break;
-                case 200:
-                    let data = await resp.json();
-                    saveAs(new Blob([JSON.stringify(data)]), "MYR-export.json", {
-                        type: "application/json"
-                    });
-                    break;
-                default:
-                    alert("There was a server error fetching your scenes.  Try again later");
-            }
-        });
-    }
-
-    onImport = (fileEvent) => {
-        const file = fileEvent.target.files[0];
-        file.text().then((data) => {
-            try{
-                let json = JSON.parse(data);
-                this.props.projectActions.importScenes(this.props.user.uid, json);
-            }catch(err) {
-                alert("Invalid file uploaded");
-                console.error(err);
-            }
-            this.props.projectActions.asyncUserProj(this.props.user.uid);
-        });
+    handleExport = (scenes = undefined) => {
+        this.props.projectActions.exportScenes(this.props.user.uid, scenes);
     }
 
     renderSnackBar = () => {
@@ -785,8 +751,8 @@ class Header extends Component {
                         exampleProjs={this.props.projects.exampleProjs}
                         projectsOpen={this.state.projectsOpen}
                         handleProjectToggle={this.handleProjectToggle}
-                        exportFunc={this.onExport}
-                        importFunc={this.onImport}
+                        exportFunc={this.handleExport}
+                        importFunc={(fileEvent) => this.props.projectActions.importScenes(this.props.user.uid, fileEvent) }
                         tab={this.state.projectTab}
                         user={this.props.user} />
                     <MyrTour

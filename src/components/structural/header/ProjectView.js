@@ -448,7 +448,8 @@ class Project extends React.Component {
                                     <div className="row" style={{width: "100%", flexDirection: "row-reverse"}}>
                                         <div>
                                             <Tooltip title="Export all Scenes, use the share button to export individual scenes">
-                                                <Button onClick={() => {this.props.exportFunc(); } }>
+                                                {/* This needs to be in arrow function to prevent a parameter from being passed*/}
+                                                <Button onClick={() => { this.props.exportFunc();} }>
                                                     <Icon className="material-icons">get_app</Icon>
                                                     <span>&nbsp;</span>Export All
                                                 </Button>
@@ -457,6 +458,7 @@ class Project extends React.Component {
                                         <div>
                                             <form>
                                                 <input type="file" name="import" ref={this.inputFileRef} style={{visibility: "hidden"}} onChange={this.props.importFunc} accept=".json" />
+                                                {/*This needs to be in an arrow function since inputFileRef may not have created it's ref before ProjectView itself */}
                                                 <Button onClick={() => { this.inputFileRef.current.click(); }}>
                                                     <Icon className="material-icons">publish</Icon>
                                                     <span>&nbsp;</span>Import

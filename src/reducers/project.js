@@ -26,6 +26,14 @@ export default function project(state = initial_state, action) {
                 ...state,
                 userProjs: projs
             };
+        case types.ADD_PROJS:
+            let newProjs = action.payload;
+
+            projs = state.userProjs.concat(newProjs);
+            return {
+                ...state,
+                userProjs: projs
+            };
         default:
             return state;
     }
