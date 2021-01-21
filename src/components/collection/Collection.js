@@ -13,7 +13,9 @@ import { withStyles } from "@material-ui/core/styles";
 
 import "../../css/Collection.css";
 
-// FUNC to position modal in the middle of the screen
+/**
+ * FUNC to position modal in the middle of the screen
+ */
 function getModalStyle() {
     const top = 50;
     const left = 50;
@@ -25,17 +27,21 @@ function getModalStyle() {
     };
 }
 
-// CSS for modal
+/**
+ * CSS for modal
+ * 
+ * @param {*} theme !!!DESCRIPTION NEEDED!!!
+ */
 const modelStyles = theme => ({
     paper: {
         position: "absolute",
-        width: theme.spacing.unit * 60,
+        width: theme.spacing(60),
         backgroundColor: theme.palette.background.paper,
         boxShadow: theme.shadows[5],
-        padding: theme.spacing.unit * 4,
+        padding: theme.spacing(4),
     },
     button: {
-        margin: theme.spacing.unit,
+        margin: theme.spacing(1),
     }
 });
 
@@ -202,7 +208,9 @@ class CollectionModal extends Component {
         </div>
     );
 
-    // Render all of the elements
+    /**
+     * Render all of the elements
+     */
     render() {
         const { classes } = this.props;
         return (

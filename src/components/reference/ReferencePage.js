@@ -100,7 +100,7 @@ export default class Reference extends React.Component {
             <div id="reference-page">
                 <Tabs
                     id="reference-tabs"
-                    fullWidth={true}
+                    variant="fullWidth"
                     value={this.state.value}
                     onChange={this.handleChange} >
                     <Tab
