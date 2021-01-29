@@ -153,7 +153,7 @@ class View extends Component {
             //set the custom indicator geometry, material, and layer.
             let geo = `primitive: ${ent.light.type+"LightIndicator"};`;
             let geoOutline = `primitive: ${ent.light.type+"LightOutlineIndicator"};`;
-            let mat = `color:${ent.color}; side:double;`;
+            let mat = `color:${ent.color}; side:front;`;
             let layer = "type: mesh; layer:1;";
 
             //this is a position for passing in to indicatorroation component(aframeReg.js) to determine the rotation of the light that use position as vector.
@@ -176,10 +176,10 @@ class View extends Component {
             if(ent.light.type === "hemisphere"){
                 return <a-entity>
                     <a-entity key={ent.id+"IndTop"} id={ent.id+"IndTop"} geometry={geo} material={mat} layer={layer} indicatorrotation={position}>
-                        <a-entity key={ent.id+"IndBottom"} id={ent.id+"IndBottom"} geometry={geo} material={`color:${ent.light.groundColor};side:double;`} layer={layer} indicatorrotation={oppositePosition}></a-entity>
+                        <a-entity key={ent.id+"IndBottom"} id={ent.id+"IndBottom"} geometry={geo} material={`color:${ent.light.secondColor};side:front;`} layer={layer} indicatorrotation={oppositePosition}></a-entity>
                     </a-entity>
                     <a-entity key={ent.id+"IndOutTop"} id={ent.id+"IndOut"} geometry={geoOutline} material={mat} outline layer={layer} indicatorrotation={position}>
-                        <a-entity key={ent.id+"IndOutBottom"} id={ent.id+"IndOutBottom"} geometry={geoOutline} material={`color:${ent.light.secondColor};side:double;`} outline layer={layer} indicatorrotation={oppositePosition}></a-entity>;
+                        <a-entity key={ent.id+"IndOutBottom"} id={ent.id+"IndOutBottom"} geometry={geoOutline} material={`color:${ent.light.secondColor};side:front;`} outline layer={layer} indicatorrotation={oppositePosition}></a-entity>;
                     </a-entity>
                 </a-entity>;
             } 
