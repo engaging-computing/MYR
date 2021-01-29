@@ -6,11 +6,8 @@ let colorRegEx = new RegExp("#([0-9]|[A-F]|[a-f]){6}");
 
 const defaultCursor = {
     color: "red",
-<<<<<<< HEAD
     texture: "",
-=======
     transparency: 0,
->>>>>>> 047ecb9056f221d67ea7ae16843443729e023164
     position: {
         x: 0,
         y: 0,
@@ -57,11 +54,11 @@ describe("Updates to Myr's Model", () => {
         expect(myr.cursor.texture).toEqual("https://learnmyr.org/img/MYR-Logo.png");
     });
 
-    it("improper texture should return undefined", () => {
+    it("improper texture should return empty texture", () => {
         myr.setTexture("asdfghjkl");
-        expect(myr.cursor.texture).toEqual(undefined);
+        expect(myr.cursor.texture).toEqual("");
         let getUndefinedTest = myr.getTexture();
-        expect(getUndefinedTest).toEqual(undefined);
+        expect(getUndefinedTest).toEqual("");
     });
 
     it("setTextureColoring(true) should allow a textured object to have a color other than white", () => {
