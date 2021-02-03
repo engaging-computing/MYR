@@ -7,7 +7,9 @@ import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 
 
-// This makes sure we are getting what we think we should
+/**
+ * This makes sure we are getting what we think we should
+ */
 Guided.propTypes = {
     editor: PropTypes.object.isRequired,
     user: PropTypes.object,
@@ -27,7 +29,10 @@ const mapStateToProps = state => ({
     collections: state.collections
 });
 
-// This maps dispatch actions to props
+/**
+ * This maps dispatch actions to props
+ * @param {*} dispatch !!!DESCRIPTION NEEDED!!!
+ */
 const mapDispatchToProps = dispatch => ({
     editorActions: bindActionCreators(Actions.EditorActions, dispatch),
     authActions: bindActionCreators(Actions.AuthActions, dispatch),
@@ -37,7 +42,9 @@ const mapDispatchToProps = dispatch => ({
     collectionActions: bindActionCreators(Actions.CollectionActions, dispatch)
 });
 
-// This does the binding to the redux store
+/**
+ * This does the binding to the redux store
+ */
 export default connect(
     mapStateToProps,
     mapDispatchToProps

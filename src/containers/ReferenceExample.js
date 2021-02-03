@@ -5,14 +5,19 @@ import * as Actions from "../actions";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 
-// This makes sure we are getting what we think we should
+/**
+ * This makes sure we are getting what we think we should
+ */
 ReferenceExample.propTypes = {
     editor: PropTypes.object.isRequired,
     user: PropTypes.object,
     scene: PropTypes.object.isRequired,
 };
 
-// This makes the values accessible as props
+/**
+ * This makes the values accessible as props
+ * @param {*} state !!!DESCRIPTION NEEDED!!!
+ */
 const mapStateToProps = state => ({
     editor: state.editor,
     user: state.user.user,
@@ -23,7 +28,10 @@ const mapStateToProps = state => ({
     referenceExample: state.referenceExample
 });
 
-// This maps dispatch actions to props
+/**
+ * This maps dispatch actions to props
+ * @param {*} dispatch !!!DESCRIPTION NEEDED!!!
+ */
 const mapDispatchToProps = dispatch => ({
     editorActions: bindActionCreators(Actions.EditorActions, dispatch),
     authActions: bindActionCreators(Actions.AuthActions, dispatch),
@@ -34,7 +42,9 @@ const mapDispatchToProps = dispatch => ({
     referenceExampleActions: bindActionCreators(Actions.ReferenceExampleActions, dispatch)
 });
 
-// This does the binding to the redux store
+/**
+ * This does the binding to the redux store
+ */
 export default connect(
     mapStateToProps,
     mapDispatchToProps

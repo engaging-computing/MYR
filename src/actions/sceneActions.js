@@ -1,23 +1,23 @@
 import * as types from "../constants/ActionTypes";
 
 /**
-* @summary - This function registers the scene"s name with Redux
-*
-* @param {string} name - the name is given by the user or when a scene is loaded
-*
-* @returns - a reducer action with type:NAME_SCENE
-*/
+ * This function registers the scene"s name with Redux
+ *
+ * @param {string} name the name is given by the user or when a scene is loaded
+ *
+ * @returns a reducer action with type:NAME_SCENE
+ */
 export function nameScene(name) {
     return { type: types.NAME_SCENE, name };
 }
 
 /**
-* @summary - This function registers the scene's id with Redux
-*
-* @param {string} id - the id of the loaded scene
-*
-* @returns - a reducer action with type:LOAD_SCENE
-*/
+ * This function registers the scene's id with Redux
+ *
+ * @param {string} id the id of the loaded scene
+ *
+ * @returns a reducer action with type:LOAD_SCENE
+ */
 export function loadScene(data) {
     return { type: types.LOAD_SCENE, data };
 }
