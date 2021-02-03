@@ -39,7 +39,7 @@
         "react-color": "^2.17.0",
         "react-dom": "^16.2.0",
         "react-google-login": "^5.1.19",
-        "react-progressive-image": "^0.3.0",
+        "react-progressive-image": "^0.6.0",
         "react-redux": "^5.0.7",
         "react-router-dom": "^4.2.2",
         "react-select": "^3.0.4",
