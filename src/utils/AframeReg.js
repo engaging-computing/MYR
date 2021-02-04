@@ -43,7 +43,7 @@ AFRAME.registerComponent("layer",{
     }
 });   
 
-//Attached to the a-scene. Display aframe entities in different layer in scene at same time
+//Attached to the a-scene. Display aframe entities in different layer in scene every frame
 AFRAME.registerComponent("scenelayer",{
     schema:{
         default:""
@@ -104,8 +104,8 @@ AFRAME.registerComponent("indicatorrotation",{
         },
     },
     init: function(){
-        let mesh =  this.el.getObject3D("mesh");
-        mesh.rotation.copy(this.FindRotationOf2Pts(this.data.position,this.data.target));
+        let group =  this.el.getObject3D("group");
+        group.rotation.copy(this.FindRotationOf2Pts(this.data.position,this.data.target));
     },
     FindRotationOf2Pts: function(vec,vec2){
         let vector = new THREE.Vector3(vec.x,vec.y,vec.z);

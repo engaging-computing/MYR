@@ -148,47 +148,31 @@ class View extends Component {
     }
     //return elements that contains necessary configuration for light indicator based on light's type and properties
     lightIndicatorHelper =(ent)=>{ 
+
+        //this is a position for passing in to indicatorroation to determine the rotation of the light that use position as vector.
+        let position =`position:${ent.position.x || 0} ${ent.position.y || 0} ${ent.position.z || 0};`;
+        if(ent.light.target){
+            position += `target:${ent.light.target.x || 0} ${ent.light.target.y || 0} ${ent.light.target.z || 0};`;
+        } 
+
         //ambient light doesn't have an indicator
-        if(ent.light.type !== "ambient"){
-            //set the custom indicator geometry, material, and layer.
-            let geo = `primitive: ${ent.light.type+"LightIndicator"};`;
-            let geoOutline = `primitive: ${ent.light.type+"LightOutlineIndicator"};`;
-            let mat = `color:${ent.color}; side:front;`;
-            let layer = "type: mesh; layer:1;";
-
-            //this is a position for passing in to indicatorroation component(aframeReg.js) to determine the rotation of the light that use position as vector.
-            let position =`position:${ent.position.x || 0} ${ent.position.y || 0} ${ent.position.z || 0};`;
-            //this is second position for indicator of hemisphere light
-            let oppositePosition =`position: ${-ent.position.x || 0} ${-ent.position.y || 0} ${-ent.position.z || 0};`;
-
-            //if there's target to set, we need to count that into the rotation of light.
-            if(ent.light.target){
-                if(ent.light.type === "spot") {
-                    geo = "primitive: spotLightTargetIndicator";
-                    geoOutline = "primitive: spotLightTargetOutlineIndicator";
+        switch(ent.light.type){
+            case "point":
+                return <a-entity id={ent.id+"Ind"} key={ent.id+"Ind"} pointlightindicator={`color: ${ent.color};`}></a-entity>;
+            case "spot":
+                let target = true;
+                if(!ent.light.target) {
+                    position = "";
+                    target = false;
                 }
-                position += `target:${ent.light.target.x || 0} ${ent.light.target.y || 0} ${ent.light.target.z || 0};`;
-                oppositePosition += `target: ${-ent.light.target.x || 0} ${-ent.light.target.y || 0} ${-ent.light.target.z || 0};`;
-            //if there's no target and light is spotlight, set position to the empty string so that the calculation won't effect the indicator
-            } else if (ent.light.type === "spot") {
-                position = "";
-            }
-            if(ent.light.type === "hemisphere"){
-                return <a-entity>
-                    <a-entity key={ent.id+"IndTop"} id={ent.id+"IndTop"} geometry={geo} material={mat} layer={layer} indicatorrotation={position}>
-                        <a-entity key={ent.id+"IndBottom"} id={ent.id+"IndBottom"} geometry={geo} material={`color:${ent.light.secondColor};side:front;`} layer={layer} indicatorrotation={oppositePosition}></a-entity>
-                    </a-entity>
-                    <a-entity key={ent.id+"IndOutTop"} id={ent.id+"IndOut"} geometry={geoOutline} material={mat} outline layer={layer} indicatorrotation={position}>
-                        <a-entity key={ent.id+"IndOutBottom"} id={ent.id+"IndOutBottom"} geometry={geoOutline} material={`color:${ent.light.secondColor};side:front;`} outline layer={layer} indicatorrotation={oppositePosition}></a-entity>;
-                    </a-entity>
-                </a-entity>;
-            } 
-            return <a-entity >
-                <a-entity key={ent.id+"Ind"} id={ent.id+"Ind"} geometry={geo} material={mat} layer={layer} indicatorrotation={position}></a-entity>;
-                <a-entity key={ent.id+"IndOut"} id={ent.id+"IndOut"} geometry={geoOutline} material={mat} outline layer={layer} indicatorrotation={position}></a-entity>;
-            </a-entity>;
+                return <a-entity id={ent.id+"Ind"} key={ent.id+"Ind"} spotlightindicator={`color: ${ent.color}; target:${target}`} indicatorrotation={position}></a-entity>;
+            case "directional":
+                return <a-entity id={ent.id+"Ind"} key={ent.id+"Ind"} directionallightindicator={`color: ${ent.color};`} indicatorrotation={position}></a-entity>;
+            case "hemisphere":
+                return <a-entity id={ent.id+"Ind"} key={ent.id+"Ind"} hemispherelightindicator={`color: ${ent.color}; secondColor: ${ent.light.secondColor}`}></a-entity>;
+            default:
+                return null;
         }
-        return null;
     }
     //return string that contains necessary configuration for shadow based on light's type
     lightShadowHelper = (light) =>{
