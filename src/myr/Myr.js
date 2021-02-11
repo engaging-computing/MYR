@@ -769,23 +769,23 @@ class Myr {
         return el;
     }
 
-    gltf_model = (src) => {
+    gltf_model = (src, params) => {
+        let id = `gltf-model-${this.genNewId()}`;
         let asset = {
-            id: `gltf-model-${this.genNewId()}`,
+            id: id,
             src: src,
-            custom: true,
         }
         let el = {
-            custom: true,
-            position: this.cursor.position,
-            scale: this.cursor.scale,
+            id: id,
+            "gltf-Model": `#${id}`,
+            material: `color: ${this.cursor.color}; side: double`,
+            position: { ...this.cursor.position },
             rotation: this.cursor.rotation,
-            material: `color: ${this.cursor.color}; side: double;`,
+            scale: this.cursor.scale
         };
 
-        this.els.push(el);
         this.assets.push(asset);
-        return el;
+        return this.mergeProps(el, params);
     }
 
     // Prism is an alias for Polyhedron
