@@ -8,9 +8,14 @@
 
 # production
 /build
+/docs/*
+!docs/.gitkeep
 
 # api keys
 /src/keys
+
+# doc scripts
+GenerateDocsWindows.bat
 
 # misc
 .DS_Store

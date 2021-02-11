@@ -21,7 +21,7 @@ import {
 
 const exitBtnStyle = {
     //paddingbottom: 100,
-    position: "fixed",
+    position: "absolute",
     top: 0,
     right: 10,
 };
@@ -114,7 +114,6 @@ export default class Reference extends React.Component {
     render() {
         const style = {
             margin: 2,
-            padding: 0,
             color: "#fff",
         };
         const isDisabled = this.props.layoutType === layoutTypes.REFERENCE;
@@ -162,10 +161,9 @@ export default class Reference extends React.Component {
                             <div>
                                 <Tabs
                                     id="reference-tabs"
-                                    fullWidth={true}
                                     value={this.state.value}
                                     onChange={this.handleChange}
-                                    variant="scrollable">
+                                    variant="fullWidth">
                                     <Tab
                                         icon={<Icon className="material-icons geometry">category</Icon>}
                                         label={

@@ -74,6 +74,7 @@ export function deleteProj(uid, id, name) {
 
 /**
  * Saves a scene to MongoDB
+ * 
  * @param {*} uid The id of the logged in user 
  * @param {*} scene JSON data of the scene to be saved
  * @param {*} img JPEG Image file of the Scene
