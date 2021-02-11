@@ -143,51 +143,51 @@ class View extends Component {
     }
 
     basicMoveCam = () => {
-        if (browserType() === "mobile") {
-            return (
-                <a-entity id="rig" 
-                    debug={true}
-                    movement-controls="fly: true">
-                    <a-camera
-                        position={this.props.sceneConfig.settings.cameraPosition}
-                        look-controls="pointerLockEnabled: true">
-                        <a-cursor
-                            position="0 0 -1"
-                            geometry="primitive: ring; radiusInner: 0.02; radiusOuter: 0.03;"
-                            material="color: #CCC; shader: flat;" />
-                    </a-camera>
-                </a-entity> 
-            );
-        }
-        if (browserType() === "vr") {
-            return (
-                <a-entity id="rig" 
-                    debug={true}
-                    movement-controls>
-                    <a-camera
-                        position={this.props.sceneConfig.settings.cameraPosition}>
-                        <a-cursor
-                            position="0 0 -1"
-                            geometry="primitive: ring; radiusInner: 0.02; radiusOuter: 0.03;"
-                            material="color: #CCC; shader: flat;" />
-                    </a-camera>
-                </a-entity> 
-            );
-        }
-        else {
-            return (
-                <a-entity id="rig" debug={true}>
-                    <a-camera
-                        position={this.props.sceneConfig.settings.cameraPosition}
-                        look-controls="pointerLockEnabled: true"
-                        wasd-plus-controls="enabled: true">
-                        <a-cursor
-                            position="0 0 -1"
-                            geometry="primitive: ring; radiusInner: 0.02; radiusOuter: 0.03;"
-                            material="color: #CCC; shader: flat;" />
-                    </a-camera>
-                </a-entity>
-            );
+        switch(browserType()) {
+            case "mobile":
+                return (
+                    <a-entity id="rig" 
+                        debug={true}
+                        movement-controls="fly: true">
+                        <a-camera
+                            position={this.props.sceneConfig.settings.cameraPosition}
+                            look-controls="pointerLockEnabled: true">
+                            <a-cursor
+                                position="0 0 -1"
+                                geometry="primitive: ring; radiusInner: 0.02; radiusOuter: 0.03;"
+                                material="color: #CCC; shader: flat;" />
+                        </a-camera>
+                    </a-entity> 
+                );
+            case "vr":
+                return (
+                    <a-entity id="rig" 
+                        debug={true}
+                        movement-controls>
+                        <a-camera
+                            position={this.props.sceneConfig.settings.cameraPosition}>
+                            <a-cursor
+                                position="0 0 -1"
+                                geometry="primitive: ring; radiusInner: 0.02; radiusOuter: 0.03;"
+                                material="color: #CCC; shader: flat;" />
+                        </a-camera>
+                    </a-entity> 
+                );
+            case "desktop":
+            default:
+                return (
+                    <a-entity id="rig" debug={true}>
+                        <a-camera
+                            position={this.props.sceneConfig.settings.cameraPosition}
+                            look-controls="pointerLockEnabled: true"
+                            wasd-plus-controls="enabled: true">
+                            <a-cursor
+                                position="0 0 -1"
+                                geometry="primitive: ring; radiusInner: 0.02; radiusOuter: 0.03;"
+                                material="color: #CCC; shader: flat;" />
+                        </a-camera>
+                    </a-entity>
+                );
         }
     }
 
