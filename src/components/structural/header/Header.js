@@ -30,7 +30,7 @@ import {
 import { save } from "../../../actions/projectActions.js";
 
 const exitBtnStyle = {
-    position: "fixed",
+    position: "absolute",
     top: 0,
     right: 0,
 };
@@ -71,8 +71,8 @@ class Header extends Component {
     }
 
     /**
-    * @summary - When the component is done rendering, we want to:
-    */
+     * When the component is done rendering, we want to:
+     */
     componentDidMount() {
         this.props.projectActions.asyncExampleProj();
         this.props.courseActions.fetchCourses();
@@ -103,10 +103,12 @@ class Header extends Component {
     }
 
     /**
-    * @summary - Catches certain keyboard shortcuts
-    *
-    * @param {event} e - event from the keystroke.
-    */
+     * Catches certain keyboard shortcuts
+     *
+     * @param {event} e - event from the keystroke.
+     * 
+     * @return {void}
+     */
     handleKeyDown(e) {
         //metaKey is cmd and windows key in some browsers
         if (this.props.layoutType !== layoutTypes.REFERENCE) {
@@ -131,15 +133,15 @@ class Header extends Component {
     }
 
     /**
-    * @summary - Removes listener for real time sync process
-    */
+     * Removes listener for real time sync process
+     */
     componentWillUnmount() {
     }
 
     /**
-    * @summary - When we update, check to see if there is a new message by comparing the local state to
-    * props.message.time
-    */
+     * When we update, check to see if there is a new message by comparing the local state to
+     * props.message.time
+     */
     componentDidUpdate() {
         if (this.state.lastMsgTime !== this.props.message.time && this.props.message.text !== "") {
             this.setState({ snackOpen: true, lastMsgTime: this.props.message.time });
@@ -185,8 +187,8 @@ class Header extends Component {
     }
 
     /**
-    * @summary - The logout function runs when the user click to logout of the application.
-    */
+     * The logout function runs when the user click to logout of the application.
+     */
     logout = () => {
         // sync with application state
         this.props.logging.logout();
@@ -195,8 +197,8 @@ class Header extends Component {
     }
 
     /**
-    * @summary - The login function runs when the user click to login of the application.
-    */
+     * The login function runs when the user click to login of the application.
+     */
     login = (googleAuth) => {
         //googleAuth.getAuthResponse().id_token;
         googleAuth.profileObj["uid"] = googleAuth.getAuthResponse().id_token;
@@ -228,8 +230,8 @@ class Header extends Component {
     }
 
     /**
-    * @summary - This function produces the DOM elements to display logging functionality
-    */
+     * This function produces the DOM elements to display logging functionality
+     */
     loginBtn = () => {
         return (
             <div id="user" >
@@ -288,8 +290,8 @@ class Header extends Component {
     }
 
     /**
-    * @summary - This function handles when the user wants to toggle the logging menu
-    */
+     * This function handles when the user wants to toggle the logging menu
+     */
     handleLogClick = (event) => {
         event.preventDefault();
         this.setState({
@@ -298,22 +300,22 @@ class Header extends Component {
     };
 
     /**
-    * @summary - This sets the components current state to the input from the scene name form
-    */
+     * This sets the components current state to the input from the scene name form
+     */
     handleNameChange = (event) => {
         this.props.sceneActions.nameScene(event.target.value);
     }
 
     /**
-    * @summary - This sets the components current state to the input from the scene description form
-    */
+     * This sets the components current state to the input from the scene description form
+     */
     handleDescChange = (event) => {
         this.props.sceneActions.setDesc(event.target.value);
     }
 
     /**
-    * @summary - This function produces the form for inputting the scene's name and description
-    */
+     * This function produces the form for inputting the scene's name and description
+     */
     sceneName = () => {
         let sceneName = this.props.scene.name;
         let sceneDesc = this.props.scene.desc;
@@ -337,8 +339,8 @@ class Header extends Component {
     }
 
     /**
-    * @summary - handeRender gets the information from Ace Editor and calls the action: render()
-    */
+     * handeRender gets the information from Ace Editor and calls the action: render()
+     */
     handleRender = () => {
         try {
             let editor = window.ace.edit("ace-editor");
@@ -349,10 +351,10 @@ class Header extends Component {
     }
 
     /**
-    * @summary - This function will determine which projectId to use when saving.
-    *
-    * @returns - projectId
-    */
+     * This function will determine which projectId to use when saving.
+     *
+     * @returns - projectId
+     */
     getProjectId = () => {
         const { match } = this.props;
         let projectId = (match && match.params && match.params.id) || null;
@@ -373,8 +375,8 @@ class Header extends Component {
     }
 
     /**
-    * @summary - When the user clicks save it will upload the information to Firebase
-    */
+     * When the user clicks save it will upload the information to Firebase
+     */
     handleSave = (newCollectionID = undefined) => {
         let editor, text;
         if (!this.props.viewOnly) {
@@ -438,8 +440,8 @@ class Header extends Component {
     }
 
     /**
-    * @summary - resets the current scene
-    */
+     * resets the current scene
+     */
     clear = () => {
         try {
             let editor = window.ace.edit("ace-editor");
@@ -450,23 +452,23 @@ class Header extends Component {
     }
 
     /**
-    * @summary - toggles the save drawer
-    */
+     * toggles the save drawer
+     */
     handleSaveToggle = () => this.setState({ saveOpen: !this.state.saveOpen });
 
     /**
-    * @summary - forces save drawer closed
-    */
+     * forces save drawer closed
+     */
     handleSaveClose = () => this.setState({ saveOpen: false });
 
     /**
-    * @summary - forces save drawer closed
-    */
+     * forces save drawer closed
+     */
     handleSaveOpen = () => this.setState({ saveOpen: true });
 
     /**
-    * @summary - creates the save drawer
-    */
+     * creates the save drawer
+     */
     saveDrawer = () => {
         return (
             <Drawer
@@ -474,7 +476,7 @@ class Header extends Component {
                 className="side-drawer"
                 open={this.state.saveOpen}
                 onClose={this.handleSaveToggle} >
-                <IconButton variant="raised"
+                <IconButton variant="contained"
                     color="default"
                     style={exitBtnStyle}
                     onClick={this.handleSaveToggle}>
@@ -482,7 +484,7 @@ class Header extends Component {
                 </IconButton>
                 <this.sceneName />
                 <Button
-                    variant="raised"
+                    variant="contained"
                     size="small"
                     color="primary"
                     onClick={() => this.handleSave(false)}
@@ -494,8 +496,8 @@ class Header extends Component {
     }
 
     /**
-    * @summary - toggles the load project drawer
-    */
+     * toggles the load project drawer
+     */
     handleProjectToggle = () => {
         this.setState({ projectsOpen: !this.state.projectsOpen });
         this.setState({ projectTab: "a" });
@@ -546,8 +548,8 @@ class Header extends Component {
     }
 
     /**
-    * @summary - closes the snackbar that displays the message from render
-    */
+     * closes the snackbar that displays the message from render
+     */
 
     closeSnackBar = () => {
         this.setState({ snackOpen: false });
@@ -577,13 +579,12 @@ class Header extends Component {
     }
 
     /**
-    * @summary - render() creates the header and links the buttons
-    */
+     * creates the header and links the buttons
+     */
     render() {
         const style = {
             play: {
                 margin: 5,
-                padding: 0,
                 background: "linear-gradient(45deg, #38e438 30%, #58e458 90%)",
             },
             play_disabled: {
@@ -609,19 +610,17 @@ class Header extends Component {
             },
             default: {
                 margin: 2,
-                padding: 0,
                 color: "#fff",
             },
             disabled: {
                 margin: 2,
-                padding: 0,
                 color: "#777",
             },
         };
         const theme = createMuiTheme({
             palette: {
                 primary: {
-                    main: "#777",
+                    main: "#3f51b5",
                 }
             }
         });
@@ -631,7 +630,7 @@ class Header extends Component {
                 <div className="col-9 d-flex justify-content-start" style={{ paddingLeft: 0 }}>
                     <Sidebar scene={this.props.scene} nameScene={this.props.sceneActions.nameScene} >
                         <Button
-                            variant="raised"
+                            variant="contained"
                             onClick={() => { window.location.assign(window.origin); }}
                             color="primary"
                             className="sidebar-btn">
@@ -639,7 +638,7 @@ class Header extends Component {
                             Start New
                         </Button>
                         <Button
-                            variant="raised"
+                            variant="contained"
                             onClick={this.props.actions.recover}
                             color="primary"
                             className="sidebar-btn"
@@ -648,7 +647,7 @@ class Header extends Component {
                             Recover
                         </Button>
                         <Button
-                            variant="raised"
+                            variant="contained"
                             onClick={this.handleSaveToggle}
                             color="primary"
                             className="sidebar-btn"
@@ -657,7 +656,7 @@ class Header extends Component {
                             Save Project
                         </Button>
                         <Button
-                            variant="raised"
+                            variant="contained"
                             onClick={this.handleProjectToggle}
                             color="primary"
                             className="sidebar-btn">
@@ -665,7 +664,7 @@ class Header extends Component {
                             Open Project
                         </Button>
                         <Button
-                            variant="raised"
+                            variant="contained"
                             onClick={this.handleCollectionToggle}
                             color="primary"
                             className="sidebar-btn">
@@ -673,7 +672,7 @@ class Header extends Component {
                             Collections
                         </Button>
                         <Button
-                            variant="raised"
+                            variant="contained"
                             onClick={this.handleWelcomeToggle}
                             color="primary"
                             className="sidebar-btn">
@@ -791,9 +790,13 @@ class Header extends Component {
         );
     }
 
-    //You can pass functions into this in order to have
-    //multiple setState/state actions dispatched within an event handler
-    //Currently only used for render button
+    /**
+     * You can pass functions into this in order to have
+     * multiple setState/state actions dispatched within an event handler
+     * Currently only used for render button
+     * 
+     * @param {*} f 
+     */
     postpone(f) {
         window.setTimeout(f, 0);
     }

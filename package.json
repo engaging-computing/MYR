@@ -9,12 +9,14 @@
         "babel-eslint": "^9.0.0",
         "enzyme": "^3.3.0",
         "enzyme-adapter-react-16": "^1.1.1",
+        "esdoc": "^1.1.0",
+        "esdoc-standard-plugin": "^1.0.0",
         "eslint-plugin-react": "^7.13.0",
         "react-scripts": "2.1.1",
         "redux-devtools": "^3.4.1"
     },
     "dependencies": {
-        "@material-ui/core": "^1.5.1",
+        "@material-ui/core": "^4.11.2",
         "aframe": "^0.8.2",
         "aframe-animation-component": "^5.0.0",
         "aframe-environment-component": "^1.0.0",
@@ -25,6 +27,9 @@
         "browserslist": "^4.6.2",
         "cannon": "^0.6.2",
         "create-react-app": "^3.0.1",
+        "esdoc-ecmascript-proposal-plugin": "^1.0.0",
+        "esdoc-jsx-plugin": "^1.0.0",
+        "esdoc-react-plugin": "^1.0.1",
         "eslint": "5.6.0",
         "jquery": "^3.3.1",
         "qrcode": "^1.2.0",
@@ -50,11 +55,12 @@
         "start": "react-scripts start",
         "build": "react-scripts build",
         "lint": "./node_modules/.bin/eslint \"src/**/*.js\"",
-        "prod": "react-scripts build && mv build ../MYR-backend && rm -r ../MYR-backend/public/myr && mv ../MYR-backend/build ../MYR-backend/public/myr",
+        "prod": "react-scripts build && mv build ../MYR-backend && rm -r ../MYR-backend/public/myr && mv ../MYR-backend/build ../MYR-backend/public/myr && esdoc && rm -r ../MYR-backend/public/docs && mv docs ../MYR-backend/public",
         "coverage": "react-scripts test --env=jsdom --coverage --collectCoverageFrom=src/**/*.{js,jsx} --browser --silent",
         "test": "react-scripts test --env=jsdom --browser --silent",
         "eject": "react-scripts eject",
-        "analyze": "source-map-explorer build/static/js/main.*"
+        "analyze": "source-map-explorer build/static/js/main.*",
+        "doc": "./node_modules/.bin/esdoc"
     },
     "proxy": "http://localhost:1337/",
     "browserslist": [
