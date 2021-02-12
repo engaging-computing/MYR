@@ -15,6 +15,10 @@ const HtmlTooltip = withStyles(theme => ({
     },
 }))(Tooltip);
 
+const handleTextureOpen = () => {
+    window.open(window.origin + "/textureReference");
+};
+
 export const stringText = (text) => {
     return (
         <HtmlTooltip
@@ -260,6 +264,28 @@ let transformations = [
         example: "getRandomColor"
     },
     {
+        name: "getColor",
+        parameters: [],
+        description: <span>returns the current color of the cursor. The color can be changed by the setColor() or getRandomColor() functions </span>,
+    },
+    {
+        name: "setTexture",
+        parameters: [{type: "string", name: "texture"}],
+        description: <span>The setTexture function changes the texture of the cursor. The texture's normal color is displayed when setTextureColoring() is false, otherwise the texture will be affected by the current color. Textures can be applied either by using the name of one of <button id="textures" onClick = {handleTextureOpen} style = {{backgroundColor:"white", color:"blue", padding:0, border:"none"}}>these textures</button> or by inserting a valid url. An empty setTexture() or setTexture("") statement will remove the current texture.</span>,
+        example: "setTexture"
+    },
+    {
+        name: "setTextureColoring",
+        parameters: [{type: "bool", name:"boolean"}],
+        description: <span>The setTextureColoring function sets the textureColoring attribute in the cursor, turning whether colors are applied to objects with textures on and off. The default value is false.</span>,
+        example: "setTextureColoring"
+    },
+    {
+        name: "getTexture",
+        parameters: [],
+        description: <span>returns the current texture of the cursor. The texture can be changed by the setTexture() function.</span>,
+    },
+    {
         name: "setPosition",
         parameters: [{ type: "number", name: "x" }, { type: "number", name: "y" }, { type: "number", name: "z" }],
         description: <span>The setPosition function changes the position of the cursor along all axes.  The default positions are x:0, y:0, z:0.</span>,
@@ -310,6 +336,21 @@ let transformations = [
         description: <span>The increaseZPos function increases the z position of the cursor, or decreases the position using negative values. This function returns the z position after it is modified. The defualt increases the position by 1.</span>,
     },
     {
+        name: "getXPos",
+        parameters: [],
+        description: <span>returns the current x coordinate of the cursor. The x coordinate can be changed in the setPosition, setXPos, increacePosition, or increaceXPos functions.</span>
+    },
+    {
+        name: "getYPos",
+        parameters: [],
+        description: <span>returns the current y coordinate of the cursor. The y coordinate can be changed in the setPosition, setYPos, increacePosition, or increaceYPos functions.</span>
+    },
+    {
+        name: "getZPos",
+        parameters: [],
+        description: <span>returns the current z coordinate of the cursor. The z coordinate can be changed in the setPosition, setZPos, increacePosition, or increaceZPos functions.</span>
+    },
+    {
         name: "setScale",
         parameters: [{ type: "number", name: "x" }, { type: "number", name: "y" }, { type: "number", name: "z" }],
         description: <span>The setScale function changes the scale cursor component to the given ratios. Values greater than 1 make the object larger, and values between 0 and 1 make the object smaller. The default values are x:1, y:1, z:1.</span>,
@@ -332,6 +373,21 @@ let transformations = [
         parameters: [{ type: "number", name: "z" }],
         description: <span>The setZScale function changes the z component of the scale in the cursor. Values greater than 1 make the object larger, and values between 0 and 1 make the object smaller. The default z scale is 1.</span>,
         example: "setZScale"
+    },
+    {
+        name: "getXScale",
+        parameters: [],
+        description: <span>returns the current x scale component of the cursor. The x scale component can be changed by the setScale and setXScale functions.</span>
+    },
+    {
+        name: "getYScale",
+        parameters: [],
+        description: <span>returns the current y scale component of the cursor. The y scale component can be changed by the setScale and setYScale functions.</span>
+    },
+    {
+        name: "getZScale",
+        parameters: [],
+        description: <span>returns the current z scale component of the cursor. The z scale component can be changed by the setScale and setZScale functions.</span>
     },
     {
         name: "setRotation",
@@ -358,16 +414,41 @@ let transformations = [
         example: "rollZ"
     },
     {
+        name: "getXRotation",
+        parameters: [],
+        description: <span>returns the current x rotation component of the cursor. The x rotation component can be changed by the setPosition or pitchX functions.</span>
+    },
+    {
+        name: "getYRotation",
+        parameters: [],
+        description: <span>returns the current y rotation component of the cursor. The y rotation component can be changed by the setPosition or yawY functions.</span>
+    },
+    {
+        name: "getZRotation",
+        parameters: [],
+        description: <span>returns the current z rotation component of the cursor. The z rotation component can be changed by the setPosition or rollZ functions.</span>
+    },
+    {
         name: "setRadius",
         parameters: [{ type: "number", name: "radius" }],
         description: <span>The setRadius function changes the radius of certain shapes. The shapes are: circle, cone, cylinder, dodecahedron, and torus. The default value is 1.</span>,
         example: "setRadius"
     },
     {
+        name: "getRadius",
+        parameters: [],
+        description: <span>Returns the current radius of the cursor. The radius can be changed by the setRadius function.</span>
+    },
+    {
         name: "setPhiLength",
         parameters: [{ type: "number", name: "phiLength" }],
         description: <span>The setPhiLength function sets the phi length of the cursor in degrees. This changes the number of degrees shown of certain shapes. Interesting shapes can be achieved with values greater than 360. The default phi length is 360.</span>,
         example: "setPhiLength"
+    },
+    {
+        name: "getPhiLength",
+        parameters: [],
+        description: <span>returns the current phi Length of the cursor. The phi Length can be changed by the setPhiLength function.</span>
     },
     {
         name: "makeDroppable",
@@ -411,16 +492,31 @@ let animations = [
         example: "setLoop"
     },
     {
+        name: "getLoop",
+        parameters: [],
+        description: <span>Returns whether the loop attribute has been set to true or false. The default value is true but can be changed by the setLoop function.</span>
+    },
+    {
         name: "setDuration",
         parameters: [{ type: "number", name: "duration" }],
         description: <span>The setDuration function sets the duration attribute of the cursor in milliseconds. The default value is 1000.</span>,
         example: "setDuration"
     },
     {
+        name: "getDuration",
+        parameters: [],
+        description: <span>The getDuration function returns the current duration attribute of the cursor. The duration can be changed by the setDuration function.</span>
+    },
+    {
         name: "setMagnitude",
         parameters: [{ type: "number", name: "magnitude" }],
         description: <span>The setMagnitude function sets the magnitude attribute of the cursor in units or degrees. The default value is 1.</span>,
         example: "setMagnitude"
+    },
+    {
+        name: "getMagnitude",
+        parameters: [],
+        desription: <span>The getMagnitude function returns the current magnitude attribute of the cursor. The magnitude can be changed by the setMagnitude function.</span>
     },
     {
         name: "spin",

@@ -1,4 +1,5 @@
 import myrReference from "../../myr/reference.js";
+import myrTextures from "../structural/Textures.js";
 
 export const customCompleter = {
     getCompletions: function (editor, session, pos, prefix, callback) {
@@ -32,6 +33,11 @@ export const customCompleter = {
             "public",
             "protected",
             "static"
+        ];
+
+        let texture = myrTextures();
+        let Texture = [...texture.TexturePack.map(obj => obj.title),
+            "group()"
         ];
 
         let reference = myrReference();
@@ -216,6 +222,15 @@ export const customCompleter = {
                 value: word,
                 meta: "color",
                 score: 0
+            };
+        }));
+
+        callback(null, Texture.map(function (word) {
+            return {
+                caption: word,
+                value: word,
+                meta: "texture",
+                score: 3
             };
         }));
     }
