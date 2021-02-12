@@ -63,6 +63,7 @@ export function fetchCourse(courseId) {
                         }
 
                         dispatch(loadLesson(json.lessons[0] || ""));
+                        dispatch(sceneActions.loadSettings(json.lessons[0].settings || {}))
                         dispatch(render(json.lessons[0].code || ""));
                         dispatch(updateSavedText(json.lessons[0].code || ""));
                         dispatch(sceneActions.setNameDesc(
@@ -96,6 +97,8 @@ export function loadCourse(course) {
 export function fetchLesson(json) {
     return (dispatch) => {
         dispatch(loadLesson(json));
+        dispatch(sceneActions.resetSettings());
+        dispatch(sceneActions.loadSettings(json.settings || {}))
         dispatch(render(json.code || ""));
         dispatch(updateSavedText(json.code || ""));
         dispatch(sceneActions.nameScene(json.name));
