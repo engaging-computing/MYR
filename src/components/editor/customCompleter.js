@@ -44,6 +44,7 @@ export const customCompleter = {
         let keyWords = [...reference.geometry.map(obj => obj.name + "()"),
             ...reference.transformations.map(obj => obj.name + "()"),
             ...reference.animations.map(obj => obj.name + "()"),
+            ...reference.lights.map(obj=>obj.name+"()"),
             "group()"
         ];
 

@@ -69,6 +69,9 @@ const generateMockProps = () => {
                 showFloor: true,
                 cameraPosition: "0 1.6 3",
                 viewOnly: false,
+                defaultLight: true,
+                castShadow: false,
+                lightIndicator: false,
                 collectionID: ""
             },
         },
@@ -319,6 +322,9 @@ describe("Scene Reducer", () => {
                 showFloor: true,
                 cameraPosition: "0 1.6 3",
                 viewOnly: false,
+                defaultLight: true,
+                castShadow: false,
+                lightIndicator: false,
                 collectionID: ""
             }
         };

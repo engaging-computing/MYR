@@ -481,7 +481,12 @@ let transformations = [
         name: "getCursorAttribute",
         parameters: [{ type: "string", name: "key" }],
         description: <span>The getCursorAttribute function allows the user to get a cursor attributes set by the setCursorAttribute function or by any other cursor setter.</span>
-    }
+    },
+    {
+        name: "resetTransformationCursor",
+        parameters: [],
+        description: <span>The resetTransformationCursor function resets the transformation properties of the cursor to their defaults.</span>,
+    }, 
 ];
 
 let animations = [
@@ -602,7 +607,11 @@ let animations = [
         description: <span>The colorShift function shifts the element from its original color to the given color. All colors valid for setColor are applicable.</span>,
         example: "colorShift"
     },
-
+    {
+        name: "resetAnimationCursor",
+        parameters: [],
+        description: <span>The resetAnimationCursor function resets the properties of the cursor that contains animation properties to their defaults.</span>,
+    }, 
     // {
     //   name: <span>spin(<span className="string">element</span>, <span className="number">magnitude</span>, <span className="bool">loop</span>, <span className="number">duration</span>)</span>,
     //   description: <span>Spins the element around the y axis <span className="number">magnitude</span> degrees.</span>
@@ -656,6 +665,68 @@ let animations = [
     //   description: <span>Modifies transparency from 0 to <span className="number">magnitude</span> (0,1] over <span className="number">duration</span> milliseconds.</span>
     // },
 ];
+let lights = [
+    {
+        name: "ambientLight",
+        parameters: [],
+        description: <span>The ambientLight function makes a light that casts a light in every direction in the scene using the current cursor attributes. This function returns an {stringText("elementID")}.</span>
+    },
+    {
+        name: "directionalLight",
+        parameters: [],
+        description: <span>The directionalLight function makes a light that casts an infinite, parallel light in a specific direction. This function returns an {stringText("elementID")}.</span>
+    },
+    {
+        name: "spotLight",
+        parameters: [],
+        description: <span>The spotLight function makes a light that is emitted from a single point in one direction. This function returns an {stringText("elementID")}.</span>
+    },
+    {
+        name: "pointLight",
+        parameters: [],
+        description: <span>The spotLight function makes a light that is emitted from a single point in all directions. This function returns an {stringText("elementID")}.</span>
+    },
+    {
+        name: "hemisphereLight",
+        parameters: [{type:"string",name:"secondColor"}],
+        description: <span>The hemisphereLight function makes a light that has 2 colors on opposite sides, creating 2 distinct lighting colors. This function returns an {stringText("elementID")}.</span>
+    },
+    {
+        name: "setIntensity",
+        parameters: [{type:"number",name:"intensity"}],
+        description: <span>The setIntensity function changes the intensity/strength of the light casting the scene. The default value is 1.0.</span>
+    },
+    {
+        name: "setBeamAngle",
+        parameters: [{type:"number",name:"degree"}],
+        description: <span>The setBeamAngle function changes the maximum extent of a spotlight from its direction in degrees. The default value is 60.</span>
+    },
+    {
+        name: "setDecay",
+        parameters: [{type:"number",name:"decay"}],
+        description: <span>The setDecay function changes the rate that light dims as it travels. The default value is 1.0.</span>
+    },
+    {
+        name: "setDistance",
+        parameters: [{type:"number",name:"distance"}],
+        description: <span>The setDistance function sets the distance where the light’s intensity becomes 0. If the distance is 0, then the light does not decay with distance. The default value is 0.0.</span>
+    },
+    {
+        name: "setDiffusion",
+        parameters: [{type:"number",name:"diffusion"}],
+        description: <span>The setDiffusion function sets the magnitude of diffusion on the edges of a spotlight . The default value is 0.0.</span>
+    },
+    {
+        name: "setLightTarget",
+        parameters: [{type:"number",name:"x"},{type:"number",name:"y"},{type:"number",name:"z"}],
+        description: <span>The setLightTarget function sets the point where the light should be pointed to. The default values are x:0, y:0, z:0.</span>
+    },
+    {
+        name: "resetLightCursor",
+        parameters: [],
+        description: <span>The resetLightCursor function resets the properties of the cursor that contains light properties to their defaults.</span>
+    },
+];
 
 let groups = [
     {
@@ -702,6 +773,7 @@ const reference = {
     transformations: transformations,
     animations: animations,
     groups: groups,
+    lights:lights,
 };
 
 export default function r(ref = reference) {
