@@ -128,6 +128,7 @@ export const dataText = (text) => {
 let geometry = [
     {
         name: "box",
+        byname: "cube",
         parameters: [],
         description: <span>The box function makes a 3D quadrilateral using the current cursor attributes. This function returns an {stringText("elementID")}.</span>,
         example: "box"
