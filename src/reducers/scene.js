@@ -145,7 +145,7 @@ export default function scene(state = initial_state, action) {
             return {
                 ...state,
                 settings: DEF_SETTINGS
-            }
+            };
         default:
             return state;
     }
