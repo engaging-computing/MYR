@@ -72,8 +72,12 @@ export function loadSettings(payload) {
     return { type: types.LOAD_SETTINGS, payload };
 }
 
-export function changeSetting(payload) {
-    return { type: types.LOAD_SETTINGS, payload };
+export function changeSettings(payload) {
+    return { type: types.CHANGE_SETTINGS, payload };
+}
+
+export function resetSettings() {
+    return { type: types.RESET_SETTINGS };
 }
 
 export function addCollectionID(payload) {
@@ -105,7 +109,8 @@ export default {
     toggleFly,
     toggleFloor,
     loadSettings,
-    changeSetting,
+    changeSettings,
+    resetSettings,
     addCollectionID,
     setDesc,
     setNameDesc,

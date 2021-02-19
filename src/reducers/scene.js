@@ -135,7 +135,7 @@ export default function scene(state = initial_state, action) {
                 name: action.payload.name,
                 desc: action.payload.desc
             };
-        case types.CHANGE_SETTING:
+        case types.CHANGE_SETTINGS:
             const { param, val } = action.payload;
             return {
                 ...state,
@@ -143,6 +143,11 @@ export default function scene(state = initial_state, action) {
                     ...state.settings,
                     [param]: val
                 }
+            };
+        case types.RESET_SETTINGS:
+            return {
+                ...state,
+                settings: DEF_SETTINGS
             };
         case types.TOGGLE_DEFAULT_LIGHT:
             return {
