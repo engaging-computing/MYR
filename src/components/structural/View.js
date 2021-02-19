@@ -158,20 +158,19 @@ class View extends Component {
         //ambient light doesn't have an indicator
         switch(ent.light.type){
             case "point":
-                return <a-entity id={ent.id+"Ind"} key={ent.id+"Ind"} pointlightindicator={`color: ${ent.color};`}></a-entity>;
+                return <a-entity id={ent.id+"Ind"} key={ent.id+"Ind"} pointlightindicator={`color: ${ent.color};`} layer="type:group; layer:1"></a-entity>;
             case "spot":
                 let target = true;
                 if(!ent.light.target) {
                     position = "";
                     target = false;
                 }
-                return <a-entity id={ent.id+"Ind"} key={ent.id+"Ind"} spotlightindicator={`color: ${ent.color}; target:${target}`} indicatorrotation={position}></a-entity>;
+                return <a-entity id={ent.id+"Ind"} key={ent.id+"Ind"} spotlightindicator={`color: ${ent.color}; target:${target}`} indicatorrotation={position} layer="type:group; layer:1"></a-entity>;
             case "directional":
-                return <a-entity id={ent.id+"Ind"} key={ent.id+"Ind"} directionallightindicator={`color: ${ent.color};`} indicatorrotation={position}></a-entity>;
+                return <a-entity id={ent.id+"Ind"} key={ent.id+"Ind"} directionallightindicator={`color: ${ent.color};`} indicatorrotation={position} layer="type:group; layer:1"></a-entity>;
             case "hemisphere":
-                return <a-entity id={ent.id+"Ind"} key={ent.id+"Ind"} hemispherelightindicator={`color: ${ent.color}; secondColor: ${ent.light.secondColor}`}></a-entity>;
+                return <a-entity id={ent.id+"Ind"} key={ent.id+"Ind"} hemispherelightindicator={`color: ${ent.color}; secondColor: ${ent.light.secondColor}`} layer="type:group; layer:1"></a-entity>;
             default:
-                return null;
         }
     }
     //return string that contains necessary configuration for shadow based on light's type
