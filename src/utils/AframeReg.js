@@ -39,7 +39,14 @@ AFRAME.registerComponent("layer",{
         },
     },
     init: function(){
-        this.el.getObject3D(this.data.type).layers.set(this.data.layer);
+        let obj = this.el.getObject3D(this.data.type);
+        if(this.data.type === "group"){
+            obj.children.forEach((child)=>{
+                child.layers.set(this.data.layer);
+            });
+        } else {
+            obj.layers.set(this.data.layer);
+        }
     }
 });   
 
@@ -55,11 +62,11 @@ AFRAME.registerComponent("scenelayer",{
     },
     tick: function(){
         this.renderer.autoClear = true;
-        this.camera.layers.set(0);
+        this.camera.layers.set(1);
         this.renderer.render(this.scene, this.camera);
 
         this.renderer.autoClear = false;
-        this.camera.layers.set(1);
+        this.camera.layers.set(0);
         this.renderer.render(this.scene, this.camera);
     }
 });
