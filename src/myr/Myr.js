@@ -1153,6 +1153,28 @@ class Myr {
         return this.mergeProps(base, params);
     }
 
+    gltf_model = (src, params) => {
+        let id = `gltf-model-${this.genNewId()}`;
+        if(this.modelMap.has(src)) {
+            src = this.modelMap.get(src);
+        }
+        let asset = {
+            id: id,
+            src: src,
+        }
+        let el = {
+            id: id,
+            "gltf-Model": `#${id}`,
+            material: `color: ${this.cursor.color}; side: double`,
+            position: { ...this.cursor.position },
+            rotation: this.cursor.rotation,
+            scale: this.cursor.scale
+        };
+
+        this.assets.push(asset);
+        return this.mergeProps(el, params);
+    }
+
     ambientLight  = (params) => {
         let base = {
             id: "lgt" + this.genNewId(),
@@ -1309,30 +1331,6 @@ class Myr {
         }else{
             console.error("must pass a numeric for setLightTarget");
         }
-    }
-
-    
-
-    gltf_model = (src, params) => {
-        let id = `gltf-model-${this.genNewId()}`;
-        if(this.modelMap.has(src)) {
-            src = this.modelMap.get(src);
-        }
-        let asset = {
-            id: id,
-            src: src,
-        }
-        let el = {
-            id: id,
-            "gltf-Model": `#${id}`,
-            material: `color: ${this.cursor.color}; side: double`,
-            position: { ...this.cursor.position },
-            rotation: this.cursor.rotation,
-            scale: this.cursor.scale
-        };
-
-        this.assets.push(asset);
-        return this.mergeProps(el, params);
     }
 
     // Prism is an alias for Polyhedron
