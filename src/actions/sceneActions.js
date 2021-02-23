@@ -25,6 +25,16 @@ export function loadScene(data) {
 export function toggleCoordSky() {
     return { type: types.TOGGLE_COORD_SKY };
 }
+export function toggleDefaultLight() {
+    return { type: types.TOGGLE_DEFAULT_LIGHT };
+}
+export function toggleCastShadow() {
+    return { type: types.TOGGLE_CAST_SHADOW };
+}
+
+export function toggleLightIndicator(){
+    return {type: types.TOGGLE_LIGHT_INDICATOR};
+}
 
 export function changeSkyColor(color) {
     return { type: types.CHANGE_SKY_COLOR, color };
@@ -62,8 +72,12 @@ export function loadSettings(payload) {
     return { type: types.LOAD_SETTINGS, payload };
 }
 
-export function changeSetting(payload) {
-    return { type: types.LOAD_SETTINGS, payload };
+export function changeSettings(payload) {
+    return { type: types.CHANGE_SETTINGS, payload };
+}
+
+export function resetSettings() {
+    return { type: types.RESET_SETTINGS };
 }
 
 export function addCollectionID(payload) {
@@ -95,9 +109,13 @@ export default {
     toggleFly,
     toggleFloor,
     loadSettings,
-    changeSetting,
+    changeSettings,
+    resetSettings,
     addCollectionID,
     setDesc,
     setNameDesc,
-    removeCollectionID
+    removeCollectionID,
+    toggleDefaultLight,
+    toggleCastShadow,
+    toggleLightIndicator
 };

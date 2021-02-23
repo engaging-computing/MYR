@@ -1,4 +1,5 @@
 import myrReference from "../../myr/reference.js";
+import myrTextures from "../structural/Textures.js";
 
 export const customCompleter = {
     getCompletions: function (editor, session, pos, prefix, callback) {
@@ -34,10 +35,16 @@ export const customCompleter = {
             "static"
         ];
 
+        let texture = myrTextures();
+        let Texture = [...texture.TexturePack.map(obj => obj.title),
+            "group()"
+        ];
+
         let reference = myrReference();
         let keyWords = [...reference.geometry.map(obj => obj.name + "()"),
             ...reference.transformations.map(obj => obj.name + "()"),
             ...reference.animations.map(obj => obj.name + "()"),
+            ...reference.lights.map(obj=>obj.name+"()"),
             "group()"
         ];
 
@@ -216,6 +223,15 @@ export const customCompleter = {
                 value: word,
                 meta: "color",
                 score: 0
+            };
+        }));
+
+        callback(null, Texture.map(function (word) {
+            return {
+                caption: word,
+                value: word,
+                meta: "texture",
+                score: 3
             };
         }));
     }
