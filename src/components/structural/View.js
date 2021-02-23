@@ -117,15 +117,6 @@ class View extends Component {
             if (ent.tube) {
                 return <a-tube path={ent.path} radius={ent.radius} material={ent.material}></a-tube>;
             }
-            /*if (ent.custom) {
-                let flattened = {
-                    ...ent,
-                    position: `${ent.position.x || 0} ${ent.position.y || 0} ${ent.position.z || 0}`,
-                    scale: `${ent.scale.x || 1} ${ent.scale.y || 1} ${ent.scale.z || 1}`,
-                    rotation: `${ent.rotation.x || 0} ${ent.rotation.y || 0} ${ent.rotation.z || 0}`
-                };
-                return <a-entity key={ent.id} {...flattened}></a-entity>
-            }*/
             return <a-entity key={ent.id} {...flattened}></a-entity>;
         }
     }
