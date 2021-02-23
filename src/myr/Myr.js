@@ -7,6 +7,7 @@ class Myr {
     constructor(baseEls) {
         this.counter = 0;
         this.baseEls = baseEls;
+        this.modelMap = new Map();
         this.els = [];
         this.assets = [];
         this.res = { els: this.els, assets: this.assets };
@@ -44,7 +45,6 @@ class Myr {
                 this.els[it] = this.baseEls[it];
             });
         }
-
     }
 
     /**
@@ -54,6 +54,9 @@ class Myr {
      *
      */
     init = () => {
+        // Add predefined names to modelMap
+        this.modelMap.set('sword', 'https://github.com/beewyka819/MYR/raw/models/assets/gltf/sword_2.9.glb');
+        this.modelMap.set('test', 'https://github.com/beewyka819/MYR/raw/models/assets/gltf/test.glb');
 
         // Get all the function names of the Myr(this) class
         let funs = Object.keys(this).filter((p) => {
@@ -1061,8 +1064,13 @@ class Myr {
         return el;
     }
 
+    
+
     gltf_model = (src, params) => {
         let id = `gltf-model-${this.genNewId()}`;
+        if(this.modelMap.has(src)) {
+            src = this.modelMap.get(src);
+        }
         let asset = {
             id: id,
             src: src,
