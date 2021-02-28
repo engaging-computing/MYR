@@ -42,7 +42,6 @@ export const customCompleter = {
 
         let reference = myrReference();
         let keyWords = [...reference.geometry.map(obj => obj.name + "()"),
-            ...reference.geometry.map(obj => obj.byname + "()"),
             ...reference.transformations.map(obj => obj.name + "()"),
             ...reference.animations.map(obj => obj.name + "()"),
             "group()"

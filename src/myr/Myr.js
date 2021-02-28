@@ -1101,7 +1101,6 @@ class Myr {
     // Cube is an alias for Box
     cube = this.box
 
-
     /********************* ANIMATIONS *********************/
 
     /**
