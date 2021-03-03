@@ -271,7 +271,7 @@ let transformations = [
     {
         name: "setTexture",
         parameters: [{type: "string", name: "texture"}],
-        description: <span>The setTexture function changes the texture of the cursor. The texture's normal color is displayed when setTextureColoring() is false, otherwise the texture will be affected by the current color. Textures can be applied either by using the name of one of <button id="textures" onClick = {handleTextureOpen} style = {{backgroundColor:"white", color:"blue", padding:0, border:"none"}}>these textures</button> or by inserting a valid url. An empty setTexture() or setTexture("") statement will remove the current texture.</span>,
+        description: <span>The setTexture function changes the texture of the cursor. The texture's normal color is displayed when setTextureColoring() is false, otherwise the texture will be affected by the current color. Textures can be applied either by using the name of one of <button id="textures" onClick = {handleTextureOpen} style = {{backgroundColor:"white", color:"#47a0ff", padding:0, border:"none"}}>these textures</button> or by inserting a valid url (e.g. "bricks" or "https://learnmyr.org/img/MYR-Logo.png"). An empty setTexture() or setTexture("") statement will remove the current texture.</span>,
         example: "setTexture"
     },
     {
