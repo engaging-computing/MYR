@@ -3,12 +3,12 @@ import "aframe-physics-system";
 import Group from "./Group";
 import CANNON from "cannon";
 import TexturePack from "../components/structural/Textures.js";
+import ModelPack from "../components/structural/Models.js";
 
 class Myr {
     constructor(baseEls) {
         this.counter = 0;
         this.baseEls = baseEls;
-        this.modelMap = new Map();
         this.els = [];
         this.assets = [];
         this.res = { els: this.els, assets: this.assets };
@@ -65,10 +65,6 @@ class Myr {
      *
      */
     init = () => {
-        // Add predefined names to modelMap
-        this.modelMap.set('sword', 'https://github.com/beewyka819/MYR/raw/models/assets/gltf/sword_2.9.glb');
-        this.modelMap.set('test', 'https://github.com/beewyka819/MYR/raw/models/assets/gltf/test.glb');
-
         // Get all the function names of the Myr(this) class
         let funs = Object.keys(this).filter((p) => {
             return typeof this[p] === "function";
@@ -1155,24 +1151,27 @@ class Myr {
 
     gltf_model = (src, params) => {
         let id = `gltf-model-${this.genNewId()}`;
-        if(this.modelMap.has(src)) {
-            src = this.modelMap.get(src);
+
+        let models = ModelPack();
+        if(models.ModelPack.has(src)) {
+            src = models.ModelPack.get(src);
         }
+        
         let asset = {
             id: id,
             src: src,
         }
-        let el = {
+        let base = {
             id: id,
             "gltf-Model": `#${id}`,
-            material: `color: ${this.cursor.color}; side: double`,
             position: { ...this.cursor.position },
             rotation: this.cursor.rotation,
-            scale: this.cursor.scale
+            scale: this.cursor.scale,
+            material: ((this.cursor.texture === "" || this.cursor.textureColoring) ? `color: ${this.cursor.color};` : "color: white;") + `side: double; src: ${this.cursor.texture}; opacity: ${1 - this.cursor.transparency};`
         };
 
         this.assets.push(asset);
-        return this.mergeProps(el, params);
+        return this.mergeProps(base, params);
     }
 
     ambientLight  = (params) => {
