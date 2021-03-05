@@ -521,7 +521,7 @@ let animations = [
     {
         name: "getMagnitude",
         parameters: [],
-        desription: <span>The getMagnitude function returns the current magnitude attribute of the cursor. The magnitude can be changed by the setMagnitude function.</span>
+        description: <span>The getMagnitude function returns the current magnitude attribute of the cursor. The magnitude can be changed by the setMagnitude function.</span>
     },
     {
         name: "spin",
