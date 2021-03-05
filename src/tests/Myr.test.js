@@ -138,11 +138,25 @@ describe("Updates to Myr's Model", () => {
         expect(colorRegEx.test(color)).toBeTruthy();
     });
 
+    it("to set Random Color", ()=> {
+        myr.cursor.color = null;
+        myr.setRandomColor();
+        expect(myr.cursor.color).not.toBeNull(); 
+    })
+
     it("pick Random Color out of a list of colors", () => {
         let colors = ["blue", "green", "red", "hotpink", "FF00FF", "rgb(100,33,93)"];
         let color = myr.getRandomColor(colors);
         expect(color).not.toBeUndefined();
         expect(colors.includes(color)).toBeTruthy();
+    });
+
+    it("pick and set Random Color out of a list of colors", () => {
+        let colors = ["blue", "green", "red", "hotpink", "FF00FF", "rgb(100,33,93)"];
+        myr.cursor.color = null;
+        myr.setRandomColor(colors);
+        expect(myr.cursor.color).not.toBeNull();
+        expect(colors.includes(myr.cursor.color)).toBeTruthy();
     });
 });
 

@@ -729,8 +729,12 @@ class Myr {
                 i++;
             }
         }
-        this.cursor.color = color;
         return color;
+    }
+
+    setRandomColor = (colors = null) => {
+        this.cursor.color = this.getRandomColor(colors);
+        return this.cursor.color;
     }
 
     drop = (outerElId) => {
