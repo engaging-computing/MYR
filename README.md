@@ -9,10 +9,10 @@ The Engaging Computing Group develops new technologies to enable learners—yout
 ## Status
 [![CircleCI](https://circleci.com/gh/engaging-computing/MYR.svg?style=shield)](https://circleci.com/gh/engaging-computing/MYR)
 
-## Change Log - 2.1.0 -> 2.1.1
-- Updates Material UI to 4.11.2
-- Add esdoc for code documentation
-- Adds a dependabot configuration file so it will make usable pull requests
+## Change Log - 2.1.1 -> 2.2.0
+- Adds Lighting features to MYR
+- Adds Texture features to MYR
+- Updates copyright in the footer to be in the form `2018 - <current year>`
 
 
 ## Acknowledgments

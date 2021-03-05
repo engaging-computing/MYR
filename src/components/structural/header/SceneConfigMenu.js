@@ -95,6 +95,9 @@ class ConfigModal extends Component {
             pwProtectOpen: false,
             shareOpen: false,
             addClassOpen: false,
+            defaultLight: true,
+            castShadow: false,
+            spawnLightIndicator: false,
             email: "",
             sendTo: [],
             collectionID: "",
@@ -310,6 +313,66 @@ class ConfigModal extends Component {
             </ButtonBase >
         );
     };
+    defaultLightToggle = () =>{
+        let style = this.props.scene.settings.defaultLight ? btnStyle.on : btnStyle.off;
+        style = { ...btnStyle.base, ...style };
+        return (
+            <ButtonBase
+                style={style}
+                onClick={() => {
+                    this.props.handleRender();
+                    this.props.sceneActions.toggleDefaultLight();
+                    this.setState({ settingsChanged: true });
+                }} >
+                {
+                    this.props.scene.settings.defaultLight
+                        ? <Icon className="material-icons">toggle_on</Icon>
+                        : <Icon className="material-icons">toggle_off</Icon>
+                }
+                Default Light
+            </ButtonBase >
+        );
+    }
+    castShadowToggle = () => {
+        let style = this.props.scene.settings.castShadow ? btnStyle.on : btnStyle.off;
+        style = { ...btnStyle.base, ...style };
+        return (
+            <ButtonBase
+                style={style}
+                onClick={() => {
+                    this.props.handleRender();
+                    this.props.sceneActions.toggleCastShadow();
+                    this.setState({ settingsChanged: true });
+                }} >
+                {
+                    this.props.scene.settings.castShadow
+                        ? <Icon className="material-icons">toggle_on</Icon>
+                        : <Icon className="material-icons">toggle_off</Icon>
+                }
+                Cast Shadow
+            </ButtonBase >
+        );
+    }
+    lightIndicatorToggle = () => {
+        let style = this.props.scene.settings.lightIndicator ? btnStyle.on : btnStyle.off;
+        style = { ...btnStyle.base, ...style };
+        return (
+            <ButtonBase
+                style={style}
+                onClick={() => {
+                    this.props.handleRender();
+                    this.props.sceneActions.toggleLightIndicator();
+                    this.setState({ settingsChanged: true });
+                }} >
+                {
+                    this.props.scene.settings.lightIndicator
+                        ? <Icon className="material-icons">toggle_on</Icon>
+                        : <Icon className="material-icons">toggle_off</Icon>
+                }
+                Light Indicator
+            </ButtonBase >
+        );
+    }
 
     /**
      * Toggles the floor on and off
@@ -491,6 +554,14 @@ class ConfigModal extends Component {
                                             <div className="col-6">
                                                 <this.changeSkyColor />
                                                 <this.changeFloorColor />
+                                            </div>
+                                            <div className="col-12 border-bottom pt-4">Light Control</div>
+                                            <div className="col-6">
+                                                <this.defaultLightToggle/>
+                                                <this.castShadowToggle/>
+                                            </div>
+                                            <div className="col-6">
+                                                <this.lightIndicatorToggle/>
                                             </div>
                                             <div className="col-12 border-bottom pt-4">Camera Control</div>
                                             <div className="col-6">

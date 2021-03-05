@@ -59,6 +59,7 @@ class View extends Component {
             let el = document.getElementById("rig");
             el.components["movement-controls"].velocity = new THREE.Vector3(0, 0, 0);
         }
+        
     }
 
     componentWillUnmount() {
@@ -110,15 +111,85 @@ class View extends Component {
                     </a-entity>
                 );
             }
+            if(ent.light){
+                delete flattened.light;
+                let target=null,indicator=null;
+                if(ent.light.target){ 
+                    //Since the target will override the rotation, we want to delete the rotation attribute so it won't have an effect on the rotation of indicator.
+                    delete flattened.rotation;
+                    ent.light.state +="target: #lighttarget;";
+                    let target_position= `${ent.light.target.x || 0} ${ent.light.target.y || 0} ${ent.light.target.z || 0}`;
+                    target = <a-entity id="lighttarget"  position={target_position}></a-entity>;
+                }
+                if(this.props.sceneConfig.settings.lightIndicator){
+                    indicator = this.lightIndicatorHelper(ent);
+                }
+                if(this.props.sceneConfig.settings.castShadow){
+                    ent.light.state += this.lightShadowHelper(ent.light);
+                }
+                return [<a-entity key={ent.id} id={ent.id} light={ent.light.state} {...flattened}>{indicator}</a-entity>,target];
+            }
+            let shadow;
+            if(this.props.sceneConfig.settings.castShadow){
+                shadow = "cast:true; receive:true;";
+            }else{
+                shadow = "cast:false; receive:false;";
+            }
+
             if (ent.text) {
                 delete flattened.text; // this takes care of a warning, may not be necessary
                 return <a-text key={ent.id} {...flattened}></a-text>;
             }
             if (ent.tube) {
-                return <a-tube path={ent.path} radius={ent.radius} material={ent.material}></a-tube>;
+                return <a-tube path={ent.path} radius={ent.radius} material={ent.material} shadow={shadow} shadowcustomsetting></a-tube>;
             }
-            return <a-entity key={ent.id} {...flattened}></a-entity>;
+            return <a-entity key={ent.id} {...flattened} shadow={shadow} shadowcustomsetting ></a-entity>;
         }
+    }
+    //return elements that contains necessary configuration for light indicator based on light's type and properties
+    lightIndicatorHelper =(ent)=>{ 
+
+        //this is a position for passing in to indicatorroation to determine the rotation of the light that use position as vector.
+        let position =`position:${ent.position.x || 0} ${ent.position.y || 0} ${ent.position.z || 0};`;
+        if(ent.light.target){
+            position += `target:${ent.light.target.x || 0} ${ent.light.target.y || 0} ${ent.light.target.z || 0};`;
+        } 
+
+        //ambient light doesn't have an indicator
+        switch(ent.light.type){
+            case "point":
+                return <a-entity id={ent.id+"Ind"} key={ent.id+"Ind"} pointlightindicator={`color: ${ent.color};`} layer="type:group; layer:1"></a-entity>;
+            case "spot":
+                let target = true;
+                if(!ent.light.target) {
+                    position = "";
+                    target = false;
+                }
+                return <a-entity id={ent.id+"Ind"} key={ent.id+"Ind"} spotlightindicator={`color: ${ent.color}; target:${target}`} indicatorrotation={position} layer="type:group; layer:1"></a-entity>;
+            case "directional":
+                return <a-entity id={ent.id+"Ind"} key={ent.id+"Ind"} directionallightindicator={`color: ${ent.color};`} indicatorrotation={position} layer="type:group; layer:1"></a-entity>;
+            case "hemisphere":
+                return <a-entity id={ent.id+"Ind"} key={ent.id+"Ind"} hemispherelightindicator={`color: ${ent.color}; secondColor: ${ent.light.secondColor}`} layer="type:group; layer:1"></a-entity>;
+            default:
+        }
+    }
+    //return string that contains necessary configuration for shadow based on light's type
+    lightShadowHelper = (light) =>{
+        let newState = "";
+        //ambient and hemisphere light doesn't cast shadow
+        if(light.type !== "ambient" && light.type !== "hemisphere"){
+            newState += "castShadow:true; shadowMapHeight:2000; shadowMapWidth:2000;";
+            if(light.type === "spot"){
+                newState += "shadowBias: -0.02; shadowCameraNear: 7;";
+            }else if(light.type ==="directional"){
+                newState += "shadowCameraNear: -40; shadowBias: -0.002; shadowCameraTop: 40; shadowCameraBottom: -40; shadowCameraLeft: -40; shadowCameraRight: 40;";
+            }else if(light.type === "point"){
+                newState += "shadowCameraFar: 25; shadowBias: -0.02;";
+            }
+        }else{
+            newState += "castShadow: false;";
+        }
+        return newState;
     }
 
     assetsHelper = (asset) => {
@@ -180,30 +251,32 @@ class View extends Component {
         if (this.props.sceneConfig.settings.showCoordHelper) {
             return (
                 <Fragment>
-                    <a-grid height="53.33" width="53.33" position="-0.5 -0.26 -0.5" scale="1.5 1.5 1.5" />
-                    <a-tube path="-35 -0.2 0, 35 -0.2 0" radius="0.05" material="color: red"></a-tube>
-                    <a-tube path="0 -0.2 -35, 0 -0.2 35" radius="0.05" material="color: blue"></a-tube>
+                    <a-grid height="53.33" width="53.33" position="-0.5 -0.26 -0.5" scale="1.5 1.5 1.5"  layer="type:mesh;layer:1;"/>
+                    <a-tube path="-35 -0.2 0, 35 -0.2 0" radius="0.05" material="color: red" layer="type:mesh;layer:1;"></a-tube>
+                    <a-tube path="0 -0.2 -35, 0 -0.2 35" radius="0.05" material="color: blue" layer="type:mesh;layer:1;"></a-tube>
                     <a-text
                         color="#555"
                         rotation="0 0 0"
                         position="-0.0005 .1 0"
                         side="double"
                         align="center"
-                        value="- X           X +"></a-text>
+                        value="- X           X +"
+                        layer="type:text;layer:1;"></a-text>
                     <a-text
                         color="#555"
                         rotation="0 90 0"
                         position="0 .1 -0.01"
                         side="double"
                         align="center"
-                        value="+ Z          Z -">
-                    </a-text>
+                        value="+ Z          Z -"
+                        layer="type:text;layer:1;"></a-text>
                     <a-text
                         color="#555"
                         rotation="0 90 90"
                         position="0 .1 0"
                         side="double"
-                        value=" Y + "></a-text>
+                        value=" Y + "
+                        layer="type:text;layer:1;"></a-text>
                 </Fragment>
             );
         } else {
@@ -214,12 +287,15 @@ class View extends Component {
     makeFloor = () => {
         if (this.props.sceneConfig.settings.showFloor) {
             return (
-                <a-entity id="floor"
+                <a-plane
+                    id="floor"
                     geometry="primitive: box;"
-                    material={"color: " + this.props.sceneConfig.settings.floorColor}
+                    color={this.props.sceneConfig.settings.floorColor}
+                    material="side: double;"
                     static-body="shape: box"
                     scale="80 .01 80"
                     position="0 -0.5 0"
+                    shadow={`cast: false; receive: ${this.props.sceneConfig.settings.castShadow}`}
                 />
             );
         } else {
@@ -231,7 +307,7 @@ class View extends Component {
         /* eslint-disable */
         return (
             !this.state.welcomeOpen ?
-                <a-scene physics="debug: false; friction: 3; restitution: .3;" embedded debug="false">
+                <a-scene scenelayer shadow="type:pcf;" physics="debug: false; friction: 3; restitution: .3;" embedded debug="false">
                     <a-assets>
                         <a-mixin id="checkpoint"></a-mixin>
                         <a-mixin id="checkpoint-hovered" color="#6CEEB5"></a-mixin>
@@ -242,11 +318,25 @@ class View extends Component {
                     <a-sky color={this.props.sceneConfig.settings.skyColor} />
                     <this.coordinateHelper />
                     <this.makeFloor />
+                    {this.props.sceneConfig.settings.defaultLight ? 
+                                <a-entity id="DefaultLight">                   
+                                    <a-entity id="AmbientLight" light="type: ambient; color: #BBB"></a-entity>
+                                    <a-entity id="DirectionalLight" light={"type: directional; color: #FFF; intensity: 0.6; " + this.lightShadowHelper({state: "",type: "directional"})} position="-3 3 1"></a-entity> 
+                                </a-entity>  
+                        : null
+                    }
+                    {this.props.sceneConfig.settings.lightIndicator||this.props.sceneConfig.settings.showCoordHelper ? 
+                            <a-entity id="AltLayerLight">                   
+                                <a-entity id="AmbientLight" light="type: ambient; color: #BBB" layer="type:light;layer:1;"></a-entity>
+                                <a-entity id="DirectionalLight" light={"type: directional; color: #FFF; intensity: 0.6; " + this.lightShadowHelper({state: "",type: "directional"})} position="-3 3 1" layer="type:light;layer:1;"></a-entity> 
+                            </a-entity>  
+                        : null}
                     { // create the entities
                         Object.keys(this.props.objects).map(it => {
                             return this.helper(this.props.objects[it]);
                         })
                     }
+                    
 
                     {this.props.sceneConfig.settings.camConfig === 1 ?
                         <a-entity position="0 0 0">
