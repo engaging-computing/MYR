@@ -582,7 +582,7 @@ class Myr {
         }
         else {
             console.error("Not a usable texture or URL.");
-            this.cursor.texture = "";
+            throw new Error("Not a usable texture or URL.");
         }
 
         return this.cursor.texture;
