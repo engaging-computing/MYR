@@ -142,7 +142,7 @@ describe("Updates to Myr's Model", () => {
         myr.cursor.color = null;
         myr.setRandomColor();
         expect(myr.cursor.color).not.toBeNull(); 
-    })
+    });
 
     it("pick Random Color out of a list of colors", () => {
         let colors = ["blue", "green", "red", "hotpink", "FF00FF", "rgb(100,33,93)"];
