@@ -62,11 +62,13 @@ describe("Updates to Myr's Model", () => {
         expect(myr.cursor.texture).toEqual("https://learnmyr.org/img/MYR-Logo.png");
     });
 
-    it("improper texture should return empty texture", () => {
-        myr.setTexture("asdfghjkl");
-        expect(myr.cursor.texture).toEqual("");
-        let getUndefinedTest = myr.getTexture();
-        expect(getUndefinedTest).toEqual("");
+    it("improper texture should throw an error", () => {
+        try {
+            myr.setTexture("asdfghjkl");
+        }
+        catch(err) {
+            expect(err).toEqual(Error("Not a usable texture or URL."));
+        }
     });
 
     it("setTextureColoring(true) should allow a textured object to have a color other than white", () => {

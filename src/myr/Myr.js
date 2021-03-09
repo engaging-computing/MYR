@@ -646,15 +646,15 @@ class Myr {
         let textureURL = [...textures.TexturePack.map(obj => obj.url)];
         let urlregex = /^(http(s?):)([/|.|\w|\s|-])*\.(?:jpg|gif|png)/;
 
-        if (textureURL[textureTitle.indexOf(texture)] !== undefined) {
-            this.cursor.texture = textureURL[textureTitle.indexOf(texture)];
+        if (textureURL[textureTitle.indexOf(texture.toLowerCase())] !== undefined) {
+            this.cursor.texture = textureURL[textureTitle.indexOf(texture.toLowerCase())];
         }
         else if(urlregex.test(texture) || (texture === "")) {
             this.cursor.texture = texture;
         }
         else {
             console.error("Not a usable texture or URL.");
-            this.cursor.texture = "";
+            throw new Error("Not a usable texture or URL.");
         }
 
         return this.cursor.texture;
