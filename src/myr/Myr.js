@@ -1149,6 +1149,12 @@ class Myr {
         return this.mergeProps(base, params);
     }
 
+    /**
+     * Load and render a custom glTF model with current Myr settings
+     * 
+     * @param {string} src Valid MYR model ID or valid glTF URL
+     * @param {*} params !!!DESCRIPTION NEEDED!!!
+     */
     gltfModel = (src, params) => {
         let id = `gltf-model-${this.genNewId()}`;
 
