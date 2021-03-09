@@ -232,9 +232,9 @@ let geometry = [
         example: "triangle"
     },
     {
-        name: "gltf_model",
+        name: "gltfModel",
         parameters: [{ type: "string" }],
-        description: <span>The gltf_model function loads a custom gltf model using the current cursor attributes. This function returns an {stringText("elementID")}.</span>,
+        description: <span>The gltfModel function loads a glTF model using the current cursor attributes. This function returns an {stringText("elementID")}.</span>,
         example: "model"
     },
     //{

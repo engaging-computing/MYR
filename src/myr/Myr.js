@@ -1149,12 +1149,14 @@ class Myr {
         return this.mergeProps(base, params);
     }
 
-    gltf_model = (src, params) => {
+    gltfModel = (src, params) => {
         let id = `gltf-model-${this.genNewId()}`;
 
         let models = ModelPack();
         if(models.ModelPack.has(src)) {
             src = models.ModelPack.get(src);
+        } else if(!this.validURL(src)) {
+            console.log(`Invalid URL: ${src}`);
         }
         
         let asset = {
@@ -1172,6 +1174,16 @@ class Myr {
 
         this.assets.push(asset);
         return this.mergeProps(base, params);
+    }
+
+    validURL(str) {
+        let pattern = new RegExp('^(https?:\\/\\/)?'+ // protocol
+            '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|'+ // domain name
+            '((\\d{1,3}\\.){3}\\d{1,3}))'+ // OR ip (v4) address
+            '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*'+ // port and path
+            '(\\?[;&a-z\\d%_.~+=-]*)?'+ // query string
+            '(\\#[-a-z\\d_]*)?$','i'); // fragment locator
+        return !!pattern.test(str);
     }
 
     ambientLight  = (params) => {
