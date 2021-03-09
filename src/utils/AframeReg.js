@@ -82,7 +82,39 @@ AFRAME.registerComponent("shadowcustomsetting", {
             obj.material.shadowSide = THREE.FrontSide;
         });
     },
-}); 
+});
+
+AFRAME.registerComponent("materialtype",{
+    schema:{
+        type:{
+            default: ""
+        }
+    },
+    init: function(){
+        let obj = this.el.getObject3D("mesh");
+        let material;
+        if(this.data.type === "toon") {
+            material = new AFRAME.THREE.MeshToonMaterial();
+        } else if(this.data.type === "matte") {
+            material = new AFRAME.THREE.MeshLambertMaterial();
+        } else if(this.data.type === "basic") {
+            material = new AFRAME.THREE.MeshBasicMaterial();
+        } else if(this.data.type === "physical") {
+            material = new AFRAME.THREE.MeshPhysicalMaterial();
+        } else {
+            material = new AFRAME.THREE.MeshPhongMaterial();
+        }
+        material.color.set(obj.material.color);
+        //material.alphaMap.set(obj.material.alphaMap)
+
+        let mesh = new AFRAME.THREE.Mesh(obj.geometry, material);
+
+        let group = new AFRAME.THREE.Group();
+        group.add(mesh);
+
+        this.el.setObject3D("group", group);
+    }
+});
 
 //This change necessary properties to entity to create a outline to light indicator
 AFRAME.registerComponent("outline",{
