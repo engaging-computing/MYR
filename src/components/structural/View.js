@@ -178,7 +178,7 @@ class View extends Component {
         let newState = "";
         //ambient and hemisphere light doesn't cast shadow
         if(light.type !== "ambient" && light.type !== "hemisphere"){
-            newState += "castShadow:true; shadowMapHeight:4096; shadowMapWidth:4096;";
+            newState += "castShadow:true; shadowMapHeight:2048; shadowMapWidth:2048;";
             if(light.type === "spot"){
                 newState += "shadowBias: -0.02; shadowCameraNear: 7;";
             }else if(light.type ==="directional"){
