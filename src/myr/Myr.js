@@ -4,6 +4,7 @@ import Group from "./Group";
 import CANNON from "cannon";
 import TexturePack from "../components/structural/Textures.js";
 import ModelPack from "../components/structural/Models.js";
+import * as ValidURL from "valid-url";
 
 class Myr {
     constructor(baseEls) {
@@ -1161,8 +1162,14 @@ class Myr {
         let models = ModelPack();
         if(models.ModelPack.has(src)) {
             src = models.ModelPack.get(src);
-        } else if(!this.validURL(src)) {
-            console.log(`Invalid URL: ${src}`);
+        } else if(!ValidURL.isHttpsUri(src)) {
+            let error = `Failed to load model: ${src}\n`;
+            if(ValidURL.isHttpUri(src)) {
+                error += `Cause:\thttp URL's not supported! Try an https URL.`;
+            } else {
+                error += `Cause:\tInvalid URL!`;
+            }
+            console.log(error);
         }
         
         let asset = {
@@ -1180,16 +1187,6 @@ class Myr {
 
         this.assets.push(asset);
         return this.mergeProps(base, params);
-    }
-
-    validURL(str) {
-        let pattern = new RegExp('^(https?:\\/\\/)?'+ // protocol
-            '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|'+ // domain name
-            '((\\d{1,3}\\.){3}\\d{1,3}))'+ // OR ip (v4) address
-            '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*'+ // port and path
-            '(\\?[;&a-z\\d%_.~+=-]*)?'+ // query string
-            '(\\#[-a-z\\d_]*)?$','i'); // fragment locator
-        return !!pattern.test(str);
     }
 
     ambientLight  = (params) => {
