@@ -6,6 +6,8 @@ let colorRegEx = new RegExp("#([0-9]|[A-F]|[a-f]){6}");
 
 const defaultCursor = {
     color: "red",
+    texture: "",
+    transparency: 0,
     position: {
         x: 0,
         y: 0,
@@ -24,12 +26,21 @@ const defaultCursor = {
     radius: "1",
     phiLength: 360,
     loop: true,
+    textureColoring: false,
     duration: 1000,
     magnitude: {
         spin: 360,
         fadeOut: 0,
         general: 1
-    }
+    },
+    light: {
+        intensity: 1.0,
+        beamAngle: 60,
+        diffusion: 0.0,
+        decay: 1,
+        distance: 0.0,
+        target: null
+    }    
 };
 
 describe("Updates to Myr's Model", () => {
@@ -37,6 +48,66 @@ describe("Updates to Myr's Model", () => {
     it("should set the color", () => {
         myr.setColor("red");
         expect(myr.cursor.color).toEqual("red");
+    });
+
+    it("should set the texture by using a title and getTexture() should return that title", () => {
+        myr.setTexture("bricks");
+        expect(myr.cursor.texture).toEqual("/img/textures/bricks.jpg");
+        let getTest = myr.getTexture();
+        expect(getTest).toEqual("bricks");
+    });
+
+    it("should set the texture by using a url and getTexture() should return that url", () => {
+        myr.setTexture("https://learnmyr.org/img/MYR-Logo.png");
+        expect(myr.cursor.texture).toEqual("https://learnmyr.org/img/MYR-Logo.png");
+    });
+
+    it("improper texture should throw an error", () => {
+        try {
+            myr.setTexture("asdfghjkl");
+        }
+        catch(err) {
+            expect(err).toEqual(Error("Not a usable texture or URL."));
+        }
+    });
+
+    it("setTextureColoring(true) should allow a textured object to have a color other than white", () => {
+        myr.setTextureColoring(true);
+        myr.setColor("blue");
+        myr.setTexture("bricks");
+        myr.els = [];
+        let id = myr.box();
+        let box = myr.els[id];
+
+        expect(myr.getColor()).toMatch("blue");
+        expect(box.material).toMatch(/color: blue;/);
+    });
+
+    it("setTextureColoring(false) should not affect an untextures objects color", () => {
+        myr.setTextureColoring(false);
+        myr.setTexture();
+        myr.setColor("blue");
+        myr.els = [];
+        let id = myr.box();
+        let box = myr.els[id];
+
+        expect(myr.getColor()).toMatch("blue");
+        expect(box.material).toMatch(/color: blue;/);
+    });
+
+    it("setTextureColoring(false) should change the color of a textured object to white", () => {
+        myr.setTextureColoring(false);
+        myr.setTexture("bricks");
+        myr.setColor("blue");
+        myr.els = [];
+        let id = myr.box();
+        let box = myr.els[id];
+
+        expect(myr.getColor()).toMatch("blue");
+        expect(myr.getTexture()).toMatch("bricks");
+        expect(box.material).toMatch(/color: white;/);
+
+        myr.setTexture();
     });
 
     it("to SetPosition", () => {
@@ -79,62 +150,68 @@ describe("Updates to Myr's Model", () => {
 
 describe("Component Renders", () => {
     it("Box", () => {
-        let id = myr.box({ material: "color: blue;", position: { x: 1, y: 1, z: 1 } });
+        let id = myr.box({ material: "color: blue; texture: bricks", position: { x: 1, y: 1, z: 1 } });
         let box = myr.els[id];
         expect(box).toBeDefined();
         expect(box.geometry).toMatch(/box/);
         expect(box.material).toMatch(/color: blue;/);
+        expect(box.material).toMatch(/texture: bricks/);
         expect(box.position).toEqual({ x: 1, y: 1, z: 1 });
     });
 
     it("Sphere", () => {
         myr.els = [];
-        let id = myr.sphere({ material: "color: blue;", position: { x: 1, y: 1, z: 1 } });
+        let id = myr.sphere({ material: "color: blue; texture: bricks", position: { x: 1, y: 1, z: 1 } });
         let sphere = myr.els[id];
         expect(sphere).toBeDefined();
         expect(sphere.geometry).toMatch(/sphere/);
         expect(sphere.material).toMatch(/color: blue;/);
+        expect(sphere.material).toMatch(/texture: bricks/);
         expect(sphere.position).toEqual({ x: 1, y: 1, z: 1 });
     });
 
     it("Circle", () => {
         myr.els = [];
-        let id = myr.circle({ material: "color: blue;", position: { x: 1, y: 1, z: 1 } });
+        let id = myr.circle({ material: "color: blue; texture: bricks", position: { x: 1, y: 1, z: 1 } });
         let circle = myr.els[id];
         expect(circle).toBeDefined();
         expect(circle.geometry).toMatch(/circle/);
         expect(circle.material).toMatch(/color: blue;/);
+        expect(circle.material).toMatch(/texture: bricks/);
         expect(circle.position).toEqual({ x: 1, y: 1, z: 1 });
     });
 
 
     it("Cone", () => {
         myr.els = [];
-        let id = myr.cone({ material: "color: blue;", position: { x: 1, y: 1, z: 1 } });
+        let id = myr.cone({ material: "color: blue; texture: bricks", position: { x: 1, y: 1, z: 1 } });
         let cone = myr.els[id];
         expect(cone).toBeDefined();
         expect(cone.geometry).toMatch(/cone/);
         expect(cone.material).toMatch(/color: blue;/);
+        expect(cone.material).toMatch(/texture: bricks/);
         expect(cone.position).toEqual({ x: 1, y: 1, z: 1 });
     });
 
     it("Cylinder", () => {
         myr.els = [];
-        let id = myr.cylinder({ material: "color: blue;", position: { x: 1, y: 1, z: 1 } });
+        let id = myr.cylinder({ material: "color: blue; texture: bricks;", position: { x: 1, y: 1, z: 1 } });
         let cylinder = myr.els[id];
         expect(cylinder).toBeDefined();
         expect(cylinder.geometry).toMatch(/cylinder/);
         expect(cylinder.material).toMatch(/color: blue;/);
+        expect(cylinder.material).toMatch(/texture: bricks/);
         expect(cylinder.position).toEqual({ x: 1, y: 1, z: 1 });
     });
 
     it("Ring", () => {
         myr.reset();
-        let id = myr.ring();
+        let id = myr.ring({ material: "color: red; texture: bricks; side: double;" });
         let ring = myr.els[id];
         expect(ring).toBeDefined();
         expect(ring.geometry).toMatch(/ring/);
         expect(ring.material).toMatch(/color: red;/);
+        expect(ring.material).toMatch(/texture: bricks/);
         expect(ring.material).toMatch(/side: double;/);
         expect(ring.position).toEqual({ x: 0, y: 0, z: 0 });
     });
@@ -142,32 +219,37 @@ describe("Component Renders", () => {
     it("Plane", () => {
         myr.reset();
         myr.els = [];
+        myr.setTexture("bricks");
         let id = myr.plane();
         let plane = myr.els[id];
         expect(plane).toBeDefined();
         expect(plane.geometry).toMatch(/plane/);
-        expect(plane.material).toMatch(/color: red;/);
+        expect(plane.material).toMatch(/color: white;/);
+        expect(plane.material).toMatch("img/textures/bricks.jpg");
         expect(plane.material).toMatch(/side: double;/);
         expect(plane.position).toEqual({ x: 0, y: 0, z: 0 });
     });
 
     it("Tetrahedron", () => {
         myr.reset();
-        let id = myr.tetrahedron();
+        let id = myr.tetrahedron({ material: "color: red; texture: bricks; side: double;" });
         let tetrahedron = myr.els[id];
         expect(tetrahedron).toBeDefined();
         expect(tetrahedron.geometry).toMatch(/tetrahedron/);
         expect(tetrahedron.material).toMatch(/color: red;/);
+        expect(tetrahedron.material).toMatch(/texture: bricks/);
         expect(tetrahedron.material).toMatch(/side: double;/);
         expect(tetrahedron.position).toEqual({ x: 0, y: 0, z: 0 });
     });
 
     it("Triangle", () => {
         myr.els = [];
-        let id = myr.triangle({ material: "color: blue;", position: { x: 1, y: 1, z: 1 } });
+        myr.setTextureColoring(true);
+        let id = myr.triangle({ material: "color: blue; texture: bricks", position: { x: 1, y: 1, z: 1 } });
         let triangle = myr.els[id];
         expect(triangle).toBeDefined();
         expect(triangle.geometry).toMatch(/triangle/);
+        expect(triangle.material).toMatch(/texture: bricks/);
         expect(triangle.material).toMatch(/color: blue;/);
         expect(triangle.position).toEqual({ x: 1, y: 1, z: 1 });
     });
@@ -228,23 +310,30 @@ describe("Component Renders", () => {
 
     it("Torus", () => {
         myr.els = [];
+        myr.setTextureColoring(false);
         myr.setColor("blue");
+        myr.setTexture("bricks");
         let id = myr.torus({ position: { x: 1, y: 1, z: 1 } });
         let torus = myr.els[id];
         expect(torus).toBeDefined();
         expect(torus.geometry).toMatch(/torus/);
-        expect(torus.material).toMatch(/color: blue;/);
+        expect(torus.material).toMatch(/color: white;/);
+        expect(myr.getTexture()).toMatch("bricks");
         expect(torus.position).toEqual({ x: 1, y: 1, z: 1 });
     });
 
     it("torusknot", () => {
         myr.els = [];
         myr.setColor("blue");
+        myr.setTexture("bricks");
+        myr.setTextureColoring(true);
         let id = myr.torusknot({ position: { x: 1, y: 1, z: 1 } });
         let torusknot = myr.els[id];
         expect(torusknot).toBeDefined();
         expect(torusknot.geometry).toMatch(/torus/);
         expect(torusknot.material).toMatch(/color: blue;/);
+        expect(torusknot.material).toMatch("img/textures/bricks.jpg");
+        expect(myr.getTexture()).toMatch("bricks");
         expect(torusknot.position).toEqual({ x: 1, y: 1, z: 1 });
     });
 
@@ -264,31 +353,34 @@ describe("Component Renders", () => {
 
     it("dodecahedron", () => {
         myr.els = [];
-        let id = myr.dodecahedron({ material: "color: blue;", position: { x: 1, y: 1, z: 1 } });
+        let id = myr.dodecahedron({ material: "color: blue; texture: bricks;", position: { x: 1, y: 1, z: 1 } });
         let dodecahedron = myr.els[id];
         expect(dodecahedron).toBeDefined();
         expect(dodecahedron.geometry).toMatch(/dodecahedron/);
         expect(dodecahedron.material).toMatch(/color: blue;/);
+        expect(dodecahedron.material).toMatch(/texture: bricks/);
         expect(dodecahedron.position).toEqual({ x: 1, y: 1, z: 1 });
     });
 
     it("icosahedron", () => {
         myr.els = [];
-        let id = myr.icosahedron({ material: "color: blue;", position: { x: 1, y: 1, z: 1 } });
+        let id = myr.icosahedron({ material: "color: blue; texture: bricks", position: { x: 1, y: 1, z: 1 } });
         let icosahedron = myr.els[id];
         expect(icosahedron).toBeDefined();
         expect(icosahedron.geometry).toMatch(/icosahedron/);
         expect(icosahedron.material).toMatch(/color: blue;/);
+        expect(icosahedron.material).toMatch(/texture: bricks/);
         expect(icosahedron.position).toEqual({ x: 1, y: 1, z: 1 });
     });
 
     it("octahedron", () => {
         myr.els = [];
-        let id = myr.octahedron({ material: "color: blue;", position: { x: 1, y: 1, z: 1 } });
+        let id = myr.octahedron({ material: "color: blue; texture: bricks", position: { x: 1, y: 1, z: 1 } });
         let octahedron = myr.els[id];
         expect(octahedron).toBeDefined();
         expect(octahedron.geometry).toMatch(/octahedron/);
         expect(octahedron.material).toMatch(/color: blue;/);
+        expect(octahedron.material).toMatch(/texture: bricks/);
         expect(octahedron.position).toEqual({ x: 1, y: 1, z: 1 });
     });
 });
@@ -475,6 +567,117 @@ describe("Component Animations", () => {
 
 });
 
+describe("MYR light functionality", () => {
+    it("ambientLight", ()=>{
+        myr.reset();
+        myr.els = [];
+        let id = myr.ambientLight({position: {x:1,y:1,z:1}});
+        let ambientLight = myr.els[id];
+        expect(ambientLight).toBeDefined();
+        expect(ambientLight.light.state).toEqual(`
+      type: ambient; 
+      color: red;
+      intensity: 1;`);
+        expect(ambientLight.position).toEqual({x:1,y:1,z:1});
+        //light's scale sohuld not change
+        expect(ambientLight.scale).toEqual({x:1,y:1,z:1});
+    });
+
+    it("directionalLight", ()=>{
+        myr.els = [];
+        let id = myr.directionalLight({position: {x:1,y:1,z:1}});
+        let directionalLight = myr.els[id];
+        expect(directionalLight).toBeDefined();
+        expect(directionalLight.light.state).toEqual(`
+      type: directional;
+      color: red;
+      intensity: 1;`);
+        expect(directionalLight.position).toEqual({x:1,y:1,z:1});
+        expect(directionalLight.scale).toEqual({x:1,y:1,z:1});
+    });
+
+    it("spotLight", ()=>{
+        myr.els = [];
+        let id = myr.spotLight({position: {x:1,y:1,z:1}});
+        let spotLight = myr.els[id];
+        expect(spotLight).toBeDefined();
+        expect(spotLight.light.state).toEqual(`
+      type: spot;
+      angle: 60;
+      decay: 1;
+      distance: 0;
+      intensity: 1;
+      penumbra: 0;
+      color: red;`);
+        expect(spotLight.position).toEqual({x:1,y:1,z:1});
+        //light's scale sohuld not change
+        expect(spotLight.scale).toEqual({x:1,y:1,z:1});
+    });
+
+    it("pointLight", ()=>{
+        myr.els = [];
+        let id = myr.pointLight({position: {x:1,y:1,z:1}});
+        let pointLight = myr.els[id];
+        expect(pointLight).toBeDefined();
+        expect(pointLight.light.state).toEqual(`
+      type: point;
+      angle: 60;
+      decay: 1;
+      distance: 0;
+      intensity: 1;
+      penumbra: 0;
+      color: red;`);
+        expect(pointLight.position).toEqual({x:1,y:1,z:1});
+        //light's scale should not change
+        expect(pointLight.scale).toEqual({x:1,y:1,z:1});
+    });
+
+    it("hemisphereLight", ()=>{
+        myr.els = [];
+        let id = myr.hemisphereLight("blue",{position: {x:1,y:1,z:1}});
+        let hemisphereLight = myr.els[id];
+        expect(hemisphereLight).toBeDefined();
+        expect(hemisphereLight.light.state).toEqual(`
+      type: hemisphere;
+      intensity: 1;
+      color: red;
+      groundColor: blue;`);
+        expect(hemisphereLight.position).toEqual({x:1,y:1,z:1});
+        //light's scale should not change
+        expect(hemisphereLight.scale).toEqual({x:1,y:1,z:1});
+    });
+
+    it("to Set Intensity", () => {
+        myr.setIntensity(5);
+        expect(myr.cursor.light.intensity).toEqual(5);
+    });
+
+    it("to Set BeamAngle", () => {
+        myr.setBeamAngle(30);
+        expect(myr.cursor.light.beamAngle).toEqual(30);
+    });
+
+    it("to Set Diffusion", () => {
+        myr.setDiffusion(1.25);
+        expect(myr.cursor.light.diffusion).toEqual(1.25);
+    });
+
+    it("to Set decay", () => {
+        myr.setDecay(1.87);
+        expect(myr.cursor.light.decay).toEqual(1.87);
+    });
+
+    it("to Set Distance", () => {
+        myr.setDistance(50);
+        expect(myr.cursor.light.distance).toEqual(50);
+    });
+
+    it("to Set Light Target", () => {
+        myr.setLightTarget(4,5,10);
+        expect(myr.cursor.light.target).toEqual({x:4, y: 5, z: 10});
+    });
+});
+
 describe("Other Myr functionality", () => {
     it("Should add a model", () => {
         myr.reset();
@@ -489,14 +692,6 @@ describe("Other Myr functionality", () => {
         myr.drop(el);
         let thisEl = myr.els[el];
         expect(thisEl).toHaveProperty("dynamic-body");
-    });
-
-    it("Should return a light", () => {
-        myr.reset();
-        let light = myr.light();
-        expect(light).toBeTruthy();
-        expect(light.color).toMatch(colorRegEx);
-
     });
 
     it("should get the right element", () => {
@@ -530,6 +725,36 @@ describe("Other Myr functionality", () => {
     it("should reset cursor", () => {
         myr.resetCursor();
         expect(myr.cursor).toEqual(defaultCursor);
+    });
+
+    it("should only reset cursor with transformation property", () => {
+        myr.setPosition(5,4,3);
+        myr.setMagnitude(512);
+        myr.setIntensity(2.15);
+        myr.resetTransformationCursor();
+        expect(myr.cursor.position).toEqual({ x: 0, y: 0, z: 0});
+        expect(myr.cursor.magnitude).toEqual({ spin: 512, fadeOut: 512, general: 512 });
+        expect(myr.cursor.light.intensity).toEqual(2.15);
+    });
+
+    it("should only reset cursor with animation property", () => {
+        myr.setPosition(5,4,3);
+        myr.setMagnitude(512);
+        myr.setIntensity(2.15);
+        myr.resetAnimationCursor();
+        expect(myr.cursor.position).toEqual({ x: 5, y: 4, z: 3});
+        expect(myr.cursor.magnitude).toEqual({ spin: 360, fadeOut: 0, general: 1 });
+        expect(myr.cursor.light.intensity).toEqual(2.15);
+    });
+
+    it("should only reset cursor with light property", () => {
+        myr.setPosition(5,4,3);
+        myr.setMagnitude(512);
+        myr.setIntensity(2.15);
+        myr.resetLightCursor();
+        expect(myr.cursor.position).toEqual({ x: 5, y: 4, z: 3});
+        expect(myr.cursor.magnitude).toEqual({ spin: 512, fadeOut: 512, general: 512 });
+        expect(myr.cursor.light).toEqual(defaultCursor.light);
     });
 
     it("should set the position in Myr", () => {
@@ -852,7 +1077,7 @@ describe("Other Myr functionality", () => {
         response = myr.getCursorAttribute("test");
         expect(response).toEqual({ "test1": 1, "test2": 3 });
     });
-
+    
     it("Should accept hex colors entered for setColor function", () => {
         myr.setColor("#ff0000");
         expect(myr.cursor.color).toEqual("#ff0000");
@@ -880,4 +1105,44 @@ describe("Other Myr functionality", () => {
         expect(myr.cursor.color).toEqual("red");
     });
 
+
+    it("setTransparency should set the appropriate cursor attribute correctly", () => {
+        myr.setTransparency(0);
+        expect(myr.cursor.transparency).toEqual(0);
+
+        myr.setTransparency(100);
+        expect(myr.cursor.transparency).toEqual(1);
+
+        myr.setTransparency(50);
+        expect(myr.cursor.transparency).toEqual(0.5);
+
+        myr.setTransparency(40);
+        expect(myr.cursor.transparency).toEqual(0.4);
+    });
+
+    it("setTransparency should not change opacity if it received an invalid argument", () => {
+        myr.reset();
+
+        myr.setTransparency(-100);
+        expect(myr.cursor.transparency).toEqual(0);
+        myr.setTransparency(-50);
+        expect(myr.cursor.transparency).toEqual(0);
+        myr.setTransparency(-1);
+        expect(myr.cursor.transparency).toEqual(0);
+
+        myr.setTransparency("50");
+        expect(myr.cursor.transparency).toEqual(0);
+        myr.setTransparency("1");
+        expect(myr.cursor.transparency).toEqual(0);
+
+        myr.setTransparency([1, 2, 3]);
+        expect(myr.cursor.transparency).toEqual(0);
+
+        myr.setTransparency({
+            test: true,
+            valid: "false",
+            value: 1
+        });
+        expect(myr.cursor.transparency).toEqual(0);
+    });
 });

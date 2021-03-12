@@ -95,11 +95,12 @@ export default class Reference extends React.Component {
     };
 
     render() {
+        document.title = "Reference | MYR";
         return (
             <div id="reference-page">
                 <Tabs
                     id="reference-tabs"
-                    fullWidth={true}
+                    variant="fullWidth"
                     value={this.state.value}
                     onChange={this.handleChange} >
                     <Tab
@@ -134,6 +135,14 @@ export default class Reference extends React.Component {
                             </Hidden>
                         }
                         value='d' />
+                    <Tab
+                        icon={<Icon className="material-icons geometry">highlights</Icon>}
+                        label={
+                            <Hidden xsDown>
+                                <div>LIGHTS</div>
+                            </Hidden>
+                        }
+                        value='e' />
                 </Tabs>
                 {<div style={{ margin: 5 }}>
                     <p style={{ fontSize: "80%" }}> Key: <span className="array">array </span>
@@ -158,6 +167,10 @@ export default class Reference extends React.Component {
                 {this.state.value === "d" &&
                     <div style={{ marginTop: 0 }}>
                         {this.TableEx("groups")}
+                    </div>}
+                {this.state.value === "e" &&
+                    <div style={{ marginTop: 0 }}>
+                        {this.TableEx("lights")}
                     </div>}
             </div>
         );

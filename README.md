@@ -9,8 +9,11 @@ The Engaging Computing Group develops new technologies to enable learners—yout
 ## Status
 [![CircleCI](https://circleci.com/gh/engaging-computing/MYR.svg?style=shield)](https://circleci.com/gh/engaging-computing/MYR)
 
-## Change Log - 2.0.0 -> 2.0.1
-- Fixed bug where tokens expired after one hour and weren't refreshed
+## Change Log - 2.1.1 -> 2.2.0
+- Adds Lighting features to MYR
+- Adds Texture features to MYR
+- Updates copyright in the footer to be in the form `2018 - <current year>`
+
 
 ## Acknowledgments
 MYR uses [Aframe](https://aframe.io), a fantastic open source project, to render objects and effects in the three dimensional space.  

@@ -5,41 +5,40 @@ import * as types from "../constants/ActionTypes";
 const sceneRef = "/apiv1/scenes";
 
 /**
- * @function - Sends a signal to the reducer to render the scene
+ * Sends a signal to the reducer to render the scene
  *
- * @param {string} text - Text from the Ace Editor component
+ * @param {string} text Text from the Ace Editor component
  *
- * @returns - reducer action obj with action type and text
+ * @returns reducer action obj with action type and text
  */
 export function render(text, uid) {
     return { type: types.EDITOR_RENDER, text, uid };
 }
 
 /**
- * @function - Sends a signal to the reducer to refresh with the given text
+ * Sends a signal to the reducer to refresh with the given text
  *
- * @param {string} text - Text from the Ace Editor component
+ * @param {string} text Text from the Ace Editor component
  *
- * @returns - reducer action obj with action type and text
+ * @returns reducer action obj with action type and text
  */
 export function refresh(text, uid) {
     return { type: types.EDITOR_REFRESH, text, uid };
 }
 
 /**
- * @function - Sends a signal to the reducer to 'rewind' until last stable render
+ * Sends a signal to the reducer to 'rewind' until last stable render
  *
- * @returns - reducer action obj with action type
+ * @returns reducer action obj with action type
  */
 export function recover() {
     return { type: types.EDITOR_RECOVER };
 }
 
 /**
-* @summary - This does an async fetch to Firebase to grab the scene, then
-* dispatches the necessary functions to update the state.
-*
-*/
+ * This does an async fetch to Firebase to grab the scene, then
+ * dispatches the necessary functions to update the state.
+ */
 export function fetchScene(id, uid = "anon") {
     return (dispatch) => {  // Return a func that dispatches events after async
         fetch(`${sceneRef}/id/${id}`, {redirect: "follow"}).then((response) =>{
@@ -60,6 +59,10 @@ export function fetchScene(id, uid = "anon") {
 
             response.json().then((json) =>{
                 if(json.code){
+                    //don't change the title when fetching scene in collection
+                    if(!document.title.includes("Collection")) {
+                        document.title = json.name + " | MYR";
+                    }
                     dispatch(render(json.code, uid || "anon"));
                     dispatch(updateSavedText(json.code));
                     let settings = DEF_SETTINGS;
@@ -82,10 +85,10 @@ export function fetchScene(id, uid = "anon") {
 }
 
 /**
-* @function - Sends a signal to the reducer to update the savedText when user try to save or open scene/course
-*
-* @returns - reducer action obj with action type
-*/
+ * Sends a signal to the reducer to update the savedText when user try to save or open scene/course
+ *
+ * @returns reducer action obj with action type
+ */
 
 export function updateSavedText(savedText){
     return {type: types.EDITOR_UPDATE_SAVEDTEXT, savedText};

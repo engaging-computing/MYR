@@ -20,7 +20,9 @@ import * as layoutTypes from "../../../constants/LayoutTypes.js";
 
 import "../../../css/SceneConfig.css";
 
-// FUNC to position modal in the middle of the screen
+/**
+ * FUNC to position modal in the middle of the screen
+ */
 function getModalStyle() {
     const top = 50;
     const left = 50;
@@ -33,21 +35,27 @@ function getModalStyle() {
     };
 }
 
-// CSS for modal
+/**
+ * CSS for modal
+ * 
+ * @param {*} theme 
+ */
 const modelStyles = theme => ({
     paper: {
         position: "absolute",
-        width: theme.spacing.unit * 50,
+        width: theme.spacing(50),
         backgroundColor: theme.palette.background.paper,
         boxShadow: theme.shadows[5],
-        padding: theme.spacing.unit * 4,
+        padding: theme.spacing(4),
     },
     button: {
-        margin: theme.spacing.unit,
+        margin: theme.spacing(1),
     }
 });
 
-// CSS for buttons
+/**
+ * CSS for buttons
+ */
 const btnStyle = {
     base: {
         marginTop: 20,
@@ -87,6 +95,9 @@ class ConfigModal extends Component {
             pwProtectOpen: false,
             shareOpen: false,
             addClassOpen: false,
+            defaultLight: true,
+            castShadow: false,
+            spawnLightIndicator: false,
             email: "",
             sendTo: [],
             collectionID: "",
@@ -96,12 +107,16 @@ class ConfigModal extends Component {
         this.emailRef = React.createRef();
     }
 
-    // Opens the modal
+    /**
+     * Opens the modal
+     */
     handleOpen = () => {
         this.setState({ open: true });
     };
 
-    // Closes the modal
+    /**
+     * Closes the modal
+     */
     handleClose = () => {
         this.setState({ open: false, displaySkyColorPicker: false, displayFloorColorPicker: false });
     };
@@ -172,7 +187,7 @@ class ConfigModal extends Component {
                 onChange={this.handleTextChange("email")}
             />
             <IconButton
-                variant="raised"
+                variant="contained"
                 onClick={this.handleAddEmail}
                 color="primary">
                 <Icon className="material-icons">add</Icon>
@@ -195,7 +210,9 @@ class ConfigModal extends Component {
         );
     };
 
-    // Toggles the grid on and off
+    /**
+     * Toggles the grid on and off
+     */
     toggleGrid = () => {
         this.props.sceneActions.toggleCoordSky();
     };
@@ -226,7 +243,9 @@ class ConfigModal extends Component {
         this.setState({ displayFloorColorPicker: false });
     };
 
-    // Toggles whether the editor is showing
+    /**
+     * Toggles whether the editor is showing
+     */
     viewToggle = () => {
         let style = this.props.scene.settings.viewOnly ? btnStyle.off : btnStyle.on;
 
@@ -269,8 +288,70 @@ class ConfigModal extends Component {
             </ButtonBase >
         );
     };
+    defaultLightToggle = () =>{
+        let style = this.props.scene.settings.defaultLight ? btnStyle.on : btnStyle.off;
+        style = { ...btnStyle.base, ...style };
+        return (
+            <ButtonBase
+                style={style}
+                onClick={() => {
+                    this.props.handleRender();
+                    this.props.sceneActions.toggleDefaultLight();
+                    this.setState({ settingsChanged: true });
+                }} >
+                {
+                    this.props.scene.settings.defaultLight
+                        ? <Icon className="material-icons">toggle_on</Icon>
+                        : <Icon className="material-icons">toggle_off</Icon>
+                }
+                Default Light
+            </ButtonBase >
+        );
+    }
+    castShadowToggle = () => {
+        let style = this.props.scene.settings.castShadow ? btnStyle.on : btnStyle.off;
+        style = { ...btnStyle.base, ...style };
+        return (
+            <ButtonBase
+                style={style}
+                onClick={() => {
+                    this.props.handleRender();
+                    this.props.sceneActions.toggleCastShadow();
+                    this.setState({ settingsChanged: true });
+                }} >
+                {
+                    this.props.scene.settings.castShadow
+                        ? <Icon className="material-icons">toggle_on</Icon>
+                        : <Icon className="material-icons">toggle_off</Icon>
+                }
+                Cast Shadow
+            </ButtonBase >
+        );
+    }
+    lightIndicatorToggle = () => {
+        let style = this.props.scene.settings.lightIndicator ? btnStyle.on : btnStyle.off;
+        style = { ...btnStyle.base, ...style };
+        return (
+            <ButtonBase
+                style={style}
+                onClick={() => {
+                    this.props.handleRender();
+                    this.props.sceneActions.toggleLightIndicator();
+                    this.setState({ settingsChanged: true });
+                }} >
+                {
+                    this.props.scene.settings.lightIndicator
+                        ? <Icon className="material-icons">toggle_on</Icon>
+                        : <Icon className="material-icons">toggle_off</Icon>
+                }
+                Light Indicator
+            </ButtonBase >
+        );
+    }
 
-    // Toggles the floor on and off
+    /**
+     * Toggles the floor on and off
+     */
     floorToggle = () => {
         let style = this.props.scene.settings.showFloor ? btnStyle.on : btnStyle.off;
         style = { ...btnStyle.base, ...style };
@@ -350,10 +431,10 @@ class ConfigModal extends Component {
         </div>
     );
 
-
-
-    // Resets the camera, but also applies a small random num to make it reset
-    // See reducer for more info
+    /**
+     * Resets the camera, but also applies a small random num to make it reset
+     * See reducer for more info
+     */
     resetPosition = () => {
         return (
             <ButtonBase
@@ -411,7 +492,6 @@ class ConfigModal extends Component {
                                 style={{
                                     color: "#fff",
                                     margin: 2,
-                                    padding: 0,
                                 }}>
                                 <Icon className="material-icons">settings</Icon>
                             </IconButton >
@@ -428,7 +508,6 @@ class ConfigModal extends Component {
                                     <Icon className="material-icons">clear</Icon>
                                 </ButtonBase >
                                 <Tabs
-                                    fullWidth={false}
                                     value={this.state.value}
                                     onChange={this.handleChange}>
                                     <Tab
@@ -450,6 +529,14 @@ class ConfigModal extends Component {
                                             <div className="col-6">
                                                 <this.changeSkyColor />
                                                 <this.changeFloorColor />
+                                            </div>
+                                            <div className="col-12 border-bottom pt-4">Light Control</div>
+                                            <div className="col-6">
+                                                <this.defaultLightToggle/>
+                                                <this.castShadowToggle/>
+                                            </div>
+                                            <div className="col-6">
+                                                <this.lightIndicatorToggle/>
                                             </div>
                                             <div className="col-12 border-bottom pt-4">Camera Control</div>
                                             <div className="col-6">

@@ -8,6 +8,9 @@ export const DEF_SETTINGS = {
     showFloor: true,
     cameraPosition: "0 1.6 3",
     viewOnly: false,
+    defaultLight: true,
+    castShadow: false,
+    lightIndicator: false,
     collectionID: ""
 };
 
@@ -123,13 +126,42 @@ export default function scene(state = initial_state, action) {
                 name: action.payload.name,
                 desc: action.payload.desc
             };
-        case types.CHANGE_SETTING:
+        case types.CHANGE_SETTINGS:
             const { param, val } = action.payload;
             return {
                 ...state,
                 settings: {
                     ...state.settings,
                     [param]: val
+                }
+            };
+        case types.RESET_SETTINGS:
+            return {
+                ...state,
+                settings: DEF_SETTINGS
+            };
+        case types.TOGGLE_DEFAULT_LIGHT:
+            return {
+                ...state,
+                settings: {
+                    ...state.settings,
+                    defaultLight: !state.settings.defaultLight
+                }
+            };
+        case types.TOGGLE_CAST_SHADOW:
+            return {
+                ...state,
+                settings: {
+                    ...state.settings,
+                    castShadow: !state.settings.castShadow
+                }
+            };
+        case types.TOGGLE_LIGHT_INDICATOR:
+            return{
+                ...state,
+                settings:{ 
+                    ...state.settings,
+                    lightIndicator: !state.settings.lightIndicator
                 }
             };
         default:

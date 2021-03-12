@@ -19,7 +19,9 @@ const problem = {
     code: ""
 };
 
-//Course Actions
+/**
+ * Course Actions
+ */
 export function fetchCourses() {
     return (dispatch) => {
         fetch(courseRef, header)
@@ -50,23 +52,25 @@ export function fetchCourse(courseId) {
             .then(response => {
                 response.json()
                     .then(json => {
+                        document.title = json.name + " Course | MYR";
                         dispatch(loadCourse(json));
 
                         //Make sure that the course is not empty
                         if(json.lessons.length <= 0){
-                            noLessons.name = json.name;
+                            noLessons.name = json.name; 
                             dispatch(loadLesson(noLessons));
                             return;
                         }
 
                         dispatch(loadLesson(json.lessons[0] || ""));
+                        dispatch(sceneActions.loadSettings(json.lessons[0].settings || {}));
                         dispatch(render(json.lessons[0].code || ""));
                         dispatch(updateSavedText(json.lessons[0].code || ""));
                         dispatch(sceneActions.setNameDesc(
                             {
                                 name: json.lessons[0].name,
                                 desc: "This scene was saved from the course: " + json.name
-                            }));
+                            }));   
                     })
                     .catch(err => {
                         console.error(err);
@@ -87,17 +91,26 @@ export function loadCourse(course) {
     };
 }
 
-//Lesson Actions
+/**
+ * Lesson Actions
+ */
 export function fetchLesson(json) {
     return (dispatch) => {
         dispatch(loadLesson(json));
+        dispatch(sceneActions.resetSettings());
+        dispatch(sceneActions.loadSettings(json.settings || {}));
         dispatch(render(json.code || ""));
         dispatch(updateSavedText(json.code || ""));
         dispatch(sceneActions.nameScene(json.name));
     };
 }
 
-// Frontend disables option if out of bounds
+/**
+ * Frontend disables option if out of bounds
+ * 
+ * @param {*} currentIndex !!!DESCRIPTION NEEDED!!!
+ * @param {*} next !!!DESCRIPTION NEEDED!!!
+ */
 export function nextLesson(currentIndex, next) {
     return (dispatch) => {
         dispatch(setCurrentIndex(currentIndex + 1));
@@ -105,7 +118,12 @@ export function nextLesson(currentIndex, next) {
     };
 }
 
-// Frontend disables option if out of bounds
+/**
+ * Frontend disables option if out of bounds
+ * 
+ * @param {*} currentIndex !!!DESCRIPTION NEEDED!!!
+ * @param {*} prev !!!DESCRIPTION NEEDED!!!
+ */
 export function previousLesson(currentIndex, prev) {
     return (dispatch) => {
         dispatch(setCurrentIndex(currentIndex - 1));

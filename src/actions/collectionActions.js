@@ -33,6 +33,7 @@ export function asyncCollection(collectionID, uid) {
                 .then((resp) => {
                     switch(resp.status){
                         case 200:
+                            document.title = collectionID + " Collection | MYR";
                             resp.json().then((data) => {
                                 data.forEach((doc) => {
                                     collectionProjects.push(doc);
