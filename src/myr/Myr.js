@@ -1163,13 +1163,13 @@ class Myr {
         if(models.ModelPack.has(src)) {
             src = models.ModelPack.get(src);
         } else if(!ValidURL.isHttpsUri(src)) {
-            let error = `Failed to load model: ${src}\n`;
+            let error = `Unable to load model (${src}).\n`;
             if(ValidURL.isHttpUri(src)) {
-                error += `Cause:\thttp URL's not supported! Try an https URL.`;
+                error += `\thttp URL's not supported! Try https instead.`;
             } else {
-                error += `Cause:\tInvalid URL!`;
+                error += `\tInvalid URL!`;
             }
-            console.log(error);
+            throw new Error(error);
         }
         
         let asset = {
