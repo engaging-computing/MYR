@@ -9,7 +9,7 @@ jobs:
       image: node:10.13
     
     steps:
-      - uses: actions/@checkoutv1
+      - uses: actions/checkout@v1
       - run: npm ci
       - run: npm lint
       - run: npm test
