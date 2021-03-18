@@ -1,0 +1,29 @@
+name: Deploy MYR
+
+on:
+  push:
+    branches:
+      - master
+      - dev
+
+jobs:
+  update_upstream:
+    runs-on: ubuntu-latest
+    container:
+      image: docker
+    steps:
+      - uses: actions/@checkoutv1
+      - name: Set the branch variable
+        uses: nelonoel/branch-name@v1.0.1
+      - name: Log into Quay
+        run: docker login quay.io -u umlecg+myr_bot -p $QUAY_BOT_PASSWORD
+      - name: Build the docker image
+        run: docker build -t quay.io/ecgmyr/myr-frontend .
+      - name: Push the new image
+        run: docker push quay.io/ecgmyr/myr-frontend:${BRANCH_NAME}
+      - name: Notify the build repository
+        uses: peter-evans/repository-dispatch@v1
+        with:
+          token: ${{ secrets.MYR_ACCESS_TOKEN }}
+          event-type: update_${BRANCH_NAME}
+          repository: engaging-computing/MYR-build

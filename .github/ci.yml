@@ -1,0 +1,16 @@
+name: Build MYR
+
+on: [push, pull_request]
+
+jobs:
+  ci-checks:
+    runs-on: ubuntu-latest
+    container:
+      image: node:10.13
+    
+    steps:
+      - uses: actions/@checkoutv1
+      - run: npm ci
+      - run: npm lint
+      - run: npm test
+      - run: npm build
