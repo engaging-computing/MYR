@@ -4,7 +4,6 @@ import Group from "./Group";
 import CANNON from "cannon";
 import TexturePack from "../components/structural/Textures.js";
 import ModelPack from "../components/structural/Models.js";
-import * as ValidURL from "valid-url";
 
 class Myr {
     constructor(baseEls) {
@@ -1160,22 +1159,26 @@ class Myr {
         let id = `gltf-model-${this.genNewId()}`;
 
         let models = ModelPack();
+        let urlregex_https = /^(https:)([/|.|\w|\s|-])*\.(?:glb|gltf)/;
+        let urlregex_http = /^(http:)([/|.|\w|\s|-])*\.(?:glb|gltf)/;
+
         if(models.ModelPack.has(src)) {
             src = models.ModelPack.get(src);
-        } else if(!ValidURL.isHttpsUri(src)) {
+        } else if(!urlregex_https.test(src)) {
             let error = `Unable to load model (${src}).\n`;
-            if(ValidURL.isHttpUri(src)) {
-                error += `\thttp URL's not supported! Try https instead.`;
+            if(urlregex_http.test(src)) {
+                error += `\tHTTP URLs not supported. Please use HTTPS.`;
             } else {
-                error += `\tInvalid URL!`;
+                error += `\tInvalid URL.`;
             }
+            console.error(error);
             throw new Error(error);
         }
         
         let asset = {
             id: id,
             src: src,
-        }
+        };
         let base = {
             id: id,
             "gltf-Model": `#${id}`,
