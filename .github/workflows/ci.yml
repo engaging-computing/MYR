@@ -10,7 +10,11 @@ jobs:
     
     steps:
       - uses: actions/checkout@v1
-      - run: npm ci
-      - run: npm lint
-      - run: npm test
-      - run: npm build
+      - name: Fetch packages
+        run: npm ci
+      - name: Run Linter
+        run: npm run lint
+      - name: Run unit tests 
+        run: npm test
+      - name: Build production build
+        run: npm run build
