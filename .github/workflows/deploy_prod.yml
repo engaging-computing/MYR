@@ -1,0 +1,28 @@
+name: Deploy production image
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  update_upstream:
+    runs-on: ubuntu-latest
+    container:
+      image: docker
+    steps:
+      - uses: actions/checkout@v1
+      - name: Set the branch variable
+        uses: nelonoel/branch-name@v1.0.1
+      - name: Log into Quay
+        run: docker login quay.io -u umlecg+myr_bot -p ${{ secrets.QUAY_BOT_PASSWORD }}
+      - name: Build the docker image
+        run: docker build -t quay.io/umlecg/myr-frontend:${BRANCH_NAME} .
+      - name: Push the new image
+        run: docker push quay.io/umlecg/myr-frontend:${BRANCH_NAME}
+      - name: Notify the build repository
+        uses: peter-evans/repository-dispatch@v1
+        with:
+          token: ${{ secrets.MYR_ACCESS_TOKEN }}
+          event-type: update_master
+          repository: engaging-computing/MYR-build
