@@ -18,7 +18,7 @@ jobs:
       - name: Log into Quay
         run: docker login quay.io -u umlecg+myr_bot -p ${{ secrets.QUAY_BOT_PASSWORD }}
       - name: Build the docker image
-        run: docker build -t quay.io/umlecg/myr-frontend .
+        run: docker build -t quay.io/umlecg/myr-frontend:${BRANCH_NAME} .
       - name: Push the new image
         run: docker push quay.io/umlecg/myr-frontend:${BRANCH_NAME}
       - name: Notify the build repository
