@@ -1,4 +1,4 @@
-name: Deploy MYR
+name: Deploy production image
 
 on:
   push:

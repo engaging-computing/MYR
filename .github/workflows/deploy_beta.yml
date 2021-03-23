@@ -1,4 +1,4 @@
-name: Deploy to beta.learnmyr.org
+name: Deploy staging image
 
 on:
   push:
