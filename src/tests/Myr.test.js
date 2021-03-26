@@ -335,9 +335,9 @@ describe("Component Renders", () => {
         expect(torusknot.position).toEqual({ x: 1, y: 1, z: 1 });
     });
 
-    it("polyhedron", () => {
+    it("prism", () => {
         myr.els = [];
-        let id = myr.polyhedron({
+        let id = myr.prism({
             position: { x: 1, y: 1, z: 1 },
             rotation: { x: 1, y: 1, z: 1 },
             scale: { x: 1, y: 1, z: 1 }
