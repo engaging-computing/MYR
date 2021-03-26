@@ -27,6 +27,8 @@ const defaultCursor = {
     phiLength: 360,
     loop: true,
     textureColoring: false,
+    textureRepeatWidth: 1,
+    textureRepeatHeight: 1,
     duration: 1000,
     magnitude: {
         spin: 360,
@@ -51,8 +53,10 @@ describe("Updates to Myr's Model", () => {
     });
 
     it("should set the texture by using a title and getTexture() should return that title", () => {
-        myr.setTexture("bricks");
+        myr.setTexture("bricks", 2, 2);
         expect(myr.cursor.texture).toEqual("/img/textures/bricks.jpg");
+        expect(myr.cursor.textureRepeatWidth).toEqual(2);
+        expect(myr.cursor.textureRepeatHeight).toEqual(2);
         let getTest = myr.getTexture();
         expect(getTest).toEqual("bricks");
     });
