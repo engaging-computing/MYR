@@ -986,7 +986,7 @@ class Myr {
      * 
      * @param {*} params !!!DESCRIPTION NEEDED!!!
      */
-    polyhedron = (params) => {
+    prism = (params) => {
         let base = {
             id: "poly" + this.genNewId(),
             geometry: `primitive: sphere; segmentsWidth: 2; segmentsHeight: 8; phi-length: ${this.cursor.phiLength};`,
@@ -1307,12 +1307,6 @@ class Myr {
             console.error("must pass a numeric for setLightTarget");
         }
     }
-
-    // Prism is an alias for Polyhedron
-    prism = this.polyhedron
-
-    // Cube is an alias for Box
-    cube = this.box
 
     /********************* ANIMATIONS *********************/
 
