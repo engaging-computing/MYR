@@ -41,7 +41,7 @@
         "react-google-login": "^5.1.19",
         "react-progressive-image": "^0.3.0",
         "react-redux": "^5.0.7",
-        "react-router-dom": "^4.2.2",
+        "react-router-dom": "^5.2.0",
         "react-select": "^3.0.4",
         "reactour": "^1.9.1",
         "redux": "^3.7.2",
