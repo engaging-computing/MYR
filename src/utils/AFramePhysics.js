@@ -27,7 +27,7 @@ AFRAME.registerComponent("force-pushable", {
 //This set aframe entity to different layer (range from 0-31)
 //all the regular MYR entities will goes to layer 0
 //And other, such as grid, light indicator will goes to layer 1 so it won't take effect of user created light
-AFRAME.registerComponent("layer",{
+AFRAME.registerComponent("lightlayer",{
     schema:{
         type:{
             type:"string",
