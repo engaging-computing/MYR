@@ -48,7 +48,7 @@
         "socket.io-client": "^2.3.0",
         "source-map-explorer": "^1.6.0",
         "styled-components": "^4.0.3",
-        "three": "^0.98.0",
+        "three": "^0.126.1",
         "ua-parser-js": "^0.7.24"
     },
     "scripts": {
