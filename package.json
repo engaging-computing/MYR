@@ -46,8 +46,8 @@
         "redux": "^3.7.2",
         "redux-thunk": "^2.3.0",
         "socket.io-client": "^4.0.0",
-        "source-map-explorer": "^1.6.0",
-        "styled-components": "^4.0.3",
+        "source-map-explorer": "^2.0.0",
+        "styled-components": "^5.0.0",
         "three": "^0.126.1",
         "ua-parser-js": "^0.7.24"
     },
