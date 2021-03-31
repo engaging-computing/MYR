@@ -1,5 +1,5 @@
 import AFRAME from "aframe";
-import * as THREE from "three";
+const THREE = AFRAME.THREE;
 
 
 AFRAME.registerComponent("spotlightindicator",{

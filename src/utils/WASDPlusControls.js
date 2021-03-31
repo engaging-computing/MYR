@@ -1,6 +1,6 @@
 
 import AFRAME from "aframe";
-import * as THREE from "three";
+const THREE = AFRAME.THREE;
 const bind = AFRAME.utils.bind;
 const shouldCaptureKeyEvent = AFRAME.utils.shouldCaptureKeyEvent;
 
