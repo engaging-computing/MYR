@@ -154,18 +154,18 @@ class View extends Component {
         //ambient light doesn't have an indicator
         switch(ent.light.type){
             case "point":
-                return <a-entity id={ent.id+"Ind"} key={ent.id+"Ind"} pointlightindicator={`color: ${ent.color};`} layer="type:group; layer:1"></a-entity>;
+                return <a-entity id={ent.id+"Ind"} key={ent.id+"Ind"} pointlightindicator={`color: ${ent.color};`} setlayer="type:group; layer:1"></a-entity>;
             case "spot":
                 let target = true;
                 if(!ent.light.target) {
                     position = "";
                     target = false;
                 }
-                return <a-entity id={ent.id+"Ind"} key={ent.id+"Ind"} spotlightindicator={`color: ${ent.color}; target:${target}`} indicatorrotation={position} layer="type:group; layer:1"></a-entity>;
+                return <a-entity id={ent.id+"Ind"} key={ent.id+"Ind"} spotlightindicator={`color: ${ent.color}; target:${target}`} indicatorrotation={position} setlayer="type:group; layer:1"></a-entity>;
             case "directional":
-                return <a-entity id={ent.id+"Ind"} key={ent.id+"Ind"} directionallightindicator={`color: ${ent.color};`} indicatorrotation={position} layer="type:group; layer:1"></a-entity>;
+                return <a-entity id={ent.id+"Ind"} key={ent.id+"Ind"} directionallightindicator={`color: ${ent.color};`} indicatorrotation={position} setlayer="type:group; layer:1"></a-entity>;
             case "hemisphere":
-                return <a-entity id={ent.id+"Ind"} key={ent.id+"Ind"} hemispherelightindicator={`color: ${ent.color}; secondColor: ${ent.light.secondColor}`} layer="type:group; layer:1"></a-entity>;
+                return <a-entity id={ent.id+"Ind"} key={ent.id+"Ind"} hemispherelightindicator={`color: ${ent.color}; secondColor: ${ent.light.secondColor}`} setlayer="type:group; layer:1"></a-entity>;
             default:
         }
     }
@@ -231,6 +231,7 @@ class View extends Component {
                             position={this.props.sceneConfig.settings.cameraPosition}
                             look-controls="pointerLockEnabled: true">
                             <a-cursor
+                                raycaster="objects:.raycastable"
                                 position="0 0 -1"
                                 geometry="primitive: ring; radiusInner: 0.02; radiusOuter: 0.03;"
                                 material="color: #CCC; shader: flat;" />
@@ -245,6 +246,7 @@ class View extends Component {
                         <a-camera
                             position={this.props.sceneConfig.settings.cameraPosition}>
                             <a-cursor
+                                raycaster="objects:.raycastable"
                                 position="0 0 -1"
                                 geometry="primitive: ring; radiusInner: 0.02; radiusOuter: 0.03;"
                                 material="color: #CCC; shader: flat;" />
@@ -260,6 +262,7 @@ class View extends Component {
                             look-controls="pointerLockEnabled: true"
                             wasd-plus-controls="enabled: true">
                             <a-cursor
+                                raycaster="objects:.raycastable"
                                 position="0 0 -1"
                                 geometry="primitive: ring; radiusInner: 0.02; radiusOuter: 0.03;"
                                 material="color: #CCC; shader: flat;" />
@@ -278,9 +281,9 @@ class View extends Component {
         if (this.props.sceneConfig.settings.showCoordHelper) {
             return (
                 <Fragment>
-                    <a-grid height="53.33" width="53.33" position="-0.5 -0.26 -0.5" scale="1.5 1.5 1.5"  layer="type:mesh;layer:1;"/>
-                    <a-tube path="-35 -0.2 0, 35 -0.2 0" radius="0.05" material="color: red" layer="type:mesh;layer:1;"></a-tube>
-                    <a-tube path="0 -0.2 -35, 0 -0.2 35" radius="0.05" material="color: blue" layer="type:mesh;layer:1;"></a-tube>
+                    <a-grid height="53.33" width="53.33" position="-0.5 -0.26 -0.5" scale="1.5 1.5 1.5"  setlayer="type:mesh;layer:1;"/>
+                    <a-tube path="-35 -0.2 0, 35 -0.2 0" radius="0.05" material="color: red" setlayer="type:mesh;layer:1;"></a-tube>
+                    <a-tube path="0 -0.2 -35, 0 -0.2 35" radius="0.05" material="color: blue" setlayer="type:mesh;layer:1;"></a-tube>
                     <a-text
                         color="#555"
                         rotation="0 0 0"
@@ -288,7 +291,7 @@ class View extends Component {
                         side="double"
                         align="center"
                         value="- X           X +"
-                        layer="type:text;layer:1;"></a-text>
+                        setlayer="type:text;layer:1;"></a-text>
                     <a-text
                         color="#555"
                         rotation="0 90 0"
@@ -296,14 +299,14 @@ class View extends Component {
                         side="double"
                         align="center"
                         value="+ Z          Z -"
-                        layer="type:text;layer:1;"></a-text>
+                        setlayer="type:text;layer:1;"></a-text>
                     <a-text
                         color="#555"
                         rotation="0 90 90"
                         position="0 .1 0"
                         side="double"
                         value=" Y + "
-                        layer="type:text;layer:1;"></a-text>
+                        setlayer="type:text;layer:1;"></a-text>
                 </Fragment>
             );
         } else {
@@ -341,7 +344,6 @@ class View extends Component {
                         <a-img id="reference" src={`${process.env.PUBLIC_URL}/img/coordHelper.jpg`} />
                         {this.props.assets ? this.props.assets.map((x) => this.assetsHelper(x)) : null}
                     </a-assets>
-                    <this.createCam />
                     <a-sky color={this.props.sceneConfig.settings.skyColor} />
                     <this.coordinateHelper />
                     <this.makeFloor />
@@ -354,8 +356,8 @@ class View extends Component {
                     }
                     {this.props.sceneConfig.settings.lightIndicator||this.props.sceneConfig.settings.showCoordHelper ? 
                             <a-entity id="AltLayerLight">                   
-                                <a-entity id="AmbientLight" light="type: ambient; color: #BBB" layer="type:light;layer:1;"></a-entity>
-                                <a-entity id="DirectionalLight" light={"type: directional; color: #FFF; intensity: 0.6; " + this.lightShadowHelper({state: "",type: "directional"})} position="-3 3 1" layer="type:light;layer:1;"></a-entity> 
+                                <a-entity id="AmbientLight" light="type: ambient; color: #BBB" setlayer="type:light;layer:1;"></a-entity>
+                                <a-entity id="DirectionalLight" light={"type: directional; color: #FFF; intensity: 0.6; " + this.lightShadowHelper({state: "",type: "directional"})} position="-3 3 1" setlayer="type:light;layer:1;"></a-entity> 
                             </a-entity>  
                         : null}
                     { // create the entities
@@ -363,8 +365,7 @@ class View extends Component {
                             return this.helper(this.props.objects[it]);
                         })
                     }
-                    
-
+                    <this.createCam />
                     {this.props.sceneConfig.settings.camConfig === 1 ?
                         <a-entity position="0 0 0">
                             <a-cylinder checkpoint radius="1" height="0.3" position="-25 1 -25" color="#39BB82"></a-cylinder>
