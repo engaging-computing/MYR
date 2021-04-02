@@ -5,7 +5,7 @@ let TexturePack = [
     {title:"chevron",url:"/img/textures/chevron.jpg"},
     {title:"cobblestone",url:"/img/textures/cobblestone.jpg"},
     {title:"dirt",url:"/img/textures/dirt.jpg"},
-    {title:"duck",url:"/img/textures/duck.jpg}
+    {title:"duck",url:"/img/textures/duck.jpg"},
     {title:"fabric",url:"/img/textures/fabric.jpg"},
     {title:"grass",url:"/img/textures/grass.jpg"},
     {title:"lava",url:"/img/textures/lava.jpg"},
