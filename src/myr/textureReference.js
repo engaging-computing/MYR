@@ -157,6 +157,11 @@ let texture = [
         example: "dirt",
     },    
     {
+        name: "duck",
+        image: "duck",
+        example: "duck",
+    },    
+    {
         name: "fabric",
         image: "fabric",
         example: "fabric",
