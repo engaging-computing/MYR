@@ -143,7 +143,7 @@ class View extends Component {
             if (ent.tube) {
                 return <a-tube path={ent.path} radius={ent.radius} material={ent.material} shadow={shadow} shadowcustomsetting></a-tube>;
             }
-            return <a-entity key={ent.id} {...flattened} materialtype={"type: toon"} shadow={shadow} shadowcustomsetting ></a-entity>;
+            return <a-entity key={ent.id} {...flattened} materialtype={`type:${ent.materialtype}`} shadow={shadow} shadowcustomsetting ></a-entity>;
         }
     }
     //return elements that contains necessary configuration for light indicator based on light's type and properties

@@ -3,6 +3,7 @@ import "aframe-physics-system";
 import Group from "./Group";
 import CANNON from "cannon";
 import TexturePack from "../components/structural/Textures.js";
+import {MaterialType} from "../components/structural/MaterialType.js";
 
 class Myr {
     constructor(baseEls) {
@@ -15,6 +16,7 @@ class Myr {
         this.cursor = {
             color: "red",
             texture: "",
+            materialtype: MaterialType.SPECULAR,
             transparency: 0,
             position: {
                 x: 0,
@@ -663,7 +665,25 @@ class Myr {
     setTextureColoring = (i) => {
         this.cursor.textureColoring = Boolean(i);
         return this.cursor.textureColoring;
-    };
+    }
+
+    setMaterialType = (materialtype = MaterialType.SPECULAR) => {
+        let validMaterial = false;
+        for(let key in MaterialType) {
+            validMaterial = MaterialType[key] === materialtype;
+            if(validMaterial) break;
+        }
+        if(!validMaterial) {
+            throw new Error(`${materialtype} is not a valid material type!`);
+        }
+
+        this.cursor.materialtype = materialtype;
+        return this.cursor.materialtype;
+    }
+
+    MaterialType = () => {
+        return MaterialType;
+    }
 
     setCursorAttribute = (key = "", value = "") => {
         if (typeof (key) !== "string" || key === "") {
@@ -837,6 +857,7 @@ class Myr {
             rotation: this.cursor.rotation,
             scale: this.cursor.scale,
             material: ((this.cursor.texture === "" || this.cursor.textureColoring) ? `color: ${this.cursor.color};` : "color: white;") + `side: double; src: ${this.cursor.texture}; opacity: ${1 - this.cursor.transparency};`,
+            materialtype: this.cursor.materialtype,
         };
 
         return this.mergeProps(base, params);
@@ -855,6 +876,7 @@ class Myr {
             rotation: this.cursor.rotation,
             scale: this.cursor.scale,
             material: ((this.cursor.texture === "" || this.cursor.textureColoring) ? `color: ${this.cursor.color};` : "color: white;") + `side: double; src: ${this.cursor.texture}; opacity: ${1 - this.cursor.transparency};`,
+            materialtype: this.cursor.materialtype,
         };
         return this.mergeProps(base, params);
     }
@@ -1028,6 +1050,7 @@ class Myr {
             rotation: this.cursor.rotation,
             scale: this.cursor.scale,
             material: ((this.cursor.texture === "" || this.cursor.textureColoring) ? `color: ${this.cursor.color};` : "color: white;") + `side: double; src: ${this.cursor.texture}; opacity: ${1 - this.cursor.transparency};`,
+            materialtype: this.cursor.materialtype,
         };
         return this.mergeProps(base, params);
     }

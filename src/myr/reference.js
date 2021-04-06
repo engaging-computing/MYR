@@ -275,6 +275,18 @@ let transformations = [
         example: "setTexture"
     },
     {
+        name: "setMaterialType",
+        parameters: [{type: "MaterialType", name: "materialtype"}],
+        description: <span>The setMaterialType function changes the material type of the cursor.</span>,
+        example: "setMaterialType(MaterialType().TOON);"
+    },
+    {
+        name: "MaterialType",
+        parameters: [],
+        description: <span>The MaterialType function retrieves a collection of possible material types.</span>,
+        example: "MaterialType().MATTE"
+    },
+    {
         name: "setTextureColoring",
         parameters: [{type: "bool", name:"boolean"}],
         description: <span>The setTextureColoring function sets the textureColoring attribute in the cursor, turning whether colors are applied to objects with textures on and off. The default value is false.</span>,

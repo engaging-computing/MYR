@@ -1,5 +1,6 @@
 import AFRAME from "aframe";
 import * as THREE from "three";
+import {MaterialType} from "../components/structural/MaterialType.js";
 
 AFRAME.registerComponent("force-pushable", {
     schema: {
@@ -84,7 +85,7 @@ AFRAME.registerComponent("shadowcustomsetting", {
     },
 });
 
-AFRAME.registerComponent("materialtype",{
+AFRAME.registerComponent("materialtype", {
     schema:{
         type:{
             default: ""
@@ -93,6 +94,26 @@ AFRAME.registerComponent("materialtype",{
     init: function(){
         let obj = this.el.getObject3D("mesh");
         let material;
+
+        switch(this.data.type) {
+            case MaterialType.TOON:
+                material = new AFRAME.THREE.MeshToonMaterial();
+                break;
+            case MaterialType.MATTE:
+                material = new AFRAME.THREE.MeshLambertMaterial();
+                break;
+            case MaterialType.BASIC:
+                material = new AFRAME.THREE.MeshBasicMaterial();
+                break;
+            case MaterialType.PHYSICAL:
+                material = new AFRAME.THREE.MeshPhysicalMaterial();
+                break;
+            default:
+            case MaterialType.SPECULAR:
+                material = new AFRAME.THREE.MeshPhongMaterial();
+        }
+
+        /*
         if(this.data.type === "toon") {
             material = new AFRAME.THREE.MeshToonMaterial();
         } else if(this.data.type === "matte") {
@@ -104,6 +125,7 @@ AFRAME.registerComponent("materialtype",{
         } else {
             material = new AFRAME.THREE.MeshPhongMaterial();
         }
+        */
         material.color.set(obj.material.color);
         //material.alphaMap.set(obj.material.alphaMap)
 
