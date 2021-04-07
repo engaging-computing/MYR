@@ -1,7 +1,7 @@
 export const MaterialType = {
-    BASIC: "Basic",
-    MATTE: "Matte",
-    SPECULAR: "Specular",
-    PHYSICAL: "Physical",
-    TOON: "Toon"
+    BASIC: "basic",
+    MATTE: "matte",
+    SPECULAR: "specular",
+    PHYSICAL: "physical",
+    TOON: "toon"
 };

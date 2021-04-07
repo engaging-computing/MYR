@@ -88,7 +88,7 @@ AFRAME.registerComponent("shadowcustomsetting", {
 AFRAME.registerComponent("materialtype", {
     schema:{
         type:{
-            default: ""
+            default:""
         }
     },
     init: function(){
