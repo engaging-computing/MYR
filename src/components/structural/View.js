@@ -141,7 +141,7 @@ class View extends Component {
                 return <a-text key={ent.id} {...flattened}></a-text>;
             }
             if (ent.tube) {
-                return <a-tube path={ent.path} radius={ent.radius} material={ent.material} shadow={shadow} shadowcustomsetting></a-tube>;
+                return <a-tube path={ent.path} radius={ent.radius} material={ent.material} materialtype={`type:${ent.materialtype}`} shadow={shadow} shadowcustomsetting></a-tube>;
             }
             return <a-entity key={ent.id} {...flattened} materialtype={`type:${ent.materialtype}`} shadow={shadow} shadowcustomsetting ></a-entity>;
         }
