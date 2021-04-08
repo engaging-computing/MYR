@@ -1,7 +1,9 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { Provider } from "react-redux";
-import "./utils/AframeReg";
+import "./utils/AFramePhysics";
+import "./utils/WASDPlusControls";
+import "./utils/AframeRegIndicator";
 import "bootstrap/dist/css/bootstrap.css";
 import "./css/App.css";
 

@@ -38,7 +38,6 @@ const generateMockProps = () => {
             setCamera: jest.fn(),
             changePerspective: jest.fn(),
             changeView: jest.fn(),
-            toggleFly: jest.fn(),
             toggleFloor: jest.fn(),
             loadSettings: jest.fn(),
             changeSetting: jest.fn(),
@@ -65,10 +64,12 @@ const generateMockProps = () => {
                 floorColor: "#222",
                 camConfig: 0,
                 showCoordHelper: false,
-                canFly: false,
                 showFloor: true,
                 cameraPosition: "0 1.6 3",
                 viewOnly: false,
+                defaultLight: true,
+                castShadow: false,
+                lightIndicator: false,
                 collectionID: ""
             },
         },
@@ -314,11 +315,13 @@ describe("Scene Reducer", () => {
                 skyColor: "white",
                 floorColor: "#222",
                 camConfig: 0,
-                showCoordHelper: false,
-                canFly: false,
-                showFloor: true,
+                showCoordHelper: true,
+                showFloor: false,
                 cameraPosition: "0 1.6 3",
                 viewOnly: false,
+                defaultLight: true,
+                castShadow: false,
+                lightIndicator: false,
                 collectionID: ""
             }
         };

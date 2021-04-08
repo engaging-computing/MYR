@@ -29,7 +29,10 @@ let m = new Myr();
 m.init();
 // window.m = m; // Use this to attach it to the window for debugging
 
-// ESLint doesn't like this but it is better than eval
+/**
+ * ESLint doesn't like this but it is better than eval
+ * @param {*} text !!!DESCRIPTION NEEDED!!!
+ */
 function noEvalEvaluation(text) {
     // eslint-disable-next-line
     // let func = Function(`'use strict'; ${m.infiniteLoopDetector.wrap(text)}`);

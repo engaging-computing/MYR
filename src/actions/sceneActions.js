@@ -1,29 +1,39 @@
 import * as types from "../constants/ActionTypes";
 
 /**
-* @summary - This function registers the scene"s name with Redux
-*
-* @param {string} name - the name is given by the user or when a scene is loaded
-*
-* @returns - a reducer action with type:NAME_SCENE
-*/
+ * This function registers the scene"s name with Redux
+ *
+ * @param {string} name the name is given by the user or when a scene is loaded
+ *
+ * @returns a reducer action with type:NAME_SCENE
+ */
 export function nameScene(name) {
     return { type: types.NAME_SCENE, name };
 }
 
 /**
-* @summary - This function registers the scene's id with Redux
-*
-* @param {string} id - the id of the loaded scene
-*
-* @returns - a reducer action with type:LOAD_SCENE
-*/
+ * This function registers the scene's id with Redux
+ *
+ * @param {string} id the id of the loaded scene
+ *
+ * @returns a reducer action with type:LOAD_SCENE
+ */
 export function loadScene(data) {
     return { type: types.LOAD_SCENE, data };
 }
 
 export function toggleCoordSky() {
     return { type: types.TOGGLE_COORD_SKY };
+}
+export function toggleDefaultLight() {
+    return { type: types.TOGGLE_DEFAULT_LIGHT };
+}
+export function toggleCastShadow() {
+    return { type: types.TOGGLE_CAST_SHADOW };
+}
+
+export function toggleLightIndicator(){
+    return {type: types.TOGGLE_LIGHT_INDICATOR};
 }
 
 export function changeSkyColor(color) {
@@ -50,10 +60,6 @@ export function changeView() {
     return { type: types.CHANGE_VIEW };
 }
 
-export function toggleFly() {
-    return { type: types.TOGGLE_FLY };
-}
-
 export function toggleFloor() {
     return { type: types.TOGGLE_FLOOR };
 }
@@ -62,8 +68,12 @@ export function loadSettings(payload) {
     return { type: types.LOAD_SETTINGS, payload };
 }
 
-export function changeSetting(payload) {
-    return { type: types.LOAD_SETTINGS, payload };
+export function changeSettings(payload) {
+    return { type: types.CHANGE_SETTINGS, payload };
+}
+
+export function resetSettings() {
+    return { type: types.RESET_SETTINGS };
 }
 
 export function addCollectionID(payload) {
@@ -92,12 +102,15 @@ export default {
     setCamera,
     changePerspective,
     changeView,
-    toggleFly,
     toggleFloor,
     loadSettings,
-    changeSetting,
+    changeSettings,
+    resetSettings,
     addCollectionID,
     setDesc,
     setNameDesc,
-    removeCollectionID
+    removeCollectionID,
+    toggleDefaultLight,
+    toggleCastShadow,
+    toggleLightIndicator
 };
