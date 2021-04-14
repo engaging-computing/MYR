@@ -1174,6 +1174,9 @@ class Myr {
             console.error(error);
             throw new Error(error);
         }
+
+        // If a standard github URL, try to refactor it to the raw file URL
+        src = src.replace("github.com", "raw.githubusercontent.com").replace("/blob/", "/").replace("?raw=true", "");
         
         let asset = {
             id: id,
