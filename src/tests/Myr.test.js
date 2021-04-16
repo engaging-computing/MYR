@@ -27,6 +27,8 @@ const defaultCursor = {
     phiLength: 360,
     loop: true,
     textureColoring: false,
+    textureRepeatWidth: 1,
+    textureRepeatHeight: 1,
     duration: 1000,
     magnitude: {
         spin: 360,
@@ -51,8 +53,10 @@ describe("Updates to Myr's Model", () => {
     });
 
     it("should set the texture by using a title and getTexture() should return that title", () => {
-        myr.setTexture("bricks");
+        myr.setTexture("bricks", 2, 2);
         expect(myr.cursor.texture).toEqual("/img/textures/bricks.jpg");
+        expect(myr.cursor.textureRepeatWidth).toEqual(2);
+        expect(myr.cursor.textureRepeatHeight).toEqual(2);
         let getTest = myr.getTexture();
         expect(getTest).toEqual("bricks");
     });
@@ -62,11 +66,13 @@ describe("Updates to Myr's Model", () => {
         expect(myr.cursor.texture).toEqual("https://learnmyr.org/img/MYR-Logo.png");
     });
 
-    it("improper texture should return empty texture", () => {
-        myr.setTexture("asdfghjkl");
-        expect(myr.cursor.texture).toEqual("");
-        let getUndefinedTest = myr.getTexture();
-        expect(getUndefinedTest).toEqual("");
+    it("improper texture should throw an error", () => {
+        try {
+            myr.setTexture("asdfghjkl");
+        }
+        catch(err) {
+            expect(err).toEqual(Error("Not a usable texture or URL."));
+        }
     });
 
     it("setTextureColoring(true) should allow a textured object to have a color other than white", () => {

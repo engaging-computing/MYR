@@ -4,9 +4,8 @@ export const DEF_SETTINGS = {
     skyColor: "white",
     floorColor: "#222",
     camConfig: 0,
-    showCoordHelper: false,
-    canFly: false,
-    showFloor: true,
+    showCoordHelper: true,
+    showFloor: false,
     cameraPosition: "0 1.6 3",
     viewOnly: false,
     defaultLight: true,
@@ -49,14 +48,6 @@ export default function scene(state = initial_state, action) {
                 settings: {
                     ...state.settings,
                     showCoordHelper: !state.settings.showCoordHelper
-                }
-            };
-        case types.TOGGLE_FLY:
-            return {
-                ...state,
-                settings: {
-                    ...state.settings,
-                    canFly: !state.settings.canFly
                 }
             };
         case types.SET_CAMERA:

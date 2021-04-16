@@ -60,10 +60,6 @@ export function changeView() {
     return { type: types.CHANGE_VIEW };
 }
 
-export function toggleFly() {
-    return { type: types.TOGGLE_FLY };
-}
-
 export function toggleFloor() {
     return { type: types.TOGGLE_FLOOR };
 }
@@ -106,7 +102,6 @@ export default {
     setCamera,
     changePerspective,
     changeView,
-    toggleFly,
     toggleFloor,
     loadSettings,
     changeSettings,

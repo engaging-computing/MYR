@@ -172,7 +172,7 @@ class Header extends Component {
     buildSettingsArr = () => {
         const sceneSettings = this.props.scene.settings;
 
-        return [sceneSettings.canFly, sceneSettings.floorColor, 
+        return [ sceneSettings.floorColor, 
             sceneSettings.showCoordHelper, sceneSettings.showFloor,
             sceneSettings.skyColor, sceneSettings.viewOnly];
     };
