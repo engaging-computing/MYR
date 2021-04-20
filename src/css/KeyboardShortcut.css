@@ -1,0 +1,14 @@
+.title {
+    font-size:large
+}
+
+.shortcut {
+    font-size:small
+}
+
+
+.right {
+    float: left;
+    width: 300px;
+    padding: 10px;
+  }
