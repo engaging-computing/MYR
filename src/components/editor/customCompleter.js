@@ -224,8 +224,6 @@ export const customCompleter = {
             };
         }));
 
-        
-
         callback(null, Colors.map(function (word) {
             return {
                 caption: word,
