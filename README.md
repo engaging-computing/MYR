@@ -9,10 +9,16 @@ The Engaging Computing Group develops new technologies to enable learners—yout
 ## Status
 [![CircleCI](https://circleci.com/gh/engaging-computing/MYR.svg?style=shield)](https://circleci.com/gh/engaging-computing/MYR)
 
-## Change Log - 2.1.0 -> 2.1.1
-- Updates Material UI to 4.11.2
-- Add esdoc for code documentation
-- Adds a dependabot configuration file so it will make usable pull requests
+## Change Log - 2.2.0 -> 2.3.0
+- Adds Minecraft style flying controls
+    - Removes flying setting toggle
+- Updates default scene to show helper grid by default
+- MYR provided textures are now case insensitive
+- Textures can be tiled
+- Fixes black flickering bug when entering VR mode on mobile
+- Spelling fixes
+- Updated AFrame to use v1.x.y
+
 
 
 ## Acknowledgments

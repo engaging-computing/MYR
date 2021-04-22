@@ -320,12 +320,19 @@ div#reference-drawer>div {
     margin-right: 10px;
 }
 
-/************************************
-********THIS IS THE VR BUTTON********
-************************************/
+/* Overwrites default A-Frame behavior for embedded
+ * buttons to behave as if scene was located within
+ * an iframe */
 .a-enter-vr {
-    position: "relative";
-    z-index: 1 !important;
+    position: absolute;
+    bottom:20px !important;
+    right:20px !important;
+}
+
+.a-enter-ar {
+    position: absolute;
+    bottom:20px !important;
+    right:80px !important;
 }
 
 .geometry {

@@ -1,11 +1,10 @@
 import React, { Component, Fragment } from "react";
+import { browserType } from "../../utils/browserType";
 import "aframe";
-import "aframe-animation-component";
 import "three-pathfinding/dist/three-pathfinding";
 import "aframe-extras/dist/aframe-extras.min.js";
 import "aframe-physics-system";
 import "aframe-environment-component";
-import * as THREE from "three";
 
 /**
  * The View component return the aframe representation of the scene. This
@@ -31,7 +30,7 @@ class View extends Component {
         }
         window.addEventListener("keydown", function (e) {
             //KEYS: left and right: 37, 39; up and down: 38, 40; space: 32
-            if ([38, 40].indexOf(e.keyCode) > -1) {
+            if ([32, 38, 40].indexOf(e.keyCode) > -1 && e.target === document.body) {
                 e.preventDefault();
             }
         }, false);
@@ -55,9 +54,6 @@ class View extends Component {
 
             // Dispatch/Trigger/Fire the event
             document.dispatchEvent(event);
-
-            let el = document.getElementById("rig");
-            el.components["movement-controls"].velocity = new THREE.Vector3(0, 0, 0);
         }
         
     }
@@ -158,18 +154,18 @@ class View extends Component {
         //ambient light doesn't have an indicator
         switch(ent.light.type){
             case "point":
-                return <a-entity id={ent.id+"Ind"} key={ent.id+"Ind"} pointlightindicator={`color: ${ent.color};`} layer="type:group; layer:1"></a-entity>;
+                return <a-entity id={ent.id+"Ind"} key={ent.id+"Ind"} pointlightindicator={`color: ${ent.color};`}></a-entity>;
             case "spot":
                 let target = true;
                 if(!ent.light.target) {
                     position = "";
                     target = false;
                 }
-                return <a-entity id={ent.id+"Ind"} key={ent.id+"Ind"} spotlightindicator={`color: ${ent.color}; target:${target}`} indicatorrotation={position} layer="type:group; layer:1"></a-entity>;
+                return <a-entity id={ent.id+"Ind"} key={ent.id+"Ind"} spotlightindicator={`color: ${ent.color}; target:${target}`} indicatorrotation={position}></a-entity>;
             case "directional":
-                return <a-entity id={ent.id+"Ind"} key={ent.id+"Ind"} directionallightindicator={`color: ${ent.color};`} indicatorrotation={position} layer="type:group; layer:1"></a-entity>;
+                return <a-entity id={ent.id+"Ind"} key={ent.id+"Ind"} directionallightindicator={`color: ${ent.color};`} indicatorrotation={position}></a-entity>;
             case "hemisphere":
-                return <a-entity id={ent.id+"Ind"} key={ent.id+"Ind"} hemispherelightindicator={`color: ${ent.color}; secondColor: ${ent.light.secondColor}`} layer="type:group; layer:1"></a-entity>;
+                return <a-entity id={ent.id+"Ind"} key={ent.id+"Ind"} hemispherelightindicator={`color: ${ent.color}; secondColor: ${ent.light.secondColor}`} ></a-entity>;
             default:
         }
     }
@@ -214,8 +210,7 @@ class View extends Component {
             <a-entity id="rig" movement-controls="controls: checkpoint" checkpoint-controls="mode: animate">
                 <a-camera
                     position={this.props.sceneConfig.settings.cameraPosition}
-                    look-controls="pointerLockEnabled: true"
-                >
+                    look-controls="pointerLockEnabled: true">
                     <a-cursor
                         position="0 0 -1"
                         geometry="primitive: ring; radiusInner: 0.02; radiusOuter: 0.03;"
@@ -226,20 +221,55 @@ class View extends Component {
     }
 
     basicMoveCam = () => {
-        return (
-            <a-entity id="rig"
-                debug={true}
-                movement-controls={this.props.sceneConfig.settings.canFly ? "fly:true" : "fly:false"} >
-                <a-camera
-                    position={this.props.sceneConfig.settings.cameraPosition}
-                    look-controls="pointerLockEnabled: true">
-                    <a-cursor
-                        position="0 0 -1"
-                        geometry="primitive: ring; radiusInner: 0.02; radiusOuter: 0.03;"
-                        material="color: #CCC; shader: flat;" />
-                </a-camera>
-            </a-entity>
-        );
+        switch(browserType()) {
+            case "mobile":
+                return (
+                    <a-entity id="rig" 
+                        debug={true}
+                        movement-controls="fly: true">
+                        <a-camera
+                            position={this.props.sceneConfig.settings.cameraPosition}
+                            look-controls="pointerLockEnabled: true">
+                            <a-cursor
+                                raycaster="objects:.raycastable"
+                                position="0 0 -1"
+                                geometry="primitive: ring; radiusInner: 0.02; radiusOuter: 0.03;"
+                                material="color: #CCC; shader: flat;" />
+                        </a-camera>
+                    </a-entity> 
+                );
+            case "vr":
+                return (
+                    <a-entity id="rig" 
+                        debug={true}
+                        movement-controls>
+                        <a-camera
+                            position={this.props.sceneConfig.settings.cameraPosition}>
+                            <a-cursor
+                                raycaster="objects:.raycastable"
+                                position="0 0 -1"
+                                geometry="primitive: ring; radiusInner: 0.02; radiusOuter: 0.03;"
+                                material="color: #CCC; shader: flat;" />
+                        </a-camera>
+                    </a-entity> 
+                );
+            case "desktop":
+            default:
+                return (
+                    <a-entity id="rig" debug={true}>
+                        <a-camera
+                            position={this.props.sceneConfig.settings.cameraPosition}
+                            look-controls="pointerLockEnabled: true"
+                            wasd-plus-controls="enabled: true">
+                            <a-cursor
+                                raycaster="objects:.raycastable"
+                                position="0 0 -1"
+                                geometry="primitive: ring; radiusInner: 0.02; radiusOuter: 0.03;"
+                                material="color: #CCC; shader: flat;" />
+                        </a-camera>
+                    </a-entity>
+                );
+        }
     }
 
 
@@ -251,32 +281,29 @@ class View extends Component {
         if (this.props.sceneConfig.settings.showCoordHelper) {
             return (
                 <Fragment>
-                    <a-grid height="53.33" width="53.33" position="-0.5 -0.26 -0.5" scale="1.5 1.5 1.5"  layer="type:mesh;layer:1;"/>
-                    <a-tube path="-35 -0.2 0, 35 -0.2 0" radius="0.05" material="color: red" layer="type:mesh;layer:1;"></a-tube>
-                    <a-tube path="0 -0.2 -35, 0 -0.2 35" radius="0.05" material="color: blue" layer="type:mesh;layer:1;"></a-tube>
+                    <a-grid height="53.33" width="53.33" position="-0.5 -0.26 -0.5" scale="1.5 1.5 1.5" gridmaterial/>
+                    <a-tube path="-35 -0.2 0, 35 -0.2 0" radius="0.05" material="color: red" basicmaterial></a-tube>
+                    <a-tube path="0 -0.2 -35, 0 -0.2 35" radius="0.05" material="color: blue" basicmaterial></a-tube>
                     <a-text
                         color="#555"
                         rotation="0 0 0"
                         position="-0.0005 .1 0"
                         side="double"
                         align="center"
-                        value="- X           X +"
-                        layer="type:text;layer:1;"></a-text>
+                        value="- X           X +"></a-text>
                     <a-text
                         color="#555"
                         rotation="0 90 0"
                         position="0 .1 -0.01"
                         side="double"
                         align="center"
-                        value="+ Z          Z -"
-                        layer="type:text;layer:1;"></a-text>
+                        value="+ Z          Z -"></a-text>
                     <a-text
                         color="#555"
                         rotation="0 90 90"
                         position="0 .1 0"
                         side="double"
-                        value=" Y + "
-                        layer="type:text;layer:1;"></a-text>
+                        value=" Y + "></a-text>
                 </Fragment>
             );
         } else {
@@ -307,48 +334,40 @@ class View extends Component {
         /* eslint-disable */
         return (
             !this.state.welcomeOpen ?
-                <a-scene scenelayer shadow="type:pcf;" physics="debug: false; friction: 3; restitution: .3;" embedded debug="false">
-                    <a-assets>
-                        <a-mixin id="checkpoint"></a-mixin>
-                        <a-mixin id="checkpoint-hovered" color="#6CEEB5"></a-mixin>
-                        <a-img id="reference" src={`${process.env.PUBLIC_URL}/img/coordHelper.jpg`} />
-                        {this.props.assets ? this.props.assets.map((x) => this.assetsHelper(x)) : null}
-                    </a-assets>
-                    <this.createCam />
-                    <a-sky color={this.props.sceneConfig.settings.skyColor} />
-                    <this.coordinateHelper />
-                    <this.makeFloor />
-                    {this.props.sceneConfig.settings.defaultLight ? 
-                                <a-entity id="DefaultLight">                   
-                                    <a-entity id="AmbientLight" light="type: ambient; color: #BBB"></a-entity>
-                                    <a-entity id="DirectionalLight" light={"type: directional; color: #FFF; intensity: 0.6; " + this.lightShadowHelper({state: "",type: "directional"})} position="-3 3 1"></a-entity> 
-                                </a-entity>  
-                        : null
-                    }
-                    {this.props.sceneConfig.settings.lightIndicator||this.props.sceneConfig.settings.showCoordHelper ? 
-                            <a-entity id="AltLayerLight">                   
-                                <a-entity id="AmbientLight" light="type: ambient; color: #BBB" layer="type:light;layer:1;"></a-entity>
-                                <a-entity id="DirectionalLight" light={"type: directional; color: #FFF; intensity: 0.6; " + this.lightShadowHelper({state: "",type: "directional"})} position="-3 3 1" layer="type:light;layer:1;"></a-entity> 
+            <a-scene shadow="type:pcf;" physics="debug: false; friction: 3; restitution: .3;" embedded debug="false">
+                <a-assets>
+                    <a-mixin id="checkpoint"></a-mixin>
+                    <a-mixin id="checkpoint-hovered" color="#6CEEB5"></a-mixin>
+                    <a-img id="reference" src={`${process.env.PUBLIC_URL}/img/coordHelper.jpg`} />
+                    {this.props.assets ? this.props.assets.map((x) => this.assetsHelper(x)) : null}
+                </a-assets>
+                <a-sky color={this.props.sceneConfig.settings.skyColor} />
+                <this.coordinateHelper />
+                <this.makeFloor />
+                {this.props.sceneConfig.settings.defaultLight ? 
+                            <a-entity id="DefaultLight">                   
+                                <a-entity id="AmbientLight" light="type: ambient; color: #BBB"></a-entity>
+                                <a-entity id="DirectionalLight" light={"type: directional; color: #FFF; intensity: 0.6; " + this.lightShadowHelper({state: "",type: "directional"})} position="-3 3 1"></a-entity> 
                             </a-entity>  
-                        : null}
-                    { // create the entities
-                        Object.keys(this.props.objects).map(it => {
-                            return this.helper(this.props.objects[it]);
-                        })
-                    }
-                    
-
-                    {this.props.sceneConfig.settings.camConfig === 1 ?
-                        <a-entity position="0 0 0">
-                            <a-cylinder checkpoint radius="1" height="0.3" position="-25 1 -25" color="#39BB82"></a-cylinder>
-                            <a-cylinder checkpoint radius="1" height="0.3" position="25 1 25" color="#39BB82"></a-cylinder>
-                            <a-cylinder checkpoint radius="1" height="0.3" position="-25 1 25" color="#39BB82"></a-cylinder>
-                            <a-cylinder checkpoint radius="1" height="0.3" position="25 1 -25" color="#39BB82"></a-cylinder>
-                            <a-circle checkpoint radius="1" rotation="90 0 0" position="0 10 0" color="#39BB82"></a-circle>
-                        </a-entity>
-                        : null
-                    }
-                </a-scene>
+                    : null
+                }
+                { // create the entities
+                    Object.keys(this.props.objects).map(it => {
+                        return this.helper(this.props.objects[it]);
+                    })
+                }
+                <this.createCam />
+                {this.props.sceneConfig.settings.camConfig === 1 ?
+                    <a-entity position="0 0 0">
+                        <a-cylinder checkpoint radius="1" height="0.3" position="-25 1 -25" color="#39BB82"></a-cylinder>
+                        <a-cylinder checkpoint radius="1" height="0.3" position="25 1 25" color="#39BB82"></a-cylinder>
+                        <a-cylinder checkpoint radius="1" height="0.3" position="-25 1 25" color="#39BB82"></a-cylinder>
+                        <a-cylinder checkpoint radius="1" height="0.3" position="25 1 -25" color="#39BB82"></a-cylinder>
+                        <a-circle checkpoint radius="1" rotation="90 0 0" position="0 10 0" color="#39BB82"></a-circle>
+                    </a-entity>
+                    : null
+                }
+            </a-scene>
                 :
                 null
         );
