@@ -1309,6 +1309,7 @@ class Myr {
         }
         
     }
+    
     setDecay = (decay = 0.0) =>{
         if(typeof decay === "number"){
             this.cursor.light.decay = decay;
