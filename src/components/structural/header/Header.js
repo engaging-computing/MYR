@@ -482,7 +482,7 @@ class Header extends Component {
                     onClick={this.handleSaveToggle}>
                     <Icon className="material-icons">close</Icon>
                 </IconButton>
-                <this.sceneName />
+                {this.sceneName()}
                 <Button
                     variant="contained"
                     size="small"
