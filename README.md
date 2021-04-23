@@ -9,10 +9,16 @@ The Engaging Computing Group develops new technologies to enable learners—yout
 ## Status
 [![CircleCI](https://circleci.com/gh/engaging-computing/MYR.svg?style=shield)](https://circleci.com/gh/engaging-computing/MYR)
 
-## Change Log - 2.1.1 -> 2.2.0
-- Adds Lighting features to MYR
-- Adds Texture features to MYR
-- Updates copyright in the footer to be in the form `2018 - <current year>`
+## Change Log - 2.2.0 -> 2.3.0
+- Adds Minecraft style flying controls
+    - Removes flying setting toggle
+- Updates default scene to show helper grid by default
+- MYR provided textures are now case insensitive
+- Textures can be tiled
+- Fixes black flickering bug when entering VR mode on mobile
+- Spelling fixes
+- Updated AFrame to use v1.x.y
+
 
 
 ## Acknowledgments
