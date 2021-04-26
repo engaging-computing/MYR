@@ -8,10 +8,10 @@ ModelPack.set("lantern", "https://raw.githubusercontent.com/KhronosGroup/glTF-Sa
 ModelPack.set("materialTestSpheres", "https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Models/master/2.0/MetalRoughSpheres/glTF-Binary/MetalRoughSpheres.glb");
 ModelPack.set("fabricChair", "https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Models/master/2.0/SheenChair/glTF-Binary/SheenChair.glb");
 ModelPack.set("cloth", "https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Models/master/2.0/SheenCloth/glTF/SheenCloth.gltf");
-ModelPack.set("suzanne", "https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Models/master/2.0/Suzanne/glTF/Suzanne.gltf");
+ModelPack.set("duck", "https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Models/master/2.0/Duck/glTF-Binary/Duck.glb");
 
 // Below are models for which licenses need to be reviewed before hosting
-ModelPack.set("duck", "https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Models/master/2.0/Duck/glTF-Binary/Duck.glb");
+// N/A
 
 const defaultModel = {
     ModelPack: ModelPack,
