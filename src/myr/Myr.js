@@ -1175,9 +1175,9 @@ class Myr {
         } else if(!urlregex_https.test(src)) {
             let error = `Unable to load model (${src}).\n`;
             if(urlregex_http.test(src)) {
-                error += `\tHTTP URLs not supported. Please use HTTPS.`;
+                error += "\tHTTP URLs not supported. Please use HTTPS.";
             } else {
-                error += `\tInvalid URL.`;
+                error += "\tInvalid URL.";
             }
             console.error(error);
             throw new Error(error);
