@@ -40,7 +40,6 @@ export default class ModelReference extends React.Component {
 
             if(models.has(model)) {
                 let gltf = models.get(model);
-                console.log(gltf.image);
                 return gltf.image;
             }
             return null;
