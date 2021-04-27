@@ -1171,7 +1171,8 @@ class Myr {
         let urlregex_http = /^(http:)([/|.|\w|\s|-])*\.(?:glb|gltf)/;
 
         if(models.ModelPack.has(src)) {
-            src = models.ModelPack.get(src);
+            src = models.ModelPack.get(src).model;
+            console.log(src);
         } else if(!urlregex_https.test(src)) {
             let error = `Unable to load model (${src}).\n`;
             if(urlregex_http.test(src)) {
