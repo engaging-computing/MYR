@@ -152,21 +152,6 @@ export default class ModelReference extends React.Component {
                                             </Hidden>
                                         }
                                         value='d' />
-                                    {/*<Tab
-                                    style={{ background: "green", color: "white" }}
-                                    icon={<Icon className="material-icons">open_in_new</Icon>}
-                                    label="OPEN IN NEW TAB"
-                                    value='n'
-                                    onClick={this.handleOpen} />
-                                <Tab
-                                    style={{ background: "red", color: "white" }}
-                                    icon={<Icon className="material-icons">close</Icon>}
-                                    label="CLOSE"
-                                    value='x'
-                                    onClick={() => {
-                                        this.props.handleReferenceToggle();
-                                        this.setState({ value: "a" });
-                                    }} />*/}
                                 </Tabs>
                             </div>
 
