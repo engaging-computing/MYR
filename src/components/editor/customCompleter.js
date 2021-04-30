@@ -213,7 +213,14 @@ export const customCompleter = {
                 caption: word,
                 value: word,
                 meta: "MYR",
-                score: 2
+                score: 2,
+                completer:{
+                    insertMatch: function(editor,data){
+                        editor.completer.insertMatch({value:data.value});
+                        let pos = editor.selection.getCursor();
+                        editor.gotoLine(pos.row+1,pos.column-1); 
+                    }
+                }
             };
         }));
 
