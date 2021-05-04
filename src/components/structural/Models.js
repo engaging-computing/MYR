@@ -5,9 +5,7 @@ ModelPack.set("fish", {model: "/models/BarramundiFish.glb", image: "/img/models/
 ModelPack.set("milkTruck", {model: "/models/CesiumMilkTruck.glb", image: "/img/models/milkTruck.gif"});
 ModelPack.set("fox", {model: "/models/Fox.glb", image: "/img/models/fox.jpg"});
 ModelPack.set("lantern", {model: "/models/Lantern.glb", image: "/img/models/lantern.jpg"});
-ModelPack.set("materialTestSpheres", {model: "/models/MetalRoughSpheres.glb", image: "/img/models/materialTestSpheres.png"});
 ModelPack.set("fabricChair", {model: "/models/SheenChair.glb", image: "/img/models/fabricChair.jpg"});
-ModelPack.set("cloth", {model: "/models/SheenCloth.gltf", image: "/img/models/cloth.jpg"});
 ModelPack.set("duck", {model: "/models/Duck.glb", image: "/img/models/duck.png"});
 
 // Below are models for which licenses need to be reviewed before hosting

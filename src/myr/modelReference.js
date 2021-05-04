@@ -150,22 +150,12 @@ let model = [
         name: "lantern",
         model: "lantern",
         example: "lantern",
-    },    
-    {
-        name: "materialTestSpheres",
-        model: "materialTestSpheres",
-        example: "materialTestSpheres",
-    },    
+    },
     {
         name: "fabricChair",
         model: "fabricChair",
         example: "fabricChair",
-    },    
-    {
-        name: "cloth",
-        model: "cloth",
-        example: "cloth",
-    },    
+    },
     {
         name: "duck",
         model: "duck",
