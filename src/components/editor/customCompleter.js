@@ -1,6 +1,6 @@
 import myrReference from "../../myr/reference.js";
 import myrTextures from "../structural/Textures.js";
-import myrModels from "../structural/Models.js"
+import myrModels from "../structural/Models.js";
 
 export const customCompleter = {
     getCompletions: function (editor, session, pos, prefix, callback) {
