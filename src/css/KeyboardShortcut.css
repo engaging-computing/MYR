@@ -1,14 +1,17 @@
+.keyboard-shortcut {
+    width:auto;
+}
+
 .title {
     font-size:large
 }
 
 .shortcut {
-    font-size:small
+    font-size:xx-small
 }
-
 
 .right {
     float: left;
     width: 300px;
     padding: 10px;
-  }
+}

@@ -21,11 +21,11 @@ const general = [
 const editor = [
     {
         shortcut: ["Ctrl", "/"],
-        description: "Comment current or selected line"
+        description: "Comment current or selected line of code"
     },
     {
         shortcut: ["Alt", "Shift","/"],
-        description: "Block comment selected line"
+        description: "Block comment selected line of code"
     },
     {
         shortcut: ["Alt/Option", "Up"],
@@ -34,6 +34,10 @@ const editor = [
     {
         shortcut: ["Alt/Option", "Down"],
         description: "Move code down"
+    },
+    {
+        shortcut: ["Alt/Option","Shift", "Down"],
+        description: "Duplicate current or selected lines of code"
     },
     {
         shortcut: ["Alt", "D"],
@@ -82,7 +86,7 @@ class KeyboardShortcut extends React.Component {
         return (<p>{shortcuts} {data.description}</p>);
     };
     render(){
-        return(<div>
+        return(<div className="keyboard-shortcut">
             <section className="right">
                 <p className="title">General Command</p>
                 { // create the entities
