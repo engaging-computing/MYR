@@ -1,7 +1,7 @@
 let TexturePack = [
     {title:"bricks",url:"/img/textures/bricks.jpg"},
     {title:"bark",url:"/img/textures/bark.jpg"},
-    {title:"checkerboard",url:"/img/textures/checkerboard.png"},
+    {title:"checkerboard",url:"/img/textures/checkerboard.jpg"},
     {title:"chevron",url:"/img/textures/chevron.jpg"},
     {title:"cobblestone",url:"/img/textures/cobblestone.jpg"},
     {title:"dirt",url:"/img/textures/dirt.jpg"},
