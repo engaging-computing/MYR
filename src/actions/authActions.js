@@ -21,7 +21,7 @@ export function logout() {
 }
 
 /**
- * Sends a signal to the reduce to refresh the token
+ * Sends a signal to the reducer to refresh the token
  * 
  * @param {object} token 
  * 

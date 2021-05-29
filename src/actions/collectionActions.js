@@ -38,11 +38,10 @@ export function syncCollections(payload) {
 }
 
 /**
- * 
  * Fetch the specific collection specify by user
+ * 
  * @param {string} collectionID Collection id 
  * @param {*} uid A JWT token to authenticate with the backend
- * @returns reducer action obj from syncCollection if collection successfully retrieve the data. void otherwise.
  */
 export function asyncCollection(collectionID, uid) {
     // fetch projects in collection
@@ -87,7 +86,8 @@ export function asyncCollection(collectionID, uid) {
  * Sends a signal to the reducer to load the retrieved collection
  * 
  * @param {object} payload Data of retrieved collection 
- * @returns {object} redicer action obj with type: SYNC_CLASS and payload
+ * 
+ * @returns {object} reducer action obj with type: SYNC_CLASS and payload
  */
 export function syncCollection(payload) {
     return { type: types.SYNC_CLASS, payload: payload };
@@ -99,7 +99,6 @@ export function syncCollection(payload) {
  * @param {string} collectionID Collection ID
  * @param {string} name Name of the collection if exists 
  * @param {*} uid A JWT token to authenticate with the backend
- * @returns reducer obj with 
  */
 export function deleteCollection(collectionID, name = null, uid) {
     return (dispatch) => {
