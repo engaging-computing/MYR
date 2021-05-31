@@ -235,8 +235,14 @@ class ConfigModal extends Component {
         this.props.sceneActions.changeFloorColor(color.hex);
     };
 
-    handleMoveSpeedUpdate = (speed) => {
-        this.setState({ moveSpeed: speed });
+    handleMoveSpeedUpdate = (e, newSpeed) => {
+        /* update component state whenever the slider's value changes
+         * so text displays correctly, only update redux store on 
+         * mouseup when user drags slider */
+        this.setState({ moveSpeed: newSpeed });
+        if(!e || e.type === "mouseup") {
+            this.props.sceneActions.updateMoveSpeed(newSpeed);
+        }
     };
 
     handleSkyColorClick = () => {
@@ -614,15 +620,24 @@ class ConfigModal extends Component {
                                             }
                                             {this.state.displayMoveSpeedSlider
                                                 ?
-                                                <div id="speed-config" className="col-12 gutter-top pt-4">
-                                                    <div className="col-9">
-                                                        <Slider
-                                                            defaultValue={this.props.scene.settings.moveSpeed}
-                                                            valueLabelDisplay="auto" 
-                                                            min={0}
-                                                            max={1000} />
-                                                    </div>
-                                                    <div className="col-3">
+                                                <div id="speed-config" className="col-12 pt-4">
+                                                    <div className="row">
+                                                        <div className="col-9">
+                                                            <Slider
+                                                                value={this.state.moveSpeed}
+                                                                valueLabelDisplay="auto" 
+                                                                onChange={this.handleMoveSpeedUpdate}
+                                                                onChangeCommitted={this.handleMoveSpeedUpdate}
+                                                                min={0}
+                                                                max={1000} />
+                                                        </div>
+                                                        <div className="col-3 align-top">
+                                                            <ButtonBase
+                                                                onClick={() => this.handleMoveSpeedUpdate(null, 150)}>
+                                                                <Icon className="material-icons">settings_backup_restore</Icon>
+                                                                Reset
+                                                            </ButtonBase >
+                                                        </div>
                                                     </div>
                                                 </div>
                                                 :
