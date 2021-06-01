@@ -30,7 +30,8 @@ m.init();
 // window.m = m; // Use this to attach it to the window for debugging
 
 /**
- * ESLint doesn't like this but it is better than eval
+ * Conver the MYR code supplied from the editor to a function so it can be executed
+ *      ESLint doesn't like this but it is better than eval
  * @param {string} text MYR code supplied from editor
  */
 function noEvalEvaluation(text) {
@@ -109,7 +110,7 @@ export default function editor(state = initial_state, action) {
 
             // Call editor function again with new params
             return editor({ ...state }, { type: types.EDITOR_RENDER, text: snapshots[stableIndex].text });
-        //Update save text. savedText used to check whether user made changes to the scene
+        //Update save text. savedText use to check whether user made changes to the scene
         case types.EDITOR_UPDATE_SAVEDTEXT:
             return {
                 ...state,
