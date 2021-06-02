@@ -2,6 +2,10 @@ import AFRAME from "aframe";
 const THREE = AFRAME.THREE;
 
 
+/**
+ * @summary Define spotlight indicator geometry
+ *              Shape: cone
+ */
 AFRAME.registerComponent("spotlightindicator",{
     schema:{
         color:{
@@ -32,10 +36,8 @@ AFRAME.registerComponent("spotlightindicator",{
         geometry.merge(cone);
     
         /*      define outline geometry */
-    
         let outCone = new THREE.CylinderGeometry(.2,1,1.5,24,1,true);
         let outCircle = new THREE.CircleGeometry(.2,24);
-        
         
         if(data.target) {
             outCircle.rotateX(-Math.PI/2);
@@ -66,6 +68,10 @@ AFRAME.registerComponent("spotlightindicator",{
     }
 });
 
+/**
+ * @summary Define pointlight indicator geometry
+ *              Shape: sphere
+ */
 AFRAME.registerComponent("pointlightindicator", {
     schema:{
         color:{
@@ -98,6 +104,10 @@ AFRAME.registerComponent("pointlightindicator", {
     }
 });
 
+/**
+ * @summary Define directionallight indicator geometry
+ *              Shape: arrow
+ */
 AFRAME.registerComponent("directionallightindicator", {
     schema:{
         color:{
@@ -144,9 +154,12 @@ AFRAME.registerComponent("directionallightindicator", {
     }
 });
 
-/*
- Weird bug - there's circle exist in up cone and don't know why its there
-*/
+
+/**
+ * @summary Define hemispherelight indicator geometry
+ *              Shape: Double arrow
+ * Weird bug - there's circle exist in up cone and don't know why its there
+ */
 AFRAME.registerComponent("hemispherelightindicator",{
     schema: {
         color:{
@@ -183,7 +196,6 @@ AFRAME.registerComponent("hemispherelightindicator",{
 
         /*      define outline geometry      */
         let outGeometry = new THREE.Geometry();
-        
         const outHead = new THREE.ConeGeometry(.7,1.3,20,12);
         const outPole = new THREE.CylinderGeometry(0.2, 0.2, 1.2, 20);
         outHead.translate(0, 1.5, 0);
@@ -217,6 +229,8 @@ AFRAME.registerComponent("hemispherelightindicator",{
 
 
 /**
+ * Return MeshBasicMaterial with the inverse of the color of material from parameter
+ * 
  * @param {THREE.Material} material
  */
 function CreateOutlineMaterial(material) {
