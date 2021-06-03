@@ -172,7 +172,7 @@ export default function scene(state = initial_state, action) {
                     ...state.settings,
                     moveSpeed: action.speed
                 }
-            }
+            };
         default:
             return state;
     }
