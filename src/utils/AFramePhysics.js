@@ -71,7 +71,7 @@ AFRAME.registerComponent("shadowcustomsetting", {
     },
 });
 
-AFRAME.registerComponent("materialtype", {
+AFRAME.registerComponent("materialinfo", {
     schema:{
         type:{
             default:""
@@ -99,19 +99,9 @@ AFRAME.registerComponent("materialtype", {
                 material = new AFRAME.THREE.MeshPhongMaterial();
         }
 
-        /*
-        if(this.data.type === "toon") {
-            material = new AFRAME.THREE.MeshToonMaterial();
-        } else if(this.data.type === "matte") {
-            material = new AFRAME.THREE.MeshLambertMaterial();
-        } else if(this.data.type === "basic") {
-            material = new AFRAME.THREE.MeshBasicMaterial();
-        } else if(this.data.type === "physical") {
-            material = new AFRAME.THREE.MeshPhysicalMaterial();
-        } else {
-            material = new AFRAME.THREE.MeshPhongMaterial();
-        }
-        */
+        material.roughness = this.data.roughness;
+        material.metalness = this.data.metalness;
+
         material.color.set(obj.material.color);
         //material.alphaMap.set(obj.material.alphaMap)
 

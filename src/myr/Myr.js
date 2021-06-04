@@ -17,6 +17,8 @@ class Myr {
             color: "red",
             texture: "",
             materialtype: MaterialType.SPECULAR,
+            roughness: 1,
+            metalness: 0,
             transparency: 0,
             position: {
                 x: 0,
@@ -97,6 +99,9 @@ class Myr {
         this.cursor = {
             color: "red",
             texture: "",
+            materialtype: MaterialType.SPECULAR,
+            roughness: 1.0,
+            metalness: 0.0,
             transparency: 0,
             position: {
                 x: 0,
@@ -1008,6 +1013,7 @@ class Myr {
     plane = (params) => {
         let base = {
             id: "plane" + this.genNewId(),
+            plane: true,
             geometry: `primitive: plane; height: 1; width: 1; phi-length: ${this.cursor.phiLength};`,
             position: this.cursor.position,
             rotation: this.cursor.rotation,
@@ -1054,6 +1060,14 @@ class Myr {
         return this.mergeProps(base, params);
     }
 
+    setRoughness = (roughness) => {
+        this.cursor.roughness = roughness;
+    }
+
+    setMetalness = (metalness) => {
+        this.cursor.metalness = metalness;
+    }
+
     /**
      * Render an Aframe sphere with current Myr settings
      * 
@@ -1067,7 +1081,12 @@ class Myr {
             rotation: this.cursor.rotation,
             scale: this.cursor.scale,
             material: ((this.cursor.texture === "" || this.cursor.textureColoring) ? `color: ${this.cursor.color};` : "color: white;") + `side: double; src: ${this.cursor.texture}; repeat: ${this.cursor.textureRepeatWidth + " " + this.cursor.textureRepeatHeight}; opacity: ${1 - this.cursor.transparency};`,
-            materialtype: this.cursor.materialtype,
+            //materialtype: this.cursor.materialtype,
+            materialinfo: {
+                type: this.cursor.materialtype,
+                roughness: this.cursor.roughness,
+                metalness: this.cursor.metalness,
+            },
         };
         return this.mergeProps(base, params);
     }
