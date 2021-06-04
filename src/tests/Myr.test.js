@@ -1,4 +1,5 @@
 import Myr from "../myr/Myr";
+import {MaterialType} from "../components/structural/MaterialType.js";
 
 const myr = new Myr();
 
@@ -7,6 +8,9 @@ let colorRegEx = new RegExp("#([0-9]|[A-F]|[a-f]){6}");
 const defaultCursor = {
     color: "red",
     texture: "",
+    materialtype: MaterialType.SPECULAR,
+    roughness: 1,
+    metalness: 0,
     transparency: 0,
     position: {
         x: 0,
