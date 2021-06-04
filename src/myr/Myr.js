@@ -699,7 +699,7 @@ class Myr {
 
     setRoughness = (roughness) => {
         if(roughness < 0 || roughness > 1) {
-            throw new Error(`Roughness must be between 0.0 and 1.0!`);
+            throw new Error("Roughness must be between 0.0 and 1.0!");
         }
         this.cursor.roughness = roughness;
         return this.cursor.roughness;
@@ -707,7 +707,7 @@ class Myr {
 
     setMetalness = (metalness) => {
         if(metalness < 0 || metalness > 1) {
-            throw new Error(`Metalness must be between 0.0 and 1.0!`);
+            throw new Error("Metalness must be between 0.0 and 1.0!");
         }
         this.cursor.metalness = metalness;
         return this.cursor.metalness;
