@@ -1,10 +1,13 @@
 import AFRAME from "aframe";
-import * as THREE from "three";
+const THREE = AFRAME.THREE;
 import {MaterialType} from "../components/structural/MaterialType.js";
 
 AFRAME.registerComponent("force-pushable", {
     schema: {
-        force: { default: 10 }
+        force: { 
+            type: "number",
+            default: 10
+        }
     },
     init: function () {
         this.pStart = new THREE.Vector3();
@@ -14,61 +17,44 @@ AFRAME.registerComponent("force-pushable", {
     forcePush: function () {
         let force,
             el = this.el,
-            pStart = this.pStart.copy(this.sourceEl.getAttribute("position"));
-
+            pStart = this.pStart.copy(this.sourceEl.children[0].getAttribute("position"));
         // Compute direction of force, normalize, then scale.
         force = el.body.position.vsub(pStart);
         force.normalize();
-        force.scale(this.data.force, force);
+        force.scale(this.nextData.force, force);
 
         el.body.applyImpulse(force, el.body.position);
     }
 });
 
-//This set aframe entity to different layer (range from 0-31)
-//all the regular MYR entities will goes to layer 0
-//And other, such as grid, light indicator will goes to layer 1 so it won't take effect of user created light
-AFRAME.registerComponent("layer",{
-    schema:{
-        type:{
-            type:"string",
-            default: "mesh"
-        },
-        layer:{
-            type:"number",
-            default: 0
-        },
-    },
-    init: function(){
-        let obj = this.el.getObject3D(this.data.type);
-        if(this.data.type === "group"){
-            obj.children.forEach((child)=>{
-                child.layers.set(this.data.layer);
-            });
-        } else {
-            obj.layers.set(this.data.layer);
-        }
-    }
-});   
 
-//Attached to the a-scene. Display aframe entities in different layer in scene every frame
-AFRAME.registerComponent("scenelayer",{
+//change the type of the material to the MeshBasicMaterial
+AFRAME.registerComponent("basicmaterial",{
     schema:{
         default:""
     },
     init: function(){
-        this.renderer = this.el.renderer;
-        this.camera = this.el.camera;
-        this.scene = this.el.sceneEl.object3D;
-    },
-    tick: function(){
-        this.renderer.autoClear = true;
-        this.camera.layers.set(1);
-        this.renderer.render(this.scene, this.camera);
+        const color = this.el.getObject3D("mesh").material.color;
+        this.el.getObject3D("mesh").material = new THREE.MeshBasicMaterial({
+            color:color,
+        });
+    }
+});
 
-        this.renderer.autoClear = false;
-        this.camera.layers.set(0);
-        this.renderer.render(this.scene, this.camera);
+//change the material of a-grid to MeshBasicMaterial
+AFRAME.registerComponent("gridmaterial",{
+    schema:{
+        default:""
+    },
+    init: function(){
+        const texture = new THREE.TextureLoader().load("https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v1.16.3/assets/grid.png");
+        texture.repeat = new THREE.Vector2(75,75);
+        texture.wrapS = THREE.RepeatWrapping;
+        texture.wrapT = THREE.RepeatWrapping;
+        
+        this.el.getObject3D("mesh").material = new THREE.MeshBasicMaterial({
+            map: texture
+        });
     }
 });
 

@@ -37,6 +37,8 @@ class Myr {
             phiLength: 360,
             loop: true,
             textureColoring: false,
+            textureRepeatWidth: 1,
+            textureRepeatHeight: 1,
             duration: 1000,
             magnitude: {
                 spin: 360,
@@ -115,6 +117,8 @@ class Myr {
             phiLength: 360,
             loop: true,
             textureColoring: false,
+            textureRepeatWidth: 1,
+            textureRepeatHeight: 1,
             duration: 1000,
             magnitude: {
                 spin: 360,
@@ -168,6 +172,8 @@ class Myr {
             phiLength: 360,
             loop: true,
             textureColoring: false,
+            textureRepeatWidth: 1,
+            textureRepeatHeight: 1,
             duration: 1000,
             magnitude: {
                 spin: 360,
@@ -642,22 +648,24 @@ class Myr {
         return this.cursor.color;
     }
 
-    setTexture = (texture = "") => {
+    setTexture = (texture = "", w = 1, h = 1) => {
         let textures = TexturePack();
         let textureTitle = [...textures.TexturePack.map(obj => obj.title)];
         let textureURL = [...textures.TexturePack.map(obj => obj.url)];
         let urlregex = /^(http(s?):)([/|.|\w|\s|-])*\.(?:jpg|gif|png)/;
 
-        if (textureURL[textureTitle.indexOf(texture)] !== undefined) {
-            this.cursor.texture = textureURL[textureTitle.indexOf(texture)];
+        if (textureURL[textureTitle.indexOf(texture.toLowerCase())] !== undefined) {
+            this.cursor.texture = textureURL[textureTitle.indexOf(texture.toLowerCase())];
         }
         else if(urlregex.test(texture) || (texture === "")) {
             this.cursor.texture = texture;
         }
         else {
             console.error("Not a usable texture or URL.");
-            this.cursor.texture = "";
+            throw new Error("Not a usable texture or URL.");
         }
+        this.cursor.textureRepeatWidth = w;
+        this.cursor.textureRepeatHeight = h;
 
         return this.cursor.texture;
     }
@@ -856,7 +864,7 @@ class Myr {
             position: { ...this.cursor.position },
             rotation: this.cursor.rotation,
             scale: this.cursor.scale,
-            material: ((this.cursor.texture === "" || this.cursor.textureColoring) ? `color: ${this.cursor.color};` : "color: white;") + `side: double; src: ${this.cursor.texture}; opacity: ${1 - this.cursor.transparency};`,
+            material: ((this.cursor.texture === "" || this.cursor.textureColoring) ? `color: ${this.cursor.color};` : "color: white;") + `side: double; src: ${this.cursor.texture}; repeat: ${this.cursor.textureRepeatWidth + " " + this.cursor.textureRepeatHeight}; opacity: ${1 - this.cursor.transparency};`,
             materialtype: this.cursor.materialtype,
         };
 
@@ -875,7 +883,7 @@ class Myr {
             position: this.cursor.position,
             rotation: this.cursor.rotation,
             scale: this.cursor.scale,
-            material: ((this.cursor.texture === "" || this.cursor.textureColoring) ? `color: ${this.cursor.color};` : "color: white;") + `side: double; src: ${this.cursor.texture}; opacity: ${1 - this.cursor.transparency};`,
+            material: ((this.cursor.texture === "" || this.cursor.textureColoring) ? `color: ${this.cursor.color};` : "color: white;") + `side: double; src: ${this.cursor.texture}; repeat: ${this.cursor.textureRepeatWidth + " " + this.cursor.textureRepeatHeight}; opacity: ${1 - this.cursor.transparency};`,
             materialtype: this.cursor.materialtype,
         };
         return this.mergeProps(base, params);
@@ -893,7 +901,7 @@ class Myr {
             position: this.cursor.position,
             rotation: this.cursor.rotation,
             scale: this.cursor.scale,
-            material: ((this.cursor.texture === "" || this.cursor.textureColoring) ? `color: ${this.cursor.color};` : "color: white;") + `side: double; src: ${this.cursor.texture}; opacity: ${1 - this.cursor.transparency};`,
+            material: ((this.cursor.texture === "" || this.cursor.textureColoring) ? `color: ${this.cursor.color};` : "color: white;") + `side: double; src: ${this.cursor.texture}; repeat: ${this.cursor.textureRepeatWidth + " " + this.cursor.textureRepeatHeight}; opacity: ${1 - this.cursor.transparency};`,
             materialtype: this.cursor.materialtype,
         };
         return this.mergeProps(base, params);
@@ -911,7 +919,7 @@ class Myr {
             position: this.cursor.position,
             rotation: this.cursor.rotation,
             scale: this.cursor.scale,
-            material: ((this.cursor.texture === "" || this.cursor.textureColoring) ? `color: ${this.cursor.color};` : "color: white;") + `side: double; src: ${this.cursor.texture}; opacity: ${1 - this.cursor.transparency};`,
+            material: ((this.cursor.texture === "" || this.cursor.textureColoring) ? `color: ${this.cursor.color};` : "color: white;") + `side: double; src: ${this.cursor.texture}; repeat: ${this.cursor.textureRepeatWidth + " " + this.cursor.textureRepeatHeight}; opacity: ${1 - this.cursor.transparency};`,
             materialtype: this.cursor.materialtype,
         };
         return this.mergeProps(base, params);
@@ -930,7 +938,7 @@ class Myr {
             position: this.cursor.position,
             rotation: this.cursor.rotation,
             scale: this.cursor.scale,
-            material: ((this.cursor.texture === "" || this.cursor.textureColoring) ? `color: ${this.cursor.color};` : "color: white;") + `side: double; src: ${this.cursor.texture}; opacity: ${1 - this.cursor.transparency};`,
+            material: ((this.cursor.texture === "" || this.cursor.textureColoring) ? `color: ${this.cursor.color};` : "color: white;") + `side: double; src: ${this.cursor.texture}; repeat: ${this.cursor.textureRepeatWidth + " " + this.cursor.textureRepeatHeight}; opacity: ${1 - this.cursor.transparency};`,
             materialtype: this.cursor.materialtype,
         };
         return this.mergeProps(base, params);
@@ -948,7 +956,7 @@ class Myr {
             position: this.cursor.position,
             rotation: this.cursor.rotation,
             scale: this.cursor.scale,
-            material: ((this.cursor.texture === "" || this.cursor.textureColoring) ? `color: ${this.cursor.color};` : "color: white;") + `side: double; src: ${this.cursor.texture}; opacity: ${1 - this.cursor.transparency};`,
+            material: ((this.cursor.texture === "" || this.cursor.textureColoring) ? `color: ${this.cursor.color};` : "color: white;") + `side: double; src: ${this.cursor.texture}; repeat: ${this.cursor.textureRepeatWidth + " " + this.cursor.textureRepeatHeight}; opacity: ${1 - this.cursor.transparency};`,
             materialtype: this.cursor.materialtype,
         };
         return this.mergeProps(base, params);
@@ -966,7 +974,7 @@ class Myr {
             position: this.cursor.position,
             rotation: this.cursor.rotation,
             scale: this.cursor.scale,
-            material: ((this.cursor.texture === "" || this.cursor.textureColoring) ? `color: ${this.cursor.color};` : "color: white;") + `side: double; src: ${this.cursor.texture}; opacity: ${1 - this.cursor.transparency};`,
+            material: ((this.cursor.texture === "" || this.cursor.textureColoring) ? `color: ${this.cursor.color};` : "color: white;") + `side: double; src: ${this.cursor.texture}; repeat: ${this.cursor.textureRepeatWidth + " " + this.cursor.textureRepeatHeight}; opacity: ${1 - this.cursor.transparency};`,
             materialtype: this.cursor.materialtype,
         };
         return this.mergeProps(base, params);
@@ -986,7 +994,7 @@ class Myr {
             position: this.cursor.position,
             rotation: this.cursor.rotation,
             scale: this.cursor.scale,
-            material: ((this.cursor.texture === "" || this.cursor.textureColoring) ? `color: ${this.cursor.color};` : "color: white;") + `side: double; src: ${this.cursor.texture}; opacity: ${1 - this.cursor.transparency};`,
+            material: ((this.cursor.texture === "" || this.cursor.textureColoring) ? `color: ${this.cursor.color};` : "color: white;") + `side: double; src: ${this.cursor.texture}; repeat: ${this.cursor.textureRepeatWidth + " " + this.cursor.textureRepeatHeight}; opacity: ${1 - this.cursor.transparency};`,
             materialtype: this.cursor.materialtype,
         };
         return this.mergeProps(base, params);
@@ -1004,7 +1012,7 @@ class Myr {
             position: this.cursor.position,
             rotation: this.cursor.rotation,
             scale: this.cursor.scale,
-            material: ((this.cursor.texture === "" || this.cursor.textureColoring) ? `color: ${this.cursor.color};` : "color: white;") + `side: double; src: ${this.cursor.texture}; opacity: ${1 - this.cursor.transparency};`,
+            material: ((this.cursor.texture === "" || this.cursor.textureColoring) ? `color: ${this.cursor.color};` : "color: white;") + `side: double; src: ${this.cursor.texture}; repeat: ${this.cursor.textureRepeatWidth + " " + this.cursor.textureRepeatHeight}; opacity: ${1 - this.cursor.transparency};`,
             materialtype: this.cursor.materialtype,
         };
         return this.mergeProps(base, params);
@@ -1022,7 +1030,7 @@ class Myr {
             position: this.cursor.position,
             rotation: this.cursor.rotation,
             scale: this.cursor.scale,
-            material: ((this.cursor.texture === "" || this.cursor.textureColoring) ? `color: ${this.cursor.color};` : "color: white;") + `side: double; src: ${this.cursor.texture}; opacity: ${1 - this.cursor.transparency};`,
+            material: ((this.cursor.texture === "" || this.cursor.textureColoring) ? `color: ${this.cursor.color};` : "color: white;") + `side: double; src: ${this.cursor.texture}; repeat: ${this.cursor.textureRepeatWidth + " " + this.cursor.textureRepeatHeight}; opacity: ${1 - this.cursor.transparency};`,
             materialtype: this.cursor.materialtype,
         };
         return this.mergeProps(base, params);
@@ -1040,7 +1048,7 @@ class Myr {
             position: this.cursor.position,
             rotation: this.cursor.rotation,
             scale: this.cursor.scale,
-            material: ((this.cursor.texture === "" || this.cursor.textureColoring) ? `color: ${this.cursor.color};` : "color: white;") + `side: double; src: ${this.cursor.texture}; opacity: ${1 - this.cursor.transparency};`,
+            material: ((this.cursor.texture === "" || this.cursor.textureColoring) ? `color: ${this.cursor.color};` : "color: white;") + `side: double; src: ${this.cursor.texture}; repeat: ${this.cursor.textureRepeatWidth + " " + this.cursor.textureRepeatHeight}; opacity: ${1 - this.cursor.transparency};`,
             materialtype: this.cursor.materialtype,
         };
         return this.mergeProps(base, params);
@@ -1058,7 +1066,7 @@ class Myr {
             position: this.cursor.position,
             rotation: this.cursor.rotation,
             scale: this.cursor.scale,
-            material: ((this.cursor.texture === "" || this.cursor.textureColoring) ? `color: ${this.cursor.color};` : "color: white;") + `side: double; src: ${this.cursor.texture}; opacity: ${1 - this.cursor.transparency};`,
+            material: ((this.cursor.texture === "" || this.cursor.textureColoring) ? `color: ${this.cursor.color};` : "color: white;") + `side: double; src: ${this.cursor.texture}; repeat: ${this.cursor.textureRepeatWidth + " " + this.cursor.textureRepeatHeight}; opacity: ${1 - this.cursor.transparency};`,
             materialtype: this.cursor.materialtype,
         };
         return this.mergeProps(base, params);
@@ -1076,7 +1084,7 @@ class Myr {
             position: this.cursor.position,
             rotation: this.cursor.rotation,
             scale: this.cursor.scale,
-            material: ((this.cursor.texture === "" || this.cursor.textureColoring) ? `color: ${this.cursor.color};` : "color: white;") + `side: double; src: ${this.cursor.texture}; opacity: ${1 - this.cursor.transparency};`,
+            material: ((this.cursor.texture === "" || this.cursor.textureColoring) ? `color: ${this.cursor.color};` : "color: white;") + `side: double; src: ${this.cursor.texture}; repeat: ${this.cursor.textureRepeatWidth + " " + this.cursor.textureRepeatHeight}; opacity: ${1 - this.cursor.transparency};`,
             materialtype: this.cursor.materialtype,
         };
         return this.mergeProps(base, params);
@@ -1123,7 +1131,7 @@ class Myr {
             position: this.cursor.position,
             rotation: this.cursor.rotation,
             scale: this.cursor.scale,
-            material: ((this.cursor.texture === "" || this.cursor.textureColoring) ? `color: ${this.cursor.color};` : "color: white;") + `side: double; src: ${this.cursor.texture}; opacity: ${1 - this.cursor.transparency};`,
+            material: ((this.cursor.texture === "" || this.cursor.textureColoring) ? `color: ${this.cursor.color};` : "color: white;") + `side: double; src: ${this.cursor.texture}; repeat: ${this.cursor.textureRepeatWidth + " " + this.cursor.textureRepeatHeight}; opacity: ${1 - this.cursor.transparency};`,
             materialtype: this.cursor.materialtype,
         };
         return this.mergeProps(base, params);
@@ -1143,7 +1151,7 @@ class Myr {
             p: 2,
             q: 3,
             scale: this.cursor.scale,
-            material: ((this.cursor.texture === "" || this.cursor.textureColoring) ? `color: ${this.cursor.color};` : "color: white;") + `side: double; src: ${this.cursor.texture}; opacity: ${1 - this.cursor.transparency};`,
+            material: ((this.cursor.texture === "" || this.cursor.textureColoring) ? `color: ${this.cursor.color};` : "color: white;") + `side: double; src: ${this.cursor.texture}; repeat: ${this.cursor.textureRepeatWidth + " " + this.cursor.textureRepeatHeight}; opacity: ${1 - this.cursor.transparency};`,
             materialtype: this.cursor.materialtype,
         };
         return this.mergeProps(base, params);
@@ -1161,7 +1169,7 @@ class Myr {
             position: this.cursor.position,
             rotation: this.cursor.rotation,
             scale: this.cursor.scale,
-            material: ((this.cursor.texture === "" || this.cursor.textureColoring) ? `color: ${this.cursor.color};` : "color: white;") + `side: double; src: ${this.cursor.texture}; opacity: ${1 - this.cursor.transparency};`,
+            material: ((this.cursor.texture === "" || this.cursor.textureColoring) ? `color: ${this.cursor.color};` : "color: white;") + `side: double; src: ${this.cursor.texture}; repeat: ${this.cursor.textureRepeatWidth + " " + this.cursor.textureRepeatHeight}; opacity: ${1 - this.cursor.transparency};`,
             materialtype: this.cursor.materialtype,
         };
         return this.mergeProps(base, params);
@@ -1181,7 +1189,7 @@ class Myr {
             position: this.cursor.position,
             rotation: this.cursor.rotation,
             scale: this.cursor.scale,
-            material: ((this.cursor.texture === "" || this.cursor.textureColoring) ? `color: ${this.cursor.color};` : "color: white;") + `side: double; src: ${this.cursor.texture}; opacity: ${1 - this.cursor.transparency};`,
+            material: ((this.cursor.texture === "" || this.cursor.textureColoring) ? `color: ${this.cursor.color};` : "color: white;") + `side: double; src: ${this.cursor.texture}; repeat: ${this.cursor.textureRepeatWidth + " " + this.cursor.textureRepeatHeight}; opacity: ${1 - this.cursor.transparency};`,
             materialtype: this.cursor.materialtype,
         };
         return this.mergeProps(base, params);
@@ -1804,23 +1812,21 @@ class Myr {
         //if the element is light
         if(String(el.id).includes("lgt")){
             let split = el.light.state.split(/\s|;/).filter(Boolean);
-            let colorIndex = split.indexOf("color:");
-            let baseCol = split[colorIndex+1];
+            let colorIndex = split.indexOf("color:")+1;
+            let baseCol = split[colorIndex];
             if(this.colourNameToHex(baseCol)!==false){
                 baseCol = this.colourNameToHex(baseCol);
             }
             if(this.colourNameToHex(color) !== false){
                 color = this.colourNameToHex(color);
             }
-            let anim = `
-            property: light.color;
+            let anim = `property: light.color;
             from: ${baseCol};
             to: ${color};
             dur: ${this.cursor.duration};
             dir: alternate;
             loop: ${Boolean(this.cursor.loop)};
-            type: color;
-          `;
+            type: color;`;
             el.animation__color = anim;
             return outerElId;
         }
@@ -1830,31 +1836,29 @@ class Myr {
                 let innerEl = el.els[i];
                 //innerEl.material.split(/\s|;/) returns an array of strings separated by " " and ";",
                 //color is always its first attribute (after "color: ")
-                let anim = `
-          property: components.material.material.color;
-          from: ${(innerEl.material.split(/\s|;/))[1]};
-          to: ${color};
-          dur: ${this.cursor.duration};
-          dir: alternate;
-          loop: ${Boolean(this.cursor.loop)};
-          isRawProperty: true;
-          type: color;
-        `;
+                let anim = `property: components.material.material.color;
+            from: ${(innerEl.material.split(/\s|;/))[1]};
+            to: ${color};
+            dur: ${this.cursor.duration};
+            dir: alternate;
+            loop: ${Boolean(this.cursor.loop)};
+            isRawProperty: true;
+            type: color;`;
                 innerEl.animation__color = anim;
 
             }
             return outerElId;
         }
-        let anim = `
-      property: components.material.material.color;
-      from: ${(el.material.split(/\s|;/))[2]};
-      to: ${color};
-      dur: ${this.cursor.duration};
-      dir: alternate;
-      loop: ${Boolean(this.cursor.loop)};
-      isRawProperty: true;
-      type: color;
-    `;
+    
+        const mat = el.material.split(/\s|;/);
+        let anim = `property: components.material.material.color;
+        from: ${mat[mat.indexOf("color:")+1]};
+        to: ${color};
+        dur: ${this.cursor.duration};
+        dir: alternate;
+        loop: ${Boolean(this.cursor.loop)};
+        isRawProperty: true;
+        type: color;`;
         el.animation__color = anim;
         return outerElId;
     }

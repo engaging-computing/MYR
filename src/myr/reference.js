@@ -270,8 +270,8 @@ let transformations = [
     },
     {
         name: "setTexture",
-        parameters: [{type: "string", name: "texture"}],
-        description: <span>The setTexture function changes the texture of the cursor. The texture's normal color is displayed when setTextureColoring() is false, otherwise the texture will be affected by the current color. Textures can be applied either by using the name of one of <button id="textures" onClick = {handleTextureOpen} style = {{backgroundColor:"white", color:"#47a0ff", padding:0, border:"none"}}>these textures</button> or by inserting a valid url (e.g. "bricks" or "https://learnmyr.org/img/MYR-Logo.png"). An empty setTexture() or setTexture("") statement will remove the current texture.</span>,
+        parameters: [{type: "string", name: "texture"}, {type: "number", name: "widthRepeat"}, {type: "number", name: "heightRepeat"}],
+        description: <span>The setTexture function changes the texture of the cursor. The texture's normal color is displayed when setTextureColoring() is false, otherwise the texture will be affected by the current color. Textures can be applied either by using the name of one of <button id="textures" onClick = {handleTextureOpen} style = {{backgroundColor:"white", color:"#47a0ff", padding:0, border:"none"}}>these textures</button> or by inserting a valid url (e.g. "bricks" or "https://learnmyr.org/img/MYR-Logo.png"). WidthRepeat and heightRepeat will change how many times the texture is displayed on the object in each direction. If widthRepeat and heightRepeat are not declared they will be set to default settings. Depending on the policy of the website they’re from, image URLs may not be usable, which will result in a blank Texture and Color. An empty setTexture() or setTexture("") statement will remove the current texture.</span>,
         example: "setTexture"
     },
     {
@@ -533,7 +533,7 @@ let animations = [
     {
         name: "getMagnitude",
         parameters: [],
-        desription: <span>The getMagnitude function returns the current magnitude attribute of the cursor. The magnitude can be changed by the setMagnitude function.</span>
+        description: <span>The getMagnitude function returns the current magnitude attribute of the cursor. The magnitude can be changed by the setMagnitude function.</span>
     },
     {
         name: "spin",
