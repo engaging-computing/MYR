@@ -3,7 +3,10 @@ const THREE = AFRAME.THREE;
 
 AFRAME.registerComponent("force-pushable", {
     schema: {
-        force: { default: 10 }
+        force: { 
+            type: "number",
+            default: 10
+        }
     },
     init: function () {
         this.pStart = new THREE.Vector3();
@@ -13,12 +16,11 @@ AFRAME.registerComponent("force-pushable", {
     forcePush: function () {
         let force,
             el = this.el,
-            pStart = this.pStart.copy(this.sourceEl.getAttribute("position"));
-
+            pStart = this.pStart.copy(this.sourceEl.children[0].getAttribute("position"));
         // Compute direction of force, normalize, then scale.
         force = el.body.position.vsub(pStart);
         force.normalize();
-        force.scale(this.data.force, force);
+        force.scale(this.nextData.force, force);
 
         el.body.applyImpulse(force, el.body.position);
     }
