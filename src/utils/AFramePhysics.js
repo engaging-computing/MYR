@@ -1,6 +1,6 @@
 import AFRAME from "aframe";
-const THREE = AFRAME.THREE;
 import {MaterialType} from "../components/structural/MaterialType.js";
+const THREE = AFRAME.THREE;
 
 AFRAME.registerComponent("force-pushable", {
     schema: {
