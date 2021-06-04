@@ -1,47 +1,46 @@
 import React from "react";
+import {
+    Button,
+    ButtonBase,
+    Icon,
+    Tooltip,
+    Popover,
+} from "@material-ui/core";
 import "../../css/KeyboardShortcut.css";
 
 
 //TODO - have better description
 const general = [
     {
-        shortcut: ["Ctrl", "S"],
-        description: "Save scene"
+        shortcut: ["Ctrl/Cmd", "S"],
+        description: "Save a scene"
     },
     {
-        shortcut: ["Ctrl", "Shift", "S"],
-        description: "Pop up save tab"
+        shortcut: ["Ctrl/Cmd", "Shift", "S"],
+        description: "Pop up a save tab"
     },
     {
-        shortcut: ["Ctrl", "Enter"],
-        description: "Render scene"
+        shortcut: ["Ctrl/Cmd", "Enter"],
+        description: "Render a scene"
     },
 ];
 
 const editor = [
     {
-        shortcut: ["Ctrl", "/"],
+        shortcut: ["Ctrl/Cmd", "/"],
         description: "Comment current or selected line of code"
     },
     {
-        shortcut: ["Alt", "Shift","/"],
-        description: "Block comment selected line of code"
-    },
-    {
         shortcut: ["Alt/Option", "Up"],
-        description: "Move code up"
+        description: "Move a code up"
     },
     {
         shortcut: ["Alt/Option", "Down"],
-        description: "Move code down"
+        description: "Move a code down"
     },
     {
-        shortcut: ["Alt/Option","Shift", "Down"],
-        description: "Duplicate current or selected lines of code"
-    },
-    {
-        shortcut: ["Alt", "D"],
-        description: "Delete line of code"
+        shortcut: ["Alt/Cmd", "D"],
+        description: "Delete a line of code"
     }
 ];
 
@@ -75,6 +74,14 @@ const scene = [
 //TODO - Add close button
 
 class KeyboardShortcut extends React.Component {
+    constructor(props){
+        super(props);
+        this.state = {
+            open: false,
+            anchorEl: null
+        };
+    }
+
     shortcutHelper = (data) => {
         let shortcuts = [];
         data.shortcut.forEach((key,i)=>{
@@ -85,29 +92,76 @@ class KeyboardShortcut extends React.Component {
         });
         return (<p>{shortcuts} {data.description}</p>);
     };
+
+    handleClick = (event) =>{
+        this.setState({
+            open: true,
+            anchorEl: event.target});
+    };
+
+    handleClose = () => {
+        this.setState({
+            open: false,
+            anchorEl: null});
+    };
+
     render(){
-        return(<div className="keyboard-shortcut">
-            <section className="right">
-                <p className="title">General Command</p>
-                { // create the entities
-                    general.map(e => {return this.shortcutHelper(e);})
-                }
-            </section>
-            <section className="right">
-                <p className="title">Editor Command</p>
-                { // create the entities
-                    editor.map(e => {return this.shortcutHelper(e);})
-                }
-            </section>
-            <section className="right">
-                <p className="title">MYR Command</p>
-                { // create the entities
-                    scene.map(e => {return this.shortcutHelper(e);})
-                }
-            </section>
-        </div>);
+        return(
+            <div>
+                <Tooltip title="Keyboard Shortcut">
+                    <Button
+                        variant="contained"
+                        size="small"
+                        color="primary"
+                        onClick={this.handleClick}>
+                        <Icon className="material-icons">keyboard</Icon>
+                    </Button>
+                </Tooltip>
+                <Popover
+                    id="simple-popover"
+                    anchorEl={this.state.anchorEl}
+                    anchorOrigin={{
+                        vertical:"top",
+                        horizontal: "left",
+                    }}
+                    transformOrigin={{
+                        vertical: "bottom",
+                        hotizontal: "left"
+                    }}
+                    open={this.state.open}
+                    onClose={this.handleClose}>
+                    <div className="keyboard-shortcut">
+                        <ButtonBase
+                            style={{ position: "absolute", right: 15, top: 15 }}
+                            onClick={this.handleClose} >
+                            <Icon className="material-icons">clear</Icon>
+                        </ButtonBase >
+                        <section className="right">
+                            <p className="title">General Command</p>
+                            { // create the entities
+                                general.map(e => {return this.shortcutHelper(e);})
+                            }
+                        </section>
+                        <section className="right">
+                            <p className="title">Editor Command</p>
+                            { // create the entities
+                                editor.map(e => {return this.shortcutHelper(e);})
+                            }
+                        </section>
+                        <section className="right">
+                            <p className="title">Scene Command</p>
+                            { // create the entities
+                                scene.map(e => {return this.shortcutHelper(e);})
+                            }
+                        </section>
+                    </div>
+                </Popover> 
+            </div>
+        );
     }
 }
+
+/**/
 
 
 export default KeyboardShortcut;

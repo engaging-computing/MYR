@@ -4,12 +4,7 @@ import "brace/mode/javascript";
 import "brace/theme/github";
 import "brace/ext/searchbox";
 import "brace/ext/language_tools";
-import {
-    Button,
-    Icon,
-    Tooltip,
-    Popover,
-} from "@material-ui/core";
+
 
 import customCompleter from "./customCompleter.js";
 import KeyboardShortcut from "./keyboardShortcut.js";
@@ -19,14 +14,7 @@ import KeyboardShortcut from "./keyboardShortcut.js";
  * Editor is a React Component that creat the Ace Editor in the DOM.
  */
 
-class Editor extends Component {
-    constructor(props){
-        super(props);
-        this.state = {
-            shortcutOpen: false,
-            anchorEl: null,
-        };
-    }
+class Editor extends Component {    
     componentWillUnmount() {
         // Updates state in reducer before closing editor
         const text = window.ace.edit("ace-editor").getSession().getValue();
@@ -67,17 +55,6 @@ class Editor extends Component {
             "esversion": 6
         }]);
     }
-
-    handleShortcutClick = (event) =>{
-        this.setState({shortcutOpen: true});
-        this.setState({anchorEl: event.target});
-    }
-
-    handleShortcutClose = () => {
-        this.setState({shortcutOpen: false});
-        this.setState({anchorEl: null});
-    }
-
     /**
      * Creates the editor in the DOM
      */
@@ -101,30 +78,7 @@ class Editor extends Component {
                     enableLiveAutocompletion={true}
                     onLoad={this.onLoad}
                 />
-                <Tooltip title="Keyboard Shortcut">
-                    <Button
-                        variant="contained"
-                        size="small"
-                        color="primary"
-                        onClick={this.handleShortcutClick}>
-                        <Icon className="material-icons">keyboard</Icon>
-                    </Button>
-                </Tooltip>
-                <Popover
-                    id="simple-popover"
-                    anchorEl={this.state.anchorEl}
-                    anchorOrigin={{
-                        vertical:"top",
-                        horizontal: "left",
-                    }}
-                    transformOrigin={{
-                        vertical: "bottom",
-                        hotizontal: "left"
-                    }}
-                    open={this.state.shortcutOpen}
-                    onClose={this.handleShortcutClose}>
-                    <KeyboardShortcut/>
-                </Popover>
+                <KeyboardShortcut/>
             </div>
         );
     }
