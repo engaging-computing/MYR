@@ -19,6 +19,7 @@ import {
 import { withStyles } from "@material-ui/core/styles";
 import "../../../css/ProjectView.css";
 
+
 function getOuterModalStyle() {
     const top = 50;
     const left = 50;
@@ -88,6 +89,10 @@ const exitBtnStyle = {
     top: 0,
     right: 0,
 };
+
+/**
+ * Create component with show 
+ */
 class Project extends React.Component {
     constructor(props) {
         super(props);
@@ -96,41 +101,64 @@ class Project extends React.Component {
             showImg: false,
             anchorEl: null,
             qrCodeOpen: false,
-            pwProtectOpen: false,
             shareOpen: false,
             infoOpen: false,
             email: "",
-            pw: "",
             sendTo: [],
             value: this.props.tab,
+            //pwProtectOpen: false,
+            //pw: "",
         };
         this.emailRef = React.createRef();
     }
 
+    /**
+     * Handles when user click on the project
+     * @param {*} event 
+     */
     handleClick = event => {
         this.setState({ anchorEl: event.currentTarget, projectId: event.currentTarget.id });
     };
 
+    /**
+     * Handles when user clicks on the info in the user project
+     * @param {*} event 
+     */
     handleInfoUserClick = event => {
         this.setState({ projectId: event.currentTarget.id, isUserProj: true });
         this.handleInfoToggle();
     };
 
+    /**
+     * Handles when user clicks on the info in the example project
+     * @param {*} event 
+     */
     handleInfoExampleClick = event => {
         this.setState({ projectId: event.currentTarget.id, isUserProj: false });
         this.handleInfoToggle();
     };
 
+    /**
+     * Handles when the projectview is closed
+     * @param {*} event 
+     */
     handleClose = () => {
         this.setState({ anchorEl: null });
     };
 
+    /**
+     * Handles when the text change in the textfield
+     * @param {string} name Place where it saved in state
+     */
     handleTextChange = name => event => {
         this.setState({
             [name]: event.target.value,
         });
     };
 
+    /**
+     * Handles when the user add the new email address to send
+     */
     handleAddEmail = () => {
         let arr = [].concat(this.state.sendTo);
         arr.push(this.state.email);
@@ -138,21 +166,31 @@ class Project extends React.Component {
         this.setState({ sendTo: arr, email: "" });
     }
 
+    /**
+     * Handles toggle the project info
+     */
     handleInfoToggle = () => {
         this.setState({ infoOpen: !this.state.infoOpen });
     }
 
+    /**
+     * Handles toggle the qrcode menu
+     */
     handleQrToggle = () => {
         this.setState({ qrCodeOpen: !this.state.qrCodeOpen });
     }
 
-    handlePwToggle = () => {
-        this.setState({ pwProtectOpen: !this.state.pwProtectOpen });
-    }
-
+    /**
+     * Handles toggle the share menu
+     */
     handleShrToggle = () => {
         this.setState({ shareOpen: !this.state.shareOpen, sendTo: [] });
     }
+
+    // handlePwToggle = () => {
+    //     this.setState({ pwProtectOpen: !this.state.pwProtectOpen });
+    // }
+
     //handleProjectToggle = () => {
     //  this.setState({ projectsOpen: !this.state.projectsOpen });
     //  this.setState({ value: "a" });
@@ -200,6 +238,9 @@ class Project extends React.Component {
     //   </div>
     // );
 
+    /**
+     * @returns Email field where user enters addresses they want to share it with
+     */
     shareOptions = () => (
         <div>
             <h5>Enter one or more email addresses</h5>
@@ -231,6 +272,9 @@ class Project extends React.Component {
         </div>
     );
 
+    /**
+     * @returns Returns the info of the project if it exists
+     */
     infoOpen = () => {
         let projectId = this.state.projectId;
         let project;
@@ -262,6 +306,9 @@ class Project extends React.Component {
         );
     };
 
+    /**
+     * @returns QR Code of the link to the project
+     */
     qrCodeOpen = () => {
         return (
             <div>
@@ -270,7 +317,13 @@ class Project extends React.Component {
             </div>
         );
     };
-
+    
+    /**
+     * Helper for creating the project card
+     * @param {object} proj Porject info
+     * @param {boolean} canDelete whehter project can be deleted
+     * @returns Elements of the project card
+     */
     helper = (proj, canDelete) => {
         if (proj) {
             let id = proj._id;
@@ -331,6 +384,9 @@ class Project extends React.Component {
         }
     }
 
+    /**
+     * @returns Create a share menu for QR Code and email 
+     */
     sceneMenu = () => (
         <Menu
             id="simple-menu"
@@ -361,10 +417,18 @@ class Project extends React.Component {
         </Menu>
     );
 
+    /**
+     * Handles the switch between user and example project tab
+     * @param {*} event 
+     * @param {string} value New tab string 
+     */
     handleChange = (event, value) => {
         this.setState({ value });
     };
 
+    /**
+     * Create project view
+     */
     render() {
         const { classes } = this.props;
         let previewToggle = {
@@ -503,7 +567,7 @@ class Project extends React.Component {
                                     <this.shareOptions />
                                 </div>
                             </Modal>
-                            <Modal
+                            {/* <Modal
                                 aria-labelledby="simple-modal-title"
                                 aria-describedby="simple-modal-description"
                                 open={this.state.pwProtectOpen}
@@ -516,7 +580,7 @@ class Project extends React.Component {
                                     </ButtonBase >
                                     <this.pwProtect />
                                 </div>
-                            </Modal>
+                            </Modal> */}
                         </div>
                     </Modal>
                 </React.Fragment>

@@ -35,6 +35,9 @@ const exitBtnStyle = {
     right: 0,
 };
 
+/**
+ * React component class for the header
+ */
 class Header extends Component {
     constructor(props) {
         super(props);
@@ -106,8 +109,6 @@ class Header extends Component {
      * Catches certain keyboard shortcuts
      *
      * @param {event} e - event from the keystroke.
-     * 
-     * @return {void}
      */
     handleKeyDown(e) {
         //metaKey is cmd and windows key in some browsers
@@ -169,6 +170,10 @@ class Header extends Component {
     }
 
 
+    /**
+     * Flatten the sceneSettings from props (object) into an array for comparason
+     * @returns {array} Array of the scene settings
+     */
     buildSettingsArr = () => {
         const sceneSettings = this.props.scene.settings;
 
@@ -177,6 +182,11 @@ class Header extends Component {
             sceneSettings.skyColor, sceneSettings.viewOnly];
     };
     
+    /**
+     * Compare two arrays of setting and determine whether is the settings are equal or not
+     * @param {array} newSettings Settings to compare
+     * @returns {boolean} If settings are equal or not
+     */
     settingsEqual = (newSettings) =>{
         for(let i = 0; i < newSettings.length; ++i){
             if(newSettings[i] !== this.state.savedSettings[i]){
@@ -213,6 +223,11 @@ class Header extends Component {
         window.gtag("config", "UA-122925714-1", {"user_id": this.props.user.googleId});
     }
 
+    /**
+     * Google auth token object has a expiration time that needed to be refresh after certain time period
+     *      This function set the timeout and will refresh the token after it reach the time
+     * @param {number} time The time when the token will expired 
+     */
     setRefreshTime = (time) => {
         const oneMinute = 60*1000;
         let expiryTime = Math.max(
@@ -222,6 +237,9 @@ class Header extends Component {
         setTimeout(this.refreshToken, expiryTime);
     }
 
+    /**
+     * Refresh token when the time expires, update the token, and set the refresh time again
+     */
     refreshToken = () => {
         this.state.googleUser.reloadAuthResponse().then((authResponse) => {
             this.props.logging.refreshToken(authResponse.id_token);
@@ -361,6 +379,10 @@ class Header extends Component {
         return projectId;
     }
 
+    /**
+     * @return Return a elements with spinner like effects if the spinnerOpen is true
+     *              Use for when saving or loading a scene
+     */
     spinner = () => {
         if (this.state.spinnerOpen) {
             return (
@@ -503,36 +525,60 @@ class Header extends Component {
         this.setState({ projectTab: "a" });
     };
 
+    /**
+     * toggles the load welcome menu
+     */
     handleWelcomeToggle = () => {
         this.setState({ welcomeOpen: !this.state.welcomeOpen });
     };
 
+    /**
+     * toggles the load courses drawer
+     */
     handleCoursesToggle = () => {
         this.setState({ coursesOpen: !this.state.coursesOpen });
     };
 
+    /**
+     * toggles the load tour
+     */
     handleTourToggle = () => {
         this.setState({ tourOpen: !this.state.tourOpen });
     };
 
+    /**
+     * toggles the load collection drawer
+     */
     handleCollectionToggle = () => {
         this.setState({ collectionOpen: !this.state.collectionOpen });
     };
 
+    /**
+     * close the collection drawer
+     */
     handleCollectionClose = () => {
         this.setState({ collectionOpen: false });
     };
 
+    /**
+     * toggles the load reference drawer
+     */
     handleReferenceToggle = () => {
         this.setState({ referenceOpen: !this.state.referenceOpen });
     };
 
+    /**
+     * Handles when collection is deleted
+     */
     handleCollectionDelete = (collectionID) => {
         if(this.props.scene.settings.collectionID === collectionID) {
             this.props.sceneActions.removeCollectionID(this.props.scene);
         }
     }
 
+    /**
+     * Return a collection component
+     */
     loadCollection = () => {
         return (
             <Collection
@@ -550,11 +596,13 @@ class Header extends Component {
     /**
      * closes the snackbar that displays the message from render
      */
-
     closeSnackBar = () => {
         this.setState({ snackOpen: false });
     }
 
+    /**
+     * Display the snackbar that displays the message from render
+     */
     renderSnackBar = () => {
         return (
             <Snackbar
@@ -795,7 +843,7 @@ class Header extends Component {
      * multiple setState/state actions dispatched within an event handler
      * Currently only used for render button
      * 
-     * @param {*} f 
+     * @param {function} f Function to call after the timeout
      */
     postpone(f) {
         window.setTimeout(f, 0);
