@@ -7,7 +7,7 @@ import "brace/ext/language_tools";
 
 
 import customCompleter from "./customCompleter.js";
-import KeyboardShortcut from "./keyboardShortcut.js";
+import KeyboardShortcut from "./KeyboardShortcut.js";
 
 
 /**
