@@ -9,7 +9,7 @@ The Engaging Computing Group develops new technologies to enable learners—yout
 ## Status
 [![CircleCI](https://circleci.com/gh/engaging-computing/MYR.svg?style=shield)](https://circleci.com/gh/engaging-computing/MYR)
 
-## Change Log - 2.2.0 -> 2.2.1
+## Change Log - 2.3.0 -> 2.3.1
 - Updated VR/AR buttons to be spaced out
 - Fixed bug where colorshift would always choose white for it's initial color
 - Updated autocompelete to put cursor in between parenthesis instead of after
