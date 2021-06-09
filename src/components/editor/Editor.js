@@ -5,16 +5,13 @@ import "brace/theme/github";
 import "brace/ext/searchbox";
 import "brace/ext/language_tools";
 
-
 import customCompleter from "./customCompleter.js";
 import KeyboardShortcut from "./KeyboardShortcut.js";
-
 
 /**
  * Editor is a React Component that creat the Ace Editor in the DOM.
  */
-
-class Editor extends Component {    
+class Editor extends Component {
     componentWillUnmount() {
         // Updates state in reducer before closing editor
         const text = window.ace.edit("ace-editor").getSession().getValue();
@@ -55,6 +52,7 @@ class Editor extends Component {
             "esversion": 6
         }]);
     }
+    
     /**
      * Creates the editor in the DOM
      */

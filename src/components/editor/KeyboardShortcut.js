@@ -8,8 +8,6 @@ import {
 } from "@material-ui/core";
 import "../../css/KeyboardShortcut.css";
 
-
-//TODO - have better description
 const general = [
     {
         shortcut: ["Ctrl/Cmd", "S"],
@@ -70,8 +68,6 @@ const scene = [
         description: "Move down"
     },
 ];
-
-//TODO - Add close button
 
 class KeyboardShortcut extends React.Component {
     constructor(props){
@@ -138,19 +134,19 @@ class KeyboardShortcut extends React.Component {
                         </ButtonBase >
                         <section className="right">
                             <p className="title">General Command</p>
-                            { // create the entities
+                            {
                                 general.map(e => {return this.shortcutHelper(e);})
                             }
                         </section>
                         <section className="right">
                             <p className="title">Editor Command</p>
-                            { // create the entities
+                            {
                                 editor.map(e => {return this.shortcutHelper(e);})
                             }
                         </section>
                         <section className="right">
                             <p className="title">Scene Command</p>
-                            { // create the entities
+                            {
                                 scene.map(e => {return this.shortcutHelper(e);})
                             }
                         </section>
@@ -160,8 +156,5 @@ class KeyboardShortcut extends React.Component {
         );
     }
 }
-
-/**/
-
 
 export default KeyboardShortcut;
