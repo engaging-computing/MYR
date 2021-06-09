@@ -9,16 +9,11 @@ The Engaging Computing Group develops new technologies to enable learners—yout
 ## Status
 [![CircleCI](https://circleci.com/gh/engaging-computing/MYR.svg?style=shield)](https://circleci.com/gh/engaging-computing/MYR)
 
-## Change Log - 2.2.0 -> 2.3.0
-- Adds Minecraft style flying controls
-    - Removes flying setting toggle
-- Updates default scene to show helper grid by default
-- MYR provided textures are now case insensitive
-- Textures can be tiled
-- Fixes black flickering bug when entering VR mode on mobile
-- Spelling fixes
-- Updated AFrame to use v1.x.y
-
+## Change Log - 2.3.0 -> 2.3.1
+- Updated VR/AR buttons to be spaced out
+- Fixed bug where colorshift would always choose white for it's initial color
+- Updated autocompelete to put cursor in between parenthesis instead of after
+- Fixed a bug where a pushable entity would not be able to be pushed (`makePushable`)
 
 
 ## Acknowledgments
