@@ -7,6 +7,7 @@ import "brace/ext/language_tools";
 
 import customCompleter from "./customCompleter.js";
 import KeyboardShortcut from "./KeyboardShortcut.js";
+import { browserType } from "../../utils/browserType";
 
 /**
  * Editor is a React Component that creat the Ace Editor in the DOM.
@@ -76,7 +77,7 @@ class Editor extends Component {
                     enableLiveAutocompletion={true}
                     onLoad={this.onLoad}
                 />
-                <KeyboardShortcut/>
+                { browserType() === "desktop" ? <KeyboardShortcut/> : null }
             </div>
         );
     }

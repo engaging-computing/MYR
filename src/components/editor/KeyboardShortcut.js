@@ -10,22 +10,22 @@ import "../../css/KeyboardShortcut.css";
 
 const general = [
     {
-        shortcut: ["Ctrl/Cmd", "S"],
+        shortcut: ["Ctrl/⌘", "S"],
         description: "Save a scene"
     },
     {
-        shortcut: ["Ctrl/Cmd", "Shift", "S"],
+        shortcut: ["Ctrl/⌘", "Shift", "S"],
         description: "Pop up a save tab"
     },
     {
-        shortcut: ["Ctrl/Cmd", "Enter"],
+        shortcut: ["Ctrl/⌘", "Enter"],
         description: "Render a scene"
     },
 ];
 
 const editor = [
     {
-        shortcut: ["Ctrl/Cmd", "/"],
+        shortcut: ["Ctrl/⌘", "/"],
         description: "Comment current or selected line of code"
     },
     {
@@ -37,7 +37,7 @@ const editor = [
         description: "Move a code down"
     },
     {
-        shortcut: ["Alt/Cmd", "D"],
+        shortcut: ["Alt/⌘", "D"],
         description: "Delete a line of code"
     }
 ];
@@ -151,6 +151,7 @@ class KeyboardShortcut extends React.Component {
                             }
                         </section>
                     </div>
+                    <p className="note">⌘: Command key for macOS user</p>
                 </Popover> 
             </div>
         );
