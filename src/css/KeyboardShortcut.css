@@ -1,0 +1,21 @@
+.keyboard-shortcut {
+    width:auto;
+}
+
+.title {
+    font-size:large
+}
+
+.shortcut {
+    font-size:xx-small
+}
+
+.right {
+    float: left;
+    width: 300px;
+    padding: 10px;
+}
+
+.note {
+    margin-left: 1%;
+}
