@@ -955,7 +955,7 @@ class Myr {
             position: this.cursor.position,
             rotation: this.cursor.rotation,
             scale: this.cursor.scale,
-            material: ((this.cursor.texture === "" || this.cursor.textureColoring) ? `color: ${this.cursor.color};` : "color: white;") + `side: double; src: ${this.cursor.texture}; repeat: ${this.cursor.textureRepeatWidth + " " + this.cursor.textureRepeatHeight}; opacity: ${1 - this.cursor.transparency};`,
+            material: ((this.cursor.texture === "" || this.cursor.textureColoring) ? `color: ${this.cursor.color};` : "color: white;") + `side: double; src: ${this.cursor.texture}; repeat: ${this.cursor.textureRepeatWidth + " " + this.cursor.textureRepeatHeight}; opacity: ${1 - this.cursor.transparency};` + ` roughness: ${this.cursor.roughness}; metalness: ${this.cursor.metalness}`,
             materialinfo: {
                 type: this.cursor.materialtype,
                 roughness: this.cursor.roughness,

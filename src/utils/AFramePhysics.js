@@ -101,9 +101,10 @@ AFRAME.registerComponent("materialinfo", {
 
         material.roughness = this.data.roughness;
         material.metalness = this.data.metalness;
-
-        material.color.set(obj.material.color);
-        //material.alphaMap.set(obj.material.alphaMap)
+        material.color = obj.material.color;
+        material.side = obj.material.side;
+        material.repeat = obj.material.repeat;
+        material.opacity = obj.material.opacity;
 
         let mesh = new AFRAME.THREE.Mesh(obj.geometry, material);
 

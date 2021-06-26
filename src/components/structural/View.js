@@ -139,7 +139,7 @@ class View extends Component {
             if (ent.tube) {
                 return <a-tube path={ent.path} radius={ent.radius} material={ent.material} materialtype={`type:${ent.materialtype}`} shadow={shadow} shadowcustomsetting></a-tube>;
             }
-            return <a-entity class="raycastable" key={ent.id} {...flattened} materialinfo={`type: ${ent.materialinfo.type}; roughness: ${ent.materialinfo.roughness}; metalness: ${ent.materialinfo.metalness};`} shadow={shadow} shadowcustomsetting ></a-entity>;
+            return <a-entity class="raycastable" key={ent.id} {...flattened} material={ent.material} materialinfo={`type: ${ent.materialinfo.type}; roughness: ${ent.materialinfo.roughness}; metalness: ${ent.materialinfo.metalness};`} shadow={shadow} shadowcustomsetting ></a-entity>;
             
         }
     }
