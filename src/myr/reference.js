@@ -278,7 +278,7 @@ let transformations = [
         name: "setMaterialType",
         parameters: [{type: "MaterialType", name: "materialtype"}],
         description: <span>The setMaterialType function changes the material type of the cursor.</span>,
-        example: "setMaterialType(MaterialType().TOON);"
+        example: "setMaterialType(\"toon\");"
     },
     {
         name: "MaterialType",
