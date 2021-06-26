@@ -205,6 +205,14 @@ export const customCompleter = {
             "yellowgreen"
         ];
 
+        let Materials = [
+            "basic",
+            "matte",
+            "specular",
+            "physical",
+            "toon"
+        ];
+
         callback(null, BasicAutocompleteKeyWords.map(function (word) {
             return {
                 caption: word,
@@ -253,6 +261,15 @@ export const customCompleter = {
                 caption: word,
                 value: word,
                 meta: "model",
+                score: 3
+            };
+        }));
+
+        callback(null, Materials.map(function (word) {
+            return {
+                caption: word,
+                value: word,
+                meta: "material",
                 score: 3
             };
         }));
