@@ -11,15 +11,15 @@ import "../../css/KeyboardShortcut.css";
 const general = [
     {
         shortcut: ["Ctrl/⌘", "S"],
-        description: "Save a scene"
+        description: "Save scene"
     },
     {
         shortcut: ["Ctrl/⌘", "Shift", "S"],
-        description: "Pop up a save tab"
+        description: "Save scene as"
     },
     {
         shortcut: ["Ctrl/⌘", "Enter"],
-        description: "Render a scene"
+        description: "Render scene"
     },
 ];
 
@@ -30,34 +30,34 @@ const editor = [
     },
     {
         shortcut: ["Alt/Option", "Up"],
-        description: "Move a code up"
+        description: "Move current line of code up 1 line"
     },
     {
         shortcut: ["Alt/Option", "Down"],
-        description: "Move a code down"
+        description: "Move current line of code down 1 line"
     },
     {
         shortcut: ["Alt/⌘", "D"],
-        description: "Delete a line of code"
+        description: "Delete current line of code"
     }
 ];
 
 const scene = [
     {
         shortcut: ["W"],
-        description: "Move forward"
-    },
-    {
-        shortcut: ["A"],
-        description: "Slide left"
+        description: "Move forwards"
     },
     {
         shortcut: ["S"],
-        description: "Move backward"
+        description: "Move backwards"
+    },
+    {
+        shortcut: ["A"],
+        description: "Move left"
     },
     {
         shortcut: ["D"],
-        description: "Slide right"
+        description: "Move right"
     },
     {
         shortcut: ["Space"],
@@ -133,19 +133,19 @@ class KeyboardShortcut extends React.Component {
                             <Icon className="material-icons">clear</Icon>
                         </ButtonBase >
                         <section className="right">
-                            <p className="title">General Command</p>
+                            <p className="title">General Commands</p>
                             {
                                 general.map(e => {return this.shortcutHelper(e);})
                             }
                         </section>
                         <section className="right">
-                            <p className="title">Editor Command</p>
+                            <p className="title">Editor Commands</p>
                             {
                                 editor.map(e => {return this.shortcutHelper(e);})
                             }
                         </section>
                         <section className="right">
-                            <p className="title">Scene Command</p>
+                            <p className="title">Scene Controls</p>
                             {
                                 scene.map(e => {return this.shortcutHelper(e);})
                             }

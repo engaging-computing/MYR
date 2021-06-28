@@ -65,17 +65,19 @@ AFRAME.registerComponent("shadowcustomsetting", {
     init: function () {
         this.el.addEventListener("loaded", () => {
             let obj = this.el.getObject3D("mesh");
-            if(!obj) return;
-            obj.material.shadowSide = THREE.FrontSide;
+            if(obj) {
+                obj.material.shadowSide = THREE.FrontSide;
+            }
         });
         this.el.addEventListener("model-loaded", () => {
             let obj = this.el.getObject3D("mesh");
-            if(!obj) return;
-            obj.traverse((node) => {
-                if(node.material) {
-                    node.material.shadowSide = THREE.FrontSide;
-                }
-            });
+            if(obj) {
+                obj.traverse((node) => {
+                    if(node.material) {
+                        node.material.shadowSide = THREE.FrontSide;
+                    }
+                });
+            }
         });
     },
 });
