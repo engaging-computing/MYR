@@ -70,6 +70,7 @@ const generateMockProps = () => {
                 defaultLight: true,
                 castShadow: false,
                 lightIndicator: false,
+                moveSpeed: 150,
                 collectionID: ""
             },
         },
@@ -322,6 +323,7 @@ describe("Scene Reducer", () => {
                 defaultLight: true,
                 castShadow: false,
                 lightIndicator: false,
+                moveSpeed: 150,
                 collectionID: ""
             }
         };

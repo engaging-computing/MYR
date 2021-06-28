@@ -260,7 +260,7 @@ class View extends Component {
                         <a-camera
                             position={this.props.sceneConfig.settings.cameraPosition}
                             look-controls="pointerLockEnabled: true"
-                            wasd-plus-controls="enabled: true">
+                            wasd-plus-controls={`acceleration: ${this.props.sceneConfig.settings.moveSpeed}`}>
                             <a-cursor
                                 raycaster="objects:.raycastable"
                                 position="0 0 -1"
