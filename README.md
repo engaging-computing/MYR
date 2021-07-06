@@ -9,11 +9,10 @@ The Engaging Computing Group develops new technologies to enable learners—yout
 ## Status
 [![CircleCI](https://circleci.com/gh/engaging-computing/MYR.svg?style=shield)](https://circleci.com/gh/engaging-computing/MYR)
 
-## Change Log - 2.3.0 -> 2.3.1
-- Updated VR/AR buttons to be spaced out
-- Fixed bug where colorshift would always choose white for it's initial color
-- Updated autocompelete to put cursor in between parenthesis instead of after
-- Fixed a bug where a pushable entity would not be able to be pushed (`makePushable`)
+## Change Log - 2.3.1 -> 2.4.0
+- Added ability to import custom GLTF models into a scene
+- Added a keyboard shortcut information menu
+- Added a slider for setting the movement speed in a scene
 
 
 ## Acknowledgments
