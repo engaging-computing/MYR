@@ -12,7 +12,6 @@ export const EDITOR_REFRESH = "EDITOR_REFRESH";
 export const EDITOR_RECOVER = "EDITOR_RECOVER";
 export const EDITOR_CHANGE = "EDITOR_CHANGE";
 export const EDITOR_UPDATE_SAVEDTEXT = "EDITOR_UPDATE_SAVEDTEXT";
-export const ADD_PW = "ADD_PW";
 export const SAVE_START = "SAVE_START";
 //unused constant
 export const SAVE_FIN = "SAVE_FIN";

@@ -98,18 +98,10 @@ export function updateSavedText(savedText){
     return {type: types.EDITOR_UPDATE_SAVEDTEXT, savedText};
 }
 
-/**
- *  Unused function
- */
-export function addPassword(payload) {
-    return { type: types.ADD_PW, payload };
-}
-
 export default {
     render,
     refresh,
     recover,
     fetchScene,
-    addPassword,
     updateSavedText,
 };

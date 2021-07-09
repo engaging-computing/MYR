@@ -106,8 +106,6 @@ class Project extends React.Component {
             email: "",
             sendTo: [],
             value: this.props.tab,
-            //pwProtectOpen: false,
-            //pw: "",
         };
         this.emailRef = React.createRef();
     }
@@ -186,57 +184,6 @@ class Project extends React.Component {
     handleShrToggle = () => {
         this.setState({ shareOpen: !this.state.shareOpen, sendTo: [] });
     }
-
-    // handlePwToggle = () => {
-    //     this.setState({ pwProtectOpen: !this.state.pwProtectOpen });
-    // }
-
-    //handleProjectToggle = () => {
-    //  this.setState({ projectsOpen: !this.state.projectsOpen });
-    //  this.setState({ value: "a" });
-    //};
-
-    // pwProtect = () => (
-    //   <div>
-    //     <h5>Please enter a PW.</h5>
-    //     <TextField
-    //       type="password"
-    //       label="Password"
-    //       value={this.state.pw}
-    //       onChange={this.handleTextChange("pw")}
-    //       margin="normal"
-    //     />
-    //     <Button
-    //       color="primary"
-    //       onClick={this.handlePwToggle} >
-    //       Save
-    //     </Button>
-    //     <p style={{ fontSize: "80%", marginTop: 10 }}>
-    //       <b>Legal disclaimer:</b> This will only slow down people from accessing your work. MYR is not sutiable for sensitive information.
-    //     </p>
-    //   </div>
-    // );
-
-    // pwProtect = () => (
-    //   <div>
-    //     <h5>Please enter a PW.</h5>
-    //     <TextField
-    //       type="password"
-    //       label="Password"
-    //       value={this.state.pw}
-    //       onChange={this.handleTextChange("pw")}
-    //       margin="normal"
-    //     />
-    //     <Button
-    //       color="primary"
-    //       onClick={this.handlePwToggle} >
-    //       Save
-    //     </Button>
-    //     <p style={{ fontSize: "80%", marginTop: 10 }}>
-    //       <b>Legal disclaimer:</b> This will only slow down people from accessing your work. MYR is not sutiable for sensitive information.
-    //     </p>
-    //   </div>
-    // );
 
     /**
      * @returns Email field where user enters addresses they want to share it with
@@ -407,13 +354,6 @@ class Project extends React.Component {
                 </ListItemIcon>
                 <ListItemText inset primary="Send" />
             </MenuItem>
-            {/* <MenuItem
-        onClick={() => { this.handleClose(); this.handlePwToggle(); }}>
-        <ListItemIcon >
-          <Icon className="material-icons">lock</Icon>
-        </ListItemIcon>
-        <ListItemText inset primary="PW Protect" />
-      </MenuItem> */}
         </Menu>
     );
 
@@ -567,20 +507,6 @@ class Project extends React.Component {
                                     <this.shareOptions />
                                 </div>
                             </Modal>
-                            {/* <Modal
-                                aria-labelledby="simple-modal-title"
-                                aria-describedby="simple-modal-description"
-                                open={this.state.pwProtectOpen}
-                                onClose={this.handlePwToggle} >
-                                <div style={getModalStyle()} className={classes.paper}>
-                                    <ButtonBase
-                                        style={{ position: "absolute", right: 15, top: 15 }}
-                                        onClick={() => this.handlePwToggle()} >
-                                        <Icon className="material-icons">clear</Icon>
-                                    </ButtonBase >
-                                    <this.pwProtect />
-                                </div>
-                            </Modal> */}
                         </div>
                     </Modal>
                 </React.Fragment>

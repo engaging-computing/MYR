@@ -92,7 +92,6 @@ class ConfigModal extends Component {
             anchorEl: null,
             displayFloorColorPicker: false,
             qrCodeOpen: false,
-            pwProtectOpen: false,
             shareOpen: false,
             addClassOpen: false,
             defaultLight: true,
@@ -158,32 +157,6 @@ class ConfigModal extends Component {
     handleShrToggle = () => {
         this.setState({ shareOpen: !this.state.shareOpen, sendTo: [] });
     };
-
-    // handlePwToggle = () => {
-    //     this.setState({ pwProtectOpen: !this.state.pwProtectOpen });
-    // };
-
-    // pwProtect = () => (
-    //     <div>
-    //         <h5>Please enter a PW.</h5>
-    //         <TextField
-    //             id="standard-name"
-    //             type="password"
-    //             onChange={this.handleTextChange("pw")}
-    //         />
-    //         <Button
-    //             color="primary"
-    //             onClick={() => {
-    //                 this.handlePwToggle();
-    //                 this.props.sceneActions.addPassword(this.state.pw);
-    //             }} >
-    //             Save
-    //         </Button>
-    //         <p style={{ fontSize: "80%", marginTop: 10 }}>
-    //             <b>Legal disclaimer:</b> This will only slow down people from accessing your work. MYR is not sutiable for sensitive information.
-    //         </p>
-    //     </div>
-    // );
 
     /**
      * @returns Email field where user enters addresses they want to share it with
@@ -671,12 +644,6 @@ class ConfigModal extends Component {
                                                     <Icon className="material-icons">send</Icon>
                                                     Send To
                                                 </ButtonBase>
-                                                {/* <ButtonBase
-                                                    style={btnStyle.base}
-                                                    onClick={() => { this.handlePwToggle(); }} >
-                                                    <Icon className="material-icons">lock</Icon>
-                                                    Add PW
-                                                </ButtonBase> */}
                                             </div>
                                             <div className="col-12 border-bottom pt-4">Collection Control</div>
                                             {this.props.displayCollectionConfig ? 
@@ -728,20 +695,6 @@ class ConfigModal extends Component {
                                     <Icon className="material-icons">clear</Icon>
                                 </ButtonBase >
                                 <this.shareOptions />
-                            </div>
-                        </Modal>
-                        <Modal
-                            aria-labelledby="simple-modal-title"
-                            aria-describedby="simple-modal-description"
-                            open={this.state.pwProtectOpen}
-                            onClose={this.handlePwToggle} >
-                            <div style={getModalStyle()} className={classes.paper}>
-                                <ButtonBase
-                                    style={{ position: "absolute", right: 15, top: 15 }}
-                                    onClick={() => this.handlePwToggle()} >
-                                    <Icon className="material-icons">clear</Icon>
-                                </ButtonBase >
-                                <this.pwProtect />
                             </div>
                         </Modal>
                         <Modal
