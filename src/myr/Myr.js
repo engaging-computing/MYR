@@ -682,6 +682,12 @@ class Myr {
         return this.cursor.textureColoring;
     }
 
+    /**
+     * Changes the material type of the cursor.
+     * 
+     * @param {string} materialtype 
+     * @returns 
+     */
     setMaterialType = (materialtype = MaterialType.SPECULAR) => {
         let validMaterial = false;
         for(let key in MaterialType) {
@@ -696,6 +702,13 @@ class Myr {
         return this.cursor.materialtype;
     }
 
+    /**
+     * Changes the roughness of the cursor within a range of 0 to 1.
+     * Custom roughness only applies to objects with MaterialType.PHYSICAL.
+     * 
+     * @param {number} roughness 
+     * @returns the roughness of the cursor
+     */
     setRoughness = (roughness) => {
         if(roughness < 0 || roughness > 1) {
             throw new Error("Roughness must be between 0.0 and 1.0!");
@@ -704,6 +717,13 @@ class Myr {
         return this.cursor.roughness;
     }
 
+    /**
+     * Changes the metalness of the cursor within a range of 0 to 1.
+     * Custom metalness only applies to objects with MaterialType.PHYSICAL.
+     * 
+     * @param {number} metalness 
+     * @returns the metalness of the cursor
+     */
     setMetalness = (metalness) => {
         if(metalness < 0 || metalness > 1) {
             throw new Error("Metalness must be between 0.0 and 1.0!");
@@ -712,6 +732,9 @@ class Myr {
         return this.cursor.metalness;
     }
 
+    /**
+     * @returns the list of material types
+     */
     MaterialType = () => {
         return MaterialType;
     }
