@@ -1,6 +1,5 @@
 import AFRAME from "aframe";
 import {MaterialType} from "../components/structural/MaterialType.js";
-const THREE = AFRAME.THREE;
 
 AFRAME.registerComponent("materialinfo", {
     schema:{
