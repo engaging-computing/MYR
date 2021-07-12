@@ -291,12 +291,6 @@ let transformations = [
         example: "setMaterialType(\"toon\");"
     },
     {
-        name: "MaterialType",
-        parameters: [],
-        description: <span>The MaterialType function retrieves a collection of possible material types.</span>,
-        example: "MaterialType().MATTE"
-    },
-    {
         name: "setRoughness",
         parameters: [{type: "number", name: "roughness"}],
         description: <span>The setRoughness function changes the roughness of the cursor within a range of 0 to 1. Custom roughness only applies to objects with MaterialType.PHYSICAL.</span>,

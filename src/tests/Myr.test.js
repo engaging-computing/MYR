@@ -8,7 +8,7 @@ let colorRegEx = new RegExp("#([0-9]|[A-F]|[a-f]){6}");
 const defaultCursor = {
     color: "red",
     texture: "",
-    materialtype: MaterialType.SPECULAR,
+    materialType: MaterialType.SPECULAR,
     roughness: 1,
     metalness: 0,
     transparency: 0,

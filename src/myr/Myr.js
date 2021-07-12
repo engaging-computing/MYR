@@ -17,7 +17,7 @@ class Myr {
         this.cursor = {
             color: "red",
             texture: "",
-            materialtype: MaterialType.SPECULAR,
+            materialType: MaterialType.SPECULAR,
             roughness: 1,
             metalness: 0,
             transparency: 0,
@@ -98,7 +98,7 @@ class Myr {
         this.cursor = {
             color: "red",
             texture: "",
-            materialtype: MaterialType.SPECULAR,
+            materialType: MaterialType.SPECULAR,
             roughness: 1.0,
             metalness: 0.0,
             transparency: 0,
@@ -156,7 +156,7 @@ class Myr {
         this.cursor = {
             color: "red",
             texture: "",
-            materialtype: MaterialType.SPECULAR,
+            materialType: MaterialType.SPECULAR,
             roughness: 1.0,
             metalness: 0.0,
             transparency: 0,
@@ -685,21 +685,21 @@ class Myr {
     /**
      * Changes the material type of the cursor.
      * 
-     * @param {string} materialtype 
+     * @param {string} materialType 
      * @returns 
      */
-    setMaterialType = (materialtype = MaterialType.SPECULAR) => {
+    setMaterialType = (materialType = MaterialType.SPECULAR) => {
         let validMaterial = false;
         for(let key in MaterialType) {
-            validMaterial = MaterialType[key] === materialtype;
+            validMaterial = MaterialType[key] === materialType;
             if(validMaterial) break;
         }
         if(!validMaterial) {
-            throw new Error(`${materialtype} is not a valid material type!`);
+            throw new Error(`${materialType} is not a valid material type!`);
         }
 
-        this.cursor.materialtype = materialtype;
-        return this.cursor.materialtype;
+        this.cursor.materialType = materialType;
+        return this.cursor.materialType;
     }
 
     /**
@@ -730,13 +730,6 @@ class Myr {
         }
         this.cursor.metalness = metalness;
         return this.cursor.metalness;
-    }
-
-    /**
-     * @returns the list of material types
-     */
-    MaterialType = () => {
-        return MaterialType;
     }
 
     setCursorAttribute = (key = "", value = "") => {
@@ -912,7 +905,7 @@ class Myr {
             scale: this.cursor.scale,
             material: ((this.cursor.texture === "" || this.cursor.textureColoring) ? `color: ${this.cursor.color};` : "color: white;") + `side: double; src: ${this.cursor.texture}; repeat: ${this.cursor.textureRepeatWidth + " " + this.cursor.textureRepeatHeight}; opacity: ${1 - this.cursor.transparency};`,
             materialinfo: {
-                type: this.cursor.materialtype,
+                type: this.cursor.materialType,
                 roughness: this.cursor.roughness,
                 metalness: this.cursor.metalness,
             },
@@ -935,7 +928,7 @@ class Myr {
             scale: this.cursor.scale,
             material: ((this.cursor.texture === "" || this.cursor.textureColoring) ? `color: ${this.cursor.color};` : "color: white;") + `side: double; src: ${this.cursor.texture}; repeat: ${this.cursor.textureRepeatWidth + " " + this.cursor.textureRepeatHeight}; opacity: ${1 - this.cursor.transparency};`,
             materialinfo: {
-                type: this.cursor.materialtype,
+                type: this.cursor.materialType,
                 roughness: this.cursor.roughness,
                 metalness: this.cursor.metalness,
             },
@@ -957,7 +950,7 @@ class Myr {
             scale: this.cursor.scale,
             material: ((this.cursor.texture === "" || this.cursor.textureColoring) ? `color: ${this.cursor.color};` : "color: white;") + `side: double; src: ${this.cursor.texture}; repeat: ${this.cursor.textureRepeatWidth + " " + this.cursor.textureRepeatHeight}; opacity: ${1 - this.cursor.transparency};`,
             materialinfo: {
-                type: this.cursor.materialtype,
+                type: this.cursor.materialType,
                 roughness: this.cursor.roughness,
                 metalness: this.cursor.metalness,
             },
@@ -979,7 +972,7 @@ class Myr {
             scale: this.cursor.scale,
             material: ((this.cursor.texture === "" || this.cursor.textureColoring) ? `color: ${this.cursor.color};` : "color: white;") + `side: double; src: ${this.cursor.texture}; repeat: ${this.cursor.textureRepeatWidth + " " + this.cursor.textureRepeatHeight}; opacity: ${1 - this.cursor.transparency};`,
             materialinfo: {
-                type: this.cursor.materialtype,
+                type: this.cursor.materialType,
                 roughness: this.cursor.roughness,
                 metalness: this.cursor.metalness,
             },
@@ -1002,7 +995,7 @@ class Myr {
             scale: this.cursor.scale,
             material: ((this.cursor.texture === "" || this.cursor.textureColoring) ? `color: ${this.cursor.color};` : "color: white;") + `side: double; src: ${this.cursor.texture}; repeat: ${this.cursor.textureRepeatWidth + " " + this.cursor.textureRepeatHeight}; opacity: ${1 - this.cursor.transparency};`,
             materialinfo: {
-                type: this.cursor.materialtype,
+                type: this.cursor.materialType,
                 roughness: this.cursor.roughness,
                 metalness: this.cursor.metalness,
             },
@@ -1024,7 +1017,7 @@ class Myr {
             scale: this.cursor.scale,
             material: ((this.cursor.texture === "" || this.cursor.textureColoring) ? `color: ${this.cursor.color};` : "color: white;") + `side: double; src: ${this.cursor.texture}; repeat: ${this.cursor.textureRepeatWidth + " " + this.cursor.textureRepeatHeight}; opacity: ${1 - this.cursor.transparency};`,
             materialinfo: {
-                type: this.cursor.materialtype,
+                type: this.cursor.materialType,
                 roughness: this.cursor.roughness,
                 metalness: this.cursor.metalness,
             },
@@ -1046,7 +1039,7 @@ class Myr {
             scale: this.cursor.scale,
             material: ((this.cursor.texture === "" || this.cursor.textureColoring) ? `color: ${this.cursor.color};` : "color: white;") + `side: double; src: ${this.cursor.texture}; repeat: ${this.cursor.textureRepeatWidth + " " + this.cursor.textureRepeatHeight}; opacity: ${1 - this.cursor.transparency};`,
             materialinfo: {
-                type: this.cursor.materialtype,
+                type: this.cursor.materialType,
                 roughness: this.cursor.roughness,
                 metalness: this.cursor.metalness,
             },
@@ -1070,7 +1063,7 @@ class Myr {
             scale: this.cursor.scale,
             material: ((this.cursor.texture === "" || this.cursor.textureColoring) ? `color: ${this.cursor.color};` : "color: white;") + `side: double; src: ${this.cursor.texture}; repeat: ${this.cursor.textureRepeatWidth + " " + this.cursor.textureRepeatHeight}; opacity: ${1 - this.cursor.transparency};`,
             materialinfo: {
-                type: this.cursor.materialtype,
+                type: this.cursor.materialType,
                 roughness: this.cursor.roughness,
                 metalness: this.cursor.metalness,
             },
@@ -1093,7 +1086,7 @@ class Myr {
             scale: this.cursor.scale,
             material: ((this.cursor.texture === "" || this.cursor.textureColoring) ? `color: ${this.cursor.color};` : "color: white;") + `side: double; src: ${this.cursor.texture}; repeat: ${this.cursor.textureRepeatWidth + " " + this.cursor.textureRepeatHeight}; opacity: ${1 - this.cursor.transparency};`,
             materialinfo: {
-                type: this.cursor.materialtype,
+                type: this.cursor.materialType,
                 roughness: this.cursor.roughness,
                 metalness: this.cursor.metalness,
             },
@@ -1115,7 +1108,7 @@ class Myr {
             scale: this.cursor.scale,
             material: ((this.cursor.texture === "" || this.cursor.textureColoring) ? `color: ${this.cursor.color};` : "color: white;") + `side: double; src: ${this.cursor.texture}; repeat: ${this.cursor.textureRepeatWidth + " " + this.cursor.textureRepeatHeight}; opacity: ${1 - this.cursor.transparency};`,
             materialinfo: {
-                type: this.cursor.materialtype,
+                type: this.cursor.materialType,
                 roughness: this.cursor.roughness,
                 metalness: this.cursor.metalness,
             },
@@ -1137,7 +1130,7 @@ class Myr {
             scale: this.cursor.scale,
             material: ((this.cursor.texture === "" || this.cursor.textureColoring) ? `color: ${this.cursor.color};` : "color: white;") + `side: double; src: ${this.cursor.texture}; repeat: ${this.cursor.textureRepeatWidth + " " + this.cursor.textureRepeatHeight}; opacity: ${1 - this.cursor.transparency};`,
             materialinfo: {
-                type: this.cursor.materialtype,
+                type: this.cursor.materialType,
                 roughness: this.cursor.roughness,
                 metalness: this.cursor.metalness,
             },
@@ -1158,9 +1151,8 @@ class Myr {
             rotation: this.cursor.rotation,
             scale: this.cursor.scale,
             material: ((this.cursor.texture === "" || this.cursor.textureColoring) ? `color: ${this.cursor.color};` : "color: white;") + `side: double; src: ${this.cursor.texture}; repeat: ${this.cursor.textureRepeatWidth + " " + this.cursor.textureRepeatHeight}; opacity: ${1 - this.cursor.transparency};`,
-            //materialtype: this.cursor.materialtype,
             materialinfo: {
-                type: this.cursor.materialtype,
+                type: this.cursor.materialType,
                 roughness: this.cursor.roughness,
                 metalness: this.cursor.metalness,
             },
@@ -1182,7 +1174,7 @@ class Myr {
             scale: this.cursor.scale,
             material: ((this.cursor.texture === "" || this.cursor.textureColoring) ? `color: ${this.cursor.color};` : "color: white;") + `side: double; src: ${this.cursor.texture}; repeat: ${this.cursor.textureRepeatWidth + " " + this.cursor.textureRepeatHeight}; opacity: ${1 - this.cursor.transparency};`,
             materialinfo: {
-                type: this.cursor.materialtype,
+                type: this.cursor.materialType,
                 roughness: this.cursor.roughness,
                 metalness: this.cursor.metalness,
             },
@@ -1233,7 +1225,7 @@ class Myr {
             scale: this.cursor.scale,
             material: ((this.cursor.texture === "" || this.cursor.textureColoring) ? `color: ${this.cursor.color};` : "color: white;") + `side: double; src: ${this.cursor.texture}; repeat: ${this.cursor.textureRepeatWidth + " " + this.cursor.textureRepeatHeight}; opacity: ${1 - this.cursor.transparency};`,
             materialinfo: {
-                type: this.cursor.materialtype,
+                type: this.cursor.materialType,
                 roughness: this.cursor.roughness,
                 metalness: this.cursor.metalness,
             },
@@ -1257,7 +1249,7 @@ class Myr {
             scale: this.cursor.scale,
             material: ((this.cursor.texture === "" || this.cursor.textureColoring) ? `color: ${this.cursor.color};` : "color: white;") + `side: double; src: ${this.cursor.texture}; repeat: ${this.cursor.textureRepeatWidth + " " + this.cursor.textureRepeatHeight}; opacity: ${1 - this.cursor.transparency};`,
             materialinfo: {
-                type: this.cursor.materialtype,
+                type: this.cursor.materialType,
                 roughness: this.cursor.roughness,
                 metalness: this.cursor.metalness,
             },
@@ -1279,7 +1271,7 @@ class Myr {
             scale: this.cursor.scale,
             material: ((this.cursor.texture === "" || this.cursor.textureColoring) ? `color: ${this.cursor.color};` : "color: white;") + `side: double; src: ${this.cursor.texture}; repeat: ${this.cursor.textureRepeatWidth + " " + this.cursor.textureRepeatHeight}; opacity: ${1 - this.cursor.transparency};`,
             materialinfo: {
-                type: this.cursor.materialtype,
+                type: this.cursor.materialType,
                 roughness: this.cursor.roughness,
                 metalness: this.cursor.metalness,
             },
@@ -1303,7 +1295,7 @@ class Myr {
             scale: this.cursor.scale,
             material: ((this.cursor.texture === "" || this.cursor.textureColoring) ? `color: ${this.cursor.color};` : "color: white;") + `side: double; src: ${this.cursor.texture}; repeat: ${this.cursor.textureRepeatWidth + " " + this.cursor.textureRepeatHeight}; opacity: ${1 - this.cursor.transparency};`,
             materialinfo: {
-                type: this.cursor.materialtype,
+                type: this.cursor.materialType,
                 roughness: this.cursor.roughness,
                 metalness: this.cursor.metalness,
             },
