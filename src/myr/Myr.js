@@ -3,6 +3,7 @@ import "aframe-physics-system";
 import Group from "./Group";
 import CANNON from "cannon";
 import TexturePack from "../components/structural/Textures.js";
+import ModelPack from "../components/structural/Models.js";
 
 class Myr {
     /**
@@ -61,7 +62,6 @@ class Myr {
                 this.els[it] = this.baseEls[it];
             });
         }
-
     }
 
     /**
@@ -71,7 +71,6 @@ class Myr {
      *
      */
     init = () => {
-
         // Get all the function names of the Myr(this) class
         let funs = Object.keys(this).filter((p) => {
             return typeof this[p] === "function";
@@ -1137,6 +1136,53 @@ class Myr {
             scale: this.cursor.scale,
             material: ((this.cursor.texture === "" || this.cursor.textureColoring) ? `color: ${this.cursor.color};` : "color: white;") + `side: double; src: ${this.cursor.texture}; repeat: ${this.cursor.textureRepeatWidth + " " + this.cursor.textureRepeatHeight}; opacity: ${1 - this.cursor.transparency};`,
         };
+        return this.mergeProps(base, params);
+    }
+
+
+    /** 
+     * Load and render a custom glTF model with current Myr settings
+     * 
+     * @param {string} src Valid MYR model ID or valid glTF URL
+     * @param {*} params Parameters that can overwrite the cursor attrib or add custom attrib
+     */
+    gltfModel = (src, params) => {
+        let id = `gltf-model-${this.genNewId()}`;
+
+        let models = ModelPack();
+        let urlregex_https = /^(https:)([/|.|\w|\s|-])*\.(?:glb|gltf)/;
+        let urlregex_http = /^(http:)([/|.|\w|\s|-])*\.(?:glb|gltf)/;
+
+        if(models.ModelPack.has(src)) {
+            src = models.ModelPack.get(src).model;
+        } else if(!urlregex_https.test(src)) {
+            let error = `Unable to load model (${src}).\n`;
+            if(urlregex_http.test(src)) {
+                error += "\tHTTP URLs not supported. Please use HTTPS.";
+            } else {
+                error += "\tInvalid URL.";
+            }
+            console.error(error);
+            throw new Error(error);
+        }
+
+        // If a standard github URL, try to refactor it to the raw file URL
+        src = src.replace("github.com", "raw.githubusercontent.com").replace("/blob/", "/").replace("?raw=true", "");
+        
+        let asset = {
+            id: id,
+            src: src,
+        };
+        let base = {
+            id: id,
+            "gltf-Model": `#${id}`,
+            position: { ...this.cursor.position },
+            rotation: this.cursor.rotation,
+            scale: this.cursor.scale,
+            material: ((this.cursor.texture === "" || this.cursor.textureColoring) ? `color: ${this.cursor.color};` : "color: white;") + `side: double; src: ${this.cursor.texture}; opacity: ${1 - this.cursor.transparency};`
+        };
+
+        this.assets.push(asset);
         return this.mergeProps(base, params);
     }
 

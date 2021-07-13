@@ -9,16 +9,10 @@ The Engaging Computing Group develops new technologies to enable learners—yout
 ## Status
 [![CircleCI](https://circleci.com/gh/engaging-computing/MYR.svg?style=shield)](https://circleci.com/gh/engaging-computing/MYR)
 
-## Change Log - 2.2.0 -> 2.3.0
-- Adds Minecraft style flying controls
-    - Removes flying setting toggle
-- Updates default scene to show helper grid by default
-- MYR provided textures are now case insensitive
-- Textures can be tiled
-- Fixes black flickering bug when entering VR mode on mobile
-- Spelling fixes
-- Updated AFrame to use v1.x.y
-
+## Change Log - 2.3.1 -> 2.4.0
+- Added ability to import custom GLTF models into a scene
+- Added a keyboard shortcut information menu
+- Added a slider for setting the movement speed in a scene
 
 
 ## Acknowledgments

@@ -171,6 +171,16 @@ export function setNameDesc(payload) {
     return { type: types.SET_NAME_DESC, payload };
 }
 
+/**
+ * Sends a signal to the reducer to change the speed of movement
+ * 
+ * @param {number} speed 
+ * @returns 
+ */
+export function updateMoveSpeed(speed) {
+    return { type: types.UPDATE_MOVE_SPEED, speed };
+}
+
 /*
  *  Unused functions
  */
@@ -223,5 +233,6 @@ export default {
     removeCollectionID,
     toggleDefaultLight,
     toggleCastShadow,
-    toggleLightIndicator
+    toggleLightIndicator,
+    updateMoveSpeed
 };

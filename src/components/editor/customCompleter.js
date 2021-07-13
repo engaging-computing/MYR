@@ -1,5 +1,6 @@
 import myrReference from "../../myr/reference.js";
 import myrTextures from "../structural/Textures.js";
+import myrModels from "../structural/Models.js";
 
 /**
  * Creates customCompleter for all MYR references and keywords for JS, color code, and assets
@@ -39,9 +40,10 @@ export const customCompleter = {
         ];
 
         const texture = myrTextures();
-        const Texture = [...texture.TexturePack.map(obj => obj.title),
-            "group()"
-        ];
+        const Texture = [...texture.TexturePack.map(obj => obj.title)];
+
+        const model = myrModels();
+        const Model = [...model.ModelPack.keys()];
 
         const reference = myrReference();
         const MYRKeyWords = [...reference.geometry.map(obj => obj.name + "()"),
@@ -241,6 +243,15 @@ export const customCompleter = {
                 caption: word,
                 value: word,
                 meta: "texture",
+                score: 3
+            };
+        }));
+
+        callback(null, Model.map(function (word) {
+            return {
+                caption: word,
+                value: word,
+                meta: "model",
                 score: 3
             };
         }));
