@@ -106,7 +106,7 @@ export function deleteCollection(collectionID, name = null, uid) {
         if (window.confirm(`Are you sure you want to delete collection "${name}"?`)) {
 
             // Delete Document
-            fetch(`${collectRef}/collectionID/${collectionID}`, {method: "DELETE", headers: { "x-access-token": uid}}).then((resp) => {
+            fetch(`${collectRef}/collectionID/${name}`, {method: "DELETE", headers: { "x-access-token": uid}}).then((resp) => {
                 if(resp.status !== 204) {
                     console.error(`Error deleting collection ${name}: ${resp.statusText}`);
                     return;
