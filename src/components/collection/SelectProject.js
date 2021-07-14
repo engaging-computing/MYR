@@ -88,7 +88,7 @@ class SelectProject extends PureComponent {
     }
 
     /**
-     * @returns DOM elements of drop down list of collection
+     * @returns Render DOM elements of drop down list of collection
      */
     render() {
         return (
