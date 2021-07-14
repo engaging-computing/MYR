@@ -1,5 +1,5 @@
 /**
- * List of geometry reference
+ * List of texture reference
  */
 const texture = [
     {
