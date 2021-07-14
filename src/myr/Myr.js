@@ -2104,32 +2104,8 @@ class Myr {
     /*
      *  Functions that are not in reference or used in anywhere 
      */
-
     sleep = (ms) => {
         return new Promise(resolve => setTimeout(resolve, ms));
-    }
-
-    // MODELS
-    addCModel = () => {
-        let asset = {
-            id: "c-obj",
-            src: "/img/c.obj"
-        };
-        let el = {
-            "obj-model": "obj: #c-obj",
-            mtl: "c-mtl",
-            position: this.cursor.position,
-            scale: this.cursor.scale,
-            rotation: this.cursor.rotation
-        };
-        this.els.push(el);
-        this.assets.push(asset);
-        return el;
-    }
-    
-    HALT = () => {
-        // console.log(this);
-        // console.log("Halted");
     }
 
     /**
