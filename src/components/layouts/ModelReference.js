@@ -5,6 +5,11 @@ import ModelReferencePage from "../reference/ModelReferencePage";
 
 import * as layoutTypes from "../../constants/LayoutTypes.js";
 
+/**
+ * Create a layout for model reference page.
+ * @param {object} param0 List of props that will be use in components
+ * @returns {HTMLElement} Layout of the model reference page 
+ */
 export const ModelReference = ({ editor, editorActions, user, authActions, scene, sceneActions, projectActions, courseActions, projects, courses, match, collectionActions, collections }) => (
     <div className="App">
         <Header

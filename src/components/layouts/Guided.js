@@ -7,6 +7,11 @@ import View from "../structural/View";
 
 import * as layoutTypes from "../../constants/LayoutTypes.js";
 
+/**
+ * Create a layout for course page.
+ * @param {object} param0 List of props that will be use in components
+ * @returns {HTMLElement} Layout of the course page 
+ */
 export const Guided = ({ editor, user, scene, editorActions, authActions, projectActions, projects, courseActions, courses, course, match, sceneActions, collectionActions, collections }) => (
     <div className="App">
         <Header
