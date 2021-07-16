@@ -731,11 +731,6 @@ class Myr {
         return color;
     }
 
-    drop = (outerElId) => {
-        this.getEl(outerElId)["dynamic-body"] = "shape: box; mass: 5";
-        return outerElId;
-    }
-
     /**
      * Allows the entity to be dropped
      * 
@@ -788,23 +783,6 @@ class Myr {
             el["dynamic-body"] = null;
             el["force-pushable"] = "false";
         }
-        return outerElId;
-    }
-
-    push = (outerElId, x, y, z) => {
-        // Add an event listener
-        document.addEventListener("myr-view-rendered", () => {
-            let el = document.querySelector("#" + outerElId);
-            if (!el) {
-                return;
-            }
-            el.addEventListener("body-loaded", () => {
-                el.body.applyImpulse(
-                    /* impulse */        new CANNON.Vec3(x, y, z),
-                    /* world position */ new CANNON.Vec3().copy(el.object3D.position)
-                );
-            });
-        });
         return outerElId;
     }
 
@@ -1408,30 +1386,6 @@ class Myr {
     cube = this.box
 
     /********************* ANIMATIONS *********************/
-
-    /**
-     * Animate the Aframe element which is passed as arg
-     * 
-     * @param {number} outerElId target element ID
-     * @param {number} magnitude !!!DESCRIPTION NEEDED!!!
-     * @param {*} loop !!!DESCRIPTION NEEDED!!!
-     * @param {*} duration !!!DESCRIPTION NEEDED!!!
-     */
-    animate = (outerElId, magnitude = null, loop = null, duration = null) => {
-        magnitude = magnitude !== null ? magnitude : this.cursor.magnitude.spin;
-        loop = loop !== null ? loop : this.cursor.loop;
-        duration = duration !== null ? duration : this.cursor.duration;
-        let el = this.getEl(outerElId);
-        let anim = `
-      property: rotation;
-      dir: alternate;
-      to: ${el.rotation.x} ${el.rotation.y + magnitude} ${el.rotation.z};
-      dur: ${duration};
-      loop: ${Boolean(loop)};
-    `;
-        el.animation = anim;
-        return outerElId;
-    };
 
     /**
      * Apply a spin animation to the Aframe element which is passed as arg
@@ -2104,17 +2058,89 @@ class Myr {
     /*
      *  Functions that are not in reference or used in anywhere 
      */
+    /**
+     * Animate the Aframe element which is passed as arg, its same as spin but without linear easing
+     * 
+     * @param {number} outerElId target element ID
+     * @param {number} magnitude Magnitude of the animation
+     * @param {boolean} loop     Whether to loop the animation
+     * @param {number} duration  How long the animation last
+     */
+    animate = (outerElId, magnitude = null, loop = null, duration = null) => {
+        magnitude = magnitude !== null ? magnitude : this.cursor.magnitude.spin;
+        loop = loop !== null ? loop : this.cursor.loop;
+        duration = duration !== null ? duration : this.cursor.duration;
+        let el = this.getEl(outerElId);
+        let anim = `
+      property: rotation;
+      dir: alternate;
+      to: ${el.rotation.x} ${el.rotation.y + magnitude} ${el.rotation.z};
+      dur: ${duration};
+      loop: ${Boolean(loop)};
+    `;
+        el.animation = anim;
+        return outerElId;
+    };
+
+    /**
+     * It looks like a promise that sleep for certain ms and user can set further action after the time out.
+     * I don't know the original purpose but I imagine it was something like this.
+     * ex. 
+     *  sleep(5000).then(()=>{
+     *       console.log("box!");
+     *       box();
+     *  });
+     * But this will not render box on the scene because it adds the box to the list after Scene is renderered
+     *
+     * @param {number} ms how long to sleep in ms 
+     * @returns 
+     */
     sleep = (ms) => {
         return new Promise(resolve => setTimeout(resolve, ms));
     }
 
     /**
+     *  Looks like temporary function similar to makePushable that apply force the pass object to x,y,z direction
+     *      Not working. 
+     */
+    push = (outerElId, x, y, z) => {
+        // Add an event listener
+        document.addEventListener("myr-view-rendered", () => {
+            let el = document.querySelector("#" + outerElId);
+            if (!el) {
+                return;
+            }
+            el.addEventListener("body-loaded", () => {
+                el.body.applyImpulse(
+                    /* impulse */        new CANNON.Vec3(x, y, z),
+                    /* world position */ new CANNON.Vec3().copy(el.object3D.position)
+                );
+            });
+        });
+        return outerElId;
+    }
+
+    /**
+     * Looks like a temporary function that just apply physics with constant mass
+     * 
+     * @param {string} outerElId 
+     * @returns {string} outerElId
+     */
+    drop = (outerElId) => {
+        this.getEl(outerElId)["dynamic-body"] = "shape: box; mass: 5";
+        return outerElId;
+    }
+
+    /**
      * Interface for setting an object's parameters in the DOM
      * the idea is the setup an event listener as an almost DOM ready listener.
+     * 
+     * Ex. change(box(),"material","color:green;");
      *
      * @param {string} outerElId target element ID
      * @param {string} type what param to change
      * @param {*} newParam changes
+     * @returns {Error} Return error if query fail to retrieve the passed Id
      */
     change = (outerElId, type, newParam) => {
         document.addEventListener("myr-view-rendered", () => {
@@ -2129,6 +2155,15 @@ class Myr {
         });
     }
     
+    /**
+     * Interface for setting an object's parameters in the DOM w/o the event listener dispatching the events
+     *  It's not working/I don't know how this work"
+     * 
+     * @param {string} outerElId target element ID
+     * @param {string} type what param to change
+     * @param {*} newParam changes
+     * @returns {Error} Return error if query fail to retrieve the passed Id
+     */
     syncChange = (outerElId, type, newParam) => {
         try {
             let el = document.querySelector("#" + outerElId);
@@ -2142,6 +2177,9 @@ class Myr {
         }
     }
 
+    /**
+     * Infinite loop detector that's not use in anywhere
+     */
     infiniteLoopDetector = (function () {
         let map = {};
         

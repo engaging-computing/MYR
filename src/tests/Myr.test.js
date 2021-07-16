@@ -734,13 +734,6 @@ describe("Component Animations", () => {
 });
 
 describe("Other Myr functionality", () => {
-    it("should add a model", () => {
-        myr.reset();
-        myr.assets = [];
-        myr.addCModel();
-        expect(myr.assets).toContainEqual({ id: "c-obj", src: "/img/c.obj" });
-    });
-
     it("should drop", () => {
         myr.reset();
         let el = myr.box({ material: "color: blue;", position: { x: 1, y: 1, z: 1 } });
