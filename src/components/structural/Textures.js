@@ -1,4 +1,7 @@
-let TexturePack = [
+/**
+ * List of textures' name and url for retrieval
+ */
+const TexturePack = [
     {title:"bricks",url:"/img/textures/bricks.jpg"},
     {title:"bark",url:"/img/textures/bark.jpg"},
     {title:"checkerboard",url:"/img/textures/checkerboard.jpg"},
