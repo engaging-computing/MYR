@@ -10,7 +10,7 @@ import KeyboardShortcut from "./KeyboardShortcut.js";
 import { browserType } from "../../utils/browserType";
 
 /**
- * Editor is a React Component that creat the Ace Editor in the DOM.
+ * Editor is a React Component that create the Ace Editor in the DOM.
  */
 class Editor extends Component {
     /**
