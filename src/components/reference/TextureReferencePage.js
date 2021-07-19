@@ -18,8 +18,14 @@ import {
 
 import "../../css/TextureReferencePage.css";
 
-export default class TextureReference extends React.Component {
-
+/**
+ * TextureReferencePage is react component for creating Model Reference Page
+ */
+export default class TextureReferencePage extends React.Component {
+    /**
+     * Constructor
+     *  value represents the current tab that's opened  
+     */
     constructor(props) {
         super(props);
         this.state = {
@@ -28,12 +34,21 @@ export default class TextureReference extends React.Component {
         this.tableData = myrReference();
     }
 
-    handleToggle = () => this.setState({ open: !this.state.open, value: "a" });
-
+    /**
+     * Handler for when user clicked the tab, it updates the state "value" with value passed in
+     * 
+     * @param {Event} event 
+     * @param {string} value tab to be changed to. It should be an alphabet
+     */
     handleChange = (event, value) => {
         this.setState({ value });
     };
 
+    /**
+     * Helper function for getting the name of the image to retrieve from backend
+     * @param {*} model 
+     * @returns 
+     */
     imageHelper = (image) => {
         if(image) {
             let textures = TexturePack();
@@ -50,6 +65,11 @@ export default class TextureReference extends React.Component {
         }
     }
 
+    /**
+     * Create a button that will link to the example scene
+     * @param {string} example name of the API
+     * @returns {HTMLElement} IconButton with link to the example scene
+     */
     exampleHelper = (example) => {
         if (example) {
             let link = "/textureReference/" + example;
@@ -65,8 +85,13 @@ export default class TextureReference extends React.Component {
         }
     };
 
+    /**
+     * Create a table of references by retrieve array of references from tableData by category
+     * 
+     * @param {string} category name of the category
+     * @returns {Table} DOM elements of table with references with passed category 
+     */
     TableEx = (category) => {
-
         return (
             <Table  >
                 <TableHead >
@@ -95,6 +120,9 @@ export default class TextureReference extends React.Component {
         );
     };
 
+    /**
+     * Render reference page for texture
+     */
     render() {
         return (
             <div id="textureReference-page">
