@@ -1,5 +1,7 @@
 import PropTypes from "prop-types";
 import ReferencePage from "../components/layouts/Reference.js";
+import TextureReferencePage from "../components/layouts/TextureReference.js";
+import ModelReferencePage from "../components/layouts/ModelReference.js";
 import * as Actions from "../actions";
 
 import { bindActionCreators } from "redux";
@@ -43,7 +45,19 @@ const mapDispatchToProps = dispatch => ({
 /**
  * This does the binding to the redux store
  */
-export default connect(
+const Reference = connect(
     mapStateToProps,
     mapDispatchToProps
 )(ReferencePage);
+
+const TextureReference = connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(TextureReferencePage);
+
+const ModelReference = connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(ModelReferencePage);
+
+export { Reference, TextureReference, ModelReference };
