@@ -101,8 +101,8 @@ export function fetchCourse(courseId) {
 
 /**
  * Sends signal to the reducer to load the course retrieved
- * @param {*} payload Data of course retrieved
- *
+ * 
+ * @param {*} course Data of course retrieved
  * @returns {object} reducer action obj with type: LOAD_COURSE and payload
  */
 export function loadCourse(course) {

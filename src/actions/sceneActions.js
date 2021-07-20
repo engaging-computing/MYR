@@ -1,7 +1,7 @@
 import * as types from "../constants/ActionTypes";
 
 /**
- * This function registers the scene"s name with Redux
+ * This function registers the scene's name with Redux
  *
  * @param {string} name the name is given by the user or when a scene is loaded
  *
@@ -12,9 +12,9 @@ export function nameScene(name) {
 }
 
 /**
- * This function registers the scene's id with Redux
+ * This function load data of scene to the redux store
  *
- * @param {string} id the id of the loaded scene
+ * @param {string} data the id of the loaded scene
  *
  * @returns a reducer action with type:LOAD_SCENE
  */

@@ -32,7 +32,7 @@ function getModalStyle() {
 /**
  * CSS for modal
  *
- *  @param {import("@material-ui/core").Theme} theme Will use default theme if not provided
+ *  @param {*} theme Will use default theme if not provided
  */
 const modelStyles = theme => ({
     paper: {

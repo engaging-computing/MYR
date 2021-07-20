@@ -35,7 +35,7 @@ const mapStateToProps = state => ({
 
 /**
  * This maps dispatch actions to props
- * @param {*} state Entire redux store state
+ * @param {*} dispatch Give dipatch to the store
  */
 const mapDispatchToProps = dispatch => ({
     editorActions: bindActionCreators(Actions.EditorActions, dispatch),

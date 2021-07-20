@@ -6,6 +6,10 @@ import Collection from "./containers/Collection";
 import { Reference, TextureReference, ModelReference } from "./containers/Reference";
 import ReferenceExample from "./containers/ReferenceExample";
 
+/**
+ * Create an routers that switch to correct react component for different endpoints
+ * @returns BrowserRouter with all of available router (except about page)
+ */
 const router = () => {
     return (
         <BrowserRouter>
