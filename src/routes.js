@@ -3,7 +3,7 @@ import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
 import Ide from "./containers/Ide";
 import Guided from "./containers/Guided";
 import Collection from "./containers/Collection";
-import Reference from "./containers/Reference";
+import { Reference, TextureReference, ModelReference } from "./containers/Reference";
 import ReferenceExample from "./containers/ReferenceExample";
 
 const router = () => {
@@ -12,8 +12,8 @@ const router = () => {
             <Switch>
                 <Route exact path='/' component={Ide} />
                 <Route exact path='/reference' component={Reference} />
-                <Route exact path='/textureReference' component={Reference} />
-                <Route exact path='/modelReference' component={Reference} />
+                <Route exact path='/textureReference' component={TextureReference} />
+                <Route exact path='/modelReference' component={ModelReference} />
                 <Route path='/course/:shortname' component={Guided} />
                 <Route path='/collection/:collection' component={Collection} />
                 <Route path='/reference/:function' component={ReferenceExample} />

@@ -16,7 +16,7 @@ import {
     Hidden,
 } from "@material-ui/core";
 
-import "../../css/ModelReferencePage.css";
+import "../../css/ReferencePage.css";
 
 /**
  * ModelReferencePage is react component for creating Model Reference Page
@@ -46,6 +46,7 @@ export default class ModelReferencePage extends Component {
 
     /**
      * Helper function for getting the name of the image to retrieve from backend
+     * 
      * @param {*} model 
      * @returns 
      */
@@ -64,6 +65,7 @@ export default class ModelReferencePage extends Component {
 
     /**
      * Create a button that will link to the example scene
+     * 
      * @param {string} example name of the API
      * @returns {HTMLElement} IconButton with link to the example scene
      */
@@ -119,7 +121,7 @@ export default class ModelReferencePage extends Component {
      */
     render() {
         return (
-            <div id="modelReference-page">
+            <div id="reference-page">
                 <Tabs
                     id="modelReference-tabs"
                     fullWidth={true}

@@ -28,7 +28,7 @@ export const ModelReference = ({ editor, editorActions, user, authActions, scene
             courses={courses}
             collectionActions={collectionActions}
             collections={collections}
-            layoutType={layoutTypes.MODEL_REFERENCE}
+            layoutType={layoutTypes.REFERENCE}
         />
         <div className="row no-gutters">
             <ModelReferencePage />

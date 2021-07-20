@@ -16,7 +16,7 @@ import {
     Hidden,
 } from "@material-ui/core";
 
-import "../../css/TextureReferencePage.css";
+import "../../css/ReferencePage.css";
 
 /**
  * TextureReferencePage is react component for creating Model Reference Page
@@ -125,7 +125,7 @@ export default class TextureReferencePage extends React.Component {
      */
     render() {
         return (
-            <div id="textureReference-page">
+            <div id="reference-page">
                 <Tabs
                     id="textureReference-tabs"
                     fullWidth={true}

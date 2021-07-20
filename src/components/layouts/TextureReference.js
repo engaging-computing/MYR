@@ -28,7 +28,7 @@ export const TextureReference = ({ editor, editorActions, user, authActions, sce
             courses={courses}
             collectionActions={collectionActions}
             collections={collections}
-            layoutType={layoutTypes.TEXTURE_REFERENCE}
+            layoutType={layoutTypes.REFERENCE}
         />
         <div className="row no-gutters">
             <TextureReferencePage />
