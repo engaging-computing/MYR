@@ -130,7 +130,7 @@ export default function scene(state = initial_state, action) {
                 }
             };
         //Add the scene to the collection
-        case types.ADD_CLASSROOM:
+        case types.ADD_COLLECTION:
             return {
                 ...state,
                 settings: {
@@ -139,7 +139,7 @@ export default function scene(state = initial_state, action) {
                 }
             };
         //Remove the scene from the collection
-        case types.REMOVE_CLASSROOM:
+        case types.REMOVE_COLLECTION:
             return {
                 ...state,
                 settings: {

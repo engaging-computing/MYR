@@ -134,10 +134,10 @@ export function resetSettings() {
  * 
  * @param {string} payload id of collection to add scene to
  * 
- * @returns {object} reducer action obj with type: ADD_CLASSROOM with payload
+ * @returns {object} reducer action obj with type: ADD_COLLECTION with payload
  */
 export function addCollectionID(payload) {
-    return { type: types.ADD_CLASSROOM, payload };
+    return { type: types.ADD_COLLECTION, payload };
 }
 
 /**
@@ -145,10 +145,10 @@ export function addCollectionID(payload) {
  * 
  * @param {string} payload id of collection to remove scene to
  * 
- * @returns {object} reducer action obj with type: REMOVE_CLASSROOM with payload
+ * @returns {object} reducer action obj with type: REMOVE_COLLECTION with payload
  */
 export function removeCollectionID(payload) {
-    return { type: types.REMOVE_CLASSROOM, payload};
+    return { type: types.REMOVE_COLLECTION, payload};
 }
 
 /**
