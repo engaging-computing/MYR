@@ -19,6 +19,10 @@ const handleTextureOpen = () => {
     window.open(window.origin + "/textureReference");
 };
 
+const handleModelOpen = () => {
+    window.open(window.origin + "/modelReference");
+};
+
 export const stringText = (text) => {
     return (
         <HtmlTooltip
@@ -230,6 +234,12 @@ let geometry = [
         parameters: [],
         description: <span>The triangle function makes flat 2D triangle using the current cursor attributes. This function returns an {stringText("elementID")}.</span>,
         example: "triangle"
+    },
+    {
+        name: "gltfModel",
+        parameters: [{ type: "string" }],
+        description: <span>The gltfModel function loads a glTF model using the current cursor attributes. This function returns an {stringText("elementID")}. Models can be loaded either by using the name of one of <button id="models" onClick = {handleModelOpen} style = {{backgroundColor:"white", color:"#47a0ff", padding:0, border:"none"}}>these models</button> or by inserting a valid url (e.g. "duck" or "https://learnmyr.org/models/duck.glb"). Depending on the policy of the website they’re from, model URLs may not be usable, which will result in no model appearing.</span>,
+        example: "model"
     },
     //{
     //  name: <span>tube()</span>,

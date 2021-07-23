@@ -74,6 +74,7 @@ export default class TextureReference extends React.Component {
                         <TableCell>Name</TableCell>
                         <TableCell></TableCell>
                         <TableCell className='texture'>Image</TableCell>
+                        <TableCell className='creator'>Image Creator</TableCell>
                         <TableCell className='texRefExample'>Example</TableCell>
                     </TableRow>
                 </TableHead>
@@ -85,6 +86,7 @@ export default class TextureReference extends React.Component {
                             <TableCell >
                                 <img id="image" src={this.imageHelper(row.image)} alt="alt" height = "90" width = "90"></img>
                             </TableCell>
+                            <TableCell >{row.creator}</TableCell>
                             <TableCell >{this.exampleHelper(row.example)}</TableCell>
                         </TableRow>
                     ))}
