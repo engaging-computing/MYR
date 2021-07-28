@@ -11,6 +11,7 @@ export const DEF_SETTINGS = {
     defaultLight: true,
     castShadow: false,
     lightIndicator: false,
+    moveSpeed: 150,
     collectionID: ""
 };
 
@@ -157,11 +158,19 @@ export default function scene(state = initial_state, action) {
                 }
             };
         case types.TOGGLE_LIGHT_INDICATOR:
-            return{
+            return {
                 ...state,
-                settings:{ 
+                settings: { 
                     ...state.settings,
                     lightIndicator: !state.settings.lightIndicator
+                }
+            };
+        case types.UPDATE_MOVE_SPEED:
+            return {
+                ...state,
+                settings: {
+                    ...state.settings,
+                    moveSpeed: action.speed
                 }
             };
         default:

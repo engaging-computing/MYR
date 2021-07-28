@@ -139,7 +139,7 @@ class View extends Component {
             if (ent.tube) {
                 return <a-tube path={ent.path} radius={ent.radius} material={ent.material} shadow={shadow} shadowcustomsetting></a-tube>;
             }
-            return <a-entity key={ent.id} {...flattened} shadow={shadow} shadowcustomsetting ></a-entity>;
+            return <a-entity class="raycastable" key={ent.id} {...flattened} shadow={shadow} shadowcustomsetting ></a-entity>;
         }
     }
     //return elements that contains necessary configuration for light indicator based on light's type and properties
@@ -260,7 +260,7 @@ class View extends Component {
                         <a-camera
                             position={this.props.sceneConfig.settings.cameraPosition}
                             look-controls="pointerLockEnabled: true"
-                            wasd-plus-controls="enabled: true">
+                            wasd-plus-controls={`acceleration: ${this.props.sceneConfig.settings.moveSpeed}`}>
                             <a-cursor
                                 raycaster="objects:.raycastable"
                                 position="0 0 -1"

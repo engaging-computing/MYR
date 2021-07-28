@@ -92,6 +92,10 @@ export function setNameDesc(payload) {
     return { type: types.SET_NAME_DESC, payload };
 }
 
+export function updateMoveSpeed(speed) {
+    return { type: types.UPDATE_MOVE_SPEED, speed };
+}
+
 export default {
     nameScene,
     loadScene,
@@ -112,5 +116,6 @@ export default {
     removeCollectionID,
     toggleDefaultLight,
     toggleCastShadow,
-    toggleLightIndicator
+    toggleLightIndicator,
+    updateMoveSpeed
 };
