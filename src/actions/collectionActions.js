@@ -31,10 +31,10 @@ export function asyncCollections(uid) {
  * 
  * @param {object} payload List of user collections
  *  
- * @returns {object} reducer action obj with type SYNC_CLASSES with payload
+ * @returns {object} reducer action obj with type SYNC_COLLECTIONS with payload
  */
 export function syncCollections(payload) {
-    return { type: types.SYNC_CLASSES, payload: payload };
+    return { type: types.SYNC_COLLECTIONS, payload: payload };
 }
 
 /**
@@ -87,10 +87,10 @@ export function asyncCollection(collectionID, uid) {
  * 
  * @param {object} payload Data of retrieved collection 
  * 
- * @returns {object} reducer action obj with type: SYNC_CLASS and payload
+ * @returns {object} reducer action obj with type: SYNC_COLLECTION and payload
  */
 export function syncCollection(payload) {
-    return { type: types.SYNC_CLASS, payload: payload };
+    return { type: types.SYNC_COLLECTION, payload: payload };
 }
 
 /**
@@ -111,7 +111,7 @@ export function deleteCollection(collectionID, name = null, uid) {
                     console.error(`Error deleting collection ${name}: ${resp.statusText}`);
                     return;
                 }
-                dispatch({ type: types.DELETE_CLASS, id: collectionID });
+                dispatch({ type: types.DELETE_COLLECTION, id: collectionID });
             });
         }
     };
