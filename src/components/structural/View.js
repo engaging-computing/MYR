@@ -3,7 +3,7 @@ import { browserType } from "../../utils/browserType";
 import "aframe";
 import "three-pathfinding/dist/three-pathfinding";
 import "aframe-extras/dist/aframe-extras.min.js";
-import "aframe-physics-system";
+import "@engaging-computing/aframe-physics-system";
 import "aframe-environment-component";
 
 /**
