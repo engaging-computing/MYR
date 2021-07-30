@@ -16,7 +16,7 @@ jobs:
           path: node_modules
           key: ${{ runner.os }}-${{ hashFiles('**/package-lock.json') }}
       - name: Fetch packages
-        run: npm ci
+        run: npm install
       - name: Run Linter
         run: npm run lint
       - name: Run unit tests 
