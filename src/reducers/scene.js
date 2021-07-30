@@ -4,14 +4,14 @@ export const DEF_SETTINGS = {
     skyColor: "white",
     floorColor: "#222",
     camConfig: 0,
-    showCoordHelper: false,
-    canFly: false,
-    showFloor: true,
+    showCoordHelper: true,
+    showFloor: false,
     cameraPosition: "0 1.6 3",
     viewOnly: false,
     defaultLight: true,
     castShadow: false,
     lightIndicator: false,
+    moveSpeed: 150,
     collectionID: ""
 };
 
@@ -49,14 +49,6 @@ export default function scene(state = initial_state, action) {
                 settings: {
                     ...state.settings,
                     showCoordHelper: !state.settings.showCoordHelper
-                }
-            };
-        case types.TOGGLE_FLY:
-            return {
-                ...state,
-                settings: {
-                    ...state.settings,
-                    canFly: !state.settings.canFly
                 }
             };
         case types.SET_CAMERA:
@@ -166,11 +158,19 @@ export default function scene(state = initial_state, action) {
                 }
             };
         case types.TOGGLE_LIGHT_INDICATOR:
-            return{
+            return {
                 ...state,
-                settings:{ 
+                settings: { 
                     ...state.settings,
                     lightIndicator: !state.settings.lightIndicator
+                }
+            };
+        case types.UPDATE_MOVE_SPEED:
+            return {
+                ...state,
+                settings: {
+                    ...state.settings,
+                    moveSpeed: action.speed
                 }
             };
         default:

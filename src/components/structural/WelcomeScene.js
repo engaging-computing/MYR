@@ -1,6 +1,57 @@
 import React, { Component } from "react";
+import { browserType } from "../../utils/browserType";
 
 class WelcomeScene extends Component {
+    createCam = () => {
+        switch(browserType()) {
+            case "mobile":
+                return (
+                    <a-entity id="rig" 
+                        debug={true}
+                        movement-controls="fly: true">
+                        <a-camera
+                            position="0 1.6 3"
+                            look-controls="pointerLockEnabled: true">
+                            <a-cursor
+                                position="0 0 -1"
+                                geometry="primitive: ring; radiusInner: 0.02; radiusOuter: 0.03;"
+                                material="color: #CCC; shader: flat;" />
+                        </a-camera>
+                    </a-entity> 
+                );
+            case "vr":
+                return (
+                    <a-entity id="rig" 
+                        debug={true}
+                        tracked-controls="idPrefix: OpenVR">
+                        <a-camera
+                            position="0 1.6 3"
+                            look-controls="pointerLockEnabled: true">
+                            <a-cursor
+                                position="0 0 -1"
+                                geometry="primitive: ring; radiusInner: 0.02; radiusOuter: 0.03;"
+                                material="color: #CCC; shader: flat;" />
+                        </a-camera>
+                    </a-entity> 
+                );
+            case "desktop":
+            default:
+                return (
+                    <a-entity id="rig" debug={true}>
+                        <a-camera
+                            position="0 1.6 3"
+                            look-controls="pointerLockEnabled: true"
+                            wasd-plus-controls>
+                            <a-cursor
+                                position="0 0 -1"
+                                geometry="primitive: ring; radiusInner: 0.02; radiusOuter: 0.03;"
+                                material="color: #CCC; shader: flat;" />
+                        </a-camera>
+                    </a-entity>
+                );
+        }
+    }
+
     render() {
         return (
             <a-scene physics="debug: false; friction: 3; restitution: .3;" embedded debug="false">
@@ -8,18 +59,7 @@ class WelcomeScene extends Component {
                     <a-mixin id="checkpoint"></a-mixin>
                     <a-mixin id="checkpoint-hovered" color="#6CEEB5"></a-mixin>
                 </a-assets>
-                <a-entity id="rig"
-                    debug={true}
-                    movement-controls={"fly:true"}
-                    position={"0 1.6 3"} >
-                    <a-entity camera
-                        look-controls="pointerLockEnabled: true">
-                        <a-entity cursor
-                            position="0 0 -1"
-                            geometry="primitive: ring; radiusInner: 0.02; radiusOuter: 0.03;"
-                            material="color: #CCC; shader: flat;" />
-                    </a-entity>
-                </a-entity>
+                <this.createCam/>
                 <a-sky color={"#fff"} />
                 <a-entity id="floor"
                     geometry="primitive: box;"

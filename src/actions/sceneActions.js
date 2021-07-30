@@ -60,10 +60,6 @@ export function changeView() {
     return { type: types.CHANGE_VIEW };
 }
 
-export function toggleFly() {
-    return { type: types.TOGGLE_FLY };
-}
-
 export function toggleFloor() {
     return { type: types.TOGGLE_FLOOR };
 }
@@ -96,6 +92,10 @@ export function setNameDesc(payload) {
     return { type: types.SET_NAME_DESC, payload };
 }
 
+export function updateMoveSpeed(speed) {
+    return { type: types.UPDATE_MOVE_SPEED, speed };
+}
+
 export default {
     nameScene,
     loadScene,
@@ -106,7 +106,6 @@ export default {
     setCamera,
     changePerspective,
     changeView,
-    toggleFly,
     toggleFloor,
     loadSettings,
     changeSettings,
@@ -117,5 +116,6 @@ export default {
     removeCollectionID,
     toggleDefaultLight,
     toggleCastShadow,
-    toggleLightIndicator
+    toggleLightIndicator,
+    updateMoveSpeed
 };

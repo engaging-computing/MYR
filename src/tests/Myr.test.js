@@ -27,6 +27,8 @@ const defaultCursor = {
     phiLength: 360,
     loop: true,
     textureColoring: false,
+    textureRepeatWidth: 1,
+    textureRepeatHeight: 1,
     duration: 1000,
     magnitude: {
         spin: 360,
@@ -51,8 +53,10 @@ describe("Updates to Myr's Model", () => {
     });
 
     it("should set the texture by using a title and getTexture() should return that title", () => {
-        myr.setTexture("bricks");
+        myr.setTexture("bricks", 2, 2);
         expect(myr.cursor.texture).toEqual("/img/textures/bricks.jpg");
+        expect(myr.cursor.textureRepeatWidth).toEqual(2);
+        expect(myr.cursor.textureRepeatHeight).toEqual(2);
         let getTest = myr.getTexture();
         expect(getTest).toEqual("bricks");
     });
@@ -62,11 +66,13 @@ describe("Updates to Myr's Model", () => {
         expect(myr.cursor.texture).toEqual("https://learnmyr.org/img/MYR-Logo.png");
     });
 
-    it("improper texture should return empty texture", () => {
-        myr.setTexture("asdfghjkl");
-        expect(myr.cursor.texture).toEqual("");
-        let getUndefinedTest = myr.getTexture();
-        expect(getUndefinedTest).toEqual("");
+    it("improper texture should throw an error", () => {
+        try {
+            myr.setTexture("asdfghjkl");
+        }
+        catch(err) {
+            expect(err).toEqual(Error("Not a usable texture or URL."));
+        }
     });
 
     it("setTextureColoring(true) should allow a textured object to have a color other than white", () => {
@@ -401,8 +407,119 @@ describe("Component Renders", () => {
     });
 });
 
+describe("MYR light functionality", () => {
+    it("ambientLight", ()=>{
+        myr.reset();
+        myr.els = [];
+        let id = myr.ambientLight({position: {x:1,y:1,z:1}});
+        let ambientLight = myr.els[id];
+        expect(ambientLight).toBeDefined();
+        expect(ambientLight.light.state).toEqual(`
+      type: ambient; 
+      color: red;
+      intensity: 1;`);
+        expect(ambientLight.position).toEqual({x:1,y:1,z:1});
+        //light's scale sohuld not change
+        expect(ambientLight.scale).toEqual({x:1,y:1,z:1});
+    });
+
+    it("directionalLight", ()=>{
+        myr.els = [];
+        let id = myr.directionalLight({position: {x:1,y:1,z:1}});
+        let directionalLight = myr.els[id];
+        expect(directionalLight).toBeDefined();
+        expect(directionalLight.light.state).toEqual(`
+      type: directional;
+      color: red;
+      intensity: 1;`);
+        expect(directionalLight.position).toEqual({x:1,y:1,z:1});
+        expect(directionalLight.scale).toEqual({x:1,y:1,z:1});
+    });
+
+    it("spotLight", ()=>{
+        myr.els = [];
+        let id = myr.spotLight({position: {x:1,y:1,z:1}});
+        let spotLight = myr.els[id];
+        expect(spotLight).toBeDefined();
+        expect(spotLight.light.state).toEqual(`
+      type: spot;
+      angle: 60;
+      decay: 1;
+      distance: 0;
+      intensity: 1;
+      penumbra: 0;
+      color: red;`);
+        expect(spotLight.position).toEqual({x:1,y:1,z:1});
+        //light's scale sohuld not change
+        expect(spotLight.scale).toEqual({x:1,y:1,z:1});
+    });
+
+    it("pointLight", ()=>{
+        myr.els = [];
+        let id = myr.pointLight({position: {x:1,y:1,z:1}});
+        let pointLight = myr.els[id];
+        expect(pointLight).toBeDefined();
+        expect(pointLight.light.state).toEqual(`
+      type: point;
+      angle: 60;
+      decay: 1;
+      distance: 0;
+      intensity: 1;
+      penumbra: 0;
+      color: red;`);
+        expect(pointLight.position).toEqual({x:1,y:1,z:1});
+        //light's scale should not change
+        expect(pointLight.scale).toEqual({x:1,y:1,z:1});
+    });
+
+    it("hemisphereLight", ()=>{
+        myr.els = [];
+        let id = myr.hemisphereLight("blue",{position: {x:1,y:1,z:1}});
+        let hemisphereLight = myr.els[id];
+        expect(hemisphereLight).toBeDefined();
+        expect(hemisphereLight.light.state).toEqual(`
+      type: hemisphere;
+      intensity: 1;
+      color: red;
+      groundColor: blue;`);
+        expect(hemisphereLight.position).toEqual({x:1,y:1,z:1});
+        //light's scale should not change
+        expect(hemisphereLight.scale).toEqual({x:1,y:1,z:1});
+    });
+
+    it("to Set Intensity", () => {
+        myr.setIntensity(5);
+        expect(myr.cursor.light.intensity).toEqual(5);
+    });
+
+    it("to Set BeamAngle", () => {
+        myr.setBeamAngle(30);
+        expect(myr.cursor.light.beamAngle).toEqual(30);
+    });
+
+    it("to Set Diffusion", () => {
+        myr.setDiffusion(1.25);
+        expect(myr.cursor.light.diffusion).toEqual(1.25);
+    });
+
+    it("to Set decay", () => {
+        myr.setDecay(1.87);
+        expect(myr.cursor.light.decay).toEqual(1.87);
+    });
+
+    it("to Set Distance", () => {
+        myr.setDistance(50);
+        expect(myr.cursor.light.distance).toEqual(50);
+    });
+
+    it("to Set Light Target", () => {
+        myr.setLightTarget(4,5,10);
+        expect(myr.cursor.light.target).toEqual({x:4, y: 5, z: 10});
+    });
+});
+
 describe("Component Animations", () => {
-    it("Should add the animate animation", () => {
+    it("should add the animate animation", () => {
         myr.reset();
         let bId = myr.box();
         myr.animate(bId);
@@ -424,7 +541,7 @@ describe("Component Animations", () => {
     `);
     });
 
-    it("Should add the spin animation", () => {
+    it("should add the spin animation", () => {
         myr.reset();
         let bId = myr.box();
         myr.spin(bId);
@@ -580,129 +697,69 @@ describe("Component Animations", () => {
         expect(el).toHaveProperty("animation__shrink");
     });
 
-
-});
-
-describe("MYR light functionality", () => {
-    it("ambientLight", ()=>{
+    it("should add the color_shift animation",()=>{
         myr.reset();
-        myr.els = [];
-        let id = myr.ambientLight({position: {x:1,y:1,z:1}});
-        let ambientLight = myr.els[id];
-        expect(ambientLight).toBeDefined();
-        expect(ambientLight.light.state).toEqual(`
-      type: ambient; 
-      color: red;
-      intensity: 1;`);
-        expect(ambientLight.position).toEqual({x:1,y:1,z:1});
-        //light's scale sohuld not change
-        expect(ambientLight.scale).toEqual({x:1,y:1,z:1});
+        let id = myr.box();
+        myr.colorShift(id,"blue");
+        let el = myr.getEl(id);
+        expect(el).toHaveProperty("animation__color");
+
+        expect(el.animation__color).toEqual(`property: components.material.material.color;
+        from: ${defaultCursor.color};
+        to: blue;
+        dur: ${defaultCursor.duration};
+        dir: alternate;
+        loop: ${defaultCursor.loop};
+        isRawProperty: true;
+        type: color;`);
     });
 
-    it("directionalLight", ()=>{
-        myr.els = [];
-        let id = myr.directionalLight({position: {x:1,y:1,z:1}});
-        let directionalLight = myr.els[id];
-        expect(directionalLight).toBeDefined();
-        expect(directionalLight.light.state).toEqual(`
-      type: directional;
-      color: red;
-      intensity: 1;`);
-        expect(directionalLight.position).toEqual({x:1,y:1,z:1});
-        expect(directionalLight.scale).toEqual({x:1,y:1,z:1});
+    it("should add the color_shift animation to the light",()=>{
+        myr.reset();
+        let id = myr.directionalLight();
+        myr.colorShift(id,"green");
+        let el = myr.getEl(id);
+        expect(el).toHaveProperty("animation__color");
+        expect(el.animation__color).toEqual(`property: light.color;
+            from: #ff0000;
+            to: #008000;
+            dur: ${defaultCursor.duration};
+            dir: alternate;
+            loop: ${defaultCursor.loop};
+            type: color;`);
     });
 
-    it("spotLight", ()=>{
-        myr.els = [];
-        let id = myr.spotLight({position: {x:1,y:1,z:1}});
-        let spotLight = myr.els[id];
-        expect(spotLight).toBeDefined();
-        expect(spotLight.light.state).toEqual(`
-      type: spot;
-      angle: 60;
-      decay: 1;
-      distance: 0;
-      intensity: 1;
-      penumbra: 0;
-      color: red;`);
-        expect(spotLight.position).toEqual({x:1,y:1,z:1});
-        //light's scale sohuld not change
-        expect(spotLight.scale).toEqual({x:1,y:1,z:1});
-    });
-
-    it("pointLight", ()=>{
-        myr.els = [];
-        let id = myr.pointLight({position: {x:1,y:1,z:1}});
-        let pointLight = myr.els[id];
-        expect(pointLight).toBeDefined();
-        expect(pointLight.light.state).toEqual(`
-      type: point;
-      angle: 60;
-      decay: 1;
-      distance: 0;
-      intensity: 1;
-      penumbra: 0;
-      color: red;`);
-        expect(pointLight.position).toEqual({x:1,y:1,z:1});
-        //light's scale should not change
-        expect(pointLight.scale).toEqual({x:1,y:1,z:1});
-    });
-
-    it("hemisphereLight", ()=>{
-        myr.els = [];
-        let id = myr.hemisphereLight("blue",{position: {x:1,y:1,z:1}});
-        let hemisphereLight = myr.els[id];
-        expect(hemisphereLight).toBeDefined();
-        expect(hemisphereLight.light.state).toEqual(`
-      type: hemisphere;
-      intensity: 1;
-      color: red;
-      groundColor: blue;`);
-        expect(hemisphereLight.position).toEqual({x:1,y:1,z:1});
-        //light's scale should not change
-        expect(hemisphereLight.scale).toEqual({x:1,y:1,z:1});
-    });
-
-    it("to Set Intensity", () => {
-        myr.setIntensity(5);
-        expect(myr.cursor.light.intensity).toEqual(5);
-    });
-
-    it("to Set BeamAngle", () => {
-        myr.setBeamAngle(30);
-        expect(myr.cursor.light.beamAngle).toEqual(30);
-    });
-
-    it("to Set Diffusion", () => {
-        myr.setDiffusion(1.25);
-        expect(myr.cursor.light.diffusion).toEqual(1.25);
-    });
-
-    it("to Set decay", () => {
-        myr.setDecay(1.87);
-        expect(myr.cursor.light.decay).toEqual(1.87);
-    });
-
-    it("to Set Distance", () => {
-        myr.setDistance(50);
-        expect(myr.cursor.light.distance).toEqual(50);
-    });
-
-    it("to Set Light Target", () => {
-        myr.setLightTarget(4,5,10);
-        expect(myr.cursor.light.target).toEqual({x:4, y: 5, z: 10});
+    it("should add the color_shift animation to the group",()=>{
+        myr.reset();
+        let id = myr.group();
+        id.add(myr.box());
+        id.add(myr.box());
+        id.add(myr.box());
+        myr.colorShift(id,"purple");
+        let el = myr.getEl(id);
+        el.els.forEach(e=>{
+            expect(e).toHaveProperty("animation__color");
+            expect(e.animation__color).toEqual(`property: components.material.material.color;
+            from: ${defaultCursor.color};
+            to: purple;
+            dur: ${defaultCursor.duration};
+            dir: alternate;
+            loop: ${Boolean(defaultCursor.loop)};
+            isRawProperty: true;
+            type: color;`);   
+        });
     });
 });
 
 describe("Other Myr functionality", () => {
-    it("Should add a model", () => {
+    it("should add a model", () => {
         myr.reset();
         myr.assets = [];
         myr.addCModel();
         expect(myr.assets).toContainEqual({ id: "c-obj", src: "/img/c.obj" });
     });
 
-    it("Should drop", () => {
+    it("should drop", () => {
         myr.reset();
         let el = myr.box({ material: "color: blue;", position: { x: 1, y: 1, z: 1 } });
         myr.drop(el);
@@ -1094,7 +1151,7 @@ describe("Other Myr functionality", () => {
         expect(response).toEqual({ "test1": 1, "test2": 3 });
     });
     
-    it("Should accept hex colors entered for setColor function", () => {
+    it("should accept hex colors entered for setColor function", () => {
         myr.setColor("#ff0000");
         expect(myr.cursor.color).toEqual("#ff0000");
         myr.setColor("#FF0000");
@@ -1106,7 +1163,7 @@ describe("Other Myr functionality", () => {
     });
 
     // This is will test different variations of color
-    it("Should accept any caps or lowercase letters", () => {
+    it("should accept any caps or lowercase letters", () => {
         myr.setColor("Blue");
         expect(myr.cursor.color).toEqual("blue");
         myr.setColor("pURPle");

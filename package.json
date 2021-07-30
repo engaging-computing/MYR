@@ -1,6 +1,6 @@
 {
     "name": "myr",
-    "version": "2.2.0",
+    "version": "2.4.0",
     "private": false,
     "engines": {
         "node": "12.18.2"
@@ -16,14 +16,14 @@
         "redux-devtools": "^3.4.1"
     },
     "dependencies": {
+        "@engaging-computing/aframe-physics-system": "^4.0.0",
         "@material-ui/core": "^4.11.2",
-        "aframe": "^0.8.2",
+        "aframe": "^1.0.4",
         "aframe-animation-component": "^5.0.0",
         "aframe-environment-component": "^1.0.0",
         "aframe-extras": "^4.1.2",
-        "aframe-physics-system": "^3.2.0",
         "aframe-react": "^4.4.0",
-        "bootstrap": "^4.0.0",
+        "bootstrap": "^4.6.0",
         "browserslist": "^4.6.2",
         "cannon": "^0.6.2",
         "create-react-app": "^3.0.1",
@@ -49,7 +49,8 @@
         "socket.io-client": "^2.3.0",
         "source-map-explorer": "^1.6.0",
         "styled-components": "^4.0.3",
-        "three": "^0.98.0"
+        "three": "^0.98.0",
+        "ua-parser-js": "^0.7.24"
     },
     "scripts": {
         "start": "react-scripts start",

@@ -9,10 +9,10 @@ The Engaging Computing Group develops new technologies to enable learners—yout
 ## Status
 [![CircleCI](https://circleci.com/gh/engaging-computing/MYR.svg?style=shield)](https://circleci.com/gh/engaging-computing/MYR)
 
-## Change Log - 2.1.1 -> 2.2.0
-- Adds Lighting features to MYR
-- Adds Texture features to MYR
-- Updates copyright in the footer to be in the form `2018 - <current year>`
+## Change Log - 2.3.1 -> 2.4.0
+- Added ability to import custom GLTF models into a scene
+- Added a keyboard shortcut information menu
+- Added a slider for setting the movement speed in a scene
 
 
 ## Acknowledgments

@@ -1,0 +1,25 @@
+name: Build MYR
+
+on: [push, pull_request]
+
+jobs:
+  ci-checks:
+    runs-on: ubuntu-latest
+    container:
+      image: node:10.13
+    
+    steps:
+      - uses: actions/checkout@v1
+      - name: Setup cache
+        uses: actions/cache@v2
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-${{ hashFiles('**/package-lock.json') }}
+      - name: Fetch packages
+        run: npm install
+      - name: Run Linter
+        run: npm run lint
+      - name: Run unit tests 
+        run: npm test
+      - name: Build production build
+        run: npm run build

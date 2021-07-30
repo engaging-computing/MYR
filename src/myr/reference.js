@@ -19,6 +19,10 @@ const handleTextureOpen = () => {
     window.open(window.origin + "/textureReference");
 };
 
+const handleModelOpen = () => {
+    window.open(window.origin + "/modelReference");
+};
+
 export const stringText = (text) => {
     return (
         <HtmlTooltip
@@ -231,6 +235,12 @@ let geometry = [
         description: <span>The triangle function makes flat 2D triangle using the current cursor attributes. This function returns an {stringText("elementID")}.</span>,
         example: "triangle"
     },
+    {
+        name: "gltfModel",
+        parameters: [{ type: "string" }],
+        description: <span>The gltfModel function loads a glTF model using the current cursor attributes. This function returns an {stringText("elementID")}. Models can be loaded either by using the name of one of <button id="models" onClick = {handleModelOpen} style = {{backgroundColor:"white", color:"#47a0ff", padding:0, border:"none"}}>these models</button> or by inserting a valid url (e.g. "duck" or "https://learnmyr.org/models/duck.glb"). Depending on the policy of the website they’re from, model URLs may not be usable, which will result in no model appearing.</span>,
+        example: "model"
+    },
     //{
     //  name: <span>tube()</span>,
     //  description: <span>Renders a tube using current internal cursor properties. Returns an <span className="string element">element id</span>.</span>,
@@ -275,8 +285,8 @@ let transformations = [
     },
     {
         name: "setTexture",
-        parameters: [{type: "string", name: "texture"}],
-        description: <span>The setTexture function changes the texture of the cursor. The texture's normal color is displayed when setTextureColoring() is false, otherwise the texture will be affected by the current color. Textures can be applied either by using the name of one of <button id="textures" onClick = {handleTextureOpen} style = {{backgroundColor:"white", color:"#47a0ff", padding:0, border:"none"}}>these textures</button> or by inserting a valid url (e.g. "bricks" or "https://learnmyr.org/img/MYR-Logo.png"). An empty setTexture() or setTexture("") statement will remove the current texture.</span>,
+        parameters: [{type: "string", name: "texture"}, {type: "number", name: "widthRepeat"}, {type: "number", name: "heightRepeat"}],
+        description: <span>The setTexture function changes the texture of the cursor. The texture's normal color is displayed when setTextureColoring() is false, otherwise the texture will be affected by the current color. Textures can be applied either by using the name of one of <button id="textures" onClick = {handleTextureOpen} style = {{backgroundColor:"white", color:"#47a0ff", padding:0, border:"none"}}>these textures</button> or by inserting a valid url (e.g. "bricks" or "https://learnmyr.org/img/MYR-Logo.png"). WidthRepeat and heightRepeat will change how many times the texture is displayed on the object in each direction. If widthRepeat and heightRepeat are not declared they will be set to default settings. Depending on the policy of the website they’re from, image URLs may not be usable, which will result in a blank Texture and Color. An empty setTexture() or setTexture("") statement will remove the current texture.</span>,
         example: "setTexture"
     },
     {
@@ -526,7 +536,7 @@ let animations = [
     {
         name: "getMagnitude",
         parameters: [],
-        desription: <span>The getMagnitude function returns the current magnitude attribute of the cursor. The magnitude can be changed by the setMagnitude function.</span>
+        description: <span>The getMagnitude function returns the current magnitude attribute of the cursor. The magnitude can be changed by the setMagnitude function.</span>
     },
     {
         name: "spin",
