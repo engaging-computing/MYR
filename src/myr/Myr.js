@@ -1,5 +1,5 @@
 import "aframe";
-import "aframe-physics-system";
+import "@engaging-computing/aframe-physics-system";
 import Group from "./Group";
 import CANNON from "cannon";
 import TexturePack from "../components/structural/Textures.js";

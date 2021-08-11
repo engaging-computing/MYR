@@ -20,7 +20,7 @@ jobs:
           git config --global url."https://github.com/".insteadOf
           ssh://git@github.com/
       - name: Fetch packages
-        run: npm ci
+        run: npm install
       - name: Run Linter
         run: npm run lint
       - name: Run unit tests 
