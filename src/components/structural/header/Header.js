@@ -425,7 +425,6 @@ class Header extends Component {
                 }
                 this.state.socket.emit("save");
                 this.handleRender();
-                this.props.actions.messageSnackBar("Scene Saved!");
             });
         } else if(!text) {
             alert("There is no code to save for this scene. Try adding some in the editor!");
