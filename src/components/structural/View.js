@@ -334,46 +334,40 @@ class View extends Component {
         /* eslint-disable */
         return (
             !this.state.welcomeOpen ?
-                <a-scene scenelayer shadow="type:pcf;" physics="debug: false; friction: 3; restitution: .3;" embedded debug="false">
-                    <a-assets>
-                        <a-mixin id="checkpoint"></a-mixin>
-                        <a-mixin id="checkpoint-hovered" color="#6CEEB5"></a-mixin>
-                        <a-img id="reference" src={`${process.env.PUBLIC_URL}/img/coordHelper.jpg`} />
-                        {this.props.assets ? this.props.assets.map((x) => this.assetsHelper(x)) : null}
-                    </a-assets>
-                    <a-sky color={this.props.sceneConfig.settings.skyColor} />
-                    {this.coordinateHelper()}
-                    {this.makeFloor()}
-                    {this.props.sceneConfig.settings.defaultLight ? 
-                                <a-entity id="DefaultLight">                   
-                                    <a-entity id="AmbientLight" light="type: ambient; color: #BBB"></a-entity>
-                                    <a-entity id="DirectionalLight" light={"type: directional; color: #FFF; intensity: 0.6; " + this.lightShadowHelper({state: "",type: "directional"})} position="-3 3 1"></a-entity> 
-                                </a-entity>  
-                        : null
-                    }
-                    {this.props.sceneConfig.settings.lightIndicator||this.props.sceneConfig.settings.showCoordHelper ? 
-                            <a-entity id="AltLayerLight">                   
-                                <a-entity id="AmbientLight" light="type: ambient; color: #BBB" setlayer="type:light;layer:1;"></a-entity>
-                                <a-entity id="DirectionalLight" light={"type: directional; color: #FFF; intensity: 0.6; " + this.lightShadowHelper({state: "",type: "directional"})} position="-3 3 1" setlayer="type:light;layer:1;"></a-entity> 
+            <a-scene shadow="type:pcf;" physics="debug: false; friction: 3; restitution: .3;" embedded debug="false">
+                <a-assets>
+                    <a-mixin id="checkpoint"></a-mixin>
+                    <a-mixin id="checkpoint-hovered" color="#6CEEB5"></a-mixin>
+                    <a-img id="reference" src={`${process.env.PUBLIC_URL}/img/coordHelper.jpg`} />
+                    {this.props.assets ? this.props.assets.map((x) => this.assetsHelper(x)) : null}
+                </a-assets>
+                <a-sky color={this.props.sceneConfig.settings.skyColor} />
+                {this.coordinateHelper()}
+                {this.makeFloor()}
+                {this.props.sceneConfig.settings.defaultLight ? 
+                            <a-entity id="DefaultLight">                   
+                                <a-entity id="AmbientLight" light="type: ambient; color: #BBB"></a-entity>
+                                <a-entity id="DirectionalLight" light={"type: directional; color: #FFF; intensity: 0.6; " + this.lightShadowHelper({state: "",type: "directional"})} position="-3 3 1"></a-entity> 
                             </a-entity>  
-                        : null}
-                    { // create the entities
-                        Object.keys(this.props.objects).map(it => {
-                            return this.helper(this.props.objects[it]);
-                        })
-                    }
-                    {this.createCam()}
-                    {this.props.sceneConfig.settings.camConfig === 1 ?
-                        <a-entity position="0 0 0">
-                            <a-cylinder checkpoint radius="1" height="0.3" position="-25 1 -25" color="#39BB82"></a-cylinder>
-                            <a-cylinder checkpoint radius="1" height="0.3" position="25 1 25" color="#39BB82"></a-cylinder>
-                            <a-cylinder checkpoint radius="1" height="0.3" position="-25 1 25" color="#39BB82"></a-cylinder>
-                            <a-cylinder checkpoint radius="1" height="0.3" position="25 1 -25" color="#39BB82"></a-cylinder>
-                            <a-circle checkpoint radius="1" rotation="90 0 0" position="0 10 0" color="#39BB82"></a-circle>
-                        </a-entity>
-                        : null
-                    }
-                </a-scene>
+                    : null
+                }
+                { // create the entities
+                    Object.keys(this.props.objects).map(it => {
+                        return this.helper(this.props.objects[it]);
+                    })
+                }
+                {this.createCam()}
+                {this.props.sceneConfig.settings.camConfig === 1 ?
+                    <a-entity position="0 0 0">
+                        <a-cylinder checkpoint radius="1" height="0.3" position="-25 1 -25" color="#39BB82"></a-cylinder>
+                        <a-cylinder checkpoint radius="1" height="0.3" position="25 1 25" color="#39BB82"></a-cylinder>
+                        <a-cylinder checkpoint radius="1" height="0.3" position="-25 1 25" color="#39BB82"></a-cylinder>
+                        <a-cylinder checkpoint radius="1" height="0.3" position="25 1 -25" color="#39BB82"></a-cylinder>
+                        <a-circle checkpoint radius="1" rotation="90 0 0" position="0 10 0" color="#39BB82"></a-circle>
+                    </a-entity>
+                    : null
+                }
+            </a-scene>
                 :
                 null
         );
