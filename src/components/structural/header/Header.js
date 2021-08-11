@@ -10,6 +10,8 @@ import WelcomeScreen from "../WelcomeScreen.js";
 import { GoogleLogin, GoogleLogout } from "react-google-login";
 import sockets from "socket.io-client";
 
+import "../../../utils/Util";
+
 import * as layoutTypes from "../../../constants/LayoutTypes.js";
 
 import {
@@ -28,6 +30,7 @@ import {
     MuiThemeProvider
 } from "@material-ui/core";
 import { save } from "../../../actions/projectActions.js";
+import { getScreenshot } from "../../../utils/Util";
 
 const exitBtnStyle = {
     position: "absolute",
@@ -389,10 +392,7 @@ class Header extends Component {
         }
 
         if (this.props.user && this.props.user.uid && text) {
-            this.setState({ spinnerOpen: true });
-            let scene = document.querySelector("a-scene");
             // Access the scene and screen shot, with perspective view in a lossy jpeg format
-            let img = scene.components.screenshot.getCanvas("perspective").toDataURL("image/jpeg", 0.1);
 
             let newScene = {
                 name: (this.props.scene.name ? this.props.scene.name : "Untitled Scene"),
@@ -407,24 +407,25 @@ class Header extends Component {
                 createTime: (this.props.scene.createTime ? this.props.scene.createTime : Date.now())
             };
             
+            let img = getScreenshot(2048,1024,0.1,"image/jpeg");
             save(this.props.user.uid, newScene, img, this.props.projectId).then((projectId) =>{
                 if(!projectId) {
                     console.error("Could not save the scene");
+                    return;
                 }
                 
                 this.props.actions.updateSavedText(text);
                 // If we have a new projectId reload page with it
                 if (projectId !== this.props.projectId) {
-                    this.setState({ spinnerOpen: false });
                     window.location.assign(`${window.origin}/scene/${projectId}`);
                     this.props.projectActions.asyncUserProj(this.props.user.uid);
                 }
                 if(!this.state.viewOnly) {
                     this.props.actions.refresh(text, this.props.user ? this.props.user.uid : "anon");
                 }
-                this.setState({spinnerOpen: false, saveOpen: false});
                 this.state.socket.emit("save");
-                return true;
+                this.handleRender();
+                this.props.actions.messageSnackBar("Scene Saved!");
             });
         } else if(!text) {
             alert("There is no code to save for this scene. Try adding some in the editor!");
@@ -432,10 +433,12 @@ class Header extends Component {
             // TODO: Don't use alert
             alert("We were unable to save your project. Are you currently logged in?");
         }
-
+        
         if(!this.state.viewOnly) {
             this.props.actions.refresh(text, this.props.user ? this.props.user.uid : "anon");
         }
+        
+        this.setState({saveOpen: false});
         this.setState({savedSettings: this.buildSettingsArr()});
     }
 
