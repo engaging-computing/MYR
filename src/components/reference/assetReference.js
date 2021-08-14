@@ -1,6 +1,5 @@
 import React from "react";
-import assetReference from "../../myr/assetReference";
-import modelReferenceTab from "./ModelReferencePage";
+import ModelTab from "./ModelReferencePage";
 
 import {
     Tabs,
@@ -18,13 +17,11 @@ export default class AssetReference extends React.Component {
         this.state = {
             value: "a",
         };
-        this.tableData = assetReference();
     }
 
     handleChange = (event, value) => {
         this.setState({ value });
     };
-
 
     render() {
         return (
@@ -45,8 +42,7 @@ export default class AssetReference extends React.Component {
                 </Tabs>
                 {this.state.value === "a" &&
                     <div style={{ marginTop: 0 }}>
-                        <modelReferenceTab />
-                        {/* Replace with model tab/class */}
+                        <ModelTab />
                     </div>}
                 {this.state.value === "b" &&
                 <div style={{ marginTop: 0 }}>

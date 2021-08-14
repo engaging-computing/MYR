@@ -1,5 +1,4 @@
-
-export const model = [
+const model = [
     {
         name: "sword",
         model: "sword",
@@ -37,3 +36,4 @@ export const model = [
     },
 ];
  
+export default model;
