@@ -125,7 +125,7 @@ export const dataText = (text) => {
         </HtmlTooltip>);
 };
 
-let texture = [
+export let texture = [
     {
         name: "bricks",
         image: "bricks",

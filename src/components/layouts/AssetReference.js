@@ -1,7 +1,7 @@
 import React from "react";
 import Header from "../structural/header/Header";
 import Footer from "../structural/Footer";
-import ModelReferencePage from "../reference/ModelReferencePage";
+import AssetReferencePage from "../reference/assetReference";
 
 import * as layoutTypes from "../../constants/LayoutTypes.js";
 
@@ -23,10 +23,10 @@ export const ModelReference = ({ editor, editorActions, user, authActions, scene
             courses={courses}
             collectionActions={collectionActions}
             collections={collections}
-            layoutType={layoutTypes.MODEL_REFERENCE}
+            layoutType={layoutTypes.REFERENCE}
         />
         <div className="row no-gutters">
-            <ModelReferencePage />
+            <AssetReferencePage />
         </div>
         <Footer />
     </div>
