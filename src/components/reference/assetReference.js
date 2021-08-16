@@ -1,5 +1,6 @@
 import React from "react";
 import ModelTab from "./ModelReferencePage";
+import TextureTab from "./TextureReferencePage";
 
 import {
     Tabs,
@@ -28,7 +29,7 @@ export default class AssetReference extends React.Component {
             <div id="modelReference-page">
                 <Tabs
                     id="modelReference-tabs"
-                    fullWidth={true}
+                    variant="fullWidth"
                     value={this.state.value}
                     onChange={this.handleChange} >
                     <Tab
@@ -39,6 +40,14 @@ export default class AssetReference extends React.Component {
                             </Hidden>
                         }
                         value='a' />
+                    <Tab
+                        icon={<Icon className="material-icons texture">texture</Icon>}
+                        label={
+                            <Hidden xsDown>
+                                <div>TEXTURE</div>
+                            </Hidden>
+                        }
+                        value='b' />
                 </Tabs>
                 {this.state.value === "a" &&
                     <div style={{ marginTop: 0 }}>
@@ -46,8 +55,7 @@ export default class AssetReference extends React.Component {
                     </div>}
                 {this.state.value === "b" &&
                 <div style={{ marginTop: 0 }}>
-                    {this.TableEx("model")} 
-                    {/* Replace with texture tab/class */}
+                    <TextureTab />
                 </div>}
             </div>
         );

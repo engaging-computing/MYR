@@ -4,7 +4,6 @@ import Ide from "./containers/Ide";
 import Guided from "./containers/Guided";
 import Collection from "./containers/Collection";
 import Reference from "./containers/Reference";
-import TextureReference from "./containers/TextureReference";
 import AssetReferencePage from "./containers/AssetReference";
 import ReferenceExample from "./containers/ReferenceExample";
 
@@ -14,7 +13,6 @@ const router = () => {
             <Switch>
                 <Route exact path='/' component={Ide} />
                 <Route exact path='/reference' component={Reference} />
-                <Route exact path='/textureReference' component={TextureReference} />
                 <Route exact path='/AssetReferencePage' component={AssetReferencePage} />
                 <Route path='/course/:shortname' component={Guided} />
                 <Route path='/collection/:collection' component={Collection} />
