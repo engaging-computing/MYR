@@ -13,7 +13,7 @@ const router = () => {
             <Switch>
                 <Route exact path='/' component={Ide} />
                 <Route exact path='/reference' component={Reference} />
-                <Route exact path='/AssetReferencePage' component={AssetReferencePage} />
+                <Route exact path='/assetreference' component={AssetReferencePage} />
                 <Route path='/course/:shortname' component={Guided} />
                 <Route path='/collection/:collection' component={Collection} />
                 <Route path='/reference/:function' component={ReferenceExample} />

@@ -30,6 +30,12 @@ const newTabStyle = {
     top: 0,
     right: 50,
 };
+
+const assetReferenceBtn = {
+    position: "fixed",
+    top: 0,
+    right: 95,
+};
 export default class Reference extends React.Component {
 
     constructor(props) {
@@ -48,6 +54,12 @@ export default class Reference extends React.Component {
         window.open(window.origin + "/reference");
         this.setState({ value: "a" });
     };
+
+    assetHandleOpen = () => {
+        window.open(window.origin + "/assetreference");
+        this.setState({ value: "a" });
+    };
+
 
     nameHelper = (name, parameters) => {
         return (
@@ -151,10 +163,18 @@ export default class Reference extends React.Component {
                                     <Icon className="material-icons">close</Icon>
                                 </IconButton>
                                 <IconButton
+                                    title="Open reference page &#013;(in a new tab)"
                                     color="default"
                                     style={newTabStyle}
                                     onClick={this.handleOpen}>
-                                    <Icon className="material-icons">open_in_new</Icon>
+                                    <Icon className="material-icons">menu_book</Icon>
+                                </IconButton>
+                                <IconButton
+                                    title="Open asset reference page &#013;(in a new tab)"
+                                    color="default"
+                                    style={assetReferenceBtn}
+                                    onClick={this.assetHandleOpen}>
+                                    <Icon className="material-icons-outlined">cloud_download</Icon>
                                 </IconButton>
                             </div>
 

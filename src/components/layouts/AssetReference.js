@@ -1,7 +1,7 @@
 import React from "react";
 import Header from "../structural/header/Header";
 import Footer from "../structural/Footer";
-import AssetReferencePage from "../reference/assetReference";
+import AssetReferencePage from "../reference/AssetReference";
 
 import * as layoutTypes from "../../constants/LayoutTypes.js";
 

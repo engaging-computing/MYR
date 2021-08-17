@@ -24,6 +24,13 @@ export default class AssetReference extends React.Component {
         this.setState({ value });
     };
 
+    componentDidMount() {
+        const qsa = new URLSearchParams(window.location.search);
+        if (qsa.has("tab") && qsa.get("tab").toLowerCase() === "textures") {
+            this.setState({ value: "b" });
+        }
+    }
+
     render() {
         return (
             <div id="modelReference-page">
@@ -54,9 +61,9 @@ export default class AssetReference extends React.Component {
                         <ModelTab />
                     </div>}
                 {this.state.value === "b" &&
-                <div style={{ marginTop: 0 }}>
-                    <TextureTab />
-                </div>}
+                    <div style={{ marginTop: 0 }}>
+                        <TextureTab />
+                    </div>}
             </div>
         );
     }
