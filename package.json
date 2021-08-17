@@ -43,7 +43,7 @@
         "react-router-dom": "^4.2.2",
         "react-select": "^3.0.4",
         "reactour": "^1.9.1",
-        "redux": "^3.7.2",
+        "redux": "^4.1.1",
         "redux-thunk": "^2.3.0",
         "socket.io-client": "^4.0.0",
         "source-map-explorer": "^2.0.0",
