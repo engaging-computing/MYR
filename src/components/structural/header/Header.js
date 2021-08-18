@@ -173,8 +173,8 @@ class Header extends Component {
         const sceneSettings = this.props.scene.settings;
 
         return [sceneSettings.floorColor,
-        sceneSettings.showCoordHelper, sceneSettings.showFloor,
-        sceneSettings.skyColor, sceneSettings.viewOnly];
+            sceneSettings.showCoordHelper, sceneSettings.showFloor,
+            sceneSettings.skyColor, sceneSettings.viewOnly];
     };
 
     settingsEqual = (newSettings) => {
