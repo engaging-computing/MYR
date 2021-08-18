@@ -16,7 +16,7 @@ const HtmlTooltip = withStyles(theme => ({
 }))(Tooltip);
 
 const handleAssetReferenceOpen = (isTexture = false) => {
-    window.open(window.origin + "/assetreference" + (isTexture ? "?tab=textures" : ""));
+    window.open(window.origin + "/asset-reference" + (isTexture ? "?tab=textures" : ""));
 };
 
 export const stringText = (text) => {

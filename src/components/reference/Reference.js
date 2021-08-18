@@ -56,7 +56,7 @@ export default class Reference extends React.Component {
     };
 
     assetHandleOpen = () => {
-        window.open(window.origin + "/assetreference");
+        window.open(window.origin + "/asset-reference");
         this.setState({ value: "a" });
     };
 
@@ -174,7 +174,7 @@ export default class Reference extends React.Component {
                                     color="default"
                                     style={assetReferenceBtn}
                                     onClick={this.assetHandleOpen}>
-                                    <Icon className="material-icons-outlined">cloud_download</Icon>
+                                    <Icon className="material-icons-outlined">settings_system_daydream</Icon>
                                 </IconButton>
                             </div>
 

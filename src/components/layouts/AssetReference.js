@@ -1,11 +1,11 @@
 import React from "react";
 import Header from "../structural/header/Header";
 import Footer from "../structural/Footer";
-import AssetReferencePage from "../reference/AssetReference";
+import AssetReferencePage from "../reference/AssetReferencePage";
 
 import * as layoutTypes from "../../constants/LayoutTypes.js";
 
-export const ModelReference = ({ editor, editorActions, user, authActions, scene, sceneActions, projectActions, courseActions, projects, courses, match, collectionActions, collections }) => (
+export const AssetReference = ({ editor, editorActions, user, authActions, scene, sceneActions, projectActions, courseActions, projects, courses, match, collectionActions, collections }) => (
     <div className="App">
         <Header
             logging={authActions}
@@ -32,4 +32,4 @@ export const ModelReference = ({ editor, editorActions, user, authActions, scene
     </div>
 );
 
-export default ModelReference;
+export default AssetReference;
