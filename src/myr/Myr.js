@@ -75,7 +75,7 @@ class Myr {
         // For each function bind it to the window
         funs.forEach(element => {
             // If a collision is detected then do not override and warn
-            if (window.hasOwnProperty(element)) {
+            if (Object.prototype.hasOwnProperty.call(window, element)) {
                 console.warn(`The ${element} of Myr is being overridden.\n` +
                     "If this was not intentional consider renaming the function.");
             } else {
