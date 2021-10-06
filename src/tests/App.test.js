@@ -71,7 +71,8 @@ const generateMockProps = () => {
                 castShadow: false,
                 lightIndicator: false,
                 moveSpeed: 150,
-                collectionID: ""
+                collectionID: "",
+                darkMode: false
             },
         },
         projectActions: {
@@ -324,7 +325,8 @@ describe("Scene Reducer", () => {
                 castShadow: false,
                 lightIndicator: false,
                 moveSpeed: 150,
-                collectionID: ""
+                collectionID: "",
+                darkMode: false
             }
         };
     };

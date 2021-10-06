@@ -12,7 +12,8 @@ export const DEF_SETTINGS = {
     castShadow: false,
     lightIndicator: false,
     moveSpeed: 150,
-    collectionID: ""
+    collectionID: "",
+    darkMode: false
 };
 
 const initial_state = {
@@ -171,6 +172,14 @@ export default function scene(state = initial_state, action) {
                 settings: {
                     ...state.settings,
                     moveSpeed: action.speed
+                }
+            };
+        case types.TOGGLE_DARK_MODE:
+            return{
+                ...state,
+                settings: {
+                    ...state.settings,
+                    darkMode: !state.settings.darkMode
                 }
             };
         default:

@@ -96,6 +96,10 @@ export function updateMoveSpeed(speed) {
     return { type: types.UPDATE_MOVE_SPEED, speed };
 }
 
+export function toggleDarkMode(){
+    return { type: types.TOGGLE_DARK_MODE };
+}
+
 export default {
     nameScene,
     loadScene,
@@ -117,5 +121,6 @@ export default {
     toggleDefaultLight,
     toggleCastShadow,
     toggleLightIndicator,
-    updateMoveSpeed
+    updateMoveSpeed,
+    toggleDarkMode
 };

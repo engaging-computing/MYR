@@ -91,6 +91,7 @@ class ConfigModal extends Component {
             displaySkyColorPicker: false,
             displayFloorColorPicker: false,
             displayMoveSpeedSlider: false,
+            displayDarkMode: false,
             qrCodeOpen: false,
             pwProtectOpen: false,
             shareOpen: false,
@@ -125,7 +126,8 @@ class ConfigModal extends Component {
             open: false, 
             displaySkyColorPicker: false, 
             displayFloorColorPicker: false,
-            displayMoveSpeedSlider: false
+            displayMoveSpeedSlider: false,
+            displayDarkMode: false
         });
     };
 
@@ -244,6 +246,11 @@ class ConfigModal extends Component {
             this.props.sceneActions.updateMoveSpeed(newSpeed);
         }
     };
+    handleDarkMode = () => {
+        this.setState({ skyColor: "red"});
+        this.props.sceneActions.changeSkyColor("red"); // Changes sky color
+        console.warn("I BEEN SUMMONED");
+    };
 
     handleSkyColorClick = () => {
         this.setState({ displaySkyColorPicker: !this.state.displaySkyColorPicker });
@@ -263,6 +270,10 @@ class ConfigModal extends Component {
 
     handleFloorColorClose = () => {
         this.setState({ displayFloorColorPicker: false });
+    };
+
+    handleDarkModeClick = () => {
+        this.setState({ displayDarkMode: !this.state.displayDarkMode });
     };
 
     /**
@@ -485,6 +496,26 @@ class ConfigModal extends Component {
         );
     };
 
+    updateDarkMode = () => {
+        let style = this.props.scene.settings.showFloor ? btnStyle.on : btnStyle.off;
+        style = { ...btnStyle.base, ...style };
+        return (
+            <ButtonBase
+                style={style}
+                onClick={() => {
+                    this.props.handleRender();
+                    this.handleDarkModeClick();
+                }} >
+                {
+                    this.props.scene.settings.showFloor
+                        ? <Icon className="material-icons">brightness4</Icon>
+                        : <Icon className="material-icons">dark_mode</Icon>
+                }
+                 Dark Mode
+            </ButtonBase>
+        );
+    };
+
     changeSkyColor = () => {
         return (
             <ButtonBase
@@ -568,6 +599,7 @@ class ConfigModal extends Component {
                                             <div className="col-6">
                                                 <this.changeSkyColor />
                                                 <this.changeFloorColor />
+                                                <this.updateDarkMode />
                                             </div>
                                             <div className="col-12 border-bottom pt-4">Light Control</div>
                                             <div className="col-6">
@@ -639,6 +671,23 @@ class ConfigModal extends Component {
                                                             </ButtonBase >
                                                         </div>
                                                     </div>
+                                                </div>
+                                                :
+                                                null
+                                            }
+                                            {this.state.displayDarkMode
+                                                ?
+                                                <div id="color-popover">
+                                                    <ButtonBase
+                                                        onClick={this.handleDarkModeClick}
+                                                        style={{ position: "absolute", right: -25, top: -17, zIndex: 100 }}>
+                                                        <Icon className="material-icons">clear</Icon>
+                                                    </ButtonBase >
+                                                    <div id="color-cover" onClick={this.handleSkyColorClose} />
+                                                    <ChromePicker
+                                                        disableAlpha={true}
+                                                        color={this.state.skyColor}
+                                                        onChangeComplete={this.handleSkyChangeComplete} />
                                                 </div>
                                                 :
                                                 null
