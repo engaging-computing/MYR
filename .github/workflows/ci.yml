@@ -6,7 +6,7 @@ jobs:
   ci-checks:
     runs-on: ubuntu-latest
     container:
-      image: node:10.13
+      image: node:12.18
     
     steps:
       - uses: actions/checkout@v1
@@ -15,6 +15,10 @@ jobs:
         with:
           path: node_modules
           key: ${{ runner.os }}-${{ hashFiles('**/package-lock.json') }}
+      - name: Reconfigure git to use HTTP authentication
+        run: >
+          git config --global url."https://github.com/".insteadOf
+          ssh://git@github.com/
       - name: Fetch packages
         run: npm install
       - name: Run Linter

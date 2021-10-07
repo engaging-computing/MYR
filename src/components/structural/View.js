@@ -342,8 +342,8 @@ class View extends Component {
                     {this.props.assets ? this.props.assets.map((x) => this.assetsHelper(x)) : null}
                 </a-assets>
                 <a-sky color={this.props.sceneConfig.settings.skyColor} />
-                <this.coordinateHelper />
-                <this.makeFloor />
+                {this.coordinateHelper()}
+                {this.makeFloor()}
                 {this.props.sceneConfig.settings.defaultLight ? 
                             <a-entity id="DefaultLight">                   
                                 <a-entity id="AmbientLight" light="type: ambient; color: #BBB"></a-entity>
@@ -356,7 +356,7 @@ class View extends Component {
                         return this.helper(this.props.objects[it]);
                     })
                 }
-                <this.createCam />
+                {this.createCam()}
                 {this.props.sceneConfig.settings.camConfig === 1 ?
                     <a-entity position="0 0 0">
                         <a-cylinder checkpoint radius="1" height="0.3" position="-25 1 -25" color="#39BB82"></a-cylinder>

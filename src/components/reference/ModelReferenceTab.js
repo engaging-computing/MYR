@@ -1,39 +1,20 @@
 import React from "react";
-import myrReference from "../../myr/modelReference";
+import model from "../../myr/modelReference";
 
 import ModelPack from "../structural/Models.js";
 
 import {
-    Tabs,
-    Tab,
-    Icon,
     IconButton,
     Table,
     TableBody,
     TableHead,
     TableRow,
-    TableCell,
-    Hidden,
+    TableCell
 } from "@material-ui/core";
 
 import "../../css/ModelReferencePage.css";
 
 export default class ModelReference extends React.Component {
-
-    constructor(props) {
-        super(props);
-        this.state = {
-            value: "a",
-        };
-        this.tableData = myrReference();
-    }
-
-    handleToggle = () => this.setState({ open: !this.state.open, value: "a" });
-
-    handleChange = (event, value) => {
-        this.setState({ value });
-    };
-
     imageHelper = (model) => {
         if(model) {
             let models = ModelPack().ModelPack;
@@ -61,8 +42,7 @@ export default class ModelReference extends React.Component {
         return null;
     };
 
-    TableEx = (category) => {
-
+    render() {
         return (
             <Table  >
                 <TableHead >
@@ -73,8 +53,8 @@ export default class ModelReference extends React.Component {
                         <TableCell className='modRefExample'>Example</TableCell>
                     </TableRow>
                 </TableHead>
-                <TableBody  >
-                    {this.tableData[category].map((row, index) => (
+                <TableBody> {model.map((row, index) => {               
+                    return (
                         <TableRow key={index}>
                             <TableCell >{row.name}</TableCell>
                             <TableCell ></TableCell>
@@ -82,35 +62,10 @@ export default class ModelReference extends React.Component {
                                 <img id="image" src={this.imageHelper(row.model)} alt="alt" height = "90" width = "90"></img>
                             </TableCell>
                             <TableCell >{this.exampleHelper(row.example)}</TableCell>
-                        </TableRow>
-                    ))}
+                        </TableRow>);
+                })}
                 </TableBody>
             </Table>
-        );
-    };
-
-    render() {
-        return (
-            <div id="modelReference-page">
-                <Tabs
-                    id="modelReference-tabs"
-                    fullWidth={true}
-                    value={this.state.value}
-                    onChange={this.handleChange} >
-                    <Tab
-                        icon={<Icon className="material-icons model">model</Icon>}
-                        label={
-                            <Hidden xsDown>
-                                <div>MODEL</div>
-                            </Hidden>
-                        }
-                        value='a' />
-                </Tabs>
-                {this.state.value === "a" &&
-                    <div style={{ marginTop: 0 }}>
-                        {this.TableEx("model")}
-                    </div>}
-            </div>
         );
     }
 }
