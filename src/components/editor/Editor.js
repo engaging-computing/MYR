@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import AceEditor from "react-ace";
 import "brace/mode/javascript";
 import "brace/theme/github";
+import "brace/theme/monokai";
 import "brace/ext/searchbox";
 import "brace/ext/language_tools";
 
@@ -9,10 +10,26 @@ import customCompleter from "./customCompleter.js";
 import KeyboardShortcut from "./KeyboardShortcut.js";
 import { browserType } from "../../utils/browserType";
 
+
 /**
  * Editor is a React Component that creat the Ace Editor in the DOM.
  */
 class Editor extends Component {
+
+    state = {
+        darkModeTheme: "github"
+    }
+
+    onChange = () => {
+        if (this.state.darkModeTheme === "github"){
+            this.setState({ darkModeTheme: "monokai" });
+        } else{
+            this.setState({ darkModeTheme: "github"});
+        }
+        
+    }
+
+
     componentWillUnmount() {
         // Updates state in reducer before closing editor
         const text = window.ace.edit("ace-editor").getSession().getValue();
@@ -60,6 +77,11 @@ class Editor extends Component {
     render() {
         return (
             <div>
+                <button
+                    onClick={this.onChange}
+                >
+                    Click Me!
+                </button>
                 <AceEditor
                     editorProps={{
                         $blockScrolling: Infinity,
@@ -69,7 +91,8 @@ class Editor extends Component {
                     name="ace-editor"
                     // eslint-disable-next-line
                     ref="aceEditor"
-                    theme="github"
+                    theme={this.state.darkModeTheme}
+                    background="black"
                     value={this.props.text}
                     width="100%"
                     wrapEnabled={true}
