@@ -5,7 +5,7 @@ export const DEF_SETTINGS = {
     floorColor: "#222",
     camConfig: 0,
     showCoordHelper: true,
-    showFloor: false,
+    showFloor: true,
     cameraPosition: "0 1.6 3",
     viewOnly: false,
     defaultLight: true,

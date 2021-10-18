@@ -284,6 +284,7 @@ class View extends Component {
                     <a-grid height="53.33" width="53.33" position="-0.5 -0.26 -0.5" scale="1.5 1.5 1.5" gridmaterial/>
                     <a-tube path="-35 -0.2 0, 35 -0.2 0" radius="0.05" material="color: red" basicmaterial></a-tube>
                     <a-tube path="0 -0.2 -35, 0 -0.2 35" radius="0.05" material="color: blue" basicmaterial></a-tube>
+                    <a-tube path="0 -35 0, 0 35 0" radius="0.05" material="color: green" basicmaterial></a-tube>
                     <a-text
                         color="#555"
                         rotation="0 0 0"
@@ -301,7 +302,7 @@ class View extends Component {
                     <a-text
                         color="#555"
                         rotation="0 90 90"
-                        position="0 .1 0"
+                        position=".1 .1 0"
                         side="double"
                         value=" Y + "></a-text>
                 </Fragment>
