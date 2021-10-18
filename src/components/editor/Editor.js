@@ -20,15 +20,6 @@ class Editor extends Component {
         darkModeTheme: "github"
     }
 
-    onChange = () => {
-        if (this.state.darkModeTheme === "github"){
-            this.setState({ darkModeTheme: "monokai" });
-        } else{
-            this.setState({ darkModeTheme: "github"});
-        }
-        
-    }
-
 
     componentWillUnmount() {
         // Updates state in reducer before closing editor
@@ -77,11 +68,6 @@ class Editor extends Component {
     render() {
         return (
             <div>
-                <button
-                    onClick={this.onChange}
-                >
-                    Click Me!
-                </button>
                 <AceEditor
                     editorProps={{
                         $blockScrolling: Infinity,
@@ -91,7 +77,9 @@ class Editor extends Component {
                     name="ace-editor"
                     // eslint-disable-next-line
                     ref="aceEditor"
-                    theme={this.state.darkModeTheme}
+                    theme={
+                        this.props.user.darkMode ? "monokai" : "github"
+                    }
                     background="black"
                     value={this.props.text}
                     width="100%"

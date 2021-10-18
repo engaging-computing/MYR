@@ -20,7 +20,7 @@ Ide.propTypes = {
  */
 const mapStateToProps = state => ({
     editor: state.editor,
-    user: state.user.user,
+    user: state.user,
     scene: state.scene,
     projects: state.project,
     courses: state.courses,
