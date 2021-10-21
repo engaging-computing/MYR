@@ -1,12 +1,12 @@
 import PropTypes from "prop-types";
-import ModelReferencePage from "../components/layouts/ModelReference.js";
+import AssetReferencePage from "../components/layouts/AssetReference.js";
 import * as Actions from "../actions";
 
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 
 // This makes sure we are getting what we think we should
-ModelReferencePage.propTypes = {
+AssetReferencePage.propTypes = {
     editor: PropTypes.object.isRequired,
     user: PropTypes.object,
     scene: PropTypes.object.isRequired,
@@ -36,4 +36,4 @@ const mapDispatchToProps = dispatch => ({
 export default connect(
     mapStateToProps,
     mapDispatchToProps
-)(ModelReferencePage);
+)(AssetReferencePage);

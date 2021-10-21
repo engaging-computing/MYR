@@ -15,12 +15,8 @@ const HtmlTooltip = withStyles(theme => ({
     },
 }))(Tooltip);
 
-const handleTextureOpen = () => {
-    window.open(window.origin + "/textureReference");
-};
-
-const handleModelOpen = () => {
-    window.open(window.origin + "/modelReference");
+const handleAssetReferenceOpen = (isTexture = false) => {
+    window.open(window.origin + "/asset-reference" + (isTexture ? "?tab=textures" : ""));
 };
 
 export const stringText = (text) => {
@@ -238,7 +234,7 @@ let geometry = [
     {
         name: "gltfModel",
         parameters: [{ type: "string" }],
-        description: <span>The gltfModel function loads a glTF model using the current cursor attributes. This function returns an {stringText("elementID")}. Models can be loaded either by using the name of one of <button id="models" onClick = {handleModelOpen} style = {{backgroundColor:"white", color:"#47a0ff", padding:0, border:"none"}}>these models</button> or by inserting a valid url (e.g. "duck" or "https://learnmyr.org/models/duck.glb"). Depending on the policy of the website they’re from, model URLs may not be usable, which will result in no model appearing.</span>,
+        description: <span>The gltfModel function loads a glTF model using the current cursor attributes. This function returns an {stringText("elementID")}. Models can be loaded either by using the name of one of <button id="models" onClick={() => handleAssetReferenceOpen()} style={{ backgroundColor: "white", color: "#47a0ff", padding: 0, border: "none" }}>these models</button> or by inserting a valid url (e.g. "duck" or "https://learnmyr.org/models/duck.glb"). Depending on the policy of the website they’re from, model URLs may not be usable, which will result in no model appearing.</span>,
         example: "model"
     },
     //{
@@ -280,13 +276,13 @@ let transformations = [
     },
     {
         name: "setTexture",
-        parameters: [{type: "string", name: "texture"}, {type: "number", name: "widthRepeat"}, {type: "number", name: "heightRepeat"}],
-        description: <span>The setTexture function changes the texture of the cursor. The texture's normal color is displayed when setTextureColoring() is false, otherwise the texture will be affected by the current color. Textures can be applied either by using the name of one of <button id="textures" onClick = {handleTextureOpen} style = {{backgroundColor:"white", color:"#47a0ff", padding:0, border:"none"}}>these textures</button> or by inserting a valid url (e.g. "bricks" or "https://learnmyr.org/img/MYR-Logo.png"). WidthRepeat and heightRepeat will change how many times the texture is displayed on the object in each direction. If widthRepeat and heightRepeat are not declared they will be set to default settings. Depending on the policy of the website they’re from, image URLs may not be usable, which will result in a blank Texture and Color. An empty setTexture() or setTexture("") statement will remove the current texture.</span>,
+        parameters: [{ type: "string", name: "texture" }, { type: "number", name: "widthRepeat" }, { type: "number", name: "heightRepeat" }],
+        description: <span>The setTexture function changes the texture of the cursor. The texture's normal color is displayed when setTextureColoring() is false, otherwise the texture will be affected by the current color. Textures can be applied either by using the name of one of <button id="textures" onClick={() => handleAssetReferenceOpen(true)} style={{ backgroundColor: "white", color: "#47a0ff", padding: 0, border: "none" }}>these textures</button> or by inserting a valid url (e.g. "bricks" or "https://learnmyr.org/img/MYR-Logo.png"). widthRepeat and heightRepeat will change how many times the texture is displayed on the object in each direction. If widthRepeat and heightRepeat are not declared they will be set to default settings. Depending on the policy of the website they’re from, image URLs may not be usable, which will result in a blank Texture and Color. An empty setTexture() or setTexture("") statement will remove the current texture.</span>,
         example: "setTexture"
     },
     {
         name: "setTextureColoring",
-        parameters: [{type: "bool", name:"boolean"}],
+        parameters: [{ type: "bool", name: "boolean" }],
         description: <span>The setTextureColoring function sets the textureColoring attribute in the cursor, turning whether colors are applied to objects with textures on and off. The default value is false.</span>,
         example: "setTextureColoring"
     },
@@ -321,7 +317,7 @@ let transformations = [
     },
     {
         name: "setTransparency",
-        parameters: [{type: "number", name: "transparency"}],
+        parameters: [{ type: "number", name: "transparency" }],
         description: <span>The setTransparency function changes the opacity of the element. The range of transparency is from 0% (solid) to 100% (invisible). The default is 0%.</span>,
         example: "setTransparency"
     },
@@ -496,7 +492,7 @@ let transformations = [
         name: "resetTransformationCursor",
         parameters: [],
         description: <span>The resetTransformationCursor function resets the transformation properties of the cursor to their defaults.</span>,
-    }, 
+    },
 ];
 
 let animations = [
@@ -621,7 +617,7 @@ let animations = [
         name: "resetAnimationCursor",
         parameters: [],
         description: <span>The resetAnimationCursor function resets the properties of the cursor that contains animation properties to their defaults.</span>,
-    }, 
+    },
     // {
     //   name: <span>spin(<span className="string">element</span>, <span className="number">magnitude</span>, <span className="bool">loop</span>, <span className="number">duration</span>)</span>,
     //   description: <span>Spins the element around the y axis <span className="number">magnitude</span> degrees.</span>
@@ -698,37 +694,37 @@ let lights = [
     },
     {
         name: "hemisphereLight",
-        parameters: [{type:"string",name:"secondColor"}],
+        parameters: [{ type: "string", name: "secondColor" }],
         description: <span>The hemisphereLight function makes a light that has 2 colors on opposite sides, creating 2 distinct lighting colors. This function returns an {stringText("elementID")}.</span>
     },
     {
         name: "setIntensity",
-        parameters: [{type:"number",name:"intensity"}],
+        parameters: [{ type: "number", name: "intensity" }],
         description: <span>The setIntensity function changes the intensity/strength of the light casting the scene. The default value is 1.0.</span>
     },
     {
         name: "setBeamAngle",
-        parameters: [{type:"number",name:"degree"}],
+        parameters: [{ type: "number", name: "degree" }],
         description: <span>The setBeamAngle function changes the maximum extent of a spotlight from its direction in degrees. The default value is 60.</span>
     },
     {
         name: "setDecay",
-        parameters: [{type:"number",name:"decay"}],
+        parameters: [{ type: "number", name: "decay" }],
         description: <span>The setDecay function changes the rate that light dims as it travels. The default value is 1.0.</span>
     },
     {
         name: "setDistance",
-        parameters: [{type:"number",name:"distance"}],
+        parameters: [{ type: "number", name: "distance" }],
         description: <span>The setDistance function sets the distance where the light’s intensity becomes 0. If the distance is 0, then the light does not decay with distance. The default value is 0.0.</span>
     },
     {
         name: "setDiffusion",
-        parameters: [{type:"number",name:"diffusion"}],
+        parameters: [{ type: "number", name: "diffusion" }],
         description: <span>The setDiffusion function sets the magnitude of diffusion on the edges of a spotlight . The default value is 0.0.</span>
     },
     {
         name: "setLightTarget",
-        parameters: [{type:"number",name:"x"},{type:"number",name:"y"},{type:"number",name:"z"}],
+        parameters: [{ type: "number", name: "x" }, { type: "number", name: "y" }, { type: "number", name: "z" }],
         description: <span>The setLightTarget function sets the point where the light should be pointed to. The default values are x:0, y:0, z:0.</span>
     },
     {
@@ -783,7 +779,7 @@ const reference = {
     transformations: transformations,
     animations: animations,
     groups: groups,
-    lights:lights,
+    lights: lights,
 };
 
 export default function r(ref = reference) {
