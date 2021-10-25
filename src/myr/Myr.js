@@ -736,8 +736,12 @@ class Myr {
                 i++;
             }
         }
-        this.cursor.color = color;
         return color;
+    }
+
+    setRandomColor = (colors = null) => {
+        this.cursor.color = this.getRandomColor(colors);
+        return this.cursor.color;
     }
 
     drop = (outerElId) => {
@@ -993,7 +997,7 @@ class Myr {
      * 
      * @param {*} params !!!DESCRIPTION NEEDED!!!
      */
-    polyhedron = (params) => {
+    prism = (params) => {
         let base = {
             id: "poly" + this.genNewId(),
             geometry: `primitive: sphere; segmentsWidth: 2; segmentsHeight: 8; phi-length: ${this.cursor.phiLength};`,
@@ -1361,12 +1365,6 @@ class Myr {
             console.error("must pass a numeric for setLightTarget");
         }
     }
-
-    // Prism is an alias for Polyhedron
-    prism = this.polyhedron
-
-    // Cube is an alias for Box
-    cube = this.box
 
     /********************* ANIMATIONS *********************/
 
