@@ -53,6 +53,9 @@ const generateMockProps = () => {
             addPasswor: jest.fn(),
         },
         user: null,
+        settings: {
+            darkMode:false
+        },
         scene: {
             name: "",
             id: 0,
@@ -72,7 +75,6 @@ const generateMockProps = () => {
                 lightIndicator: false,
                 moveSpeed: 150,
                 collectionID: "",
-                darkMode: false
             },
         },
         projectActions: {
@@ -274,7 +276,10 @@ describe("User Reducer", () => {
     it("should return the initial state", () => {
         expect(user(undefined, {})).toEqual(
             {
-                user: null
+                user: null,
+                settings : {
+                    darkMode:false
+                }
             }
         );
     });
@@ -288,7 +293,10 @@ describe("User Reducer", () => {
             })
         ).toEqual(
             {
-                user: testUser
+                user: testUser,
+                settings:{
+                    darkMode:false,
+                }
             }
         );
     });

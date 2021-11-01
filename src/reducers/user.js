@@ -2,7 +2,9 @@ import * as types from "../constants/ActionTypes";
 
 const initial_state = {
     user: null,
-    darkMode: false
+    settings: {
+        darkMode: false
+    }
 };
 
 export default function user(state = initial_state, action) {
@@ -26,7 +28,10 @@ export default function user(state = initial_state, action) {
         case types.TOGGLE_DARK_MODE:
             return {
                 ...state,
-                darkMode: !state.darkMode
+                settings:{
+                    ...state.settings,
+                    darkMode: !state.settings.darkMode
+                }
             };
         default:
             return state;

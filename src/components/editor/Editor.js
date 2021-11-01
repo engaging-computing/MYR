@@ -78,7 +78,7 @@ class Editor extends Component {
                     // eslint-disable-next-line
                     ref="aceEditor"
                     theme={
-                        this.props.user.darkMode ? "monokai" : "github"
+                        this.props.settings.darkMode ? "monokai" : "github"
                     }
                     background="black"
                     value={this.props.text}

@@ -494,7 +494,7 @@ class ConfigModal extends Component {
             <ButtonBase
                 style={style}
                 onClick={() => {
-                    return this.props.sceneActions.toggleDarkMode();
+                    return this.props.userActions.toggleDarkMode();
                 }} >
                 {
                     !this.props.scene.settings.darkMode

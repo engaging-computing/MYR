@@ -770,6 +770,7 @@ class Header extends Component {
                         sceneActions={this.props.sceneActions}
                         collectionActions={this.props.collectionActions}
                         user={this.props.user}
+                        userActions={this.props.userActions}
                         handleRender={this.handleRender}
                         handleSave={this.handleSave}
                         handleSaveClose={this.handleSaveClose}
