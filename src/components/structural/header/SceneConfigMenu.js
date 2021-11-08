@@ -106,9 +106,19 @@ class ConfigModal extends Component {
             sendTo: [],
             collectionID: "",
             value: "a",
-            collectionError: ""
+            collectionError: "",
         };
         this.emailRef = React.createRef();
+    }
+    componentDidMount(){
+        this.setState({"previousSettings":this.props.settings});
+    }
+
+    componentDidUpdate(){
+        if(JSON.stringify(this.state.previousSettings) !== JSON.stringify(this.props.settings) && this.props.user){
+            this.props.userActions.updateUserSettings(this.props.user.uid,this.props.settings);
+            this.setState({"previousSettings":this.props.settings});
+        }
     }
 
     /**
@@ -488,7 +498,7 @@ class ConfigModal extends Component {
     };
 
     updateDarkMode = () => {
-        let style = this.props.scene.settings.darkMode ? btnStyle.on : btnStyle.off;
+        let style = this.props.settings.darkMode ? btnStyle.on : btnStyle.off;
         style = { ...btnStyle.base, ...style };
         return (
             <ButtonBase
@@ -497,7 +507,7 @@ class ConfigModal extends Component {
                     return this.props.userActions.toggleDarkMode();
                 }} >
                 {
-                    !this.props.scene.settings.darkMode
+                    !this.props.settings.darkMode
                         ? <Icon className="material-icons">brightness4</Icon>
                         : <Icon className="material-icons">dark_mode</Icon>
                 }

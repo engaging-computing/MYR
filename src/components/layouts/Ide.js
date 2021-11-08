@@ -21,6 +21,7 @@ export const Ide = ({ editor, editorActions, user, usersettings, userActions, au
             sceneActions={sceneActions}
             actions={editorActions}
             user={user}
+            settings={usersettings}
             userActions={userActions}
             scene={scene}
             text={editor.text}

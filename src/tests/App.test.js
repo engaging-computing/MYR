@@ -307,7 +307,10 @@ describe("User Reducer", () => {
                 type: types.LOGOUT,
             })
         ).toEqual({
-            user: null
+            user: null,
+            settings:{
+                darkMode: false
+            }
         }
         );
     });

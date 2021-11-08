@@ -165,7 +165,7 @@ class Header extends Component {
                     event.returnValue = "You may have unsaved changes!";
                 }
             });
-        }
+        }   
     }
 
 
@@ -772,6 +772,7 @@ class Header extends Component {
                         sceneActions={this.props.sceneActions}
                         collectionActions={this.props.collectionActions}
                         user={this.props.user}
+                        settings={this.props.settings}
                         userActions={this.props.userActions}
                         handleRender={this.handleRender}
                         handleSave={this.handleSave}
