@@ -4,7 +4,6 @@ import texture from "../../myr/textureReference";
 import TexturePack from "../structural/Textures.js";
 
 import {
-    IconButton,
     Table,
     TableBody,
     TableHead,
@@ -31,21 +30,6 @@ export default class TextureReference extends React.Component {
         }
     };
 
-    exampleHelper = (example) => {
-        if (example) {
-            let link = "/textureReference/" + example;
-            return (
-                <IconButton
-                    href={link}
-                    className="material-icons">
-                    link
-                </IconButton>
-            );
-        } else {
-            return null;
-        }
-    };
-
     render() {
         return (
             <Table  >
@@ -55,7 +39,6 @@ export default class TextureReference extends React.Component {
                         <TableCell></TableCell>
                         <TableCell className='texture'>Image</TableCell>
                         <TableCell className='creator'>Image Creator</TableCell>
-                        <TableCell className='texRefExample'>Example</TableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody> {texture.map((row, index) => {
@@ -67,7 +50,6 @@ export default class TextureReference extends React.Component {
                                 <img id="image" src={this.imageHelper(row.image)} alt="alt" height = "90" width = "90"></img>
                             </TableCell>
                             <TableCell >{row.creator}</TableCell>
-                            <TableCell >{this.exampleHelper(row.example)}</TableCell>
                         </TableRow>);
                 })}
                 </TableBody>
