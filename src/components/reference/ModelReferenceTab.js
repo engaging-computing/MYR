@@ -4,7 +4,6 @@ import model from "../../myr/modelReference";
 import ModelPack from "../structural/Models.js";
 
 import {
-    IconButton,
     Table,
     TableBody,
     TableHead,
@@ -28,20 +27,6 @@ export default class ModelReference extends React.Component {
         return null;
     };
 
-    exampleHelper = (example) => {
-        if(example) {
-            let link = "/modelReference/" + example;
-            return (
-                <IconButton
-                    href={link}
-                    className="material-icons">
-                    link
-                </IconButton>
-            );
-        }
-        return null;
-    };
-
     render() {
         return (
             <Table  >
@@ -50,7 +35,6 @@ export default class ModelReference extends React.Component {
                         <TableCell>Name</TableCell>
                         <TableCell></TableCell>
                         <TableCell className='model'>Image</TableCell>
-                        <TableCell className='modRefExample'>Example</TableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody> {model.map((row, index) => {               
@@ -61,7 +45,6 @@ export default class ModelReference extends React.Component {
                             <TableCell >
                                 <img id="image" src={this.imageHelper(row.model)} alt="alt" height = "90" width = "90"></img>
                             </TableCell>
-                            <TableCell >{this.exampleHelper(row.example)}</TableCell>
                         </TableRow>);
                 })}
                 </TableBody>
