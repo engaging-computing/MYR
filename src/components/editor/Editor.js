@@ -2,15 +2,16 @@ import React, { Component } from "react";
 import AceEditor from "react-ace";
 import "brace/mode/javascript";
 import "brace/theme/github";
-import "brace/ext/language_tools";
-import customCompleter from "./customCompleter.js";
-
 import "brace/ext/searchbox";
+import "brace/ext/language_tools";
+
+import customCompleter from "./customCompleter.js";
+import KeyboardShortcut from "./KeyboardShortcut.js";
+import { browserType } from "../../utils/browserType";
 
 /**
  * Editor is a React Component that creat the Ace Editor in the DOM.
  */
-
 class Editor extends Component {
     componentWillUnmount() {
         // Updates state in reducer before closing editor
@@ -52,29 +53,32 @@ class Editor extends Component {
             "esversion": 6
         }]);
     }
-
+    
     /**
      * Creates the editor in the DOM
      */
     render() {
         return (
-            <AceEditor
-                editorProps={{
-                    $blockScrolling: Infinity,
-                }}
-                height="94vh"
-                mode="javascript"
-                name="ace-editor"
-                // eslint-disable-next-line
-                ref="aceEditor"
-                theme="github"
-                value={this.props.text}
-                width="100%"
-                wrapEnabled={true}
-                enableBasicAutocompletion={false}
-                enableLiveAutocompletion={true}
-                onLoad={this.onLoad}
-            />
+            <div>
+                <AceEditor
+                    editorProps={{
+                        $blockScrolling: Infinity,
+                    }}
+                    height="90vh"
+                    mode="javascript"
+                    name="ace-editor"
+                    // eslint-disable-next-line
+                    ref="aceEditor"
+                    theme="github"
+                    value={this.props.text}
+                    width="100%"
+                    wrapEnabled={true}
+                    enableBasicAutocompletion={false}
+                    enableLiveAutocompletion={true}
+                    onLoad={this.onLoad}
+                />
+                { browserType() === "desktop" ? <KeyboardShortcut/> : null }
+            </div>
         );
     }
 }

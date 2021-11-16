@@ -6,6 +6,7 @@ import {
     IconButton,
     Icon,
     Modal,
+    Slider,
     TextField,
     Tooltip,
     Tabs,
@@ -87,10 +88,9 @@ class ConfigModal extends Component {
         super(props);
         this.state = {
             open: false,
-            skyColor: this.props.scene.settings.color,
             displaySkyColorPicker: false,
-            anchorEl: null,
             displayFloorColorPicker: false,
+            displayMoveSpeedSlider: false,
             qrCodeOpen: false,
             pwProtectOpen: false,
             shareOpen: false,
@@ -98,6 +98,9 @@ class ConfigModal extends Component {
             defaultLight: true,
             castShadow: false,
             spawnLightIndicator: false,
+            skyColor: this.props.scene.settings.color,
+            moveSpeed: this.props.scene.settings.moveSpeed,
+            anchorEl: null,
             email: "",
             sendTo: [],
             collectionID: "",
@@ -118,7 +121,12 @@ class ConfigModal extends Component {
      * Closes the modal
      */
     handleClose = () => {
-        this.setState({ open: false, displaySkyColorPicker: false, displayFloorColorPicker: false });
+        this.setState({ 
+            open: false, 
+            displaySkyColorPicker: false, 
+            displayFloorColorPicker: false,
+            displayMoveSpeedSlider: false
+        });
     };
 
     handleClick = event => {
@@ -227,12 +235,26 @@ class ConfigModal extends Component {
         this.props.sceneActions.changeFloorColor(color.hex);
     };
 
+    handleMoveSpeedUpdate = (e, newSpeed) => {
+        /* update component state whenever the slider's value changes
+         * so text displays correctly, only update redux store on 
+         * mouseup when user drags slider */
+        this.setState({ moveSpeed: newSpeed });
+        if(!e || e.type === "mouseup") {
+            this.props.sceneActions.updateMoveSpeed(newSpeed);
+        }
+    };
+
     handleSkyColorClick = () => {
         this.setState({ displaySkyColorPicker: !this.state.displaySkyColorPicker });
     };
 
     handleFloorColorClick = () => {
         this.setState({ displayFloorColorPicker: !this.state.displayFloorColorPicker });
+    };
+
+    handleMoveSpeedClick = () => {
+        this.setState({ displayMoveSpeedSlider: !this.state.displayMoveSpeedSlider });
     };
 
     handleSkyColorClose = () => {
@@ -288,6 +310,7 @@ class ConfigModal extends Component {
             </ButtonBase >
         );
     };
+
     defaultLightToggle = () =>{
         let style = this.props.scene.settings.defaultLight ? btnStyle.on : btnStyle.off;
         style = { ...btnStyle.base, ...style };
@@ -307,7 +330,8 @@ class ConfigModal extends Component {
                 Default Light
             </ButtonBase >
         );
-    }
+    };
+    
     castShadowToggle = () => {
         let style = this.props.scene.settings.castShadow ? btnStyle.on : btnStyle.off;
         style = { ...btnStyle.base, ...style };
@@ -327,7 +351,8 @@ class ConfigModal extends Component {
                 Cast Shadow
             </ButtonBase >
         );
-    }
+    };
+
     lightIndicatorToggle = () => {
         let style = this.props.scene.settings.lightIndicator ? btnStyle.on : btnStyle.off;
         style = { ...btnStyle.base, ...style };
@@ -347,7 +372,7 @@ class ConfigModal extends Component {
                 Light Indicator
             </ButtonBase >
         );
-    }
+    };
 
     /**
      * Toggles the floor on and off
@@ -446,6 +471,20 @@ class ConfigModal extends Component {
         );
     };
 
+    updateMoveSpeed = () => {
+        return (
+            <ButtonBase
+                style={btnStyle.base}
+                onClick={() => {
+                    this.props.handleRender();
+                    this.handleMoveSpeedClick();
+                }}>
+                <Icon className="material-icons">tune</Icon>
+                Change Speed
+            </ButtonBase >
+        );
+    };
+
     changeSkyColor = () => {
         return (
             <ButtonBase
@@ -540,6 +579,9 @@ class ConfigModal extends Component {
                                             </div>
                                             <div className="col-12 border-bottom pt-4">Camera Control</div>
                                             <div className="col-6">
+                                                <this.updateMoveSpeed />
+                                            </div>
+                                            <div className="col-6">
                                                 <this.resetPosition />
                                             </div>
                                             {this.state.displaySkyColorPicker
@@ -551,7 +593,10 @@ class ConfigModal extends Component {
                                                         <Icon className="material-icons">clear</Icon>
                                                     </ButtonBase >
                                                     <div id="color-cover" onClick={this.handleSkyColorClose} />
-                                                    <ChromePicker disableAlpha={true} color={this.state.skyColor} onChangeComplete={this.handleSkyChangeComplete} />
+                                                    <ChromePicker 
+                                                        disableAlpha={true}
+                                                        color={this.state.skyColor}
+                                                        onChangeComplete={this.handleSkyChangeComplete} />
                                                 </div>
                                                 :
                                                 null
@@ -565,7 +610,35 @@ class ConfigModal extends Component {
                                                         <Icon className="material-icons">clear</Icon>
                                                     </ButtonBase >
                                                     <div id="color-cover" onClick={this.handleFloorColorClose} />
-                                                    <ChromePicker disableAlpha={true} color={this.state.floorColor} onChangeComplete={this.handleFloorChangeComplete} />
+                                                    <ChromePicker
+                                                        disableAlpha={true}
+                                                        color={this.state.floorColor}
+                                                        onChangeComplete={this.handleFloorChangeComplete} />
+                                                </div>
+                                                :
+                                                null
+                                            }
+                                            {this.state.displayMoveSpeedSlider
+                                                ?
+                                                <div id="speed-config" className="col-12 pt-4">
+                                                    <div className="row">
+                                                        <div className="col-9">
+                                                            <Slider
+                                                                value={this.state.moveSpeed}
+                                                                valueLabelDisplay="auto" 
+                                                                onChange={this.handleMoveSpeedUpdate}
+                                                                onChangeCommitted={this.handleMoveSpeedUpdate}
+                                                                min={0}
+                                                                max={1000} />
+                                                        </div>
+                                                        <div className="col-3 align-top">
+                                                            <ButtonBase
+                                                                onClick={() => this.handleMoveSpeedUpdate(null, 150)}>
+                                                                <Icon className="material-icons">settings_backup_restore</Icon>
+                                                                Reset
+                                                            </ButtonBase >
+                                                        </div>
+                                                    </div>
                                                 </div>
                                                 :
                                                 null
