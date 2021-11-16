@@ -11,7 +11,7 @@ The Engaging Computing Group develops new technologies to enable learners—yout
 
 ## Change Log - 2.4.0 -> 3.0.0
 - Removed undocumented aliases for `box` and `prisim`
-    - All scenes using these primitives have been automatically changed to reflect the new API
+    - All scenes using these aliases have been automatically changed to reflect the new API
 - Changed the behavior of `getRandomColor` to only return a random color
 - Added `setRandomColor` to behave like `getRandomColor` did previously
     - A migration has updated scenes to be properly using these functions
