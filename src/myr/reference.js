@@ -695,7 +695,7 @@ let lights = [
     {
         name: "pointLight",
         parameters: [],
-        description: <span>The spotLight function makes a light that is emitted from a single point in all directions. This function returns an {stringText("elementID")}.</span>
+        description: <span>The pointLight function makes a light that is emitted from a single point in all directions. This function returns an {stringText("elementID")}.</span>
     },
     {
         name: "hemisphereLight",
