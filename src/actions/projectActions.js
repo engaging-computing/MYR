@@ -1,7 +1,23 @@
 import * as types from "../constants/ActionTypes";
+//import {saveAs} from "file-saver";
 
 const sceneRef = "/apiv1/scenes";
 const previewRef = "/apiv1/preview/id";
+
+export function exportProj(uid, id = undefined) {
+    return async () => {
+        let query = "";
+        if(id) {
+            query = `?id=${id}`;
+        }
+
+        fetch(`${sceneRef}/export${query}`, {headers: {"x-access-token": uid}}).then(async (resp) => {
+            if(resp.status === 200) {
+                console.log(await resp.json());
+            }
+        });
+    };
+}
 
 export function asyncUserProj(id) {
     // fetch user's project
@@ -130,5 +146,6 @@ export default {
     syncUserProj,
     asyncExampleProj,
     syncExampleProj,
-    deleteProj
+    deleteProj,
+    exportProj
 };

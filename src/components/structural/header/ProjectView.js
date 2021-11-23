@@ -423,6 +423,10 @@ class Project extends React.Component {
                                     }
                                     <span>&nbsp;</span>Preview
                                 </Button>
+                                <Button
+                                    onClick={() => this.props.exportFunc(this.props.user.uid)}>
+                                    Export
+                                </Button>
                                 <hr />
                             </div>
                             <Tabs
