@@ -10,12 +10,11 @@ import WelcomeScreen from "../WelcomeScreen.js";
 import { GoogleLogin, GoogleLogout } from "react-google-login";
 import sockets from "socket.io-client";
 
-import "../../../utils/Util";
-
 import * as layoutTypes from "../../../constants/LayoutTypes.js";
 
 import {
     Button,
+    Badge,
     Icon,
     MenuItem,
     Tooltip,
@@ -393,7 +392,6 @@ class Header extends Component {
 
         if (this.props.user && this.props.user.uid && text) {
             // Access the scene and screen shot, with perspective view in a lossy jpeg format
-
             let newScene = {
                 name: (this.props.scene.name ? this.props.scene.name : "Untitled Scene"),
                 desc: this.props.scene.desc,
@@ -431,9 +429,6 @@ class Header extends Component {
             // TODO: Don't use alert
             alert("We were unable to save your project. Are you currently logged in?");
         } 
-        if(!this.state.viewOnly) {
-            this.props.actions.refresh(text, this.props.user ? this.props.user.uid : "anon");
-        }
         this.setState({saveOpen: false});
         this.setState({savedSettings: this.buildSettingsArr()});
     }
@@ -732,14 +727,16 @@ class Header extends Component {
                             <Icon className="material-icons">add_circle_outline</Icon>
                         </IconButton>
                     </Tooltip>
-                    <Tooltip title="Save" placement="bottom-start">
+                    <Tooltip title="Save" placement="bottom-start">        
                         <IconButton
                             id="save-btn"
                             onClick={this.handleSaveToggle}
                             className="header-btn d-none d-sm-block"
                             style={referenceMode ? style.disabled : style.default}
                             disabled={referenceMode}>
-                            <Icon className="material-icons">save</Icon>
+                            <Badge color="primary" variant="dot" invisible={this.props.text}>
+                                <Icon className="material-icons">save</Icon>
+                            </Badge>
                         </IconButton>
                     </Tooltip>
                     <ProjectView
