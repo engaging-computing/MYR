@@ -139,16 +139,34 @@ describe("Updates to Myr's Model", () => {
     });
 
     it("to makes Random Color", () => {
+        myr.cursor.color = null;
         let color = myr.getRandomColor();
         expect(color).not.toBeUndefined();
+        expect(myr.cursor.color).toBeNull();
         expect(colorRegEx.test(color)).toBeTruthy();
+    });
+
+    it("to set Random Color", ()=> {
+        myr.cursor.color = null;
+        myr.setRandomColor();
+        expect(myr.cursor.color).not.toBeNull(); 
     });
 
     it("pick Random Color out of a list of colors", () => {
         let colors = ["blue", "green", "red", "hotpink", "FF00FF", "rgb(100,33,93)"];
+        myr.cursor.color = null;
         let color = myr.getRandomColor(colors);
+        expect(myr.cursor.color).toBeNull();
         expect(color).not.toBeUndefined();
         expect(colors.includes(color)).toBeTruthy();
+    });
+
+    it("pick and set Random Color out of a list of colors", () => {
+        let colors = ["blue", "green", "red", "hotpink", "FF00FF", "rgb(100,33,93)"];
+        myr.cursor.color = null;
+        myr.setRandomColor(colors);
+        expect(myr.cursor.color).not.toBeNull();
+        expect(colors.includes(myr.cursor.color)).toBeTruthy();
     });
 });
 
@@ -341,9 +359,9 @@ describe("Component Renders", () => {
         expect(torusknot.position).toEqual({ x: 1, y: 1, z: 1 });
     });
 
-    it("polyhedron", () => {
+    it("prism", () => {
         myr.els = [];
-        let id = myr.polyhedron({
+        let id = myr.prism({
             position: { x: 1, y: 1, z: 1 },
             rotation: { x: 1, y: 1, z: 1 },
             scale: { x: 1, y: 1, z: 1 }
