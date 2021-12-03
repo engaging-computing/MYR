@@ -15,12 +15,6 @@ import { browserType } from "../../utils/browserType";
  * Editor is a React Component that creat the Ace Editor in the DOM.
  */
 class Editor extends Component {
-
-    state = {
-        darkModeTheme: "github"
-    }
-
-
     componentWillUnmount() {
         // Updates state in reducer before closing editor
         const text = window.ace.edit("ace-editor").getSession().getValue();
@@ -77,9 +71,8 @@ class Editor extends Component {
                     name="ace-editor"
                     // eslint-disable-next-line
                     ref="aceEditor"
-                    theme={
-                        this.props.settings.darkMode ? "monokai" : "github"
-                    }
+                    theme={"github"}
+                    fontSize = {this.props.settings.fontSize}
                     background="black"
                     value={this.props.text}
                     width="100%"

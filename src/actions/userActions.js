@@ -6,6 +6,10 @@ export function toggleDarkMode(){
     return{ type: types.TOGGLE_DARK_MODE };
 }
 
+export function updateFontSize(newFont){
+    return{ type: types.UPDATE_FONT_SIZE, newFont };
+}
+
 export function updateUserSettings(id,settings){
     return ()=>{
         if(id){
@@ -41,6 +45,7 @@ export function syncUserSettings(settings){
 
 export default {
     toggleDarkMode,
+    updateFontSize,
     asyncUserSettings,
     syncUserSettings,
     updateUserSettings,

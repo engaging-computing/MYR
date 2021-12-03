@@ -54,7 +54,8 @@ const generateMockProps = () => {
         },
         user: null,
         settings: {
-            darkMode:false
+            darkMode:false,
+            fontSize: 12
         },
         scene: {
             name: "",

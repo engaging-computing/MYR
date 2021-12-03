@@ -3,7 +3,8 @@ import * as types from "../constants/ActionTypes";
 const initial_state = {
     user: null,
     settings: {
-        darkMode: false
+        darkMode: false,
+        fontSize: 12
     }
 };
 
@@ -36,6 +37,14 @@ export default function user(state = initial_state, action) {
                 settings:{
                     ...state.settings,
                     darkMode: !state.settings.darkMode
+                }
+            };
+        case types.UPDATE_FONT_SIZE:
+            return{
+                ...state,
+                settings: {
+                    ...state.settings,
+                    fontSize: action.newFont
                 }
             };
         default:
