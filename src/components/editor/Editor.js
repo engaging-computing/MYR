@@ -9,6 +9,7 @@ import "brace/ext/language_tools";
 import customCompleter from "./customCompleter.js";
 import KeyboardShortcut from "./KeyboardShortcut.js";
 import { browserType } from "../../utils/browserType";
+import FontSize from "./FontSize.js";
 
 
 /**
@@ -82,6 +83,7 @@ class Editor extends Component {
                     onLoad={this.onLoad}
                 />
                 { browserType() === "desktop" ? <KeyboardShortcut/> : null }
+                { browserType() === "desktop" ? <FontSize/> : null }
             </div>
         );
     }

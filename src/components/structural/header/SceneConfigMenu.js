@@ -92,6 +92,7 @@ class ConfigModal extends Component {
             displayFloorColorPicker: false,
             displayMoveSpeedSlider: false,
             displayDarkMode: false,
+            displayFontSize: false,
             qrCodeOpen: false,
             pwProtectOpen: false,
             shareOpen: false,
@@ -137,7 +138,8 @@ class ConfigModal extends Component {
             displaySkyColorPicker: false, 
             displayFloorColorPicker: false,
             displayMoveSpeedSlider: false,
-            displayDarkMode: false
+            displayDarkMode: false,
+            displayFontSize: false
         });
     };
 
@@ -257,6 +259,13 @@ class ConfigModal extends Component {
         }
     };
 
+    handleFontSizeUpdate = (e, newFont) => {
+        this.setState({ fontSize: newFont });
+        if(!e || e.type === "mouseup") {
+            this.props.userActions.updateFontSize(newFont);
+        }
+    }
+
     handleSkyColorClick = () => {
         this.setState({ displaySkyColorPicker: !this.state.displaySkyColorPicker });
     };
@@ -268,6 +277,10 @@ class ConfigModal extends Component {
     handleMoveSpeedClick = () => {
         this.setState({ displayMoveSpeedSlider: !this.state.displayMoveSpeedSlider });
     };
+
+    handleFontSizeClick = () => {
+        this.setState({ displayFontSize: !this.state.displayFontSize });
+    }
 
     handleSkyColorClose = () => {
         this.setState({ displaySkyColorPicker: false });
@@ -516,6 +529,21 @@ class ConfigModal extends Component {
         );
     };
     
+    updateFontSize = () => {
+        return (
+            <ButtonBase
+                style={btnStyle.base}
+                onClick={() => {
+                    this.props.handleRender();
+                    this.handleFontSizeClick();
+                }} >
+                <Icon classname = "material-icons">tune</Icon> 
+                Font Size
+            </ButtonBase>
+                
+        );
+    };
+
     changeSkyColor = () => {
         return (
             <ButtonBase
@@ -595,12 +623,14 @@ class ConfigModal extends Component {
                                                 <this.viewToggle />
                                                 <this.floorToggle />
                                                 <this.gridToggle />
+                                                <this.updateFontSize />
                                             </div>
                                             <div className="col-6">
                                                 <this.changeSkyColor />
                                                 <this.changeFloorColor />
                                                 <this.updateDarkMode />
                                             </div>
+                                            
                                             <div className="col-12 border-bottom pt-4">Light Control</div>
                                             <div className="col-6">
                                                 <this.defaultLightToggle/>

@@ -1,0 +1,21 @@
+.font-size {
+    width:auto;
+}
+
+.title {
+    font-size:large
+}
+
+.shortcut {
+    font-size:xx-small
+}
+
+.right {
+    float: left;
+    width: 310px;
+    padding: 10px;
+}
+
+.note {
+    margin-left: 1%;
+}
