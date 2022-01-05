@@ -105,6 +105,7 @@ class Project extends React.Component {
             value: this.props.tab,
         };
         this.emailRef = React.createRef();
+        this.uploadRef = React.createRef();
     }
 
     handleClick = event => {
@@ -199,6 +200,10 @@ class Project extends React.Component {
     //     </p>
     //   </div>
     // );
+
+    uploadFile = () => {
+        this.uploadRef.current.click();
+    }
 
     shareOptions = () => (
         <div>
@@ -427,6 +432,13 @@ class Project extends React.Component {
                                     onClick={() => this.props.exportFunc(this.props.user.uid)}>
                                     Export
                                 </Button>
+                                <input
+                                    type="file"
+                                    accept="application/json"
+                                    style={{display: "none"}}
+                                    ref={this.uploadRef}
+                                />
+                                <Button onClick={this.uploadFile}> Import </Button>
                                 <hr />
                             </div>
                             <Tabs
