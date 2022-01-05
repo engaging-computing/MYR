@@ -356,6 +356,13 @@ class Project extends React.Component {
                 </ListItemIcon>
                 <ListItemText inset primary="Send" />
             </MenuItem>
+            <MenuItem
+                onClick={() => this.props.exportFunc(this.props.user.uid, this.state.projectId)}>
+                <ListItemIcon>
+                    <Icon className="material-icons">download</Icon>
+                </ListItemIcon>
+                <ListItemText inset primary="Export Scene" />
+            </MenuItem>
             {/* <MenuItem
         onClick={() => { this.handleClose(); this.handlePwToggle(); }}>
         <ListItemIcon >
@@ -428,10 +435,6 @@ class Project extends React.Component {
                                     }
                                     <span>&nbsp;</span>Preview
                                 </Button>
-                                <Button
-                                    onClick={() => this.props.exportFunc(this.props.user.uid)}>
-                                    Export
-                                </Button>
                                 <input
                                     type="file"
                                     accept="application/json"
@@ -440,7 +443,19 @@ class Project extends React.Component {
                                     multiple={false}
                                     hidden
                                 />
-                                <Button onClick={this.uploadFile}> Import </Button>
+                                <Button
+                                    color="default"
+                                    onClick={this.uploadFile}
+                                    title="Import"
+                                >
+                                    <Icon classname="material-icons">upload</Icon>
+                                    Import
+                                </Button>
+                                <Button
+                                    onClick={() => this.props.exportFunc(this.props.user.uid)}>
+                                    <Icon classname="material-icons">download</Icon>
+                                    Export All
+                                </Button>
                                 <hr />
                             </div>
                             <Tabs
