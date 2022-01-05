@@ -435,8 +435,10 @@ class Project extends React.Component {
                                 <input
                                     type="file"
                                     accept="application/json"
-                                    style={{display: "none"}}
                                     ref={this.uploadRef}
+                                    onChange={(e) => this.props.importFunc(this.props.user.uid, e.target.files)}
+                                    multiple={false}
+                                    hidden
                                 />
                                 <Button onClick={this.uploadFile}> Import </Button>
                                 <hr />

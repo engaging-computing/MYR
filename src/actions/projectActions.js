@@ -4,6 +4,23 @@ import {saveAs} from "file-saver";
 const sceneRef = "/apiv1/scenes";
 const previewRef = "/apiv1/preview/id";
 
+/**
+ * Imports a JSON document to the backend for the provided user.
+ * Only valid scenes are imported, invalid ones are skipped
+ * 
+ * @param {string} uid A JWT token for authenticating with the backend server
+ * @param {FileList} projList A list of files from a input taking file types
+ */
+export function importProj(uid, projList) {
+    projList[0].text().then((text) => {
+        const json = JSON.parse(text);
+
+        json.forEach((scene) => {
+            console.log(scene);
+        });
+    });
+}
+
 export function exportProj(uid, id = undefined) {
     return async () => {
         let query = "";
@@ -149,5 +166,6 @@ export default {
     asyncExampleProj,
     syncExampleProj,
     deleteProj,
-    exportProj
+    exportProj,
+    importProj
 };

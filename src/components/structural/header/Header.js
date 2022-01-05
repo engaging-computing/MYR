@@ -746,6 +746,7 @@ class Header extends Component {
                     <ProjectView
                         deleteFunc={this.props.projectActions.deleteProj}
                         exportFunc={this.props.projectActions.exportProj}
+                        importFunc={this.props.projectActions.importProj}
                         userProjs={this.props.projects.userProjs}
                         exampleProjs={this.props.projects.exampleProjs}
                         projectsOpen={this.state.projectsOpen}
