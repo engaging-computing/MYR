@@ -1,5 +1,5 @@
 import * as types from "../constants/ActionTypes";
-//import {saveAs} from "file-saver";
+import {saveAs} from "file-saver";
 
 const sceneRef = "/apiv1/scenes";
 const previewRef = "/apiv1/preview/id";
@@ -13,7 +13,9 @@ export function exportProj(uid, id = undefined) {
 
         fetch(`${sceneRef}/export${query}`, {headers: {"x-access-token": uid}}).then(async (resp) => {
             if(resp.status === 200) {
-                console.log(await resp.json());
+                const result = await resp.json();
+                const bytes = new TextEncoder().encode(JSON.stringify(result));
+                saveAs(new Blob([bytes], {type: "application/json;charset=utf-8"}), "MYR-export.json");
             }
         });
     };
