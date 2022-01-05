@@ -13,11 +13,10 @@ const previewRef = "/apiv1/preview/id";
  */
 export function importProj(uid, projList) {
     projList[0].text().then((text) => {
-        const json = JSON.parse(text);
-
-        json.forEach((scene) => {
-            console.log(scene);
-        });
+        fetch(`${sceneRef}/import`, {method: "POST", body: text, headers: {
+            "x-access-token": uid,
+            "Content-Type": "application/json"
+        }});
     });
 }
 
