@@ -103,7 +103,7 @@ class KeyboardShortcut extends React.Component {
 
     render(){
         return(
-            <div>
+            <div className="whole-keyboard">
                 <Tooltip title="Keyboard Shortcut">
                     <Button
                         variant="contained"

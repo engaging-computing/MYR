@@ -259,13 +259,6 @@ class ConfigModal extends Component {
         }
     };
 
-    handleFontSizeUpdate = (e, newFont) => {
-        this.setState({ fontSize: newFont });
-        if(!e || e.type === "mouseup") {
-            this.props.userActions.updateFontSize(newFont);
-        }
-    }
-
     handleSkyColorClick = () => {
         this.setState({ displaySkyColorPicker: !this.state.displaySkyColorPicker });
     };
@@ -277,10 +270,6 @@ class ConfigModal extends Component {
     handleMoveSpeedClick = () => {
         this.setState({ displayMoveSpeedSlider: !this.state.displayMoveSpeedSlider });
     };
-
-    handleFontSizeClick = () => {
-        this.setState({ displayFontSize: !this.state.displayFontSize });
-    }
 
     handleSkyColorClose = () => {
         this.setState({ displaySkyColorPicker: false });
@@ -529,21 +518,6 @@ class ConfigModal extends Component {
         );
     };
     
-    updateFontSize = () => {
-        return (
-            <ButtonBase
-                style={btnStyle.base}
-                onClick={() => {
-                    this.props.handleRender();
-                    this.handleFontSizeClick();
-                }} >
-                <Icon classname = "material-icons">tune</Icon> 
-                Font Size
-            </ButtonBase>
-                
-        );
-    };
-
     changeSkyColor = () => {
         return (
             <ButtonBase
@@ -623,7 +597,6 @@ class ConfigModal extends Component {
                                                 <this.viewToggle />
                                                 <this.floorToggle />
                                                 <this.gridToggle />
-                                                <this.updateFontSize />
                                             </div>
                                             <div className="col-6">
                                                 <this.changeSkyColor />

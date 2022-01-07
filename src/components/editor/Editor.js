@@ -82,8 +82,8 @@ class Editor extends Component {
                     enableLiveAutocompletion={true}
                     onLoad={this.onLoad}
                 />
-                { browserType() === "desktop" ? <KeyboardShortcut/> : null }
-                { browserType() === "desktop" ? <FontSize/> : null }
+                { browserType() === "desktop" ? <div><KeyboardShortcut/> 
+                    <FontSize userActions={this.props.userActions} settings={this.props.settings}/></div> : null }
             </div>
         );
     }
