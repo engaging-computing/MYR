@@ -6,13 +6,6 @@ import {
     Icon
 } from "@material-ui/core";
 import "../../css/KeyboardShortcut.css";
-
-const options = [];
-
-for(let i = 1; i <= 100; i++)
-{
-    options[i] = i;
-}
 class FontSize extends React.Component {
     
     handleFontSizeUpdate = (e) => {
