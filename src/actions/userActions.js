@@ -2,8 +2,8 @@ import * as types from "../constants/ActionTypes";
 
 const googleLoginRef = "apiv1/googlelogins";
 
-export function updateFontSize(newFont){
-    return{ type: types.UPDATE_FONT_SIZE, newFont };
+export function updateFontSize(fontSize){
+    return{ type: types.UPDATE_FONT_SIZE, fontSize };
 }
 
 export function updateUserSettings(id,settings){

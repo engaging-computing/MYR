@@ -6,6 +6,8 @@ import {
     Icon
 } from "@material-ui/core";
 import "../../css/KeyboardShortcut.css";
+
+const options=[12, 18, 20, 25, 28, 35, 50];
 class FontSize extends React.Component {
     
     handleFontSizeUpdate = (e) => {
@@ -26,13 +28,7 @@ class FontSize extends React.Component {
                             defaultValue = {12}
                             value = {this.props.settings.fontSize}
                             onChange = {this.handleFontSizeUpdate}>
-                            <option value={12}>12</option>
-                            <option value={18}>18</option>
-                            <option value={20}>20</option>
-                            <option value={25}>25</option>
-                            <option value={28}>28</option>
-                            <option value={35}>35</option>
-                            <option value={50}>50</option>
+                            {options.map(size=>(<option value={size}>{size}</option>))}
                         </Select> 
                     </Button>
                 </Tooltip>

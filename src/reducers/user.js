@@ -35,7 +35,7 @@ export default function user(state = initial_state, action) {
                 ...state,
                 settings: {
                     ...state.settings,
-                    fontSize: action.newFont
+                    fontSize: action.fontSize
                 }
             };
         default:

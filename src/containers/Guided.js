@@ -21,7 +21,7 @@ Guided.propTypes = {
 const mapStateToProps = state => ({
     editor: state.editor,
     user: state.user.user,
-    usersettings:state.user.settings,
+    usersettings: state.user.settings,
     scene: state.scene,
     lesson: state.courses.currentLesson,
     projects: state.project,
