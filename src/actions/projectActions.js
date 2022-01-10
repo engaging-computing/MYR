@@ -12,12 +12,23 @@ const previewRef = "/apiv1/preview/id";
  * @param {FileList} projList A list of files from a input taking file types
  */
 export function importProj(uid, projList) {
-    projList[0].text().then((text) => {
-        fetch(`${sceneRef}/import`, {method: "POST", body: text, headers: {
+    return async (dispatch) => {
+        const text = await projList[0].text();
+        const resp = await fetch(`${sceneRef}/import`, {method: "POST", body: text, headers: {
             "x-access-token": uid,
             "Content-Type": "application/json"
         }});
-    });
+        const ids = await resp.json();
+        let new_scenes = [];
+        for(let id of ids.importedScenes) {
+            const id_resp = await fetch(`${sceneRef}/id/${id}`);
+            const scene = await id_resp.json();
+            scene.url = `${previewRef}/${id}`;
+            new_scenes.push(scene);
+        }
+
+        dispatch(syncImportProj(new_scenes));
+    };
 }
 
 export function exportProj(uid, id = undefined) {
@@ -53,6 +64,16 @@ export function asyncUserProj(id) {
             });
         }
     };
+}
+
+/**
+ * Returns a dispatch trigger to import a list of scenes into the user's
+ * project state in redux.
+ * @param {Object[]} payload An array of scene objects to be added to the state
+ * @returns 
+ */
+export function syncImportProj(payload) {
+    return { type: types.IMPORT_PROJ, payload: payload };
 }
 
 export function syncUserProj(payload) {
