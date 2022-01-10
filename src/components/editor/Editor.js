@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import AceEditor from "react-ace";
 import "brace/mode/javascript";
 import "brace/theme/github";
-import "brace/theme/monokai";
 import "brace/ext/searchbox";
 import "brace/ext/language_tools";
 
@@ -10,7 +9,6 @@ import customCompleter from "./customCompleter.js";
 import KeyboardShortcut from "./KeyboardShortcut.js";
 import { browserType } from "../../utils/browserType";
 import FontSize from "./FontSize.js";
-
 
 /**
  * Editor is a React Component that creat the Ace Editor in the DOM.
@@ -72,9 +70,8 @@ class Editor extends Component {
                     name="ace-editor"
                     // eslint-disable-next-line
                     ref="aceEditor"
-                    theme={"github"}
+                    theme="github"
                     fontSize = {this.props.settings.fontSize}
-                    background="black"
                     value={this.props.text}
                     width="100%"
                     wrapEnabled={true}

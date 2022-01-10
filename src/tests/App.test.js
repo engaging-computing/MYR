@@ -54,7 +54,6 @@ const generateMockProps = () => {
         },
         user: null,
         settings: {
-            darkMode:false,
             fontSize: 12
         },
         scene: {
@@ -279,7 +278,7 @@ describe("User Reducer", () => {
             {
                 user: null,
                 settings : {
-                    darkMode:false
+                    fontSize: 12
                 }
             }
         );
@@ -296,7 +295,7 @@ describe("User Reducer", () => {
             {
                 user: testUser,
                 settings:{
-                    darkMode:false,
+                    fontSize: 12
                 }
             }
         );
@@ -310,7 +309,7 @@ describe("User Reducer", () => {
         ).toEqual({
             user: null,
             settings:{
-                darkMode: false
+                fontSize: 12
             }
         }
         );
@@ -337,8 +336,7 @@ describe("Scene Reducer", () => {
                 castShadow: false,
                 lightIndicator: false,
                 moveSpeed: 150,
-                collectionID: "",
-                darkMode: false
+                collectionID: ""
             }
         };
     };

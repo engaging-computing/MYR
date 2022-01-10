@@ -2,10 +2,6 @@ import * as types from "../constants/ActionTypes";
 
 const googleLoginRef = "apiv1/googlelogins";
 
-export function toggleDarkMode(){
-    return{ type: types.TOGGLE_DARK_MODE };
-}
-
 export function updateFontSize(newFont){
     return{ type: types.UPDATE_FONT_SIZE, newFont };
 }
@@ -44,9 +40,8 @@ export function syncUserSettings(settings){
 }
 
 export default {
-    toggleDarkMode,
     updateFontSize,
     asyncUserSettings,
     syncUserSettings,
-    updateUserSettings,
+    updateUserSettings
 };
