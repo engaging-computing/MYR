@@ -46,13 +46,14 @@ AFRAME.registerComponent("gridmaterial",{
         default:""
     },
     init: function(){
-        const texture = new THREE.TextureLoader().load("https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v1.16.3/assets/grid.png");
+        const texture = new THREE.TextureLoader().load("/img/grid_alpha_0.png");
         texture.repeat = new THREE.Vector2(75,75);
         texture.wrapS = THREE.RepeatWrapping;
         texture.wrapT = THREE.RepeatWrapping;
         
         this.el.getObject3D("mesh").material = new THREE.MeshBasicMaterial({
-            map: texture
+            map: texture,
+            transparent: true
         });
     }
 });
