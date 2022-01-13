@@ -31,6 +31,12 @@ const newTabStyle = {
     right: 50,
 };
 
+const assetReferenceBtn = {
+    position: "fixed",
+    top: 0,
+    right: 95,
+};
+
 /**
  * Reference is a react component that creates drawer contains references
  */
@@ -65,14 +71,12 @@ class Reference extends Component {
         this.setState({ value: "a" });
     };
 
-    /**
-     * Conver the name and parameters of API to following format to be use in first column of table
-     *      format: name(...parameters);
-     * 
-     * @param {string} name name of API to create
-     * @param {array} parameters array of object that each contains type and name of the parameter
-     * @returns {HTMLElement} create a DOM element with name of APIs and Parameters
-     */
+    assetHandleOpen = () => {
+        window.open(window.origin + "/asset-reference");
+        this.setState({ value: "a" });
+    };
+
+
     nameHelper = (name, parameters) => {
         return (
             <span>{name}({(parameters.map((element, i, params) => {
@@ -188,10 +192,18 @@ class Reference extends Component {
                                     <Icon className="material-icons">close</Icon>
                                 </IconButton>
                                 <IconButton
+                                    title="Open reference page &#013;(in a new tab)"
                                     color="default"
                                     style={newTabStyle}
                                     onClick={this.handleOpen}>
-                                    <Icon className="material-icons">open_in_new</Icon>
+                                    <Icon className="material-icons">menu_book</Icon>
+                                </IconButton>
+                                <IconButton
+                                    title="Open asset reference page &#013;(in a new tab)"
+                                    color="default"
+                                    style={assetReferenceBtn}
+                                    onClick={this.assetHandleOpen}>
+                                    <Icon className="material-icons-outlined">settings_system_daydream</Icon>
                                 </IconButton>
                             </div>
                             <div>

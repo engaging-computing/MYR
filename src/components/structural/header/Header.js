@@ -66,8 +66,8 @@ class Header extends Component {
         };
 
         this.state.socket.on("update", () => {
-            let editor = window.ace.edit("ace-editor");            
-            if(editor.getSession().getValue() === this.props.scene.code || window.confirm("A new version of the scene is available, would you like to load it?")){
+            let editor = window.ace.edit("ace-editor");
+            if (editor.getSession().getValue() === this.props.scene.code || window.confirm("A new version of the scene is available, would you like to load it?")) {
                 this.props.actions.fetchScene(this.props.projectId);
             }
         });
@@ -147,21 +147,21 @@ class Header extends Component {
         if (this.state.lastMsgTime !== this.props.message.time && this.props.message.text !== "") {
             this.setState({ snackOpen: true, lastMsgTime: this.props.message.time });
         }
-        if(this.state.updateCollection && this.props.user){
+        if (this.state.updateCollection && this.props.user) {
             this.props.collectionActions.asyncCollection(this.props.collection, this.props.user.uid);
             this.setState({ updateCollection: false });
         }
-        if(this.state.fetchCollection && this.props.user){
+        if (this.state.fetchCollection && this.props.user) {
             this.props.collectionActions.asyncCollection(this.props.collection, this.props.user.uid);
             this.setState({ fetchCollection: false });
         }
-        if(this.state.savedSettings.length === 0 && this.props.scene.id !== 0){
-            this.setState({savedSettings: this.buildSettingsArr()});
+        if (this.state.savedSettings.length === 0 && this.props.scene.id !== 0) {
+            this.setState({ savedSettings: this.buildSettingsArr() });
 
             window.addEventListener("beforeunload", (event) => {
                 let finalSettings = this.buildSettingsArr();
-    
-                if(!this.settingsEqual(finalSettings)){
+
+                if (!this.settingsEqual(finalSettings)) {
                     event.preventDefault();
                     event.returnValue = "You may have unsaved changes!";
                 }
@@ -177,19 +177,18 @@ class Header extends Component {
     buildSettingsArr = () => {
         const sceneSettings = this.props.scene.settings;
 
-        return [ sceneSettings.floorColor, 
+        return [sceneSettings.floorColor,
             sceneSettings.showCoordHelper, sceneSettings.showFloor,
             sceneSettings.skyColor, sceneSettings.viewOnly];
     };
-    
     /**
      * Compare two arrays of setting and determine whether is the settings are equal or not
      * @param {array} newSettings Settings to compare
      * @returns {boolean} If settings are equal or not
      */
-    settingsEqual = (newSettings) =>{
-        for(let i = 0; i < newSettings.length; ++i){
-            if(newSettings[i] !== this.state.savedSettings[i]){
+    settingsEqual = (newSettings) => {
+        for (let i = 0; i < newSettings.length; ++i) {
+            if (newSettings[i] !== this.state.savedSettings[i]) {
                 return false;
             }
         }
@@ -214,13 +213,13 @@ class Header extends Component {
         googleAuth.profileObj["uid"] = googleAuth.getAuthResponse().id_token;
         this.props.logging.login(googleAuth.profileObj);
         this.setState({ logMenuOpen: false, googleUser: googleAuth });
-        
+
         this.props.projectActions.asyncUserProj(this.props.user.uid);
         this.props.collectionActions.asyncCollections(this.props.user.uid);
         this.setRefreshTime(googleAuth.tokenObj.expires_at);
 
         //send uid to google analyrica
-        window.gtag("config", "UA-122925714-1", {"user_id": this.props.user.googleId});
+        window.gtag("config", "UA-122925714-1", { "user_id": this.props.user.googleId });
     }
 
     /**
@@ -229,10 +228,10 @@ class Header extends Component {
      * @param {number} time The time when the token will expired 
      */
     setRefreshTime = (time) => {
-        const oneMinute = 60*1000;
+        const oneMinute = 60 * 1000;
         let expiryTime = Math.max(
-            oneMinute*5, //Default of 5 minutes
-            time - Date.now() - oneMinute*5 // give 5 mins of breathing room
+            oneMinute * 5, //Default of 5 minutes
+            time - Date.now() - oneMinute * 5 // give 5 mins of breathing room
         );
         setTimeout(this.refreshToken, expiryTime);
     }
@@ -276,7 +275,7 @@ class Header extends Component {
                             </Fragment>
                         )}
                         onLogoutSuccess={this.logout}
-                        onFailure={(err) => console.error("Could not logout: ", err) }
+                        onFailure={(err) => console.error("Could not logout: ", err)}
                     />
                     :
                     <GoogleLogin
@@ -296,7 +295,7 @@ class Header extends Component {
                                     padding: 2,
                                     border: "1px solid #fff"
                                 }}>
-                                    Log In
+                                Log In
                             </Button>
                         )}
                         onSuccess={this.login}
@@ -428,12 +427,12 @@ class Header extends Component {
                 updateTime: Date.now(),
                 createTime: (this.props.scene.createTime ? this.props.scene.createTime : Date.now())
             };
-            
-            save(this.props.user.uid, newScene, img, this.props.projectId).then((projectId) =>{
-                if(!projectId) {
+
+            save(this.props.user.uid, newScene, img, this.props.projectId).then((projectId) => {
+                if (!projectId) {
                     console.error("Could not save the scene");
                 }
-                
+
                 this.props.actions.updateSavedText(text);
                 // If we have a new projectId reload page with it
                 if (projectId !== this.props.projectId) {
@@ -441,24 +440,24 @@ class Header extends Component {
                     window.location.assign(`${window.origin}/scene/${projectId}`);
                     this.props.projectActions.asyncUserProj(this.props.user.uid);
                 }
-                if(!this.state.viewOnly) {
+                if (!this.state.viewOnly) {
                     this.props.actions.refresh(text, this.props.user ? this.props.user.uid : "anon");
                 }
-                this.setState({spinnerOpen: false, saveOpen: false});
+                this.setState({ spinnerOpen: false, saveOpen: false });
                 this.state.socket.emit("save");
                 return true;
             });
-        } else if(!text) {
+        } else if (!text) {
             alert("There is no code to save for this scene. Try adding some in the editor!");
-        }else {
+        } else {
             // TODO: Don't use alert
             alert("We were unable to save your project. Are you currently logged in?");
         }
 
-        if(!this.state.viewOnly) {
+        if (!this.state.viewOnly) {
             this.props.actions.refresh(text, this.props.user ? this.props.user.uid : "anon");
         }
-        this.setState({savedSettings: this.buildSettingsArr()});
+        this.setState({ savedSettings: this.buildSettingsArr() });
     }
 
     /**
@@ -571,7 +570,7 @@ class Header extends Component {
      * Handles when collection is deleted
      */
     handleCollectionDelete = (collectionID) => {
-        if(this.props.scene.settings.collectionID === collectionID) {
+        if (this.props.scene.settings.collectionID === collectionID) {
             this.props.sceneActions.removeCollectionID(this.props.scene);
         }
     }
@@ -588,7 +587,7 @@ class Header extends Component {
                 user={this.props.user}
                 open={this.state.collectionOpen}
                 handleCollectionToggle={this.handleCollectionToggle}
-                handleCollectionClose={this.handleCollectionClose} 
+                handleCollectionClose={this.handleCollectionClose}
                 deleteCallback={this.handleCollectionDelete} />
         );
     }

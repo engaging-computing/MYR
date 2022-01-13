@@ -1,6 +1,6 @@
 import AFRAME from "aframe";
-const THREE = AFRAME.THREE;
-
+import * as THREE from "three";
+import { BufferGeometryUtils } from "three/examples/jsm/utils/BufferGeometryUtils.js";
 
 /**
  * @summary Define spotlight indicator geometry
@@ -17,6 +17,7 @@ AFRAME.registerComponent("spotlightindicator",{
         }
     },
     init: function(){
+    
         const data = this.data;
 
         /*      define geometry     */
@@ -31,7 +32,7 @@ AFRAME.registerComponent("spotlightindicator",{
             circle.translate(0,0,0.5);
         }
 
-        let geometry = THREE.BufferGeometryUtils.mergeBufferGeometries([cone, circle]);
+        let geometry = BufferGeometryUtils.mergeBufferGeometries([cone, circle]);
     
         /*      define outline geometry */
         let outCone = new THREE.CylinderGeometry(.2,1,1.5,24,1,true);
@@ -45,7 +46,7 @@ AFRAME.registerComponent("spotlightindicator",{
             outCircle.translate(0,0,.75);
         }
 
-        let outGeometry = THREE.BufferGeometryUtils.mergeBufferGeometries([outCone, outCircle]);
+        let outGeometry = BufferGeometryUtils.mergeBufferGeometries([outCone, outCircle]);
 
         /*      define material     */
         const material = new THREE.MeshBasicMaterial({color: data.color, side: THREE.DoubleSide});
@@ -119,7 +120,7 @@ AFRAME.registerComponent("directionallightindicator", {
         arrowHead.translate(0,1.8,0);
         arrowHead.rotateX(Math.PI);
         
-        let geometry = THREE.BufferGeometryUtils.mergeBufferGeometries([arrowHead, arrowPole]);
+        let geometry = BufferGeometryUtils.mergeBufferGeometries([arrowHead, arrowPole]);
 
         /*      define outside geometry     */  
         let outArrowHead = new THREE.ConeGeometry(.7,1.3);
@@ -128,7 +129,7 @@ AFRAME.registerComponent("directionallightindicator", {
         outArrowHead.translate(0,1.8,0);
         outArrowHead.rotateX(Math.PI);
 
-        let outGeometry = THREE.BufferGeometryUtils.mergeBufferGeometries([outArrowHead, outArrowPole]);
+        let outGeometry = BufferGeometryUtils.mergeBufferGeometries([outArrowHead, outArrowPole]);
 
         /*      define material     */
         let material = new THREE.MeshBasicMaterial({color:data.color});
@@ -171,7 +172,7 @@ AFRAME.registerComponent("hemispherelightindicator",{
         pole.translate(0,0.5,0);
 
         //merge geometries
-        geometry.push(THREE.BufferGeometryUtils.mergeBufferGeometries([head, pole]));
+        geometry.push(BufferGeometryUtils.mergeBufferGeometries([head, pole]));
         
         const outHead = new THREE.ConeGeometry(.7,1.3,20,12);
         const outPole = new THREE.CylinderGeometry(0.2, 0.2, 1.2, 20);
@@ -179,10 +180,10 @@ AFRAME.registerComponent("hemispherelightindicator",{
         outPole.translate(0, 0.6, 0);
 
         /*      define outline geometry      */
-        geometry.push(THREE.BufferGeometryUtils.mergeBufferGeometries([outHead, outPole]));
+        geometry.push(BufferGeometryUtils.mergeBufferGeometries([outHead, outPole]));
         
         /*  define and group all the meshes together      */
-        let group = new THREE.Group();
+        let group = new AFRAME.THREE.Group();
         geometry.forEach((shape, i) => {
             let mat = new THREE.MeshBasicMaterial({color: data.color});
             let secondMat = new THREE.MeshBasicMaterial({color: data.secondColor});

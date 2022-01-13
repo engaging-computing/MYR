@@ -1,7 +1,7 @@
 import React from "react";
 import Header from "../structural/header/Header";
 import Footer from "../structural/Footer";
-import ModelReferencePage from "../reference/ModelReferencePage";
+import AssetReferencePage from "../reference/AssetReferencePage";
 
 import * as layoutTypes from "../../constants/LayoutTypes.js";
 
@@ -10,7 +10,7 @@ import * as layoutTypes from "../../constants/LayoutTypes.js";
  * @param {object} param0 List of props that will be use in components
  * @returns {HTMLElement} Layout of the model reference page 
  */
-export const ModelReference = ({ editor, editorActions, user, authActions, scene, sceneActions, projectActions, courseActions, projects, courses, match, collectionActions, collections }) => (
+export const AssetReference = ({ editor, editorActions, user, authActions, scene, sceneActions, projectActions, courseActions, projects, courses, match, collectionActions, collections }) => (
     <div className="App">
         <Header
             logging={authActions}
@@ -31,10 +31,10 @@ export const ModelReference = ({ editor, editorActions, user, authActions, scene
             layoutType={layoutTypes.REFERENCE}
         />
         <div className="row no-gutters">
-            <ModelReferencePage />
+            <AssetReferencePage />
         </div>
         <Footer />
     </div>
 );
 
-export default ModelReference;
+export default AssetReference;

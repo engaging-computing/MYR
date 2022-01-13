@@ -43,7 +43,7 @@
         "curly": "warn",
         "no-lonely-if": "warn",
         "no-console": [
-            "error",
+            "warn",
             {
                 "allow": [
                     "warn",
