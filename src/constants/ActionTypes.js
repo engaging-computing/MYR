@@ -13,16 +13,10 @@ export const EDITOR_RECOVER = "EDITOR_RECOVER";
 export const EDITOR_CHANGE = "EDITOR_CHANGE";
 export const EDITOR_UPDATE_SAVEDTEXT = "EDITOR_UPDATE_SAVEDTEXT";
 export const SAVE_START = "SAVE_START";
-//unused constant
-export const SAVE_FIN = "SAVE_FIN";
-export const REQ_RELOAD = "REQ_RELOAD";
 
 export const SYNC_USER_PROJ = "SYNC_USER_PROJ";
 export const SYNC_EXAMP_PROJ = "SYNC_EXAMP_PROJ";
 export const DELETE_PROJ = "DELETE_PROJ";
-//unused constant
-export const ASYNC_USER_PROJ = "ASYNC_USER_PROJ";
-export const ASYNC_EXAMP_PROJ = "ASYNC_EXAMP_PROJ";
 
 export const NAME_SCENE = "NAME_SCENE";
 export const NEW_SCENE = "NEW_SCENE";

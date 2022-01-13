@@ -128,10 +128,6 @@ class ConfigModal extends Component {
         });
     };
 
-    // handleClick = event => {
-    //     this.setState({ anchorEl: event.currentTarget, projectId: event.currentTarget.id });
-    // };
-
     /**
      * Handles when the text change in the textfield. Use in mail share and collection
      * @param {string} name Place where it saved in state
