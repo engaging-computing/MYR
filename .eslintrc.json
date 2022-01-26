@@ -22,6 +22,7 @@
         "plugin:react/recommended"
     ],
     "rules": {
+        "key-spacing":"error",
         "quotes": [
             "error",
             "double"
