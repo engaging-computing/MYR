@@ -88,7 +88,7 @@ class Banner extends Component {
                 paddingRight: "8px",
                 textAlign: "right"
             },
-            mobile:{
+            mobile: {
                 paddingLeft: "8px",
                 alignItems: "center"
             }
@@ -129,7 +129,7 @@ class Banner extends Component {
     renderMessage = () => {
         const style = {
             title: {
-                desktop:{
+                desktop: {
                     paddingLeft: "16px",
                     flexWrap: "nowrap"
                 },

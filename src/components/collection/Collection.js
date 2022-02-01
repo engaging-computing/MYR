@@ -170,7 +170,7 @@ class CollectionModal extends Component {
             fetch("/apiv1/collections", {
                 method: "POST", 
                 body: JSON.stringify({collectID: name}),
-                headers:{"Content-Type": "application/json", "x-access-token": this.props.user.uid}
+                headers: {"Content-Type": "application/json", "x-access-token": this.props.user.uid}
             }).then((resp) => {
 
                 switch(resp.status) {

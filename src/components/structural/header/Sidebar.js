@@ -50,7 +50,7 @@ class Sidebar extends Component {
                 <Button
                     aria-label="Menu"
                     size="small"
-                    style={{ color: "#fff", marginTop: 8, marginLeft:-10, padding: 0}}
+                    style={{ color: "#fff", marginTop: 8, marginLeft: -10, padding: 0}}
                     onClick={this.handleToggle}>
                     <Icon style={{ fontSize: 32 }}>menu</Icon>
                 </Button>

@@ -29,21 +29,21 @@ AFRAME.registerComponent("force-pushable", {
 
 //change the type of the material to the MeshBasicMaterial
 AFRAME.registerComponent("basicmaterial",{
-    schema:{
-        default:""
+    schema: {
+        default: ""
     },
     init: function(){
         const color = this.el.getObject3D("mesh").material.color;
         this.el.getObject3D("mesh").material = new THREE.MeshBasicMaterial({
-            color:color,
+            color: color,
         });
     }
 });
 
 //change the material of a-grid to MeshBasicMaterial
 AFRAME.registerComponent("gridmaterial",{
-    schema:{
-        default:""
+    schema: {
+        default: ""
     },
     init: function(){
         const texture = new THREE.TextureLoader().load("https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v1.16.3/assets/grid.png");
@@ -59,8 +59,8 @@ AFRAME.registerComponent("gridmaterial",{
 
 //This sets the side where the shadow should be rendered
 AFRAME.registerComponent("shadowcustomsetting", {
-    schema:{
-        default:""
+    schema: {
+        default: ""
     },
     init: function () {
         this.el.addEventListener("loaded", () => {
@@ -84,8 +84,8 @@ AFRAME.registerComponent("shadowcustomsetting", {
 
 //This change necessary properties to entity to create a outline to light indicator
 AFRAME.registerComponent("outline",{
-    schema:{
-        default:""
+    schema: {
+        default: ""
     },
     init: function(){
         let mesh = this.el.getObject3D("mesh");
@@ -98,14 +98,14 @@ AFRAME.registerComponent("outline",{
 
 //This calculate and sets the rotation of the entity based on 2 points
 AFRAME.registerComponent("indicatorrotation",{
-    schema:{
-        position:{
+    schema: {
+        position: {
             type: "vec3",
-            default:{x:0,y:0,z:0}
+            default: {x: 0,y: 0,z: 0}
         },
-        target:{
-            type:"vec3",
-            default:{x:0,y:0,z:0}
+        target: {
+            type: "vec3",
+            default: {x: 0,y: 0,z: 0}
         },
     },
     init: function(){

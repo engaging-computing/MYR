@@ -411,34 +411,34 @@ describe("MYR light functionality", () => {
     it("ambientLight", ()=>{
         myr.reset();
         myr.els = [];
-        let id = myr.ambientLight({position: {x:1,y:1,z:1}});
+        let id = myr.ambientLight({position: {x: 1,y: 1,z: 1}});
         let ambientLight = myr.els[id];
         expect(ambientLight).toBeDefined();
         expect(ambientLight.light.state).toEqual(`
       type: ambient; 
       color: red;
       intensity: 1;`);
-        expect(ambientLight.position).toEqual({x:1,y:1,z:1});
+        expect(ambientLight.position).toEqual({x: 1,y: 1,z: 1});
         //light's scale sohuld not change
-        expect(ambientLight.scale).toEqual({x:1,y:1,z:1});
+        expect(ambientLight.scale).toEqual({x: 1,y: 1,z: 1});
     });
 
     it("directionalLight", ()=>{
         myr.els = [];
-        let id = myr.directionalLight({position: {x:1,y:1,z:1}});
+        let id = myr.directionalLight({position: {x: 1,y: 1,z: 1}});
         let directionalLight = myr.els[id];
         expect(directionalLight).toBeDefined();
         expect(directionalLight.light.state).toEqual(`
       type: directional;
       color: red;
       intensity: 1;`);
-        expect(directionalLight.position).toEqual({x:1,y:1,z:1});
-        expect(directionalLight.scale).toEqual({x:1,y:1,z:1});
+        expect(directionalLight.position).toEqual({x: 1,y: 1,z: 1});
+        expect(directionalLight.scale).toEqual({x: 1,y: 1,z: 1});
     });
 
     it("spotLight", ()=>{
         myr.els = [];
-        let id = myr.spotLight({position: {x:1,y:1,z:1}});
+        let id = myr.spotLight({position: {x: 1,y: 1,z: 1}});
         let spotLight = myr.els[id];
         expect(spotLight).toBeDefined();
         expect(spotLight.light.state).toEqual(`
@@ -449,14 +449,14 @@ describe("MYR light functionality", () => {
       intensity: 1;
       penumbra: 0;
       color: red;`);
-        expect(spotLight.position).toEqual({x:1,y:1,z:1});
+        expect(spotLight.position).toEqual({x: 1,y: 1,z: 1});
         //light's scale sohuld not change
-        expect(spotLight.scale).toEqual({x:1,y:1,z:1});
+        expect(spotLight.scale).toEqual({x: 1,y: 1,z: 1});
     });
 
     it("pointLight", ()=>{
         myr.els = [];
-        let id = myr.pointLight({position: {x:1,y:1,z:1}});
+        let id = myr.pointLight({position: {x: 1,y: 1,z: 1}});
         let pointLight = myr.els[id];
         expect(pointLight).toBeDefined();
         expect(pointLight.light.state).toEqual(`
@@ -467,14 +467,14 @@ describe("MYR light functionality", () => {
       intensity: 1;
       penumbra: 0;
       color: red;`);
-        expect(pointLight.position).toEqual({x:1,y:1,z:1});
+        expect(pointLight.position).toEqual({x: 1,y: 1,z: 1});
         //light's scale should not change
-        expect(pointLight.scale).toEqual({x:1,y:1,z:1});
+        expect(pointLight.scale).toEqual({x: 1,y: 1,z: 1});
     });
 
     it("hemisphereLight", ()=>{
         myr.els = [];
-        let id = myr.hemisphereLight("blue",{position: {x:1,y:1,z:1}});
+        let id = myr.hemisphereLight("blue",{position: {x: 1,y: 1,z: 1}});
         let hemisphereLight = myr.els[id];
         expect(hemisphereLight).toBeDefined();
         expect(hemisphereLight.light.state).toEqual(`
@@ -482,9 +482,9 @@ describe("MYR light functionality", () => {
       intensity: 1;
       color: red;
       groundColor: blue;`);
-        expect(hemisphereLight.position).toEqual({x:1,y:1,z:1});
+        expect(hemisphereLight.position).toEqual({x: 1,y: 1,z: 1});
         //light's scale should not change
-        expect(hemisphereLight.scale).toEqual({x:1,y:1,z:1});
+        expect(hemisphereLight.scale).toEqual({x: 1,y: 1,z: 1});
     });
 
     it("to Set Intensity", () => {
@@ -514,7 +514,7 @@ describe("MYR light functionality", () => {
 
     it("to Set Light Target", () => {
         myr.setLightTarget(4,5,10);
-        expect(myr.cursor.light.target).toEqual({x:4, y: 5, z: 10});
+        expect(myr.cursor.light.target).toEqual({x: 4, y: 5, z: 10});
     });
 });
 
