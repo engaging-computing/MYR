@@ -7,7 +7,7 @@ import {
 } from "@material-ui/core";
 import "../../css/KeyboardShortcut.css";
 
-const options=[12, 18, 20, 25, 28, 35, 50];
+const options=[12, 14, 18, 24, 30, 36, 48];
 class FontSize extends React.Component {
     
     handleFontSizeUpdate = (e) => {
@@ -21,7 +21,7 @@ class FontSize extends React.Component {
                     <Button className="font-button"
                         variant="contained"
                         size="small"
-                        color="secondary">
+                        color="primary">
                         <Icon className="material-icons">format_size</Icon>
                         <Select className="select"
                             labelId="input-label"
