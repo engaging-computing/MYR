@@ -18,10 +18,21 @@ class View extends Component {
             welcomeOpen: true
         };
     }
+    /**
+     * The timer ID set to check if the welcome screen is open
+     * It will use it to cancel the timer once the welcome screen is close
+     */
     intervalID = 0;
 
-    componentDidMount() {
-        // Don't show editor if welcome screen is open
+    /**
+     * Called when the MYR Scene is mounted (component has been rendererd to the DOM)
+     * 
+     * It check if the user's first time visiting, then it will set up a interval to see if the welcome screen is closed for every 1000ms
+     * It also add a event listener to 
+     *     stop key press of movement (arrow key and space) to scroll the page
+     *     hide or show "interface" (editor) depends on when user enter or exit the VR(fullscreen) mode.
+     */
+    componentDidMount() { 
         if (!this.getCookie("hasVisited")) {
             this.intervalID = setInterval(this.checkForWelcomeScreen, 1000);
         }
@@ -45,7 +56,10 @@ class View extends Component {
     }
     
     /**
-     * This fires off an event when the system is fully rendered.
+     * Called when MYR Scene is rendererd (DOM elements is changed/updated)
+     * 
+     * If the welcome screen is closed, it fires an event for "myr-view-rendererd" which added in
+     *  change() & push() in Myr.js but these are unused functions that are not documented in reference. 
      */
     componentDidUpdate() {
         if (!this.state.welcomeOpen) {
@@ -54,14 +68,24 @@ class View extends Component {
 
             // Dispatch/Trigger/Fire the event
             document.dispatchEvent(event);
-        }
-        
+        }   
     }
 
+    /**
+     * Called when the MYR Scene is unmounting (Being removed from the DOM)
+     * 
+     * It will check if the timerID for checking welcome screen is set, 
+     * If so it will clear/stop the timer from checking.
+     */
     componentWillUnmount() {
         if (this.intervalID !== 0) { clearInterval(this.intervalID); }
     }
 
+    /**
+     * On every interval (1000ms) it check whether the cookie hasVisited is set to true
+     * If so, set state "welcomeOpen" to false (so it will render the scene) 
+     * and stop the timer. 
+     */
     checkForWelcomeScreen = () => {
         if (this.getCookie("hasVisited")) {
             this.setState({ welcomeOpen: false });
@@ -70,6 +94,11 @@ class View extends Component {
         }
     }
 
+    /**
+     * Get value of cookie
+     * @param {string} cookieName name of cookie
+     * @returns {string} value of cookie if it exist, return empty string otherwise
+     */
     getCookie = (cookieName) => {
         let name = cookieName + "=";
         let decodedCookie = decodeURIComponent(document.cookie);
@@ -87,9 +116,10 @@ class View extends Component {
     }
 
     /**
-     * This renders json to aframe entities
+     * A helper function that converts MYR objects into a corresponded A-Frame DOM elements
      * 
-     * @param {*} ent 
+     * @param {object} ent MYR object
+     * @returns {HTMLElement} A-Frame entities
      */
     helper = (ent) => {
         if (ent) {
@@ -142,9 +172,13 @@ class View extends Component {
             return <a-entity class="raycastable" key={ent.id} {...flattened} shadow={shadow} shadowcustomsetting ></a-entity>;
         }
     }
-    //return elements that contains necessary configuration for light indicator based on light's type and properties
+    /**
+     * Helper fuctions that returns A-Frame elements that contains necessary configuration for light indicator based on light's type and properties
+     * 
+     * @param {object} ent Myr object
+     * @returns A-Frame entities of light indicator
+     */
     lightIndicatorHelper =(ent)=>{ 
-
         //this is a position for passing in to indicatorroation to determine the rotation of the light that use position as vector.
         let position =`position:${ent.position.x || 0} ${ent.position.y || 0} ${ent.position.z || 0};`;
         if(ent.light.target){
@@ -169,7 +203,13 @@ class View extends Component {
             default:
         }
     }
-    //return string that contains necessary configuration for shadow based on light's type
+
+    /**
+     * Helper function that returns configuration for shadow based on light's type
+     * 
+     * @param {object} light light properties
+     * @returns {string} string of aframe configuration of shadow that will attach to the light attribute
+     */
     lightShadowHelper = (light) =>{
         let newState = "";
         //ambient and hemisphere light doesn't cast shadow
@@ -188,12 +228,23 @@ class View extends Component {
         return newState;
     }
 
+    /**
+     * Help convert asset(model,image,etc) datas to A-Frame entitiy
+     * 
+     * @param {object} asset 
+     * @returns {HTMLElement} a-asset-item of the object
+     */
     assetsHelper = (asset) => {
         return (
             <a-asset-item key={asset.id} id={asset.id} src={asset.src}></a-asset-item>
         );
     }
 
+    /**
+     * It creates 2 different A-Frame camera. As for now, it will always be basicMoveCam.
+     * 
+     * @returns {HTMLElement} Camera elements
+     */
     createCam = () => {
         switch (this.props.sceneConfig.settings.camConfig) {
             case 0:
@@ -205,6 +256,14 @@ class View extends Component {
         }
     }
 
+    /**
+     * Check point cam is a mode where there's a checkpoints in the scene where user can select them to teleport to that position 
+     * to move around the scene compare to the regular movement.
+     * 
+     * Check point is currently not implemented in MYR to be an usable feature.
+     * 
+     * @returns {HTMLElement} Camera elements contains checkpoint control
+     */
     checkpointCam = () => {
         return (
             <a-entity id="rig" movement-controls="controls: checkpoint" checkpoint-controls="mode: animate">
@@ -220,6 +279,18 @@ class View extends Component {
         );
     }
 
+
+    /**
+     * It returns camera basic with different movement control depends on the browser type
+     *      Mobile:
+     *          default movement controls with flying enabled
+     *      VR:
+     *          default movement controls with flying disabled
+     *      Desktop:
+     *          custom wasd-plus-control with controllable movement speed
+     * 
+     * @returns {HTMLElement} A-Frame camera elements with basic movement
+     */
     basicMoveCam = () => {
         switch(browserType()) {
             case "mobile":
@@ -276,14 +347,17 @@ class View extends Component {
 
     /**
     * Produces the grid on the ground and the coordinate lines
+    * 
+    * @returns {HTMLElements} A-Frame entitiy containing grid, tube for axies and text to label those axes 
     */
     coordinateHelper = () => {
         if (this.props.sceneConfig.settings.showCoordHelper) {
             return (
                 <Fragment>
-                    <a-grid height="53.33" width="53.33" position="-0.5 -0.26 -0.5" scale="1.5 1.5 1.5" gridmaterial/>
-                    <a-tube path="-35 -0.2 0, 35 -0.2 0" radius="0.05" material="color: red" basicmaterial></a-tube>
-                    <a-tube path="0 -0.2 -35, 0 -0.2 35" radius="0.05" material="color: blue" basicmaterial></a-tube>
+                    <a-grid height="53.33" width="53.33" position="-0.5 -0.26 -0.5" scale="1.5 1.5 1.5" material="shader:flat;"/>
+                    <a-tube path="-35 -0.2 0, 35 -0.2 0" radius="0.05" material="color: red; shader:flat;"></a-tube>
+                    <a-tube path="0 -0.2 -35, 0 -0.2 35" radius="0.05" material="color: blue; shader:flat;"></a-tube>
+                    <a-tube path="0 -35 0, 0 35 0" radius="0.05" material="color: green; shader:flat;"></a-tube>
                     <a-text
                         color="#555"
                         rotation="0 0 0"
@@ -301,7 +375,7 @@ class View extends Component {
                     <a-text
                         color="#555"
                         rotation="0 90 90"
-                        position="0 .1 0"
+                        position=".1 .1 0"
                         side="double"
                         value=" Y + "></a-text>
                 </Fragment>
@@ -311,6 +385,10 @@ class View extends Component {
         }
     }
 
+    /**
+     * Display the floor if the showFloor setting is true 
+     * @returns 80x80 plane with showFloor color or null if the showFloor is false
+     */
     makeFloor = () => {
         if (this.props.sceneConfig.settings.showFloor) {
             return (
@@ -330,6 +408,11 @@ class View extends Component {
         }
     }
 
+    /**
+     * Main part for Rendering MYR Scene!
+     * 
+     * @returns {HTMLElement} A-Frame scene containing all the settings and MYR objects
+     */
     render = () => {
         /* eslint-disable */
         return (
