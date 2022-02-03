@@ -72,7 +72,6 @@ export function asyncUserProj(uid) {
     };
 }
 
-<<<<<<< HEAD
 /**
  * Returns a dispatch trigger to import a list of scenes into the user's
  * project state in redux.
@@ -83,7 +82,6 @@ export function syncImportProj(payload) {
     return { type: types.IMPORT_PROJ, payload: payload };
 }
 
-=======
 
 /**
  * Sends signal to the reducer to sync the user project
@@ -92,7 +90,6 @@ export function syncImportProj(payload) {
  * 
  * @returns reducer action obj with type: SYNC_USER_PROJ wiht payload
  */
->>>>>>> ef10929267b8cc11044a45987285bcf2cf097997
 export function syncUserProj(payload) {
     return { type: types.SYNC_USER_PROJ, payload: payload };
 }
