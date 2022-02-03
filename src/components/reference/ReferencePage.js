@@ -1,99 +1,22 @@
 import React from "react";
-import myrReference from "../../myr/reference";
-import * as refFunctions from "../../myr/reference";
+import Reference from "./Reference";
 
 import {
     Tabs,
     Tab,
     Icon,
-    IconButton,
-    Table,
-    TableBody,
-    TableHead,
-    TableRow,
-    TableCell,
     Hidden,
 } from "@material-ui/core";
 
 import "../../css/ReferencePage.css";
 
-export default class Reference extends React.Component {
-
-    constructor(props) {
-        super(props);
-        this.state = {
-            value: "a",
-        };
-        this.tableData = myrReference();
-    }
-
-    handleToggle = () => this.setState({ open: !this.state.open, value: "a" });
-
-    handleChange = (event, value) => {
-        this.setState({ value });
-    };
-
-    exampleHelper = (example) => {
-        if (example) {
-            let link = "/reference/" + example;
-            return (
-                <IconButton
-                    href={link}
-                    className="material-icons">
-                    link
-                </IconButton>
-            );
-        } else {
-            return null;
-        }
-    };
-
-    nameHelper = (name, parameters) => {
-        return (
-            <span>{name}({(parameters.map((element, i, params) => {
-                let comma = i < params.length - 1 ? ", " : "";
-                switch (element.type) {
-                    case "number":
-                        return <span>{refFunctions.numberText(element.name)}{comma}</span>;
-                    case "string":
-                        return <span>{refFunctions.stringText(element.name)}{comma}</span>;
-                    case "bool":
-                        return <span>{refFunctions.boolText(element.name)}{comma}</span>;
-                    case "array":
-                        return <span>{refFunctions.arrayText(element.name)}{comma}</span>;
-                    case "data":
-                        return <span>{refFunctions.dataText(element.name)}{comma}</span>;
-                    default:
-                        return null;
-                }
-            }))});</span>
-        );
-    };
-
-    TableEx = (category) => {
-
-        return (
-            <Table  >
-                <TableHead >
-                    <TableRow>
-                        <TableCell>Name</TableCell>
-                        <TableCell>Description</TableCell>
-                        <TableCell className='refExample'>Example</TableCell>
-                    </TableRow>
-                </TableHead>
-                <TableBody  >
-                    {this.tableData[category].map((row, index) => (
-                        <TableRow key={index}>
-                            <TableCell >{this.nameHelper(row.name, row.parameters)}</TableCell>
-                            <TableCell >{row.description}</TableCell>
-                            <TableCell >{this.exampleHelper(row.example)}</TableCell>
-                        </TableRow>
-                    ))}
-                </TableBody>
-            </Table>
-        );
-    };
-
+/**
+ * ReferencePage extends Reference class and overrides the render function to create as single page
+ */
+class ReferencePage extends Reference {
+    /**
+     * Render reference page
+     */
     render() {
         document.title = "Reference | MYR";
         return (
@@ -176,3 +99,5 @@ export default class Reference extends React.Component {
         );
     }
 }
+
+export default ReferencePage;

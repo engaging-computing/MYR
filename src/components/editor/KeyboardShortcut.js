@@ -69,6 +69,9 @@ const scene = [
     },
 ];
 
+/**
+ * React components create the button with KeyboardShortcut window
+ */
 class KeyboardShortcut extends React.Component {
     constructor(props){
         super(props);
@@ -78,6 +81,11 @@ class KeyboardShortcut extends React.Component {
         };
     }
 
+    /**
+     * Helper function to convert the shrotcuts to an equivalent DOM elements 
+     * 
+     * @param {array} data 
+     */
     shortcutHelper = (data) => {
         let shortcuts = [];
         data.shortcut.forEach((key,i)=>{
@@ -89,18 +97,31 @@ class KeyboardShortcut extends React.Component {
         return (<p>{shortcuts} {data.description}</p>);
     };
 
+    /**
+     * Update the state when the button is clicked
+     * 
+     * @param {object} event target to anchor the window
+     */
     handleClick = (event) =>{
         this.setState({
             open: true,
             anchorEl: event.target});
     };
 
+    /**
+     * Update the state when the window is closed
+     * 
+     * @param {object} event target to anchor the window
+     */
     handleClose = () => {
         this.setState({
             open: false,
             anchorEl: null});
     };
 
+    /**
+     * Creates the keyboard shortcut in the DOM
+     */
     render(){
         return(
             <div>

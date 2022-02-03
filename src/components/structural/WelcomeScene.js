@@ -1,7 +1,14 @@
 import React, { Component } from "react";
 import { browserType } from "../../utils/browserType";
 
+/**
+ * Welcome Scene component returns static aframe scene to embed in welcome screen
+ */
 class WelcomeScene extends Component {
+    /**
+     * Create basicMoveCam
+     * Refer to basicMoveCam in View.js for more detail description
+     */
     createCam = () => {
         switch(browserType()) {
             case "mobile":
@@ -52,6 +59,9 @@ class WelcomeScene extends Component {
         }
     }
 
+    /**
+     * @returns aframe scene that same as dropsies scene from example project 
+     */
     render() {
         return (
             <a-scene physics="debug: false; friction: 3; restitution: .3;" embedded debug="false">
