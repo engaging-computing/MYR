@@ -359,7 +359,7 @@ class Project extends React.Component {
                 </ListItemIcon>
                 <ListItemText inset primary="Send" />
             </MenuItem>
-            {this.props.user && 
+            {this.props.user && this.state.value === "a" &&
             <MenuItem
                 onClick={() => this.props.exportFunc(this.props.user.uid, this.state.projectId)}>
                 <ListItemIcon>
