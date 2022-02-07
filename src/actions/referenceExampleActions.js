@@ -25,10 +25,9 @@ const notFound = {
 };
 
 /**
- * Fetch specific example scene from backend. 
- *      On success, load and render the example scene
+ * Lesson Actions
  * 
- * @param {string} funcName Name of the example scene to retrieve
+ * @param {*} funcName !!!DESCRIPTION NEEDED!!!
  */
 export function fetchReferenceExample(funcName) {
     return (dispatch) => {
@@ -61,12 +60,6 @@ export function fetchReferenceExample(funcName) {
     };
 }
 
-/**
- * Sends a signal to the reducer to load the retrieved scene
- * 
- * @param {object} refEx object of data of example scene
- * @returns reducer action obj with type: LOAD_REF_EX with payload:refEx
- */
 export function loadReferenceExample(refEx) {
     return {
         type: types.LOAD_REF_EX,

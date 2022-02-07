@@ -2,19 +2,12 @@ import * as types from "../constants/ActionTypes";
 
 export const collectRef = "/apiv1/collections";
 
-
-/**
- * Fetch the list of the user collection asynchronously
- *  Use when user login or added a new collection
- *  
- * @param {*} uid A JWT token to authenticate with the backend
- */
-export function asyncCollections(uid) {
+export function asyncCollections(id) {
     // fetch user's collections
     return (dispatch) => {
-        if (uid) {
+        if (id) {
             let userCollections = [];
-            fetch(collectRef, {headers: {"x-access-token": uid}}).then((data) => {
+            fetch(collectRef, {headers: {"x-access-token": id}}).then((data) => {
                 data.json().then((data) => {
                     data.forEach((doc) => {
                         userCollections.push(doc);
@@ -26,23 +19,10 @@ export function asyncCollections(uid) {
     };
 }
 
-/**
- * Sends a signal to the reducer to sync the user collections
- * 
- * @param {object} payload List of user collections
- *  
- * @returns {object} reducer action obj with type SYNC_COLLECTIONS with payload
- */
 export function syncCollections(payload) {
-    return { type: types.SYNC_COLLECTIONS, payload: payload };
+    return { type: types.SYNC_CLASSES, payload: payload };
 }
 
-/**
- * Fetch the specific collection specify by user
- * 
- * @param {string} collectionID Collection id 
- * @param {*} uid A JWT token to authenticate with the backend
- */
 export function asyncCollection(collectionID, uid) {
     // fetch projects in collection
     return (dispatch) => {
@@ -82,27 +62,13 @@ export function asyncCollection(collectionID, uid) {
     };
 }
 
-/**
- * Sends a signal to the reducer to load the retrieved collection
- * 
- * @param {object} payload Data of retrieved collection 
- * 
- * @returns {object} reducer action obj with type: SYNC_COLLECTION and payload
- */
 export function syncCollection(payload) {
-    return { type: types.SYNC_COLLECTION, payload: payload };
+    return { type: types.SYNC_CLASS, payload: payload };
 }
 
-/**
- * Sends a signal to the reducer to delete the specific collection of user
- * 
- * @param {string} collectionID Collection ID
- * @param {string} name Name of the collection if exists 
- * @param {*} uid A JWT token to authenticate with the backend
- */
-export function deleteCollection(collectionID, name = null, uid) {
+export function deleteCollection(id, name = null, uid) {
     return (dispatch) => {
-        name = (name ? name : collectionID);
+        name = (name ? name : id);
         if (window.confirm(`Are you sure you want to delete collection "${name}"?`)) {
 
             // Delete Document
@@ -111,14 +77,12 @@ export function deleteCollection(collectionID, name = null, uid) {
                     console.error(`Error deleting collection ${name}: ${resp.statusText}`);
                     return;
                 }
-                dispatch({ type: types.DELETE_COLLECTION, id: collectionID });
+                dispatch({ type: types.DELETE_CLASS, id: id });
             });
         }
     };
 }
-
 /**
- * Creates a new collection
  * 
  * @param {string} name The name of the collection to be created
  * @param {*} uid A JWT token to authenticate with the backend

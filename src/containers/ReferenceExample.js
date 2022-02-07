@@ -16,7 +16,7 @@ ReferenceExample.propTypes = {
 
 /**
  * This makes the values accessible as props
- * @param {*} state Entire redux store state
+ * @param {*} state !!!DESCRIPTION NEEDED!!!
  */
 const mapStateToProps = state => ({
     editor: state.editor,
@@ -30,7 +30,7 @@ const mapStateToProps = state => ({
 
 /**
  * This maps dispatch actions to props
- * @param {*} dispatch Give dipatch to the store
+ * @param {*} dispatch !!!DESCRIPTION NEEDED!!!
  */
 const mapDispatchToProps = dispatch => ({
     editorActions: bindActionCreators(Actions.EditorActions, dispatch),

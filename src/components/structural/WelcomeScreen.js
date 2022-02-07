@@ -15,9 +15,6 @@ import CourseSelect from "../courses/CourseSelect.js";
 import { withStyles } from "@material-ui/core/styles";
 import "../../css/WelcomeScreen.css";
 
-/** 
- * @returns {object} Center the Welcome Screen
- */
 function getOuterModalStyle() {
     const top = 50;
     const left = 50;
@@ -68,10 +65,6 @@ const exitBtnStyle = {
     top: 0,
     right: 0,
 };
-
-/**
- * Welcome Component returns a modal of welcome screen that shows up when user first enter MYR
- */
 class Welcome extends React.Component {
     constructor(props) {
         super(props);
@@ -82,23 +75,12 @@ class Welcome extends React.Component {
         };
     }
 
-    /**
-     * Called when the Welcome Screen is mounted (component has been rendererd to the DOM)
-     * 
-     * Header.js has a state to control whether to show welcome screen or not. By default it's false.
-     * So if user hasn't visisted the MYR, toggle the state to true.
-     */
     componentDidMount() {
         if (!this.getCookie("hasVisited")) {
             this.props.handleWelcomeToggle();
         }
     }
 
-    /**
-     * Get value of cookie
-     * @param {string} cookieName name of cookie
-     * @returns {string} value of cookie if it exist, return empty string otherwise
-     */
     getCookie = (cookieName) => {
         let name = cookieName + "=";
         let decodedCookie = decodeURIComponent(document.cookie);
@@ -115,11 +97,6 @@ class Welcome extends React.Component {
         return "";
     }
 
-    /**
-     * If the user is first visiting the MYR, set "hasVisisted" to true
-     * and set the expiration date to current date + 24 hrs 
-     * So it will re-appear after 24 hrs
-     */
     setCookie = () => {
         if (!this.getCookie("hasVisited")) {
             let date = new Date();
@@ -130,26 +107,16 @@ class Welcome extends React.Component {
         }
     }
 
-    /**
-     * Handler for when the welcome screen is close either by close button or clicking outside of modal
-     */
     handleClose = () => {
         this.setCookie();
         this.props.handleWelcomeToggle();
     };
 
-    /**
-     * Handler for when user click "never again" button
-     * It sets a long expiration date so it will "never" expireds 
-     */
     neverAgainCookie = () => {
         document.cookie = "hasVisited=true; expires=Thu, 31 Dec 2099 12:00:00 UTC;";
         this.handleClose();
     }
 
-    /**
-     * @returns {*} Button with don't show again option
-     */
     neverAgain = () => {
         return (
             <Button
@@ -160,35 +127,22 @@ class Welcome extends React.Component {
         );
     }
 
-    /**
-     * Handler for when user click on example project button
-     */
     handleProjectToggle = () => {
         this.setCookie();
         this.setState({ projectsOpen: !this.state.projectsOpen });
         this.setState({ projectTab: "b" });
     };
 
-    /**
-     * Handler for when user click on courses button
-     */
     handleCoursesToggle = () => {
         this.setCookie();
         this.setState({ coursesOpen: !this.state.coursesOpen });
     };
 
-    /**
-     * Handler for when user click on tour button
-     */
     handleTourToggle = () => {
         this.setCookie();
         this.setState({ tourOpen: !this.state.tourOpen });
     };
 
-    /**
-     * Helper function for creating buttons for navigating project, courses, etc.
-     * @returns {HTMLElement} Elements containing 6 buttons
-     */
     helperButtons = () => {
         return (
             <div className="row">
@@ -262,10 +216,6 @@ class Welcome extends React.Component {
         );
     }
 
-    /**
-     * Modals for handling when user clicked on the "exmaple scene" or "coruese" button
-     * @returns {HTMLElement} Elements of ProjectView and CourseSelect component 
-     */
     handleModals = () => {
         return (
             <div id="modals">
@@ -286,18 +236,12 @@ class Welcome extends React.Component {
         );
     }
 
-    /**
-     * @returns Paragraph tag to display permission of using cookie 
-     */
     cookieMessage = () => {
         return (
             <p id="cookie-consent" className="text-center">MYR uses cookies which are necessary for its functioning. You accept the use of cookies by continuing to use MYR per the <a href="/about/privacy" target="_blank" rel="noopener noreferrer">privacy policy</a>.</p>
         );
     }
 
-    /**
-     * @returns Creates Welcome Screen Modal
-     */
     render() {
         const { classes } = this.props;
 

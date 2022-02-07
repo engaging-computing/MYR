@@ -1,8 +1,5 @@
 import React, { Component } from "react";
 
-/**
- * React component class for the footer includes link to about page, privacy policy, TOS, etc.
- */
 class Footer extends Component {
     render() {
         return (

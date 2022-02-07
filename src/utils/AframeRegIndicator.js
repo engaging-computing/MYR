@@ -2,10 +2,6 @@ import AFRAME from "aframe";
 import * as THREE from "three";
 import { BufferGeometryUtils } from "three/examples/jsm/utils/BufferGeometryUtils.js";
 
-/**
- * @summary Define spotlight indicator geometry
- *              Shape: cone
- */
 AFRAME.registerComponent("spotlightindicator",{
     schema: {
         color: {
@@ -38,6 +34,7 @@ AFRAME.registerComponent("spotlightindicator",{
         let outCone = new THREE.CylinderGeometry(.2,1,1.5,24,1,true);
         let outCircle = new THREE.CircleGeometry(.2,24);
         
+        
         if(data.target) {
             outCircle.rotateX(-Math.PI/2);
             outCircle.translate(0,0.75,0);
@@ -65,10 +62,6 @@ AFRAME.registerComponent("spotlightindicator",{
     }
 });
 
-/**
- * @summary Define pointlight indicator geometry
- *              Shape: sphere
- */
 AFRAME.registerComponent("pointlightindicator", {
     schema: {
         color: {
@@ -101,10 +94,6 @@ AFRAME.registerComponent("pointlightindicator", {
     }
 });
 
-/**
- * @summary Define directionallight indicator geometry
- *              Shape: arrow
- */
 AFRAME.registerComponent("directionallightindicator", {
     schema: {
         color: {
@@ -147,12 +136,9 @@ AFRAME.registerComponent("directionallightindicator", {
     }
 });
 
-
-/**
- * @summary Define hemispherelight indicator geometry
- *              Shape: Double arrow
- * Weird bug - there's circle exist in up cone and don't know why its there
- */
+/*
+ Weird bug - there's circle exist in up cone and don't know why its there
+*/
 AFRAME.registerComponent("hemispherelightindicator",{
     schema: {
         color: {
@@ -204,8 +190,6 @@ AFRAME.registerComponent("hemispherelightindicator",{
 
 
 /**
- * Return MeshBasicMaterial with the inverse of the color of material from parameter
- * 
  * @param {THREE.Material} material
  */
 function CreateOutlineMaterial(material) {

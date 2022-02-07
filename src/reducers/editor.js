@@ -25,14 +25,13 @@ let snapshots = [
 ];
 
 
-const m = new Myr();
+let m = new Myr();
 m.init();
 // window.m = m; // Use this to attach it to the window for debugging
 
 /**
- * Conver the MYR code supplied from the editor to a function so it can be executed
- *      ESLint doesn't like this but it is better than eval
- * @param {string} text MYR code supplied from editor
+ * ESLint doesn't like this but it is better than eval
+ * @param {*} text !!!DESCRIPTION NEEDED!!!
  */
 function noEvalEvaluation(text) {
     // eslint-disable-next-line
@@ -42,13 +41,8 @@ function noEvalEvaluation(text) {
     return func;
 }
 
-
-/**
- * Editor Reducer
- */
 export default function editor(state = initial_state, action) {
     switch (action.type) {
-        //Handles the evaluation of the MYR code in editor
         case types.EDITOR_RENDER:
             m.reset();
 
@@ -91,7 +85,7 @@ export default function editor(state = initial_state, action) {
                 assets: m.assets || [],
                 message
             };
-        //Update the text editor
+
         case types.EDITOR_REFRESH:
             m.reset();
             return {
@@ -99,7 +93,7 @@ export default function editor(state = initial_state, action) {
                 text: action.text,
                 savedText: state.savedText,
             };
-        //Recover the code 
+
         case types.EDITOR_RECOVER:
             // Start at last snap
             let stableIndex = snapshots.length - 1;
@@ -110,7 +104,7 @@ export default function editor(state = initial_state, action) {
 
             // Call editor function again with new params
             return editor({ ...state }, { type: types.EDITOR_RENDER, text: snapshots[stableIndex].text });
-        //Update save text. savedText use to check whether user made changes to the scene
+            
         case types.EDITOR_UPDATE_SAVEDTEXT:
             return {
                 ...state,
