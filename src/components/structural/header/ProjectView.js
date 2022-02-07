@@ -359,7 +359,6 @@ class Project extends React.Component {
                 </ListItemIcon>
                 <ListItemText inset primary="Send" />
             </MenuItem>
-<<<<<<< HEAD
             {this.props.user && this.state.value === "a" &&
             <MenuItem
                 onClick={() => this.props.exportFunc(this.props.user.uid, this.state.projectId)}>
@@ -369,15 +368,6 @@ class Project extends React.Component {
                 <ListItemText inset primary="Export Scene" />
             </MenuItem>
             }
-=======
-            {/* <MenuItem
-        onClick={() => { this.handleClose(); this.handlePwToggle(); }}>
-        <ListItemIcon >
-          <Icon className="material-icons">lock</Icon>
-        </ListItemIcon>
-        <ListItemText inset primary="PW Protect" />
-      </MenuItem> */}
->>>>>>> 8998b31c7bb2d18da3419d085c724a0c909d61f8
         </Menu>
     );
 
