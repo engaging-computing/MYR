@@ -29,21 +29,21 @@ AFRAME.registerComponent("force-pushable", {
 
 //change the type of the material to the MeshBasicMaterial
 AFRAME.registerComponent("basicmaterial",{
-    schema:{
-        default:""
+    schema: {
+        default: ""
     },
     init: function(){
         const color = this.el.getObject3D("mesh").material.color;
         this.el.getObject3D("mesh").material = new THREE.MeshBasicMaterial({
-            color:color,
+            color: color,
         });
     }
 });
 
 //change the material of a-grid to MeshBasicMaterial
 AFRAME.registerComponent("gridmaterial",{
-    schema:{
-        default:""
+    schema: {
+        default: ""
     },
     init: function(){
         const texture = new THREE.TextureLoader().load("/img/grid_alpha_0.png");
@@ -85,8 +85,8 @@ AFRAME.registerComponent("shadowcustomsetting", {
 
 //This change necessary properties to entity to create a outline to light indicator
 AFRAME.registerComponent("outline",{
-    schema:{
-        default:""
+    schema: {
+        default: ""
     },
     init: function(){
         let mesh = this.el.getObject3D("mesh");
