@@ -4,9 +4,6 @@ import { Button } from "@material-ui/core";
 import * as layoutTypes from "../../../constants/LayoutTypes";
 import { TourSteps } from "../../../myr/tour";
 
-/**
- * MyrTour components shows the guide of MYR
- */
 class MyrTour extends Component {
     constructor(props) {
         super(props);
@@ -15,9 +12,6 @@ class MyrTour extends Component {
         };
     }
 
-    /**
-     * Handle tour closed
-     */
     closeTour = () => {
         if (this.state.viewOnlyOnOpen) {
             this.props.changeView();
@@ -25,9 +19,6 @@ class MyrTour extends Component {
         this.props.handleTourToggle();
     }
 
-    /**
-     * Create tour
-     */
     render() {
         let isDisabled = this.props.layoutType === layoutTypes.REFERENCE;
         return (
@@ -64,9 +55,6 @@ class MyrTour extends Component {
     }
 }
 
-/**
- * Wrap each line of string with div
- */
 const formatLineBreaks = (string) => {
     if (typeof string !== "string") {
         return string;
@@ -84,9 +72,6 @@ const formatLineBreaks = (string) => {
     }
 };
 
-/**
- * Formats all the strings of tours into an elements
- */
 const formatSteps = (steps) => {
     return steps.map( (step) => {
         step.content = formatLineBreaks(step.content);

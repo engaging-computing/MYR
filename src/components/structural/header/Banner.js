@@ -15,9 +15,6 @@ const redirectedNotif = {
 
 const localStorageKey = "seenMsgs";
 
-/**
- * React compoonent class for displaying message on top of MYR (ie. New version release, using old firebase url, etc.)
- */
 class Banner extends Component {
     constructor(props){
         super(props);
@@ -36,11 +33,6 @@ class Banner extends Component {
             this.setState({mobile: ev.matches});
         });
 
-        /**
-         * Fetch the notificiation from the backend
-         *      If the response is redirected link from firebase, 
-         *      push the new link without redirected param
-         */
         fetch(this.props.endpoint).then(resp => {
             resp.json().then(json => {
                 let arr = [];
@@ -60,9 +52,6 @@ class Banner extends Component {
         });
     }
 
-    /**
-     * Handle when banner is close
-     */
     closeButtonClick = () => {
         //Prevent notification redirects from being pushed to the ignore array
         if(this.state.currentMessage._id !== -1){
@@ -74,7 +63,6 @@ class Banner extends Component {
             );
         }
         
-        //Show the next banner if exists, close it otherwise.
         if(this.state.messageIndex + 1 >= this.state.messages.length){
             this.setState({isOpen: false});
         }else{
@@ -85,9 +73,6 @@ class Banner extends Component {
         }
     }
 
-    /**
-     * @returns Elements of buttons depends on device
-     */
     renderButtons = () => {
         const style = {
             closeButton: {
@@ -141,9 +126,6 @@ class Banner extends Component {
         );
     }
 
-    /**
-     * @returns Elements to display messages 
-     */
     renderMessage = () => {
         const style = {
             title: {
@@ -193,9 +175,6 @@ class Banner extends Component {
         );
     }
 
-    /**
-     * @returns Elements to display if user is accessing from desktop
-     */
     renderDesktop = () => {
         return (
             <Grid container direction="row" alignItems="center" wrap="nowrap" style={{paddingBottom: "8px"}}>
@@ -205,9 +184,6 @@ class Banner extends Component {
         );
     }
 
-    /**
-     * @returns Elements to display if user is accessing from mobile
-     */
     renderMobile = () => {
         return (
             <>
@@ -221,9 +197,6 @@ class Banner extends Component {
         );
     }
 
-    /**
-     * Create Banner
-     */
     render = () => {
         return (this.state.isOpen && this.state.currentMessage ? 
             <div style={{

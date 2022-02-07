@@ -2,12 +2,9 @@ import myrReference from "../../myr/reference.js";
 import myrTextures from "../structural/Textures.js";
 import myrModels from "../structural/Models.js";
 
-/**
- * Creates customCompleter for all MYR references and keywords for JS, color code, and assets
- */
 export const customCompleter = {
     getCompletions: function (editor, session, pos, prefix, callback) {
-        const BasicAutocompleteKeyWords = [
+        let BasicAutocompleteKeyWords = [
             "const",
             "yield",
             "import",
@@ -39,21 +36,25 @@ export const customCompleter = {
             "static"
         ];
 
-        const texture = myrTextures();
-        const Texture = [...texture.TexturePack.map(obj => obj.title)];
+        let texture = myrTextures();
+        let Texture = [...texture.TexturePack.map(obj => obj.title),
+            "group()"
+        ];
 
-        const model = myrModels();
-        const Model = [...model.ModelPack.keys()];
+        let model = myrModels();
+        let Model = [...model.ModelPack.keys(),
+            "group()"
+        ];
 
-        const reference = myrReference();
-        const MYRKeyWords = [...reference.geometry.map(obj => obj.name + "()"),
+        let reference = myrReference();
+        let keyWords = [...reference.geometry.map(obj => obj.name + "()"),
             ...reference.transformations.map(obj => obj.name + "()"),
             ...reference.animations.map(obj => obj.name + "()"),
             ...reference.lights.map(obj=>obj.name+"()"),
             "group()"
         ];
 
-        const Colors = [
+        let Colors = [
             "aliceblue",
             "antiquewhite",
             "aqua",
@@ -213,7 +214,7 @@ export const customCompleter = {
             };
         }));
 
-        callback(null, MYRKeyWords.map(function (word) {
+        callback(null, keyWords.map(function (word) {
             return {
                 caption: word,
                 value: word,

@@ -3,16 +3,11 @@ import * as types from "../constants/ActionTypes";
 const sceneRef = "/apiv1/scenes";
 const previewRef = "/apiv1/preview/id";
 
-/**
- * Retrieved the list of user scenes
- * 
- * @param {*} uid A JWT token to authenticate with the backend
- */
-export function asyncUserProj(uid) {
+export function asyncUserProj(id) {
     // fetch user's project
     return (dispatch) => {
-        if (uid) {
-            fetch(`${sceneRef}/`, {headers: {"x-access-token": uid}}).then((response) =>{
+        if (id) {
+            fetch(`${sceneRef}/`, {headers: {"x-access-token": id}}).then((response) =>{
                 if(response.status === 200){
                     response.json().then((json) =>{
                         json.forEach(element => {
@@ -26,21 +21,10 @@ export function asyncUserProj(uid) {
     };
 }
 
-
-/**
- * Sends signal to the reducer to sync the user project
- * 
- * @param {*} payload list of user projects
- * 
- * @returns reducer action obj with type: SYNC_USER_PROJ wiht payload
- */
 export function syncUserProj(payload) {
     return { type: types.SYNC_USER_PROJ, payload: payload };
 }
 
-/**
- * Fetch a eample scenes from the backend
- */
 export const asyncExampleProj = () => {
     // fetch example projects
     return (dispatch) => {
@@ -57,24 +41,10 @@ export const asyncExampleProj = () => {
     };
 };
 
-
-/**
- * Sends signal to the reducer to sync the example project
- * @param {*} payload List of the example project
- * 
- * @returns reducer action obj with type: SYNC_EXAMP_PROJ with payload
- */
 export function syncExampleProj(payload) {
     return { type: types.SYNC_EXAMP_PROJ, payload: payload };
 }
 
-/**
- * Delete the specify user project
- * 
- * @param {*} uid  A JWT token to authenticate with the backend
- * @param {string} id   Scene id to be deleted 
- * @param {string} name Name of the scene
- */
 export function deleteProj(uid, id, name) {
     return (dispatch) => {
         if (window.confirm(`Are you sure you want to delete ${name}?`)) {

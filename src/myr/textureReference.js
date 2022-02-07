@@ -1,6 +1,3 @@
-/**
- * List of texture reference
- */
 const texture = [
     {
         name: "bricks",

@@ -1,6 +1,3 @@
-/**
- * Map of textures' name and url and img url for retrieval
- */
 let ModelPack = new Map();
 // Models that have been cleared for us to host
 ModelPack.set("sword", {model: "/models/sword.glb", image: "/img/models/sword.png"});

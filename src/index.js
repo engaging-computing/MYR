@@ -11,9 +11,6 @@ import store from "./reducers/index";
 
 import AppRoutes from "./routes";
 
-/**
- * Entry point of MYR
- */
 ReactDOM.render(
     <Provider store={store}>
         <AppRoutes />

@@ -1,6 +1,3 @@
-/**
- * List of model reference
- */
 const model = [
     {
         name: "sword",
