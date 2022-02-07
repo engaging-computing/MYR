@@ -31,8 +31,8 @@ function getModalStyle() {
 
 /**
  * CSS for modal
- *
- *  @param {*} theme Will use default theme if not provided
+ * 
+ * @param {*} theme !!!DESCRIPTION NEEDED!!! 
  */
 const modelStyles = theme => ({
     paper: {
@@ -48,15 +48,14 @@ const modelStyles = theme => ({
     }
 });
 
-/**
- * React component for creating modal listing courses
- */
 class CourseSelectModal extends Component {
-    /**
-     * Helper function to create card for a course modal.
-     * @param {object} course Object with course info
-     * @returns {HTMLElement} Card element of course
-     */
+    constructor(props) {
+        super(props);
+        this.state = {
+            // open: false
+        };
+    }
+
     helper = (course) => {
         if (course) {
             let id = course._id;
@@ -90,7 +89,6 @@ class CourseSelectModal extends Component {
 
     /**
      * Render all of the elements
-     * @returns {HTMLElement} Course modal with the list of course cards
      */
     render() {
         const { classes } = this.props;

@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import myrReference from "../../myr/reference";
 import * as refFunctions from "../../myr/reference";
 
@@ -36,15 +36,8 @@ const assetReferenceBtn = {
     top: 0,
     right: 95,
 };
+export default class Reference extends React.Component {
 
-/**
- * Reference is a react component that creates drawer contains references
- */
-class Reference extends Component {
-    /**
-     * Constructor
-     *  value represents the current tab that's opened  
-     */
     constructor(props) {
         super(props);
         this.state = {
@@ -53,19 +46,10 @@ class Reference extends Component {
         this.tableData = myrReference();
     }
 
-    /**
-     * Handler for when user clicked the tab, it updates the state "value" with value passed in
-     * 
-     * @param {Event} event 
-     * @param {string} value tab to be changed to. It should be an alphabet
-     */
     handleChange = (event, value) => {
         this.setState({ value });
     };
 
-    /**
-     * Handler for opening the reference page 
-     */
     handleOpen = () => {
         window.open(window.origin + "/reference");
         this.setState({ value: "a" });
@@ -99,11 +83,6 @@ class Reference extends Component {
         );
     };
 
-    /**
-     * Create a button that will link to the example scene
-     * @param {string} example name of the API
-     * @returns {HTMLElement} IconButton with link to the example scene
-     */
     exampleHelper = (example) => {
         if (example) {
             let link = "/reference/" + example;
@@ -120,13 +99,8 @@ class Reference extends Component {
         }
     };
 
-    /**
-     * Create a table of references by retrieve array of references from tableData by category
-     * 
-     * @param {string} category name of the category
-     * @returns {Table} DOM elements of table with references with passed category 
-     */
     TableEx = (category) => {
+
         return (
             <Table  >
                 <TableHead >
@@ -149,9 +123,6 @@ class Reference extends Component {
         );
     };
 
-    /**
-     * Reneter Button that will open Drawer of reference with different categories 
-     */
     render() {
         const style = {
             margin: 2,
@@ -206,6 +177,7 @@ class Reference extends Component {
                                     <Icon className="material-icons-outlined">settings_system_daydream</Icon>
                                 </IconButton>
                             </div>
+
                             <div>
                                 <Tabs
                                     id="reference-tabs"
@@ -252,8 +224,24 @@ class Reference extends Component {
                                             </Hidden>
                                         }
                                         value='e' />
+                                    {/*<Tab
+                                    style={{ background: "green", color: "white" }}
+                                    icon={<Icon className="material-icons">open_in_new</Icon>}
+                                    label="OPEN IN NEW TAB"
+                                    value='n'
+                                    onClick={this.handleOpen} />
+                                <Tab
+                                    style={{ background: "red", color: "white" }}
+                                    icon={<Icon className="material-icons">close</Icon>}
+                                    label="CLOSE"
+                                    value='x'
+                                    onClick={() => {
+                                        this.props.handleReferenceToggle();
+                                        this.setState({ value: "a" });
+                                    }} />*/}
                                 </Tabs>
                             </div>
+
                             {<div style={{ margin: 7, overflow: "hidden", minHeight: "2em" }}>
                                 <p style={{ fontSize: "80%" }}> Key: <span className="array">array </span>
                                     <span className="bool">bool </span>
@@ -288,5 +276,3 @@ class Reference extends Component {
         );
     }
 }
-
-export default Reference;

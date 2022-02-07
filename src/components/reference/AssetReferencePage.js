@@ -9,7 +9,7 @@ import {
     Hidden,
 } from "@material-ui/core";
 
-import "../../css/ReferencePage.css";
+import "../../css/ModelReferencePage.css";
 
 export default class AssetReference extends React.Component {
 
@@ -34,9 +34,9 @@ export default class AssetReference extends React.Component {
     render() {
         document.title = "Asset | MYR";
         return (
-            <div id="reference-page">
+            <div id="modelReference-page">
                 <Tabs
-                    id="reference-tabs"
+                    id="modelReference-tabs"
                     variant="fullWidth"
                     value={this.state.value}
                     onChange={this.handleChange} >
