@@ -46,6 +46,8 @@ class Editor extends Component {
                 event.returnValue = "You may have unsaved scene changes!";
             }
         });
+
+        this.setState({"previousSettings":this.props.settings});
     }
 
     onLoad() {
@@ -53,6 +55,14 @@ class Editor extends Component {
             "maxerr": 1000,
             "esversion": 6
         }]);
+    }
+
+    componentDidUpdate(){
+        if(JSON.stringify(this.state.previousSettings) !== JSON.stringify(this.props.settings) &&
+        this.props.user) {
+            this.props.userActions.updateUserSettings(this.props.user.uid,this.props.settings);
+            this.setState({"previousSettings":this.props.settings});
+        }
     }
     
     /**
