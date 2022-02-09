@@ -133,7 +133,6 @@ export default class Reference extends React.Component {
 
     OnFilter = (_, value) => {
         this.setState({filter: value.toLowerCase()});
-        console.log(value);
     }
 
     OnFilterSelect = (_, value, reason) => {
@@ -159,7 +158,6 @@ export default class Reference extends React.Component {
                 filter: value.label.toLowerCase()
             });
 
-            console.log(value);
         }
     }
 
