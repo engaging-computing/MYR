@@ -159,7 +159,6 @@ class Reference extends Component {
 
     OnFilter = (_, value) => {
         this.setState({filter: value.toLowerCase()});
-        console.log(value);
     }
 
     OnFilterSelect = (_, value, reason) => {
@@ -185,7 +184,6 @@ class Reference extends Component {
                 filter: value.label.toLowerCase()
             });
 
-            console.log(value);
         }
     }
 
