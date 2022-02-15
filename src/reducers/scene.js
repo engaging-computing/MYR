@@ -25,7 +25,9 @@ const initial_state = {
 };
 
 
-
+/**
+ * Scene Reducers
+ */
 export default function scene(state = initial_state, action) {
     if (state.settings.name) {
         delete state.settings.name;
@@ -34,15 +36,18 @@ export default function scene(state = initial_state, action) {
         delete state.settings.id;
     }
     switch (action.type) {
+        //Update the name of the scene
         case types.NAME_SCENE:
             return {
                 ...state,
                 name: action.name
             };
+        //Load a new scene
         case types.LOAD_SCENE:
             return {
                 ...action.data
             };
+        //Toggle the grid
         case types.TOGGLE_COORD_SKY:
             return {
                 ...state,
@@ -51,6 +56,7 @@ export default function scene(state = initial_state, action) {
                     showCoordHelper: !state.settings.showCoordHelper
                 }
             };
+        //Update the position of the camera
         case types.SET_CAMERA:
             let camPos = `${action.x || 0} ${action.y + (Math.random() / 10) || 1.6} ${action.z || 0}`;
             return {
@@ -60,6 +66,7 @@ export default function scene(state = initial_state, action) {
                     cameraPosition: camPos
                 }
             };
+        //Toggle the viewOnly mode 
         case types.CHANGE_VIEW:
             return {
                 ...state,
@@ -68,6 +75,7 @@ export default function scene(state = initial_state, action) {
                     viewOnly: !state.settings.viewOnly
                 }
             };
+        //Update the color of sky
         case types.CHANGE_SKY_COLOR:
             return {
                 ...state,
@@ -76,6 +84,7 @@ export default function scene(state = initial_state, action) {
                     skyColor: action.color
                 }
             };
+        //Update the color of floor
         case types.CHANGE_FLOOR_COLOR:
             return {
                 ...state,
@@ -84,6 +93,7 @@ export default function scene(state = initial_state, action) {
                     floorColor: action.color
                 }
             };
+        //Toggle the floor
         case types.TOGGLE_FLOOR:
             return {
                 ...state,
@@ -92,7 +102,35 @@ export default function scene(state = initial_state, action) {
                     showFloor: !state.settings.showFloor
                 }
             };
-        case types.ADD_CLASSROOM:
+        //Toggle the default light
+        case types.TOGGLE_DEFAULT_LIGHT:
+            return {
+                ...state,
+                settings: {
+                    ...state.settings,
+                    defaultLight: !state.settings.defaultLight
+                }
+            };
+        //Toggle the cast of shadow
+        case types.TOGGLE_CAST_SHADOW:
+            return {
+                ...state,
+                settings: {
+                    ...state.settings,
+                    castShadow: !state.settings.castShadow
+                }
+            };
+        //Toggle the light indicator
+        case types.TOGGLE_LIGHT_INDICATOR:
+            return{
+                ...state,
+                settings:{ 
+                    ...state.settings,
+                    lightIndicator: !state.settings.lightIndicator
+                }
+            };
+        //Add the scene to the collection
+        case types.ADD_COLLECTION:
             return {
                 ...state,
                 settings: {
@@ -100,7 +138,8 @@ export default function scene(state = initial_state, action) {
                     collectionID: action.payload
                 }
             };
-        case types.REMOVE_CLASSROOM:
+        //Remove the scene from the collection
+        case types.REMOVE_COLLECTION:
             return {
                 ...state,
                 settings: {
@@ -108,6 +147,20 @@ export default function scene(state = initial_state, action) {
                     collectionID: null
                 }
             };
+        //Set the description of the scene
+        case types.SET_DESC:
+            return {
+                ...state,
+                desc: action.payload
+            };
+        //Set the name and the description of the scene
+        case types.SET_NAME_DESC:
+            return {
+                ...state,
+                name: action.payload.name,
+                desc: action.payload.desc
+            };
+        //Load the scene settings
         case types.LOAD_SETTINGS:
             return {
                 ...state,
@@ -116,17 +169,7 @@ export default function scene(state = initial_state, action) {
                     ...action.payload
                 }
             };
-        case types.SET_DESC:
-            return {
-                ...state,
-                desc: action.payload
-            };
-        case types.SET_NAME_DESC:
-            return {
-                ...state,
-                name: action.payload.name,
-                desc: action.payload.desc
-            };
+        //Update the specific scene settings
         case types.CHANGE_SETTINGS:
             const { param, val } = action.payload;
             return {
@@ -136,33 +179,13 @@ export default function scene(state = initial_state, action) {
                     [param]: val
                 }
             };
+        //Reset the settings to the default
         case types.RESET_SETTINGS:
-            return {
-                ...state,
-                settings: DEF_SETTINGS
-            };
-        case types.TOGGLE_DEFAULT_LIGHT:
-            return {
-                ...state,
-                settings: {
-                    ...state.settings,
-                    defaultLight: !state.settings.defaultLight
-                }
-            };
-        case types.TOGGLE_CAST_SHADOW:
             return {
                 ...state,
                 settings: {
                     ...state.settings,
                     castShadow: !state.settings.castShadow
-                }
-            };
-        case types.TOGGLE_LIGHT_INDICATOR:
-            return {
-                ...state,
-                settings: { 
-                    ...state.settings,
-                    lightIndicator: !state.settings.lightIndicator
                 }
             };
         case types.UPDATE_MOVE_SPEED:

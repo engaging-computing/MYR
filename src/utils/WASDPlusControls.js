@@ -14,12 +14,21 @@ const MAX_DELTA = 0.25;
 const CLAMP_VELOCITY = 0.01;
 const MOD_Y = 1.5;
 
+/**
+ * Check if the object is empty or not
+ * 
+ * @param {object} keys 
+ */
 const isEmptyObject = (keys) => {
     let key;
     for (key in keys) { return false; }
     return true;
 };
 
+
+/**
+ * @summary Add space and shift controls to the movement
+ */
 AFRAME.registerComponent("wasd-plus-controls", {
     schema: {
         acceleration: {type: "number", default : 150},

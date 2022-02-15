@@ -11,7 +11,7 @@ import {
     TableCell
 } from "@material-ui/core";
 
-import "../../css/ModelReferencePage.css";
+import "../../css/ReferencePage.css";
 
 export default class ModelReference extends React.Component {
     imageHelper = (model) => {

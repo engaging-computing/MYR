@@ -7,6 +7,10 @@ import Reference from "./containers/Reference";
 import AssetReferencePage from "./containers/AssetReference";
 import ReferenceExample from "./containers/ReferenceExample";
 
+/**
+ * Create an routers that switch to correct react component for different endpoints
+ * @returns BrowserRouter with all of available router (except about page)
+ */
 const router = () => {
     return (
         <BrowserRouter>
