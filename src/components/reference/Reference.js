@@ -69,7 +69,14 @@ class Reference extends Component {
         this.setState({ value: "a" });
     };
 
-
+    /**
+     * Converts MYR name into JSX elements and adds tooltip for any function with parameters
+     * Contains parser in if statement to color the group variable
+     * 
+     * @param {string} name 
+     * @param {array} parameters 
+     * @returns parsed JSX element
+     */
     nameHelper = (name, parameters) => {
         if(name.includes("myGroup"))
         {
@@ -154,7 +161,12 @@ class Reference extends Component {
             </Table>
         );
     };
-
+    /**
+     * Creates array of options for the autocomplete feature for the search bar
+     *   so keywords can be detectable
+     * 
+     * @returns {array} array of object each with label and id
+     */
     AutocompleteOptions = () => {
         const options=[];
         Object.keys(this.tableData).forEach(key => 
@@ -165,11 +177,23 @@ class Reference extends Component {
         });
         return options;
     }
-
+    /**
+     * Event Listiner: Adds keyword into local state when typed into searchbar 
+     *  for filtering the options of references
+     * 
+     * @param {string} value 
+     */
     OnFilter = (_, value) => {
         this.setState({filter: value.toLowerCase()});
     }
 
+    /**
+     * Event Listener: Switches tabs in reference bar if an option in autocomplete is 
+     *  selected and not currently in that tab
+     * 
+     * @param {string} value 
+     * @param {string} reason what the user action is
+     */
     OnFilterSelect = (_, value, reason) => {
         if(reason === "select-option")
         {
@@ -192,7 +216,6 @@ class Reference extends Component {
                 value: category, 
                 filter: value.label.toLowerCase()
             });
-
         }
     }
 
