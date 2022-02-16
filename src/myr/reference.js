@@ -725,37 +725,37 @@ const lights = [
  */
 const groups = [
     {
-        name: <span>let <span className="group">myGroup</span> = group</span>,
+        name: "let myGroup = group",
         parameters: [],
         description: <span>The group function creates an entity that can store other elements. This function does not draw anything.</span>,
         example: "group"
     },
     {
-        name: <span><span className="group">myGroup</span>.add</span>,
+        name: "myGroup.add",
         parameters: [{ type: "string", name: "elementID" }],
         description: <span>The myGroup.add function adds an element to the group.</span>,
         example: "g.add"
     },
     {
-        name: <span><span className="group">myGroup</span>.remove</span>,
+        name: "myGroup.remove",
         parameters: [{ type: "string", name: "elementID" }],
         description: <span>The myGroup.remove function removes the given element from the group. The object will print with the cursor properties that it was made with, but will no longer be affected by modifications to the group.</span>,
         example: "g.remove"
     },
     {
-        name: <span><span className="group">myGroup</span>.setPosition</span>,
+        name: "myGroup.setPosition",
         parameters: [{ type: "number", name: "x" }, { type: "number", name: "y" }, { type: "number", name: "z" }],
         description: <span>The myGroup.setPosition sets the position of the center of the group.</span>,
         example: "g.setPosition"
     },
     {
-        name: <span><span className="group">myGroup</span>.setScale</span>,
+        name: "myGroup.setScale",
         parameters: [{ type: "number", name: "x" }, { type: "number", name: "y" }, { type: "number", name: "z" }],
         description: <span>The myGroup.setScale function sets the scale of the group. Values greater than 1 make the entity larger, values between 0 and 1 will make the entity smaller.</span>,
         example: "g.setScale"
     },
     {
-        name: <span><span className="group">myGroup</span>.setRotation</span>,
+        name: "myGroup.setRotation",
         parameters: [{ type: "number", name: "x" }, { type: "number", name: "y" }, { type: "number", name: "z" }],
         description: <span>The myGroup.setRotation function sets the rotation of the group.</span>,
         example: "g.setRotation"
@@ -767,11 +767,11 @@ const groups = [
  * Combine lists of refence to single object
  */
 const reference = {
-    geometry: geometry,
-    transformations: transformations,
-    animations: animations,
-    groups: groups,
-    lights: lights,
+    geometry,
+    transformations,
+    animations,
+    groups,
+    lights,
 };
 
 export default function r(ref = reference) {
