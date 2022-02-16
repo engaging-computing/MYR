@@ -364,6 +364,33 @@ class Project extends React.Component {
     handleChange = (event, value) => {
         this.setState({ value });
     };
+    /**
+ * This function sorts projects alphabetically, regardless of case. 
+ * If two projects have the same name, they are sorted by their update time
+ * @param {*} a a project that will be compared to project b
+ * @param {*} b a project that will be compared to project a
+ * @returns 1 if project a should come before project b, -1 if b should come before a 
+ */
+    projectSort = (a,b)=>{
+        if(a.name.toUpperCase() < b.name.toUpperCase())
+        {
+            return -1;
+        }
+        else if(a.name.toUpperCase() > b.name.toUpperCase())
+        {
+            return 1;
+        }
+        else if(a.updateTime > b.updateTime)
+        {
+            return -1;
+        }
+        else if(a.updateTime < b.updateTime)
+        {
+            return 1;
+        }
+        
+        return 0;
+    }  
 
     render() {
         const { classes } = this.props;
@@ -439,9 +466,7 @@ class Project extends React.Component {
                                 <div id="project-list" style={{ marginTop: 0, overflow: "scroll" }}>
                                     <div className="row" id="user-proj" style={{ width: "100%" }}>
                                         { // Sort the users projects in alphabetical order
-                                            userProjs.sort(function (a, b) {
-                                                return a.name < b.name ? -1 : a.name > b.name ? 1 : a.updateTime > b.updateTime ? -1 : a.updateTime < b.updateTime ? 1 : 0;
-                                            }).map(proj => {
+                                            userProjs.sort(this.projectSort).map(proj => {
                                                 return this.helper(proj, true);
                                             })
                                         }
@@ -451,9 +476,7 @@ class Project extends React.Component {
                                 <div id="project-list" style={{ marginTop: 0, overflow: "scroll" }}>
                                     <div className="row" id="sample-proj" style={{ width: "100%" }}>
                                         {
-                                            exampleProjs.sort(function (a, b) {
-                                                return a.name < b.name ? -1 : a.name > b.name ? 1 : a.updateTime > b.updateTime ? -1 : a.updateTime < b.updateTime ? 1 : 0;
-                                            }).map(proj => {
+                                            exampleProjs.sort(this.projectSort).map(proj => {
                                                 return this.helper(proj, false);
                                             })
                                         }
