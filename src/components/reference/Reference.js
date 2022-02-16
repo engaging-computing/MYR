@@ -55,6 +55,18 @@ export default class Reference extends React.Component {
 
 
     nameHelper = (name, parameters) => {
+        if(name.includes("myGroup"))
+        {
+            let index = name.indexOf("myGroup");
+            name = 
+            (<span>
+                {name.slice(0, index)}
+                <span className="group">
+                    {name.slice(index, index + "myGroup".length)}
+                </span>
+                {name.slice(index + "myGroup".length)}
+            </span>);
+        }
         return (
             <span>{name}({(parameters.map((element, i, params) => {
                 let comma = i < params.length - 1 ? ", " : "";
@@ -121,13 +133,10 @@ export default class Reference extends React.Component {
         const options=[];
         Object.keys(this.tableData).forEach(key => 
         {
-            if(key !== "groups") {
-                options.push(...this.tableData[key]
-                    .map(ref => ({label: ref.name, id: key}))
-                );
-            }
+            options.push(...this.tableData[key]
+                .map(ref => ({label: ref.name, id: key}))
+            );
         });
-        //console.log(options);
         return options;
     }
 
