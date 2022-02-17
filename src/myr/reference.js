@@ -5,6 +5,9 @@ import {
     withStyles
 } from "@material-ui/core";
 
+/**
+ * Custom styles that inject to the cue cards
+ */
 const HtmlTooltip = withStyles(theme => ({
     tooltip: {
         maxWidth: 300,
@@ -19,6 +22,9 @@ const handleAssetReferenceOpen = (isTexture = false) => {
     window.open(window.origin + "/asset-reference" + (isTexture ? "?tab=textures" : ""));
 };
 
+/**
+ * Return a react elements contain a cue-card for String data type
+ */
 export const stringText = (text) => {
     return (
         <HtmlTooltip
@@ -41,6 +47,10 @@ export const stringText = (text) => {
             </span>
         </HtmlTooltip>);
 };
+
+/**
+ * Return a react elements contain a cue-card for Number data type
+ */
 export const numberText = (text) => {
     return (
         <HtmlTooltip
@@ -61,6 +71,10 @@ export const numberText = (text) => {
             </span>
         </HtmlTooltip>);
 };
+
+/**
+ * Return a react elements contain a cue-card for Boolean data type
+ */
 export const boolText = (text) => {
     return (
         <HtmlTooltip
@@ -81,6 +95,9 @@ export const boolText = (text) => {
         </HtmlTooltip>);
 };
 
+/**
+ * Return a react elements contain a cue-card for Array data type
+ */
 export const arrayText = (text) => {
     return (
         <HtmlTooltip
@@ -109,6 +126,9 @@ export const arrayText = (text) => {
         </HtmlTooltip>);
 };
 
+/**
+ * Return a react elements contain a cue-card for dynamic data type
+ */
 export const dataText = (text) => {
     return (
         <HtmlTooltip
@@ -129,7 +149,10 @@ export const dataText = (text) => {
         </HtmlTooltip>);
 };
 
-let geometry = [
+/**
+ * List of geometry reference
+ */
+const geometry = [
     {
         name: "box",
         parameters: [],
@@ -172,11 +195,6 @@ let geometry = [
         description: <span>The octahedron function makes a polyhedron with eight equilateral triangular faces using the current cursor attributes. This function returns an {stringText("elementID")}.</span>,
         example: "octahedron"
     },
-    // This is out temporarily until better fleshed out
-    //{
-    //  name: 'line()',
-    //  description: <span>Renders a line using current internal cursor properties. Returns an <span className="string element">element id</span>.</span>
-    //},
     {
         name: "plane",
         parameters: [],
@@ -237,26 +255,34 @@ let geometry = [
         description: <span>The gltfModel function loads a glTF model using the current cursor attributes. This function returns an {stringText("elementID")}. Models can be loaded either by using the name of one of <button id="models" onClick={() => handleAssetReferenceOpen()} style={{ backgroundColor: "white", color: "#47a0ff", padding: 0, border: "none" }}>these models</button> or by inserting a valid url (e.g. "duck" or "https://learnmyr.org/models/duck.glb"). Depending on the policy of the website they’re from, model URLs may not be usable, which will result in no model appearing.</span>,
         example: "model"
     },
+    // This is out temporarily until better fleshed out
     //{
-    //  name: <span>tube()</span>,
-    //  description: <span>Renders a tube using current internal cursor properties. Returns an <span className="string element">element id</span>.</span>,
-    //  example: 'tube'
+    //  name: 'line()',
+    //  description: <span>Renders a line using current internal cursor properties. Returns an <span className="string element">element id</span>.</span>
     //},
-    //should this be documented?
     // {
-    //   name: 'light()',
-    //   description: <span>Renders a light using current internal MYR properties. Returns an <span className="string element">element id</span>.</span>
+    //     name: <span>tube()</span>,
+    //     parameters:[],
+    //     description: <span>Renders a tube using current internal cursor properties. Returns an <span className="string element">element id</span>.</span>,
+    //     example: "tube"
     // },
-
 ];
 
-let transformations = [
+/**
+ * List of transformation reference
+ */
+const transformations = [
     {
         name: "resetCursor",
         parameters: [],
         description: <span>The resetCursor function resets the properties of the cursor to their defaults. This includes cursor attributes pertaining to Transformations and Animations.</span>,
         example: "resetCursor"
     },
+    {
+        name: "resetTransformationCursor",
+        parameters: [],
+        description: <span>The resetTransformationCursor function resets the transformation properties of the cursor to their defaults.</span>,
+    }, 
     {
         name: "setColor",
         parameters: [{ type: "string", name: "color" }],
@@ -497,10 +523,13 @@ let transformations = [
         name: "resetTransformationCursor",
         parameters: [],
         description: <span>The resetTransformationCursor function resets the transformation properties of the cursor to their defaults.</span>,
-    },
+    }
 ];
 
-let animations = [
+/**
+ * List of animation reference
+ */
+const animations = [
     {
         name: "setLoop",
         parameters: [{ type: "bool", name: "loop" }],
@@ -533,6 +562,11 @@ let animations = [
         name: "getMagnitude",
         parameters: [],
         description: <span>The getMagnitude function returns the current magnitude attribute of the cursor. The magnitude can be changed by the setMagnitude function.</span>
+    },
+    {
+        name: "resetAnimationCursor",
+        parameters: [],
+        description: <span>The resetAnimationCursor function resets the properties of the cursor that contains animation properties to their defaults.</span>,
     },
     {
         name: "spin",
@@ -617,66 +651,18 @@ let animations = [
         parameters: [{ type: "string", name: "elementID" }, { type: "string", name: "color" }],
         description: <span>The colorShift function shifts the element from its original color to the given color. All colors valid for setColor are applicable.</span>,
         example: "colorShift"
-    },
-    {
-        name: "resetAnimationCursor",
-        parameters: [],
-        description: <span>The resetAnimationCursor function resets the properties of the cursor that contains animation properties to their defaults.</span>,
-    },
-    // {
-    //   name: <span>spin(<span className="string">element</span>, <span className="number">magnitude</span>, <span className="bool">loop</span>, <span className="number">duration</span>)</span>,
-    //   description: <span>Spins the element around the y axis <span className="number">magnitude</span> degrees.</span>
-    // },
-    // {
-    //   name: <span>yoyo(<span className="string">element</span>, <span className="number">magnitude</span>, <span className="bool">loop</span>, <span className="number">duration</span>)</span>,
-    //   description: <span>Bounces the element <span className="number">magnitude</span> units in a positive direction on the y axis for <span className="number">duration</span> milliseconds.</span>
-    // },
-    // {
-    //   name: <span>sideToSide(<span className="string">element</span>, <span className="number">magnitude</span>, <span className="bool">loop</span>, <span className="number">duration</span>)</span>,
-    //   description: <span>Shifts the element <span className="number">magnitude</span> units in a negative direction on the x axis and back to the original coordinate over <span className="number">duration</span> milliseconds.</span>
-    // },
-    // {
-    //   name: <span>goUp(<span className="string">element</span>, <span className="number">magnitude</span>, <span className="bool">loop</span>, <span className="number">duration</span>)</span>,
-    //   description: <span>Translates the element <span className="number">magnitude</span> units in a positive direction on the y axis over <span className="number">duration</span> milliseconds.</span>
-    // },
-    // {
-    //   name: <span>goDown(<span className="string">element</span>, <span className="number">magnitude</span>, <span className="bool">loop</span>, <span className="number">duration</span>)</span>,
-    //   description: <span>Translates the element <span className="number">magnitude</span> units in a negative direction on the y axis over <span className="number">duration</span> milliseconds.</span>
-    // },
-    // {
-    //   name: <span>goRight(<span className="string">element</span>, <span className="number">magnitude</span>, <span className="bool">loop</span>, <span className="number">duration</span>)</span>,
-    //   description: <span>Translates the element <span className="number">magnitude</span> units in a positive direction on the x axis over <span className="number">duration</span> milliseconds.</span>
-    // },
-    // {
-    //   name: <span>goLeft(<span className="string">element</span>, <span className="number">magnitude</span>, <span className="bool">loop</span>, <span className="number">duration</span>)</span>,
-    //   description: <span>Translates the element <span className="number">magnitude</span> units in a negative direction on the x axis over <span className="number">duration</span> milliseconds.</span>
-    // },
-    // {
-    //   name: <span>goTowards(<span className="string">element</span>, <span className="number">magnitude</span>, <span className="bool">loop</span>, <span className="number">duration</span>)</span>,
-    //   description: <span>Translates the element <span className="number">magnitude</span> units in a positive direction on the z axis over <span className="number">duration</span> milliseconds.</span>
-    // },
-    // {
-    //   name: <span>goAway(<span className="string">element</span>, <span className="number">magnitude</span>, <span className="bool">loop</span>, <span className="number">duration</span>)</span>,
-    //   description: <span>Translates the element <span className="number">magnitude</span> units in a negative direction on the z axis over <span className="number">duration</span> milliseconds.</span>
-    // },
-    // {
-    //   name: <span>grow(<span className="string">element</span>, <span className="number">magnitude</span>, <span className="bool">loop</span>, <span className="number">duration</span>)</span>,
-    //   description: <span>Scales the element by a <span className="number">magnitude</span> multiplier over <span className="number">duration</span> milliseconds.</span>
-    // },
-    // {
-    //   name: <span>shrink(<span className="string">element</span>, <span className="number">magnitude</span>, <span className="bool">loop</span>, <span className="number">duration</span>)</span>,
-    //   description: <span>Scales the element by a 1/<span className="number">magnitude</span> multiplier over <span className="number">duration</span> milliseconds.</span>
-    // },
-    // {
-    //   name: <span>fadeOut(<span className="string">element</span>, <span className="number">magnitude</span>, <span className="bool">loop</span>, <span className="number">duration</span>)</span>,
-    //   description: <span>Modifies transparency from 1 to <span className="number">magnitude</span> [0,1) over <span className="number">duration</span> milliseconds.</span>
-    // },
-    // {
-    //   name: <span>fadeIn(<span className="string">element</span>, <span className="number">magnitude</span>, <span className="bool">loop</span>, <span className="number">duration</span>)</span>,
-    //   description: <span>Modifies transparency from 0 to <span className="number">magnitude</span> (0,1] over <span className="number">duration</span> milliseconds.</span>
-    // },
+    }
 ];
-let lights = [
+
+/**
+ * List of light reference
+ */
+const lights = [
+    {
+        name: "resetLightCursor",
+        parameters: [],
+        description: <span>The resetLightCursor function resets the properties of the cursor that contains light properties to their defaults.</span>
+    },
     {
         name: "ambientLight",
         parameters: [],
@@ -731,15 +717,13 @@ let lights = [
         name: "setLightTarget",
         parameters: [{ type: "number", name: "x" }, { type: "number", name: "y" }, { type: "number", name: "z" }],
         description: <span>The setLightTarget function sets the point where the light should be pointed to. The default values are x:0, y:0, z:0.</span>
-    },
-    {
-        name: "resetLightCursor",
-        parameters: [],
-        description: <span>The resetLightCursor function resets the properties of the cursor that contains light properties to their defaults.</span>
-    },
+    }
 ];
 
-let groups = [
+/**
+ * List of group reference
+ */
+const groups = [
     {
         name: <span>let <span className="group">myGroup</span> = group</span>,
         parameters: [],
@@ -779,6 +763,9 @@ let groups = [
 
 ];
 
+/**
+ * Combine lists of refence to single object
+ */
 const reference = {
     geometry: geometry,
     transformations: transformations,

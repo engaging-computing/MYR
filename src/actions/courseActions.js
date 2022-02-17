@@ -6,7 +6,7 @@ import * as sceneActions from "./sceneActions";
 
 const courseRef = "/apiv1/courses/";
 const header = { headers: { "content-type": "application/json" } };
-let noLessons = {
+const noLessons = {
     name: "",
     id: -1,
     prompt: "There are no lessons in this course",
@@ -19,8 +19,11 @@ const problem = {
     code: ""
 };
 
-/**
+/*
  * Course Actions
+ */
+/**
+ *  Fetch all the courses available
  */
 export function fetchCourses() {
     return (dispatch) => {
@@ -42,10 +45,22 @@ export function fetchCourses() {
     };
 }
 
+/**
+ * Sends a signal to the reducer to synchronize the courses
+ * 
+ * @param {*} payload List of courses retrieved
+ * 
+ * @returns reducer action object with type: SYNC_COURSE and payload
+ */
 export function syncCourses(payload) {
     return { type: types.SYNC_COURSES, payload: payload };
 }
 
+/**
+ * Fetch specific course
+ * 
+ * @param {string} courseId id of the course getting
+ */
 export function fetchCourse(courseId) {
     return (dispatch) => {
         fetch(courseRef + courseId, header)
@@ -84,15 +99,22 @@ export function fetchCourse(courseId) {
     };
 }
 
+/**
+ * Sends signal to the reducer to load the course retrieved
+ * 
+ * @param {*} course Data of course retrieved
+ * @returns {object} reducer action obj with type: LOAD_COURSE and payload
+ */
 export function loadCourse(course) {
-    return {
-        type: types.LOAD_COURSE,
-        payload: course
-    };
+    return { type: types.LOAD_COURSE, payload: course };
 }
 
-/**
+/*
  * Lesson Actions
+ */
+/**
+ * Fetch the lesson that is supplied by the parameter. 
+ * @param {*} json Lesson data
  */
 export function fetchLesson(json) {
     return (dispatch) => {
@@ -106,10 +128,21 @@ export function fetchLesson(json) {
 }
 
 /**
- * Frontend disables option if out of bounds
+ * Sends signal to the reducer to load a new lesson supplied by parameter
  * 
- * @param {*} currentIndex !!!DESCRIPTION NEEDED!!!
- * @param {*} next !!!DESCRIPTION NEEDED!!!
+ * @param {object} lesson Lesson data
+ * @returns reducer action obj with type: LOAD_LESSON and payload: lesson
+ */
+export function loadLesson(lesson) {
+    return { type: types.LOAD_LESSON, payload: lesson };
+}
+
+/**
+ * Increment the lesson index and load the next lesson.
+ *      Frontend disables option if out of bounds
+ * 
+ * @param {number} currentIndex current index of the course
+ * @param {object} next Object of lesson to be load next
  */
 export function nextLesson(currentIndex, next) {
     return (dispatch) => {
@@ -119,10 +152,11 @@ export function nextLesson(currentIndex, next) {
 }
 
 /**
- * Frontend disables option if out of bounds
+ * Decrement the lesson index and load the previous lesson.
+ *      Frontend disables option if out of bounds
  * 
- * @param {*} currentIndex !!!DESCRIPTION NEEDED!!!
- * @param {*} prev !!!DESCRIPTION NEEDED!!!
+ * @param {number} currentIndex current index of the course
+ * @param {object} prev Object of lesson to be load previous
  */
 export function previousLesson(currentIndex, prev) {
     return (dispatch) => {
@@ -131,18 +165,14 @@ export function previousLesson(currentIndex, prev) {
     };
 }
 
+/**
+ * Sends signal to the reducer to update the current index of the Course
+ * 
+ * @param {number} newIndex New index to be set
+ * @returns {object} reducer action obj with type: SET_INDEX and payload: newIndex
+ */
 export function setCurrentIndex(newIndex) {
-    return {
-        type: types.SET_INDEX,
-        payload: newIndex
-    };
-}
-
-export function loadLesson(lesson) {
-    return {
-        type: types.LOAD_LESSON,
-        payload: lesson
-    };
+    return { type: types.SET_INDEX, payload: newIndex };
 }
 
 export default {

@@ -11,9 +11,15 @@ import { browserType } from "../../utils/browserType";
 import FontSize from "./FontSize.js";
 
 /**
- * Editor is a React Component that creat the Ace Editor in the DOM.
+ * Editor is a React Component that create the Ace Editor in the DOM.
  */
 class Editor extends Component {
+    /**
+     * Called when the Edtior is unmounting (Being removed from the DOM)
+     * 
+     * Editor will unmount when MYR enters ViewOnly mode, and we want to render
+     * whatever the code that's in the editor.
+     */
     componentWillUnmount() {
         // Updates state in reducer before closing editor
         const text = window.ace.edit("ace-editor").getSession().getValue();
@@ -23,6 +29,12 @@ class Editor extends Component {
         this.props.render(text);
     }
 
+    /**
+     * Called when the Editor is mounted (component has been rendererd to the DOM)
+     * 
+     * It sets custom completer of MYR API to editor, 
+     * and add listener to check whether user have unsaved changes.
+     */
     componentDidMount() {
         try {
             // eslint-disable-next-line
@@ -50,6 +62,10 @@ class Editor extends Component {
         this.setState({"previousSettings":this.props.settings});
     }
 
+    /**
+     * Called when the editor is loaded.
+     * It sets options to set the maximum error editor accepts and set the EMCAScript version to 6
+     */
     onLoad() {
         window.ace.edit("ace-editor").session.$worker.send("setOptions", [{
             "maxerr": 1000,

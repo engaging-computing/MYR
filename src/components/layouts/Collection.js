@@ -7,6 +7,11 @@ import SelectProject from "../collection/SelectProject.js";
 
 import * as layoutTypes from "../../constants/LayoutTypes.js";
 
+/**
+ * Create a layout for collection page.
+ * @param {object} param0 List of props that will be use in components
+ * @returns {HTMLElement} Layout of the collection page 
+ */
 export const Collection = ({ editor, editorActions, user, userSettings, userActions, authActions, scene, sceneActions, projectActions, courseActions, projects, courses, match, collectionActions, collections }) => (
     <div className="App">
         <Header
@@ -27,7 +32,7 @@ export const Collection = ({ editor, editorActions, user, userSettings, userActi
             collectionActions={collectionActions}
             collections={collections}
             collection={match.params.collection}
-            layoutType={layoutTypes.CLASSROOM}
+            layoutType={layoutTypes.COLLECTION}
         />
         <div className="row no-gutters">
             <div id="interface" className="col-12 col-md-4">

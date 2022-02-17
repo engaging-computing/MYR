@@ -7,7 +7,6 @@ import * as Actions from "../actions";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 
-
 /**
  * This makes sure we are getting what we think we should
  */
@@ -19,7 +18,7 @@ Collection.propTypes = {
 
 /**
  * This makes the values accessible as props
- * @param {*} state !!!DESCRIPTION NEEDED!!!
+ * @param {*} state Entire redux store state
  */
 const mapStateToProps = state => ({
     editor: state.editor,
@@ -33,7 +32,7 @@ const mapStateToProps = state => ({
 
 /**
  * This maps dispatch actions to props
- * @param {*} dispatch !!!DESCRIPTION NEEDED!!!
+ * @param {*} dispatch Give dipatch to the store
  */
 const mapDispatchToProps = dispatch => ({
     editorActions: bindActionCreators(Actions.EditorActions, dispatch),

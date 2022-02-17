@@ -7,13 +7,18 @@ const initial_state = {
     }
 };
 
+/**
+ * User Reducers
+ */
 export default function user(state = initial_state, action) {
     switch (action.type) {
+        //Save user data to state
         case types.LOGIN:
             return {
                 ...state,
                 user: action.user
             };
+        //Remove user data from state
         case types.LOGOUT:
             return initial_state;
         case types.REFRESH_TOKEN:
