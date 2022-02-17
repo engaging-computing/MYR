@@ -25,6 +25,7 @@ Guided.propTypes = {
 const mapStateToProps = state => ({
     editor: state.editor,
     user: state.user.user,
+    usersettings: state.user.settings,
     scene: state.scene,
     lesson: state.courses.currentLesson,
     projects: state.project,
@@ -43,7 +44,8 @@ const mapDispatchToProps = dispatch => ({
     sceneActions: bindActionCreators(Actions.SceneActions, dispatch),
     projectActions: bindActionCreators(Actions.ProjectActions, dispatch),
     courseActions: bindActionCreators(Actions.CourseActions, dispatch),
-    collectionActions: bindActionCreators(Actions.CollectionActions, dispatch)
+    collectionActions: bindActionCreators(Actions.CollectionActions, dispatch),
+    userActions: bindActionCreators(Actions.UserActions, dispatch),
 });
 
 /**

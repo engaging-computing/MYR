@@ -12,13 +12,14 @@ import * as layoutTypes from "../../constants/LayoutTypes.js";
  * @param {object} param0 List of props that will be use in components
  * @returns {HTMLElement} Layout of the collection page 
  */
-export const Collection = ({ editor, editorActions, user, authActions, scene, sceneActions, projectActions, courseActions, projects, courses, match, collectionActions, collections }) => (
+export const Collection = ({ editor, editorActions, user, userSettings, userActions, authActions, scene, sceneActions, projectActions, courseActions, projects, courses, match, collectionActions, collections }) => (
     <div className="App">
         <Header
             logging={authActions}
             sceneActions={sceneActions}
             actions={editorActions}
             user={user}
+            userActions={userActions}
             scene={scene}
             text={editor.text}
             message={editor.message}
@@ -44,7 +45,7 @@ export const Collection = ({ editor, editorActions, user, authActions, scene, sc
                     savedText={editor.savedText} 
                 />
                 <div className='collection'>
-                    <Editor text={editor.text} user={user} savedText={editor.savedText} />
+                    <Editor text={editor.text} user={user} settings={userSettings} savedText={editor.savedText} />
                 </div>
             </div>
             <div id="scene" className="col-12 col-md-8">

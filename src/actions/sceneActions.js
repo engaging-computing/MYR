@@ -234,5 +234,5 @@ export default {
     toggleDefaultLight,
     toggleCastShadow,
     toggleLightIndicator,
-    updateMoveSpeed
+    updateMoveSpeed,
 };

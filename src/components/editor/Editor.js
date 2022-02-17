@@ -8,6 +8,7 @@ import "brace/ext/language_tools";
 import customCompleter from "./customCompleter.js";
 import KeyboardShortcut from "./KeyboardShortcut.js";
 import { browserType } from "../../utils/browserType";
+import FontSize from "./FontSize.js";
 
 /**
  * Editor is a React Component that create the Ace Editor in the DOM.
@@ -57,6 +58,8 @@ class Editor extends Component {
                 event.returnValue = "You may have unsaved scene changes!";
             }
         });
+
+        this.setState({"previousSettings":this.props.settings});
     }
 
     /**
@@ -68,6 +71,14 @@ class Editor extends Component {
             "maxerr": 1000,
             "esversion": 6
         }]);
+    }
+
+    componentDidUpdate(){
+        if(JSON.stringify(this.state.previousSettings) !== JSON.stringify(this.props.settings) &&
+        this.props.user) {
+            this.props.userActions.updateUserSettings(this.props.user.uid,this.props.settings);
+            this.setState({"previousSettings":this.props.settings});
+        }
     }
     
     /**
@@ -86,6 +97,7 @@ class Editor extends Component {
                     // eslint-disable-next-line
                     ref="aceEditor"
                     theme="github"
+                    fontSize = {this.props.settings.fontSize}
                     value={this.props.text}
                     width="100%"
                     wrapEnabled={true}
@@ -93,7 +105,8 @@ class Editor extends Component {
                     enableLiveAutocompletion={true}
                     onLoad={this.onLoad}
                 />
-                { browserType() === "desktop" ? <KeyboardShortcut/> : null }
+                { browserType() === "desktop" ? <div><KeyboardShortcut/> 
+                    <FontSize userActions={this.props.userActions} settings={this.props.settings}/></div> : null }
             </div>
         );
     }

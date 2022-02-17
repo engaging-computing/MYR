@@ -2,6 +2,9 @@ import * as types from "../constants/ActionTypes";
 
 const initial_state = {
     user: null,
+    settings: {
+        fontSize: 12
+    }
 };
 
 /**
@@ -12,19 +15,32 @@ export default function user(state = initial_state, action) {
         //Save user data to state
         case types.LOGIN:
             return {
+                ...state,
                 user: action.user
             };
         //Remove user data from state
         case types.LOGOUT:
-            return {
-                user: null
-            };
-        //Assign new token to the uid
+            return initial_state;
         case types.REFRESH_TOKEN:
             return {
+                ...state,
                 user: {
-                    ...state,
+                    ...state.user,
                     uid: action.token
+                }
+                
+            };
+        case types.SYNC_USER_SETTINGS:
+            return {
+                ...state,
+                settings: action.settings
+            };
+        case types.UPDATE_FONT_SIZE:
+            return{
+                ...state,
+                settings: {
+                    ...state.settings,
+                    fontSize: action.fontSize
                 }
             };
         default:

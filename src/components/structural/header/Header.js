@@ -166,7 +166,7 @@ class Header extends Component {
                     event.returnValue = "You may have unsaved changes!";
                 }
             });
-        }
+        }   
     }
 
 
@@ -216,6 +216,8 @@ class Header extends Component {
 
         this.props.projectActions.asyncUserProj(this.props.user.uid);
         this.props.collectionActions.asyncCollections(this.props.user.uid);
+        this.props.userActions.asyncUserSettings(this.props.user.uid);
+
         this.setRefreshTime(googleAuth.tokenObj.expires_at);
 
         //send uid to google analyrica
@@ -817,6 +819,8 @@ class Header extends Component {
                         sceneActions={this.props.sceneActions}
                         collectionActions={this.props.collectionActions}
                         user={this.props.user}
+                        settings={this.props.settings}
+                        userActions={this.props.userActions}
                         handleRender={this.handleRender}
                         handleSave={this.handleSave}
                         handleSaveClose={this.handleSaveClose}
