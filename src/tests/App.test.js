@@ -53,6 +53,9 @@ const generateMockProps = () => {
             addPasswor: jest.fn(),
         },
         user: null,
+        settings: {
+            fontSize: 12
+        },
         scene: {
             name: "",
             id: 0,
@@ -71,7 +74,7 @@ const generateMockProps = () => {
                 castShadow: false,
                 lightIndicator: false,
                 moveSpeed: 150,
-                collectionID: ""
+                collectionID: "",
             },
         },
         projectActions: {
@@ -273,7 +276,10 @@ describe("User Reducer", () => {
     it("should return the initial state", () => {
         expect(user(undefined, {})).toEqual(
             {
-                user: null
+                user: null,
+                settings : {
+                    fontSize: 12
+                }
             }
         );
     });
@@ -287,7 +293,10 @@ describe("User Reducer", () => {
             })
         ).toEqual(
             {
-                user: testUser
+                user: testUser,
+                settings:{
+                    fontSize: 12
+                }
             }
         );
     });
@@ -298,7 +307,10 @@ describe("User Reducer", () => {
                 type: types.LOGOUT,
             })
         ).toEqual({
-            user: null
+            user: null,
+            settings:{
+                fontSize: 12
+            }
         }
         );
     });
@@ -317,7 +329,7 @@ describe("Scene Reducer", () => {
                 floorColor: "#222",
                 camConfig: 0,
                 showCoordHelper: true,
-                showFloor: false,
+                showFloor: true,
                 cameraPosition: "0 1.6 3",
                 viewOnly: false,
                 defaultLight: true,

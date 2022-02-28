@@ -1,6 +1,9 @@
 import AFRAME from "aframe";
 const THREE = AFRAME.THREE;
 
+/**
+ * @summary Added a pushable effect to the MYR entities
+ */
 AFRAME.registerComponent("force-pushable", {
     schema: {
         force: { 
@@ -26,38 +29,9 @@ AFRAME.registerComponent("force-pushable", {
     }
 });
 
-
-//change the type of the material to the MeshBasicMaterial
-AFRAME.registerComponent("basicmaterial",{
-    schema:{
-        default:""
-    },
-    init: function(){
-        const color = this.el.getObject3D("mesh").material.color;
-        this.el.getObject3D("mesh").material = new THREE.MeshBasicMaterial({
-            color:color,
-        });
-    }
-});
-
-//change the material of a-grid to MeshBasicMaterial
-AFRAME.registerComponent("gridmaterial",{
-    schema:{
-        default:""
-    },
-    init: function(){
-        const texture = new THREE.TextureLoader().load("https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v1.16.3/assets/grid.png");
-        texture.repeat = new THREE.Vector2(75,75);
-        texture.wrapS = THREE.RepeatWrapping;
-        texture.wrapT = THREE.RepeatWrapping;
-        
-        this.el.getObject3D("mesh").material = new THREE.MeshBasicMaterial({
-            map: texture
-        });
-    }
-});
-
-//This sets the side where the shadow should be rendered
+/**
+ * @summary This sets the side where the shadow should be cast on entity
+ */
 AFRAME.registerComponent("shadowcustomsetting", {
     schema:{
         default:""
@@ -82,21 +56,11 @@ AFRAME.registerComponent("shadowcustomsetting", {
     },
 });
 
-//This change necessary properties to entity to create a outline to light indicator
-AFRAME.registerComponent("outline",{
-    schema:{
-        default:""
-    },
-    init: function(){
-        let mesh = this.el.getObject3D("mesh");
-        let invertColor = ~mesh.material.color.getHex();
-        
-        mesh.material.color.set(invertColor);
-        mesh.material.side = THREE.BackSide;
-    }
-});
 
-//This calculate and sets the rotation of the entity based on 2 points
+/**
+ * @summary  Calculate and sets the rotation of the entity based on 2 points
+ *              This is use for the light indicator that has the property of lighttarget (directional and spot light)
+ */
 AFRAME.registerComponent("indicatorrotation",{
     schema:{
         position:{

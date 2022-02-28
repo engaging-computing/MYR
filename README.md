@@ -9,16 +9,12 @@ The Engaging Computing Group develops new technologies to enable learners—yout
 ## Status
 [![CircleCI](https://circleci.com/gh/engaging-computing/MYR.svg?style=shield)](https://circleci.com/gh/engaging-computing/MYR)
 
-## Change Log - 2.4.0 -> 3.0.0
-- Removed undocumented aliases for `box` and `prisim`
-    - All scenes using these aliases have been automatically changed to reflect the new API
-- Changed the behavior of `getRandomColor` to only return a random color
-- Added `setRandomColor` to behave like `getRandomColor` did previously
-    - A migration has updated scenes to be properly using these functions
-        - If your scene broke as a result of this update, please let us know [support@learnmyr.org](mailto:support@learnmyr.org)
-- Misc. Package dependency updates
-- Moved Model and Asset reference to their own page
-- Removed broken links to non-existent example pages
+## Change Log - 3.0.0 -> 3.1.0
+- Updated sorting for user projects to be case insensitive.
+- Added ability to change code font size for an account.
+- Added transparency to helper grid
+- Additional Documentation for development.
+- Misc. Dependency updates
 
 
 

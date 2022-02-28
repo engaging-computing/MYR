@@ -23,21 +23,23 @@ const selectStyle = {
         ...base,
         zIndex: "999"
     }),
-
 };
 
+/**
+ * React component for selecting list of projects from collection
+ */
 class SelectProject extends PureComponent {
+
+    /**
+     * Fetch the selected scene when the project is selected from the collection
+     * @param {Event} projectID ID of the project to be fetch
+     */
     handleChange = (projectID) => {
         // show warning if there's unsaved change
         if(this.hasEditorChanged()){
-            if((window.confirm("Are you sure you want to continue?\nYou will lose any unsaved work!"))){
-                if (this.props.user && this.props.user.uid) {
-                    this.props.editorActions.fetchScene(projectID.value, this.props.uid);
-                } else {
-                    this.props.editorActions.fetchScene(projectID.value);
-                }
+            if(!window.confirm("Are you sure you want to continue?\nYou will lose any unsaved work!")){
+                return;
             }
-            return;
         }
 
         if (this.props.user && this.props.user.uid) {
@@ -47,6 +49,10 @@ class SelectProject extends PureComponent {
         }
     }
 
+    /**
+     * Returns wheter the text in the editor match with the savedText
+     * @returns {boolean} true if savedText is different from text in editor, false otherwise.
+     */
     hasEditorChanged = () => {
         let text;
         try {
@@ -62,6 +68,9 @@ class SelectProject extends PureComponent {
         return true;
     }
 
+    /**
+     * @returns Returns DOM Elements of drop down list of projects
+     */
     renderSelect = () => {
         let collection = this.props.collection;
         const placeholder = "Select a project";
@@ -78,6 +87,9 @@ class SelectProject extends PureComponent {
         );
     }
 
+    /**
+     * @returns Render DOM elements of drop down list of collection
+     */
     render() {
         return (
             <div id="select-project">
