@@ -1,6 +1,9 @@
 import AFRAME from "aframe";
 const THREE = AFRAME.THREE;
 
+/**
+ * @summary Added a pushable effect to the MYR entities
+ */
 AFRAME.registerComponent("force-pushable", {
     schema: {
         force: { 
@@ -26,7 +29,9 @@ AFRAME.registerComponent("force-pushable", {
     }
 });
 
-//change the material of a-grid to MeshBasicMaterial
+/**
+ * @summary This sets the side where the shadow should be cast on entity
+ */
 AFRAME.registerComponent("gridmaterial",{
     schema:{
         default:""
@@ -69,7 +74,10 @@ AFRAME.registerComponent("shadowcustomsetting", {
     },
 });
 
-//This calculate and sets the rotation of the entity based on 2 points
+/**
+ * @summary  Calculate and sets the rotation of the entity based on 2 points
+ *              This is use for the light indicator that has the property of lighttarget (directional and spot light)
+ */
 AFRAME.registerComponent("indicatorrotation",{
     schema:{
         position:{
