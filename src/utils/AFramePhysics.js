@@ -32,6 +32,24 @@ AFRAME.registerComponent("force-pushable", {
 /**
  * @summary This sets the side where the shadow should be cast on entity
  */
+AFRAME.registerComponent("gridmaterial",{
+    schema:{
+        default:""
+    },
+    init: function(){
+        const texture = new THREE.TextureLoader().load("/img/grid_alpha_0.png");
+        texture.repeat = new THREE.Vector2(75,75);
+        texture.wrapS = THREE.RepeatWrapping;
+        texture.wrapT = THREE.RepeatWrapping;
+        
+        this.el.getObject3D("mesh").material = new THREE.MeshBasicMaterial({
+            map: texture,
+            transparent: true
+        });
+    }
+});
+
+//This sets the side where the shadow should be rendered
 AFRAME.registerComponent("shadowcustomsetting", {
     schema:{
         default:""
@@ -55,7 +73,6 @@ AFRAME.registerComponent("shadowcustomsetting", {
         });
     },
 });
-
 
 /**
  * @summary  Calculate and sets the rotation of the entity based on 2 points
