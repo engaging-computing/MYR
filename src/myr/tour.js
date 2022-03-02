@@ -1,3 +1,7 @@
+/**
+ * Selector: Where to position the tour card.
+ * Content : Content to display 
+ */
 export const TourSteps = [
     {
         selector: "#ace-editor",

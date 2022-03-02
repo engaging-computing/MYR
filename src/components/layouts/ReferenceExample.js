@@ -9,6 +9,11 @@ import * as layoutTypes from "../../constants/LayoutTypes.js";
 
 import "../../css/ReferencePage.css";
 
+/**
+ * Create a layout for example scene page
+ * @param {object} param0 List of props that will be use in components
+ * @returns {HTMLElement} Layout for example scene page
+ */
 export const ReferenceExample = ({ editor, user, scene, referenceExample, referenceExampleActions, editorActions, authActions, projectActions, projects, courseActions, courses, match, sceneActions, collectionActions, collections }) => (
     <div className="App">
         <Header

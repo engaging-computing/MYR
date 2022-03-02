@@ -5,6 +5,11 @@ import ReferencePage from "../reference/ReferencePage";
 
 import * as layoutTypes from "../../constants/LayoutTypes.js";
 
+/**
+ * Create a layout for reference page.
+ * @param {object} param0 List of props that will be use in components
+ * @returns {HTMLElement} Layout of the reference page 
+ */
 export const Reference = ({ editor, editorActions, user, authActions, scene, sceneActions, projectActions, courseActions, projects, courses, match, collectionActions, collections }) => (
     <div className="App">
         <Header

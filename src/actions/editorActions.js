@@ -8,7 +8,8 @@ const sceneRef = "/apiv1/scenes";
  * Sends a signal to the reducer to render the scene
  *
  * @param {string} text Text from the Ace Editor component
- *
+ * @param {*} uid A JWT token to authenticate with the backend
+ * 
  * @returns reducer action obj with action type and text
  */
 export function render(text, uid) {
@@ -19,6 +20,7 @@ export function render(text, uid) {
  * Sends a signal to the reducer to refresh with the given text
  *
  * @param {string} text Text from the Ace Editor component
+ * @param {*} uid A JWT token to authenticate with the backend
  *
  * @returns reducer action obj with action type and text
  */
@@ -36,8 +38,11 @@ export function recover() {
 }
 
 /**
- * This does an async fetch to Firebase to grab the scene, then
+ * This does an async fetch to backend to grab the scene, then
  * dispatches the necessary functions to update the state.
+ * 
+ * @param {string} id scene id
+ * @param {*} uid A JWT token to authenticate with the backend
  */
 export function fetchScene(id, uid = "anon") {
     return (dispatch) => {  // Return a func that dispatches events after async
@@ -89,13 +94,8 @@ export function fetchScene(id, uid = "anon") {
  *
  * @returns reducer action obj with action type
  */
-
 export function updateSavedText(savedText){
     return {type: types.EDITOR_UPDATE_SAVEDTEXT, savedText};
-}
-
-export function addPassword(payload) {
-    return { type: types.ADD_PW, payload };
 }
 
 export default {
@@ -103,6 +103,5 @@ export default {
     refresh,
     recover,
     fetchScene,
-    addPassword,
     updateSavedText,
 };
