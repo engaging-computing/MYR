@@ -21,6 +21,10 @@ class Editor extends Component {
      * whatever the code that's in the editor.
      */
     componentWillUnmount() {
+        this.refreshText();
+    }
+
+    refreshText = () => {
         // Updates state in reducer before closing editor
         const text = window.ace.edit("ace-editor").getSession().getValue();
         this.props.refresh(text, this.props.user ? this.props.user.uid : "anon");
@@ -106,7 +110,7 @@ class Editor extends Component {
                     onLoad={this.onLoad}
                 />
                 { browserType() === "desktop" ? <div><KeyboardShortcut/> 
-                    <FontSize userActions={this.props.userActions} settings={this.props.settings}/></div> : null }
+                    <FontSize userActions={this.props.userActions} settings={this.props.settings} refreshText={this.refreshText}/></div> : null }
             </div>
         );
     }
