@@ -4,16 +4,20 @@ import Ide from "./containers/Ide";
 import Guided from "./containers/Guided";
 import Collection from "./containers/Collection";
 import Reference from "./containers/Reference";
-import TextureReference from "./containers/TextureReference";
+import AssetReferencePage from "./containers/AssetReference";
 import ReferenceExample from "./containers/ReferenceExample";
 
+/**
+ * Create an routers that switch to correct react component for different endpoints
+ * @returns BrowserRouter with all of available router (except about page)
+ */
 const router = () => {
     return (
         <BrowserRouter>
             <Switch>
                 <Route exact path='/' component={Ide} />
                 <Route exact path='/reference' component={Reference} />
-                <Route exact path='/textureReference' component={TextureReference} />
+                <Route exact path='/asset-reference' component={AssetReferencePage} />
                 <Route path='/course/:shortname' component={Guided} />
                 <Route path='/collection/:collection' component={Collection} />
                 <Route path='/reference/:function' component={ReferenceExample} />
@@ -25,9 +29,9 @@ const router = () => {
                 />
                 <Redirect from="/lesson" exact to="/" />
                 <Redirect from="/course" exact to="/" />
-                
+
                 <Route path='/:id' exact render={({ match }) => {
-                    if(match.params.id === "error-404"){
+                    if (match.params.id === "error-404") {
                         return <Route path="/:id" component={Ide} />;
                     }
                     return <Redirect to={`/scene/${match.params.id}?redirected=true`} />;

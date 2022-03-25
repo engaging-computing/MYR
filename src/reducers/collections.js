@@ -5,19 +5,25 @@ const initial_state = {
     collection: []
 };
 
+/**
+ * Collection Reducer
+ */
 export default function classes(state = initial_state, action) {
     switch (action.type) {
-        case types.SYNC_CLASSES:
+        //Update list of collections
+        case types.SYNC_COLLECTIONS:
             return {
                 ...state,
                 collections: action.payload
             };
-        case types.SYNC_CLASS:
+        //Load a collection  
+        case types.SYNC_COLLECTION:
             return {
                 ...state,
                 collection: action.payload
             };
-        case types.DELETE_CLASS:
+        //Delete the collection from list
+        case types.DELETE_COLLECTION:
             let userClasses = [];
             userClasses = state.collections.filter(x => {
                 return x._id !== action.id;

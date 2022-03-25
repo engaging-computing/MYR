@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Component } from "react";
 import myrReference from "../../myr/reference";
 import * as refFunctions from "../../myr/reference";
 
@@ -30,8 +30,21 @@ const newTabStyle = {
     top: 0,
     right: 50,
 };
-export default class Reference extends React.Component {
 
+const assetReferenceBtn = {
+    position: "fixed",
+    top: 0,
+    right: 95,
+};
+
+/**
+ * Reference is a react component that creates drawer contains references
+ */
+class Reference extends Component {
+    /**
+     * Constructor
+     *  value represents the current tab that's opened  
+     */
     constructor(props) {
         super(props);
         this.state = {
@@ -40,14 +53,29 @@ export default class Reference extends React.Component {
         this.tableData = myrReference();
     }
 
+    /**
+     * Handler for when user clicked the tab, it updates the state "value" with value passed in
+     * 
+     * @param {Event} event 
+     * @param {string} value tab to be changed to. It should be an alphabet
+     */
     handleChange = (event, value) => {
         this.setState({ value });
     };
 
+    /**
+     * Handler for opening the reference page 
+     */
     handleOpen = () => {
         window.open(window.origin + "/reference");
         this.setState({ value: "a" });
     };
+
+    assetHandleOpen = () => {
+        window.open(window.origin + "/asset-reference");
+        this.setState({ value: "a" });
+    };
+
 
     nameHelper = (name, parameters) => {
         return (
@@ -71,6 +99,11 @@ export default class Reference extends React.Component {
         );
     };
 
+    /**
+     * Create a button that will link to the example scene
+     * @param {string} example name of the API
+     * @returns {HTMLElement} IconButton with link to the example scene
+     */
     exampleHelper = (example) => {
         if (example) {
             let link = "/reference/" + example;
@@ -87,8 +120,13 @@ export default class Reference extends React.Component {
         }
     };
 
+    /**
+     * Create a table of references by retrieve array of references from tableData by category
+     * 
+     * @param {string} category name of the category
+     * @returns {Table} DOM elements of table with references with passed category 
+     */
     TableEx = (category) => {
-
         return (
             <Table  >
                 <TableHead >
@@ -111,6 +149,9 @@ export default class Reference extends React.Component {
         );
     };
 
+    /**
+     * Reneter Button that will open Drawer of reference with different categories 
+     */
     render() {
         const style = {
             margin: 2,
@@ -151,13 +192,20 @@ export default class Reference extends React.Component {
                                     <Icon className="material-icons">close</Icon>
                                 </IconButton>
                                 <IconButton
+                                    title="Open reference page &#013;(in a new tab)"
                                     color="default"
                                     style={newTabStyle}
                                     onClick={this.handleOpen}>
-                                    <Icon className="material-icons">open_in_new</Icon>
+                                    <Icon className="material-icons">menu_book</Icon>
+                                </IconButton>
+                                <IconButton
+                                    title="Open asset reference page &#013;(in a new tab)"
+                                    color="default"
+                                    style={assetReferenceBtn}
+                                    onClick={this.assetHandleOpen}>
+                                    <Icon className="material-icons-outlined">settings_system_daydream</Icon>
                                 </IconButton>
                             </div>
-
                             <div>
                                 <Tabs
                                     id="reference-tabs"
@@ -196,24 +244,16 @@ export default class Reference extends React.Component {
                                             </Hidden>
                                         }
                                         value='d' />
-                                    {/*<Tab
-                                    style={{ background: "green", color: "white" }}
-                                    icon={<Icon className="material-icons">open_in_new</Icon>}
-                                    label="OPEN IN NEW TAB"
-                                    value='n'
-                                    onClick={this.handleOpen} />
-                                <Tab
-                                    style={{ background: "red", color: "white" }}
-                                    icon={<Icon className="material-icons">close</Icon>}
-                                    label="CLOSE"
-                                    value='x'
-                                    onClick={() => {
-                                        this.props.handleReferenceToggle();
-                                        this.setState({ value: "a" });
-                                    }} />*/}
+                                    <Tab
+                                        icon={<Icon className="material-icons geometry">highlight</Icon>}
+                                        label={
+                                            <Hidden xsDown>
+                                                <div>LIGHT</div>
+                                            </Hidden>
+                                        }
+                                        value='e' />
                                 </Tabs>
                             </div>
-
                             {<div style={{ margin: 7, overflow: "hidden", minHeight: "2em" }}>
                                 <p style={{ fontSize: "80%" }}> Key: <span className="array">array </span>
                                     <span className="bool">bool </span>
@@ -238,9 +278,15 @@ export default class Reference extends React.Component {
                                 <div style={{ marginTop: 0, overflow: "scroll" }}>
                                     {this.TableEx("groups")}
                                 </div>}
+                            {this.state.value === "e" &&
+                                <div style={{ marginTop: 0, overflow: "scroll" }}>
+                                    {this.TableEx("lights")}
+                                </div>}
                         </Drawer>
                     </React.Fragment> : null}
             </div>
         );
     }
 }
+
+export default Reference;

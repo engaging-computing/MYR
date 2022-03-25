@@ -1,0 +1,31 @@
+name: Build MYR
+
+on: [push, pull_request]
+
+jobs:
+  ci-checks:
+    runs-on: ubuntu-latest
+    env: 
+      NODE_OPTIONS: '--max_old_space_size=4096'
+    container:
+      image: node:12.18
+    
+    steps:
+      - uses: actions/checkout@v1
+      - name: Setup cache
+        uses: actions/cache@v2
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-${{ hashFiles('**/package-lock.json') }}
+      - name: Reconfigure git to use HTTP authentication
+        run: >
+          git config --global url."https://github.com/".insteadOf
+          ssh://git@github.com/
+      - name: Fetch packages
+        run: npm install
+      - name: Run Linter
+        run: npm run lint
+      - name: Run unit tests 
+        run: npm test
+      - name: Build production build
+        run: npm run build

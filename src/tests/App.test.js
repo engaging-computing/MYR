@@ -38,7 +38,6 @@ const generateMockProps = () => {
             setCamera: jest.fn(),
             changePerspective: jest.fn(),
             changeView: jest.fn(),
-            toggleFly: jest.fn(),
             toggleFloor: jest.fn(),
             loadSettings: jest.fn(),
             changeSetting: jest.fn(),
@@ -54,6 +53,9 @@ const generateMockProps = () => {
             addPasswor: jest.fn(),
         },
         user: null,
+        settings: {
+            fontSize: 12
+        },
         scene: {
             name: "",
             id: 0,
@@ -65,11 +67,14 @@ const generateMockProps = () => {
                 floorColor: "#222",
                 camConfig: 0,
                 showCoordHelper: false,
-                canFly: false,
                 showFloor: true,
                 cameraPosition: "0 1.6 3",
                 viewOnly: false,
-                collectionID: ""
+                defaultLight: true,
+                castShadow: false,
+                lightIndicator: false,
+                moveSpeed: 150,
+                collectionID: "",
             },
         },
         projectActions: {
@@ -271,7 +276,10 @@ describe("User Reducer", () => {
     it("should return the initial state", () => {
         expect(user(undefined, {})).toEqual(
             {
-                user: null
+                user: null,
+                settings : {
+                    fontSize: 12
+                }
             }
         );
     });
@@ -285,7 +293,10 @@ describe("User Reducer", () => {
             })
         ).toEqual(
             {
-                user: testUser
+                user: testUser,
+                settings:{
+                    fontSize: 12
+                }
             }
         );
     });
@@ -296,7 +307,10 @@ describe("User Reducer", () => {
                 type: types.LOGOUT,
             })
         ).toEqual({
-            user: null
+            user: null,
+            settings:{
+                fontSize: 12
+            }
         }
         );
     });
@@ -314,11 +328,14 @@ describe("Scene Reducer", () => {
                 skyColor: "white",
                 floorColor: "#222",
                 camConfig: 0,
-                showCoordHelper: false,
-                canFly: false,
+                showCoordHelper: true,
                 showFloor: true,
                 cameraPosition: "0 1.6 3",
                 viewOnly: false,
+                defaultLight: true,
+                castShadow: false,
+                lightIndicator: false,
+                moveSpeed: 150,
                 collectionID: ""
             }
         };

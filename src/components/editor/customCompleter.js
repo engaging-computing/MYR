@@ -1,9 +1,13 @@
 import myrReference from "../../myr/reference.js";
 import myrTextures from "../structural/Textures.js";
+import myrModels from "../structural/Models.js";
 
+/**
+ * Creates customCompleter for all MYR references and keywords for JS, color code, and assets
+ */
 export const customCompleter = {
     getCompletions: function (editor, session, pos, prefix, callback) {
-        let BasicAutocompleteKeyWords = [
+        const BasicAutocompleteKeyWords = [
             "const",
             "yield",
             "import",
@@ -35,20 +39,27 @@ export const customCompleter = {
             "static"
         ];
 
-        let texture = myrTextures();
-        let Texture = [...texture.TexturePack.map(obj => obj.title),
-            "group()"
-        ];
+        const texture = myrTextures();
+        const Texture = [...texture.TexturePack.map(obj => obj.title)];
 
+        const model = myrModels();
+        const Model = [...model.ModelPack.keys()];
+
+<<<<<<< HEAD
         let reference = myrReference();
         let keyWords = [...reference.geometry.map(obj => obj.name + "()"),
             ...reference.geometry.map(obj => obj.byname + "()"),
+=======
+        const reference = myrReference();
+        const MYRKeyWords = [...reference.geometry.map(obj => obj.name + "()"),
+>>>>>>> 47f4a1c6a8606e286410ea5c55a04ed32a46dcea
             ...reference.transformations.map(obj => obj.name + "()"),
             ...reference.animations.map(obj => obj.name + "()"),
+            ...reference.lights.map(obj=>obj.name+"()"),
             "group()"
         ];
 
-        let Colors = [
+        const Colors = [
             "aliceblue",
             "antiquewhite",
             "aqua",
@@ -208,12 +219,19 @@ export const customCompleter = {
             };
         }));
 
-        callback(null, keyWords.map(function (word) {
+        callback(null, MYRKeyWords.map(function (word) {
             return {
                 caption: word,
                 value: word,
                 meta: "MYR",
-                score: 2
+                score: 2,
+                completer:{
+                    insertMatch: function(editor,data){
+                        editor.completer.insertMatch({value:data.value});
+                        let pos = editor.selection.getCursor();
+                        editor.gotoLine(pos.row+1,pos.column-1); 
+                    }
+                }
             };
         }));
 
@@ -231,6 +249,15 @@ export const customCompleter = {
                 caption: word,
                 value: word,
                 meta: "texture",
+                score: 3
+            };
+        }));
+
+        callback(null, Model.map(function (word) {
+            return {
+                caption: word,
+                value: word,
+                meta: "model",
                 score: 3
             };
         }));

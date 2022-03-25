@@ -5,7 +5,11 @@ import {
     Icon,
 } from "@material-ui/core";
 import * as layoutTypes from "../../../constants/LayoutTypes";
+import { TourSteps } from "../../../myr/tour";
 
+/**
+ * MyrTour components shows the guide of MYR
+ */
 class MyrTour extends Component {
     constructor(props) {
         super(props);
@@ -14,6 +18,9 @@ class MyrTour extends Component {
         };
     }
 
+    /**
+     * Handle tour closed
+     */
     closeTour = () => {
         if (this.state.viewOnlyOnOpen) {
             this.props.changeView();
@@ -21,6 +28,9 @@ class MyrTour extends Component {
         this.props.handleTourToggle();
     }
 
+    /**
+     * Create tour
+     */
     render() {
         let isDisabled = this.props.layoutType === layoutTypes.REFERENCE;
         return (
@@ -28,7 +38,7 @@ class MyrTour extends Component {
                 {!isDisabled ?
                     <React.Fragment>
                         <Tour
-                            steps={steps}
+                            steps={formatSteps(TourSteps)}
                             isOpen={this.props.tourOpen}
                             onAfterOpen={() => {
                                 this.setState({ viewOnlyOnOpen: this.props.viewOnly });
@@ -58,54 +68,34 @@ class MyrTour extends Component {
     }
 }
 
-const steps = [
-    {
-        selector: "#ace-editor",
-        content: "This is the editor. You can create 3D scenes using JavaScript " +
-            "and a special set of instructions or functions to MYR.\n The editor can be " +
-            "toggled on and off by opening the settings menu in the top right and " +
-            "clicking the \"View Editor\" switch."
-    },
-    {
-        selector: "#play-btn",
-        content: "The Play button will render the scene."
-    },
-    {
-        selector: "#stop-btn",
-        content: "The Stop button will stop the scene. \n Use this to save battery."
-    },
-    {
-        selector: "#scene",
-        content: "The View is where you can see your work. \n Click the goggle to view in VR."
-    },
-    {
-        selector: "#new-btn",
-        content: "Create a new scene from scratch. Be sure to save first!",
-    },
-    {
-        selector: "#save-btn",
-        content: "Save your work.",
-    },
-    {
-        selector: "#open-btn",
-        content: "See previous work and view examples.",
-    },
-    {
-        selector: "#ref-btn",
-        content: "Use the Reference to see all MYR has to offer.",
-    },
-    {
-        selector: "#configure-scene",
-        content: "Modify and share your scene including setting the background color, enabling the grid, and enabling flying.",
-    },
-    {
-        selector: "#select-course",
-        content: "View the list of available courses to get you started on using MYR.",
-    },
-    {
-        selector: "#user",
-        content: "You can log in with a Google account in order to save your scenes.",
-    },
-];
+/**
+ * Wrap each line of string with div
+ */
+const formatLineBreaks = (string) => {
+    if (typeof string !== "string") {
+        return string;
+    }
+    else {
+        return (
+            <div>
+                {
+                    string.split("\n").map( (i, key) => {
+                        return <div key={key}>{i}</div>;
+                    })
+                }
+            </div>
+        );
+    }
+};
+
+/**
+ * Formats all the strings of tours into an elements
+ */
+const formatSteps = (steps) => {
+    return steps.map( (step) => {
+        step.content = formatLineBreaks(step.content);
+        return step;
+    });
+};
 
 export default MyrTour;
