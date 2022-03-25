@@ -45,14 +45,8 @@ export const customCompleter = {
         const model = myrModels();
         const Model = [...model.ModelPack.keys()];
 
-<<<<<<< HEAD
-        let reference = myrReference();
-        let keyWords = [...reference.geometry.map(obj => obj.name + "()"),
-            ...reference.geometry.map(obj => obj.byname + "()"),
-=======
         const reference = myrReference();
         const MYRKeyWords = [...reference.geometry.map(obj => obj.name + "()"),
->>>>>>> 47f4a1c6a8606e286410ea5c55a04ed32a46dcea
             ...reference.transformations.map(obj => obj.name + "()"),
             ...reference.animations.map(obj => obj.name + "()"),
             ...reference.lights.map(obj=>obj.name+"()"),
