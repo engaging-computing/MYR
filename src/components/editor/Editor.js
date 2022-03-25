@@ -2,16 +2,28 @@ import React, { Component } from "react";
 import AceEditor from "react-ace";
 import "brace/mode/javascript";
 import "brace/theme/github";
-import "brace/ext/language_tools";
-import customCompleter from "./customCompleter.js";
-
 import "brace/ext/searchbox";
+import "brace/ext/language_tools";
+
+import customCompleter from "./customCompleter.js";
+import KeyboardShortcut from "./KeyboardShortcut.js";
+import { browserType } from "../../utils/browserType";
+import FontSize from "./FontSize.js";
 
 /**
+<<<<<<< HEAD
  * Editor is a React Component that creates the Ace Editor in the DOM.
+=======
+ * Editor is a React Component that create the Ace Editor in the DOM.
+>>>>>>> 47f4a1c6a8606e286410ea5c55a04ed32a46dcea
  */
-
 class Editor extends Component {
+    /**
+     * Called when the Edtior is unmounting (Being removed from the DOM)
+     * 
+     * Editor will unmount when MYR enters ViewOnly mode, and we want to render
+     * whatever the code that's in the editor.
+     */
     componentWillUnmount() {
         // Updates state in reducer before closing editor
         const text = window.ace.edit("ace-editor").getSession().getValue();
@@ -21,6 +33,12 @@ class Editor extends Component {
         this.props.render(text);
     }
 
+    /**
+     * Called when the Editor is mounted (component has been rendererd to the DOM)
+     * 
+     * It sets custom completer of MYR API to editor, 
+     * and add listener to check whether user have unsaved changes.
+     */
     componentDidMount() {
         try {
             // eslint-disable-next-line
@@ -44,8 +62,14 @@ class Editor extends Component {
                 event.returnValue = "You may have unsaved scene changes!";
             }
         });
+
+        this.setState({"previousSettings":this.props.settings});
     }
 
+    /**
+     * Called when the editor is loaded.
+     * It sets options to set the maximum error editor accepts and set the EMCAScript version to 6
+     */
     onLoad() {
         window.ace.edit("ace-editor").session.$worker.send("setOptions", [{
             "maxerr": 1000,
@@ -53,28 +77,41 @@ class Editor extends Component {
         }]);
     }
 
+    componentDidUpdate(){
+        if(JSON.stringify(this.state.previousSettings) !== JSON.stringify(this.props.settings) &&
+        this.props.user) {
+            this.props.userActions.updateUserSettings(this.props.user.uid,this.props.settings);
+            this.setState({"previousSettings":this.props.settings});
+        }
+    }
+    
     /**
      * Creates the editor in the DOM
      */
     render() {
         return (
-            <AceEditor
-                editorProps={{
-                    $blockScrolling: Infinity,
-                }}
-                height="94vh"
-                mode="javascript"
-                name="ace-editor"
-                // eslint-disable-next-line
-                ref="aceEditor"
-                theme="github"
-                value={this.props.text}
-                width="100%"
-                wrapEnabled={true}
-                enableBasicAutocompletion={false}
-                enableLiveAutocompletion={true}
-                onLoad={this.onLoad}
-            />
+            <div>
+                <AceEditor
+                    editorProps={{
+                        $blockScrolling: Infinity,
+                    }}
+                    height="90vh"
+                    mode="javascript"
+                    name="ace-editor"
+                    // eslint-disable-next-line
+                    ref="aceEditor"
+                    theme="github"
+                    fontSize = {this.props.settings.fontSize}
+                    value={this.props.text}
+                    width="100%"
+                    wrapEnabled={true}
+                    enableBasicAutocompletion={false}
+                    enableLiveAutocompletion={true}
+                    onLoad={this.onLoad}
+                />
+                { browserType() === "desktop" ? <div><KeyboardShortcut/> 
+                    <FontSize userActions={this.props.userActions} settings={this.props.settings}/></div> : null }
+            </div>
         );
     }
 }

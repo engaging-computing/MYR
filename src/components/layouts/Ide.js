@@ -7,6 +7,11 @@ import Banner from "../structural/header/Banner";
 
 import * as layoutTypes from "../../constants/LayoutTypes.js";
 
+/**
+ * Create a Layout for main MYR page.
+ * @param {object} param0 List of props that will be use in components
+ * @returns {HTMLElement} Layout of the MYR page
+ */
 export const Ide = ({ editor, editorActions, user, authActions, scene, sceneActions, projectActions, courseActions, projects, courses, match, collectionActions, collections }) => (
     <div className="App">
         <Banner 

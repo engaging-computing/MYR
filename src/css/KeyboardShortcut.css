@@ -1,0 +1,40 @@
+.keyboard-shortcut {
+    width:auto;
+}
+
+.title {
+    font-size:large
+}
+
+.shortcut {
+    font-size:xx-small
+}
+
+.right {
+    float: left;
+    width: 310px;
+    padding: 10px;
+}
+
+.note {
+    margin-left: 1%;
+}
+
+.font-button {
+    height:33px;
+    width:70px;
+}
+
+.font {
+    display: inline-block;
+    margin-left:2px;
+}
+
+.whole-keyboard {
+    display: inline-block;
+}
+
+.select {
+    color: white !important;
+    margin-left: 5px;
+}
