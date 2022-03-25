@@ -11,11 +11,7 @@ import { browserType } from "../../utils/browserType";
 import FontSize from "./FontSize.js";
 
 /**
-<<<<<<< HEAD
  * Editor is a React Component that creates the Ace Editor in the DOM.
-=======
- * Editor is a React Component that create the Ace Editor in the DOM.
->>>>>>> 47f4a1c6a8606e286410ea5c55a04ed32a46dcea
  */
 class Editor extends Component {
     /**

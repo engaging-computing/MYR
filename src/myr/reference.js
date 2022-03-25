@@ -18,15 +18,9 @@ const HtmlTooltip = withStyles(theme => ({
     },
 }))(Tooltip);
 
-<<<<<<< HEAD
-/*const handleTextureOpen = () => {
-    window.open(window.origin + "/textureReference");
-};*/
-=======
 const handleAssetReferenceOpen = (isTexture = false) => {
     window.open(window.origin + "/asset-reference" + (isTexture ? "?tab=textures" : ""));
 };
->>>>>>> 47f4a1c6a8606e286410ea5c55a04ed32a46dcea
 
 /**
  * Return a react elements contain a cue-card for String data type
@@ -314,13 +308,8 @@ const transformations = [
     },
     {
         name: "setTexture",
-<<<<<<< HEAD
-        parameters: [{type: "string", name: "texture"}, {type: "number", name: "widthRepeat"}, {type: "number", name: "heightRepeat"}],
-        description: <span>The setTexture function changes the texture of the cursor. Textures can be applied either by using the name of one of these textures or by using a valid url (e.g. "bricks" or "https://learnmyr.org/img/MYR-Logo.png"). WidthRepeat and heightRepeat decide how many times the texture is repeated on the object in each direction. If widthRepeat or heightRepeat are not declared they will be set to 1. Depending on the policy of the website they’re from, image URLs may not be usable, which will result in a blank Texture and Color. An empty setTexture() or setTexture("") statement will remove the current texture.</span>,
-=======
         parameters: [{ type: "string", name: "texture" }, { type: "number", name: "widthRepeat" }, { type: "number", name: "heightRepeat" }],
         description: <span>The setTexture function changes the texture of the cursor. The texture's normal color is displayed when setTextureColoring() is false, otherwise the texture will be affected by the current color. Textures can be applied either by using the name of one of <button id="textures" onClick={() => handleAssetReferenceOpen(true)} style={{ backgroundColor: "white", color: "#47a0ff", padding: 0, border: "none" }}>these textures</button> or by inserting a valid url (e.g. "bricks" or "https://learnmyr.org/img/MYR-Logo.png"). widthRepeat and heightRepeat will change how many times the texture is displayed on the object in each direction. If widthRepeat and heightRepeat are not declared they will be set to default settings. Depending on the policy of the website they’re from, image URLs may not be usable, which will result in a blank Texture and Color. An empty setTexture() or setTexture("") statement will remove the current texture.</span>,
->>>>>>> 47f4a1c6a8606e286410ea5c55a04ed32a46dcea
         example: "setTexture"
     },
     {
