@@ -680,7 +680,7 @@ class Header extends Component {
                             Show Welcome Screen
                         </Button>
                     </Sidebar>
-                    <h1 className="mr-2 d-none d-sm-block"
+                    <h1 className="mr-1 d-none d-sm-block"
                         style={{ cursor: "pointer" }}
                         onClick={() => { window.location.assign(window.origin); }} >
                         MYR
@@ -729,6 +729,7 @@ class Header extends Component {
                             id="new-btn"
                             onClick={() => { window.location.assign(window.origin); }}
                             style={style.default}
+                            size= "small"
                             className="header-btn d-none d-md-block" >
                             <Icon className="material-icons">add_circle_outline</Icon>
                         </IconButton>
@@ -737,6 +738,7 @@ class Header extends Component {
                         <IconButton
                             id="save-btn"
                             onClick={this.handleSaveToggle}
+                            size= "small"
                             className="header-btn d-none d-sm-block"
                             style={referenceMode ? style.disabled : style.default}
                             disabled={referenceMode}>
@@ -759,8 +761,6 @@ class Header extends Component {
                         layoutType={this.props.layoutType}
                         referenceOpen={this.state.referenceOpen}
                         handleReferenceToggle={this.handleReferenceToggle} />
-                </div>
-                <div className="col-3 d-flex justify-content-end">
                     <Reference
                         layoutType={this.props.layoutType}
                         referenceOpen={this.state.referenceOpen}

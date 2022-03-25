@@ -1,6 +1,9 @@
 import React, { Component } from "react";
 import Tour from "reactour";
-import { Button } from "@material-ui/core";
+import { 
+    IconButton,
+    Icon,
+} from "@material-ui/core";
 import * as layoutTypes from "../../../constants/LayoutTypes";
 
 class MyrTour extends Component {
@@ -34,7 +37,7 @@ class MyrTour extends Component {
                                 }
                             }}
                             onRequestClose={this.closeTour} />
-                        <Button
+                        <IconButton
                             style={{ color: "#fff", fontSize: "66%" }}
                             size="small"
                             className="d-none d-md-block"
@@ -44,8 +47,9 @@ class MyrTour extends Component {
                                     this.props.handleReferenceToggle();
                                 }
                             }}>
-                            Take the Tour
-                        </ Button>
+                            <Icon className="material-icons">map</Icon>
+                        </ IconButton>
+
                     </React.Fragment>
                     : null
                 }

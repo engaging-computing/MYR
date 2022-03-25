@@ -15,9 +15,9 @@ const HtmlTooltip = withStyles(theme => ({
     },
 }))(Tooltip);
 
-const handleTextureOpen = () => {
+/*const handleTextureOpen = () => {
     window.open(window.origin + "/textureReference");
-};
+};*/
 
 export const stringText = (text) => {
     return (

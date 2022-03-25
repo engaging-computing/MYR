@@ -15,25 +15,6 @@ export const Ide = ({ editor, editorActions, user, authActions, scene, sceneActi
                 new URLSearchParams(window.location.search).get("redirected") === "true"
             }
         />
-        <Header
-            viewOnly={scene.settings.viewOnly}
-            logging={authActions}
-            sceneActions={sceneActions}
-            actions={editorActions}
-            user={user}
-            scene={scene}
-            text={editor.text}
-            message={editor.message}
-            projectId={match.params.id}
-            match={match}
-            projectActions={projectActions}
-            courseActions={courseActions}
-            projects={projects}
-            courses={courses}
-            collectionActions={collectionActions}
-            collections={collections}
-            layoutType={layoutTypes.IDE}
-        />
         <div className="row no-gutters">
             {
                 scene.settings.viewOnly
@@ -43,10 +24,29 @@ export const Ide = ({ editor, editorActions, user, authActions, scene, sceneActi
                     </div>
                     :
                     <>
-                        <div id="interface" className="col-12 col-md-4" >
+                        <div id="interface" className="col-12 col-md-5" >
+                            <Header
+                                viewOnly={scene.settings.viewOnly}
+                                logging={authActions}
+                                sceneActions={sceneActions}
+                                actions={editorActions}
+                                user={user}
+                                scene={scene}
+                                text={editor.text}
+                                message={editor.message}
+                                projectId={match.params.id}
+                                match={match}
+                                projectActions={projectActions}
+                                courseActions={courseActions}
+                                projects={projects}
+                                courses={courses}
+                                collectionActions={collectionActions}
+                                collections={collections}
+                                layoutType={layoutTypes.IDE}
+                            />
                             <Editor refresh={editorActions.refresh} render={editorActions.render} text={editor.text} user={user} savedText={editor.savedText} />
                         </div>
-                        <div id="scene" className="col-12 col-md-8" >
+                        <div id="scene" className="col-12 col-md-7" >
                             <View objects={editor.objects} sceneConfig={scene} assets={editor.assets} />
                         </div>
                     </>

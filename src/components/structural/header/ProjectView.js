@@ -375,7 +375,8 @@ class Project extends React.Component {
         };
         const style = {
             default: {
-                margin: 2,
+                margin: 1,
+                marginTop: 12,
                 color: "#fff",
             }
         };
@@ -390,6 +391,7 @@ class Project extends React.Component {
                                 <IconButton
                                     id="open-btn"
                                     onClick={this.props.handleProjectToggle}
+                                    size="small"
                                     className="header-btn"
                                     aria-haspopup="true"
                                     style={style.default}>
@@ -434,6 +436,9 @@ class Project extends React.Component {
                                 <Tab
                                     label="Example Scenes"
                                     value="b" />
+                                <Tab
+                                    label="Courses"
+                                    value="c" />
                             </Tabs>
                             {this.state.value === "a" &&
                                 <div id="project-list" style={{ marginTop: 0, overflow: "scroll" }}>
@@ -455,6 +460,18 @@ class Project extends React.Component {
                                                 return a.name < b.name ? -1 : a.name > b.name ? 1 : a.updateTime > b.updateTime ? -1 : a.updateTime < b.updateTime ? 1 : 0;
                                             }).map(proj => {
                                                 return this.helper(proj, false);
+                                            })
+                                        }
+                                    </div>
+                                </div>}
+                            {this.state.value === "c" &&
+                                <div id="project-list" style={{ marginTop: 0, overflow: "scroll" }}>
+                                    <div className="row" id="user-proj" style={{ width: "100%" }}>
+                                        { // Sort the users projects in alphabetical order
+                                            userProjs.sort(function (a, b) {
+                                                return a.name < b.name ? -1 : a.name > b.name ? 1 : a.updateTime > b.updateTime ? -1 : a.updateTime < b.updateTime ? 1 : 0;
+                                            }).map(proj => {
+                                                return this.helper(proj, true);
                                             })
                                         }
                                     </div>

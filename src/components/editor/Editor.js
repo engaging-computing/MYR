@@ -8,7 +8,7 @@ import customCompleter from "./customCompleter.js";
 import "brace/ext/searchbox";
 
 /**
- * Editor is a React Component that creat the Ace Editor in the DOM.
+ * Editor is a React Component that creates the Ace Editor in the DOM.
  */
 
 class Editor extends Component {
