@@ -4,8 +4,16 @@ import {
     Icon
 } from "@material-ui/core";
 
+/**
+ * Reference Example Box is react component for displaying information about
+ * API in reference example scene
+ */
 class ReferenceExampleBox extends Component {
-
+    /**
+     * Check the redux state to see if example has suggested course
+     *  and create elements according to it
+     * @returns {Button} Button with name of suggested course on it
+     */
     suggestedCourse = () => {
         const { suggestedCourse, suggestedCourseName } = this.props.referenceExample;
         return (
@@ -24,6 +32,12 @@ class ReferenceExampleBox extends Component {
         );
     }
 
+    /**
+     * Returns parentheses that includes parameters for the example
+     * 
+     * @param {array} functionParams array of paremeter names
+     * @returns {string} list of 
+     */
     renderParams = (functionParams) => {
         let returnString = "(";
         for (let i = 0; i < functionParams.length; i++) {
@@ -34,6 +48,10 @@ class ReferenceExampleBox extends Component {
         // return returnString;
     }
 
+    /**
+     * Create header element with function name and parameters
+     * @returns {HTMLElement} h3 tag with "Function: name(parameters)"
+     */
     renderTitle = () => {
         const { functionName, functionParams } = this.props.referenceExample;
         return (
@@ -44,6 +62,9 @@ class ReferenceExampleBox extends Component {
         );
     }
 
+    /**
+     * Render title and description of example scene
+     */
     render() {
         return (
             <div id="ref-ex">
@@ -55,6 +76,5 @@ class ReferenceExampleBox extends Component {
         );
     }
 }
-
 
 export default ReferenceExampleBox;
