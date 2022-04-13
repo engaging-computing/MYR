@@ -20,27 +20,6 @@ export const Ide = ({ editor, editorActions, user, usersettings, userActions, au
                 new URLSearchParams(window.location.search).get("redirected") === "true"
             }
         />
-        <Header
-            viewOnly={scene.settings.viewOnly}
-            logging={authActions}
-            sceneActions={sceneActions}
-            actions={editorActions}
-            user={user}
-            settings={usersettings}
-            userActions={userActions}
-            scene={scene}
-            text={editor.text}
-            message={editor.message}
-            projectId={match.params.id}
-            match={match}
-            projectActions={projectActions}
-            courseActions={courseActions}
-            projects={projects}
-            courses={courses}
-            collectionActions={collectionActions}
-            collections={collections}
-            layoutType={layoutTypes.IDE}
-        />
         <div className="row no-gutters">
             {
                 scene.settings.viewOnly
@@ -50,11 +29,53 @@ export const Ide = ({ editor, editorActions, user, usersettings, userActions, au
                     </div>
                     :
                     <>
-                        <div id="interface" className="col-12 col-md-4" >
-                            <Editor refresh={editorActions.refresh} render={editorActions.render} text={editor.text} user={user} settings={usersettings} savedText={editor.savedText} userActions={userActions} />
+                        <div id="interface" className="col-12 col-md-5" >
+                            <Header
+                                viewOnly={scene.settings.viewOnly}
+                                logging={authActions}
+                                sceneActions={sceneActions}
+                                actions={editorActions}
+                                user={user}
+                                scene={scene}
+                                text={editor.text}
+                                message={editor.message}
+                                projectId={match.params.id}
+                                match={match}
+                                projectActions={projectActions}
+                                courseActions={courseActions}
+                                projects={projects}
+                                courses={courses}
+                                collectionActions={collectionActions}
+                                collections={collections}
+                                layoutType={layoutTypes.IDE}
+                            />
+                            <Editor 
+                                refresh={editorActions.refresh} 
+                                render={editorActions.render} 
+                                text={editor.text} 
+                                user={user} 
+                                settings={usersettings} 
+                                savedText={editor.savedText} 
+                                userActions={userActions} 
+                                scene={scene}
+                                
+                                viewOnly={scene.settings.viewOnly}
+                                logging={authActions}
+                                sceneActions={sceneActions}
+                                actions={editorActions}
+                                message={editor.message}
+                                projectId={match.params.id}
+                                match={match}
+                                projectActions={projectActions}
+                                courseActions={courseActions}
+                                projects={projects}
+                                courses={courses}
+                                collectionActions={collectionActions}
+                                collections={collections}
+                                layoutType={layoutTypes.IDE}/>
                         </div>
-                        <div id="scene" className="col-12 col-md-8" >
-                            <View objects={editor.objects} sceneConfig={scene} assets={editor.assets} />
+                        <div id="scene" className="col-12 col-md-7" >
+                            <View objects={editor.objects} sceneConfig={scene} assets={editor.assets}/>
                         </div>
                     </>
             }

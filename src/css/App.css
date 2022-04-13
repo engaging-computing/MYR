@@ -7,7 +7,9 @@ body {
 }
 
 .App {
-    padding: 0 15px;
+    background-color: black;
+    z-index: 20;
+    position: "absolute"
 }
 
 .App-header {
@@ -52,7 +54,7 @@ div#user {
 }
 
 #scene {
-    height: 94vh;
+    height: 100vh;
     border-left: #222 1px solid;
     border-top: #222 1px solid;
 }
@@ -264,6 +266,22 @@ div.side-drawer>div {
     justify-content: left !important;
 }
 
+.keyboard-button {
+    color: #673ab7;
+    background-color: #673ab7;
+    margin-left:2px;
+}
+
+.reference-button {
+    display: inline-block;
+    margin-left:2px;
+}
+
+.asset-button {
+    display: inline-block;
+    margin-left:2px;
+}
+
 .MuiTabs-root-76 {
     overflow: unset !important;
 }
@@ -271,6 +289,41 @@ div.side-drawer>div {
 #ace-editor {
     border-bottom: 1px solid;
     border-top: 1px solid;
+    z-index: 5;
+    position: "absolute"
+}
+
+.leftConsole {
+    position: "absolute";
+    background-color: red;
+}
+
+.console {
+    resize: both;
+    overflow: auto;
+}
+
+.console-footer {
+    background-color: black;
+    z-index: 2000;
+}
+
+#dragger {
+    width: 5px;
+    cursor: "ew-resize";
+    padding: 4px 0 0;
+    border-top: "1px solid #ddd";
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    z-index: 100;
+    background-color: #f4f7f9;
+}
+
+.config {
+    display: inline-block;
+    margin-left:2px;
 }
 
 .guided div#ace-editor {
@@ -299,6 +352,20 @@ div#reference-tabs {
     min-height: unset !important;
 }
 
+div#assetReference-tabs {
+    overflow: unset !important;
+    min-height: unset !important;
+}
+
+.reference-drawer-header {
+    padding-bottom: 0px;
+    margin-bottom: 0px;
+}
+
+#refTableHead {
+    margin-bottom: 20px;
+}
+
 .sidebar-btn .material-icons {
     margin: 0 .7em;
 }
@@ -314,8 +381,22 @@ span.user-name {
 }
 
 div#reference-drawer>div {
-    width: 67%;
+    width: 81vh;
+    height: 80vh;
+    resize: both;
+    z-index: 10;
+    position: "absolute"
 }
+
+div#textureReference-drawer>div {
+    width: 81vh;
+    height: 80vh;
+    resize: both;
+    z-index: 10;
+    position: "absolute"
+}
+
+
 .refExample {
     margin-right: 10px;
 }
@@ -410,9 +491,13 @@ div#projectDrawer>div {
 }
 
 footer {
-    background-color: #222;
+    background-color: black;
     color: #fff;
-    margin-top: 20px;
+    margin-top: 0px;
+    padding-top: 1px;
+    padding-bottom: 1px;
+    z-index: 2000;
+    position: "absolute"
 }
 
 footer a {
@@ -432,6 +517,6 @@ footer a:hover {
         z-index: 200;
         display: flex;
         bottom: 4px;
-        right: 18px;
+        right: 10px;
     }
 }

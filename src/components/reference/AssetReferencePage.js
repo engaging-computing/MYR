@@ -36,7 +36,7 @@ export default class AssetReference extends React.Component {
         return (
             <div id="reference-page">
                 <Tabs
-                    id="reference-tabs"
+                    id="assetReference-tabs"
                     variant="fullWidth"
                     value={this.state.value}
                     onChange={this.handleChange} >

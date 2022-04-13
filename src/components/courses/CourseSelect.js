@@ -95,19 +95,24 @@ class CourseSelectModal extends Component {
     render() {
         const { classes } = this.props;
         const courses = [].concat(this.props.courses);
+        const style = {
+            default: {
+                margin: 1,
+                marginTop: 8,
+                color: "#fff",
+            }
+        };
         return (
             <div>
                 {
                     !this.props.hideTooltip ?
-                        <Tooltip title="Courses">
+                        <Tooltip title="Courses" placement="bottom-start">
                             <IconButton
                                 onClick={this.props.handleCoursesToggle}
                                 id="select-course"
-                                className="header-btn d-none d-md-block"
-                                style={{
-                                    color: "#fff",
-                                    margin: 2,
-                                }}>
+                                size="small"
+                                style={style.default}
+                                className="header-btn d-none d-sm-block">
                                 <Icon className="material-icons">school</Icon>
                             </IconButton >
                         </Tooltip>

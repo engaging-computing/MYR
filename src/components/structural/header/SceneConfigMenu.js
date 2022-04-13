@@ -5,6 +5,8 @@ import {
     ButtonBase,
     IconButton,
     Icon,
+    createTheme,
+    ThemeProvider,
     Modal,
     Slider,
     TextField,
@@ -35,6 +37,14 @@ function getModalStyle() {
         minHeight: 400
     };
 }
+
+const configTheme = createTheme({
+    palette: {
+        primary: {
+            main: "#fdd835",
+        },
+    },
+});
 
 /**
  * CSS for modal
@@ -98,7 +108,7 @@ class ConfigModal extends Component {
             castShadow: false,
             spawnLightIndicator: false,
             skyColor: this.props.scene.settings.color,
-            moveSpeed: this.props.scene.settings.moveSpeed,
+            moveSpeed: this.props.scene.settings.moveSpeed, //uncomment thiss
             anchorEl: null,
             email: "",
             sendTo: [],
@@ -577,20 +587,21 @@ class ConfigModal extends Component {
         const { classes } = this.props;
         let isDisabled = this.props.layoutType === layoutTypes.REFERENCE;
         return (
-            <div>
+            <div className="config">
                 {!isDisabled ?
                     <div>
-                        <Tooltip title="Scene Settings">
-                            <IconButton
-                                onClick={this.handleOpen}
-                                id="configure-scene"
-                                style={{
-                                    color: "#fff",
-                                    margin: 2,
-                                }}>
-                                <Icon className="material-icons">settings</Icon>
-                            </IconButton >
-                        </Tooltip>
+                        <ThemeProvider theme={configTheme}>
+                            <Tooltip title="Scene Settings">
+                                <Button
+                                    onClick={this.handleOpen}
+                                    variant="contained"
+                                    id="configure-scene"
+                                    size="small"
+                                    color="primary">
+                                    <Icon className="material-icons">settings</Icon>
+                                </Button >
+                            </Tooltip>
+                        </ThemeProvider>
                         <Modal
                             aria-labelledby="simple-modal-title"
                             aria-describedby="simple-modal-description"

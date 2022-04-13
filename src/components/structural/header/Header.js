@@ -1,7 +1,5 @@
 import React, { Component, Fragment } from "react";
-import Reference from "../../reference/Reference.js";
 import Collection from "../../collection/Collection.js";
-import SceneConfigMenu from "./SceneConfigMenu.js";
 import Sidebar from "./Sidebar.js";
 import MyrTour from "./MyrTour.js";
 import ProjectView from "./ProjectView.js";
@@ -24,7 +22,7 @@ import {
     Snackbar,
     Popover,
     Avatar,
-    createMuiTheme,
+    createTheme,
     MuiThemeProvider
 } from "@material-ui/core";
 import { save } from "../../../actions/projectActions.js";
@@ -666,7 +664,7 @@ class Header extends Component {
                 color: "#777",
             },
         };
-        const theme = createMuiTheme({
+        const theme = createTheme({
             palette: {
                 primary: {
                     main: "#3f51b5",
@@ -729,7 +727,7 @@ class Header extends Component {
                             Show Welcome Screen
                         </Button>
                     </Sidebar>
-                    <h1 className="mr-2 d-none d-sm-block"
+                    <h1 className="mr-1 d-none d-sm-block"
                         style={{ cursor: "pointer" }}
                         onClick={() => { window.location.assign(window.origin); }} >
                         MYR
@@ -778,6 +776,7 @@ class Header extends Component {
                             id="new-btn"
                             onClick={() => { window.location.assign(window.origin); }}
                             style={style.default}
+                            size= "small"
                             className="header-btn d-none d-md-block" >
                             <Icon className="material-icons">add_circle_outline</Icon>
                         </IconButton>
@@ -786,6 +785,7 @@ class Header extends Component {
                         <IconButton
                             id="save-btn"
                             onClick={this.handleSaveToggle}
+                            size= "small"
                             className="header-btn d-none d-sm-block"
                             style={referenceMode ? style.disabled : style.default}
                             disabled={referenceMode}>
@@ -800,33 +800,16 @@ class Header extends Component {
                         handleProjectToggle={this.handleProjectToggle}
                         tab={this.state.projectTab}
                         user={this.props.user} />
-                    <MyrTour
-                        tourOpen={this.state.tourOpen}
-                        handleTourToggle={this.handleTourToggle}
-                        viewOnly={this.props.scene.settings.viewOnly}
-                        changeView={this.props.sceneActions.changeView}
-                        layoutType={this.props.layoutType}
-                        referenceOpen={this.state.referenceOpen}
-                        handleReferenceToggle={this.handleReferenceToggle} />
-                </div>
-                <div className="col-3 d-flex justify-content-end">
-                    <Reference
-                        layoutType={this.props.layoutType}
-                        referenceOpen={this.state.referenceOpen}
-                        handleReferenceToggle={this.handleReferenceToggle} />
-                    <SceneConfigMenu
-                        scene={this.props.scene}
-                        sceneActions={this.props.sceneActions}
-                        collectionActions={this.props.collectionActions}
-                        user={this.props.user}
-                        settings={this.props.settings}
-                        userActions={this.props.userActions}
-                        handleRender={this.handleRender}
-                        handleSave={this.handleSave}
-                        handleSaveClose={this.handleSaveClose}
-                        layoutType={this.props.layoutType}
-                        displayCollectionConfig={!this.props.collection}
-                    />
+                    <Tooltip title="Tour" placement="bottom-start">
+                        <MyrTour
+                            tourOpen={this.state.tourOpen}
+                            handleTourToggle={this.handleTourToggle}
+                            viewOnly={this.props.scene.settings.viewOnly}
+                            changeView={this.props.sceneActions.changeView}
+                            layoutType={this.props.layoutType}
+                            referenceOpen={this.state.referenceOpen}
+                            handleReferenceToggle={this.handleReferenceToggle} />
+                    </Tooltip>
                     <CourseSelect
                         coursesOpen={this.state.coursesOpen}
                         handleCoursesToggle={this.handleCoursesToggle}

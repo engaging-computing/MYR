@@ -5,6 +5,8 @@ import {
     Icon,
     Tooltip,
     Popover,
+    createTheme,
+    ThemeProvider,
 } from "@material-ui/core";
 import "../../css/KeyboardShortcut.css";
 
@@ -69,6 +71,17 @@ const scene = [
     },
 ];
 
+const keyboardTheme = createTheme({
+    palette: {
+        primary: {
+            main: "#1769aa",
+        },
+        secondary: {
+            main: "#9c27b0",
+        }
+    },
+});
+
 /**
  * React components create the button with KeyboardShortcut window
  */
@@ -125,15 +138,18 @@ class KeyboardShortcut extends React.Component {
     render(){
         return(
             <div className="whole-keyboard">
-                <Tooltip title="Keyboard Shortcut">
-                    <Button
-                        variant="contained"
-                        size="small"
-                        color="primary"
-                        onClick={this.handleClick}>
-                        <Icon className="material-icons">keyboard</Icon>
-                    </Button>
-                </Tooltip>
+                <ThemeProvider theme={keyboardTheme}>
+                    <Tooltip title="Keyboard Shortcut">
+                        <Button
+                            variant="contained"
+                            size="small"
+                            color="primary"
+                            id="keyboard-button"
+                            onClick={this.handleClick}>
+                            <Icon className="material-icons">keyboard</Icon>
+                        </Button>
+                    </Tooltip>
+                </ThemeProvider>
                 <Popover
                     id="simple-popover"
                     anchorEl={this.state.anchorEl}

@@ -1,8 +1,14 @@
 import React, { Component } from "react";
+
 import myrReference from "../../myr/reference";
+import assetReference from "../../myr/textureReference";
 import * as refFunctions from "../../myr/reference";
+import * as assetFunctions from "../../myr/reference";
+import ModelTab from "./ModelReferenceTab";
+import TextureTab from "./TextureReferenceTab";
 
 import * as layoutTypes from "../../constants/LayoutTypes";
+
 
 import {
     Tabs,
@@ -16,8 +22,16 @@ import {
     TableRow,
     TableCell,
     Tooltip,
+    Button,
+    //Select,
     Hidden
 } from "@material-ui/core";
+
+import "../../css/KeyboardShortcut.css";
+
+//import { Popup, Card, Image, Rating } from "semantic-ui-react"
+//import Draggable from 'react-draggable'; // The default
+
 
 const exitBtnStyle = {
     //paddingbottom: 100,
@@ -26,13 +40,13 @@ const exitBtnStyle = {
     right: 10,
 };
 const newTabStyle = {
-    position: "fixed",
+    position: "absolute",
     top: 0,
     right: 50,
 };
 
 const assetReferenceBtn = {
-    position: "fixed",
+    position: "absolute",
     top: 0,
     right: 95,
 };
@@ -43,14 +57,29 @@ const assetReferenceBtn = {
 class Reference extends Component {
     /**
      * Constructor
-     *  value represents the current tab that's opened  
+     *  value represents the current reference tab that's opened  
+     *  assetValue represents the current asset reference tab that's opened 
      */
     constructor(props) {
         super(props);
         this.state = {
             value: "a",
+            assetValue: "a",
         };
+        this.assetTableData = assetReference();
         this.tableData = myrReference();
+
+    }
+
+    componentDidMount() {
+        //document.querySelector(".referenceDrawer-slider").addEventListener("mousemove", e => this.handleMousemove(e));
+        document.addEventListener("mousemove", e => this.handleMousemove(e));
+       
+        //document.querySelector(".referenceDrawer-slider").addEventListener("mouseup", e => this.handleMousemove(e));
+        document.addEventListener("mouseup", e => this.handleMouseup(e));
+
+        //document.querySelector(".font").addEventListener("mousedown", e => this.handleMousemove(e));
+        document.addEventListener("mousedown", e => this.handleMousedown(e));
     }
 
     /**
@@ -58,9 +87,15 @@ class Reference extends Component {
      * 
      * @param {Event} event 
      * @param {string} value tab to be changed to. It should be an alphabet
+* @param {string} assetValue tab to be changed to in asset drawer. It should be an alphabet
+
      */
     handleChange = (event, value) => {
         this.setState({ value });
+    };
+
+    handleAssetChange = (event, assetValue) => {
+        this.setState({ assetValue });
     };
 
     /**
@@ -73,9 +108,33 @@ class Reference extends Component {
 
     assetHandleOpen = () => {
         window.open(window.origin + "/asset-reference");
-        this.setState({ value: "a" });
+        this.setState({ assetValue: "a" });
     };
 
+    state = {
+        isResizing: false,
+        lastDownX: 0,
+        newWidth: {},
+        newHeight: {}
+    };
+      
+    handleMousedown = e => {
+        this.setState({ isResizing: true, lastDownX: e.clientX });
+    };
+      
+    handleMousemove = e => {
+        if (!this.state.isResizing) {
+            return;
+        }
+
+        this.setState({ newWidth: { width: e.clientX} });
+        this.setState({ newHeight: { height: (648 - e.clientY)} });
+        console.log("e.clientX:", e.clientX, " e.clientY:", e.clientY);
+    };
+      
+    handleMouseup = () => {
+        this.setState({ isResizing: false });
+    };
 
     nameHelper = (name, parameters) => {
         return (
@@ -92,6 +151,28 @@ class Reference extends Component {
                         return <span>{refFunctions.arrayText(element.name)}{comma}</span>;
                     case "data":
                         return <span>{refFunctions.dataText(element.name)}{comma}</span>;
+                    default:
+                        return null;
+                }
+            }))});</span>
+        );
+    };
+
+    assetNameHelper = (name, parameters) => {
+        return (
+            <span>{name}({(parameters.map((element, i, params) => {
+                let comma = i < params.length - 1 ? ", " : "";
+                switch (element.type) {
+                    case "number":
+                        return <span>{assetFunctions.numberText(element.name)}{comma}</span>;
+                    case "string":
+                        return <span>{assetFunctions.stringText(element.name)}{comma}</span>;
+                    case "bool":
+                        return <span>{assetFunctions.boolText(element.name)}{comma}</span>;
+                    case "array":
+                        return <span>{assetFunctions.arrayText(element.name)}{comma}</span>;
+                    case "data":
+                        return <span>{assetFunctions.dataText(element.name)}{comma}</span>;
                     default:
                         return null;
                 }
@@ -128,20 +209,43 @@ class Reference extends Component {
      */
     TableEx = (category) => {
         return (
-            <Table  >
-                <TableHead >
+            <Table>
+                <TableHead id="refTableHead">
                     <TableRow>
-                        <TableCell>Name</TableCell>
-                        <TableCell>Description</TableCell>
-                        <TableCell className='refExample'>Example</TableCell>
+                        <TableCell style={{padding: 6}}>Name</TableCell>
+                        <TableCell style={{padding: 6}}>Description</TableCell>
+                        <TableCell className='refExample' style={{padding: 4}}>Example</TableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody  >
                     {this.tableData[category].map((row, index) => (
                         <TableRow key={index}>
-                            <TableCell >{this.nameHelper(row.name, row.parameters)}</TableCell>
-                            <TableCell >{row.description}</TableCell>
-                            <TableCell >{this.exampleHelper(row.example)}</TableCell>
+                            <TableCell style={{padding: 6}}>{this.nameHelper(row.name, row.parameters)}</TableCell>
+                            <TableCell style={{padding: 6}}>{row.description}</TableCell>
+                            <TableCell style={{padding: 6}}>{this.exampleHelper(row.example)}</TableCell>
+                        </TableRow>
+                    ))}
+                </TableBody>
+            </Table>
+        );
+    };
+
+    assetTableEx = (category) => {
+        return (
+            <Table >
+                <TableHead >
+                    <TableRow>
+                        <TableCell style={{padding: 6}}>Name</TableCell>
+                        <TableCell style={{padding: 6}}>Description</TableCell>
+                        <TableCell className='refExample' style={{padding: 6}}>Example</TableCell>
+                    </TableRow>
+                </TableHead>
+                <TableBody  >
+                    {this.assetTableData[category].map((row, index) => (
+                        <TableRow key={index}>
+                            <TableCell style={{padding: 6}}>{this.assetNameHelper(row.name, row.creator)}</TableCell>
+                            <TableCell style={{padding: 6}}></TableCell>
+                            <TableCell style={{padding: 6}}>{this.exampleHelper(row.image)}</TableCell>
                         </TableRow>
                     ))}
                 </TableBody>
@@ -153,136 +257,238 @@ class Reference extends Component {
      * Reneter Button that will open Drawer of reference with different categories 
      */
     render() {
-        const style = {
-            margin: 2,
-            color: "#fff",
-        };
-        const isDisabled = this.props.layoutType === layoutTypes.REFERENCE;
+        const isDisabled = this.props.layoutType === layoutTypes.REFERENCE;   
+
+        let tempHeight = this.state.newHeight; 
+        let tempWidth = this.state.newWidth;     
+
+        //const { classes } = this.props;
         return (
-            <div>
+            <div className="font">
                 {!isDisabled ?
                     <React.Fragment>
                         <Tooltip title="Reference" placement="bottom-start">
-                            <IconButton
-                                id="ref-btn"
-                                className="header-btn d-none d-md-block"
-                                aria-haspopup="true"
-                                onClick={this.props.handleReferenceToggle}
-                                style={style}>
-                                <Icon style={{ color: "#fff" }} className="material-icons">help</Icon>
-                            </IconButton>
+                            <Button
+                                id="reference-button"
+                                variant="contained"
+                                size="small"
+                                color="primary"
+                                onClick={this.props.handleReferenceToggle}>
+                                <Icon className="material-icons">help</Icon>
+                            </Button>
                         </Tooltip>
-                        <Drawer
-                            style={{ position: "relative", zIndex: 100 }}
-                            anchor="right"
-                            id="reference-drawer"
-                            variant="persistent"
-                            className={!this.props.referenceOpen ? "d-none" : ""}
-                            open={this.props.referenceOpen}>
+                        <Tooltip title="Assets" placement="bottom-start">
+                            <Button
+                                id="asset-button"
+                                variant="contained"
+                                size="small"
+                                color="secondary"
+                                onClick={this.props.handleAssetReferenceToggle}>
+                                <Icon className="material-icons">texture</Icon>
+                            </Button>
+                        </Tooltip>
+                        <div className="referenceDrawer-slider">
+                            <Drawer
+                                /*classes={{
+                                    paper: classes.drawerPaper
+                                }}*/
 
-                            <div>
-                                <h3 className="border-bottom" style={{ padding: 10, fontWeight: 400 }}>MYR API - Reference</h3>
-                                <IconButton
-                                    color="default"
-                                    style={exitBtnStyle}
-                                    onClick={() => {
-                                        this.props.handleReferenceToggle();
-                                        this.setState({ value: "a" });
-                                    }}>
-                                    <Icon className="material-icons">close</Icon>
-                                </IconButton>
-                                <IconButton
-                                    title="Open reference page &#013;(in a new tab)"
-                                    color="default"
-                                    style={newTabStyle}
-                                    onClick={this.handleOpen}>
-                                    <Icon className="material-icons">menu_book</Icon>
-                                </IconButton>
-                                <IconButton
-                                    title="Open asset reference page &#013;(in a new tab)"
-                                    color="default"
-                                    style={assetReferenceBtn}
-                                    onClick={this.assetHandleOpen}>
-                                    <Icon className="material-icons-outlined">settings_system_daydream</Icon>
-                                </IconButton>
-                            </div>
-                            <div>
-                                <Tabs
-                                    id="reference-tabs"
-                                    value={this.state.value}
-                                    onChange={this.handleChange}
-                                    variant="fullWidth">
-                                    <Tab
-                                        icon={<Icon className="material-icons geometry">category</Icon>}
-                                        label={
-                                            <Hidden xsDown>
-                                                <div>GEOMETRY</div>
-                                            </Hidden>
-                                        }
-                                        value='a' />
-                                    <Tab
-                                        icon={<Icon className="material-icons color-change">bubble_chart</Icon>}
-                                        label={
-                                            <Hidden xsDown>
-                                                <div>TRANSFORMATIONS</div>
-                                            </Hidden>
-                                        }
-                                        value='b' />
-                                    <Tab
-                                        icon={<Icon className="material-icons animation-ref">zoom_out_map</Icon>} //swap_horiz control_camera category
-                                        label={
-                                            <Hidden xsDown>
-                                                <div>ANIMATIONS</div>
-                                            </Hidden>
-                                        }
-                                        value='c' />
-                                    <Tab
-                                        icon={<Icon className="material-icons geometry">widgets</Icon>}
-                                        label={
-                                            <Hidden xsDown>
-                                                <div>GROUPS</div>
-                                            </Hidden>
-                                        }
-                                        value='d' />
-                                    <Tab
-                                        icon={<Icon className="material-icons geometry">highlight</Icon>}
-                                        label={
-                                            <Hidden xsDown>
-                                                <div>LIGHT</div>
-                                            </Hidden>
-                                        }
-                                        value='e' />
-                                </Tabs>
-                            </div>
-                            {<div style={{ margin: 7, overflow: "hidden", minHeight: "2em" }}>
-                                <p style={{ fontSize: "80%" }}> Key: <span className="array">array </span>
-                                    <span className="bool">bool </span>
-                                    <span className="number">number </span>
-                                    <span className="string">string </span>
-                                    <span className="group">group </span>
-                                    <span className="data">data</span></p>
-                            </div>}
-                            {this.state.value === "a" &&
-                                <div style={{ marginTop: 0, overflow: "scroll" }}>
-                                    {this.TableEx("geometry")}
+                                //PaperProps={{ style: {newWidth: this.state.newWidth, newHeight: this.state.newHeight} }}
+                                //PaperProps={{ style:  this.state.newWidth }}
+                                
+                                //PaperProps={{ 
+                                //    width:  this.state.newHeight, 
+                                //}}
+
+                                
+                                PaperProps={{ 
+                                    style:  tempHeight, tempWidth       //tempwidth not working
+                                }}
+                                
+                                /*
+                                PaperProps={{ 
+                                    style:  {width: tempWidth} 
+                                }}
+                                */
+                                anchor="bottom"
+                                id="reference-drawer"
+                                variant="persistent"
+                                className={!this.props.referenceOpen ? "d-none" : ""}
+                                open={this.props.referenceOpen}>
+                                <div>
+                                    <h3 id="reference-drawer-header" className="border-bottom" style={{ padding: 2, fontWeight: 400 }}>MYR API - Reference</h3>
+                                    <IconButton
+                                        color="default"
+                                        style={exitBtnStyle}
+                                        onClick={() => {
+                                            this.props.handleReferenceToggle();
+                                            this.setState({ newHeight: 80});
+                                            this.setState({ newWidth: 81});
+                                            this.setState({ value: "a" });
+                                        }}>
+                                        <Icon className="material-icons">close</Icon>
+                                    </IconButton>
+                                    <IconButton
+                                        title="Open reference page &#013;(in a new tab)"
+                                        color="default"
+                                        style={newTabStyle}
+                                        onClick={this.handleOpen}>
+                                        <Icon className="material-icons">menu_book</Icon>
+                                    </IconButton>
+                                    <IconButton
+                                        title="Open asset reference page &#013;(in a new tab)"
+                                        color="default"
+                                        style={assetReferenceBtn}
+                                        onClick={this.assetHandleOpen}>
+                                        <Icon className="material-icons-outlined">settings_system_daydream</Icon>
+                                    </IconButton>
+                                </div>
+                                <div>
+                                    <Tabs
+                                        id="reference-tabs"
+                                        value={this.state.value}
+                                        onChange={this.handleChange}
+                                        //variant="fullWidth">
+                                        variant="scrollable">
+                                        <Tab
+                                            icon={<Icon className="material-icons geometry" style={{ fontSize: 20 }}>category</Icon>}
+                                            label={
+                                                <Hidden xsDown>
+                                                    <div>GEOMETRY</div>
+                                                </Hidden>
+                                            }
+                                            value='a' />
+                                        <Tab
+                                            icon={<Icon className="material-icons color-change" style={{ fontSize: 20 }}>bubble_chart</Icon>}
+                                            label={
+                                                <Hidden xsDown>
+                                                    <div>TRANSFORMATIONS</div>
+                                                </Hidden>
+                                            }
+                                            value='b' />
+                                        <Tab
+                                            icon={<Icon className="material-icons animation-ref" style={{ fontSize: 20 }}>zoom_out_map</Icon>} //swap_horiz control_camera category
+                                            label={
+                                                <Hidden xsDown>
+                                                    <div>ANIMATIONS</div>
+                                                </Hidden>
+                                            }
+                                            value='c' />
+                                        <Tab
+                                            icon={<Icon className="material-icons geometry" style={{ fontSize: 20 }}>widgets</Icon>}
+                                            label={
+                                                <Hidden xsDown>
+                                                    <div>GROUPS</div>
+                                                </Hidden>
+                                            }
+                                            value='d' />
+                                        <Tab
+                                            icon={<Icon className="material-icons geometry" style={{ fontSize: 20 }}>highlight</Icon>}
+                                            label={
+                                                <Hidden xsDown>
+                                                    <div>LIGHT</div>
+                                                </Hidden>
+                                            }
+                                            value='e' />
+                                    </Tabs>
+                                </div>
+                                {<div style={{ margin: 0, overflow: "hidden", minHeight: "1em"}}>
+                                    <p style={{ fontSize: "80%" }}> Key: <span className="array">array </span>
+                                        <span className="bool">bool </span>
+                                        <span className="number">number </span>
+                                        <span className="string">string </span>
+                                        <span className="group">group </span>
+                                        <span className="data">data</span></p>
                                 </div>}
-                            {this.state.value === "b" &&
-                                <div style={{ marginTop: 0, overflow: "scroll" }}>
-                                    {this.TableEx("transformations")}
-                                </div>}
-                            {this.state.value === "c" &&
-                                <div style={{ marginTop: 0, overflow: "scroll" }}>
-                                    {this.TableEx("animations")}
-                                </div>}
-                            {this.state.value === "d" &&
-                                <div style={{ marginTop: 0, overflow: "scroll" }}>
-                                    {this.TableEx("groups")}
-                                </div>}
-                            {this.state.value === "e" &&
-                                <div style={{ marginTop: 0, overflow: "scroll" }}>
-                                    {this.TableEx("lights")}
-                                </div>}
-                        </Drawer>
+                                {this.state.value === "a" &&
+                                    <div style={{ marginTop: 0, overflow: "scroll" }}>
+                                        {this.TableEx("geometry")}
+                                    </div>}
+                                {this.state.value === "b" &&
+                                    <div style={{ marginTop: 0, overflow: "scroll" }}>
+                                        {this.TableEx("transformations")}
+                                    </div>}
+                                {this.state.value === "c" &&
+                                    <div style={{ marginTop: 0, overflow: "scroll" }}>
+                                        {this.TableEx("animations")}
+                                    </div>}
+                                {this.state.value === "d" &&
+                                    <div style={{ marginTop: 0, overflow: "scroll" }}>
+                                        {this.TableEx("groups")}
+                                    </div>}
+                                {this.state.value === "e" &&
+                                    <div style={{ marginTop: 0, overflow: "scroll" }}>
+                                        {this.TableEx("lights")}
+                                    </div>}
+                            </Drawer>
+                        </div>
+
+                        <div className="textureReferenceDrawer-slider">
+                            <Drawer
+                                PaperProps={{ 
+                                    style:  tempHeight, tempWidth       //tempwidth not working
+                                }}
+                                anchor="bottom"
+                                id="textureReference-drawer"
+                                variant="persistent"
+                                className={!this.props.assetReferenceOpen ? "d-none" : ""}
+                                open={this.props.assetReferenceOpen}>
+                                <div>
+                                    <h3 className="border-bottom" style={{ padding: 2, fontWeight: 400 }}>MYR API - Asset Reference</h3>
+                                    <IconButton
+                                        color="default"
+                                        style={exitBtnStyle}
+                                        onClick={() => {
+                                            this.props.handleAssetReferenceToggle();
+                                            this.setState({ newHeight: 80});
+                                            this.setState({ newWidth: 81});
+                                            this.setState({ assetValue: "a" });
+                                        }}>
+                                        <Icon className="material-icons">close</Icon>
+                                    </IconButton>
+                                    <IconButton
+                                        title="Open asset reference page &#013;(in a new tab)"
+                                        color="default"
+                                        style={assetReferenceBtn}
+                                        onClick={this.assetHandleOpen}>
+                                        <Icon className="material-icons-outlined">settings_system_daydream</Icon>
+                                    </IconButton>
+                                </div>
+                                <div>
+                                    <Tabs
+                                        id="assetReference-tabs"
+                                        variant="fullWidth"
+                                        assetValue={this.state.assetValue}
+                                        onChange={this.handleAssetChange} >
+                                        <Tab
+                                            icon={<Icon className="material-icons model"  style={{ fontSize: 20 }}>model</Icon>}
+                                            label={
+                                                <Hidden xsDown>
+                                                    <div>MODEL</div>
+                                                </Hidden>
+                                            }
+                                            assetValue='a' />
+                                        <Tab
+                                            icon={<Icon className="material-icons texture"  style={{ fontSize: 20 }}>texture</Icon>}
+                                            label={
+                                                <Hidden xsDown>
+                                                    <div>TEXTURE</div>
+                                                </Hidden>
+                                            }
+                                            assetValue='b' />
+                                    </Tabs>
+                                    {this.state.assetValue === "a" &&
+                                        <div style={{ marginTop: 0 }}>
+                                            <ModelTab />
+                                        </div>}
+                                    {this.state.assetValue === "b" &&
+                                        <div style={{ marginTop: 0 }}>
+                                            <TextureTab />
+                                        </div>}
+                                </div>
+                            </Drawer>
+                        </div>
+                        
                     </React.Fragment> : null}
             </div>
         );
