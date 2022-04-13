@@ -4,6 +4,7 @@ import Header from "../structural/header/Header";
 import Footer from "../structural/Footer";
 import View from "../structural/View";
 import Banner from "../structural/header/Banner";
+import AndroidNotification from "../structural/AndroidNotification";
 
 import * as layoutTypes from "../../constants/LayoutTypes.js";
 
@@ -20,6 +21,7 @@ export const Ide = ({ editor, editorActions, user, usersettings, userActions, au
                 new URLSearchParams(window.location.search).get("redirected") === "true"
             }
         />
+        <AndroidNotification/>
         <Header
             viewOnly={scene.settings.viewOnly}
             logging={authActions}
