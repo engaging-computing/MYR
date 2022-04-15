@@ -467,6 +467,9 @@ class Project extends React.Component {
                                 <Tab
                                     label="Example Scenes"
                                     value="b" />
+                                <Tab
+                                    label="Courses"
+                                    value="c" />
                             </Tabs>
                             {this.state.value === "a" &&
                                 <div id="project-list" style={{ marginTop: 0, overflow: "scroll" }}>
