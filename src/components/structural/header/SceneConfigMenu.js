@@ -41,7 +41,8 @@ function getModalStyle() {
 const configTheme = createTheme({
     palette: {
         primary: {
-            main: "#fdd835",
+            main: "#ffb300",
+            contrastText: "#FFFFFF"
         },
     },
 });

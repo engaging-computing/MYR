@@ -285,9 +285,11 @@ class Editor extends Component {
             palette: {
                 primary: {
                     main: "#a31545",
+                    contrastText: "#FFFFFF"
                 },
                 secondary: {
-                    main: "#4caf50"
+                    main: "#4caf50",
+                    contrastText: "#FFFFFF"
                 },
             },
         });

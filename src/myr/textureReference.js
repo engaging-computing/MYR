@@ -245,14 +245,5 @@ const texture = [
         creator: "Webtreats",
     },    
 ];
-
  
-const assets = {
-    texture: texture,
-    //model: model,
-};
-
-export default function r(asset = assets) {
-    return asset;
-}
-
+export default texture;

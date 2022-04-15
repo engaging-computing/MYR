@@ -643,13 +643,13 @@ class Header extends Component {
             },
             clear: {
                 margin: 5,
-                marginRight: 10,
+                marginRight: 8,
                 padding: 0,
                 background: "linear-gradient(45deg, #FE3B3B 30%, #FF3B3B 90%)",
             },
             clear_disabled: {
                 margin: 5,
-                marginRight: 10,
+                marginRight: 8,
                 padding: 0,
                 background: "#222",
                 border: "2px solid",
