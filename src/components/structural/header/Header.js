@@ -264,7 +264,7 @@ class Header extends Component {
                                     open={this.state.logMenuOpen}
                                     onClick={() => this.setState({ logMenuOpen: !this.state.logMenuOpen })}
                                     label="logout"
-                                    style={{ marginTop: 5 }} />
+                                    style={{ marginTop: 5, marginLeft: 10 }} />
                                 <Popover
                                     open={this.state.logMenuOpen}
                                     anchorEl={document.getElementById("user")}
