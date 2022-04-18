@@ -467,9 +467,6 @@ class Project extends React.Component {
                                 <Tab
                                     label="Example Scenes"
                                     value="b" />
-                                <Tab
-                                    label="Courses"
-                                    value="c" />
                             </Tabs>
                             {this.state.value === "a" &&
                                 <div id="project-list" style={{ marginTop: 0, overflow: "scroll" }}>
@@ -491,20 +488,7 @@ class Project extends React.Component {
                                         }
                                     </div>
                                 </div>}
-                            {this.state.value === "c" &&
-                                <div id="project-list" style={{ marginTop: 0, overflow: "scroll" }}>
-                                    <div className="row" id="user-proj" style={{ width: "100%" }}>
-                                        { // Sort the users projects in alphabetical order
-                                            userProjs.sort(function (a, b) {
-                                                return a.name < b.name ? -1 : a.name > b.name ? 1 : a.updateTime > b.updateTime ? -1 : a.updateTime < b.updateTime ? 1 : 0;
-                                            }).map(proj => {
-                                                return this.helper(proj, true);
-                                            })
-                                        }
-                                    </div>
-                                </div>}
                             <this.sceneMenu />
-
                             <Modal
                                 aria-labelledby="simple-modal-title"
                                 aria-describedby="simple-modal-description"

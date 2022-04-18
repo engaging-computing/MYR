@@ -264,7 +264,7 @@ class Header extends Component {
                                     open={this.state.logMenuOpen}
                                     onClick={() => this.setState({ logMenuOpen: !this.state.logMenuOpen })}
                                     label="logout"
-                                    style={{ marginTop: 5, marginLeft: 10 }} />
+                                    style={{ marginTop: 5, marginLeft: 15 }} />
                                 <Popover
                                     open={this.state.logMenuOpen}
                                     anchorEl={document.getElementById("user")}
@@ -293,7 +293,7 @@ class Header extends Component {
                                     color: "white",
                                     margin: 4,
                                     padding: 2,
-                                    border: "1px solid #fff"
+                                    border: "1px solid #fff",
                                 }}>
                                 Log In
                             </Button>

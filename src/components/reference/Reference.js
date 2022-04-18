@@ -7,7 +7,6 @@ import TextureTab from "./TextureReferenceTab";
 
 import * as layoutTypes from "../../constants/LayoutTypes";
 
-
 import {
     Tabs,
     Tab,
@@ -21,6 +20,8 @@ import {
     TableCell,
     Tooltip,
     Button,
+    createTheme,
+    ThemeProvider,
     //Select,
     Hidden
 } from "@material-ui/core";
@@ -44,6 +45,19 @@ const assetReferenceBtn = {
     right: 50,
 };
 
+const buttonTheme = createTheme({
+    palette: {
+        primary: {
+            main: "#a31545",
+            contrastText: "#FFFFFF"
+        },
+        secondary: {
+            main: "#4caf50",
+            contrastText: "#FFFFFF"
+        },
+    },
+});
+
 /**
  * Reference is a react component that creates drawer contains references
  */
@@ -61,11 +75,13 @@ class Reference extends Component {
             isResizing: false,
             lastDownX: 0,
             lastDownY: 0,
-            newWidth: {},
+            newWidth: {width: 0},
             newHeight: {height: 0},
+            refOpen: false,
+            assetOpen: false,
         };
-        this.tableData = myrReference();
 
+        this.tableData = myrReference();
     }
 
     componentDidMount() {
@@ -95,6 +111,7 @@ class Reference extends Component {
         this.setState({ assetValue });
     };
 
+    
     /**
      * Handler for opening the reference page 
      */
@@ -103,21 +120,70 @@ class Reference extends Component {
         this.setState({ value: "a" });
     };
 
+    /**
+     * Handler for opening the asset reference page 
+     */
     assetHandleOpen = () => {
         window.open(window.origin + "/asset-reference");
         this.setState({ assetValue: "a" });
     };
 
+    /**
+     * Handler for opening the reference drawer
+     */
+    handleRefClick = () =>{
+        this.setState({
+            refOpen: true,
+        });
+    };
+    
+    /**
+     * Handler for closing the reference drawer
+     */
+    handleRefClose = () => {
+        this.setState({
+            refOpen: false,
+        });
+    };
+
+    /**
+     * Handler for opening the asset reference drawer
+     */
+    handleAssetClick = () =>{
+        this.setState({
+            assetOpen: true,
+        });
+    };
+        
+    /**
+     * Handler for closing the asset reference drawer
+     */
+    handleAssetClose = () => {
+        this.setState({
+            assetOpen: false,
+        });
+    };
+
+    /**
+     * Checks that the drawer is only draggable whe the user pressed down on it
+     */
     handleMousedown = e => {
         if(this.state.newHeight === undefined) {
             this.setState({newHeight: {height: 1}});
         }
+        if(this.state.newWidth === undefined) {
+            this.setState({newWidth: {width: 1}});
+        }
         
-        if(((648-e.clientY) < (this.state.newHeight.height))) {
+        console.log("e.clientX: ", e.clientX, " this.state.newWidth.width: ", this.state.newWidth.width);
+        if(((648-e.clientY) < (this.state.newHeight.height)) && ((e.clientX) < (528))) {
             this.setState({ isResizing: true});
         }
     };
-      
+    
+    /**
+     * Resizes the drawer
+     */
     handleMousemove = e => {
         if (!this.state.isResizing) {
             return;
@@ -216,33 +282,37 @@ class Reference extends Component {
             <div className="font">
                 {!isDisabled ?
                     <React.Fragment>
-                        <Tooltip title="Reference" placement="bottom-start">
-                            <Button
-                                id="reference-button"
-                                variant="contained"
-                                size="small"
-                                style={{marginRight: 2}}
-                                color="primary"
-                                onClick={() => {
-                                    this.props.handleReferenceToggle();
-                                    this.setState({ newHeight: {height: 518}});
-                                }}>
-                                <Icon className="material-icons">help</Icon>
-                            </Button>
-                        </Tooltip>
-                        <Tooltip title="Assets" placement="bottom-start">
-                            <Button
-                                id="asset-button"
-                                variant="contained"
-                                size="small"
-                                color="secondary"
-                                onClick= {() => {
-                                    this.props.handleAssetReferenceToggle();
-                                    this.setState({ newHeight: {height: 518}});
-                                }}>
-                                <Icon className="material-icons">photo</Icon>
-                            </Button>
-                        </Tooltip>
+                        <ThemeProvider theme={buttonTheme}>
+                            <Tooltip title="Reference" placement="bottom-start">
+                                <Button
+                                    id="reference-button"
+                                    variant="contained"
+                                    size="small"
+                                    style={{marginRight: 2}}
+                                    color="primary"
+                                    onClick={() => {
+                                        this.handleRefClick();
+                                        this.setState({ newHeight: {height: 518}, newWidth: {width: 522}});
+                                    }}>
+                                    <Icon className="material-icons">help</Icon>
+                                </Button>
+                            </Tooltip>
+                        </ThemeProvider>
+                        <ThemeProvider theme={buttonTheme}>
+                            <Tooltip title="Assets" placement="bottom-start">
+                                <Button
+                                    id="asset-button"
+                                    variant="contained"
+                                    size="small"
+                                    color="secondary"
+                                    onClick= {() => {
+                                        this.handleAssetClick();
+                                        this.setState({ newHeight: {height: 518}, newWidth: {width: 522}});
+                                    }}>
+                                    <Icon className="material-icons">photo</Icon>
+                                </Button>
+                            </Tooltip>
+                        </ThemeProvider>
                         <div className="referenceDrawer-slider">
                             <Drawer
                                 PaperProps={{ 
@@ -251,15 +321,16 @@ class Reference extends Component {
                                 anchor="bottom"
                                 id="reference-drawer"
                                 variant="persistent"
-                                className={!this.props.referenceOpen ? "d-none" : ""}
-                                open={this.props.referenceOpen}>
+                                className={!this.state.refOpen ? "d-none" : ""}
+                                open={this.state.refOpen}
+                                onClose={this.handleClose}>
                                 <div>
                                     <h3 id="reference-drawer-header" className="border-bottom" style={{ padding: 2, margin: 0, fontWeight: 400 }}>MYR API - Reference</h3>
                                     <IconButton
                                         color="default"
                                         style={exitBtnStyle}
                                         onClick={() => {
-                                            this.props.handleReferenceToggle();
+                                            this.handleRefClose();
                                             this.setState({ newHeight: 80});
                                             this.setState({ newWidth: 81});
                                             this.setState({ value: "a" });
@@ -361,15 +432,15 @@ class Reference extends Component {
                                 anchor="bottom"
                                 id="textureReference-drawer"
                                 variant="persistent"
-                                className={!this.props.assetReferenceOpen ? "d-none" : ""}
-                                open={this.props.assetReferenceOpen}>
+                                className={!this.state.assetOpen ? "d-none" : ""}
+                                open={this.state.assetOpen}>
                                 <div>
                                     <h3 className="border-bottom" style={{ padding: 2, fontWeight: 400 }}>MYR API - Asset Reference</h3>
                                     <IconButton
                                         color="default"
                                         style={exitBtnStyle}
                                         onClick={() => {
-                                            this.props.handleAssetReferenceToggle();
+                                            this.handleAssetClose();
                                             this.setState({ newHeight: 80});
                                             this.setState({ newWidth: 81});
                                             this.setState({ assetValue: "a" });

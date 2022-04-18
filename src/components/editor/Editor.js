@@ -32,11 +32,7 @@ class Editor extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            referenceOpen: false,
-            assetReferenceOpen: false,
             savedSettings: [],
-
-
             logMenuOpen: false,
             availProj: [],
             sampleProj: [],
@@ -166,14 +162,6 @@ class Editor extends Component {
         return true;
     }
 
-    handleReferenceToggle = () => {
-        this.setState({ referenceOpen: !this.state.referenceOpen });
-    };
-
-    handleAssetReferenceToggle = () => {
-        this.setState({ assetReferenceOpen: !this.state.assetReferenceOpen });
-    };
-
     /**
      * handeRender gets the information from Ace Editor and calls the action: render()
      */
@@ -266,7 +254,6 @@ class Editor extends Component {
     */
     handleSaveOpen = () => this.setState({ saveOpen: true });
 
-
     /**
      * Creates the editor in the DOM
      */
@@ -322,13 +309,8 @@ class Editor extends Component {
                     </ThemeProvider>
                     <ThemeProvider theme={refTheme}>
                         <Reference
-                            layoutType={this.props.layoutType}
-                            referenceOpen={this.state.referenceOpen}
-                            assetReferenceOpen={this.state.assetReferenceOpen}
-                            handleAssetReferenceToggle={this.handleAssetReferenceToggle}
-                            handleReferenceToggle={this.handleReferenceToggle} />
+                            layoutType={this.props.layoutType}/>
                     </ThemeProvider>
-
                     <ThemeProvider>
                         <SceneConfigMenu
                             scene={this.props.scene}
