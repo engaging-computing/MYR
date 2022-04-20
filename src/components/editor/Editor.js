@@ -8,12 +8,23 @@ import "brace/ext/language_tools";
 import customCompleter from "./customCompleter.js";
 import KeyboardShortcut from "./KeyboardShortcut.js";
 import { browserType } from "../../utils/browserType";
+import FontSize from "./FontSize.js";
 
 /**
- * Editor is a React Component that creat the Ace Editor in the DOM.
+ * Editor is a React Component that create the Ace Editor in the DOM.
  */
 class Editor extends Component {
+    /**
+     * Called when the Edtior is unmounting (Being removed from the DOM)
+     * 
+     * Editor will unmount when MYR enters ViewOnly mode, and we want to render
+     * whatever the code that's in the editor.
+     */
     componentWillUnmount() {
+        this.refreshText();
+    }
+
+    refreshText = () => {
         // Updates state in reducer before closing editor
         const text = window.ace.edit("ace-editor").getSession().getValue();
         this.props.refresh(text, this.props.user ? this.props.user.uid : "anon");
@@ -22,6 +33,12 @@ class Editor extends Component {
         this.props.render(text);
     }
 
+    /**
+     * Called when the Editor is mounted (component has been rendererd to the DOM)
+     * 
+     * It sets custom completer of MYR API to editor, 
+     * and add listener to check whether user have unsaved changes.
+     */
     componentDidMount() {
         try {
             // eslint-disable-next-line
@@ -45,13 +62,27 @@ class Editor extends Component {
                 event.returnValue = "You may have unsaved scene changes!";
             }
         });
+
+        this.setState({"previousSettings":this.props.settings});
     }
 
+    /**
+     * Called when the editor is loaded.
+     * It sets options to set the maximum error editor accepts and set the EMCAScript version to 6
+     */
     onLoad() {
         window.ace.edit("ace-editor").session.$worker.send("setOptions", [{
             "maxerr": 1000,
             "esversion": 6
         }]);
+    }
+
+    componentDidUpdate(){
+        if(JSON.stringify(this.state.previousSettings) !== JSON.stringify(this.props.settings) &&
+        this.props.user) {
+            this.props.userActions.updateUserSettings(this.props.user.uid,this.props.settings);
+            this.setState({"previousSettings":this.props.settings});
+        }
     }
     
     /**
@@ -70,6 +101,7 @@ class Editor extends Component {
                     // eslint-disable-next-line
                     ref="aceEditor"
                     theme="github"
+                    fontSize = {this.props.settings.fontSize}
                     value={this.props.text}
                     width="100%"
                     wrapEnabled={true}
@@ -77,7 +109,8 @@ class Editor extends Component {
                     enableLiveAutocompletion={true}
                     onLoad={this.onLoad}
                 />
-                { browserType() === "desktop" ? <KeyboardShortcut/> : null }
+                { browserType() === "desktop" ? <div><KeyboardShortcut/> 
+                    <FontSize userActions={this.props.userActions} settings={this.props.settings} refreshText={this.refreshText}/></div> : null }
             </div>
         );
     }

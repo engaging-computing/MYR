@@ -92,7 +92,6 @@ class ConfigModal extends Component {
             displayFloorColorPicker: false,
             displayMoveSpeedSlider: false,
             qrCodeOpen: false,
-            pwProtectOpen: false,
             shareOpen: false,
             addClassOpen: false,
             defaultLight: true,
@@ -129,16 +128,19 @@ class ConfigModal extends Component {
         });
     };
 
-    handleClick = event => {
-        this.setState({ anchorEl: event.currentTarget, projectId: event.currentTarget.id });
-    };
-
+    /**
+     * Handles when the text change in the textfield. Use in mail share and collection
+     * @param {string} name Place where it saved in state
+     */
     handleTextChange = name => event => {
         this.setState({
             [name]: event.target.value,
         });
     };
 
+    /**
+     * Handles when the user add the new email address to send
+     */
     handleAddEmail = () => {
         let arr = [].concat(this.state.sendTo);
         arr.push(this.state.email);
@@ -146,40 +148,23 @@ class ConfigModal extends Component {
         this.setState({ sendTo: arr, email: "" });
     };
 
+    /**
+     * Handles toggle the qrcode menu
+     */
     handleQrToggle = () => {
         this.setState({ qrCodeOpen: !this.state.qrCodeOpen });
     };
-
-    handlePwToggle = () => {
-        this.setState({ pwProtectOpen: !this.state.pwProtectOpen });
-    };
-
+    
+    /**
+     * Handles toggle the share menu
+     */
     handleShrToggle = () => {
         this.setState({ shareOpen: !this.state.shareOpen, sendTo: [] });
     };
 
-    pwProtect = () => (
-        <div>
-            <h5>Please enter a PW.</h5>
-            <TextField
-                id="standard-name"
-                type="password"
-                onChange={this.handleTextChange("pw")}
-            />
-            <Button
-                color="primary"
-                onClick={() => {
-                    this.handlePwToggle();
-                    this.props.sceneActions.addPassword(this.state.pw);
-                }} >
-                Save
-            </Button>
-            <p style={{ fontSize: "80%", marginTop: 10 }}>
-                <b>Legal disclaimer:</b> This will only slow down people from accessing your work. MYR is not sutiable for sensitive information.
-            </p>
-        </div>
-    );
-
+    /**
+     * Email field where user enters addresses they want to share it with
+     */
     shareOptions = () => (
         <div>
             <h5>Enter one or more email addresses</h5>
@@ -209,6 +194,9 @@ class ConfigModal extends Component {
         </div>
     );
 
+    /**
+     * QR Code of the link to the project
+     */
     qrCodeOpen = () => {
         return (
             <div>
@@ -225,48 +213,75 @@ class ConfigModal extends Component {
         this.props.sceneActions.toggleCoordSky();
     };
 
+    /**
+     * Update the state and dispatch an action to change the skycolor 
+     * @param {object} color object contains "hex" key
+     */
     handleSkyChangeComplete = (color) => {
         this.setState({ skyColor: color.hex });
         this.props.sceneActions.changeSkyColor(color.hex);
     };
 
+    /**
+     * Update the state and dispatch an action to change the floorcolor 
+     * @param {object} color object contains "hex" key
+     */
     handleFloorChangeComplete = (color) => {
         this.setState({ floorColor: color.hex });
         this.props.sceneActions.changeFloorColor(color.hex);
     };
 
+
+    /** 
+     * Update component state whenever the slider's value changes
+     * so text displays correctly, only update redux store on 
+     * mouseup when user drags slider 
+     * 
+     * @param {object} e input from mouse
+     * @param {number} newSpeed updated value
+     */
     handleMoveSpeedUpdate = (e, newSpeed) => {
-        /* update component state whenever the slider's value changes
-         * so text displays correctly, only update redux store on 
-         * mouseup when user drags slider */
         this.setState({ moveSpeed: newSpeed });
         if(!e || e.type === "mouseup") {
             this.props.sceneActions.updateMoveSpeed(newSpeed);
         }
     };
 
+    /**
+     * Toggle the color picker for skyColor
+     */
     handleSkyColorClick = () => {
         this.setState({ displaySkyColorPicker: !this.state.displaySkyColorPicker });
     };
 
+    /**
+     * Toggle the color picker for floorColor
+     */
     handleFloorColorClick = () => {
         this.setState({ displayFloorColorPicker: !this.state.displayFloorColorPicker });
     };
+
 
     handleMoveSpeedClick = () => {
         this.setState({ displayMoveSpeedSlider: !this.state.displayMoveSpeedSlider });
     };
 
+    /**
+     * Close the color picker for skyColor
+     */
     handleSkyColorClose = () => {
         this.setState({ displaySkyColorPicker: false });
     };
 
+    /**
+     * Close the color picker for floorColor
+     */
     handleFloorColorClose = () => {
         this.setState({ displayFloorColorPicker: false });
     };
 
     /**
-     * Toggles whether the editor is showing
+     * Return button for toggles whether the editor is showing
      */
     viewToggle = () => {
         let style = this.props.scene.settings.viewOnly ? btnStyle.off : btnStyle.on;
@@ -290,7 +305,9 @@ class ConfigModal extends Component {
         );
     };
 
-    // Toggles the grid on and off
+    /**
+     * Return button for toggles the grid on and off
+     */ 
     gridToggle = () => {
         let style = this.props.scene.settings.showCoordHelper ? btnStyle.on : btnStyle.off;
         style = { ...btnStyle.base, ...style };
@@ -311,6 +328,9 @@ class ConfigModal extends Component {
         );
     };
 
+    /**
+     * Return button for toggles the default light on and off
+     */
     defaultLightToggle = () =>{
         let style = this.props.scene.settings.defaultLight ? btnStyle.on : btnStyle.off;
         style = { ...btnStyle.base, ...style };
@@ -331,7 +351,10 @@ class ConfigModal extends Component {
             </ButtonBase >
         );
     };
-    
+
+    /**
+     * Return button for toggles the shadow on and off
+     */
     castShadowToggle = () => {
         let style = this.props.scene.settings.castShadow ? btnStyle.on : btnStyle.off;
         style = { ...btnStyle.base, ...style };
@@ -353,6 +376,9 @@ class ConfigModal extends Component {
         );
     };
 
+    /**
+     * Return button for toggles the light indicator on and off
+     */
     lightIndicatorToggle = () => {
         let style = this.props.scene.settings.lightIndicator ? btnStyle.on : btnStyle.off;
         style = { ...btnStyle.base, ...style };
@@ -375,7 +401,7 @@ class ConfigModal extends Component {
     };
 
     /**
-     * Toggles the floor on and off
+     * Return button for toggles the floor on and off
      */
     floorToggle = () => {
         let style = this.props.scene.settings.showFloor ? btnStyle.on : btnStyle.off;
@@ -397,6 +423,9 @@ class ConfigModal extends Component {
         );
     };
 
+    /**
+     * Return button for toggles addCollection menu
+     */
     addCollectionToggle = () => {
         return (
             <ButtonBase
@@ -409,10 +438,17 @@ class ConfigModal extends Component {
         );
     };
 
+    /**
+     * Handle toggle of addCollection menu
+     */
     handleAddClassToggle = () => {
         this.setState({ addClassOpen: !this.state.addClassOpen, collectionError: "" });
     };
 
+
+    /**
+     * Returns button for shows collection info
+     */
     classInfoToggle = () => {
         return (
             <ButtonBase
@@ -424,6 +460,9 @@ class ConfigModal extends Component {
         );
     };
 
+    /**
+     * Returns elements for addCollections menu
+     */
     addClass = () => (
         <div>
             <h5>Please enter your collection name.</h5>
@@ -471,6 +510,9 @@ class ConfigModal extends Component {
         );
     };
 
+    /**
+     * Returns button for open speed slider
+     */
     updateMoveSpeed = () => {
         return (
             <ButtonBase
@@ -485,6 +527,9 @@ class ConfigModal extends Component {
         );
     };
 
+    /**
+     * Returns button for open color picker for skyColor
+     */
     changeSkyColor = () => {
         return (
             <ButtonBase
@@ -499,6 +544,9 @@ class ConfigModal extends Component {
         );
     };
 
+    /**
+     * Returns button for open color picker for floorColor
+     */
     changeFloorColor = () => {
         return (
             <ButtonBase
@@ -513,10 +561,18 @@ class ConfigModal extends Component {
         );
     };
 
+    /**
+     * Handles the switch between scene and share tab
+     * @param {*} event 
+     * @param {string} value New tab string 
+     */
     handleChange = (event, value) => {
         this.setState({ value });
     };
 
+    /**
+     * Create sceneConfig menu
+     */
     render() {
         const { classes } = this.props;
         let isDisabled = this.props.layoutType === layoutTypes.REFERENCE;
@@ -664,12 +720,6 @@ class ConfigModal extends Component {
                                                     <Icon className="material-icons">send</Icon>
                                                     Send To
                                                 </ButtonBase>
-                                                {/* <ButtonBase
-                                                    style={btnStyle.base}
-                                                    onClick={() => { this.handlePwToggle(); }} >
-                                                    <Icon className="material-icons">lock</Icon>
-                                                    Add PW
-                                                </ButtonBase> */}
                                             </div>
                                             <div className="col-12 border-bottom pt-4">Collection Control</div>
                                             {this.props.displayCollectionConfig ? 
@@ -721,20 +771,6 @@ class ConfigModal extends Component {
                                     <Icon className="material-icons">clear</Icon>
                                 </ButtonBase >
                                 <this.shareOptions />
-                            </div>
-                        </Modal>
-                        <Modal
-                            aria-labelledby="simple-modal-title"
-                            aria-describedby="simple-modal-description"
-                            open={this.state.pwProtectOpen}
-                            onClose={this.handlePwToggle} >
-                            <div style={getModalStyle()} className={classes.paper}>
-                                <ButtonBase
-                                    style={{ position: "absolute", right: 15, top: 15 }}
-                                    onClick={() => this.handlePwToggle()} >
-                                    <Icon className="material-icons">clear</Icon>
-                                </ButtonBase >
-                                <this.pwProtect />
                             </div>
                         </Modal>
                         <Modal

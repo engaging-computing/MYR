@@ -18,9 +18,14 @@ Guided.propTypes = {
     course: PropTypes.object.isRequired
 };
 
+/**
+ * This makes the values accessible as props
+ * @param {*} state Entire redux store state
+ */
 const mapStateToProps = state => ({
     editor: state.editor,
     user: state.user.user,
+    usersettings: state.user.settings,
     scene: state.scene,
     lesson: state.courses.currentLesson,
     projects: state.project,
@@ -31,7 +36,7 @@ const mapStateToProps = state => ({
 
 /**
  * This maps dispatch actions to props
- * @param {*} dispatch !!!DESCRIPTION NEEDED!!!
+ * @param {*} dispatch Give dipatch to the store
  */
 const mapDispatchToProps = dispatch => ({
     editorActions: bindActionCreators(Actions.EditorActions, dispatch),
@@ -39,7 +44,8 @@ const mapDispatchToProps = dispatch => ({
     sceneActions: bindActionCreators(Actions.SceneActions, dispatch),
     projectActions: bindActionCreators(Actions.ProjectActions, dispatch),
     courseActions: bindActionCreators(Actions.CourseActions, dispatch),
-    collectionActions: bindActionCreators(Actions.CollectionActions, dispatch)
+    collectionActions: bindActionCreators(Actions.CollectionActions, dispatch),
+    userActions: bindActionCreators(Actions.UserActions, dispatch),
 });
 
 /**
