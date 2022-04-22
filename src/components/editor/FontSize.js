@@ -12,6 +12,7 @@ class FontSize extends React.Component {
     
     handleFontSizeUpdate = (e) => {
         this.props.userActions.updateFontSize(e.target.value);
+        this.props.refreshText();
     }
 
     render(){
