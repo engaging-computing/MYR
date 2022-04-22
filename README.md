@@ -9,13 +9,10 @@ The Engaging Computing Group develops new technologies to enable learners—yout
 ## Status
 [![CircleCI](https://circleci.com/gh/engaging-computing/MYR.svg?style=shield)](https://circleci.com/gh/engaging-computing/MYR)
 
-## Change Log - 3.0.0 -> 3.1.0
-- Updated sorting for user projects to be case insensitive.
-- Added ability to change code font size for an account.
-- Added transparency to helper grid
-- Additional Documentation for development.
-- Misc. Dependency updates
-
+## Change Log - 3.1.0 -> 3.1.1
+- Patched font-size bug, previously changing font-size would clear code in the editor   
+- Dependency updates
+- nvmrc file updated (10.13 -> 12.18)
 
 
 ## Acknowledgments
