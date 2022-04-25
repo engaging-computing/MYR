@@ -373,7 +373,7 @@ class Project extends React.Component {
  * @returns 1 if project a should come before project b, -1 if b should come before a 
  */
     projectSort = (a,b)=>{
-        if(a.name) {
+        if(a.name && b.name) {
             if(a.name.toUpperCase() < b.name.toUpperCase())
             {
                 return -1;
