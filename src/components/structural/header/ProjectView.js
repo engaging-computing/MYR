@@ -373,13 +373,15 @@ class Project extends React.Component {
  * @returns 1 if project a should come before project b, -1 if b should come before a 
  */
     projectSort = (a,b)=>{
-        if(a.name.toUpperCase() < b.name.toUpperCase())
-        {
-            return -1;
-        }
-        else if(a.name.toUpperCase() > b.name.toUpperCase())
-        {
-            return 1;
+        if(a.name && b.name) {
+            if(a.name.toUpperCase() < b.name.toUpperCase())
+            {
+                return -1;
+            }
+            else if(a.name.toUpperCase() > b.name.toUpperCase())
+            {
+                return 1;
+            }
         }
         else if(a.updateTime > b.updateTime)
         {
