@@ -15,9 +15,6 @@ export function asyncCollections(uid) {
         if (uid) {
             let userCollections = [];
             fetch(collectRef, {headers: {"x-access-token": uid}}).then((data) => {
-                if(data.status === 204){
-                    return;
-                } 
                 data.json().then((data) => {
                     data.forEach((doc) => {
                         userCollections.push(doc);
