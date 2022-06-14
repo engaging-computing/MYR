@@ -127,6 +127,7 @@ class KeyboardShortcut extends React.Component {
             <div className="whole-keyboard">
                 <Tooltip title="Keyboard Shortcut">
                     <Button
+                        id="keyboard-shortcut"
                         variant="contained"
                         size="small"
                         color="primary"
