@@ -39,6 +39,10 @@ const editor = [
     {
         shortcut: ["Alt/⌘", "D"],
         description: "Delete current line of code"
+    },
+    {
+        shortcut: ["Ctrl/⌘", "L"],
+        description: "Copy current line of code"
     }
 ];
 
