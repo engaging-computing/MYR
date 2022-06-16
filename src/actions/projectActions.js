@@ -1,7 +1,53 @@
 import * as types from "../constants/ActionTypes";
+import {saveAs} from "file-saver";
 
 const sceneRef = "/apiv1/scenes";
 const previewRef = "/apiv1/preview/id";
+
+/**
+ * Imports a JSON document to the backend for the provided user.
+ * Only valid scenes are imported, invalid ones are skipped
+ * 
+ * @param {string} uid A JWT token for authenticating with the backend server
+ * @param {FileList} projList A list of files from a input taking file types
+ */
+export function importProj(uid, projList) {
+    return async (dispatch) => {
+        const text = await projList[0].text();
+        const resp = await fetch(`${sceneRef}/import`, {method: "POST", body: text, headers: {
+            "x-access-token": uid,
+            "Content-Type": "application/json"
+        }});
+        const ids = await resp.json();
+        let new_scenes = [];
+        for(let id of ids.importedScenes) {
+            const id_resp = await fetch(`${sceneRef}/id/${id}`);
+            const scene = await id_resp.json();
+            scene.url = `${previewRef}/${id}`;
+            new_scenes.push(scene);
+        }
+
+        dispatch(syncImportProj(new_scenes));
+    };
+}
+
+export function exportProj(uid, id = undefined) {
+    return async () => {
+        let query = "";
+        if(id) {
+            query = `?id=${id}`;
+        }
+
+        fetch(`${sceneRef}/export${query}`, {headers: {"x-access-token": uid}}).then(async (resp) => {
+            if(resp.status === 200) {
+                const result = await resp.json();
+                const bytes = new TextEncoder().encode(JSON.stringify(result));
+                saveAs(new Blob([bytes], {type: "application/json;charset=utf-8"}), "MYR-export.json");
+            }
+        });
+    };
+}
+
 
 /**
  * Retrieved the list of user scenes
@@ -24,6 +70,16 @@ export function asyncUserProj(uid) {
             });
         }
     };
+}
+
+/**
+ * Returns a dispatch trigger to import a list of scenes into the user's
+ * project state in redux.
+ * @param {Object[]} payload An array of scene objects to be added to the state
+ * @returns 
+ */
+export function syncImportProj(payload) {
+    return { type: types.IMPORT_PROJ, payload: payload };
 }
 
 
@@ -160,5 +216,7 @@ export default {
     syncUserProj,
     asyncExampleProj,
     syncExampleProj,
-    deleteProj
+    deleteProj,
+    exportProj,
+    importProj
 };

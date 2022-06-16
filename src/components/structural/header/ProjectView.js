@@ -108,6 +108,7 @@ class Project extends React.Component {
             value: this.props.tab,
         };
         this.emailRef = React.createRef();
+        this.uploadRef = React.createRef();
     }
 
     /**
@@ -183,6 +184,10 @@ class Project extends React.Component {
      */
     handleShrToggle = () => {
         this.setState({ shareOpen: !this.state.shareOpen, sendTo: [] });
+    }
+
+    uploadFile = () => {
+        this.uploadRef.current.click();
     }
 
     /**
@@ -354,6 +359,15 @@ class Project extends React.Component {
                 </ListItemIcon>
                 <ListItemText inset primary="Send" />
             </MenuItem>
+            {this.props.user && this.state.value === "a" &&
+            <MenuItem
+                onClick={() => this.props.exportFunc(this.props.user.uid, this.state.projectId)}>
+                <ListItemIcon>
+                    <Icon className="material-icons">download</Icon>
+                </ListItemIcon>
+                <ListItemText inset primary="Export Scene" />
+            </MenuItem>
+            }
         </Menu>
     );
 
@@ -456,7 +470,33 @@ class Project extends React.Component {
                                     }
                                     <span>&nbsp;</span>Preview
                                 </Button>
-                                <hr />
+                                {this.state.value === "a" && this.props.user &&
+                                <React.Fragment>
+                                    <Button
+                                        color="default"
+                                        onClick={this.uploadFile}
+                                        title="Import"
+                                    >
+                                        <input
+                                            type="file"
+                                            accept="application/json"
+                                            ref={this.uploadRef}
+                                            onChange={(e) => this.props.importFunc(this.props.user.uid, e.target.files)}
+                                            multiple={false}
+                                            hidden
+                                        />
+                                        <Icon className="material-icons">upload</Icon>
+                                        Import
+                                    </Button>
+                                    
+                                    <Button
+                                        onClick={() => this.props.exportFunc(this.props.user.uid)}>
+                                        <Icon className="material-icons">download</Icon>
+                                        Export All
+                                    </Button>
+                                    <hr />
+                                </React.Fragment>
+                                }
                             </div>
                             <Tabs
                                 value={this.state.value}

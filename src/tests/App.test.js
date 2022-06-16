@@ -277,7 +277,7 @@ describe("User Reducer", () => {
         expect(user(undefined, {})).toEqual(
             {
                 user: null,
-                settings : {
+                settings: {
                     fontSize: 12
                 }
             }
@@ -294,7 +294,7 @@ describe("User Reducer", () => {
         ).toEqual(
             {
                 user: testUser,
-                settings:{
+                settings: {
                     fontSize: 12
                 }
             }
@@ -308,7 +308,7 @@ describe("User Reducer", () => {
             })
         ).toEqual({
             user: null,
-            settings:{
+            settings: {
                 fontSize: 12
             }
         }

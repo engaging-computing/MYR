@@ -138,7 +138,7 @@ class KeyboardShortcut extends React.Component {
                     id="simple-popover"
                     anchorEl={this.state.anchorEl}
                     anchorOrigin={{
-                        vertical:"top",
+                        vertical: "top",
                         horizontal: "left",
                     }}
                     transformOrigin={{

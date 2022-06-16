@@ -17,6 +17,7 @@ export const SAVE_START = "SAVE_START";
 export const SYNC_USER_PROJ = "SYNC_USER_PROJ";
 export const SYNC_EXAMP_PROJ = "SYNC_EXAMP_PROJ";
 export const DELETE_PROJ = "DELETE_PROJ";
+export const IMPORT_PROJ = "IMPORT_PROJ";
 
 export const NAME_SCENE = "NAME_SCENE";
 export const NEW_SCENE = "NEW_SCENE";

@@ -794,12 +794,15 @@ class Header extends Component {
                     </Tooltip>
                     <ProjectView
                         deleteFunc={this.props.projectActions.deleteProj}
+                        exportFunc={this.props.projectActions.exportProj}
+                        importFunc={this.props.projectActions.importProj}
                         userProjs={this.props.projects.userProjs}
                         exampleProjs={this.props.projects.exampleProjs}
                         projectsOpen={this.state.projectsOpen}
                         handleProjectToggle={this.handleProjectToggle}
                         tab={this.state.projectTab}
-                        user={this.props.user} />
+                        user={this.props.user}
+                    />
                     <MyrTour
                         tourOpen={this.state.tourOpen}
                         handleTourToggle={this.handleTourToggle}

@@ -33,8 +33,8 @@ AFRAME.registerComponent("force-pushable", {
  * @summary This sets the side where the shadow should be cast on entity
  */
 AFRAME.registerComponent("gridmaterial",{
-    schema:{
-        default:""
+    schema: {
+        default: ""
     },
     init: function(){
         const texture = new THREE.TextureLoader().load("/img/grid_alpha_0.png");
@@ -51,8 +51,8 @@ AFRAME.registerComponent("gridmaterial",{
 
 //This sets the side where the shadow should be rendered
 AFRAME.registerComponent("shadowcustomsetting", {
-    schema:{
-        default:""
+    schema: {
+        default: ""
     },
     init: function () {
         this.el.addEventListener("loaded", () => {
@@ -79,14 +79,14 @@ AFRAME.registerComponent("shadowcustomsetting", {
  *              This is use for the light indicator that has the property of lighttarget (directional and spot light)
  */
 AFRAME.registerComponent("indicatorrotation",{
-    schema:{
-        position:{
+    schema: {
+        position: {
             type: "vec3",
-            default:{x:0,y:0,z:0}
+            default: {x: 0,y: 0,z: 0}
         },
-        target:{
-            type:"vec3",
-            default:{x:0,y:0,z:0}
+        target: {
+            type: "vec3",
+            default: {x: 0,y: 0,z: 0}
         },
     },
     init: function(){

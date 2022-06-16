@@ -31,11 +31,11 @@ const isEmptyObject = (keys) => {
  */
 AFRAME.registerComponent("wasd-plus-controls", {
     schema: {
-        acceleration: {type: "number", default : 150},
-        enabled : {type: "boolean", default : true},
-        xInverted : {type: "boolean", default : false},
-        yInverted : {type: "boolean", default : false},
-        zInverted : {type: "boolean", default : false},
+        acceleration: {type: "number", default: 150},
+        enabled: {type: "boolean", default: true},
+        xInverted: {type: "boolean", default: false},
+        yInverted: {type: "boolean", default: false},
+        zInverted: {type: "boolean", default: false},
     },
     init: function() {
         //tracks the state of keypresses

@@ -219,9 +219,9 @@ export const customCompleter = {
                 value: word,
                 meta: "MYR",
                 score: 2,
-                completer:{
+                completer: {
                     insertMatch: function(editor,data){
-                        editor.completer.insertMatch({value:data.value});
+                        editor.completer.insertMatch({value: data.value});
                         let pos = editor.selection.getCursor();
                         editor.gotoLine(pos.row+1,pos.column-1); 
                     }

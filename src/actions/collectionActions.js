@@ -132,7 +132,7 @@ export async function createCollection(name, uid) {
     let resp = await fetch(`${collectRef}/`, {
         method: "POST", 
         body: JSON.stringify({collectID: name}),
-        headers:{"Content-Type": "application/json", "x-access-token": uid}
+        headers: {"Content-Type": "application/json", "x-access-token": uid}
     });
     if(resp.status === 409){
         window.alert("Error: A collection already exists with that collection name.");

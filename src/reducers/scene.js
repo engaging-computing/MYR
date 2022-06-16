@@ -124,7 +124,7 @@ export default function scene(state = initial_state, action) {
         case types.TOGGLE_LIGHT_INDICATOR:
             return{
                 ...state,
-                settings:{ 
+                settings: { 
                     ...state.settings,
                     lightIndicator: !state.settings.lightIndicator
                 }

@@ -32,6 +32,12 @@ export default function project(state = initial_state, action) {
                 ...state,
                 userProjs: projs
             };
+        case types.IMPORT_PROJ:
+            const importedProjs = state.userProjs.concat(action.payload);
+            return {
+                ...state,
+                userProjs: importedProjs
+            };
         default:
             return state;
     }

@@ -7,11 +7,11 @@ import { BufferGeometryUtils } from "three/examples/jsm/utils/BufferGeometryUtil
  *              Shape: cone
  */
 AFRAME.registerComponent("spotlightindicator",{
-    schema:{
-        color:{
-            default:"red"
+    schema: {
+        color: {
+            default: "red"
         },
-        target:{
+        target: {
             type: "boolean",
             default: false
         }
@@ -70,9 +70,9 @@ AFRAME.registerComponent("spotlightindicator",{
  *              Shape: sphere
  */
 AFRAME.registerComponent("pointlightindicator", {
-    schema:{
-        color:{
-            default:"red"
+    schema: {
+        color: {
+            default: "red"
         }
     },
     init: function(){
@@ -85,7 +85,7 @@ AFRAME.registerComponent("pointlightindicator", {
         let outGeometry =new THREE.SphereGeometry( .35, 100, 100);
 
         /*      define material     */
-        const material = new THREE.MeshBasicMaterial({color:data.color});
+        const material = new THREE.MeshBasicMaterial({color: data.color});
         const outMaterial = CreateOutlineMaterial(material);
 
         /*      define and group all the mesh       */
@@ -106,9 +106,9 @@ AFRAME.registerComponent("pointlightindicator", {
  *              Shape: arrow
  */
 AFRAME.registerComponent("directionallightindicator", {
-    schema:{
-        color:{
-            default:"red"
+    schema: {
+        color: {
+            default: "red"
         }
     },
     init: function(){
@@ -132,7 +132,7 @@ AFRAME.registerComponent("directionallightindicator", {
         let outGeometry = BufferGeometryUtils.mergeBufferGeometries([outArrowHead, outArrowPole]);
 
         /*      define material     */
-        let material = new THREE.MeshBasicMaterial({color:data.color});
+        let material = new THREE.MeshBasicMaterial({color: data.color});
         let outMaterial = CreateOutlineMaterial(material);
         /*  define and group all the meshes together      */
         let mesh = new AFRAME.THREE.Mesh(geometry, material);
@@ -155,11 +155,11 @@ AFRAME.registerComponent("directionallightindicator", {
  */
 AFRAME.registerComponent("hemispherelightindicator",{
     schema: {
-        color:{
-            default:"red"
+        color: {
+            default: "red"
         },
-        secondColor:{
-            default:"red"
+        secondColor: {
+            default: "red"
         }
     },
     init: function(){
