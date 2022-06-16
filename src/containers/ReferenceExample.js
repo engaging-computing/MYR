@@ -21,6 +21,7 @@ ReferenceExample.propTypes = {
 const mapStateToProps = state => ({
     editor: state.editor,
     user: state.user.user,
+    userSettings: state.user.settings,
     scene: state.scene,
     projects: state.project,
     courses: state.courses,
