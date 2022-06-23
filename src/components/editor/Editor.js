@@ -95,7 +95,7 @@ class Editor extends Component {
                     editorProps={{
                         $blockScrolling: Infinity,
                     }}
-                    height="90vh"
+                    height="88vh"
                     mode="javascript"
                     name="ace-editor"
                     // eslint-disable-next-line
