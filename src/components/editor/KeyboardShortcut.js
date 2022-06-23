@@ -60,6 +60,10 @@ const scene = [
         description: "Move right"
     },
     {
+        shortcut: ["F"],
+        description: "Enter full screen"
+    },
+    {
         shortcut: ["Space"],
         description: "Move up"
     },
