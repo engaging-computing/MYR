@@ -20,6 +20,7 @@ class FontSize extends React.Component {
             <div className="font">
                 <Tooltip title="Font Size">
                     <Button className="font-button"
+                        id="font-size"
                         variant="contained"
                         size="small"
                         color="primary">
