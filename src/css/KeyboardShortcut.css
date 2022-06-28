@@ -3,11 +3,16 @@
 }
 
 .title {
-    font-size:large
+    font-size:large;
 }
 
 .shortcut {
-    font-size:xx-small
+    font-size:xx-small;
+}
+
+.shortcut-button {
+    height: 34px;
+    width: 80px;
 }
 
 .right {
@@ -21,17 +26,18 @@
 }
 
 .font-button {
-    height:33px;
-    width:70px;
+    height:34px;
+    width:80px;
 }
 
 .font {
     display: inline-block;
-    margin-left:2px;
+    margin-left: 4px;
 }
 
 .whole-keyboard {
     display: inline-block;
+    margin-left: 1px;
 }
 
 .select {
