@@ -287,6 +287,7 @@ class Project extends React.Component {
                         <span className="scene-btns">
                             <IconButton
                                 id={id}
+                                title="Info"
                                 color="primary"
                                 onClick={this.handleInfoUserClick}
                                 className="" >
@@ -294,6 +295,7 @@ class Project extends React.Component {
                             </IconButton>
                             <IconButton
                                 id={id}
+                                title="Share"
                                 color="primary"
                                 onClick={this.handleClick}
                                 className="" >
@@ -301,15 +303,24 @@ class Project extends React.Component {
                             </IconButton>
                             <IconButton
                                 label="delete Project"
+                                title="Delete Project"
                                 color="secondary"
                                 fullwidth={String(!this.state.showImg)}
                                 onClick={() => this.props.deleteFunc(this.props.user.uid, id, proj.name)}>
                                 <Icon className="material-icons">delete</Icon>
                             </IconButton>
+                            <IconButton
+                                id={id}
+                                title="Edit"
+                                color="primary"
+                                onClick={this.props.saveDrawer}>
+                                <Icon className="material-icons">edit</Icon>
+                            </IconButton>
                         </span>
                         : <span className="scene-btns">
                             <IconButton
                                 id={id}
+                                title="Info"
                                 color="primary"
                                 onClick={this.handleInfoExampleClick}
                                 className="" >
@@ -317,6 +328,7 @@ class Project extends React.Component {
                             </IconButton>
                             <IconButton
                                 id={id}
+                                title="Share"
                                 color="primary"
                                 onClick={this.handleClick}
                                 className="" >

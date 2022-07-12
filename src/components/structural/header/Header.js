@@ -758,7 +758,8 @@ class Header extends Component {
                             userProjs={this.props.projects.userProjs}
                             exampleProjs={this.props.projects.exampleProjs}
                             courses={this.props.courses.courses}
-                            handleTourToggle={this.handleTourToggle} />
+                            handleTourToggle={this.handleTourToggle}
+                            saveDrawer={this.saveDrawer} />
                         <Tooltip title="Stop" placement="bottom-start">
                             <Button
                                 id="stop-btn"
@@ -799,7 +800,8 @@ class Header extends Component {
                         projectsOpen={this.state.projectsOpen}
                         handleProjectToggle={this.handleProjectToggle}
                         tab={this.state.projectTab}
-                        user={this.props.user} />
+                        user={this.props.user}
+                        saveDrawer={this.saveDrawer} />
                     <MyrTour
                         tourOpen={this.state.tourOpen}
                         handleTourToggle={this.handleTourToggle}
