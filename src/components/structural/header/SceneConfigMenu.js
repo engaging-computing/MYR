@@ -424,6 +424,29 @@ class ConfigModal extends Component {
     };
 
     /**
+     * Returns button for toggle cursor
+     */
+    cursorToggle = () => {
+        let style = this.props.scene.settings.showCursor ? btnStyle.on : btnStyle.off;
+        style = { ...btnStyle.base, ...style };
+        return (
+            <ButtonBase
+                style={style}
+                onClick={() => {
+                    this.props.handleRender();
+                    this.props.sceneActions.toggleCursor();
+                }} >
+                {
+                    this.props.scene.settings.showCursor
+                        ? <Icon className="material-icons">toggle_on</Icon>
+                        : <Icon className="material-icons">toggle_off</Icon>
+                }
+                Show Cursor
+            </ButtonBase >
+        );
+    };
+
+    /**
      * Return button for toggles addCollection menu
      */
     addCollectionToggle = () => {
@@ -543,6 +566,22 @@ class ConfigModal extends Component {
             </ButtonBase>
         );
     };
+    /**
+     * Button to reset sky color to original state
+     */
+    resetSkyColor = () => {
+        return (
+            <ButtonBase
+                style={btnStyle.base}
+                onClick={() => {
+                    this.props.handleRender();
+                    this.props.sceneActions.resetSkyColor();
+                }}>
+                <Icon className="material-icons">color_lens</Icon>
+                Reset Sky Color
+            </ButtonBase>
+        );
+    };
 
     /**
      * Returns button for open color picker for floorColor
@@ -561,6 +600,22 @@ class ConfigModal extends Component {
         );
     };
 
+    /**
+     * Reset button to reset floor color to original state
+     */3
+    resetFloorColor = () => {
+        return (
+            <ButtonBase
+                style={btnStyle.base}
+                onClick={() => {
+                    this.props.handleRender();
+                    this.props.sceneActions.resetFloorColor();
+                }}>
+                <Icon className="material-icons">color_lens</Icon>
+                Reset Floor Color
+            </ButtonBase>
+        );
+    };
     /**
      * Handles the switch between scene and share tab
      * @param {*} event 
@@ -620,10 +675,13 @@ class ConfigModal extends Component {
                                                 <this.viewToggle />
                                                 <this.floorToggle />
                                                 <this.gridToggle />
+                                                <this.cursorToggle />
                                             </div>
                                             <div className="col-6">
                                                 <this.changeSkyColor />
                                                 <this.changeFloorColor />
+                                                <this.resetSkyColor />
+                                                <this.resetFloorColor />
                                             </div>
                                             <div className="col-12 border-bottom pt-4">Light Control</div>
                                             <div className="col-6">
