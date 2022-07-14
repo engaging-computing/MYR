@@ -265,6 +265,9 @@ class Project extends React.Component {
         );
     };
 
+    /**
+     * Allows user to change the title and description for a scene they gave saved
+     */
     redoScene = () => {
         this.props.renameScene();
         this.props.handleProjectToggle();
