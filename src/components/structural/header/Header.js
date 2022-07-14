@@ -489,6 +489,11 @@ class Header extends Component {
      */
     handleSaveOpen = () => this.setState({ saveOpen: true });
 
+    renameScene = () => {
+        this.setState({ needsNewId: true });
+        this.handleSaveOpen();
+    }
+
     /**
      * creates the save drawer
      */
@@ -759,7 +764,7 @@ class Header extends Component {
                             exampleProjs={this.props.projects.exampleProjs}
                             courses={this.props.courses.courses}
                             handleTourToggle={this.handleTourToggle}
-                            saveDrawer={this.saveDrawer} />
+                            renameScene={this.renameScene} />
                         <Tooltip title="Stop" placement="bottom-start">
                             <Button
                                 id="stop-btn"
@@ -801,7 +806,7 @@ class Header extends Component {
                         handleProjectToggle={this.handleProjectToggle}
                         tab={this.state.projectTab}
                         user={this.props.user}
-                        saveDrawer={this.saveDrawer} />
+                        renameScene={this.renameScene} />
                     <MyrTour
                         tourOpen={this.state.tourOpen}
                         handleTourToggle={this.handleTourToggle}

@@ -264,6 +264,11 @@ class Project extends React.Component {
             </div>
         );
     };
+
+    redoScene = () => {
+        this.props.renameScene();
+        this.props.handleProjectToggle();
+    }
     
     /**
      * Helper for creating the project card
@@ -313,7 +318,7 @@ class Project extends React.Component {
                                 id={id}
                                 title="Edit"
                                 color="primary"
-                                onClick={this.props.saveDrawer}>
+                                onClick={this.redoScene}>
                                 <Icon className="material-icons">edit</Icon>
                             </IconButton>
                         </span>
