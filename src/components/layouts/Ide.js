@@ -41,7 +41,7 @@ export const Ide = ({ editor, editorActions, user, usersettings, userActions, au
             collections={collections}
             layoutType={layoutTypes.IDE}
         />
-        <div className="row no-gutters">
+        <div className="row g-0">
             {
                 scene.settings.viewOnly
                     ?
