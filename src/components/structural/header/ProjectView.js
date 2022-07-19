@@ -268,9 +268,16 @@ class Project extends React.Component {
     /**
      * Allows user to change the title and description for a scene they gave saved
      */
-    redoScene = () => {
-        this.props.renameScene();
-        this.props.handleProjectToggle();
+    redoScene = (id) => {
+        if(window.location.href !== `${window.origin}/scene/${id}` && window.location.href !== `${window.origin}/scene/${id}/`)
+        {
+            alert("You must have the project open in order to edit it!");
+        }
+        else
+        {
+            this.props.renameScene();
+            this.props.handleProjectToggle();
+        }
     }
     
     /**
@@ -321,7 +328,7 @@ class Project extends React.Component {
                                 id={id}
                                 title="Edit"
                                 color="primary"
-                                onClick={this.redoScene}>
+                                onClick={() => this.redoScene(id)}>
                                 <Icon className="material-icons">edit</Icon>
                             </IconButton>
                         </span>
