@@ -322,7 +322,7 @@ class Welcome extends React.Component {
                                 <this.cookieMessage />
                             </Hidden>
                             <hr />
-                            <div className="row no-gutters">
+                            <div className="row g-0">
                                 <div id="welcome-description" className="col-12 col-md-6 col-lg-8">
                                     <p>MYR is an educational tool that strikes a balance with the ease of use and challenge. We drew inspiration from Logo Turtle and Processing to provide a beginner friendly experience for teaching and learning with MYR. If you want to learn more about MYR itself, visit our <a href="/about" target="_blank" rel="noopener noreferrer">about page</a>.</p>
                                     <p>Within the editor you can create 3D scenes using JavaScript and the MYR API. You can then view your scene in the viewer using a computer, tablet, smartphone, or a VR headset.</p>

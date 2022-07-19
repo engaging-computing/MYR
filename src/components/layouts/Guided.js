@@ -36,7 +36,7 @@ export const Guided = ({ editor, user, usersettings, userActions, scene, editorA
             collectionActions={collectionActions}
             collections={collections}
         />
-        <div className="row no-gutters">
+        <div className="row g-0">
             {
                 scene.settings.viewOnly
                     ?

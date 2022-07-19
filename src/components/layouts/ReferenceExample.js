@@ -36,7 +36,7 @@ export const ReferenceExample = ({ editor, user, scene, referenceExample, refere
             referenceExampleActions={referenceExampleActions}
             layoutType={layoutTypes.REF_EXAMPLE}
         />
-        <div className="row no-gutters">
+        <div className="row g-0">
             {
                 scene.settings.viewOnly
                     ?
