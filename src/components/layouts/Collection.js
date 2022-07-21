@@ -34,7 +34,7 @@ export const Collection = ({ editor, editorActions, user, userSettings, userActi
             collection={match.params.collection}
             layoutType={layoutTypes.COLLECTION}
         />
-        <div className="row no-gutters">
+        <div className="row g-0">
             <div id="interface" className="col-12 col-md-4">
                 <SelectProject
                     selectedCollection={match.params.collection}
