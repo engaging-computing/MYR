@@ -132,6 +132,7 @@ class KeyboardShortcut extends React.Component {
                 spacing={10}>
                 <Tooltip title="Keyboard Shortcut">
                     <Button 
+                        id = "keyboard-tour"
                         className="shortcut-button"
                         variant="contained"
                         size="small"
