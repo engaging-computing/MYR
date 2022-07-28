@@ -10,7 +10,8 @@ import {
     TextField,
     Tooltip,
     Tabs,
-    Tab
+    Tab,
+
 } from "@material-ui/core";
 
 import QRCode from "qrcode.react";
@@ -566,22 +567,6 @@ class ConfigModal extends Component {
             </ButtonBase>
         );
     };
-    /**
-     * Button to reset sky color to original state
-     */
-    resetSkyColor = () => {
-        return (
-            <ButtonBase
-                style={btnStyle.base}
-                onClick={() => {
-                    this.props.handleRender();
-                    this.props.sceneActions.resetSkyColor();
-                }}>
-                <Icon className="material-icons">color_lens</Icon>
-                Reset Sky Color
-            </ButtonBase>
-        );
-    };
 
     /**
      * Returns button for open color picker for floorColor
@@ -600,22 +585,6 @@ class ConfigModal extends Component {
         );
     };
 
-    /**
-     * Reset button to reset floor color to original state
-     */3
-    resetFloorColor = () => {
-        return (
-            <ButtonBase
-                style={btnStyle.base}
-                onClick={() => {
-                    this.props.handleRender();
-                    this.props.sceneActions.resetFloorColor();
-                }}>
-                <Icon className="material-icons">color_lens</Icon>
-                Reset Floor Color
-            </ButtonBase>
-        );
-    };
     /**
      * Handles the switch between scene and share tab
      * @param {*} event 
@@ -680,8 +649,6 @@ class ConfigModal extends Component {
                                             <div className="col-6">
                                                 <this.changeSkyColor />
                                                 <this.changeFloorColor />
-                                                <this.resetSkyColor />
-                                                <this.resetFloorColor />
                                             </div>
                                             <div className="col-12 border-bottom pt-4">Light Control</div>
                                             <div className="col-6">
@@ -711,6 +678,12 @@ class ConfigModal extends Component {
                                                         disableAlpha={true}
                                                         color={this.state.skyColor}
                                                         onChangeComplete={this.handleSkyChangeComplete} />
+                                                    <div className="reset-button-group">
+                                                        <Button 
+                                                            onClick={this.props.sceneActions.resetSkyColor}>
+                                                            Reset Sky Color
+                                                        </Button>
+                                                    </div>
                                                 </div>
                                                 :
                                                 null
@@ -728,6 +701,12 @@ class ConfigModal extends Component {
                                                         disableAlpha={true}
                                                         color={this.state.floorColor}
                                                         onChangeComplete={this.handleFloorChangeComplete} />
+                                                    <div className="reset-button-group">
+                                                        <Button 
+                                                            onClick={this.props.sceneActions.resetFloorColor}>
+                                                            Reset Floor Color
+                                                        </Button>
+                                                    </div>
                                                 </div>
                                                 :
                                                 null
