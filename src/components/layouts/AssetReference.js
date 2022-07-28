@@ -30,7 +30,7 @@ export const AssetReference = ({ editor, editorActions, user, authActions, scene
             collections={collections}
             layoutType={layoutTypes.REFERENCE}
         />
-        <div className="row no-gutters">
+        <div className="row g-0">
             <AssetReferencePage />
         </div>
         <Footer />
