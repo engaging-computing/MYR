@@ -10,7 +10,7 @@ class Footer extends Component {
                 <div className="row m-3 text-center" >
                     <div className="col-lg-4 d-flex">
                         <span><strong>MYR:</strong></span>
-                        <ul className="pl-2 list-inline">
+                        <ul className="pl-2">
                             <li className="pl-2 list-inline-item">
                                 <a href="https://learnmyr.org/about/" target="_blank" rel="noopener noreferrer">About</a>
                             </li>
