@@ -678,16 +678,19 @@ class ConfigModal extends Component {
                                                 ?
                                                 <div id="speed-config" className="col-12 pt-4">
                                                     <div className="row">
-                                                        <div className="col-9">
+                                                        <div className="col-9 d-inline-flex">
+                                                            <label className="px-3">Slow</label>
                                                             <Slider
+                                                                className="align-self-top"
                                                                 value={this.state.moveSpeed}
-                                                                valueLabelDisplay="auto" 
                                                                 onChange={this.handleMoveSpeedUpdate}
                                                                 onChangeCommitted={this.handleMoveSpeedUpdate}
-                                                                min={0}
+                                                                min={150}
                                                                 max={1000} />
+                                                            <label className="px-3">Fast</label>
+
                                                         </div>
-                                                        <div className="col-3 align-top">
+                                                        <div className="col-3 align-top d-inline-flex">
                                                             <ButtonBase
                                                                 onClick={() => this.handleMoveSpeedUpdate(null, 150)}>
                                                                 <Icon className="material-icons">settings_backup_restore</Icon>
