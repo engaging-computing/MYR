@@ -370,3 +370,5 @@ class Reference extends Component {
         );
     }
 }
+
+export default Reference;
