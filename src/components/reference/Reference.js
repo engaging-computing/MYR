@@ -219,6 +219,38 @@ class Reference extends Component {
         }
     }
 
+    /**
+     * Event Listener: Switches tabs in reference bar if an option in autocomplete is 
+     *  selected and not currently in that tab
+     * 
+     * @param {string} value 
+     * @param {string} reason what the user action is
+     */
+    OnFilterSelect = (_, value, reason) => {
+        if(reason === "select-option")
+        {
+            let category;
+            switch(value.id)
+            {
+                case "geometry": category = "a";
+                    break;
+                case "transformations": category = "b";
+                    break;
+                case "animations": category = "c";
+                    break;
+                case "groups": category = "d";
+                    break;
+                case "lights": category = "e";
+                    break;
+                default:
+            }
+            this.setState({
+                value: category, 
+                filter: value.label.toLowerCase()
+            });
+        }
+    }
+
     render() {
         const isDisabled = this.props.layoutType === layoutTypes.REFERENCE;
         return (
