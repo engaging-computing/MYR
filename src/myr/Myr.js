@@ -280,11 +280,10 @@ class Myr {
      */
     setPosition = (x = 0, y = 1, z = 0) => {
         if (typeof x === "number" && typeof y === "number" && typeof z === "number") {
-            this.cursor.position = {
-                x: x,
-                y: y,
-                z: z
-            };
+            let trueY = ((this.cursor.scale.y / 2) - 0.5) + y;
+            this.cursor.position.x = x;
+            this.cursor.position.y = trueY;
+            this.cursor.position.z = z;
         } else {
             console.error("setPosition() must be all numeric values");
         }
@@ -311,8 +310,9 @@ class Myr {
      * @param {number} y New y position of the cursor
      */
     setYPos = (y = 0) => {
+        let trueY = ((this.cursor.scale.y / 2) - 0.5) + y;
         if (typeof y === "number") {
-            this.cursor.position = { ...this.cursor.position, y };
+            this.cursor.position.y = trueY;
         } else {
             console.error("must pass a numeric for setYPos");
         }
