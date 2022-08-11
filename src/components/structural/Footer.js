@@ -10,17 +10,17 @@ class Footer extends Component {
                 <div className="row m-3 text-center" >
                     <div className="col-lg-4 d-flex">
                         <span><strong>MYR:</strong></span>
-                        <ul className="pl-2">
-                            <li className="pl-2 list-inline-item">
+                        <ul className="ps-2">
+                            <li className="d-inline p-2">
                                 <a href="https://learnmyr.org/about/" target="_blank" rel="noopener noreferrer">About</a>
                             </li>
-                            <li className="pl-2 list-inline-item">
+                            <li className="d-inline p-2">
                                 <a href="mailto:support@learnmyr.org" target="_blank" rel="noopener noreferrer">Support</a>
                             </li>
-                            <li className="pl-2 list-inline-item">
+                            <li className="d-inline p-2">
                                 <a href="https://learnmyr.org/about/team/" target="_blank" rel="noopener noreferrer">Team </a>
                             </li>
-                            <li className="pl-2 list-inline-item">
+                            <li className="d-inline p-2">
                                 <a href="https://github.com/engaging-computing/MYR" target="_blank" rel="noopener noreferrer">GitHub</a>
                             </li>
                         </ul>
@@ -36,7 +36,7 @@ class Footer extends Component {
                         </div>
                     </div>
                     <div className="col-lg-4">
-                        <ul className=" list-inline text-lg-right">
+                        <ul className=" list-inline text-lg-end">
                             <li className="pl-2 list-inline-item">
                                 <a href="https://learnmyr.org/about/privacy/" target="_blank" rel="noopener noreferrer">Privacy Policy</a>
                             </li>
