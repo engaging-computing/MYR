@@ -412,6 +412,9 @@ class Welcome extends React.Component {
                             </div>
                             <hr />
                             <this.helperButtons />
+                            <hr />
+                            <p className="note">⌘: Command key for macOS user</p>
+
                             <div className="right">
                                 <p className="general-commands">General Commands</p>
                                 {
@@ -430,7 +433,6 @@ class Welcome extends React.Component {
                                     scene.map(e => {return this.shortcutHelper(e);})
                                 }
                             </div>
-                            <p className="note"> ⌘: Command key for macOS user</p>
                             <this.handleModals />
                             <this.neverAgain />
                             <Hidden smDown>
