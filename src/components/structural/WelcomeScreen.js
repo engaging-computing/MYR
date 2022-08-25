@@ -15,6 +15,67 @@ import CourseSelect from "../courses/CourseSelect.js";
 import { withStyles } from "@material-ui/core/styles";
 import "../../css/WelcomeScreen.css";
 
+const general = [
+    {
+        shortcut: ["Ctrl/⌘", "S"],
+        description: "Save scene"
+    },
+    {
+        shortcut: ["Ctrl/⌘", "Shift", "S"],
+        description: "Save scene as"
+    },
+    {
+        shortcut: ["Ctrl/⌘", "Enter"],
+        description: "Render scene"
+    },
+];
+
+const editor = [
+    {
+        shortcut: ["Ctrl/⌘", "/"],
+        description: "Comment current or selected line of code"
+    },
+    {
+        shortcut: ["Alt/Option", "Up"],
+        description: "Move current line of code up 1 line"
+    },
+    {
+        shortcut: ["Alt/Option", "Down"],
+        description: "Move current line of code down 1 line"
+    },
+    {
+        shortcut: ["Alt/⌘", "D"],
+        description: "Delete current line of code"
+    }
+];
+
+const scene = [
+    {
+        shortcut: ["W"],
+        description: "Move forwards"
+    },
+    {
+        shortcut: ["S"],
+        description: "Move backwards"
+    },
+    {
+        shortcut: ["A"],
+        description: "Move left"
+    },
+    {
+        shortcut: ["D"],
+        description: "Move right"
+    },
+    {
+        shortcut: ["Space"],
+        description: "Move up"
+    },
+    {
+        shortcut: ["Shift"],
+        description: "Move down"
+    },
+];
+
 /** 
  * @returns {object} Center the Welcome Screen
  */
@@ -83,16 +144,33 @@ class Welcome extends React.Component {
     }
 
     /**
+     * Helper function to convert the shortcuts to an equivalent DOM elements 
+     * 
+     * @param {array} data 
+     */
+     shortcutHelper = (data) => {
+         let shortcuts = [];
+         data.shortcut.forEach((key,i)=>{
+             shortcuts.push(<kbd>{key}</kbd>);
+             if(i < data.shortcut.length-1){
+                 shortcuts.push(" + ");
+             }
+         });
+         return (<p>{shortcuts} {data.description}</p>);
+     };
+
+
+     /**
      * Called when the Welcome Screen is mounted (component has been rendererd to the DOM)
      * 
      * Header.js has a state to control whether to show welcome screen or not. By default it's false.
      * So if user hasn't visisted the MYR, toggle the state to true.
      */
-    componentDidMount() {
-        if (!this.getCookie("hasVisited")) {
-            this.props.handleWelcomeToggle();
-        }
-    }
+     componentDidMount() {
+         if (!this.getCookie("hasVisited")) {
+             this.props.handleWelcomeToggle();
+         }
+     }
 
     /**
      * Get value of cookie
@@ -335,8 +413,28 @@ class Welcome extends React.Component {
                             </div>
                             <hr />
                             <this.helperButtons />
-                            <this.handleModals />
                             <hr />
+                            <p className="note">⌘: Command key for macOS user</p>
+                            <div className="right">
+                                <p className="general-commands">General Commands</p>
+                                {
+                                    general.map(e => {return this.shortcutHelper(e);})
+                                }
+                            </div>
+                            <div className="right">
+                                <p className="editor-commands">Editor Commands</p>
+                                {
+                                    editor.map(e => {return this.shortcutHelper(e);})
+                                }
+                            </div>
+                            <div className="right">
+                                <p className="scene-controls">Scene Controls</p>
+                                {
+                                    scene.map(e => {return this.shortcutHelper(e);})
+                                }
+                            </div>
+                            <this.handleModals />
+                            
                             <this.neverAgain />
                             <Hidden smDown>
                                 <hr />
