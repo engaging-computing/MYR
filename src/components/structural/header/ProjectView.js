@@ -264,6 +264,21 @@ class Project extends React.Component {
             </div>
         );
     };
+
+    /**
+     * Allows user to change the title and description for a scene they gave saved
+     */
+    redoScene = (id) => {
+        if(window.location.href !== `${window.origin}/scene/${id}` && window.location.href !== `${window.origin}/scene/${id}/`)
+        {
+            alert("You must have the project open in order to edit it!");
+        }
+        else
+        {
+            this.props.renameScene();
+            this.props.handleProjectToggle();
+        }
+    }
     
     /**
      * Helper for creating the project card
@@ -287,6 +302,7 @@ class Project extends React.Component {
                         <span className="scene-btns">
                             <IconButton
                                 id={id}
+                                title="Info"
                                 color="primary"
                                 onClick={this.handleInfoUserClick}
                                 className="" >
@@ -294,6 +310,7 @@ class Project extends React.Component {
                             </IconButton>
                             <IconButton
                                 id={id}
+                                title="Share"
                                 color="primary"
                                 onClick={this.handleClick}
                                 className="" >
@@ -301,15 +318,24 @@ class Project extends React.Component {
                             </IconButton>
                             <IconButton
                                 label="delete Project"
+                                title="Delete Project"
                                 color="secondary"
                                 fullwidth={String(!this.state.showImg)}
                                 onClick={() => this.props.deleteFunc(this.props.user.uid, id, proj.name)}>
                                 <Icon className="material-icons">delete</Icon>
                             </IconButton>
+                            <IconButton
+                                id={id}
+                                title="Edit"
+                                color="primary"
+                                onClick={() => this.redoScene(id)}>
+                                <Icon className="material-icons">edit</Icon>
+                            </IconButton>
                         </span>
                         : <span className="scene-btns">
                             <IconButton
                                 id={id}
+                                title="Info"
                                 color="primary"
                                 onClick={this.handleInfoExampleClick}
                                 className="" >
@@ -317,6 +343,7 @@ class Project extends React.Component {
                             </IconButton>
                             <IconButton
                                 id={id}
+                                title="Share"
                                 color="primary"
                                 onClick={this.handleClick}
                                 className="" >
