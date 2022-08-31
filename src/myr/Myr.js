@@ -2031,6 +2031,7 @@ class Myr {
      * Return a Entity that can be used to group elements together
      */
     group = () => {
+        this.resetCursor();
         let base = {
             id: "grp" + this.genNewId(),
             position: { ...this.cursor.position },
