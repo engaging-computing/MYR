@@ -6,6 +6,7 @@ export const DEF_SETTINGS = {
     camConfig: 0,
     showCoordHelper: true,
     showFloor: true,
+    showCursor: true, 
     cameraPosition: "0 1.6 3",
     viewOnly: false,
     defaultLight: true,
@@ -84,6 +85,15 @@ export default function scene(state = initial_state, action) {
                     skyColor: action.color
                 }
             };
+        //Reset the color of the sky to default
+        case types.RESET_SKY_COLOR:
+            return {
+                ...state,
+                settings: {
+                    ...state.settings,
+                    skyColor: "white"
+                }
+            };
         //Update the color of floor
         case types.CHANGE_FLOOR_COLOR:
             return {
@@ -91,6 +101,15 @@ export default function scene(state = initial_state, action) {
                 settings: {
                     ...state.settings,
                     floorColor: action.color
+                }
+            };
+        //Reset the color of the floor to default
+        case types.RESET_FLOOR_COLOR:
+            return {
+                ...state,
+                settings: {
+                    ...state.settings,
+                    floorColor: "#222"
                 }
             };
         //Toggle the floor
@@ -122,11 +141,20 @@ export default function scene(state = initial_state, action) {
             };
         //Toggle the light indicator
         case types.TOGGLE_LIGHT_INDICATOR:
-            return{
+            return {
                 ...state,
                 settings:{ 
                     ...state.settings,
                     lightIndicator: !state.settings.lightIndicator
+                }
+            };
+        //Toggle the cursor
+        case types.TOGGLE_CURSOR:
+            return {
+                ...state,
+                settings:{ 
+                    ...state.settings,
+                    showCursor: !state.settings.showCursor
                 }
             };
         //Add the scene to the collection
