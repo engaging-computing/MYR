@@ -291,9 +291,9 @@ class Project extends React.Component {
             let id = proj._id;
             let name = proj.name;
             return (
-                <div key={id} id={id} title={name}
+                <div key={id} id="scene-card" title={name}
                     className="proj col-xs-12 col-md-6 col-lg-4 pt-2 pl-0" >
-                    <a href={`/scene/${id}`} >
+                    <a href={`/scene/${id}`} className = "text-decoration-none">
                         <span className="project-span">{name}</span>
                         <img id={id} alt={id} src={proj.url}
                             className={"img-thumbnail " + (this.state.showImg && "d-none")} />
