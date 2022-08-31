@@ -14,6 +14,7 @@ import CourseSelect from "../courses/CourseSelect.js";
 
 import { withStyles } from "@material-ui/core/styles";
 import "../../css/WelcomeScreen.css";
+import CookieHandler from "../../utils/CookieHandler"; 
 
 /** 
  * @returns {object} Center the Welcome Screen
@@ -89,44 +90,8 @@ class Welcome extends React.Component {
      * So if user hasn't visisted the MYR, toggle the state to true.
      */
     componentDidMount() {
-        if (!this.getCookie("hasVisited")) {
+        if (!CookieHandler.getCookie("hasVisited")) {
             this.props.handleWelcomeToggle();
-        }
-    }
-
-    /**
-     * Get value of cookie
-     * @param {string} cookieName name of cookie
-     * @returns {string} value of cookie if it exist, return empty string otherwise
-     */
-    getCookie = (cookieName) => {
-        let name = cookieName + "=";
-        let decodedCookie = decodeURIComponent(document.cookie);
-        let ca = decodedCookie.split(";");
-        for (let i = 0; i < ca.length; i++) {
-            let c = ca[i];
-            while (c.charAt(0) === " ") {
-                c = c.substring(1);
-            }
-            if (c.indexOf(name) === 0) {
-                return c.substring(name.length, c.length);
-            }
-        }
-        return "";
-    }
-
-    /**
-     * If the user is first visiting the MYR, set "hasVisisted" to true
-     * and set the expiration date to current date + 24 hrs 
-     * So it will re-appear after 24 hrs
-     */
-    setCookie = () => {
-        if (!this.getCookie("hasVisited")) {
-            let date = new Date();
-            date.setTime(date.getTime() + (1000 * 60 * 60 * 24));
-            let expiration = "; expires=" + date.toGMTString();
-            let cookie = "hasVisited=true" + expiration;
-            document.cookie = cookie;
         }
     }
 
@@ -134,18 +99,9 @@ class Welcome extends React.Component {
      * Handler for when the welcome screen is close either by close button or clicking outside of modal
      */
     handleClose = () => {
-        this.setCookie();
+        CookieHandler.setCookie("hasVisited");
         this.props.handleWelcomeToggle();
     };
-
-    /**
-     * Handler for when user click "never again" button
-     * It sets a long expiration date so it will "never" expireds 
-     */
-    neverAgainCookie = () => {
-        document.cookie = "hasVisited=true; expires=Thu, 31 Dec 2099 12:00:00 UTC;";
-        this.handleClose();
-    }
 
     /**
      * @returns {*} Button with don't show again option
@@ -153,7 +109,10 @@ class Welcome extends React.Component {
     neverAgain = () => {
         return (
             <Button
-                onClick={this.neverAgainCookie}
+                onClick={()=>{
+                    CookieHandler.neverAgainCookie("hasVisited"); 
+                    this.handleClose();
+                }}
                 className="neverAgain-btn">
                 Don't show again
             </Button >
@@ -164,7 +123,7 @@ class Welcome extends React.Component {
      * Handler for when user click on example project button
      */
     handleProjectToggle = () => {
-        this.setCookie();
+        CookieHandler.setCookie("hasVisited");
         this.setState({ projectsOpen: !this.state.projectsOpen });
         this.setState({ projectTab: "b" });
     };
@@ -173,7 +132,7 @@ class Welcome extends React.Component {
      * Handler for when user click on courses button
      */
     handleCoursesToggle = () => {
-        this.setCookie();
+        CookieHandler.setCookie("hasVisited");
         this.setState({ coursesOpen: !this.state.coursesOpen });
     };
 
@@ -181,7 +140,7 @@ class Welcome extends React.Component {
      * Handler for when user click on tour button
      */
     handleTourToggle = () => {
-        this.setCookie();
+        CookieHandler.setCookie("hasVisited");
         this.setState({ tourOpen: !this.state.tourOpen });
     };
 
@@ -216,7 +175,7 @@ class Welcome extends React.Component {
                         href="/reference"
                         target="_blank"
                         rel="noopener noreferrer"
-                        onClick={this.setCookie}
+                        onClick={()=>{CookieHandler.setCookie("hasVisited");}}
                         className="welcome-btn">
                         <Icon className="material-icons">help</Icon>
                         Open the Reference
@@ -252,7 +211,7 @@ class Welcome extends React.Component {
                         href="https://github.com/engaging-computing/MYR"
                         target="_blank"
                         rel="noopener noreferrer"
-                        onClick={this.setCookie}
+                        onClick={()=>{CookieHandler.setCookie("hasVisited");}}
                         className="welcome-btn">
                         <Icon className="material-icons">code</Icon>
                         Visit our GitHub
