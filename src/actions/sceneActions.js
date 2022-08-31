@@ -64,7 +64,16 @@ export function toggleCastShadow() {
  * @returns {object} reducer action obj with type: TOGGLE_LIGHT_INDICATOR
  */
 export function toggleLightIndicator(){
-    return {type: types.TOGGLE_LIGHT_INDICATOR};
+    return { type: types.TOGGLE_LIGHT_INDICATOR};
+}
+
+/**
+ * Sends a signal to the reducer to toggle for cursor to display cusor on screen
+ * 
+ * @returns {object} reducer action obj with type: TOGGLE_CURSOR
+ */
+export function toggleCursor() {
+    return { type: types.TOGGLE_CURSOR };
 }
 
 /**
@@ -79,6 +88,15 @@ export function changeSkyColor(color) {
 }
 
 /**
+ * Sends a signal to the reducer to reset the sky color
+ * 
+ * @returns {object} reducer action obj with type: RESET_SKY_COLOR
+ */
+export function resetSkyColor() {
+    return { type: types.RESET_SKY_COLOR };
+}
+
+/**
  * Sends a signal to the reducer to change the sky color
  * 
  * @param {string} color Color to be change to
@@ -87,6 +105,15 @@ export function changeSkyColor(color) {
  */
 export function changeFloorColor(color) {
     return { type: types.CHANGE_FLOOR_COLOR, color };
+}
+
+/**
+ * Sends a signal to the reducer to reset the floor color
+ * 
+ * @returns {object} reducer action obj with type: RESET_FLOOR_COLOR
+ */
+export function resetFloorColor() {
+    return { type: types.RESET_FLOOR_COLOR };
 }
 
 /**
@@ -218,7 +245,9 @@ export default {
     loadScene,
     toggleCoordSky,
     changeSkyColor,
+    resetSkyColor,
     changeFloorColor,
+    resetFloorColor,
     changeCamMode,
     setCamera,
     changePerspective,
@@ -234,5 +263,6 @@ export default {
     toggleDefaultLight,
     toggleCastShadow,
     toggleLightIndicator,
+    toggleCursor,
     updateMoveSpeed,
 };
