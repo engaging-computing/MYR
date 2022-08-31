@@ -1056,7 +1056,7 @@ class Myr {
     torus = (params) => {
         let base = {
             id: "torus" + this.genNewId(),
-            geometry: `primitive: torus; radius: ${this.cursor.radius}; radiusTubular: 0.5; arc: 360; arc: ${this.cursor.phiLength};`,
+            geometry: `primitive: torus; radius: ${this.cursor.radius}; radiusTubular: 0.25; arc: 360; arc: ${this.cursor.phiLength};`,
             position: this.cursor.position,
             rotation: this.cursor.rotation,
             scale: this.cursor.scale,
