@@ -15,7 +15,7 @@ class Footer extends Component {
                                 <a href="https://learnmyr.org/about/" target="_blank" rel="noopener noreferrer" className = "text-decoration-none">About</a>
                             </li>
                             <li className="pl-2 list-inline-item">
-                                <a href="mailto:support@learnmyr.org" target="_blank" rel="noopener noreferrer" className = "text-decoration-none">Support</a>
+                                <a href="https://learnmyr.org/about/support/" target="_blank" rel="noopener noreferrer" className="text-decoration-none">Support</a>
                             </li>
                             <li className="pl-2 list-inline-item">
                                 <a href="https://learnmyr.org/about/team/" target="_blank" rel="noopener noreferrer" className = "text-decoration-none">Team </a>
