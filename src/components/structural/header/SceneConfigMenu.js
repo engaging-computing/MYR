@@ -10,7 +10,8 @@ import {
     TextField,
     Tooltip,
     Tabs,
-    Tab
+    Tab,
+
 } from "@material-ui/core";
 
 import QRCode from "qrcode.react";
@@ -424,6 +425,29 @@ class ConfigModal extends Component {
     };
 
     /**
+     * Returns button for toggle cursor
+     */
+    cursorToggle = () => {
+        let style = this.props.scene.settings.showCursor ? btnStyle.on : btnStyle.off;
+        style = { ...btnStyle.base, ...style };
+        return (
+            <ButtonBase
+                style={style}
+                onClick={() => {
+                    this.props.handleRender();
+                    this.props.sceneActions.toggleCursor();
+                }} >
+                {
+                    this.props.scene.settings.showCursor
+                        ? <Icon className="material-icons">toggle_on</Icon>
+                        : <Icon className="material-icons">toggle_off</Icon>
+                }
+                Show Cursor
+            </ButtonBase >
+        );
+    };
+
+    /**
      * Return button for toggles addCollection menu
      */
     addCollectionToggle = () => {
@@ -620,6 +644,7 @@ class ConfigModal extends Component {
                                                 <this.viewToggle />
                                                 <this.floorToggle />
                                                 <this.gridToggle />
+                                                <this.cursorToggle />
                                             </div>
                                             <div className="col-6">
                                                 <this.changeSkyColor />
@@ -653,6 +678,12 @@ class ConfigModal extends Component {
                                                         disableAlpha={true}
                                                         color={this.state.skyColor}
                                                         onChangeComplete={this.handleSkyChangeComplete} />
+                                                    <div className="reset-button-group">
+                                                        <Button 
+                                                            onClick={this.props.sceneActions.resetSkyColor}>
+                                                            Reset Sky Color
+                                                        </Button>
+                                                    </div>
                                                 </div>
                                                 :
                                                 null
@@ -670,6 +701,12 @@ class ConfigModal extends Component {
                                                         disableAlpha={true}
                                                         color={this.state.floorColor}
                                                         onChangeComplete={this.handleFloorChangeComplete} />
+                                                    <div className="reset-button-group">
+                                                        <Button 
+                                                            onClick={this.props.sceneActions.resetFloorColor}>
+                                                            Reset Floor Color
+                                                        </Button>
+                                                    </div>
                                                 </div>
                                                 :
                                                 null
@@ -678,16 +715,19 @@ class ConfigModal extends Component {
                                                 ?
                                                 <div id="speed-config" className="col-12 pt-4">
                                                     <div className="row">
-                                                        <div className="col-9">
+                                                        <div className="col-9 d-inline-flex">
+                                                            <label className="px-3">Slow</label>
                                                             <Slider
+                                                                className="align-self-top"
                                                                 value={this.state.moveSpeed}
-                                                                valueLabelDisplay="auto" 
                                                                 onChange={this.handleMoveSpeedUpdate}
                                                                 onChangeCommitted={this.handleMoveSpeedUpdate}
-                                                                min={0}
+                                                                min={150}
                                                                 max={1000} />
+                                                            <label className="px-3">Fast</label>
+
                                                         </div>
-                                                        <div className="col-3 align-top">
+                                                        <div className="col-3 align-top d-inline-flex">
                                                             <ButtonBase
                                                                 onClick={() => this.handleMoveSpeedUpdate(null, 150)}>
                                                                 <Icon className="material-icons">settings_backup_restore</Icon>

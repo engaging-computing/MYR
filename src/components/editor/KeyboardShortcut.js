@@ -39,6 +39,10 @@ const editor = [
     {
         shortcut: ["Alt/⌘", "D"],
         description: "Delete current line of code"
+    },
+    {
+        shortcut: ["Ctrl/⌘", "L"],
+        description: "Copy current line of code"
     }
 ];
 
@@ -58,6 +62,10 @@ const scene = [
     {
         shortcut: ["D"],
         description: "Move right"
+    },
+    {
+        shortcut: ["F"],
+        description: "Enter full screen"
     },
     {
         shortcut: ["Space"],
@@ -124,9 +132,11 @@ class KeyboardShortcut extends React.Component {
      */
     render(){
         return(
-            <div className="whole-keyboard">
+            <div className="whole-keyboard"
+                spacing={10}>
                 <Tooltip title="Keyboard Shortcut">
-                    <Button
+                    <Button 
+                        className="shortcut-button"
                         variant="contained"
                         size="small"
                         color="primary"

@@ -58,4 +58,12 @@ export const TourSteps = [
         selector: "#user",
         content: "You can log in with a Google account in order to save your scenes.",
     },
+    {
+        selector: "#keyboard-shortcut",
+        content: "View all of the keyboard shortcuts available to you."
+    },
+    {
+        selector: "#font-size",
+        content: "Change the font size within the editor."
+    }
 ];

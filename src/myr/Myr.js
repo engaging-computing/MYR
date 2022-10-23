@@ -1056,7 +1056,7 @@ class Myr {
     torus = (params) => {
         let base = {
             id: "torus" + this.genNewId(),
-            geometry: `primitive: torus; radius: ${this.cursor.radius}; radiusTubular: 0.5; arc: 360; arc: ${this.cursor.phiLength};`,
+            geometry: `primitive: torus; radius: ${this.cursor.radius}; radiusTubular: 0.25; arc: 360; arc: ${this.cursor.phiLength};`,
             position: this.cursor.position,
             rotation: this.cursor.rotation,
             scale: this.cursor.scale,
@@ -1405,6 +1405,85 @@ class Myr {
       loop: ${Boolean(loop)};
       easing: linear;
       to: ${el.rotation.x} ${el.rotation.y + magnitude} ${el.rotation.z};
+    `;
+        el.animation__spin = anim;
+        return outerElId;
+    };
+
+
+    /**
+     * Apply a spin animation on the X axis to the Aframe element which is passed as arg
+     * 
+     * @param {number} outerElId target element ID
+     * @param {number} magnitude Magnitude of the animation
+     * @param {boolean} loop     Whether to loop the animation
+     * @param {number} duration  How long the animation last
+     * @param {string} spinType Direction of the animation
+     */
+    spinX = (outerElId, spinType, magnitude = null, loop = null, duration = null) => {
+        magnitude = magnitude !== null ? magnitude : this.cursor.magnitude.spin;
+        loop = loop !== null ? loop : this.cursor.loop;
+        duration = duration !== null ? duration : this.cursor.duration;
+        let el = this.getEl(outerElId);
+        let anim = `
+      property: rotation;
+      dir: ${spinType};
+      dur: ${duration};
+      loop: ${Boolean(loop)};
+      easing: linear;
+      to: ${el.rotation.x + magnitude} ${el.rotation.y} ${el.rotation.z};
+    `;
+        el.animation__spin = anim;
+        return outerElId;
+    };
+
+    /**
+     * Apply a spin animation on the X axis to the Aframe element which is passed as arg
+     * 
+     * @param {number} outerElId target element ID
+     * @param {number} magnitude Magnitude of the animation
+     * @param {boolean} loop     Whether to loop the animation
+     * @param {number} duration  How long the animation last
+     * @param {string} spinType Direction of the animation
+     */
+    spinY = (outerElId, spinType, magnitude = null, loop = null, duration = null) => {
+        magnitude = magnitude !== null ? magnitude : this.cursor.magnitude.spin;
+        loop = loop !== null ? loop : this.cursor.loop;
+        duration = duration !== null ? duration : this.cursor.duration;
+        let el = this.getEl(outerElId);
+        let anim = `
+      property: rotation;
+      dir: ${spinType};
+      dur: ${duration};
+      loop: ${Boolean(loop)};
+      easing: linear;
+      to: ${el.rotation.x} ${el.rotation.y + magnitude} ${el.rotation.z};
+    `;
+        el.animation__spin = anim;
+        return outerElId;
+    };
+
+    /**
+     * Apply a spin animation on the Z axis to the Aframe element which is passed as arg
+     * 
+     * @param {number} outerElId target element ID
+     * @param {number} magnitude Magnitude of the animation
+     * @param {boolean} loop     Whether to loop the animation
+     * @param {number} duration  How long the animation last
+     * @param {string} spinType Direction of the animation
+     */
+    spinZ = (outerElId, spinType, magnitude = null, loop = null, duration = null) => {
+        magnitude = magnitude !== null ? magnitude : this.cursor.magnitude.spin;
+        loop = loop !== null ? loop : this.cursor.loop;
+        duration = duration !== null ? duration : this.cursor.duration;
+        let el = this.getEl(outerElId);
+        let anim = `
+      property: rotation;
+      dir: ${spinType};
+      dur: ${duration};
+      loop: ${Boolean(loop)};
+      easing: linear;
+      to: ${el.rotation.x} ${el.rotation.y} ${el.rotation.z + magnitude};
     `;
         el.animation__spin = anim;
         return outerElId;
@@ -2031,6 +2110,7 @@ class Myr {
      * Return a Entity that can be used to group elements together
      */
     group = () => {
+        this.resetCursor();
         let base = {
             id: "grp" + this.genNewId(),
             position: { ...this.cursor.position },

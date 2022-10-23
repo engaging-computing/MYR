@@ -15,6 +15,67 @@ import CourseSelect from "../courses/CourseSelect.js";
 import { withStyles } from "@material-ui/core/styles";
 import "../../css/WelcomeScreen.css";
 
+const general = [
+    {
+        shortcut: ["Ctrl/⌘", "S"],
+        description: "Save scene"
+    },
+    {
+        shortcut: ["Ctrl/⌘", "Shift", "S"],
+        description: "Save scene as"
+    },
+    {
+        shortcut: ["Ctrl/⌘", "Enter"],
+        description: "Render scene"
+    },
+];
+
+const editor = [
+    {
+        shortcut: ["Ctrl/⌘", "/"],
+        description: "Comment current or selected line of code"
+    },
+    {
+        shortcut: ["Alt/Option", "Up"],
+        description: "Move current line of code up 1 line"
+    },
+    {
+        shortcut: ["Alt/Option", "Down"],
+        description: "Move current line of code down 1 line"
+    },
+    {
+        shortcut: ["Alt/⌘", "D"],
+        description: "Delete current line of code"
+    }
+];
+
+const scene = [
+    {
+        shortcut: ["W"],
+        description: "Move forwards"
+    },
+    {
+        shortcut: ["S"],
+        description: "Move backwards"
+    },
+    {
+        shortcut: ["A"],
+        description: "Move left"
+    },
+    {
+        shortcut: ["D"],
+        description: "Move right"
+    },
+    {
+        shortcut: ["Space"],
+        description: "Move up"
+    },
+    {
+        shortcut: ["Shift"],
+        description: "Move down"
+    },
+];
+
 /** 
  * @returns {object} Center the Welcome Screen
  */
@@ -83,16 +144,33 @@ class Welcome extends React.Component {
     }
 
     /**
+     * Helper function to convert the shortcuts to an equivalent DOM elements 
+     * 
+     * @param {array} data 
+     */
+     shortcutHelper = (data) => {
+         let shortcuts = [];
+         data.shortcut.forEach((key,i)=>{
+             shortcuts.push(<kbd>{key}</kbd>);
+             if(i < data.shortcut.length-1){
+                 shortcuts.push(" + ");
+             }
+         });
+         return (<p>{shortcuts} {data.description}</p>);
+     };
+
+
+     /**
      * Called when the Welcome Screen is mounted (component has been rendererd to the DOM)
      * 
      * Header.js has a state to control whether to show welcome screen or not. By default it's false.
      * So if user hasn't visisted the MYR, toggle the state to true.
      */
-    componentDidMount() {
-        if (!this.getCookie("hasVisited")) {
-            this.props.handleWelcomeToggle();
-        }
-    }
+     componentDidMount() {
+         if (!this.getCookie("hasVisited")) {
+             this.props.handleWelcomeToggle();
+         }
+     }
 
     /**
      * Get value of cookie
@@ -276,7 +354,8 @@ class Welcome extends React.Component {
                     projectsOpen={this.state.projectsOpen}
                     handleProjectToggle={this.handleProjectToggle}
                     tab={this.state.projectsTab}
-                    hideTooltip={true} />
+                    hideTooltip={true}
+                    renameScene={this.props.renameScene} />
                 <CourseSelect
                     courses={this.props.courses}
                     coursesOpen={this.state.coursesOpen}
@@ -322,7 +401,7 @@ class Welcome extends React.Component {
                                 <this.cookieMessage />
                             </Hidden>
                             <hr />
-                            <div className="row no-gutters">
+                            <div className="row g-0">
                                 <div id="welcome-description" className="col-12 col-md-6 col-lg-8">
                                     <p>MYR is an educational tool that strikes a balance with the ease of use and challenge. We drew inspiration from Logo Turtle and Processing to provide a beginner friendly experience for teaching and learning with MYR. If you want to learn more about MYR itself, visit our <a href="/about" target="_blank" rel="noopener noreferrer">about page</a>.</p>
                                     <p>Within the editor you can create 3D scenes using JavaScript and the MYR API. You can then view your scene in the viewer using a computer, tablet, smartphone, or a VR headset.</p>
@@ -335,8 +414,28 @@ class Welcome extends React.Component {
                             </div>
                             <hr />
                             <this.helperButtons />
-                            <this.handleModals />
                             <hr />
+                            <p className="note">⌘: Command key for macOS user</p>
+                            <div className="right">
+                                <p className="general-commands">General Commands</p>
+                                {
+                                    general.map(e => {return this.shortcutHelper(e);})
+                                }
+                            </div>
+                            <div className="right">
+                                <p className="editor-commands">Editor Commands</p>
+                                {
+                                    editor.map(e => {return this.shortcutHelper(e);})
+                                }
+                            </div>
+                            <div className="right">
+                                <p className="scene-controls">Scene Controls</p>
+                                {
+                                    scene.map(e => {return this.shortcutHelper(e);})
+                                }
+                            </div>
+                            <this.handleModals />
+                            
                             <this.neverAgain />
                             <Hidden smDown>
                                 <hr />

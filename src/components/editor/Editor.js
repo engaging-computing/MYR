@@ -9,6 +9,7 @@ import customCompleter from "./customCompleter.js";
 import KeyboardShortcut from "./KeyboardShortcut.js";
 import { browserType } from "../../utils/browserType";
 import FontSize from "./FontSize.js";
+import copy from "copy-to-clipboard";
 
 /**
  * Editor is a React Component that create the Ace Editor in the DOM.
@@ -95,12 +96,23 @@ class Editor extends Component {
                     editorProps={{
                         $blockScrolling: Infinity,
                     }}
-                    height="90vh"
+                    height="88vh"
                     mode="javascript"
                     name="ace-editor"
                     // eslint-disable-next-line
                     ref="aceEditor"
                     theme="github"
+                    commands={[{
+                        name: "copyLine",
+                        bindKey: {win: "Ctrl-L", mac: "Command-L"},
+                        exec: () => {let line = window.ace.edit("ace-editor").selection.getCursor().row;
+                            let copyText = window.ace.edit("ace-editor").session.getTextRange({start: {row: line, column: 0}, end: {row: line + 1, column: 0}});
+                            if (copyText.charAt(-1) === "\n") {
+                                copyText = copyText.slice(0, -1);
+                            }
+                            copy(copyText);
+                        }
+                    }]}
                     fontSize = {this.props.settings.fontSize}
                     value={this.props.text}
                     width="100%"
