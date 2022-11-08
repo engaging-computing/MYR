@@ -12,13 +12,13 @@ class Footer extends Component {
                         <span><strong>MYR:</strong></span>
                         <ul className="pl-2 list-inline">
                             <li className="pl-2 list-inline-item">
-                                <a href="https://learnmyr.org/about/" target="_blank" rel="noopener noreferrer">About</a>
+                                <a href="/about/" target="_blank" rel="noopener noreferrer">About</a>
                             </li>
                             <li className="pl-2 list-inline-item">
                                 <a href="mailto:support@learnmyr.org" target="_blank" rel="noopener noreferrer">Support</a>
                             </li>
                             <li className="pl-2 list-inline-item">
-                                <a href="https://learnmyr.org/about/team/" target="_blank" rel="noopener noreferrer">Team </a>
+                                <a href="/about/team" target="_blank" rel="noopener noreferrer">Team </a>
                             </li>
                             <li className="pl-2 list-inline-item">
                                 <a href="https://github.com/engaging-computing/MYR" target="_blank" rel="noopener noreferrer">GitHub</a>
