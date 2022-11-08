@@ -307,6 +307,10 @@ a.sidebar-btn:hover {
     color: #fff;
 }
 
+.text-theme {
+    color:#FFC300!important;
+}
+
 span.user-name {
     color: #fff;
     font-size: 90%;
@@ -417,10 +421,19 @@ footer {
 
 footer a {
     color: #fff;
+    text-decoration: none;
 }
 
 footer a:hover {
     color: #999;
+    text-decoration: underline;
+}
+
+.about-footer {
+    color: #566573;
+}
+.about-footer a {
+    color: #1565C0;
 }
 
 @media (max-width: 370px) {
@@ -434,4 +447,46 @@ footer a:hover {
         bottom: 4px;
         right: 18px;
     }
+}
+
+.team-card{
+      padding-bottom: 1rem;
+}
+
+.team-icons{
+    font-size: 30px;
+    color: #000000;
+    padding-right: 25px;    
+}
+
+.team-photo{
+    border-radius: 25px;
+    float: left;
+    margin-right: 10px;
+    max-height: 150px;
+    max-width: 200px;
+}
+
+.team-title{
+    font-style: italic;
+}
+
+.team-degree{
+    font-weight: bold;
+}
+
+.privacy-policy{
+    padding-top: 2rem;
+}
+
+.terms-of-service{
+    padding-top: 2rem;
+}
+
+.faq{
+  padding-top: 2rem;
+}
+
+.support{
+    padding-top: 2rem;
 }
