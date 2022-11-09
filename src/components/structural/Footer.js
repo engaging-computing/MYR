@@ -38,10 +38,10 @@ class Footer extends Component {
                     <div className="col-lg-4">
                         <ul className=" list-inline text-lg-right">
                             <li className="pl-2 list-inline-item">
-                                <a href="https://learnmyr.org/about/privacy/" target="_blank" rel="noopener noreferrer">Privacy Policy</a>
+                                <a href="/about/privacy" target="_blank" rel="noopener noreferrer">Privacy Policy</a>
                             </li>
                             <li className="pl-2 list-inline-item">
-                                <a href="https://learnmyr.org/about/tos/" target="_blank" rel="noopener noreferrer">Terms of Service</a>
+                                <a href="/about/tos" target="_blank" rel="noopener noreferrer">Terms of Service</a>
                             </li>
                         </ul>
                     </div>
