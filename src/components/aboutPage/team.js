@@ -186,7 +186,7 @@ class Team extends Component {
                                         <div className="team-degree ">B.S. Computer Science 2024</div>
                                         <br />
                                         <a href="https://www.linkedin.com/in/bryan-montalvan/ " target="_blank " className="icons-hover-link">
-                                            <FontAwesomeIcon className="team-icons" icon={faEnvelope}></FontAwesomeIcon>
+                                            <FontAwesomeIcon className="team-icons" icon={faLinkedin}></FontAwesomeIcon>
                                         </a>
                                     </p>
                                 </td>
@@ -217,7 +217,7 @@ class Team extends Component {
                                             <FontAwesomeIcon className="team-icons" icon={faLink}></FontAwesomeIcon>
                                         </a>
                                         <a href="https://www.linkedin.com/in/jasondkiesling/ " target="_blank " className="icons-hover-link">
-                                            <FontAwesomeIcon className="team-icons" icon={faEnvelope}></FontAwesomeIcon>
+                                            <FontAwesomeIcon className="team-icons" icon={faLinkedin}></FontAwesomeIcon>
                                         </a>
                                         <a href="https://github.com/jasondkiesling " target="_blank " className="icons-hover-link">
                                             <FontAwesomeIcon className="team-icons"icon={faGithub}></FontAwesomeIcon>
@@ -273,7 +273,7 @@ class Team extends Component {
                                             <FontAwesomeIcon className="team-icons" icon={faLink}></FontAwesomeIcon>
                                         </a>
                                         <a href="https://www.linkedin.com/in/chris-berns/ " target="_blank " className="icons-hover-link">
-                                            <FontAwesomeIcon className="team-icons" icon={faEnvelope}></FontAwesomeIcon>
+                                            <FontAwesomeIcon className="team-icons" icon={faLinkedin}></FontAwesomeIcon>
                                         </a>
                                         <a href="https://github.com/CBernsCode " target="_blank " className="icons-hover-link">
                                             <FontAwesomeIcon className="team-icons"icon={faGithub}></FontAwesomeIcon>
@@ -304,7 +304,7 @@ class Team extends Component {
                                             <FontAwesomeIcon className="team-icons" icon={faLink}></FontAwesomeIcon>
                                         </a>
                                         <a href="https://www.linkedin.com/in/elenaizotova/ " target="_blank " className="icons-hover-link">
-                                            <FontAwesomeIcon className="team-icons" icon={faEnvelope}></FontAwesomeIcon>
+                                            <FontAwesomeIcon className="team-icons" icon={faLinkedin}></FontAwesomeIcon>
                                         </a>
                                         <a href="https://github.com/elenaizotova " target="_blank " className="icons-hover-link">
                                             <FontAwesomeIcon className="team-icons"icon={faGithub}></FontAwesomeIcon>
@@ -336,10 +336,7 @@ class Team extends Component {
                                         </a>
                                         <a href="https://www.linkedin.com/in/vrinda-punj-366389b5/ " target="_blank "
                                             className="icons-hover-link">
-                                            <FontAwesomeIcon className="team-icons" icon={faEnvelope}></FontAwesomeIcon>
-                                        </a>
-                                        <a href="https://github.com/vrindapunj " target="_blank " className="icons-hover-link">
-                                            <FontAwesomeIcon className="team-icons"icon={faGithub}></FontAwesomeIcon>
+                                            <FontAwesomeIcon className="team-icons" icon={faLinkedin}></FontAwesomeIcon>
                                         </a>
                                     </p>
                                 </td>
@@ -454,7 +451,7 @@ class Team extends Component {
                                         <div className="team-degree ">B.S. Computer Science 2022</div>
                                         <br />
                                         <a href="https://www.linkedin.com/in/keith-valin-8b670b120/" target="_blank " className="icons-hover-link">
-                                            <FontAwesomeIcon className="team-icons" icon={faEnvelope}></FontAwesomeIcon>
+                                            <FontAwesomeIcon className="team-icons" icon={faLinkedin}></FontAwesomeIcon>
                                         </a>
                                         <a href="https://github.com/kdvalin " target="_blank " className="icons-hover-link">
                                             <FontAwesomeIcon className="team-icons"icon={faGithub}></FontAwesomeIcon>
