@@ -379,7 +379,7 @@ class Privacy extends Component {
                                 </li>
                                 <li className="list-inline-item ">&sdot;</li>
                                 <li className="list-inline-item ">
-                                    <a href="# ">Privacy Policy</a>
+                                    <a href="/about/privacy ">Privacy Policy</a>
                                 </li>
                             </ul>
                             <p className="small mb-4 mb-lg-0 about-footer">&copy; 2018 - <span id="date"></span> - University of Massachusetts Lowell,

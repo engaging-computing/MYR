@@ -156,7 +156,7 @@ class AboutCollections extends Component {
                                 </li>
                                 <li className="list-inline-item ">&sdot;</li>
                                 <li className="list-inline-item ">
-                                    <a href="# ">Support</a>
+                                    <a href="/about/support ">Support</a>
                                 </li>
                                 <li className="list-inline-item ">&sdot;</li>
                                 <li className="list-inline-item ">
