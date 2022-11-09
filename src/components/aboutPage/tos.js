@@ -1,11 +1,13 @@
 import React, { Component }  from "react";
+import myrLogo from "./img/MYR-Logo.png";
+import myrHeaderImage from "./img/queen_status.png";
 
 class Tos extends Component {
     handleNavigation() {
         return (
             <nav className="navbar navbar-expand-lg navbar-dark bg-theme static-top fixed-top text-uppercase px-3" id="mainNav" style={{backgroundColor: "#4E4E4E"}}>
                 <a className="navbar-brand text-theme mx-2 text-warning" href="../">
-                    <img src="./img/MYR-Logo.png " width="30 " height="30 " className="d-inline-block align-top " alt=" "></img>
+                    <img src={myrLogo} width="30 " height="30 " className="d-inline-block align-top " alt=" "></img>
                     MYR
                 </a>
                 <button className="navbar-toggler" type="button" data-toggle="collapse" data-bs-target="#navbarSupportedContent"
@@ -36,14 +38,14 @@ class Tos extends Component {
         return (
             <header>
                 <div className="container text-center mt-5 pt-5 pb-2">
-                    <div className="row">
-                        <div className="col" >
-                            <h1 className="display-3 fw-normal ">MYR</h1>
+                    <div className="row align-items-center">
+                        <div className="col-md mx-2" >
+                            <h1 className="display-4 fw-light ">MYR</h1>
                             <p className="lead mb-4 ">A virtual reality experience for the classroom.</p>
                         </div>
-                        <div className="col">
+                        <div className="col-md mx-2">
                             <div className="card ">
-                                <img src="./img/queen_status.png " className="card-img-top " alt="User Example - Queen Status by Shandira Ferguson "></img>
+                                <img src={myrHeaderImage} className="card-img-top " alt="User Example - Queen Status by Shandira Ferguson "></img>
                             </div>
                         </div>
                     </div>
@@ -245,7 +247,7 @@ class Tos extends Component {
                         <div className="col h-100 text-center text-lg-start my-auto">
                             <ul className="footer-links list-inline mb-2 ">
                                 <li className="footer-links list-inline-item ">
-                                    <a href="../ ">About</a>
+                                    <a href="/about/ ">About</a>
                                 </li>
                                 <li className="list-inline-item ">&sdot;</li>
                                 <li className="list-inline-item ">
@@ -253,19 +255,19 @@ class Tos extends Component {
                                 </li>
                                 <li className="list-inline-item ">&sdot;</li>
                                 <li className="list-inline-item ">
-                                    <a href="# ">Support</a>
+                                    <a href="/about/support ">Support</a>
                                 </li>
                                 <li className="list-inline-item ">&sdot;</li>
                                 <li className="list-inline-item ">
-                                    <a href="../team ">Team</a>
+                                    <a href="/about/team ">Team</a>
                                 </li>
                                 <li className="list-inline-item ">&sdot;</li>
                                 <li className="list-inline-item ">
-                                    <a href="/about/tos ">Terms of Service</a>
+                                    <a href="# ">Terms of Service</a>
                                 </li>
                                 <li className="list-inline-item ">&sdot;</li>
                                 <li className="list-inline-item ">
-                                    <a href="../privacy ">Privacy Policy</a>
+                                    <a href="/about/privacy ">Privacy Policy</a>
                                 </li>
                             </ul>
                             <p className="text-muted small mb-4 mb-lg-0 ">&copy; 2018 - <span id="date"></span> - University of Massachusetts Lowell,
