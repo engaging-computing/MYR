@@ -53,7 +53,7 @@ class Privacy extends Component {
             </header>
         );
     }
-
+    
     privacyPolicy() {
         return (
             <div className="row justify-content-center ">
@@ -297,15 +297,11 @@ class Privacy extends Component {
                                     provide
                                     consent for the child. For information about a specific school’s policies, please contact the school
                                     directly
-                                    or visit the Family Educational Rights and Privacy Act (FERPA) website at
-                                <u>
-                                    <a href="https://www2.ed.gov/policy/gen/guid/fpco/ferpa/index.html "
-                                        target="_blank ">https://www2.ed.gov/policy/<wbr />gen/guid/fpco/ferpa/index.html</a>
-                                </u><wbr />. Information about COPPA can be found at
-                                <u>
-                                    <a href="https://www.ftc.gov/enforcement/rules/rulemaking-regulatory-reform-proceedings/childrens-online-privacy-protection-rule "
-                                        target="_blank ">https://www.ftc.gov/<wbr />enforcement/rules/rulemaking-<wbr />regulatory-reform-proceedings/<wbr />childrens-online-privacy-<wbr />protection-rule</a>
-                                </u>.</p>
+                                    or visit the Family Educational Rights and Privacy Act (FERPA) website at <a href="https://www2.ed.gov/policy/gen/guid/fpco/ferpa/index.html "
+                                    target="_blank ">https://www2.ed.gov/policy/<wbr />gen/guid/fpco/ferpa/index.html</a>
+                                <wbr />. Information about COPPA can be found at <a href="https://www.ftc.gov/enforcement/rules/rulemaking-regulatory-reform-proceedings/childrens-online-privacy-protection-rule "
+                                    target="_blank ">https://www.ftc.gov/<wbr />enforcement/rules/rulemaking-<wbr />regulatory-reform-proceedings/<wbr />childrens-online-privacy-<wbr />protection-rule</a>
+                                .</p>
                                 <p>Due to the technical nature of the Service, persistent identifiers about children may be stored both
                                     locally
                                     on the child’s device and remotely via the Service or a third party. This includes information such as
@@ -333,8 +329,7 @@ class Privacy extends Component {
                             <p className="mb-1 ">
                                 <p>If you have any questions about this Privacy Policy, please contact us:</p>
                                 <ul>
-                                    <li>By email:
-                                        <a href="mailto:privacy@learnmyr.org " target="_blank ">privacy@learnmyr.org</a>
+                                    <li>By email: <a href="mailto:privacy@learnmyr.org " target="_blank ">privacy@learnmyr.org</a>
                                     </li>
 
                                     <li>By mail: </li>
@@ -351,7 +346,8 @@ class Privacy extends Component {
             </div>
         );
     }
-    aboutFooter() {
+    
+    privacyFooter() {
         return (
             <footer className="footer p-5" style={{backgroundColor: "#EBEDEF"}}>
                 <div className="d-flex justify-content-center ">
@@ -367,7 +363,7 @@ class Privacy extends Component {
                                 </li>
                                 <li className="list-inline-item ">&sdot;</li>
                                 <li className="list-inline-item ">
-                                    <a href="# ">Support</a>
+                                    <a href="/about/support ">Support</a>
                                 </li>
                                 <li className="list-inline-item ">&sdot;</li>
                                 <li className="list-inline-item ">
@@ -379,7 +375,7 @@ class Privacy extends Component {
                                 </li>
                                 <li className="list-inline-item ">&sdot;</li>
                                 <li className="list-inline-item ">
-                                    <a href="/about/privacy ">Privacy Policy</a>
+                                    <a href="# ">Privacy Policy</a>
                                 </li>
                             </ul>
                             <p className="small mb-4 mb-lg-0 about-footer">&copy; 2018 - <span id="date"></span> - University of Massachusetts Lowell,
