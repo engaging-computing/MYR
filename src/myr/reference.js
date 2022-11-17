@@ -575,6 +575,21 @@ const animations = [
         example: "spin"
     },
     {
+        name: "spinX",
+        parameters: [{ type: "string", name: "elementID"}, {type: "string", name: "spinType"}],
+        description: <span>The spin function spins the given element around the x axis in degrees. The second parameter specifies the type of the spin, which include "normal," "alternate," and "reverse." This spin type is optional, so if it is not specified, the object will spin using the "normal" spin type.</span>,
+    },
+    {
+        name: "spinY",
+        parameters: [{ type: "string", name: "elementID" }, {type: "string", name: "spinType"}],
+        description: <span>The spin function spins the given element around the y axis in degrees. The second parameter specifies the type of the spin, which include "normal," "alternate," and "reverse." This spin type is optional, so if it is not specified, the object will spin using the "normal" spin type.</span>,
+    },
+    {
+        name: "spinZ",
+        parameters: [{ type: "string", name: "elementID" }, {type: "string", name: "spinType"}],
+        description: <span>The spin function spins the given element around the Z axis in degrees. The second parameter specifies the type of the spin, which include "normal," "alternate," and "reverse." This spin type is optional, so if it is not specified, the object will spin using the "normal" spin type.</span>,
+    },
+    {
         name: "yoyo",
         parameters: [{ type: "string", name: "elementID" }],
         description: <span>The yoyo function bounces the given element a number of units.</span>,

@@ -19,3 +19,22 @@
     left: 0px;
     background: #fff;
 }
+
+.reset-button-group {
+    display: flex;
+    align-items: center; 
+    justify-content: center;
+    background-color: #c2aa4b;
+    
+}
+
+.reset-button {
+    background-color: transparent;
+    border: 0;
+    color: #c2aa4b;
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 600;
+    line-height: 1;
+    margin-top: 1.5rem;
+    width: 100%; 
+}

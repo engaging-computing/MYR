@@ -3,13 +3,19 @@ import {
     Button,
     Grid,
     Icon,
-    Tooltip
+    Tooltip,
+    LinearProgress
 } from "@material-ui/core";
-
 /**
  * React component for navigating the course lessons and displaying lesson name and description 
  */
 class Lesson extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            currentProgress: 0
+        };
+    }
     /**
      * Load next lesson. Give a warning if there's any changes in the editor
      */
@@ -20,8 +26,8 @@ class Lesson extends Component {
             return;
         }
         this.props.courseActions.nextLesson(currentIndex, lessons[currentIndex + 1]);
+        this.setState({currentProgress: (((this.props.courses.currentIndex + 1) / (lessons.length - 1)) * 100)});
     }
-
     /**
      * Load previous lesson. Give a warning if there's any changes in the editor
      */
@@ -32,8 +38,8 @@ class Lesson extends Component {
             return;
         }
         this.props.courseActions.previousLesson(currentIndex, lessons[currentIndex - 1]);
+        this.setState({currentProgress: (((this.props.courses.currentIndex - 1) / (lessons.length - 1))*100)});
     }
-
     /**
      * Returns wheter the text in the editor match with the savedText
      * @returns {boolean} true if savedText is different from text in editor, false otherwise.
@@ -43,17 +49,14 @@ class Lesson extends Component {
         try {
             let editor = window.ace.edit("ace-editor");
             text = editor.getSession().getValue();
-
         } catch (err) {
             console.error(err);
         }
-
         if (this.props.savedText === text) {
             return false;
         }
         return true;
     }
-
     /**
      * @returns DOM Elements of button that go to previous or 
      */
@@ -66,7 +69,9 @@ class Lesson extends Component {
                 <Grid item xs={2}>
                     <Tooltip title="Previous Lesson" placement="top-start">
                         <Button
-                            onClick={() => this.lastLesson()}
+                            onClick={() => {
+                                this.lastLesson();
+                            }}
                             color="primary"
                             disabled={prevValid ? courses.currentIndex <= 0 : true}
                             variant="text"
@@ -80,7 +85,9 @@ class Lesson extends Component {
                 <Grid item xs={2}>
                     <Tooltip title="Next Lesson" placement="top-start">
                         <Button
-                            onClick={() => this.nextLesson()}
+                            onClick={() => {
+                                this.nextLesson();
+                            }}
                             color="primary"
                             disabled={nextValid ? courses.currentIndex >= course.lessons.length - 1 : true}
                             variant="text"
@@ -93,7 +100,6 @@ class Lesson extends Component {
             </Grid>
         );
     }
-
     /**
      * @returns Render DOM elements of course lessons 
      */
@@ -103,10 +109,11 @@ class Lesson extends Component {
                 <h3>{(this.props.lesson && this.props.lesson.name) ? this.props.lesson.name : "Loading..."}</h3>
                 <p>{(this.props.lesson && this.props.lesson.prompt) ? this.props.lesson.prompt : "Loading..."} </p>
                 <this.renderBtns />
+                <div>
+                    <LinearProgress variant="determinate" value={this.state.currentProgress} />
+                </div>
             </div>
         );
     }
 }
-
-
 export default Lesson;

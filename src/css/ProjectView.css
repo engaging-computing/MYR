@@ -9,3 +9,7 @@ p#info-description {
     justify-content: space-around;
     overflow: auto !important;
 }
+
+#scene-card:hover {
+    background-color: rgb(206, 206, 192);
+}

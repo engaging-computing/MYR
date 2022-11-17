@@ -15,24 +15,24 @@ class Footer extends Component {
                                 <a href="/about/" target="_blank" rel="noopener noreferrer">About</a>
                             </li>
                             <li className="pl-2 list-inline-item">
-                                <a href="mailto:support@learnmyr.org" target="_blank" rel="noopener noreferrer">Support</a>
+                                <a href="https://learnmyr.org/about/support/" target="_blank" rel="noopener noreferrer" className="text-decoration-none">Support</a>
                             </li>
                             <li className="pl-2 list-inline-item">
                                 <a href="/about/team" target="_blank" rel="noopener noreferrer">Team </a>
                             </li>
                             <li className="pl-2 list-inline-item">
-                                <a href="https://github.com/engaging-computing/MYR" target="_blank" rel="noopener noreferrer">GitHub</a>
+                                <a href="https://github.com/engaging-computing/MYR" target="_blank" rel="noopener noreferrer" className = "text-decoration-none">GitHub</a>
                             </li>
                         </ul>
                     </div>
                     <div className="col-lg-4 d-none d-md-block text-center">
                         <div>© 2018 - {new Date().getFullYear()}<span>&nbsp;</span>
-                            <a href="https://sites.uml.edu/engaging-computing/" target="_blank" rel="noopener noreferrer">University of Massachusetts Lowell, Engaging Computing Group</a>
+                            <a href="https://sites.uml.edu/engaging-computing/" target="_blank" rel="noopener noreferrer" className = "text-decoration-none">University of Massachusetts Lowell, Engaging Computing Group</a>
                         </div>
                     </div>
                     <div className="col-sm-12 d-block d-md-none text-center">
                         <div>© 2018 - {new Date().getFullYear()}<br />
-                            <a href="https://sites.uml.edu/engaging-computing/" target="_blank" rel="noopener noreferrer">University of Massachusetts Lowell,<br />Engaging Computing Group</a>
+                            <a href="https://sites.uml.edu/engaging-computing/" target="_blank" rel="noopener noreferrer" className = "text-decoration-none">University of Massachusetts Lowell,<br />Engaging Computing Group</a>
                         </div>
                     </div>
                     <div className="col-lg-4">

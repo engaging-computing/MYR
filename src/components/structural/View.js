@@ -279,6 +279,21 @@ class View extends Component {
         );
     }
 
+    /**
+     * 
+     * toggles cursor depending on the settings by changing opacity
+     * 
+     * @returns {string} String of aframe configuration of cursor attributes
+     */
+    displayCursor = () => {
+        if (this.props.sceneConfig.settings.showCursor) {
+            return "color: #CCC; shader: flat; opacity: 1;";
+        }
+        else 
+        {
+            return "color: #CCC; shader: flat; opacity: 0;";
+        }
+    }
 
     /**
      * It returns camera basic with different movement control depends on the browser type
@@ -292,6 +307,7 @@ class View extends Component {
      * @returns {HTMLElement} A-Frame camera elements with basic movement
      */
     basicMoveCam = () => {
+        let realSpeed = (this.props.sceneConfig.settings.moveSpeed / 10) + 10;
         switch(browserType()) {
             case "mobile":
                 return (
@@ -305,7 +321,7 @@ class View extends Component {
                                 raycaster="objects:.raycastable"
                                 position="0 0 -1"
                                 geometry="primitive: ring; radiusInner: 0.02; radiusOuter: 0.03;"
-                                material="color: #CCC; shader: flat;" />
+                                material={this.displayCursor} />
                         </a-camera>
                     </a-entity> 
                 );
@@ -320,7 +336,7 @@ class View extends Component {
                                 raycaster="objects:.raycastable"
                                 position="0 0 -1"
                                 geometry="primitive: ring; radiusInner: 0.02; radiusOuter: 0.03;"
-                                material="color: #CCC; shader: flat;" />
+                                material={this.displayCursor} />
                         </a-camera>
                     </a-entity> 
                 );
@@ -331,12 +347,12 @@ class View extends Component {
                         <a-camera
                             position={this.props.sceneConfig.settings.cameraPosition}
                             look-controls="pointerLockEnabled: true"
-                            wasd-plus-controls={`acceleration: ${this.props.sceneConfig.settings.moveSpeed}`}>
+                            wasd-controls={`acceleration: ${realSpeed}`}>
                             <a-cursor
                                 raycaster="objects:.raycastable"
                                 position="0 0 -1"
                                 geometry="primitive: ring; radiusInner: 0.02; radiusOuter: 0.03;"
-                                material="color: #CCC; shader: flat;" />
+                                material={this.displayCursor()} />
                         </a-camera>
                     </a-entity>
                 );
