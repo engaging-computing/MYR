@@ -15,26 +15,18 @@ import {
     TableHead,
     TableRow,
     TableCell,
+    TextField,
     Tooltip,
     Hidden
 } from "@material-ui/core";
 
-const exitBtnStyle = {
-    //paddingbottom: 100,
-    position: "absolute",
-    top: 0,
-    right: 10,
-};
-const newTabStyle = {
-    position: "fixed",
-    top: 0,
-    right: 50,
-};
+import Autocomplete from "@material-ui/lab/Autocomplete";
 
-const assetReferenceBtn = {
-    position: "fixed",
-    top: 0,
-    right: 95,
+const style = {
+    toggleIcon: {
+        margin: 2,
+        color: "#fff",
+    }
 };
 
 /**
@@ -49,6 +41,7 @@ class Reference extends Component {
         super(props);
         this.state = {
             value: "a",
+            filter: ""
         };
         this.tableData = myrReference();
     }
@@ -76,8 +69,27 @@ class Reference extends Component {
         this.setState({ value: "a" });
     };
 
-
+    /**
+     * Converts MYR name into JSX elements and adds tooltip for any function with parameters
+     * Contains parser in if statement to color the group variable
+     * 
+     * @param {string} name 
+     * @param {array} parameters 
+     * @returns parsed JSX element
+     */
     nameHelper = (name, parameters) => {
+        if(name.includes("myGroup"))
+        {
+            let index = name.indexOf("myGroup");
+            name = 
+            (<span>
+                {name.slice(0, index)}
+                <span className="group">
+                    {name.slice(index, index + "myGroup".length)}
+                </span>
+                {name.slice(index + "myGroup".length)}
+            </span>);
+        }
         return (
             <span>{name}({(parameters.map((element, i, params) => {
                 let comma = i < params.length - 1 ? ", " : "";
@@ -137,26 +149,109 @@ class Reference extends Component {
                     </TableRow>
                 </TableHead>
                 <TableBody  >
-                    {this.tableData[category].map((row, index) => (
-                        <TableRow key={index}>
-                            <TableCell >{this.nameHelper(row.name, row.parameters)}</TableCell>
-                            <TableCell >{row.description}</TableCell>
-                            <TableCell >{this.exampleHelper(row.example)}</TableCell>
-                        </TableRow>
-                    ))}
+                    {this.tableData[category].filter(item => item.name.toLowerCase().includes(this.state.filter))
+                        .map((row, index) => (
+                            <TableRow key={index}>
+                                <TableCell >{this.nameHelper(row.name, row.parameters)}</TableCell>
+                                <TableCell >{row.description}</TableCell>
+                                <TableCell >{this.exampleHelper(row.example)}</TableCell>
+                            </TableRow>
+                        ))}
                 </TableBody>
             </Table>
         );
     };
+    /**
+     * Creates array of options for the autocomplete feature for the search bar
+     *   so keywords can be detectable
+     * 
+     * @returns {array} array of object each with label and id
+     */
+    AutocompleteOptions = () => {
+        const options=[];
+        Object.keys(this.tableData).forEach(key => 
+        {
+            options.push(...this.tableData[key]
+                .map(ref => ({label: ref.name, id: key}))
+            );
+        });
+        return options;
+    }
+    /**
+     * Event Listiner: Adds keyword into local state when typed into searchbar 
+     *  for filtering the options of references
+     * 
+     * @param {string} value 
+     */
+    OnFilter = (_, value) => {
+        this.setState({filter: value.toLowerCase()});
+    }
 
     /**
-     * Reneter Button that will open Drawer of reference with different categories 
+     * Event Listener: Switches tabs in reference bar if an option in autocomplete is 
+     *  selected and not currently in that tab
+     * 
+     * @param {string} value 
+     * @param {string} reason what the user action is
      */
+    OnFilterSelect = (_, value, reason) => {
+        if(reason === "select-option")
+        {
+            let category;
+            switch(value.id)
+            {
+                case "geometry": category = "a";
+                    break;
+                case "transformations": category = "b";
+                    break;
+                case "animations": category = "c";
+                    break;
+                case "groups": category = "d";
+                    break;
+                case "lights": category = "e";
+                    break;
+                default:
+            }
+            this.setState({
+                value: category, 
+                filter: value.label.toLowerCase()
+            });
+        }
+    }
+
+    /**
+     * Event Listener: Switches tabs in reference bar if an option in autocomplete is 
+     *  selected and not currently in that tab
+     * 
+     * @param {string} value 
+     * @param {string} reason what the user action is
+     */
+    OnFilterSelect = (_, value, reason) => {
+        if(reason === "select-option")
+        {
+            let category;
+            switch(value.id)
+            {
+                case "geometry": category = "a";
+                    break;
+                case "transformations": category = "b";
+                    break;
+                case "animations": category = "c";
+                    break;
+                case "groups": category = "d";
+                    break;
+                case "lights": category = "e";
+                    break;
+                default:
+            }
+            this.setState({
+                value: category, 
+                filter: value.label.toLowerCase()
+            });
+        }
+    }
+
     render() {
-        const style = {
-            margin: 2,
-            color: "#fff",
-        };
         const isDisabled = this.props.layoutType === layoutTypes.REFERENCE;
         return (
             <div>
@@ -168,7 +263,7 @@ class Reference extends Component {
                                 className="header-btn d-none d-md-block"
                                 aria-haspopup="true"
                                 onClick={this.props.handleReferenceToggle}
-                                style={style}>
+                                style={style.toggleIcon}>
                                 <Icon style={{ color: "#fff" }} className="material-icons">help</Icon>
                             </IconButton>
                         </Tooltip>
@@ -180,31 +275,50 @@ class Reference extends Component {
                             className={!this.props.referenceOpen ? "d-none" : ""}
                             open={this.props.referenceOpen}>
 
-                            <div>
+                            <div style={{display:"flex"}}>
                                 <h3 className="border-bottom" style={{ padding: 10, fontWeight: 400 }}>MYR API - Reference</h3>
-                                <IconButton
-                                    color="default"
-                                    style={exitBtnStyle}
-                                    onClick={() => {
-                                        this.props.handleReferenceToggle();
-                                        this.setState({ value: "a" });
-                                    }}>
-                                    <Icon className="material-icons">close</Icon>
-                                </IconButton>
-                                <IconButton
-                                    title="Open reference page &#013;(in a new tab)"
-                                    color="default"
-                                    style={newTabStyle}
-                                    onClick={this.handleOpen}>
-                                    <Icon className="material-icons">menu_book</Icon>
-                                </IconButton>
-                                <IconButton
-                                    title="Open asset reference page &#013;(in a new tab)"
-                                    color="default"
-                                    style={assetReferenceBtn}
-                                    onClick={this.assetHandleOpen}>
-                                    <Icon className="material-icons-outlined">settings_system_daydream</Icon>
-                                </IconButton>
+                                <div style={{display:"flex", justifyContent:"flex-end", marginLeft:"auto"}}>
+                                    <Autocomplete
+                                        freeSolo
+                                        style={{display:"flex", width:"250px"}}
+                                        options={this.AutocompleteOptions()}
+                                        getOptionLabel={option => option.label}
+                                        onInputChange={this.OnFilter}
+                                        onChange={this.OnFilterSelect}
+                                        renderInput={(params) => (
+                                            <TextField
+                                                {...params}
+                                                label="Search..."
+                                                margin="normal"
+                                                variant="outlined"
+                                                size="small"
+                                            />
+                                        )}
+                                    />
+                                    <IconButton
+                                        title="Open asset reference page &#013;(in a new tab)"
+                                        color="default"
+                                        style={{display:"flex"}}
+                                        onClick={this.assetHandleOpen}>
+                                        <Icon className="material-icons-outlined">settings_system_daydream</Icon>
+                                    </IconButton>
+                                    <IconButton
+                                        title="Open reference page &#013;(in a new tab)"
+                                        color="default"
+                                        style={{display:"flex"}}
+                                        onClick={this.handleOpen}>
+                                        <Icon className="material-icons">menu_book</Icon>
+                                    </IconButton>
+                                    <IconButton
+                                        color="default"
+                                        style={{display:"flex"}}
+                                        onClick={() => {
+                                            this.props.handleReferenceToggle();
+                                            this.setState({ value: "a" });
+                                        }}>
+                                        <Icon className="material-icons">close</Icon>
+                                    </IconButton>
+                                </div>
                             </div>
                             <div>
                                 <Tabs
