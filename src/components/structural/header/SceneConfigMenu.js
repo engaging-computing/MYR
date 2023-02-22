@@ -637,9 +637,6 @@ class ConfigModal extends Component {
                                             <div className="col-6">
                                                 <this.updateMoveSpeed />
                                             </div>
-                                            <div className="col-6">
-                                                <this.resetPosition />
-                                            </div>
                                             {this.state.displaySkyColorPicker
                                                 ?
                                                 <div id="color-popover">
