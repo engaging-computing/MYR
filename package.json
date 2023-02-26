@@ -38,7 +38,7 @@
         "react-ace": "^6.0.0",
         "react-color": "^2.19.3",
         "react-dom": "^16.2.0",
-        "react-google-login": "^5.1.19",
+        "react-google-login": "^5.2.2",
         "react-progressive-image": "^0.3.0",
         "react-redux": "^5.0.7",
         "react-router-dom": "^4.2.2",
