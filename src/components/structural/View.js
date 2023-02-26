@@ -307,8 +307,7 @@ class View extends Component {
      * @returns {HTMLElement} A-Frame camera elements with basic movement
      */
     basicMoveCam = () => {
-        let realVertSpeed = (this.props.sceneConfig.settings.moveSpeed / 2) + 10;
-        let realHorizontalSpeed = (this.props.sceneConfig.settings.moveSpeed /10) + 10;
+        let realSpeed = (this.props.sceneConfig.settings.moveSpeed / 10) + 10;
         switch(browserType()) {
             case "mobile":
                 return (
@@ -348,8 +347,7 @@ class View extends Component {
                         <a-camera
                             position={this.props.sceneConfig.settings.cameraPosition}
                             look-controls="pointerLockEnabled: true"
-                            wasd-plus-controls={`acceleration: ${realVertSpeed}`}
-                            wasd-controls={`acceleration: ${realHorizontalSpeed}`}>
+                            wasd-controls={`acceleration: ${realSpeed}`}>
                             <a-cursor
                                 raycaster="objects:.raycastable"
                                 position="0 0 -1"
