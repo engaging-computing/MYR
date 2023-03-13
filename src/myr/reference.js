@@ -640,13 +640,13 @@ const animations = [
     {
         name: "grow",
         parameters: [{ type: "string", name: "elementID" }],
-        description: <span>The grow function scales the element by a [magnitude] multiplier in the x, y, z components.</span>,
+        description: <span>The grow function scales the element by a [magnitude] multiplier in the x, y, z components. Use the setMagnitude function before passing the grow function.</span>,
         example: "grow"
     },
     {
         name: "shrink",
         parameters: [{ type: "string", name: "elementID" }],
-        description: <span>The shrink function scales the element down by the inverse of the magnitude in the x, y, z components.</span>,
+        description: <span>The shrink function scales the element down by the inverse of the magnitude in the x, y, z components. Use the setMagnitude function before passing the shrink function and set the magnitude to any value other than 1 to see the animation.</span>,
         example: "shrink"
     },
     {
