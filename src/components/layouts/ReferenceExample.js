@@ -15,7 +15,7 @@ import "../../css/ReferencePage.css";
  * @returns {HTMLElement} Layout for example scene page
  */
  
-export const ReferenceExample = ({ editor, user, scene, referenceExample, referenceExampleActions, editorActions, authActions, projectActions, projects, courseActions, courses, match, sceneActions, collectionActions, collections, userSettings, userActions }) => (
+export const ReferenceExample = ({ editor, user, scene, referenceExample, referenceExampleActions, editorActions, authActions, projectActions, projects, courseActions, courses, match, sceneActions, collectionActions, collections, usersettings, userActions }) => (
     <div className="App">
         <Header
             logging={authActions}
@@ -49,7 +49,7 @@ export const ReferenceExample = ({ editor, user, scene, referenceExample, refere
                         <div id="interface" className="col-12 col-md-4">
                             <RefExInfo referenceExample={referenceExample} />
                             <div className='ref-ex-edit'>
-                                <Editor refresh={editorActions.refresh} render={editorActions.render} text={editor.text} user={user} settings={userSettings} userActions={userActions} />
+                                <Editor refresh={editorActions.refresh} render={editorActions.render} text={editor.text} user={user} settings={usersettings} userActions={userActions} />
                             </div>
                         </div>
                         <div id="scene" className="col-12 col-md-8" >
