@@ -28,6 +28,10 @@ const general = [
         shortcut: ["Ctrl/⌘", "Enter"],
         description: "Render scene"
     },
+    {
+        shortcut: ["TESTING"],
+        description: "TESTING"
+    },
 ];
 
 const editor = [
