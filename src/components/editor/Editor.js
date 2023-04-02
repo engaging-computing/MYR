@@ -10,6 +10,7 @@ import KeyboardShortcut from "./KeyboardShortcut.js";
 import { browserType } from "../../utils/browserType";
 import FontSize from "./FontSize.js";
 import copy from "copy-to-clipboard";
+import DarkModeSelector from "./Darkmode.js";
 
 /**
  * Editor is a React Component that create the Ace Editor in the DOM.
@@ -121,8 +122,13 @@ class Editor extends Component {
                     enableLiveAutocompletion={true}
                     onLoad={this.onLoad}
                 />
-                { browserType() === "desktop" ? <div><KeyboardShortcut/> 
-                    <FontSize userActions={this.props.userActions} settings={this.props.settings} refreshText={this.refreshText}/></div> : null }
+                { browserType() === "desktop" ? <div>
+                    <KeyboardShortcut/> 
+                    <FontSize userActions={this.props.userActions} settings={this.props.settings} refreshText={this.refreshText}/>
+                    <DarkModeSelector userActions={this.props.userActions} settings={this.props.settings}/>
+                </div> : null }
+                
+
             </div>
         );
     }
