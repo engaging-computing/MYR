@@ -1,25 +1,19 @@
 import React from "react";
 import {
     Button,
+    Icon,
     Select,
     Tooltip,
 } from "@material-ui/core";
 import "../../css/KeyboardShortcut.css";
-export default function DarkModeSelector(userActions, settings) {
-    
-    // handleFontSizeUpdate = (e) => {
-    //     this.props.userActions.updateFontSize(e.target.value);
-    //     this.props.refreshText();
-    // }
+export default function ThemeSelector(props) {
+    const handleThemeEditorUpdate = (e) => {
+        props.userActions.updateTheme(e.target.value);
+    };
 
-    // const [currentTheme, setCurrentTheme] = useState();
     const themes = [
         "github", "eclipse", "xcode", "dracula", "gruvbox", "monokai"
     ];
-
-    function handleChange(e) {
-        userActions.updateFontSize(e.target.value);
-    }
 
     return (
         <div className="theme-div">
@@ -30,12 +24,13 @@ export default function DarkModeSelector(userActions, settings) {
                     size="small"
                     color="white"
                 >
+                    <Icon className="material-icons">format_color_fill</Icon>
                     <Select
                         className="theme-select"
                         labelId="input-label"
                         defaultValue="github"
-                        value={settings.themeColor}
-                        onChange={handleChange}>
+                        value={props.settings.themeColor}
+                        onChange={handleThemeEditorUpdate}>
                         {themes.map(theme=>(<option value={theme}>{theme}</option>))}
                     </Select>
                 </Button>

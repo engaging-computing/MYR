@@ -3,7 +3,8 @@ import * as types from "../constants/ActionTypes";
 const initial_state = {
     user: null,
     settings: {
-        fontSize: 12
+        fontSize: 12,
+        theme: "github",
     }
 };
 
@@ -41,6 +42,14 @@ export default function user(state = initial_state, action) {
                 settings: {
                     ...state.settings,
                     fontSize: action.fontSize
+                }
+            };
+        case types.UPDATE_THEME:
+            return{
+                ...state,
+                settings: {
+                    ...state.settings,
+                    theme: action.theme
                 }
             };
         default:

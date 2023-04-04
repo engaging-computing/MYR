@@ -6,8 +6,8 @@ export function updateFontSize(fontSize){
     return{ type: types.UPDATE_FONT_SIZE, fontSize };
 }
 
-export function updateThemeColor(themeColor) {
-    return { type: types.UPDATE_THEME_COLOR, themeColor };
+export function updateTheme(theme) {
+    return { type: types.UPDATE_THEME, theme };
 }
 
 export function updateUserSettings(id,settings){
@@ -48,5 +48,5 @@ export default {
     asyncUserSettings,
     syncUserSettings,
     updateUserSettings,
-    updateThemeColor
+    updateTheme
 };
