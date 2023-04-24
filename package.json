@@ -50,7 +50,7 @@
         "source-map-explorer": "^2.0.0",
         "styled-components": "^5.3.3",
         "three": "^0.126.1",
-        "ua-parser-js": "^1.0.2"
+        "ua-parser-js": "^1.0.33"
     },
     "scripts": {
         "start": "react-scripts start",
