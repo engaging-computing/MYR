@@ -6,6 +6,13 @@ import Collection from "./containers/Collection";
 import Reference from "./containers/Reference";
 import AssetReferencePage from "./containers/AssetReference";
 import ReferenceExample from "./containers/ReferenceExample";
+import AboutCollections from "./components/aboutPage/aboutCollections";
+import About from "./components/aboutPage/about";
+import Tos from "./components/aboutPage/tos";
+import Privacy from "./components/aboutPage/privacy";
+import Team from "./components/aboutPage/team";
+import Support from "./components/aboutPage/support";
+
 
 /**
  * Create an routers that switch to correct react component for different endpoints
@@ -18,6 +25,12 @@ const router = () => {
                 <Route exact path='/' component={Ide} />
                 <Route exact path='/reference' component={Reference} />
                 <Route exact path='/asset-reference' component={AssetReferencePage} />
+                <Route exact path='/about/' component={About}/>
+                <Route exact path='/about/collections' component={AboutCollections} />
+                <Route exact path='/about/tos' component={Tos} />
+                <Route exact path='/about/privacy' component={Privacy} />
+                <Route exact path='/about/team' component={Team} />
+                <Route exact path='/about/support' component={Support} />
                 <Route path='/course/:shortname' component={Guided} />
                 <Route path='/collection/:collection' component={Collection} />
                 <Route path='/reference/:function' component={ReferenceExample} />

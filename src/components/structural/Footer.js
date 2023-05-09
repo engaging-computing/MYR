@@ -12,13 +12,13 @@ class Footer extends Component {
                         <span><strong>MYR:</strong></span>
                         <ul className="pl-2 list-inline">
                             <li className="pl-2 list-inline-item">
-                                <a href="https://learnmyr.org/about/" target="_blank" rel="noopener noreferrer" className = "text-decoration-none">About</a>
+                                <a href="/about/" target="_blank" rel="noopener noreferrer">About</a>
                             </li>
                             <li className="pl-2 list-inline-item">
                                 <a href="https://learnmyr.org/about/support/" target="_blank" rel="noopener noreferrer" className="text-decoration-none">Support</a>
                             </li>
                             <li className="pl-2 list-inline-item">
-                                <a href="https://learnmyr.org/about/team/" target="_blank" rel="noopener noreferrer" className = "text-decoration-none">Team </a>
+                                <a href="/about/team" target="_blank" rel="noopener noreferrer">Team </a>
                             </li>
                             <li className="pl-2 list-inline-item">
                                 <a href="https://github.com/engaging-computing/MYR" target="_blank" rel="noopener noreferrer" className = "text-decoration-none">GitHub</a>
@@ -38,10 +38,10 @@ class Footer extends Component {
                     <div className="col-lg-4">
                         <ul className=" list-inline text-lg-right">
                             <li className="pl-2 list-inline-item">
-                                <a href="https://learnmyr.org/about/privacy/" target="_blank" rel="noopener noreferrer" className = "text-decoration-none">Privacy Policy</a>
+                                <a href="/about/privacy" target="_blank" rel="noopener noreferrer">Privacy Policy</a>
                             </li>
                             <li className="pl-2 list-inline-item">
-                                <a href="https://learnmyr.org/about/tos/" target="_blank" rel="noopener noreferrer" className = "text-decoration-none">Terms of Service</a>
+                                <a href="/about/tos" target="_blank" rel="noopener noreferrer">Terms of Service</a>
                             </li>
                         </ul>
                     </div>
