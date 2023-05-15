@@ -9,39 +9,39 @@ class Footer extends Component {
             <footer>
                 <div className="row m-3 text-center" >
                     <div className="col-lg-4 d-flex">
-                        <span><strong>MYR:</strong></span>
+                        <span><strong>MYR:&nbsp;</strong></span>
                         <ul className="pl-2 list-inline">
                             <li className="pl-2 list-inline-item">
-                                <a href="https://learnmyr.org/about/" target="_blank" rel="noopener noreferrer" className = "text-decoration-none">About</a>
+                                <a href="https://learnmyr.org/about/" target="_blank" rel="noopener noreferrer" className="text-decoration-none">About</a>
                             </li>
                             <li className="pl-2 list-inline-item">
                                 <a href="https://learnmyr.org/about/support/" target="_blank" rel="noopener noreferrer" className="text-decoration-none">Support</a>
                             </li>
                             <li className="pl-2 list-inline-item">
-                                <a href="https://learnmyr.org/about/team/" target="_blank" rel="noopener noreferrer" className = "text-decoration-none">Team </a>
+                                <a href="https://learnmyr.org/about/team/" target="_blank" rel="noopener noreferrer" className="text-decoration-none">Team</a>
                             </li>
                             <li className="pl-2 list-inline-item">
-                                <a href="https://github.com/engaging-computing/MYR" target="_blank" rel="noopener noreferrer" className = "text-decoration-none">GitHub</a>
+                                <a href="https://github.com/engaging-computing/MYR" target="_blank" rel="noopener noreferrer" className="text-decoration-none">GitHub</a>
                             </li>
                         </ul>
                     </div>
                     <div className="col-lg-4 d-none d-md-block text-center">
                         <div>© 2018 - {new Date().getFullYear()}<span>&nbsp;</span>
-                            <a href="https://sites.uml.edu/engaging-computing/" target="_blank" rel="noopener noreferrer" className = "text-decoration-none">University of Massachusetts Lowell, Engaging Computing Group</a>
+                            <a href="https://sites.uml.edu/engaging-computing/" target="_blank" rel="noopener noreferrer" className="text-decoration-none">University of Massachusetts Lowell, Engaging Computing Group</a>
                         </div>
                     </div>
                     <div className="col-sm-12 d-block d-md-none text-center">
                         <div>© 2018 - {new Date().getFullYear()}<br />
-                            <a href="https://sites.uml.edu/engaging-computing/" target="_blank" rel="noopener noreferrer" className = "text-decoration-none">University of Massachusetts Lowell,<br />Engaging Computing Group</a>
+                            <a href="https://sites.uml.edu/engaging-computing/" target="_blank" rel="noopener noreferrer" className="text-decoration-none">University of Massachusetts Lowell,<br />Engaging Computing Group</a>
                         </div>
                     </div>
                     <div className="col-lg-4">
-                        <ul className=" list-inline text-lg-right">
+                        <ul className=" list-inline text-lg-end">
                             <li className="pl-2 list-inline-item">
-                                <a href="https://learnmyr.org/about/privacy/" target="_blank" rel="noopener noreferrer" className = "text-decoration-none">Privacy Policy</a>
+                                <a href="https://learnmyr.org/about/privacy/" target="_blank" rel="noopener noreferrer" className="text-decoration-none">Privacy Policy</a>
                             </li>
                             <li className="pl-2 list-inline-item">
-                                <a href="https://learnmyr.org/about/tos/" target="_blank" rel="noopener noreferrer" className = "text-decoration-none">Terms of Service</a>
+                                <a href="https://learnmyr.org/about/tos/" target="_blank" rel="noopener noreferrer" className="text-decoration-none">Terms of Service</a>
                             </li>
                         </ul>
                     </div>
