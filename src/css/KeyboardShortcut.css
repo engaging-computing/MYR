@@ -32,7 +32,21 @@
 
 .font {
     display: inline-block;
-    margin-left: 4px;
+    margin-left: 5px;
+}
+
+#form-control {
+    margin-top: 0;
+}
+
+.theme-div {
+    display: inline-block;
+    margin-left: 5px;
+    margin-top: 0;
+}
+
+.theme-div > button {
+    width: 140px;
 }
 
 .whole-keyboard {
@@ -42,5 +56,10 @@
 
 .select {
     color: white !important;
+    margin-left: 5px;
+}
+
+.theme-select {
+    color: black !important;
     margin-left: 5px;
 }

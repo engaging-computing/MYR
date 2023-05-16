@@ -56,7 +56,8 @@ const generateMockProps = () => {
         },
         user: null,
         settings: {
-            fontSize: 12
+            fontSize: 12,
+            theme: "github",
         },
         scene: {
             name: "",
@@ -281,7 +282,8 @@ describe("User Reducer", () => {
             {
                 user: null,
                 settings : {
-                    fontSize: 12
+                    fontSize: 12,
+                    theme: "github"
                 }
             }
         );
@@ -298,7 +300,8 @@ describe("User Reducer", () => {
             {
                 user: testUser,
                 settings:{
-                    fontSize: 12
+                    fontSize: 12,
+                    theme: "github"
                 }
             }
         );
@@ -312,7 +315,8 @@ describe("User Reducer", () => {
         ).toEqual({
             user: null,
             settings:{
-                fontSize: 12
+                fontSize: 12,
+                theme: "github"
             }
         }
         );

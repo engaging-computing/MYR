@@ -6,6 +6,10 @@ export function updateFontSize(fontSize){
     return{ type: types.UPDATE_FONT_SIZE, fontSize };
 }
 
+export function updateTheme(theme) {
+    return { type: types.UPDATE_THEME, theme };
+}
+
 export function updateUserSettings(id,settings){
     return ()=>{
         if(id){
@@ -43,5 +47,6 @@ export default {
     updateFontSize,
     asyncUserSettings,
     syncUserSettings,
-    updateUserSettings
+    updateUserSettings,
+    updateTheme
 };

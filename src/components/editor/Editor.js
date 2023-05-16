@@ -2,6 +2,12 @@ import React, { Component } from "react";
 import AceEditor from "react-ace";
 import "brace/mode/javascript";
 import "brace/theme/github";
+import "brace/theme/monokai";
+import "brace/theme/eclipse";
+import "brace/theme/xcode";
+import "brace/theme/dracula";
+import "brace/theme/gruvbox";
+
 import "brace/ext/searchbox";
 import "brace/ext/language_tools";
 
@@ -10,6 +16,7 @@ import KeyboardShortcut from "./KeyboardShortcut.js";
 import { browserType } from "../../utils/browserType";
 import FontSize from "./FontSize.js";
 import copy from "copy-to-clipboard";
+import ThemeSelector from "./Theme.js";
 
 /**
  * Editor is a React Component that create the Ace Editor in the DOM.
@@ -101,7 +108,8 @@ class Editor extends Component {
                     name="ace-editor"
                     // eslint-disable-next-line
                     ref="aceEditor"
-                    theme="github"
+                    theme={this.props.settings.theme}
+                    background="black"
                     commands={[{
                         name: "copyLine",
                         bindKey: {win: "Ctrl-L", mac: "Command-L"},
@@ -121,8 +129,13 @@ class Editor extends Component {
                     enableLiveAutocompletion={true}
                     onLoad={this.onLoad}
                 />
-                { browserType() === "desktop" ? <div><KeyboardShortcut/> 
-                    <FontSize userActions={this.props.userActions} settings={this.props.settings} refreshText={this.refreshText}/></div> : null }
+                { browserType() === "desktop" ? <div>
+                    <KeyboardShortcut/> 
+                    <FontSize userActions={this.props.userActions} settings={this.props.settings} refreshText={this.refreshText}/>
+                    <ThemeSelector userActions={this.props.userActions} settings={this.props.settings}/>
+                </div> : null }
+                
+
             </div>
         );
     }
