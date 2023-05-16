@@ -4,12 +4,13 @@
     color: #333;
 }
 
-.course-listing p:hover {
-    color: #000;
+.course-listing a {
+    text-decoration: none;
 }
 
-.course-listing a:hover {
-    text-decoration: none;
+
+.course-listing a:hover h4 {
+    text-decoration: underline;
     color: blue;
 }
 
