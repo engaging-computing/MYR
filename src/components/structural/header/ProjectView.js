@@ -507,7 +507,8 @@ class Project extends React.Component {
                                 </div>}
                             {this.state.value === "b" &&
                                 <div id="project-list" style={{ marginTop: 0, overflow: "scroll" }}>
-                                    <div className="row" id="sample-proj" style={{ width: "100%" }}>
+                                    <div className="row mt-2" id="sample-proj" style={{ width: "100%" }}>
+                                        <p>Want to see <b>YOUR</b> scenes here? Submit them using this <a href="https://docs.google.com/forms/d/e/1FAIpQLSfAgmEobjFWAaiAvkCISLgIv1i4OH6jgUGLqtcZ4ktPIXc1Ew/viewform" rel="noreferrer" target="_blank">form!</a></p>
                                         {
                                             exampleProjs.sort(this.projectSort).map(proj => {
                                                 return this.helper(proj, false);

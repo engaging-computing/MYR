@@ -322,7 +322,7 @@ class View extends Component {
                                 raycaster="objects:.raycastable"
                                 position="0 0 -1"
                                 geometry="primitive: ring; radiusInner: 0.02; radiusOuter: 0.03;"
-                                material={this.displayCursor} />
+                                material={this.displayCursor()} />
                         </a-camera>
                     </a-entity> 
                 );
@@ -337,7 +337,7 @@ class View extends Component {
                                 raycaster="objects:.raycastable"
                                 position="0 0 -1"
                                 geometry="primitive: ring; radiusInner: 0.02; radiusOuter: 0.03;"
-                                material={this.displayCursor} />
+                                material={this.displayCursor()} />
                         </a-camera>
                     </a-entity> 
                 );
