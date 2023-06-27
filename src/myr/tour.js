@@ -39,6 +39,10 @@ export const TourSteps = [
         content: "Save your work.",
     },
     {
+        selector: "#reset-btn",
+        content: "Reset camera position."
+    },
+    {
         selector: "#open-btn",
         content: "See previous work and view examples.",
     },

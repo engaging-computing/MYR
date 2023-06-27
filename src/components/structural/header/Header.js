@@ -14,7 +14,6 @@ import * as layoutTypes from "../../../constants/LayoutTypes.js";
 
 import {
     Button,
-    ButtonBase,
     Icon,
     MenuItem,
     Tooltip,
@@ -34,15 +33,6 @@ const exitBtnStyle = {
     position: "absolute",
     top: 0,
     right: 0,
-};
-
-const resetButtonStyle = {
-    top: 2,
-    paddingLeft: 10,
-    paddingRight: 10,
-    color: "white",
-    opacity: 1
-
 };
 
 /**
@@ -808,15 +798,14 @@ class Header extends Component {
                             <Icon className="material-icons">save</Icon>
                         </IconButton>
                     </Tooltip>
-                    <Tooltip title="reset position" placement="bottom-start">
-                        <ButtonBase
+                    <Tooltip title="Reset Position" placement="bottom-start">
+                        <IconButton
                             id="reset-btn"
                             onClick={() => this.props.sceneActions.setCamera(0, 1.6, 3)}
-                            className="header-btn d-none d-md-block"
-                            style= {resetButtonStyle}
-                            disabled={referenceMode}>
-                            <Icon className ="material-icons">settings_backup_restore</Icon>  
-                        </ButtonBase>
+                            style={style.default}
+                            className="header-btn d-none d-md-block">
+                            <Icon className="material-icons">settings_backup_restore</Icon>  
+                        </IconButton>
                     </Tooltip> 
                     <ProjectView
                         deleteFunc={this.props.projectActions.deleteProj}
