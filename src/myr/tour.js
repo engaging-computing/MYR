@@ -59,7 +59,7 @@ export const TourSteps = [
         content: "You can log in with a Google account in order to save your scenes.",
     },
     {
-        selector: "#keyboard-shortcut",
+        selector: "#keyboard-tour",
         content: "View all of the keyboard shortcuts available to you."
     },
     {
